@@ -22,11 +22,7 @@ steps:
     npm install
     npm run build
   displayName: 'Build application'
-- task: Npm@1
-  inputs:
-    command: 'custom'
-    customCommand: 'run test'
-  displayName: "Run tests"
+
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
