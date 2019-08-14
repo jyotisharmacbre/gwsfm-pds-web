@@ -35,7 +35,7 @@ export default function ProfileMenu() {
         </Badge>
       </IconButton>
 
-      <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick} style={{ color: 'white' }}>
+      <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
         <AccountCircle style={{ marginRight: '10px' }} /> Hello, Joe Blogs <ExpandMore />
       </Button>
       <Menu

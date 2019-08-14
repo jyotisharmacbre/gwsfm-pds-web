@@ -13,7 +13,7 @@ const App: React.FC = () => {
     palette: {
       primary: {
         // light: will be calculated from palette.primary.main,
-        main: '#00684d',
+        main: '#ffffff',
         // dark: will be calculated from palette.primary.main,
         // contrastText: will be calculated to contrast with palette.primary.main
       },
@@ -66,6 +66,7 @@ const App: React.FC = () => {
     },
     title: {
       flexGrow: 1,
+      color: '#00684d'
     },
     drawerPaper: {
       position: 'relative',
@@ -92,10 +93,12 @@ const App: React.FC = () => {
       flexGrow: 1,
       height: '100vh',
       overflow: 'auto',
+      backgroundColor: 'rgb(235, 238, 245)'
     },
     container: {
       paddingTop: theme.spacing(4),
       paddingBottom: theme.spacing(4),
+    
     },
     paper: {
       padding: theme.spacing(2),

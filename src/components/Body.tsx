@@ -28,7 +28,7 @@ class Body extends React.Component<IAppProps> {
             <main className={UseStyles.content}>
                 <div className={UseStyles.appBarSpacer} />
                 <Container maxWidth="lg" className={UseStyles.container}>
-                    
+                    <p>Hello World</p>
 
                 </Container>
                 <Footer/>
