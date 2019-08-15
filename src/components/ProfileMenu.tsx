@@ -7,7 +7,7 @@ import Icon from '@material-ui/core/Icon';
 import { spacing } from '@material-ui/system';
 import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
-import NotificationsIcon from '@material-ui/icons/Notifications';
+import NotificationsIcon from './Notification';
 
 
 export default function ProfileMenu() {
@@ -29,11 +29,7 @@ export default function ProfileMenu() {
       <IconButton color="inherit">
         <HelpOutline />
       </IconButton>
-      <IconButton color="inherit">
-        <Badge badgeContent={4} color="error" > 
-          <NotificationsIcon  />
-        </Badge>
-      </IconButton>
+      <NotificationsIcon NotificationCount={4}/>
 
       <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
         <AccountCircle style={{ marginRight: '10px' }} /> Hello, Joe Blogs <ExpandMore />
@@ -44,11 +40,12 @@ export default function ProfileMenu() {
         keepMounted
         open={Boolean(anchorEl)}
         onClose={handleClose}
+        style={{ top: '40px', left: '66px' }}
       >
-        <MenuItem onClick={handleClose}>................</MenuItem>
-        <MenuItem onClick={handleClose}>................</MenuItem>
-        <MenuItem onClick={handleClose}>................</MenuItem>
-        <MenuItem onClick={handleClose}>................</MenuItem>
+        <MenuItem onClick={handleClose}>Place Holder1</MenuItem>
+        <MenuItem onClick={handleClose}>Place Holder2</MenuItem>
+        <MenuItem onClick={handleClose}>Sign out</MenuItem>
+        <MenuItem onClick={handleClose}>Anything else</MenuItem>
       </Menu>
     </div>
   );
