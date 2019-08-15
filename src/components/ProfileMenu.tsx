@@ -44,11 +44,12 @@ export default function ProfileMenu() {
         keepMounted
         open={Boolean(anchorEl)}
         onClose={handleClose}
+        style={{ top: '40px', left: '66px' }}
       >
-        <MenuItem onClick={handleClose}>................</MenuItem>
-        <MenuItem onClick={handleClose}>................</MenuItem>
-        <MenuItem onClick={handleClose}>................</MenuItem>
-        <MenuItem onClick={handleClose}>................</MenuItem>
+        <MenuItem onClick={handleClose}>Place Holder1</MenuItem>
+        <MenuItem onClick={handleClose}>Place Holder2</MenuItem>
+        <MenuItem onClick={handleClose}>Sign out</MenuItem>
+        <MenuItem onClick={handleClose}>Anything else</MenuItem>
       </Menu>
     </div>
   );
