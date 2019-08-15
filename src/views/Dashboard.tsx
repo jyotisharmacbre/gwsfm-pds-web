@@ -2,7 +2,6 @@ import React from 'react';
 import HeaderPage from '../components/HeaderPage';
 import { IBtnActionProps } from '../props/AppProps';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
-import { Redirect } from 'react-router';
 
 class Dashboard extends React.Component {
 
@@ -14,18 +13,6 @@ class Dashboard extends React.Component {
         const action1: IBtnActionProps = {
             Title: 'Create A New Project',
             Icon: 'create',
-            Css: makeStyles((theme: Theme) =>
-                createStyles({
-                    button: {
-                        margin: theme.spacing(1),
-                        color: 'white',
-                        backgroundColor: 'black'
-                    },
-                    leftIcon: {
-                        marginRight: theme.spacing(1),
-                    },
-                }),
-            ),
             HandleClick: () => {
                 alert('You clicked on Create a New Project')
             }
@@ -34,7 +21,6 @@ class Dashboard extends React.Component {
             Title: 'Pipeline',
             Icon: 'pipeline',
             HandleClick: () => {
-
                 window.location.href = '/Pipeline';
             }
         };

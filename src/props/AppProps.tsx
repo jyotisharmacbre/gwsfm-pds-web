@@ -3,7 +3,7 @@ export interface IAppProps{
     UseStyles: any
 }
 
-export interface IHeaderPage
+export interface IHeaderPageProps
 {
     Title:string,
     ActionList?: IBtnActionProps []

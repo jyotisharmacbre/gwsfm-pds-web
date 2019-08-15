@@ -1,32 +1,27 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import Typography from '@material-ui/core/Typography';
-import { Button, Grid } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import { MainTitle } from './Title';
-import PageActions from './BtnActions';
-import { IHeaderPage } from '../props/AppProps';
+import { PageBtnActions } from './BtnActions';
+import { IHeaderPageProps } from '../props/AppProps';
 
 
-class HeaderPage extends React.Component<IHeaderPage>
+class HeaderPage extends React.Component<IHeaderPageProps>
 {
-    constructor(props: IHeaderPage)
-    {
-     super(props);
-     
+    constructor(props: IHeaderPageProps) {
+        super(props);
     }
 
-    render()
-    {
-        const { ActionList, Title} = this.props;
-        return(
+    render() {
+        const { ActionList, Title } = this.props;
+        return (
             <Grid container spacing={3}>
-                        <Grid item xs={12} md={6} lg={8}>
-                            <MainTitle>{Title}</MainTitle>
-                        </Grid>
-                        <Grid item xs={12} md={6} lg={4}>
-                            <PageActions Actions={ActionList || []} />
-                        </Grid>
-                    </Grid>
+                <Grid item xs={12} md={6} lg={8}>
+                    <MainTitle>{Title}</MainTitle>
+                </Grid>
+                <Grid item xs={12} md={6} lg={4}>
+                    <PageBtnActions Actions={ActionList || []} />
+                </Grid>
+            </Grid>
         );
     }
 }

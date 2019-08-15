@@ -38,7 +38,7 @@ function GetIcons(icon: string) {
     }
 }
 
-export default function PageActions(props: { Actions: IBtnActionProps[] }) {
+export function PageBtnActions(props: { Actions: IBtnActionProps[] }) {
     const styles = useStyles();
     const items = props.Actions.map((item) => 
         <Button key={item.Title} variant="contained" color="primary" className={item.Icon == 'create'? styles.buttonPrimary : styles.buttonSecondary} onClick={item.HandleClick} >
