@@ -21,12 +21,15 @@ steps:
 - script: 
     npm install
     npm run build
+  inputs:
+    workingDir: web
+    verbose: false
   displayName: 'Build application'
 
 - task: ArchiveFiles@2
   inputs:
-    rootFolderOrFile: './build/'
-    includeRootFolder: true
+    rootFolderOrFile: 'web/build'
+    includeRootFolder: false
     archiveType: 'zip'
     archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
     replaceExistingArchive: true
