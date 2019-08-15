@@ -4,10 +4,15 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
 
 trigger:
-- master
-- develop
-- feature/*
-- release/*
+  branches:
+    include:
+      - master
+      - develop
+      - feature/*
+      - release/*
+  paths:
+    include:
+      - web/*
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -18,13 +23,16 @@ steps:
     versionSpec: '10.x'
   displayName: 'Install Node.js'
 
-- script: 
-    npm install
-    npm run build
+- task: Npm@1
+  displayName: 'npm install'
+
+- task: Npm@1
+  displayName: 'npm run build'
   inputs:
+    command: custom
     workingDir: web
     verbose: false
-  displayName: 'Build application'
+    customCommand: 'npm run build'
 
 - task: ArchiveFiles@2
   inputs:
