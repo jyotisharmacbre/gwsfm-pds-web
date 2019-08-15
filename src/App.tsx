@@ -25,6 +25,13 @@ const App: React.FC = () => {
       },
       // error: will use the default color
     },
+    typography: {
+      // Use the system font.
+      fontFamily:
+        '-apple-system,system-ui,BlinkMacSystemFont,' +
+        'Roboto,"Helvetica",sans-serif',
+    },
+    
   });
 
   const useStyles = makeStyles(theme => ({
@@ -66,7 +73,8 @@ const App: React.FC = () => {
     },
     title: {
       flexGrow: 1,
-      color: '#00684d'
+      color: '#00684d',
+      fontSize: '1.8em'
     },
     drawerPaper: {
       position: 'relative',
