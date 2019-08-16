@@ -1,15 +1,56 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import Typography from '@material-ui/core/Typography';
-import { Button } from '@material-ui/core';
+import { Button, Box, makeStyles, Theme, createStyles, IconButton } from '@material-ui/core';
+import { IBtnActionProps } from '../props/AppProps';
+import { Add, LibraryBooks } from '@material-ui/icons';
 
-export default function PageActions(props: {Actions: [{Title:string}]}) {
-    const items = props.Actions.map((item) =>
-    <Button variant="contained" color="primary">{item.Title}</Button>
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        buttonPrimary: {
+            margin: theme.spacing(1),
+            color: 'white',
+            backgroundColor:'black'
+        },
+        buttonSecondary: {
+            margin: theme.spacing(1),
+            borderColor: 'green',
+            color: '#00684d'
+        },
+        leftIcon: {
+            marginRight: theme.spacing(1),
+            
+        },
+        rightIcon: {
+            marginLeft: theme.spacing(1),
+        },
+        iconSmall: {
+            fontSize: 20,
+        },
+    }),
+);
+
+function GetIcons(icon: string) {
+    const styles = useStyles();
+    switch (icon) {
+        case "create":
+            return (<Add className={styles.leftIcon} />);
+        case "pipeline":
+            return (<LibraryBooks className={styles.leftIcon} />);
+    }
+}
+
+export function PageBtnActions(props: { Actions: IBtnActionProps[] }) {
+    const styles = useStyles();
+    const items = props.Actions.map((item) => 
+        <Button key={item.Title} variant="contained" color="primary" className={item.Icon == 'create'? styles.buttonPrimary : styles.buttonSecondary} onClick={item.HandleClick} >
+            {GetIcons(item.Icon)}
+            {item.Title}
+        </Button>
     );
+
     return (
-        {items}
-    );
+        <React.Fragment >
+            {items}
+        </React.Fragment>);
 }
 
 
