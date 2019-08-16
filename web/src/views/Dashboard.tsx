@@ -13,6 +13,7 @@ class Dashboard extends React.Component {
         const action1: IBtnActionProps = {
             Title: 'Create A New Project',
             Icon: 'create',
+            Color: 'primary',
             HandleClick: () => {
                 window.location.href = '/Project';
             }
@@ -20,6 +21,7 @@ class Dashboard extends React.Component {
         const action2: IBtnActionProps = {
             Title: 'Pipeline',
             Icon: 'pipeline',
+            Color: 'secondary',
             HandleClick: () => {
                 window.location.href = '/Pipeline';
             }

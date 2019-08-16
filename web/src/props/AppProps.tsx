@@ -12,7 +12,7 @@ export interface IHeaderPageProps
 export interface IBtnActionProps
 {
     Title: string,
-    Icon: any,
-    Css?: any,
+    Icon?: any,
+    Color?: string,
     HandleClick:  ()=> void
 }

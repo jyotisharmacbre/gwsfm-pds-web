@@ -2,6 +2,7 @@ import React from 'react';
 import { Paper, Typography, makeStyles, createStyles, Theme, Grid, TextField, Button, Checkbox, FormControlLabel, Link, Container, MenuItem, FormControl, FormGroup, Switch, FormLabel, FormHelperText, Divider } from '@material-ui/core';
 import { PageBtnActions } from './BtnActions';
 import { IBtnActionProps } from '../props/AppProps';
+import './ProjectForm.css';
 
 const companies = [
     {
@@ -90,25 +91,38 @@ const ProjectForm: React.FC = () => {
         setValues({ ...values, [name]: event.target.checked });
     };
 
-     function GetButtons(){
+    function GetButtons() {
         const action1: IBtnActionProps = {
             Title: 'Back',
-            Icon: 'create',
+            Color: 'back',
             HandleClick: () => {
-                window.location.href = '/Project';
+
             }
         };
         const action2: IBtnActionProps = {
             Title: 'Create',
-            Icon: 'pipeline',
+            Color: 'cbregreen',
             HandleClick: () => {
-                window.location.href = '/Pipeline';
+
             }
         };
         return ([
             action1, action2]
         );
-     }
+    }
+
+    function GetButtonsSave() {
+        const action1: IBtnActionProps = {
+            Title: 'Save',
+            Color: 'save',
+            HandleClick: () => {
+
+            }
+        };
+        return ([
+            action1]
+        );
+    }
 
     return (
 
@@ -242,11 +256,16 @@ const ProjectForm: React.FC = () => {
                     </Grid>
                     <Divider />
                     <Grid justify="space-between" container spacing={3}>
-                        <Grid item xs={12} sm={6}>
-                            <PageBtnActions Actions={GetButtons()}/>
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                        <PageBtnActions Actions={GetButtons()} />
+                        <Grid item xs={12} sm={12} className='actions'>
+                            <div className='leftalign'>
+                                <PageBtnActions Actions={GetButtonsSave()} />
+                            </div><div className='rightalign'>
+                                <PageBtnActions Actions={GetButtons()} />
+
+                            </div>
+
+
+
                         </Grid>
                     </Grid>
 
