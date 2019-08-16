@@ -44,6 +44,11 @@ const rows = [
   createData(2,'Instagram', 'Tom Scholz', '1 January 2019', 'Closed'),
   createData(3,'YouTube', 'Michael Jackson', '8 August 2019', 'Signed Off'),
   createData(4,'Tinder?', 'Donald Trump', '27 June 2019', 'New'),
+  createData(6,'Facebook', 'Elvis Presley', '16 Mar 2019', 'Approved'),
+  createData(7,'Twitter', 'Paul McCartney', '6 October 2019', 'Open'),
+  createData(8,'Instagram', 'Tom Scholz', '1 January 2019', 'Closed'),
+  createData(9,'YouTube', 'Michael Jackson', '8 August 2019', 'Signed Off'),
+  createData(10,'Tinder?', 'Donald Trump', '27 June 2019', 'New'),
 ];
 
 function desc<T>(a: T, b: T, orderBy: keyof T) {
@@ -340,7 +345,7 @@ export default function EnhancedTable() {
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.name}
+                      key={row.id}
                       selected={isItemSelected}
                     >
                       {/* <TableCell padding="checkbox">
