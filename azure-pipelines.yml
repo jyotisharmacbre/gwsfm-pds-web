@@ -4,10 +4,15 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
 
 trigger:
-- master
-- develop
-- feature/*
-- release/*
+  branches:
+    include:
+      - master
+      - develop
+      - feature/*
+      - release/*
+  paths:
+    include:
+      - web/*
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -18,15 +23,24 @@ steps:
     versionSpec: '10.x'
   displayName: 'Install Node.js'
 
-- script: |
-    npm install
-    npm run build
-  displayName: 'Build application'
+- task: Npm@1
+  displayName: 'npm install'
+  inputs:
+    workingDir: web
+    verbose: false
+
+- task: Npm@1
+  displayName: 'npm run build'
+  inputs:
+    command: custom
+    workingDir: web
+    verbose: false
+    customCommand: 'run build'
 
 - task: ArchiveFiles@2
   inputs:
-    rootFolderOrFile: '$(Build.BinariesDirectory)'
-    includeRootFolder: true
+    rootFolderOrFile: 'web/build'
+    includeRootFolder: false
     archiveType: 'zip'
     archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
     replaceExistingArchive: true
