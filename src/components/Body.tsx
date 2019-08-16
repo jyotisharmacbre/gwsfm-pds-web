@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 import { MainTitle } from './Title';
 import PageActions from './BtnActions';
 import Footer from '../components/Footer';
+import Table from '../components/Table';
 
 
 class Body extends React.Component<IAppProps> {
@@ -29,8 +30,11 @@ class Body extends React.Component<IAppProps> {
                 <div className={UseStyles.appBarSpacer} />
                 <Container maxWidth="lg" className={UseStyles.container}>
                     <p>Hello World</p>
-
+                    <Table />
                 </Container>
+                {/* <Container>
+                    <Table />
+                </Container> */}
                 <Footer/>
             </main>
 
