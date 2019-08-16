@@ -14,6 +14,10 @@ class Nav extends React.Component<IAppProps>{
     
     }
 
+    handleClick(){
+        window.location.href='/';
+    }
+
     render() {
         const { UseStyles } = this.props;
         return (
@@ -21,8 +25,8 @@ class Nav extends React.Component<IAppProps>{
                 <AppBar position="absolute" className={UseStyles.appBar}>
                     <Toolbar className={UseStyles.toolbar}>
 
-                        <Typography component="h1" variant="h6" color="inherit" noWrap className={UseStyles.title}>
-                            <strong>CBRE</strong> PDS
+                        <Typography component="h1" variant="h6" color="inherit" noWrap className={UseStyles.title} onClick={this.handleClick}>
+                        <strong>CBRE</strong> PDS
                 </Typography>
                         <ProfileMenu />
                     </Toolbar>
