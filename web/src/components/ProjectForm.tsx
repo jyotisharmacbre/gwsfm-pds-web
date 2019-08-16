@@ -76,15 +76,15 @@ const ProjectForm: React.FC = () => {
 
 
     const handleChangeCompany = (name: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
-        setValues({ ...values, [name]: event.target.checked });
+        setValues({ ...values, [name]: event.target.value });
     };
 
     const handleChangeCustomerContract = (name: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
-        setValues({ ...values, [name]: event.target.checked });
+        setValues({ ...values, [name]: event.target.value });
     };
 
     const handleChangeLocale = (name: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
-        setValues({ ...values, [name]: event.target.checked });
+        setValues({ ...values, [name]: event.target.value });
     };
 
     const handleChange = (name: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
