@@ -14,7 +14,7 @@ class Dashboard extends React.Component {
             Title: 'Create A New Project',
             Icon: 'create',
             HandleClick: () => {
-                alert('You clicked on Create a New Project')
+                window.location.href = '/Project';
             }
         };
         const action2: IBtnActionProps = {
