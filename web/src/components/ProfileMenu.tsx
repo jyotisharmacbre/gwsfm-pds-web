@@ -21,6 +21,10 @@ export default function ProfileMenu() {
     setAnchorEl(null);
   }
 
+  function handleNotificationClick(){
+    window.location.href="/Notifications";
+  }
+
   return (
     <div>
       {/* <IconButton color="inherit" size="small">
@@ -29,7 +33,7 @@ export default function ProfileMenu() {
       <IconButton color="inherit">
         <HelpOutline />
       </IconButton>
-      <NotificationsIcon NotificationCount={4}/>
+      <NotificationsIcon NotificationCount={4} handleClick={handleNotificationClick}/>
 
       <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
         <AccountCircle style={{ marginRight: '10px' }} /> Hello, Joe Blogs <ExpandMore />

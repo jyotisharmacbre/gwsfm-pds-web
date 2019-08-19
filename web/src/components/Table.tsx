@@ -19,9 +19,11 @@ import Switch from '@material-ui/core/Switch';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import { fontStyle } from '@material-ui/system';
+import { PageBtnActions } from './BtnActions';
+import { IBtnActionProps } from '../props/AppProps';
 
 interface Data {
-  id:number,
+  id: number,
   name: string;
   updatedby: string;
   date: string;
@@ -29,7 +31,7 @@ interface Data {
 }
 
 function createData(
-  id:number,
+  id: number,
   name: string,
   updatedby: string,
   date: string,
@@ -39,16 +41,16 @@ function createData(
 }
 
 const rows = [
-  createData(0,'Facebook', 'Elvis Presley', '16 Mar 2019', 'Approved'),
-  createData(1,'Twitter', 'Paul McCartney', '6 October 2019', 'Open'),
-  createData(2,'Instagram', 'Tom Scholz', '1 January 2019', 'Closed'),
-  createData(3,'YouTube', 'Michael Jackson', '8 August 2019', 'Signed Off'),
-  createData(4,'Tinder?', 'Donald Trump', '27 June 2019', 'New'),
-  createData(6,'Facebook', 'Elvis Presley', '16 Mar 2019', 'Approved'),
-  createData(7,'Twitter', 'Paul McCartney', '6 October 2019', 'Open'),
-  createData(8,'Instagram', 'Tom Scholz', '1 January 2019', 'Closed'),
-  createData(9,'YouTube', 'Michael Jackson', '8 August 2019', 'Signed Off'),
-  createData(10,'Tinder?', 'Donald Trump', '27 June 2019', 'New'),
+  createData(0, 'Facebook', 'Elvis Presley', '16 Mar 2019', 'Approved'),
+  createData(1, 'Twitter', 'Paul McCartney', '6 October 2019', 'Open'),
+  createData(2, 'Instagram', 'Tom Scholz', '1 January 2019', 'Closed'),
+  createData(3, 'YouTube', 'Michael Jackson', '8 August 2019', 'Signed Off'),
+  createData(4, 'Tinder?', 'Donald Trump', '27 June 2019', 'New'),
+  createData(6, 'Facebook', 'Elvis Presley', '16 Mar 2019', 'Approved'),
+  createData(7, 'Twitter', 'Paul McCartney', '6 October 2019', 'Open'),
+  createData(8, 'Instagram', 'Tom Scholz', '1 January 2019', 'Closed'),
+  createData(9, 'YouTube', 'Michael Jackson', '8 August 2019', 'Signed Off'),
+  createData(10, 'Tinder?', 'Donald Trump', '27 June 2019', 'New'),
 ];
 
 function desc<T>(a: T, b: T, orderBy: keyof T) {
@@ -127,7 +129,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
             // align={row.numeric ? 'right' : 'left'}
             //padding={row.disablePadding ? 'none' : 'default'}
             sortDirection={orderBy === row.id ? order : false}
-            style={{fontWeight: "bolder"}}
+            style={{ fontWeight: "bolder" }}
           >
             <TableSortLabel
               active={orderBy === row.id}
@@ -157,13 +159,13 @@ const useToolbarStyles = makeStyles((theme: Theme) =>
     highlight:
       theme.palette.type === 'light'
         ? {
-            color: theme.palette.secondary.main,
-            backgroundColor: lighten(theme.palette.secondary.light, 0.85),
-          }
+          color: theme.palette.secondary.main,
+          backgroundColor: lighten(theme.palette.secondary.light, 0.85),
+        }
         : {
-            color: theme.palette.text.primary,
-            backgroundColor: theme.palette.secondary.dark,
-          },
+          color: theme.palette.text.primary,
+          backgroundColor: theme.palette.secondary.dark,
+        },
     spacer: {
       flex: '1 1 100%',
     },
@@ -196,10 +198,10 @@ const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
             {numSelected} selected
           </Typography>
         ) : (
-          <Typography variant="h6" id="tableTitle" style={{color: "#00684d"}}>
-            Your Notifiactions
+            <Typography variant="h6" id="tableTitle" style={{ color: "#00684d" }}>
+              Your Notifications
           </Typography>
-        )}
+          )}
       </div>
       <div className={classes.spacer} />
       <div className={classes.actions}>
@@ -210,12 +212,12 @@ const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
             </IconButton>
           </Tooltip>
         ) : (
-          <Tooltip title="Filter list">
-            <IconButton aria-label="filter list">
-              <FilterListIcon />
-            </IconButton>
-          </Tooltip>
-        )}
+            <Tooltip title="Filter list">
+              <IconButton aria-label="filter list">
+                <FilterListIcon />
+              </IconButton>
+            </Tooltip>
+          )}
       </div>
     </Toolbar>
   );
@@ -250,6 +252,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   }),
 );
+
 
 export default function EnhancedTable() {
   const classes = useStyles();
@@ -310,7 +313,31 @@ export default function EnhancedTable() {
 
   const isSelected = (name: string) => selected.indexOf(name) !== -1;
 
+  const isSuperManger = true;
+
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+
+  function getButtons() {
+    const act: IBtnActionProps = {
+      Title: 'View All',
+      Icon: 'viewall',
+      HandleClick: () => {
+        window.location.href = '/Notifications';
+      }
+    }
+    return [act];
+  }
+
+  function getButtons_Back() {
+    const act: IBtnActionProps = {
+      Title: 'Back',
+      Icon: 'backspace',
+      HandleClick: () => {
+        window.history.back();
+      }
+    }
+    return [act];
+  }
 
   return (
     <div className={classes.root}>
@@ -387,6 +414,19 @@ export default function EnhancedTable() {
           onChangePage={handleChangePage}
           onChangeRowsPerPage={handleChangeRowsPerPage}
         />
+        <div style={{ float: 'left' }}>
+          <PageBtnActions Actions={getButtons_Back()} />
+        </div>
+        <div style={{ textAlign: 'right' }}>
+          {/* {isSuperManger ? (
+            <PageBtnActions Actions={getButtons()} />
+          ) : (
+              <PageBtnActions Actions={getButtons_Back()} />
+            )} */}
+
+          {isSuperManger ? (<PageBtnActions Actions={getButtons()} />) : null}
+
+        </div>
       </Paper>
       {/* <FormControlLabel
         control={<Switch checked={dense} onChange={handleChangeDense} />}
