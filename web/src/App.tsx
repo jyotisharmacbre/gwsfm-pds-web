@@ -2,7 +2,10 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Layout from './components/Layout'
+
 import { makeStyles, createMuiTheme } from '@material-ui/core/styles';
+import ReactDOM from 'react-dom';
+import {FormattedMessage, FormattedHTMLMessage} from 'react-intl';
 
 
 
@@ -121,8 +124,20 @@ const App: React.FC = () => {
   return (
     <div>
       <Layout Theme={theme} UseStyles={useStyles()} />
+      <p>
+    <FormattedHTMLMessage id="app.text"
+                      defaultMessage="Translations with values {what}!"
+                      description="Welcome header on app main page"
+                      values={{what: 'Pass values to Translations' }}/>
+</p>
+<a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
+    <FormattedMessage id="app.learn-react-link"
+                      defaultMessage="Learn React"
+                      description="Link on react page"/>
+</a>
     </div>
   );
 }
+
 
 export default App;
