@@ -125,38 +125,29 @@ const ProjectForm: React.FC = () => {
         setValues({ ...values, [name]: event.target.checked });
     };
 
-    function GetButtons() {
-        const action1: IBtnActionProps = {
+    const Buttons : IBtnActionProps[] = [
+        {
             Title: 'Back',
             Color: 'back',
             HandleClick: () => {
 
             }
-        };
-        const action2: IBtnActionProps = {
+        }
+        , {
             Title: 'Create',
             Color: 'cbregreen',
             HandleClick: () => {
 
             }
-        };
-        return ([
-            action1, action2]
-        );
-    }
-
-    function GetButtonsSave() {
-        const action1: IBtnActionProps = {
+        }, {
             Title: 'Save',
             Color: 'save',
             HandleClick: () => {
 
             }
-        };
-        return ([
-            action1]
-        );
-    }
+        }
+    ];
+
 
     return (
 
@@ -252,7 +243,7 @@ const ProjectForm: React.FC = () => {
                         <Grid item xs={12} sm={6}>
                             <FormControl component="fieldset">
                                 <FormLabel component="legend">Project manager has experience in this type of projects?</FormLabel>
-                                <br/>
+                                <br />
                                 <Typography component="div">
                                     <Grid component="label" container alignItems="center" spacing={1}>
                                         <Grid item>No</Grid>
@@ -298,9 +289,11 @@ const ProjectForm: React.FC = () => {
                     <Grid justify="space-between" container spacing={3}>
                         <Grid item xs={12} sm={12} className='actions'>
                             <div className='leftalign'>
-                                <PageBtnActions Actions={GetButtonsSave()} />
-                            </div><div className='rightalign'>
-                                <PageBtnActions Actions={GetButtons()} />
+                            <PageBtnActions Actions={[Buttons[2]]} />
+                             
+                            </div>
+                            <div className='rightalign'>
+                            <PageBtnActions Actions={[Buttons[0], Buttons[1]]} />
 
                             </div>
                         </Grid>

@@ -1,8 +1,7 @@
 import React from 'react';
-import { Button, Box, makeStyles, Theme, createStyles, IconButton } from '@material-ui/core';
+import { Button, makeStyles, Theme, createStyles } from '@material-ui/core';
 import { IBtnActionProps } from '../props/AppProps';
 import { AddCircleOutline, LibraryBooks } from '@material-ui/icons';
-import { AppBarProps } from '@material-ui/core/AppBar';
 import { AppTypes } from '../props/PropTypes';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -22,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
             backgroundColor: '#D3D3D3',
             color: '#000000'
         },
-        buttonBack: {
+        buttondefault: {
             margin: theme.spacing(1),
             backgroundColor: 'white',
             color: '#000000'
@@ -66,17 +65,14 @@ const GetButtonStyle = (type: AppTypes.Color) => {
             return styles.buttonSecondary;
         case 'save':
             return styles.buttonSave;
-        case 'back':
-            return styles.buttonBack;
         case 'cbregreen':
             return styles.buttonGreen;
         default:
-            return '';
+            return styles.buttondefault;
     }
 }
 
 export function PageBtnActions(props: { Actions: IBtnActionProps[] }) {
-    const styles = useStyles();
     const items = props.Actions.map((item) =>
         <Button key={item.Title} variant='contained' color={(item.Color? undefined: 'primary')} className={GetButtonStyle(item.Color || undefined)} onClick={item.HandleClick}  >
             {GetIcons(item.Icon)}
