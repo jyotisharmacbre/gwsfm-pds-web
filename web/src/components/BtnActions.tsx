@@ -2,6 +2,8 @@ import React from 'react';
 import { Button, Box, makeStyles, Theme, createStyles, IconButton } from '@material-ui/core';
 import { IBtnActionProps } from '../props/AppProps';
 import { AddCircleOutline, LibraryBooks } from '@material-ui/icons';
+import { AppBarProps } from '@material-ui/core/AppBar';
+import { AppTypes } from '../props/PropTypes';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -15,13 +17,14 @@ const useStyles = makeStyles((theme: Theme) =>
             borderColor: '#00684d',
             color: '#00684d'
         },
-        buttonThird: {
+        buttonSave: {
             margin: theme.spacing(1),
-            backroundColor: '#D3D3D3',
+            backgroundColor: '#D3D3D3',
             color: '#000000'
         },
-        buttonForth: {
+        buttonBack: {
             margin: theme.spacing(1),
+            backgroundColor: 'white',
             color: '#000000'
         },
         buttonGreen: {
@@ -54,7 +57,7 @@ const GetIcons = (icon: string) => {
     }
 }
 
-const GetButtonStyle = (type: string) => {
+const GetButtonStyle = (type: AppTypes.Color) => {
     const styles = useStyles();
     switch (type) {
         case 'primary':
@@ -62,9 +65,9 @@ const GetButtonStyle = (type: string) => {
         case 'secondary':
             return styles.buttonSecondary;
         case 'save':
-            return styles.buttonThird;
+            return styles.buttonSave;
         case 'back':
-            return styles.buttonForth;
+            return styles.buttonBack;
         case 'cbregreen':
             return styles.buttonGreen;
         default:
@@ -75,7 +78,7 @@ const GetButtonStyle = (type: string) => {
 export function PageBtnActions(props: { Actions: IBtnActionProps[] }) {
     const styles = useStyles();
     const items = props.Actions.map((item) =>
-        <Button key={item.Title} variant="contained" color="primary" className={GetButtonStyle(item.Color || '')} onClick={item.HandleClick} >
+        <Button key={item.Title} variant='contained' color={(item.Color? undefined: 'primary')} className={GetButtonStyle(item.Color || undefined)} onClick={item.HandleClick}  >
             {GetIcons(item.Icon)}
             {item.Title}
         </Button>

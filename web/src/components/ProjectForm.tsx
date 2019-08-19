@@ -1,5 +1,6 @@
 import React from 'react';
-import { Paper, Typography, makeStyles, createStyles, Theme, Grid, TextField, Button, Checkbox, FormControlLabel, Link, Container, MenuItem, FormControl, FormGroup, Switch, FormLabel, FormHelperText, Divider } from '@material-ui/core';
+import { Paper, Typography, makeStyles, createStyles, Theme, Grid, TextField, Button, Checkbox, FormControlLabel, Link, Container, MenuItem, FormControl, FormGroup, FormLabel, FormHelperText, Divider, withStyles } from '@material-ui/core';
+import Switch, { SwitchClassKey, SwitchProps } from '@material-ui/core/Switch';
 import { PageBtnActions } from './BtnActions';
 import { IBtnActionProps } from '../props/AppProps';
 import './ProjectForm.css';
@@ -73,6 +74,39 @@ const ProjectForm: React.FC = () => {
         locale: 'English'
     });
 
+
+    const AntSwitch = withStyles(theme => ({
+        root: {
+            width: 28,
+            height: 16,
+            padding: 0,
+            display: 'flex',
+        },
+        switchBase: {
+            padding: 2,
+            color: theme.palette.grey[500],
+            '&$checked': {
+                color: theme.palette.secondary.main,
+                '& + $track': {
+                    opacity: 0.5,
+                    backgroundColor: theme.palette.secondary.main,
+                    borderColor: theme.palette.secondary.main,
+                },
+            },
+        },
+        thumb: {
+            width: 12,
+            height: 12,
+            boxShadow: 'none',
+        },
+        track: {
+            border: `1px solid ${theme.palette.grey[500]}`,
+            borderRadius: 16 / 2,
+            opacity: 1,
+            backgroundColor: theme.palette.common.white,
+        },
+        checked: {},
+    }))(Switch);
 
 
     const handleChangeCompany = (name: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -217,15 +251,21 @@ const ProjectForm: React.FC = () => {
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <FormControl component="fieldset">
-                                {/* <FormLabel component="legend">Project manager has experience in this type of projects</FormLabel> */}
-                                <FormGroup>
-                                    <FormControlLabel labelPlacement="start"
-                                        control={<Switch checked={values.pmexperience} onChange={handleChange('pmexperience')} />}
-                                        label="Project manager has experience in this type of projects"
-                                    />
-
-                                </FormGroup>
-
+                                <FormLabel component="legend">Project manager has experience in this type of projects?</FormLabel>
+                                <br/>
+                                <Typography component="div">
+                                    <Grid component="label" container alignItems="center" spacing={1}>
+                                        <Grid item>No</Grid>
+                                        <Grid item>
+                                            <AntSwitch
+                                                checked={values.pmexperience}
+                                                onChange={handleChange('pmexperience')}
+                                                value="pmexperience"
+                                            />
+                                        </Grid>
+                                        <Grid item>Yes</Grid>
+                                    </Grid>
+                                </Typography>
                             </FormControl>
                         </Grid>
                         <Grid item xs={12}>
@@ -263,9 +303,6 @@ const ProjectForm: React.FC = () => {
                                 <PageBtnActions Actions={GetButtons()} />
 
                             </div>
-
-
-
                         </Grid>
                     </Grid>
 
