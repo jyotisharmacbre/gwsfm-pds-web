@@ -1,6 +1,6 @@
 import React from 'react';
-import { Paper, Typography, makeStyles, createStyles, Theme, Grid, TextField, Button, Checkbox, FormControlLabel, Link, Container, MenuItem, FormControl, FormGroup, FormLabel, FormHelperText, Divider, withStyles } from '@material-ui/core';
-import Switch, { SwitchClassKey, SwitchProps } from '@material-ui/core/Switch';
+import { Paper, Typography, makeStyles, createStyles, Theme, Grid, TextField, Container, MenuItem, FormControl, FormLabel, Divider, withStyles } from '@material-ui/core';
+import Switch, { } from '@material-ui/core/Switch';
 import { PageBtnActions } from './BtnActions';
 import { IBtnActionProps } from '../props/AppProps';
 import './ProjectForm.css';
@@ -54,6 +54,39 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
+const AntSwitch = withStyles(theme => ({
+    root: {
+        width: 28,
+        height: 16,
+        padding: 0,
+        display: 'flex',
+    },
+    switchBase: {
+        padding: 2,
+        color: theme.palette.grey[500],
+        '&$checked': {
+            color: theme.palette.secondary.main,
+            '& + $track': {
+                opacity: 0.5,
+                backgroundColor: theme.palette.secondary.main,
+                borderColor: theme.palette.secondary.main,
+            },
+        },
+    },
+    thumb: {
+        width: 12,
+        height: 12,
+        boxShadow: 'none',
+    },
+    track: {
+        border: `1px solid ${theme.palette.grey[500]}`,
+        borderRadius: 16 / 2,
+        opacity: 1,
+        backgroundColor: theme.palette.common.white,
+    },
+    checked: {},
+}))(Switch);
+
 
 interface State {
     company: string;
@@ -74,40 +107,26 @@ const ProjectForm: React.FC = () => {
         locale: 'English'
     });
 
+    const Buttons: IBtnActionProps[] = [
+        {
+            Title: 'Back',
+            Color: 'back',
+            HandleClick: () => {
 
-    const AntSwitch = withStyles(theme => ({
-        root: {
-            width: 28,
-            height: 16,
-            padding: 0,
-            display: 'flex',
-        },
-        switchBase: {
-            padding: 2,
-            color: theme.palette.grey[500],
-            '&$checked': {
-                color: theme.palette.secondary.main,
-                '& + $track': {
-                    opacity: 0.5,
-                    backgroundColor: theme.palette.secondary.main,
-                    borderColor: theme.palette.secondary.main,
-                },
-            },
-        },
-        thumb: {
-            width: 12,
-            height: 12,
-            boxShadow: 'none',
-        },
-        track: {
-            border: `1px solid ${theme.palette.grey[500]}`,
-            borderRadius: 16 / 2,
-            opacity: 1,
-            backgroundColor: theme.palette.common.white,
-        },
-        checked: {},
-    }))(Switch);
+            }
+        }
+        , {
+            Title: 'Create',
+            Color: 'cbregreen',
+            HandleClick: () => (e: React.FormEvent<Element>) => { handleSubmit(e) }
+        }, {
+            Title: 'Save',
+            Color: 'save',
+            HandleClick: () => {
 
+            }
+        }
+    ];
 
     const handleChangeCompany = (name: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
         setValues({ ...values, [name]: event.target.value });
@@ -125,37 +144,19 @@ const ProjectForm: React.FC = () => {
         setValues({ ...values, [name]: event.target.checked });
     };
 
-    const Buttons : IBtnActionProps[] = [
-        {
-            Title: 'Back',
-            Color: 'back',
-            HandleClick: () => {
+    const handleSubmit = (e: React.FormEvent<Element>) => {
+        e.preventDefault();
 
-            }
-        }
-        , {
-            Title: 'Create',
-            Color: 'cbregreen',
-            HandleClick: () => {
-
-            }
-        }, {
-            Title: 'Save',
-            Color: 'save',
-            HandleClick: () => {
-
-            }
-        }
-    ];
-
+    }
 
     return (
-
         <Paper className={classes.root}>
             <Container component="main" maxWidth="md">
-                <form className={classes.form} noValidate>
+                <form className={classes.form} noValidate onSubmit={handleSubmit}>
+
                     <Grid container spacing={3}>
                         <Grid item xs={12} sm={6}>
+
                             <TextField
                                 id="outlined-select-company"
                                 select
@@ -289,11 +290,11 @@ const ProjectForm: React.FC = () => {
                     <Grid justify="space-between" container spacing={3}>
                         <Grid item xs={12} sm={12} className='actions'>
                             <div className='leftalign'>
-                            <PageBtnActions Actions={[Buttons[2]]} />
-                             
+                                <PageBtnActions Actions={[Buttons[2]]} />
+
                             </div>
                             <div className='rightalign'>
-                            <PageBtnActions Actions={[Buttons[0], Buttons[1]]} />
+                                <PageBtnActions Actions={[Buttons[0], Buttons[1]]} />
 
                             </div>
                         </Grid>
