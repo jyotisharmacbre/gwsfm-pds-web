@@ -1,9 +1,20 @@
-import React from 'react';
+import React, { Dispatch } from 'react';
 import { Paper, Typography, makeStyles, createStyles, Theme, Grid, TextField, Container, MenuItem, FormControl, FormLabel, Divider, withStyles } from '@material-ui/core';
 import Switch, { } from '@material-ui/core/Switch';
 import { PageBtnActions } from './BtnActions';
 import { IBtnActionProps } from '../props/AppProps';
 import './ProjectForm.css';
+import { connect } from 'react-redux';
+import { createProjectForm } from '../session/actions/ProjectFormActions';
+
+
+const mapDispatchToProps = (dispatch: Dispatch<any>): Props => ({
+    handleClick: (data) => dispatch(createProjectForm(data))
+});
+
+const mapStateToProps = (state: State) => ({
+    ...state
+});
 
 const companies = [
     {
@@ -95,8 +106,13 @@ interface State {
     locale: string
 }
 
+interface Props {
 
-const ProjectForm: React.FC = () => {
+    handleClick: (data:string) => void;
+}
+
+
+const ProjectForm: React.FC<Props> = (props) => {
 
     const classes = useStyles();
 
@@ -146,8 +162,10 @@ const ProjectForm: React.FC = () => {
 
     const handleSubmit = (e: React.FormEvent<Element>) => {
         e.preventDefault();
-
+        props.handleClick('hello');
     }
+
+
 
     return (
         <Paper className={classes.root}>
@@ -307,4 +325,4 @@ const ProjectForm: React.FC = () => {
     );
 }
 
-export default ProjectForm;
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectForm);
