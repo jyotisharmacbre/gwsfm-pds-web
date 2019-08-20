@@ -38,8 +38,8 @@ function GetIcons(icon: string) {
             return (<LibraryBooks className={styles.leftIcon} />);
         case "backspace":
             return (<Backspace className={styles.leftIcon} />);
-            case "viewall":
-                return (<ViewList className={styles.leftIcon} />)
+        case "viewall":
+            return (<ViewList className={styles.leftIcon} />)
     }
 }
 

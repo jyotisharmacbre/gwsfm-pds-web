@@ -13,7 +13,7 @@ class Notifications extends React.Component {
         return (
             <React.Fragment>
                  <HeaderPage Title={'Notifications'}  />
-                 <Table/>
+                 <Table IsSuperManager = {true}/>
             </React.Fragment>
         );
     }

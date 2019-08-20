@@ -254,7 +254,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 
-export default function EnhancedTable() {
+export default function EnhancedTable(props: { IsSuperManager: boolean}) {
   const classes = useStyles();
   const [order, setOrder] = React.useState<Order>('asc');
   const [orderBy, setOrderBy] = React.useState<keyof Data>('name');
@@ -313,7 +313,7 @@ export default function EnhancedTable() {
 
   const isSelected = (name: string) => selected.indexOf(name) !== -1;
 
-  const isSuperManger = true;
+  //const isSuperManger = true;
 
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
@@ -341,6 +341,7 @@ export default function EnhancedTable() {
 
   return (
     <div className={classes.root}>
+      {props.IsSuperManager ? (
       <Paper className={classes.paper}>
         <EnhancedTableToolbar numSelected={selected.length} />
         <div className={classes.tableWrapper}>
@@ -418,16 +419,9 @@ export default function EnhancedTable() {
           <PageBtnActions Actions={getButtons_Back()} />
         </div>
         <div style={{ textAlign: 'right' }}>
-          {/* {isSuperManger ? (
-            <PageBtnActions Actions={getButtons()} />
-          ) : (
-              <PageBtnActions Actions={getButtons_Back()} />
-            )} */}
-
-          {isSuperManger ? (<PageBtnActions Actions={getButtons()} />) : null}
-
+          {props.IsSuperManager ? (<PageBtnActions Actions={getButtons()} />) : null}
         </div>
-      </Paper>
+      </Paper>) : null}
       {/* <FormControlLabel
         control={<Switch checked={dense} onChange={handleChangeDense} />}
         label="Dense padding"

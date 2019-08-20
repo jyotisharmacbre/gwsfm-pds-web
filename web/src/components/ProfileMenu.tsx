@@ -10,7 +10,7 @@ import Badge from '@material-ui/core/Badge';
 import NotificationsIcon from './Notification';
 
 
-export default function ProfileMenu() {
+export default function ProfileMenu(props: { Name: string} ) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
@@ -36,7 +36,7 @@ export default function ProfileMenu() {
       <NotificationsIcon NotificationCount={4} handleClick={handleNotificationClick}/>
 
       <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-        <AccountCircle style={{ marginRight: '10px' }} /> Hello, Joe Blogs <ExpandMore />
+        <AccountCircle style={{ marginRight: '10px' }} /> {props.Name} <ExpandMore />
       </Button>
       <Menu
         id="simple-menu"
