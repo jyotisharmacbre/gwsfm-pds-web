@@ -1,15 +1,17 @@
-import React, { Dispatch } from 'react';
+import React from 'react';
+import {Dispatch, bindActionCreators, AnyAction} from 'redux';
 import { Paper, Typography, makeStyles, createStyles, Theme, Grid, TextField, Container, MenuItem, FormControl, FormLabel, Divider, withStyles } from '@material-ui/core';
 import Switch, { } from '@material-ui/core/Switch';
 import { PageBtnActions } from './BtnActions';
 import { IBtnActionProps } from '../props/AppProps';
 import './ProjectForm.css';
 import { connect } from 'react-redux';
-import { createProjectForm } from '../session/actions/ProjectFormActions';
+import { anotherThunkAction } from '../session/actions/ProjectFormActions';
+import { ThunkDispatch } from '../session/root-thunk';
 
 
-const mapDispatchToProps = (dispatch: Dispatch<any>): Props => ({
-    handleClick: (data) => dispatch(createProjectForm(data))
+const mapDispatchToProps = (dispatch: ThunkDispatch): Props => ({
+    handleClick: (data) => dispatch(anotherThunkAction(data))
 });
 
 const mapStateToProps = (state: State) => ({
@@ -107,8 +109,7 @@ interface State {
 }
 
 interface Props {
-
-    handleClick: (data:string) => void;
+    handleClick: (data:any) => void;
 }
 
 
@@ -162,7 +163,8 @@ const ProjectForm: React.FC<Props> = (props) => {
 
     const handleSubmit = (e: React.FormEvent<Element>) => {
         e.preventDefault();
-        props.handleClick('hello');
+        console.log('submit is clicked');
+        props.handleClick({Title: 'Testing'});
     }
 
 
@@ -233,7 +235,6 @@ const ProjectForm: React.FC<Props> = (props) => {
                                 id="project-name"
                                 label="Project Name"
                                 name="projectname"
-
                             />
                         </Grid>
                         <Grid item xs={12}>
