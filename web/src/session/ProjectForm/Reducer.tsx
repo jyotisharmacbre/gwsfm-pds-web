@@ -10,20 +10,28 @@ const initialState: IProjectFormState = {
     projectscope: '',
     projectmanager: '',
     projectname: '',
-    isCompanyValid: false,
-    isLocaleValid: false,
-    isProjectManagerValid: false,
-    isProjectNameValid:  false,
-    isProjectScopeValid: false
+
 };
 
 const projectReducer: Reducer<IProjectFormState, ProjectFormActions> = (
     state = initialState, action,
 ) => {
     switch (action.type) {
+        case 'GetProjectFormAction':
+                {
+                    //return Object.assign({},state, action.form);
+                    return {
+                        ...state
+                    }
+                }
         case 'ProjectFormAddAction':
             {
-                return Object.assign({}, state, action);
+                return Object.assign({},state, action.form);
+                // return {
+                //     ...state,
+                //     form:  action.form,
+                //     isFormValid: true
+                // }
             }
 
         default:

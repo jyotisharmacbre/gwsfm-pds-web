@@ -26,11 +26,6 @@ export interface IProjectFormState {
     readonly projectmanager: string;
     readonly projectscope: string;
     readonly locale: string;
-    isProjectNameValid: boolean;
-    isCompanyValid: boolean;
-    isProjectManagerValid: boolean;
-    isProjectScopeValid:boolean;
-    isLocaleValid: boolean;
 
 }
 
@@ -38,9 +33,4 @@ export interface IProjectFormProps {
     handleClick: (data: any) => void;
     addToForm: (data: IProjectForm) => Promise<IProjectFormAddAction>;
     form: IProjectForm;
-    isProjectNameValid: boolean;
-    isCompanyValid: boolean;
-    isProjectManagerValid: boolean;
-    isProjectScopeValid:boolean;
-    isLocaleValid: boolean;
 }

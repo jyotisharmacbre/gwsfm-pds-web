@@ -25,12 +25,7 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<any,any, AnyAction>) => {
 
 const mapStateToProps = (state: IApplicationState) => {
     return {
-      form: state.projectFormState,
-      isProjectNameValid: state.projectFormState.isProjectManagerValid,
-      isCompanyValid: state.projectFormState.isCompanyValid,
-      isProjectManagerValid: state.projectFormState.isProjectManagerValid,
-      isProjectScopeValid:state.projectFormState.isProjectScopeValid,
-      isLocaleValid: state.projectFormState.isLocaleValid,
+      form: state.projectFormState
     }
 };
 
@@ -155,6 +150,12 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
         props.addToForm(data);
     };
 
+    const handleValueBlur = (name: string) => (event: React.FocusEvent<HTMLInputElement>) => {
+        var data = { ...props.form, [name] : event.target.value};
+        console.log(event.target.value);
+        props.addToForm(data);
+    };
+
     const handleSubmit = (e: React.FormEvent<Element>) => {
         e.preventDefault();
     
@@ -193,8 +194,8 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                                 required
                                 fullWidth
                                 autoFocus
-                                error={!props.isCompanyValid}
-                                helperText={!props.isCompanyValid ?'This field is required': ''}
+                                error={validator.isEmpty(props.form.company)}
+                                helperText={validator.isEmpty(props.form.company) ?'This field is required': ''}
                             >
                                 {companies.map(option => (
                                     <MenuItem key={option.value} value={option.value}>
@@ -221,8 +222,8 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                                 fullWidth
                                 autoFocus
                                 value={props.form.customer_contract}
-                                error={true}
-                                helperText={!props.isProjectScopeValid ?'This field is required': ''}
+                                error={validator.isEmpty(props.form.customer_contract)}
+                                helperText={validator.isEmpty(props.form.customer_contract) ?'This field is required': ''}
                             >
                                 {cust_contracts.map(option => (
                                     <MenuItem key={option.value} value={option.value}>
@@ -239,11 +240,11 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                                 id="project-name"
                                 label="Project Name"
                                 name="projectname"
-                                error={!props.isProjectNameValid}
-                                helperText={!props.isProjectNameValid ?'This field is required': ''}
+                                error={validator.isEmpty(props.form.projectname)}
+                                helperText={validator.isEmpty(props.form.projectname)? 'This field is required': ''}
                                 value={props.form.projectname}
-                                onBlur={validation}
                                 onChange={handleValueChange('projectname')}
+                                
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -257,8 +258,8 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                                 id="projectscope"
                                 multiline
                                 rows="4"
-                                error={!props.isProjectScopeValid}
-                                helperText={!props.isProjectScopeValid ?'This field is required': ''}
+                                error={validator.isEmpty(props.form.projectscope)}
+                                helperText={validator.isEmpty(props.form.projectscope) ?'This field is required': ''}
                                 onChange={handleValueChange('projectscope')}
                             />
                         </Grid>
@@ -271,8 +272,8 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                                 name="projectmanager"
                                 label="Project manager"
                                 id="projectmanager"
-                                error={!props.isProjectManagerValid}
-                                helperText={!props.isProjectManagerValid ?'Enter a valid email': ''}
+                                error={validator.isEmpty(props.form.projectmanager)}
+                                helperText={validator.isEmpty(props.form.projectmanager) ?'Enter a valid email': ''}
                                 onChange={handleValueChange('projectmanager')}
                             />
 
@@ -313,8 +314,8 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                                 required
                                 fullWidth
                                 autoFocus
-                                error={!props.isLocaleValid}
-                                helperText={!props.isLocaleValid ?'This field is required': ''}
+                                error={validator.isEmpty(props.form.locale)}
+                                helperText={validator.isEmpty(props.form.locale) ?'This field is required': ''}
                             >
                                 {locales.map(option => (
                                     <MenuItem key={option.value} value={option.value}>

@@ -17,12 +17,7 @@ export interface IGetProjectFormAction extends Action<'GetProjectFormAction'>{
 }
 
 export interface IProjectFormAddAction extends Action<'ProjectFormAddAction'> {
-    form: IProjectForm,
-    isProjectNameValid: boolean,
-    isCompanyValid: boolean,
-    isProjectManagerValid: boolean,
-    isProjectScopeValid:boolean,
-    isLocaleValid: boolean,
+    form: IProjectForm;
 }
 
 export type ProjectFormActions = IGetProjectFormAction| IProjectFormAddAction;
