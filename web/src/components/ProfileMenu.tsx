@@ -7,10 +7,10 @@ import Icon from '@material-ui/core/Icon';
 import { spacing } from '@material-ui/system';
 import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
-import NotificationsIcon from '@material-ui/icons/Notifications';
+import NotificationsIcon from './Notification';
 
 
-export default function ProfileMenu() {
+export default function ProfileMenu(props: { Name: string} ) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
@@ -21,6 +21,10 @@ export default function ProfileMenu() {
     setAnchorEl(null);
   }
 
+  function handleNotificationClick(){
+    window.location.href="/Notifications";
+  }
+
   return (
     <div>
       {/* <IconButton color="inherit" size="small">
@@ -29,14 +33,10 @@ export default function ProfileMenu() {
       <IconButton color="inherit">
         <HelpOutline />
       </IconButton>
-      <IconButton color="inherit">
-        <Badge badgeContent={4} color="error" > 
-          <NotificationsIcon  />
-        </Badge>
-      </IconButton>
+      <NotificationsIcon NotificationCount={4} handleClick={handleNotificationClick}/>
 
       <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-        <AccountCircle style={{ marginRight: '10px' }} /> Hello, Joe Blogs <ExpandMore />
+        <AccountCircle style={{ marginRight: '10px' }} /> {props.Name} <ExpandMore />
       </Button>
       <Menu
         id="simple-menu"
@@ -44,11 +44,12 @@ export default function ProfileMenu() {
         keepMounted
         open={Boolean(anchorEl)}
         onClose={handleClose}
+        style={{ top: '40px', left: '66px' }}
       >
-        <MenuItem onClick={handleClose}>................</MenuItem>
-        <MenuItem onClick={handleClose}>................</MenuItem>
-        <MenuItem onClick={handleClose}>................</MenuItem>
-        <MenuItem onClick={handleClose}>................</MenuItem>
+        <MenuItem onClick={handleClose}>Place Holder1</MenuItem>
+        <MenuItem onClick={handleClose}>Place Holder2</MenuItem>
+        <MenuItem onClick={handleClose}>Sign out</MenuItem>
+        <MenuItem onClick={handleClose}>Anything else</MenuItem>
       </Menu>
     </div>
   );
