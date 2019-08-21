@@ -5,7 +5,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 // @ts-ignore
-import b2cauth from "react-azure-adb2c";
+import b2cauth from '@kdpw/msal-b2c-react';
 import appConfig from "./helpers/config-helper";
 
 const config = appConfig();
@@ -18,6 +18,7 @@ b2cauth.initialize({
   scopes: ["openid"],
   redirectUri: window.location.origin,
   postLogoutRedirectUri: window.location.origin,
+  validateAuthority: false
 });
 
 b2cauth.run(() => {
