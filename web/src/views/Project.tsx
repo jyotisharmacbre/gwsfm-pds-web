@@ -18,7 +18,7 @@ class Project extends React.Component {
         return (
             <React.Fragment>
                 <HeaderPage Title={'New Project'} />                
-                <ProjectForm></ProjectForm>
+                <ProjectForm ></ProjectForm>
                 
             </React.Fragment>
         );

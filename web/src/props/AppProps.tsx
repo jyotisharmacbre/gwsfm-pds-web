@@ -1,4 +1,5 @@
 import { AppTypes } from "./PropTypes";
+import { IProjectForm, IProjectFormAddAction } from "../session/ProjectForm/Type";
 
 export interface IAppProps{
     Theme: any,
@@ -20,34 +21,17 @@ export interface IBtnActionProps
 }
 
 export interface IProjectFormState {
-    projectname: string,
-    company: string;
-    customer_contract: string,
-    pmexperience: boolean,
-    projectmanager: string,
-    projectscope: string,
-    locale: string
+    readonly projectname: string,
+    readonly company: string;
+    readonly customer_contract: string,
+    readonly pmexperience: boolean,
+    readonly projectmanager: string,
+    readonly projectscope: string,
+    readonly locale: string
 }
 
 export interface IProjectFormProps {
     handleClick: (data:any) => void;
-    addToForm: (data: any) => void;
-     projectname: string,
-     company: string;
-     customer_contract: string,
-     pmexperience: boolean,
-     projectmanager: string,
-     projectscope: string,
-     locale: string
-}
-
-export interface ICreateProjectFormProps
-{
-    projectname: string,
-    company: string;
-    customer_contract: string,
-    pmexperience: boolean,
-    projectmanager: string,
-    projectscope: string,
-    locale: string
+    addToForm: (data: IProjectForm) => Promise<IProjectFormAddAction>;
+    form: IProjectForm
 }

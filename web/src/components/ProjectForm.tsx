@@ -5,20 +5,24 @@ import { PageBtnActions } from './BtnActions';
 import { IBtnActionProps, IProjectFormProps, IProjectFormState } from '../props/AppProps';
 import './ProjectForm.css';
 import { connect } from 'react-redux';
-import { anotherThunkAction, addFormAction } from '../session/actions/ProjectFormActions';
-import { ThunkDispatch } from '../session/root-thunk';
+
+import { IProjectForm } from '../session/ProjectForm/Type';
+import { addFormActionCreator } from '../session/ProjectForm/Actions';
+import { IApplicationState } from '../session/reducers/RootReducer';
+import { ThunkDispatch } from 'redux-thunk';
+import { AnyAction } from 'redux';
 
 
-const mapDispatchToProps = (dispatch: ThunkDispatch) => {
+const mapDispatchToProps = (dispatch: ThunkDispatch<any,any, AnyAction>) => {
     return {
-        handleClick: (data: any) => dispatch(anotherThunkAction(data)),
-        addToForm: (data: any) => dispatch(addFormAction(data))
+        handleClick: (data: any) => {},
+        addToForm: (data: IProjectForm) => dispatch(addFormActionCreator(data))
     }
 };
 
-const mapStateToProps = (state: IProjectFormState) => {
+const mapStateToProps = (state: IApplicationState) => {
     return {
-     ...state
+      form: state.projectFormState
     }
 };
 
@@ -132,11 +136,13 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
     ];
 
     const handleCheckChange = (name: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
-        props.addToForm({ name: name, data: event.target.checked })
+        var data = { ...props.form, [name] : event.target.checked};
+        props.addToForm(data);
     };
 
     const handleValueChange = (name: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
-        props.addToForm({ name: name, data: event.target.value })
+        var data = { ...props.form, [name] : event.target.value};
+        props.addToForm(data);
     };
 
     const handleSubmit = (e: React.FormEvent<Element>) => {
@@ -160,7 +166,7 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                                 select
                                 label="Company"
                                 onChange={handleValueChange('company')}
-                                value={props.company}
+                                value={props.form.company}
                                 SelectProps={{
                                     MenuProps: {
                                         className: classes.menu,
@@ -196,7 +202,7 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                                 required
                                 fullWidth
                                 autoFocus
-                                value={props.customer_contract}
+                                value={props.form.customer_contract}
                             >
                                 {cust_contracts.map(option => (
                                     <MenuItem key={option.value} value={option.value}>
@@ -213,7 +219,7 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                                 id="project-name"
                                 label="Project Name"
                                 name="projectname"
-                                value={props.projectname}
+                                value={props.form.projectname}
                                 onChange={handleValueChange('projectname')}
                             />
                         </Grid>
@@ -222,7 +228,7 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                                 variant="outlined"
                                 required
                                 fullWidth
-                                value={props.projectscope}
+                                value={props.form.projectscope}
                                 name="projectscope"
                                 label="Project Scope"
                                 id="projectscope"
@@ -236,7 +242,7 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                                 variant="outlined"
                                 required
                                 fullWidth
-                                value={props.projectmanager}
+                                value={props.form.projectmanager}
                                 name="projectmanager"
                                 label="Project manager"
                                 id="projectmanager"
@@ -253,7 +259,7 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                                         <Grid item>No</Grid>
                                         <Grid item>
                                             <AntSwitch
-                                                checked={props.pmexperience}
+                                                checked={props.form.pmexperience}
                                                 onChange={handleCheckChange('pmexperience')}
                                                 value="pmexperience"
                                             />
@@ -268,7 +274,7 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                                 id="outlined-select-locale"
                                 select
                                 label="Locale"
-                                value={props.locale}
+                                value={props.form.locale}
                                 onChange={handleValueChange('locale')}
                                 SelectProps={{
                                     MenuProps: {

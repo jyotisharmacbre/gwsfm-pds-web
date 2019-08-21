@@ -1,6 +1,12 @@
 import { combineReducers } from 'redux';
-import ProjectFormReducer from './ProjectReducer';
+import { IProjectFormState } from '../../props/AppProps';
+import projectReducer from '../ProjectForm/Reducer';
 
-export default combineReducers({
-    ProjectFormReducer
+
+export interface  IApplicationState {
+ readonly projectFormState: IProjectFormState
+}
+
+export default combineReducers<IApplicationState>({
+    projectFormState: projectReducer
 });

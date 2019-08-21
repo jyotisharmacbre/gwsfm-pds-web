@@ -1,7 +1,7 @@
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, Store } from 'redux';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger'
-import rootReducer from './reducers/RootReducer';
+import rootReducer, { IApplicationState } from './reducers/RootReducer';
 
 const middlewares: any[] = [];
 
@@ -12,9 +12,10 @@ if (process.env.NODE_ENV === `development`) {
   middlewares.push(logger);
 }
 
-export default function configureStore(initialState = {}) {
+export default function configureStore(): Store<IApplicationState> {
   return createStore(
     rootReducer,
+    undefined,
     applyMiddleware(...middlewares)
   );
 }
