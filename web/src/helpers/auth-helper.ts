@@ -1,5 +1,5 @@
 // @ts-ignore
-import authentication from "react-azure-adb2c";
+import authentication from "@kdpw/msal-b2c-react";
 import jwtDecode from "jwt-decode";
 import { DecodedToken } from "../models/decodedToken";
 
