@@ -2,10 +2,14 @@ import React from 'react';
 import HeaderPage from '../components/HeaderPage';
 import { IBtnActionProps } from '../props/AppProps';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
+<<<<<<< HEAD
 import PreferredChart from '../components/PrefrerredChart';
 import RunRateChart from '../components/RunRateChart';
 import MediaQuery from 'react-responsive';
 import Typography from '@material-ui/core/Typography';
+=======
+import Table from '../components/Table';
+>>>>>>> cf5a3f527771110c6e9cf40b5dc986abbfbe140b
 
 import Responsive from 'react-responsive';
 
@@ -43,6 +47,7 @@ class Dashboard extends React.Component {
     render() {
         return (
             <React.Fragment>
+<<<<<<< HEAD
                 <HeaderPage Title={'Overview'} ActionList={this.GetButtons()} /> 
                <div style={{"height" : "100%", "width" : "100%","display":"inline-block"}}> <div style={{"height" : "100%","background":"white", "width" : "49%","display":"inline-block"}}>
                     <Typography variant="h6" id="tableTitle" style={{ color: "#00684d" , paddingLeft:"10px"}}>
@@ -52,6 +57,10 @@ class Dashboard extends React.Component {
               Run Rate
           </Typography> <RunRateChart Opportunities={9} JandA={4} Lost={3}/></div>
              </div>
+=======
+                <HeaderPage Title={'Overview'} ActionList={this.GetButtons()} />
+                <Table IsSuperManager = { true }/>
+>>>>>>> cf5a3f527771110c6e9cf40b5dc986abbfbe140b
             </React.Fragment>
         );
     }

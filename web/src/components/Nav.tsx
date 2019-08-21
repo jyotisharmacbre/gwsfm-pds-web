@@ -28,7 +28,7 @@ class Nav extends React.Component<IAppProps>{
                         <Typography component="h1" variant="h6" color="inherit" noWrap className={UseStyles.title} onClick={this.handleClick}>
                         <strong>CBRE</strong> PDS
                 </Typography>
-                        <ProfileMenu />
+                        <ProfileMenu Name={"Hello, Joe Blogs"}/>
                     </Toolbar>
                 </AppBar>
             </div>
