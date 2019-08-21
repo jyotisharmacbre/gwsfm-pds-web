@@ -9,7 +9,12 @@ const initialState: IProjectFormState = {
     locale: 'English',
     projectscope: '',
     projectmanager: '',
-    projectname: ''
+    projectname: '',
+    isCompanyValid: false,
+    isLocaleValid: false,
+    isProjectManagerValid: false,
+    isProjectNameValid:  false,
+    isProjectScopeValid: false
 };
 
 const projectReducer: Reducer<IProjectFormState, ProjectFormActions> = (
@@ -18,7 +23,7 @@ const projectReducer: Reducer<IProjectFormState, ProjectFormActions> = (
     switch (action.type) {
         case 'ProjectFormAddAction':
             {
-                return Object.assign({}, state, action.form);
+                return Object.assign({}, state, action);
             }
 
         default:
