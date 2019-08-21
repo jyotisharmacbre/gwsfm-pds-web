@@ -1,23 +1,28 @@
 import React from 'react';
-import {Dispatch, bindActionCreators, AnyAction} from 'redux';
 import { Paper, Typography, makeStyles, createStyles, Theme, Grid, TextField, Container, MenuItem, FormControl, FormLabel, Divider, withStyles } from '@material-ui/core';
 import Switch, { } from '@material-ui/core/Switch';
 import { PageBtnActions } from './BtnActions';
-import { IBtnActionProps } from '../props/AppProps';
+import { IBtnActionProps, IProjectFormProps, IProjectFormState } from '../props/AppProps';
 import './ProjectForm.css';
 import { connect } from 'react-redux';
-import { anotherThunkAction } from '../session/actions/ProjectFormActions';
+import { anotherThunkAction, addFormAction } from '../session/actions/ProjectFormActions';
 import { ThunkDispatch } from '../session/root-thunk';
 
 
-const mapDispatchToProps = (dispatch: ThunkDispatch): Props => ({
-    handleClick: (data) => dispatch(anotherThunkAction(data))
-});
+const mapDispatchToProps = (dispatch: ThunkDispatch) => {
+    return {
+        handleClick: (data: any) => dispatch(anotherThunkAction(data)),
+        addToForm: (data: any) => dispatch(addFormAction(data))
+    }
+};
 
-const mapStateToProps = (state: State) => ({
-    ...state
-});
+const mapStateToProps = (state: IProjectFormState) => {
+    return {
+     ...state
+    }
+};
 
+/* Dummy Data Set up */
 const companies = [
     {
         name: 'CBRE Managed Services', value: 'CBRE Managed Services'
@@ -101,35 +106,16 @@ const AntSwitch = withStyles(theme => ({
 }))(Switch);
 
 
-interface State {
-    company: string;
-    customer_contract: string,
-    pmexperience: boolean,
-    locale: string
-}
 
-interface Props {
-    handleClick: (data:any) => void;
-}
-
-
-const ProjectForm: React.FC<Props> = (props) => {
+const ProjectForm: React.FC<IProjectFormProps> = (props) => {
 
     const classes = useStyles();
-
-    const [values, setValues] = React.useState<State>({
-        company: 'CBRE Managed Services',
-        customer_contract: 'RS Electrical',
-        pmexperience: true,
-        locale: 'English'
-    });
 
     const Buttons: IBtnActionProps[] = [
         {
             Title: 'Back',
             Color: 'back',
             HandleClick: () => {
-
             }
         }
         , {
@@ -145,26 +131,18 @@ const ProjectForm: React.FC<Props> = (props) => {
         }
     ];
 
-    const handleChangeCompany = (name: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
-        setValues({ ...values, [name]: event.target.value });
+    const handleCheckChange = (name: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
+        props.addToForm({ name: name, data: event.target.checked })
     };
 
-    const handleChangeCustomerContract = (name: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
-        setValues({ ...values, [name]: event.target.value });
-    };
-
-    const handleChangeLocale = (name: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
-        setValues({ ...values, [name]: event.target.value });
-    };
-
-    const handleChange = (name: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
-        setValues({ ...values, [name]: event.target.checked });
+    const handleValueChange = (name: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
+        props.addToForm({ name: name, data: event.target.value })
     };
 
     const handleSubmit = (e: React.FormEvent<Element>) => {
         e.preventDefault();
-        console.log('submit is clicked');
-        props.handleClick({Title: 'Testing'});
+        //console.log(props.);
+        //props.handleClick(values);
     }
 
 
@@ -181,8 +159,8 @@ const ProjectForm: React.FC<Props> = (props) => {
                                 id="outlined-select-company"
                                 select
                                 label="Company"
-                                value={values.company}
-                                onChange={handleChangeCompany('company')}
+                                onChange={handleValueChange('company')}
+                                value={props.company}
                                 SelectProps={{
                                     MenuProps: {
                                         className: classes.menu,
@@ -207,8 +185,7 @@ const ProjectForm: React.FC<Props> = (props) => {
                                 id="outlined-select-custcontract"
                                 select
                                 label="Customer & Contract"
-                                value={values.customer_contract}
-                                onChange={handleChangeCustomerContract('customer_contract')}
+                                onChange={handleValueChange('customer_contract')}
                                 SelectProps={{
                                     MenuProps: {
                                         className: classes.menu,
@@ -219,6 +196,7 @@ const ProjectForm: React.FC<Props> = (props) => {
                                 required
                                 fullWidth
                                 autoFocus
+                                value={props.customer_contract}
                             >
                                 {cust_contracts.map(option => (
                                     <MenuItem key={option.value} value={option.value}>
@@ -235,6 +213,8 @@ const ProjectForm: React.FC<Props> = (props) => {
                                 id="project-name"
                                 label="Project Name"
                                 name="projectname"
+                                value={props.projectname}
+                                onChange={handleValueChange('projectname')}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -242,11 +222,13 @@ const ProjectForm: React.FC<Props> = (props) => {
                                 variant="outlined"
                                 required
                                 fullWidth
+                                value={props.projectscope}
                                 name="projectscope"
                                 label="Project Scope"
                                 id="projectscope"
                                 multiline
                                 rows="4"
+                                onChange={handleValueChange('projectscope')}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
@@ -254,9 +236,11 @@ const ProjectForm: React.FC<Props> = (props) => {
                                 variant="outlined"
                                 required
                                 fullWidth
+                                value={props.projectmanager}
                                 name="projectmanager"
                                 label="Project manager"
                                 id="projectmanager"
+                                onChange={handleValueChange('projectmanager')}
                             />
 
                         </Grid>
@@ -269,8 +253,8 @@ const ProjectForm: React.FC<Props> = (props) => {
                                         <Grid item>No</Grid>
                                         <Grid item>
                                             <AntSwitch
-                                                checked={values.pmexperience}
-                                                onChange={handleChange('pmexperience')}
+                                                checked={props.pmexperience}
+                                                onChange={handleCheckChange('pmexperience')}
                                                 value="pmexperience"
                                             />
                                         </Grid>
@@ -284,8 +268,8 @@ const ProjectForm: React.FC<Props> = (props) => {
                                 id="outlined-select-locale"
                                 select
                                 label="Locale"
-                                value={values.locale}
-                                onChange={handleChangeLocale('locale')}
+                                value={props.locale}
+                                onChange={handleValueChange('locale')}
                                 SelectProps={{
                                     MenuProps: {
                                         className: classes.menu,

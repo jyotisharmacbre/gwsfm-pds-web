@@ -5,6 +5,7 @@ import { ThunkResult } from '../root-thunk';
 
 export const CREATE_PROJECT = 'CREATE_PROJECT';
 
+export const PROJECTFORM_ADD = 'PROJECTFORM_ADD';
 
 const createProjectForm = (data: any) => {
   return {
@@ -12,6 +13,14 @@ const createProjectForm = (data: any) => {
     data
   }
 }
+
+const projectFormAdd = (data: any) => {
+  return {
+    type: PROJECTFORM_ADD,
+    data
+  }
+}
+
 
 export const anotherThunkAction = (data: any): ThunkResult<void> => (dispatch, getState) => {
   dispatch(createProjectForm(data))
@@ -23,4 +32,9 @@ export const anotherThunkAction = (data: any): ThunkResult<void> => (dispatch, g
   // return Promise.resolve( 
   // true
   // );
+};
+
+
+export const addFormAction = (data: any): ThunkResult<void> => (dispatch, getState) => {
+  dispatch(projectFormAdd(data))
 };

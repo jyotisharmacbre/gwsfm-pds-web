@@ -18,3 +18,36 @@ export interface IBtnActionProps
     Color?: AppTypes.Color,
     HandleClick:  ()=> void
 }
+
+export interface IProjectFormState {
+    projectname: string,
+    company: string;
+    customer_contract: string,
+    pmexperience: boolean,
+    projectmanager: string,
+    projectscope: string,
+    locale: string
+}
+
+export interface IProjectFormProps {
+    handleClick: (data:any) => void;
+    addToForm: (data: any) => void;
+     projectname: string,
+     company: string;
+     customer_contract: string,
+     pmexperience: boolean,
+     projectmanager: string,
+     projectscope: string,
+     locale: string
+}
+
+export interface ICreateProjectFormProps
+{
+    projectname: string,
+    company: string;
+    customer_contract: string,
+    pmexperience: boolean,
+    projectmanager: string,
+    projectscope: string,
+    locale: string
+}
