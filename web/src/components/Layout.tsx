@@ -4,8 +4,6 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Nav from '../components/Nav';
 import Body from '../components/Body';
 import { IAppProps } from '../props/AppProps';
-import {IntlProvider} from "react-intl";
-import {FormattedMessage} from 'react-intl';
 
 
 
