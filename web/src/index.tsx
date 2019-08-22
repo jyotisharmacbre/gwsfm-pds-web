@@ -23,6 +23,6 @@ b2cauth.initialize({
 });
 
 b2cauth.run(() => {
-  ReactDOM.render(<App />, document.getElementById("root") as HTMLElement);
+  ReactDOM.render(<App/>, document.getElementById("root") as HTMLElement);
   serviceWorker.register();
 });
