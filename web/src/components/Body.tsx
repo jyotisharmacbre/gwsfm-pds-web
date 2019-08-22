@@ -6,6 +6,7 @@ import Footer from '../components/Footer';
 import Dashboard from '../views/Dashboard';
 import Pipeline from '../views/Pipeline';
 import Project from '../views/Project';
+import Notifications from '../views/Notifications';
 
 
 class Body extends React.Component<IAppProps> {
@@ -23,8 +24,9 @@ class Body extends React.Component<IAppProps> {
                             <Route exact path="/" component={Dashboard} />
                             <Route exact path="/Pipeline" component={Pipeline} />
                             <Route exact path="/Project" component={Project} />
+                            <Route exact path="/Notifications" component={Notifications} />
                         </Switch>
-                  
+                        {/* <Table /> */}
                 </Container>
                 <Footer />
                 </Router>

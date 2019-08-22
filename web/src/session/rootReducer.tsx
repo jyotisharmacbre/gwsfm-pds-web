@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import { IProjectFormState } from '../../props/AppProps';
-import projectReducer from '../ProjectForm/Reducer';
+import { IProjectFormState } from '../props/AppProps';
+import projectReducer from './ProjectForm/Reducer';
 
 
 export interface  IApplicationState {

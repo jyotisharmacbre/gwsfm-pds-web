@@ -1,6 +1,8 @@
 import React from 'react';
 import HeaderPage from '../components/HeaderPage';
 import { IBtnActionProps } from '../props/AppProps';
+import { createStyles, makeStyles, Theme } from '@material-ui/core';
+import Table from '../components/Table';
 
 class Dashboard extends React.Component {
 
@@ -30,6 +32,7 @@ class Dashboard extends React.Component {
         return (
             <React.Fragment>
                 <HeaderPage Title={'Overview'} ActionList={this.GetButtons()} />
+                <Table IsSuperManager={true} />
             </React.Fragment>
         );
     }

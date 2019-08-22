@@ -1,8 +1,8 @@
 import React from 'react';
 import { Button, makeStyles, Theme, createStyles } from '@material-ui/core';
 import { IBtnActionProps } from '../props/AppProps';
-import { AddCircleOutline, LibraryBooks } from '@material-ui/icons';
 import { AppTypes } from '../props/PropTypes';
+import { Backspace, AddCircleOutline, LibraryBooks, ViewList } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -13,8 +13,8 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         buttonSecondary: {
             margin: theme.spacing(1),
-            borderColor: '#00684d',
-            color: '#00684d'
+            color: '#ffffff',
+            backgroundColor: '#00684d'
         },
         buttonSave: {
             margin: theme.spacing(1),
@@ -51,6 +51,10 @@ const GetIcons = (icon: string) => {
             return (<AddCircleOutline className={styles.leftIcon} />);
         case "pipeline":
             return (<LibraryBooks className={styles.leftIcon} />);
+        case "backspace":
+            return (<Backspace className={styles.leftIcon} />);
+        case "viewall":
+            return (<ViewList className={styles.leftIcon} />)
         default:
             return;
     }
@@ -74,7 +78,7 @@ const GetButtonStyle = (type: AppTypes.Color) => {
 
 export function PageBtnActions(props: { Actions: IBtnActionProps[] }) {
     const items = props.Actions.map((item) =>
-        <Button type="submit" key={item.Title} variant='contained' color={(item.Color? undefined: 'primary')} className={GetButtonStyle(item.Color || undefined)} onClick={item.HandleClick}  >
+        <Button type="submit" key={item.Title} variant='contained' color={(item.Color ? undefined : 'primary')} className={GetButtonStyle(item.Color || undefined)} onClick={item.HandleClick}  >
             {GetIcons(item.Icon)}
             {item.Title}
         </Button>
