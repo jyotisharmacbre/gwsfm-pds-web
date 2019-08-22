@@ -26,7 +26,13 @@ export interface IProjectFormState {
     readonly projectmanager: string;
     readonly projectscope: string;
     readonly locale: string;
-
+    invalidProjectName: boolean;
+    invalidProjectManager: boolean;
+    invalidCompany: boolean;
+    invalidCustomerContract: boolean;
+    invalidPMExperience: boolean;
+    invalidProjectScope: boolean;
+    invalidLocale: boolean;
 }
 
 export interface IProjectFormProps {

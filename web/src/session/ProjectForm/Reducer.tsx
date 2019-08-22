@@ -10,7 +10,13 @@ const initialState: IProjectFormState = {
     projectscope: '',
     projectmanager: '',
     projectname: '',
-
+    invalidCompany: false,
+    invalidCustomerContract: false,
+    invalidLocale:false,
+    invalidPMExperience: false,
+    invalidProjectName: false,
+    invalidProjectScope: false,
+    invalidProjectManager: false,
 };
 
 const projectReducer: Reducer<IProjectFormState, ProjectFormActions> = (

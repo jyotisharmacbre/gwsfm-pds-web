@@ -10,6 +10,13 @@ export interface IProjectForm {
     projectmanager: string;
     projectscope: string;
     locale: string;
+    invalidProjectName: boolean;
+    invalidCompany: boolean;
+    invalidCustomerContract: boolean;
+    invalidPMExperience: boolean;
+    invalidProjectScope: boolean;
+    invalidLocale: boolean;
+    invalidProjectManager: boolean;
 }
 
 export interface IGetProjectFormAction extends Action<'GetProjectFormAction'>{
