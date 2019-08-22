@@ -39,7 +39,7 @@ steps:
     rootFolderOrFile: 'web/build'
     includeRootFolder: false
     archiveType: 'zip'
-    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/web.zip'
     replaceExistingArchive: true
   displayName: "pack build"
 

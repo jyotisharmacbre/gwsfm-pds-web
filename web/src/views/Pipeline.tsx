@@ -2,12 +2,6 @@ import React from 'react';
 import HeaderPage from '../components/HeaderPage';
 
 class Dashboard extends React.Component {
-
-    constructor(props: any) {
-        super(props);
-    }
-
-
     render() {
         return (
             <React.Fragment>
