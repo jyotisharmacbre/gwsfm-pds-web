@@ -1,12 +1,9 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Layout from './components/Layout'
 import { makeStyles, createMuiTheme } from '@material-ui/core/styles';
 
-
-
-const App: React.FC = () => {
+const App = () => {
   const drawerWidth = 240;
 
   const theme = createMuiTheme({
