@@ -13,6 +13,7 @@
     "@types/node": "12.7.1",
     "@types/react": "16.9.0",
     "@types/react-dom": "16.8.5",
+    "@types/react-redux": "^7.1.2",
     "@types/react-router-dom": "^4.3.4",
     "@types/react-test-renderer": "^16.9.0",
     "config": "^3.2.2",
@@ -20,10 +21,12 @@
     "enzyme-adapter-react-16": "^1.14.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
+    "react-redux": "^7.1.0",
     "react-router": "^5.0.1",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",
     "react-test-renderer": "^16.9.0",
+    "redux": "^4.0.4",
     "typescript": "3.5.3"
   },
   "scripts": {

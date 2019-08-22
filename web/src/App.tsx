@@ -3,7 +3,7 @@ import './App.css';
 import Layout from './components/Layout'
 import { makeStyles, createMuiTheme } from '@material-ui/core/styles';
 
-const App = () => {
+const App : React.FC = () => {
   const drawerWidth = 240;
 
   const theme = createMuiTheme({

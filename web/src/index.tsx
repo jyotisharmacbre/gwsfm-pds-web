@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { Provider } from 'react-redux'
 
 // @ts-ignore
 import b2cauth from '@kdpw/msal-b2c-react';
@@ -22,6 +23,6 @@ b2cauth.initialize({
 });
 
 b2cauth.run(() => {
-  ReactDOM.render(App(), document.getElementById("root") as HTMLElement);
+  ReactDOM.render(<App />, document.getElementById("root") as HTMLElement);
   serviceWorker.register();
 });
