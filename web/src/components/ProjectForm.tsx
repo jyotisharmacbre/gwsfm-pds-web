@@ -2,7 +2,7 @@ import React from 'react';
 import { Paper, Typography, makeStyles, createStyles, Theme, Grid, TextField, Container, MenuItem, FormControl, FormLabel, Divider, withStyles } from '@material-ui/core';
 import Switch, { } from '@material-ui/core/Switch';
 import { PageBtnActions } from './BtnActions';
-import { IBtnActionProps, IProjectFormProps, IProjectFormState } from '../props/AppProps';
+import { IBtnActionProps, IProjectFormProps } from '../props/AppProps';
 import './ProjectForm.css';
 import { connect } from 'react-redux';
 import { IProjectForm } from '../session/ProjectForm/Type';
@@ -14,7 +14,6 @@ import { Validator } from "class-validator";
 
 // Validation methods
 const validator = new Validator();
-
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, AnyAction>) => {
     return {

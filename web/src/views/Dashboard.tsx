@@ -1,13 +1,8 @@
 import React from 'react';
 import HeaderPage from '../components/HeaderPage';
 import { IBtnActionProps } from '../props/AppProps';
-import { createStyles, makeStyles, Theme } from '@material-ui/core';
 
 class Dashboard extends React.Component {
-
-    constructor(props: any) {
-        super(props);
-    }
 
     GetButtons() {
         const action1: IBtnActionProps = {

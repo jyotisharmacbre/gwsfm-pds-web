@@ -10,11 +10,6 @@ import Project from '../views/Project';
 
 class Body extends React.Component<IAppProps> {
 
-    constructor(props: IAppProps) {
-        super(props);
-    }
-
-
     render() {
         const { UseStyles } = this.props;
 

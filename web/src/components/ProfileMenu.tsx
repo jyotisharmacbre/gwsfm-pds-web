@@ -3,10 +3,7 @@ import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { AccountCircle, ExpandMore, HelpOutline } from '@material-ui/icons';
-import Icon from '@material-ui/core/Icon';
-import { spacing } from '@material-ui/system';
 import IconButton from '@material-ui/core/IconButton';
-import Badge from '@material-ui/core/Badge';
 import NotificationsIcon from './Notification';
 
 
