@@ -35,14 +35,14 @@ steps:
     command: custom
     workingDir: web
     verbose: false
-    customCommand: 'npm run build'
+    customCommand: 'run build'
 
 - task: ArchiveFiles@2
   inputs:
     rootFolderOrFile: 'web/build'
     includeRootFolder: false
     archiveType: 'zip'
-    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/web.zip'
     replaceExistingArchive: true
   displayName: "pack build"
 
