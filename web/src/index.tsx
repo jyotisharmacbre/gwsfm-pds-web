@@ -4,9 +4,12 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
+import configureStore from './session/store';
+
+// @ts-ignore
 import b2cauth from '@kdpw/msal-b2c-react';
 import appConfig from "./helpers/config-helper";
-import configureStore from './session/store';
+
 
 
 const config = appConfig();

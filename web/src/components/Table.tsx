@@ -324,6 +324,7 @@ export default function EnhancedTable(props: { IsSuperManager: boolean }) {
     const act: IBtnActionProps = {
       Title: 'View All',
       Icon: 'viewall',
+      Color:'secondary',
       HandleClick: () => {
         window.location.href = '/Notifications';
       }
@@ -335,6 +336,7 @@ export default function EnhancedTable(props: { IsSuperManager: boolean }) {
     const act: IBtnActionProps = {
       Title: 'Back',
       Icon: 'backspace',
+      Color:'secondary',
       HandleClick: () => {
         window.history.back();
       }
