@@ -6,12 +6,12 @@ import { IconButton, Badge } from '@material-ui/core';
 import { display } from '@material-ui/system';
 import { Block } from '@material-ui/icons';
 
-export default function Notification(props: {NotificationCount:number}){
+export default function Notification(props: {NotificationCount:number, handleClick: any}){
    
         return (
            <IconButton color="inherit">
-            <Badge badgeContent={props.NotificationCount} > 
-              <NotificationsIconImage color="secondary"  />
+            <Badge badgeContent={props.NotificationCount} onClick={props.handleClick} > 
+              <NotificationsIconImage id="BellIcon" name="BellIcon" color="secondary"  />
             </Badge>
           </IconButton>
          
