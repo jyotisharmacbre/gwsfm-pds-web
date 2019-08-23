@@ -1,7 +1,6 @@
 import React from 'react';
 import HeaderPage from '../components/HeaderPage';
 import { IBtnActionProps } from '../props/AppProps';
-import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import Table from '../components/Table';
 
 class Dashboard extends React.Component {

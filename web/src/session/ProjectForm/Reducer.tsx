@@ -1,4 +1,4 @@
-import { IProjectFormState } from "../../props/AppProps";
+import { IProjectFormState } from "../State";
 import { ProjectFormActions } from "./Type";
 import { Reducer } from "redux";
 
@@ -10,9 +10,27 @@ const initialState: IProjectFormState = {
     projectscope: '',
     projectmanager: '',
     projectname: '',
+    headofproject:'',
+    cnnumber:'',
+    comments:'',
+    typeofengagement:'',
+    currency:'',
+    projectowner:'',
+    probofwinning:0,
+    approximatevalue:0,
+    contracttype:'',
+    cdmnotifiable:false,
+    projectstatus:'',
+    assetworkedonprimary:'',
+    assetworkedonsecond:'',
+    assetworkedonthird:'',
+    soldmargin:0,
+    weightedtcv:0,
+    rank:0,
+    validForm: false,
     invalidCompany: false,
     invalidCustomerContract: false,
-    invalidLocale:false,
+    invalidLocale: false,
     invalidPMExperience: false,
     invalidProjectName: false,
     invalidProjectScope: false,
@@ -24,20 +42,14 @@ const projectReducer: Reducer<IProjectFormState, ProjectFormActions> = (
 ) => {
     switch (action.type) {
         case 'GetProjectFormAction':
-                {
-                    //return Object.assign({},state, action.form);
-                    return {
-                        ...state
-                    }
+            {
+                return {
+                    ...state
                 }
+            }
         case 'ProjectFormAddAction':
             {
-                return Object.assign({},state, action.form);
-                // return {
-                //     ...state,
-                //     form:  action.form,
-                //     isFormValid: true
-                // }
+                return Object.assign({}, state, action.form);
             }
 
         default:

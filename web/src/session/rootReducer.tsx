@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { IProjectFormState } from '../props/AppProps';
+import { IProjectFormState } from "./state";
 import projectReducer from './ProjectForm/Reducer';
 
 

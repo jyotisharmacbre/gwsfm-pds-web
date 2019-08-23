@@ -18,23 +18,6 @@ export interface IBtnActionProps {
     HandleClick: () => void
 }
 
-export interface IProjectFormState {
-    readonly projectname: string,
-    readonly company: string;
-    readonly customer_contract: string,
-    readonly pmexperience: boolean;
-    readonly projectmanager: string;
-    readonly projectscope: string;
-    readonly locale: string;
-    invalidProjectName: boolean;
-    invalidProjectManager: boolean;
-    invalidCompany: boolean;
-    invalidCustomerContract: boolean;
-    invalidPMExperience: boolean;
-    invalidProjectScope: boolean;
-    invalidLocale: boolean;
-}
-
 export interface IProjectFormProps {
     handleClick: (data: any) => void;
     addToForm: (data: IProjectForm) => Promise<IProjectFormAddAction>;
