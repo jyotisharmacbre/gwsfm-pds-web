@@ -24,11 +24,20 @@ export interface IProjectFormState {
     readonly weightedtcv:number;
     readonly rank:number;
     validForm: boolean;
+    invalidCurrency: boolean;
+    invalidProjectOwner: boolean;
+    invalidProbOfWinning:boolean;
+    invalidApproxValue: boolean;
+    invalidContractType:boolean;
+    invalidCMDNotifiable:boolean;
+    invalidAssetsWorkedOnPrimary:boolean;
     invalidProjectName: boolean;
-    invalidProjectManager: boolean;
     invalidCompany: boolean;
     invalidCustomerContract: boolean;
     invalidPMExperience: boolean;
     invalidProjectScope: boolean;
     invalidLocale: boolean;
+    invalidProjectManager: boolean;
+    invalidHeadOfProject: boolean;
+    InvalidProjectOwner: boolean;
 }

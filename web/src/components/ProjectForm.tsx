@@ -73,8 +73,11 @@ const useStyles = makeStyles((theme: Theme) =>
             // marginRight: theme.spacing(1),
         },
         menu: {
-            width: 200,
+            width: 200,    
         },
+        select:{
+            marginTop: '0px'
+        }
     }),
 );
 
@@ -151,7 +154,8 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
 
     const validateEmail = (e: React.FocusEvent<HTMLInputElement>) => {
         let validEmail = isValidEmail(e.target.value);
-        var data = { ...props.form, invalidProjectManager: validEmail };
+        let name = e.target.name;
+        var data = { ...props.form, ['invalid' + name]: validEmail };
         props.addToForm(data);
     }
 
@@ -256,7 +260,7 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                                 ))}
                             </TextField>
                         </Grid>
-                        <Grid item xs={12}>
+                        <Grid item xs={12} sm={6}>
                             <TextField
                                 variant="outlined"
                                 required
@@ -271,6 +275,32 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                                 onChange={handleValueChange('projectname')}
 
                             />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                id="outlined-select-projectstatus"
+                                select
+                                label="Project Status"
+                                onChange={handleValueChange('projectstatus')}
+                                SelectProps={{
+                                    MenuProps: {
+                                        className: classes.menu,
+                                    },
+                                }}
+                                className={classes.select}
+                                margin="normal"
+                                name="ProjectStatus"
+                                variant="outlined"
+                                fullWidth
+                                autoFocus
+                                value={props.form.projectstatus}
+                            >
+                                {cust_contracts.map(option => (
+                                    <MenuItem key={option.value} value={option.value}>
+                                        {option.name}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
@@ -295,7 +325,7 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                                 required
                                 fullWidth
                                 value={props.form.projectmanager}
-                                name="projectmanager"
+                                name="ProjectManager"
                                 label="Project manager"
                                 id="ProjectManager"
                                 error={props.form.invalidProjectManager}
@@ -308,7 +338,7 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                         <Grid item xs={12} sm={6}>
                             <FormControl component="fieldset">
                                 <FormLabel component="legend">Project manager has experience in this type of projects?</FormLabel>
-                                <br />
+                            
                                 <Typography component="div">
                                     <Grid component="label" container alignItems="center" spacing={1}>
                                         <Grid item>No</Grid>
@@ -324,56 +354,42 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                                 </Typography>
                             </FormControl>
                         </Grid>
-                        <Grid item xs={12} sm={12}>
+                        <Grid item xs={12} sm={6}>
                             <TextField
                                 variant="outlined"
                                 required
                                 fullWidth
-                                value={props.form.projectmanager}
-                                name="headofproject"
+                                value={props.form.headofproject}
+                                name="HeadOfProject"
                                 label="Head of Project"
-                                id="ProjectManager"
-                                error={props.form.invalidProjectManager}
-                                helperText={props.form.invalidProjectManager ? 'Enter a valid email' : ''}
-                                onChange={handleValueChange('projectmanager')}
+                                id="HeadOfProject"
+                                error={props.form.invalidHeadOfProject}
+                                helperText={props.form.invalidHeadOfProject ? 'Enter a valid email' : ''}
+                                onChange={handleValueChange('headofproject')}
+                                onBlur={validateEmail}
+                            />
+
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                variant="outlined"
+                                fullWidth
+                                value={props.form.projectowner}
+                                name="ProjectOwner"
+                                label="Project Owner"
+                                id="ProjectOwner"
+                                onChange={handleValueChange('projectowner')}
+                                error={props.form.InvalidProjectOwner}
+                                helperText={props.form.InvalidProjectOwner ? 'Enter a valid email' : ''}
                                 onBlur={validateEmail}
                             />
 
                         </Grid>
                         <Grid item xs={12} sm={12}>
                             <TextField
-                                id="outlined-select-projectstatus"
-                                select
-                                label="Project Status"
-                                onChange={handleValueChange('projectstatus')}
-                                SelectProps={{
-                                    MenuProps: {
-                                        className: classes.menu,
-                                    },
-                                }}
-                                margin="normal"
-                                name="ProjectStatus"
-                                variant="outlined"
-                                required
-                                fullWidth
-                                autoFocus
-                                value={props.form.customer_contract}
-                                onBlur={validateField}
-                                error={props.form.invalidCustomerContract}
-                                helperText={props.form.invalidCustomerContract ? 'This field is required' : ''}
-                            >
-                                {cust_contracts.map(option => (
-                                    <MenuItem key={option.value} value={option.value}>
-                                        {option.name}
-                                    </MenuItem>
-                                ))}
-                            </TextField>
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
                                 variant="outlined"
                                 fullWidth
-                                value={props.form.projectmanager}
+                                value={props.form.cnnumber}
                                 name="cnnumber"
                                 label="CN Number"
                                 id="CNNumber"
@@ -381,12 +397,13 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                             />
 
                         </Grid>
-                        <Grid item xs={12} sm={6}>
+                        <Grid item xs={12} sm={12}>
                             <TextField
                                 variant="outlined"
                                 fullWidth
                                 multiline
-                                value={props.form.projectmanager}
+                                rows="4"
+                                value={props.form.comments}
                                 name="comments"
                                 label="Comments"
                                 id="Comments"
@@ -394,7 +411,7 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                             />
 
                         </Grid>
-                        <Grid item xs={12} sm={6}>
+                        <Grid item xs={12} sm={4}>
                             <TextField
                                 id="outlined-select-typeofengagement"
                                 select
@@ -405,12 +422,13 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                                         className: classes.menu,
                                     },
                                 }}
+                                
                                 margin="normal"
-                                name="ProjectStatus"
+                                name="TypeOfEngagement"
                                 variant="outlined"
                                 fullWidth
                                 autoFocus
-                                value={props.form.customer_contract}
+                                value={props.form.typeofengagement}
                             >
                                 {cust_contracts.map(option => (
                                     <MenuItem key={option.value} value={option.value}>
@@ -419,7 +437,7 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                                 ))}
                             </TextField>
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item xs={4}>
                             <TextField
                                 id="outlined-select-country"
                                 select
@@ -448,13 +466,13 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                                 ))}
                             </TextField>
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item xs={4}>
                             <TextField
                                 id="outlined-select-currency"
                                 select
                                 label="Currency"
                                 name="Currency"
-                                value={props.form.locale}
+                                value={props.form.currency}
                                 onChange={handleValueChange('currency')}
                                 SelectProps={{
                                     MenuProps: {
@@ -466,8 +484,8 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                                 required
                                 fullWidth
                                 autoFocus
-                                error={props.form.invalidLocale}
-                                helperText={props.form.invalidLocale ? 'This field is required' : ''}
+                                error={props.form.invalidCurrency}
+                                helperText={props.form.invalidCurrency ? 'This field is required' : ''}
                                 onBlur={validateField}
                             >
                                 {locales.map(option => (
@@ -477,29 +495,21 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                                 ))}
                             </TextField>
                         </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                variant="outlined"
-                                fullWidth
-                                value={props.form.projectmanager}
-                                name="projectowner"
-                                label="Project Owner"
-                                id="ProjectOwner"
-                                onChange={handleValueChange('projectowner')}
-                            />
 
-                        </Grid>
                         <Grid item xs={12} sm={6}>
                             <TextField
                                 variant="outlined"
                                 fullWidth
-                                value={props.form.projectmanager}
+                                value={props.form.probofwinning}
                                 type="number"
-                                name="probofwinning"
+                                name="ProbOfWinning"
                                 label="Probability of winning, %"
                                 id="ProbOfWinning"
                                 required
                                 onChange={handleValueChange('probofwinning')}
+                                error={props.form.invalidProbOfWinning}
+                                helperText={props.form.invalidProbOfWinning ? 'This field is required' : ''}
+                                onBlur={validateField}
                             />
 
                         </Grid>
@@ -507,13 +517,15 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                             <TextField
                                 variant="outlined"
                                 fullWidth
-                                value={props.form.projectmanager}
-                                type="number"
-                                name="approximatevalue"
+                                value={props.form.approximatevalue}
+                                name="ApproxValue"
                                 label="Approximate value"
                                 id="ApproximateValue"
                                 required
                                 onChange={handleValueChange('approximatevalue')}
+                                error={props.form.invalidApproxValue}
+                                helperText={props.form.invalidApproxValue ? 'This field is required' : ''}
+                                onBlur={validateField}
                             />
 
                         </Grid>
@@ -523,20 +535,21 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                                 select
                                 label="Contract Type"
                                 name="ContractType"
-                                value={props.form.locale}
+                                value={props.form.contracttype}
                                 onChange={handleValueChange('contracttype')}
                                 SelectProps={{
                                     MenuProps: {
                                         className: classes.menu,
                                     },
                                 }}
+                                className={classes.select}
                                 margin="normal"
                                 variant="outlined"
                                 required
                                 fullWidth
                                 autoFocus
-                                error={props.form.invalidLocale}
-                                helperText={props.form.invalidLocale ? 'This field is required' : ''}
+                                error={props.form.invalidContractType}
+                                helperText={props.form.invalidContractType ? 'This field is required' : ''}
                                 onBlur={validateField}
                             >
                                 {locales.map(option => (
@@ -555,7 +568,7 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                                         <Grid item>No</Grid>
                                         <Grid item>
                                             <AntSwitch
-                                                checked={props.form.pmexperience}
+                                                checked={props.form.cdmnotifiable}
                                                 onChange={handleCheckChange('cdmnotifiable')}
                                                 value="cdmnotifiable"
                                             />
@@ -570,9 +583,9 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                                 id="outlined-select-asworkedprimary"
                                 select
                                 label="Assets worked on (primary)"
-                                name="AsWorkedPrimary"
-                                value={props.form.locale}
-                                onChange={handleValueChange('asworkedprimary')}
+                                name="AssetsWorkedOnPrimary"
+                                value={props.form.assetworkedonprimary}
+                                onChange={handleValueChange('assetworkedonprimary')}
                                 SelectProps={{
                                     MenuProps: {
                                         className: classes.menu,
@@ -583,8 +596,8 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                                 required
                                 fullWidth
                                 autoFocus
-                                error={props.form.invalidLocale}
-                                helperText={props.form.invalidLocale ? 'This field is required' : ''}
+                                error={props.form.invalidAssetsWorkedOnPrimary}
+                                helperText={props.form.invalidAssetsWorkedOnPrimary ? 'This field is required' : ''}
                                 onBlur={validateField}
                             >
                                 {locales.map(option => (
@@ -600,8 +613,8 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                                 select
                                 label="Assets worked on"
                                 name="AsWorked2"
-                                value={props.form.locale}
-                                onChange={handleValueChange('asworked2')}
+                                value={props.form.assetworkedonsecond}
+                                onChange={handleValueChange('assetworkedonsecond')}
                                 SelectProps={{
                                     MenuProps: {
                                         className: classes.menu,
@@ -609,12 +622,8 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                                 }}
                                 margin="normal"
                                 variant="outlined"
-
                                 fullWidth
                                 autoFocus
-                                error={props.form.invalidLocale}
-                                helperText={props.form.invalidLocale ? 'This field is required' : ''}
-                                onBlur={validateField}
                             >
                                 {locales.map(option => (
                                     <MenuItem key={option.value} value={option.value}>
@@ -629,8 +638,8 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                                 select
                                 label="Assets worked on"
                                 name="AsWorked3"
-                                value={props.form.locale}
-                                onChange={handleValueChange('asworked3')}
+                                value={props.form.assetworkedonthird}
+                                onChange={handleValueChange('assetworkedonthird')}
                                 SelectProps={{
                                     MenuProps: {
                                         className: classes.menu,
@@ -638,12 +647,8 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                                 }}
                                 margin="normal"
                                 variant="outlined"
-
                                 fullWidth
                                 autoFocus
-                                error={props.form.invalidLocale}
-                                helperText={props.form.invalidLocale ? 'This field is required' : ''}
-                                onBlur={validateField}
                             >
                                 {locales.map(option => (
                                     <MenuItem key={option.value} value={option.value}>
@@ -656,11 +661,10 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                             <TextField
                                 variant="outlined"
                                 fullWidth
-                                value={props.form.projectmanager}
-                                name="soldmargin"
+                                value={props.form.soldmargin}
+                                name="SoldMargin"
                                 label="Sold Margin"
                                 id="SoldMargin"
-
                                 onChange={handleValueChange('soldmargin')}
                             />
 
@@ -669,12 +673,11 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                             <TextField
                                 variant="outlined"
                                 fullWidth
-                                value={props.form.projectmanager}
-                                name="weighedTCV"
+                                value={props.form.weightedtcv}
+                                name="Weightedtcv"
                                 label="Weighed TCV"
                                 id="WeighedTCV"
-
-                                onChange={handleValueChange('weighedTCV')}
+                                onChange={handleValueChange('weightedtcv')}
                             />
 
                         </Grid>
@@ -682,11 +685,10 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                             <TextField
                                 variant="outlined"
                                 fullWidth
-                                value={props.form.projectmanager}
+                                value={props.form.rank}
                                 name="rank"
                                 label="Rank"
                                 id="Rank"
-
                                 onChange={handleValueChange('rank')}
                             />
 

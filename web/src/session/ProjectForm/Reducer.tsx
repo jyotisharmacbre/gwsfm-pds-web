@@ -35,6 +35,15 @@ const initialState: IProjectFormState = {
     invalidProjectName: false,
     invalidProjectScope: false,
     invalidProjectManager: false,
+    invalidApproxValue: false,
+    invalidAssetsWorkedOnPrimary: false,
+    invalidCMDNotifiable:false,
+    invalidContractType:false,
+    invalidCurrency:false,
+    invalidProbOfWinning: false,
+    invalidProjectOwner:false,
+    invalidHeadOfProject: false,
+    InvalidProjectOwner: false
 };
 
 const projectReducer: Reducer<IProjectFormState, ProjectFormActions> = (
