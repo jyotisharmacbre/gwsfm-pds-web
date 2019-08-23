@@ -6,21 +6,19 @@ import Table from '../components/Table';
 
 class Dashboard extends React.Component {
 
-    constructor(props: any) {
-        super(props);
-    }
-
     GetButtons() {
         const action1: IBtnActionProps = {
             Title: 'Create A New Project',
             Icon: 'create',
+            Color: 'primary',
             HandleClick: () => {
-                alert('You clicked on Create a New Project')
+                window.location.href = '/Project';
             }
         };
         const action2: IBtnActionProps = {
             Title: 'Pipeline',
             Icon: 'pipeline',
+            Color: 'secondary',
             HandleClick: () => {
                 window.location.href = '/Pipeline';
             }
@@ -34,7 +32,7 @@ class Dashboard extends React.Component {
         return (
             <React.Fragment>
                 <HeaderPage Title={'Overview'} ActionList={this.GetButtons()} />
-                <Table IsSuperManager = { true }/>
+                <Table IsSuperManager={true} />
             </React.Fragment>
         );
     }

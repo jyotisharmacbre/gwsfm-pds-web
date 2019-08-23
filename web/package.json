@@ -13,22 +13,31 @@
     "@types/node": "12.7.1",
     "@types/react": "16.9.0",
     "@types/react-dom": "16.8.5",
+    "@types/react-material-ui-form-validator": "^2.0.2",
     "@types/react-redux": "^7.1.2",
     "@types/react-router-dom": "^4.3.4",
     "@types/react-test-renderer": "^16.9.0",
+    "@types/redux-logger": "^3.0.7",
+    "@types/validator": "^10.11.3",
+    "class-validator": "^0.10.0",
     "config": "^3.2.2",
+    "cross-fetch": "^3.0.4",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-intl": "^3.1.11",
+    "react-material-ui-form-validator": "^2.0.9",
     "react-redux": "^7.1.0",
     "react-router": "^5.0.1",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",
     "react-test-renderer": "^16.9.0",
     "redux": "^4.0.4",
-    "typescript": "3.5.3"
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.3.0",
+    "typescript": "3.5.3",
+    "validator": "^11.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -52,6 +61,7 @@
     ]
   },
   "devDependencies": {
+    "@types/react-redux": "^7.1.2",
     "@types/jwt-decode": "^2.2.1"
   }
 }
