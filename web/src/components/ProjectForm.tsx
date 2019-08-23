@@ -11,6 +11,7 @@ import { IApplicationState } from '../session/rootReducer';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
 import { Validator } from "class-validator";
+import { toCurrency } from '../helpers/int-helper';
 
 // Validation methods
 const validator = new Validator();
@@ -31,6 +32,9 @@ const mapStateToProps = (state: IApplicationState) => {
 /* Dummy Data Set up */
 const companies = [
     {
+        name: '---Please choose an option---', value: ''
+    },
+    {
         name: 'CBRE Managed Services', value: 'CBRE Managed Services'
     },
     {
@@ -39,6 +43,9 @@ const companies = [
 ];
 
 const cust_contracts = [
+    {
+        name: '---Please choose an option---', value: ''
+    },
     {
         name: 'RS Electrical', value: 'RS Electrical'
     },
@@ -49,10 +56,79 @@ const cust_contracts = [
 
 const locales = [
     {
+        name: '---Please choose an option---', value: ''
+    },
+    {
         name: 'English', value: 'English'
     },
     {
         name: 'English (US)', value: 'English (US)'
+    }
+];
+
+const typesOfEngagement = [
+    {
+        name: '---Please choose an option---', value: ''
+    },
+    {
+        name: 'Fixed Price', value: 'Fixed Price'
+    },
+    {
+        name: 'Time and Materials', value: 'Time and Materials'
+    },
+    {
+        name: 'Risk and Reward', value: 'Risk and Reward'
+    },
+    {
+        name: 'Cost Plus', value: 'Cost Plus'
+    }
+];
+
+const contractType = [
+    {
+        name: '---Please choose an option---', value: ''
+    },
+    {
+        name: 'CT 1', value: 'CT 1'
+    },
+    {
+        name: 'CT 2', value: 'CT 2'
+    },
+];
+
+const currency = [
+    {
+        name: '---Please choose an option---', value: ''
+    },
+    {
+        name: 'US ($)', value: 'US ($)'
+    },
+    {
+        name: 'UK (£)', value: 'UK (£)'
+    }
+];
+
+const projectStatus = [
+    {
+        name: '---Please choose an option---', value: ''
+    },
+    {
+        name: 'Started', value: 'Started'
+    },
+    {
+        name: 'Completed', value: 'Completed'
+    }
+];
+
+const assetsWorkedOn = [
+    {
+        name: '---Please choose an option---', value: ''
+    },
+    {
+        name: 'AS 1', value: 'AS 1'
+    },
+    {
+        name: 'AS 2', value: 'AS 2'
     }
 ];
 
@@ -73,9 +149,9 @@ const useStyles = makeStyles((theme: Theme) =>
             // marginRight: theme.spacing(1),
         },
         menu: {
-            width: 200,    
+            width: 200,
         },
-        select:{
+        select: {
             marginTop: '0px'
         }
     }),
@@ -147,10 +223,10 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
     };
 
     const handleValueChange = (name: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
-        var data = { ...props.form, [name]: event.target.value };
+        let val = event.target.value;
+        let data = { ...props.form, [name]: val };
         props.addToForm(data);
     };
-
 
     const validateEmail = (e: React.FocusEvent<HTMLInputElement>) => {
         let validEmail = isValidEmail(e.target.value);
@@ -159,11 +235,22 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
         props.addToForm(data);
     }
 
-    const validateField = (e: React.FocusEvent<HTMLInputElement>) => {
+    const validateField = (key?: string) => (e: React.FocusEvent<HTMLInputElement>) => {
         let valid = isValid(e.target.value);
         let name = e.target.name;
-        let data = { ...props.form, ['invalid' + name]: valid };
-        props.addToForm(data);
+        let dataType = e.target.getAttribute('dataformat');
+        let val = e.target.value;
+
+        if (key != undefined) {
+            if (dataType == 'currency') {
+                val = toCurrency(val);
+            }
+            let data = { ...props.form, ['invalid' + name]: valid, [key]: val };
+            props.addToForm(data);
+        } else {
+            let data = { ...props.form, ['invalid' + name]: valid };
+            props.addToForm(data);
+        }
     }
 
     const isValid = (value: string) => {
@@ -208,6 +295,7 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                                 select
                                 label="Company"
                                 onChange={handleValueChange('company')}
+
                                 value={props.form.company}
                                 SelectProps={{
                                     MenuProps: {
@@ -295,7 +383,7 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                                 autoFocus
                                 value={props.form.projectstatus}
                             >
-                                {cust_contracts.map(option => (
+                                {projectStatus.map(option => (
                                     <MenuItem key={option.value} value={option.value}>
                                         {option.name}
                                     </MenuItem>
@@ -338,7 +426,7 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                         <Grid item xs={12} sm={6}>
                             <FormControl component="fieldset">
                                 <FormLabel component="legend">Project manager has experience in this type of projects?</FormLabel>
-                            
+
                                 <Typography component="div">
                                     <Grid component="label" container alignItems="center" spacing={1}>
                                         <Grid item>No</Grid>
@@ -422,7 +510,7 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                                         className: classes.menu,
                                     },
                                 }}
-                                
+
                                 margin="normal"
                                 name="TypeOfEngagement"
                                 variant="outlined"
@@ -430,7 +518,7 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                                 autoFocus
                                 value={props.form.typeofengagement}
                             >
-                                {cust_contracts.map(option => (
+                                {typesOfEngagement.map(option => (
                                     <MenuItem key={option.value} value={option.value}>
                                         {option.name}
                                     </MenuItem>
@@ -488,7 +576,7 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                                 helperText={props.form.invalidCurrency ? 'This field is required' : ''}
                                 onBlur={validateField}
                             >
-                                {locales.map(option => (
+                                {currency.map(option => (
                                     <MenuItem key={option.value} value={option.value}>
                                         {option.name}
                                     </MenuItem>
@@ -521,11 +609,12 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                                 name="ApproxValue"
                                 label="Approximate value"
                                 id="ApproximateValue"
+                                inputProps={{ 'dataformat': 'currency' }}
                                 required
                                 onChange={handleValueChange('approximatevalue')}
                                 error={props.form.invalidApproxValue}
                                 helperText={props.form.invalidApproxValue ? 'This field is required' : ''}
-                                onBlur={validateField}
+                                onBlur={validateField('approximatevalue')}
                             />
 
                         </Grid>
@@ -552,7 +641,7 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                                 helperText={props.form.invalidContractType ? 'This field is required' : ''}
                                 onBlur={validateField}
                             >
-                                {locales.map(option => (
+                                {contractType.map(option => (
                                     <MenuItem key={option.value} value={option.value}>
                                         {option.name}
                                     </MenuItem>
@@ -600,7 +689,7 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                                 helperText={props.form.invalidAssetsWorkedOnPrimary ? 'This field is required' : ''}
                                 onBlur={validateField}
                             >
-                                {locales.map(option => (
+                                {assetsWorkedOn.map(option => (
                                     <MenuItem key={option.value} value={option.value}>
                                         {option.name}
                                     </MenuItem>
@@ -625,7 +714,7 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                                 fullWidth
                                 autoFocus
                             >
-                                {locales.map(option => (
+                                {assetsWorkedOn.map(option => (
                                     <MenuItem key={option.value} value={option.value}>
                                         {option.name}
                                     </MenuItem>
@@ -650,7 +739,7 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                                 fullWidth
                                 autoFocus
                             >
-                                {locales.map(option => (
+                                {assetsWorkedOn.map(option => (
                                     <MenuItem key={option.value} value={option.value}>
                                         {option.name}
                                     </MenuItem>
