@@ -16,6 +16,8 @@
     "@types/react-redux": "^7.1.2",
     "@types/react-router-dom": "^4.3.4",
     "@types/react-test-renderer": "^16.9.0",
+    "@types/redux-logger": "^3.0.7",
+    "class-validator": "^0.10.0",
     "config": "^3.2.2",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
@@ -28,6 +30,8 @@
     "react-scripts": "3.0.1",
     "react-test-renderer": "^16.9.0",
     "redux": "^4.0.4",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.3.0",
     "typescript": "3.5.3"
   },
   "scripts": {
