@@ -1,3 +1,4 @@
+
 import React from 'react';
 import clsx from 'clsx';
 import { createStyles, lighten, makeStyles, Theme } from '@material-ui/core/styles';
@@ -91,9 +92,9 @@ interface HeadRow {
 
 const headRows: HeadRow[] = [
   { id: 'name', numeric: false, disablePadding: true, label: 'NAME' },
-  { id: 'updatedby', numeric: true, disablePadding: false, label: 'UPDATEDBY' },
-  { id: 'date', numeric: true, disablePadding: false, label: 'DATE' },
-  { id: 'status', numeric: true, disablePadding: false, label: 'STATUS' },
+  { id: 'updatedby', numeric: false, disablePadding: false, label: 'UPDATEDBY' },
+  { id: 'date', numeric: false, disablePadding: false, label: 'DATE' },
+  { id: 'status', numeric: false, disablePadding: false, label: 'STATUS' },
 ];
 
 interface EnhancedTableProps {
@@ -184,16 +185,16 @@ interface EnhancedTableToolbarProps {
 
 const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
   const classes = useToolbarStyles();
-  const { numSelected } = props;
+  //const { numSelected } = props;
 
   return (
     <Toolbar
-      className={clsx(classes.root, {
-        [classes.highlight]: numSelected > 0,
-      })}
+      // className={clsx(classes.root, {
+      //   [classes.highlight]: numSelected > 0,
+      // })}
     >
       <div className={classes.title}>
-        {numSelected > 0 ? (
+        {/* {numSelected > 0 ? (
           <Typography color="inherit" variant="subtitle1">
             {numSelected} selected
           </Typography>
@@ -201,9 +202,12 @@ const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
             <Typography variant="h6" id="tableTitle" style={{ color: "#00684d" }}>
               Your Notifications
           </Typography>
-          )}
+          )} */}
+        <Typography variant="h6" id="tableTitle" style={{ color: "#00684d" }}>
+          Your Notifications
+          </Typography>
       </div>
-      <div className={classes.spacer} />
+      {/* <div className={classes.spacer} />
       <div className={classes.actions}>
         {numSelected > 0 ? (
           <Tooltip title="Delete">
@@ -218,7 +222,7 @@ const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
               </IconButton>
             </Tooltip>
           )}
-      </div>
+      </div> */}
     </Toolbar>
   );
 };
@@ -254,7 +258,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 
-export default function EnhancedTable(props: { IsSuperManager: boolean}) {
+export default function EnhancedTable(props: { IsSuperManager: boolean }) {
   const classes = useStyles();
   const [order, setOrder] = React.useState<Order>('asc');
   const [orderBy, setOrderBy] = React.useState<keyof Data>('name');
@@ -342,86 +346,86 @@ export default function EnhancedTable(props: { IsSuperManager: boolean}) {
   return (
     <div className={classes.root}>
       {props.IsSuperManager ? (
-      <Paper className={classes.paper}>
-        <EnhancedTableToolbar numSelected={selected.length} />
-        <div className={classes.tableWrapper}>
-          <Table
-            className={classes.table}
-            aria-labelledby="tableTitle"
-            size={dense ? 'small' : 'medium'}
-          >
-            <EnhancedTableHead
-              classes={classes}
-              numSelected={selected.length}
-              order={order}
-              orderBy={orderBy}
-              onSelectAllClick={handleSelectAllClick}
-              onRequestSort={handleRequestSort}
-              rowCount={rows.length}
-            />
-            <TableBody>
-              {stableSort(rows, getSorting(order, orderBy))
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row, index) => {
-                  const isItemSelected = isSelected(row.name);
-                  const labelId = `enhanced-table-checkbox-${index}`;
+        <Paper className={classes.paper}>
+          <EnhancedTableToolbar numSelected={selected.length} />
+          <div className={classes.tableWrapper}>
+            <Table
+              className={classes.table}
+              aria-labelledby="tableTitle"
+              size={dense ? 'small' : 'medium'}
+            >
+              <EnhancedTableHead
+                classes={classes}
+                numSelected={selected.length}
+                order={order}
+                orderBy={orderBy}
+                onSelectAllClick={handleSelectAllClick}
+                onRequestSort={handleRequestSort}
+                rowCount={rows.length}
+              />
+              <TableBody>
+                {stableSort(rows, getSorting(order, orderBy))
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((row, index) => {
+                    const isItemSelected = isSelected(row.name);
+                    const labelId = `enhanced-table-checkbox-${index}`;
 
-                  return (
-                    <TableRow
-                      hover
-                      onClick={event => handleClick(event, row.name)}
-                      role="checkbox"
-                      aria-checked={isItemSelected}
-                      tabIndex={-1}
-                      key={row.id}
-                      selected={isItemSelected}
-                    >
-                      {/* <TableCell padding="checkbox">
+                    return (
+                      <TableRow
+                        hover
+                        onClick={event => handleClick(event, row.name)}
+                        //role="checkbox"
+                        //aria-checked={isItemSelected}
+                        tabIndex={-1}
+                        key={row.id}
+                        //selected={isItemSelected}
+                      >
+                        {/* <TableCell padding="checkbox">
                         <Checkbox
                           checked={isItemSelected}
                           inputProps={{ 'aria-labelledby': labelId }}
                         />
                       </TableCell> */}
-                      {/* <TableCell component="th" id={labelId} scope="row" padding="none">
+                        {/* <TableCell component="th" id={labelId} scope="row" padding="none">
                         {row.name}
                       </TableCell> */}
-                      <TableCell>{row.name}</TableCell>
-                      <TableCell>{row.updatedby}</TableCell>
-                      <TableCell>{row.date}</TableCell>
-                      <TableCell>{row.status}</TableCell>
-                    </TableRow>
-                  );
-                })}
-              {emptyRows > 0 && (
-                <TableRow style={{ height: 49 * emptyRows }}>
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </div>
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={rows.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          backIconButtonProps={{
-            'aria-label': 'previous page',
-          }}
-          nextIconButtonProps={{
-            'aria-label': 'next page',
-          }}
-          onChangePage={handleChangePage}
-          onChangeRowsPerPage={handleChangeRowsPerPage}
-        />
-        <div style={{ float: 'left' }}>
-          <PageBtnActions Actions={getButtons_Back()} />
-        </div>
-        <div style={{ textAlign: 'right' }}>
-          {props.IsSuperManager ? (<PageBtnActions Actions={getButtons()} />) : null}
-        </div>
-      </Paper>) : null}
+                        <TableCell>{row.name}</TableCell>
+                        <TableCell>{row.updatedby}</TableCell>
+                        <TableCell>{row.date}</TableCell>
+                        <TableCell>{row.status}</TableCell>
+                      </TableRow>
+                    );
+                  })}
+                {emptyRows > 0 && (
+                  <TableRow style={{ height: 49 * emptyRows }}>
+                    <TableCell colSpan={6} />
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </div>
+          <TablePagination
+            rowsPerPageOptions={[5, 10, 25]}
+            component="div"
+            count={rows.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            backIconButtonProps={{
+              'aria-label': 'previous page',
+            }}
+            nextIconButtonProps={{
+              'aria-label': 'next page',
+            }}
+            onChangePage={handleChangePage}
+            onChangeRowsPerPage={handleChangeRowsPerPage}
+          />
+          <div style={{ float: 'left' }}>
+            <PageBtnActions Actions={getButtons_Back()} />
+          </div>
+          <div style={{ textAlign: 'right' }}>
+            {props.IsSuperManager ? (<PageBtnActions Actions={getButtons()} />) : null}
+          </div>
+        </Paper>) : null}
       {/* <FormControlLabel
         control={<Switch checked={dense} onChange={handleChangeDense} />}
         label="Dense padding"
