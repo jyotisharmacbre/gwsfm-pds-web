@@ -287,7 +287,7 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
         }
     }
 
-    const isValid = (value: string) => {
+    const isValid = (value: string | number | undefined) => {
         return validator.isEmpty(value);
     }
 
@@ -295,13 +295,25 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
         return !validator.isEmail(value);
     }
 
-    const validateForm = () => {
-
-    }
 
     const handleSubmit = (e: React.FormEvent<Element>) => {
         e.preventDefault();
-        var data = { ...props.form, invalidProjectManager: isValidEmail(props.form.projectmanager), invalidCompany: isValid(props.form.company), invalidCustomerContract: isValid(props.form.customer_contract), invalidLocale: isValid(props.form.locale), invalidProjectName: isValid(props.form.projectname), invalidProjectScope: isValid(props.form.projectscope) };
+        var data = { ...props.form, 
+            invalidCompany: isValid(props.form.company), 
+            invalidCustomerContract: isValid(props.form.customer_contract), 
+            invalidLocale: isValid(props.form.locale), 
+            invalidProjectManager: isValidEmail(props.form.projectmanager), 
+            invalidProjectName: isValid(props.form.projectname), 
+            invalidProjectScope: isValid(props.form.projectscope),
+            invalidHeadOfProject: isValidEmail(props.form.headofproject),
+            invalidCurrency: isValid(props.form.currency),
+            invalidApproxValue: isValid(props.form.approximatevalue),
+            invalidAssetsWorkedOnPrimary: isValid(props.form.assetworkedonprimary),
+            invalidCMDNotifiable: isValid(props.form.cdmnotifiable.toString()),
+            invalidProbOfWinning:isValid(props.form.probofwinning), 
+            invalidContractType: isValid(props.form.contracttype)
+         };
+
         if (
             !data.invalidCompany &&
             !data.invalidCustomerContract &&
@@ -315,8 +327,7 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
             !data.invalidApproxValue &&
             !data.invalidAssetsWorkedOnPrimary &&
             !data.invalidCMDNotifiable &&
-            !data.invalidProbOfWinning &&
-            !data.invalidApproxValue) {
+            !data.invalidProbOfWinning) {
 
             props.addToForm({ ...data, validForm: true });
 
@@ -579,7 +590,7 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                                 label="Country"
                                 name="Locale"
                                 value={props.form.locale}
-                                onChange={handleValueChange('country')}
+                                onChange={handleValueChange('locale')}
                                 SelectProps={{
                                     MenuProps: {
                                         className: classes.menu,
