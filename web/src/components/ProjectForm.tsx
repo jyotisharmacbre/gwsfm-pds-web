@@ -151,7 +151,7 @@ const projectStatus = [
         name: 'Complete', value: 'Complete'
     }
 
-    
+
 ];
 
 const assetsWorkedOn = [
@@ -296,22 +296,35 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
     }
 
     const validateForm = () => {
-        var data = { ...props.form, invalidProjectManager: isValidEmail(props.form.projectmanager), invalidCompany: isValid(props.form.company), invalidCustomerContract: isValid(props.form.customer_contract), invalidLocale: isValid(props.form.locale), invalidProjectName: isValid(props.form.projectname), invalidProjectScope: isValid(props.form.projectscope) };
-        props.addToForm(data);
+
     }
 
     const handleSubmit = (e: React.FormEvent<Element>) => {
         e.preventDefault();
+        var data = { ...props.form, invalidProjectManager: isValidEmail(props.form.projectmanager), invalidCompany: isValid(props.form.company), invalidCustomerContract: isValid(props.form.customer_contract), invalidLocale: isValid(props.form.locale), invalidProjectName: isValid(props.form.projectname), invalidProjectScope: isValid(props.form.projectscope) };
+        if (
+            !data.invalidCompany &&
+            !data.invalidCustomerContract &&
+            !data.invalidProjectManager &&
+            !data.invalidProjectName &&
+            !data.invalidProjectScope &&
+            !data.invalidPMExperience &&
+            !data.invalidHeadOfProject &&
+            !data.invalidLocale &&
+            !data.invalidCurrency &&
+            !data.invalidApproxValue &&
+            !data.invalidAssetsWorkedOnPrimary &&
+            !data.invalidCMDNotifiable &&
+            !data.invalidProbOfWinning &&
+            !data.invalidApproxValue) {
 
-        validateForm();
+            props.addToForm({ ...data, validForm: true });
 
-        if (!props.form.invalidLocale &&
-            !props.form.invalidCompany &&
-            !props.form.invalidCustomerContract &&
-            !props.form.invalidProjectManager &&
-            !props.form.invalidProjectName &&
-            !props.form.invalidProjectScope) {
             alert('Form is Valid');
+
+        } else {
+            props.addToForm({ ...data, validForm: false });
+            props.addToForm(data);
         }
     }
 
@@ -684,7 +697,7 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <FormControl component="fieldset">
-                                <FormLabel component="legend">CDM Notifiable</FormLabel>
+                                <FormLabel component="legend">CDM Notifiable *</FormLabel>
                                 <br />
                                 <Typography component="div">
                                     <Grid component="label" container alignItems="center" spacing={1}>
@@ -694,6 +707,7 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                                                 checked={props.form.cdmnotifiable}
                                                 onChange={handleCheckChange('cdmnotifiable')}
                                                 value="cdmnotifiable"
+                                                
                                             />
                                         </Grid>
                                         <Grid item>Yes</Grid>
