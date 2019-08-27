@@ -21,8 +21,12 @@
 =======
     "@types/redux-logger": "^3.0.7",
     "class-validator": "^0.10.0",
+>>>>>>> 3bb3b811ce330fe93d94f6eb57e6ceba12faa169
     "config": "^3.2.2",
+<<<<<<< HEAD
 >>>>>>> fe0c0a624c45fc4324acd571ad9b7e20bf553cdd
+=======
+>>>>>>> 3013c9458f904ff69dbec652a9ca09fd5074acf8
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
     "react": "^16.9.0",
@@ -31,9 +35,15 @@
 <<<<<<< HEAD
     "react-responsive": "^7.0.0",
 =======
+<<<<<<< HEAD
     "react-intl": "^3.1.11",
     "react-redux": "^7.1.0",
 >>>>>>> fe0c0a624c45fc4324acd571ad9b7e20bf553cdd
+=======
+>>>>>>> 3bb3b811ce330fe93d94f6eb57e6ceba12faa169
+    "react-intl": "^3.1.11",
+    "react-redux": "^7.1.0",
+>>>>>>> 3013c9458f904ff69dbec652a9ca09fd5074acf8
     "react-router": "^5.0.1",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",
@@ -67,11 +77,20 @@
   },
   "devDependencies": {
 <<<<<<< HEAD
+<<<<<<< HEAD
     "@types/react-responsive": "^3.0.3"
+=======
+    "@types/react-responsive": "^3.0.3",
+    "@types/jwt-decode": "^2.2.1"
+>>>>>>> 3013c9458f904ff69dbec652a9ca09fd5074acf8
 =======
     "@types/jwt-decode": "^2.2.1",
     "cross-env": "^5.2.0",
     "extract-react-intl-messages": "^1.1.0"
+<<<<<<< HEAD
 >>>>>>> fe0c0a624c45fc4324acd571ad9b7e20bf553cdd
+=======
+>>>>>>> 3bb3b811ce330fe93d94f6eb57e6ceba12faa169
+>>>>>>> 3013c9458f904ff69dbec652a9ca09fd5074acf8
   }
 }
