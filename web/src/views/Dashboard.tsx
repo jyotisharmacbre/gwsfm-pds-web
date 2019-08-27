@@ -1,7 +1,7 @@
 import React from 'react';
 import HeaderPage from '../components/HeaderPage';
 import { IBtnActionProps } from '../props/AppProps';
-import PreferredChart from '../components/PrefrerredChart';
+import PreferredChart from '../components/PreferredChart';
 import RunRateChart from '../components/RunRateChart';
 import MediaQuery from 'react-responsive';
 import Typography from '@material-ui/core/Typography';
