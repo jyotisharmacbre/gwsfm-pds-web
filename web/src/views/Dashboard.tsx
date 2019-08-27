@@ -33,9 +33,8 @@ class Dashboard extends React.Component {
         return (
             <React.Fragment>
                 <HeaderPage Title={'Overview'} ActionList={this.GetButtons()} />
-                {/* <Table IsSuperManager = { true }/> */}
-                {/* <TestTable /> */}
-                <Table IsSuperManager={true} />
+                <TestTable />
+                {/* <Table IsSuperManager={true} /> */}
             </React.Fragment>
         );
     }
