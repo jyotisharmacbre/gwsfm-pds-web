@@ -15,7 +15,8 @@ export interface IBtnActionProps {
     Title: string,
     Icon?: any,
     Color?: AppTypes.Color,
-    HandleClick: () => void
+    HandleClick: () => void,
+    isSubmit?: boolean
 }
 
 export interface IProjectFormProps {

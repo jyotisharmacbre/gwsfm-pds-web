@@ -235,17 +235,19 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
             Title: 'Back',
             Color: 'back',
             HandleClick: () => {
+                window.location.href = '/';
             }
         }
         , {
             Title: 'Create',
             Color: 'cbregreen',
+            isSubmit: true,
             HandleClick: () => (e: React.FormEvent<Element>) => { handleSubmit(e) }
         }, {
             Title: 'Save',
             Color: 'save',
             HandleClick: () => {
-
+                alert('Saving clicked.')
             }
         }
     ];
@@ -298,21 +300,22 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
 
     const handleSubmit = (e: React.FormEvent<Element>) => {
         e.preventDefault();
-        var data = { ...props.form, 
-            invalidCompany: isValid(props.form.company), 
-            invalidCustomerContract: isValid(props.form.customer_contract), 
-            invalidLocale: isValid(props.form.locale), 
-            invalidProjectManager: isValidEmail(props.form.projectmanager), 
-            invalidProjectName: isValid(props.form.projectname), 
+        var data = {
+            ...props.form,
+            invalidCompany: isValid(props.form.company),
+            invalidCustomerContract: isValid(props.form.customer_contract),
+            invalidLocale: isValid(props.form.locale),
+            invalidProjectManager: isValidEmail(props.form.projectmanager),
+            invalidProjectName: isValid(props.form.projectname),
             invalidProjectScope: isValid(props.form.projectscope),
             invalidHeadOfProject: isValidEmail(props.form.headofproject),
             invalidCurrency: isValid(props.form.currency),
             invalidApproxValue: isValid(props.form.approximatevalue),
             invalidAssetsWorkedOnPrimary: isValid(props.form.assetworkedonprimary),
             invalidCMDNotifiable: isValid(props.form.cdmnotifiable.toString()),
-            invalidProbOfWinning:isValid(props.form.probofwinning), 
+            invalidProbOfWinning: isValid(props.form.probofwinning),
             invalidContractType: isValid(props.form.contracttype)
-         };
+        };
 
         if (
             !data.invalidCompany &&
@@ -718,7 +721,7 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                                                 checked={props.form.cdmnotifiable}
                                                 onChange={handleCheckChange('cdmnotifiable')}
                                                 value="cdmnotifiable"
-                                                
+
                                             />
                                         </Grid>
                                         <Grid item>Yes</Grid>
