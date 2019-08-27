@@ -1,10 +1,9 @@
 import React from 'react';
-//import TextField from '@material-ui/core/TextField';
 import MaterialTable from 'material-table';
-// import { forwardRef } from 'react';
-// import ChevronRight from '@material-ui/icons/ChevronRight';
-// import FirstPage from '@material-ui/icons/FirstPage';
-// import LastPage from '@material-ui/icons/LastPage';
+import { forwardRef } from 'react';
+import ChevronRight from '@material-ui/icons/ChevronRight';
+import FirstPage from '@material-ui/icons/FirstPage';
+import LastPage from '@material-ui/icons/LastPage';
 
 export default function TestTable() {
 
@@ -16,7 +15,8 @@ export default function TestTable() {
 
     return (
         <MaterialTable
-        //icons={tableIcons}
+        // icons={tableIcons}
+        style={{ color: "#00684d", marginTop: "24px" }}
           title="Custom Filtering Algorithm Preview"
           columns={[
             {
