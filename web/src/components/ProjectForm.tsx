@@ -101,11 +101,27 @@ const currency = [
         name: '---Please choose an option---', value: ''
     },
     {
-        name: 'US ($)', value: 'US ($)'
+        name: 'AED (UAE Dirham)', value: 'AED'
     },
     {
-        name: 'UK (£)', value: 'UK (£)'
+        name: 'AFN (Afghani)', value: 'AFN'
+    },
+    {
+        name: 'ALL (Lek)', value: 'ALL'
+    },
+    {
+        name: 'AMD (Dram)', value: 'AMD'
+    },
+    {
+        name: 'ANG (Dutch Antilles Guilder)', value: 'ANG'
+    },
+    {
+        name: 'AOA (Kwanza)', value: 'AOA'
+    },
+    {
+        name: 'ARS (Peso)', value: 'ARS'
     }
+
 ];
 
 const projectStatus = [
@@ -113,11 +129,29 @@ const projectStatus = [
         name: '---Please choose an option---', value: ''
     },
     {
-        name: 'Started', value: 'Started'
+        name: 'Initial Customer Inquiry', value: 'Initial Customer Inquiry'
     },
     {
-        name: 'Completed', value: 'Completed'
+        name: 'J&A', value: 'J&A'
+    },
+    {
+        name: 'Archived', value: 'Archived'
+    },
+    {
+        name: 'Lost', value: 'Lost'
     }
+    ,
+    {
+        name: 'Order Received', value: 'Order Received'
+    },
+    {
+        name: 'CPP', value: 'CPP'
+    },
+    {
+        name: 'Complete', value: 'Complete'
+    }
+
+    
 ];
 
 const assetsWorkedOn = [

@@ -1,4 +1,4 @@
-import { IProjectFormState } from "../State";
+import { IProjectFormState } from "../state";
 import { ProjectFormActions } from "./Type";
 import { Reducer } from "redux";
 
