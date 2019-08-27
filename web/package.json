@@ -16,14 +16,22 @@
     "@types/react-redux": "^7.1.2",
     "@types/react-router-dom": "^4.3.4",
     "@types/react-test-renderer": "^16.9.0",
+<<<<<<< HEAD
     "chart.js": "^2.8.0",
+=======
+    "@types/redux-logger": "^3.0.7",
+    "class-validator": "^0.10.0",
+>>>>>>> 3bb3b811ce330fe93d94f6eb57e6ceba12faa169
     "config": "^3.2.2",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
     "react": "^16.9.0",
     "react-chartjs-2": "^2.7.6",
     "react-dom": "^16.9.0",
+<<<<<<< HEAD
     "react-responsive": "^7.0.0",
+=======
+>>>>>>> 3bb3b811ce330fe93d94f6eb57e6ceba12faa169
     "react-intl": "^3.1.11",
     "react-redux": "^7.1.0",
     "react-router": "^5.0.1",
@@ -31,13 +39,16 @@
     "react-scripts": "3.0.1",
     "react-test-renderer": "^16.9.0",
     "redux": "^4.0.4",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.3.0",
     "typescript": "3.5.3"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "intl": "cross-env NODE_ENV=development extract-messages --locales=en --output src/Translations/extracted 'src/Translations/messages.ts'"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -55,7 +66,13 @@
     ]
   },
   "devDependencies": {
+<<<<<<< HEAD
     "@types/react-responsive": "^3.0.3",
     "@types/jwt-decode": "^2.2.1"
+=======
+    "@types/jwt-decode": "^2.2.1",
+    "cross-env": "^5.2.0",
+    "extract-react-intl-messages": "^1.1.0"
+>>>>>>> 3bb3b811ce330fe93d94f6eb57e6ceba12faa169
   }
 }

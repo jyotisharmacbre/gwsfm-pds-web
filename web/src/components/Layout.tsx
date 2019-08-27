@@ -9,11 +9,6 @@ import { IAppProps } from '../props/AppProps';
 
 class Layout extends React.Component<IAppProps> {
 
-    constructor(props: IAppProps) {
-        super(props);
-
-    }
-
     render() {
         const { Theme, UseStyles } = this.props;
 
