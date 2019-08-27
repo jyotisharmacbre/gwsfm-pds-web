@@ -4,12 +4,6 @@ import ProjectsTable from '../components/ProjectsTable';
 //import DatePicker from '../components/DatePicker';
 
 class Dashboard extends React.Component {
-
-    constructor(props: any) {
-        super(props);
-    }
-
-
     render() {
         return (
             <React.Fragment>

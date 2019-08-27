@@ -7,21 +7,19 @@ import TestTable from '../components/TestTable'
 
 class Dashboard extends React.Component {
 
-    constructor(props: any) {
-        super(props);
-    }
-
     GetButtons() {
         const action1: IBtnActionProps = {
             Title: 'Create A New Project',
             Icon: 'create',
+            Color: 'primary',
             HandleClick: () => {
-                alert('You clicked on Create a New Project')
+                window.location.href = '/Project';
             }
         };
         const action2: IBtnActionProps = {
             Title: 'Pipeline',
             Icon: 'pipeline',
+            Color: 'secondary',
             HandleClick: () => {
                 window.location.href = '/Pipeline';
             }
@@ -36,7 +34,8 @@ class Dashboard extends React.Component {
             <React.Fragment>
                 <HeaderPage Title={'Overview'} ActionList={this.GetButtons()} />
                 {/* <Table IsSuperManager = { true }/> */}
-                <TestTable />
+                {/* <TestTable /> */}
+                <Table IsSuperManager={true} />
             </React.Fragment>
         );
     }

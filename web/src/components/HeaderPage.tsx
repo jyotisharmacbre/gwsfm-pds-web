@@ -7,9 +7,6 @@ import { IHeaderPageProps } from '../props/AppProps';
 
 class HeaderPage extends React.Component<IHeaderPageProps>
 {
-    constructor(props: IHeaderPageProps) {
-        super(props);
-    }
 
     render() {
         const { ActionList, Title } = this.props;
