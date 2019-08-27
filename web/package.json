@@ -3,34 +3,52 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@kdpw/msal-b2c-react": "0.0.3",
     "@material-ui/core": "^4.3.2",
     "@material-ui/icons": "^4.2.1",
+    "@material-ui/styles": "^4.3.0",
     "@types/enzyme": "^3.10.3",
     "@types/enzyme-adapter-react-16": "^1.0.5",
     "@types/jest": "24.0.17",
     "@types/node": "12.7.1",
     "@types/react": "16.9.0",
     "@types/react-dom": "16.8.5",
+    "@types/react-redux": "^7.1.2",
     "@types/react-router-dom": "^4.3.4",
     "@types/react-test-renderer": "^16.9.0",
+<<<<<<< HEAD
     "chart.js": "^2.8.0",
+=======
+    "@types/redux-logger": "^3.0.7",
+    "class-validator": "^0.10.0",
+    "config": "^3.2.2",
+>>>>>>> fe0c0a624c45fc4324acd571ad9b7e20bf553cdd
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
     "react": "^16.9.0",
     "react-chartjs-2": "^2.7.6",
     "react-dom": "^16.9.0",
+<<<<<<< HEAD
     "react-responsive": "^7.0.0",
+=======
+    "react-intl": "^3.1.11",
+    "react-redux": "^7.1.0",
+>>>>>>> fe0c0a624c45fc4324acd571ad9b7e20bf553cdd
     "react-router": "^5.0.1",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",
     "react-test-renderer": "^16.9.0",
+    "redux": "^4.0.4",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.3.0",
     "typescript": "3.5.3"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "intl": "cross-env NODE_ENV=development extract-messages --locales=en --output src/Translations/extracted 'src/Translations/messages.ts'"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -48,6 +66,12 @@
     ]
   },
   "devDependencies": {
+<<<<<<< HEAD
     "@types/react-responsive": "^3.0.3"
+=======
+    "@types/jwt-decode": "^2.2.1",
+    "cross-env": "^5.2.0",
+    "extract-react-intl-messages": "^1.1.0"
+>>>>>>> fe0c0a624c45fc4324acd571ad9b7e20bf553cdd
   }
 }

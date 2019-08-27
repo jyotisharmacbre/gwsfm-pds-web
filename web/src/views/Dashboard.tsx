@@ -6,8 +6,7 @@ import PreferredChart from '../components/PrefrerredChart';
 import RunRateChart from '../components/RunRateChart';
 import MediaQuery from 'react-responsive';
 import Typography from '@material-ui/core/Typography';
-
-import Responsive from 'react-responsive';
+import Table from '../components/Table';
 
 //const Desktop = props => <Responsive {...props} minWidth={992} />;
 //const Tablet = props => <Responsive {...props} minWidth={768} maxWidth={991} />;
@@ -16,21 +15,19 @@ import Responsive from 'react-responsive';
  
 class Dashboard extends React.Component {
 
-    constructor(props: any) {
-        super(props);
-    }
-
     GetButtons() {
         const action1: IBtnActionProps = {
             Title: 'Create A New Project',
             Icon: 'create',
+            Color: 'primary',
             HandleClick: () => {
-                alert('You clicked on Create a New Project')
+                window.location.href = '/Project';
             }
         };
         const action2: IBtnActionProps = {
             Title: 'Pipeline',
             Icon: 'pipeline',
+            Color: 'secondary',
             HandleClick: () => {
                 window.location.href = '/Pipeline';
             }
@@ -52,6 +49,8 @@ class Dashboard extends React.Component {
               Run Rate
           </Typography> <RunRateChart Opportunities={9} JandA={4} Lost={3}/></div>
              </div>
+                <HeaderPage Title={'Overview'} ActionList={this.GetButtons()} />
+                <Table IsSuperManager={true} />
             </React.Fragment>
         );
     }
