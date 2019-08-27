@@ -3,8 +3,10 @@ import Container from '@material-ui/core/Container';
 import { IAppProps } from '../props/AppProps';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Footer from '../components/Footer';
+import Table from '../components/Table';
 import Dashboard from '../views/Dashboard';
 import Pipeline from '../views/Pipeline';
+import Notifications from '../views/Notifications';
 
 
 class Body extends React.Component<IAppProps> {
@@ -26,8 +28,9 @@ class Body extends React.Component<IAppProps> {
                         <Switch>
                             <Route exact path="/" component={Dashboard} />
                             <Route exact path="/Pipeline" component={Pipeline} />
+                            <Route exact path="/Notifications" component={Notifications} />
                         </Switch>
-                  
+                        {/* <Table /> */}
                 </Container>
                 <Footer />
                 </Router>

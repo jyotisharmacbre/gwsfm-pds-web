@@ -21,7 +21,7 @@ class Layout extends React.Component<IAppProps> {
             <MuiThemeProvider theme={Theme}>
                 <div className={UseStyles.root}>
                     <CssBaseline />
-                    <Nav Theme={Theme} UseStyles={UseStyles} />
+                    <Nav Theme={Theme} UseStyles={UseStyles} />   
                     <Body Theme={Theme} UseStyles={UseStyles} />
                   
                 </div>

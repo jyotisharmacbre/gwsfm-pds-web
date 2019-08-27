@@ -6,6 +6,7 @@ import PreferredChart from '../components/PrefrerredChart';
 import RunRateChart from '../components/RunRateChart';
 import MediaQuery from 'react-responsive';
 import Typography from '@material-ui/core/Typography';
+import Table from '../components/Table';
 
 import Responsive from 'react-responsive';
 
@@ -52,6 +53,8 @@ class Dashboard extends React.Component {
               Run Rate
           </Typography> <RunRateChart Opportunities={9} JandA={4} Lost={3}/></div>
              </div>
+                <HeaderPage Title={'Overview'} ActionList={this.GetButtons()} />
+                <Table IsSuperManager = { true }/>
             </React.Fragment>
         );
     }
