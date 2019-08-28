@@ -13,22 +13,23 @@
     "@types/node": "12.7.1",
     "@types/react": "16.9.0",
     "@types/react-dom": "16.8.5",
-    "@types/react-material-ui-form-validator": "^2.0.2",
     "@types/react-redux": "^7.1.2",
+    "@types/react-responsive": "^3.0.3",
     "@types/react-router-dom": "^4.3.4",
     "@types/react-test-renderer": "^16.9.0",
     "@types/redux-logger": "^3.0.7",
-    "@types/validator": "^10.11.3",
+    "chart.js": "^2.8.0",
     "class-validator": "^0.10.0",
     "config": "^3.2.2",
-    "cross-fetch": "^3.0.4",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
+    "jwt-decode": "^2.2.0",
     "react": "^16.9.0",
+    "react-chartjs-2": "^2.7.6",
     "react-dom": "^16.9.0",
     "react-intl": "^3.1.11",
-    "react-material-ui-form-validator": "^2.0.9",
     "react-redux": "^7.1.0",
+    "react-responsive": "^7.0.0",
     "react-router": "^5.0.1",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",
@@ -36,14 +37,14 @@
     "redux": "^4.0.4",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
-    "typescript": "3.5.3",
-    "validator": "^11.1.0"
+    "typescript": "3.5.3"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "intl": "cross-env NODE_ENV=development extract-messages --locales=en --output src/Translations/extracted 'src/Translations/messages.ts'"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -61,7 +62,8 @@
     ]
   },
   "devDependencies": {
-    "@types/react-redux": "^7.1.2",
-    "@types/jwt-decode": "^2.2.1"
+    "@types/jwt-decode": "^2.2.1",
+    "cross-env": "^5.2.0",
+    "extract-react-intl-messages": "^1.1.0"
   }
 }
