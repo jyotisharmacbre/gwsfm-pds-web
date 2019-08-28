@@ -33,7 +33,7 @@ import Grid from '@material-ui/core/Grid';
 
 export default function OnHoldRunRateChart(props: {ICE:number, JandA:number, BidSubmitted:number, OrderReceived:number, InProgress:number , Completed:number}){
     return (    
-          <Doughnut   data={dataOnHold} options={optionshideLabels} />       
+          <Doughnut data={dataOnHold} options={optionshideLabels} />       
       
              );
    

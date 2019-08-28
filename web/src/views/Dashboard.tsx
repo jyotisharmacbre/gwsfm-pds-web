@@ -69,7 +69,7 @@ class Dashboard extends React.Component {
                     <Grid item xs={12} sm={12} lg={6} md={6} style={{"height":"500px"}} ><Paper  style={{ "width": "100%","height":"100%"}} >
                     <Typography variant="h6" id="TitlePreferred" style={{ color: "#00684d", paddingLeft: "10px" }}>
                         Preferred
-          </Typography><PreferredChart Preferred={4} NotPreferred={6}  /> 
+          </Typography><PreferredChart Preferred={4} NotPreferred={6} /> 
           </Paper>  </Grid> 
                     <Grid item xs={12} sm={12} lg={6} md={6} style={{"height":"500px"}} ><Paper  style={{ "width": "100%","height":"100%"}} >
                     <Typography variant="h6" id="TitleRunRate" style={{ color: "#00684d", paddingLeft: "10px" }}>
