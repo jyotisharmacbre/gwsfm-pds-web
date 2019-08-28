@@ -3,18 +3,37 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { Provider } from 'react-redux';
-import configureStore from './session/store';
+import { Provider } from 'react-redux'
 
 // @ts-ignore
 import b2cauth from '@kdpw/msal-b2c-react';
 import appConfig from "./helpers/config-helper";
+import { Doughnut, Pie, Polar } from 'react-chartjs-2';
 
+const data = {
+    datasets: [{
+      data: [
+        11,
+        16,
+        
+      ],
+      backgroundColor: [
+        '#4cbd7f',
+        '#f3ca55'
+       
+      ],
+      label: 'My dataset' // for legend
+    }],
+    labels: [
+      'Preferred',
+      'Not prefrerred',
+      
+    ]
+  };
 
-
-const config = appConfig();
+  const config = appConfig();
 b2cauth.initialize({
-  instance: config.REACT_APP_AUTH_INSTANCE,
+  instance: config.REACT_APP_AUTH_INSTANCE, 
   tenant: config.REACT_APP_AUTH_TENANT,
   signInPolicy: config.REACT_APP_AUTH_SIGNINPOLICY,
   applicationId: config.REACT_APP_AUTH_APPID,
@@ -26,8 +45,6 @@ b2cauth.initialize({
 });
 
 b2cauth.run(() => {
-  ReactDOM.render(<Provider store={configureStore()}>
-    <App />
-  </Provider>, document.getElementById("root") as HTMLElement);
+  ReactDOM.render(<App/>, document.getElementById("root") as HTMLElement);
   serviceWorker.register();
 });
