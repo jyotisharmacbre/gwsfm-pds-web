@@ -45,7 +45,7 @@ export default function ProfileMenu(props: { Name: string} ) {
         onClose={handleClose}
         style={{ top: '40px', left: '66px' }}
       >
-        <MenuItem onClick={authentication.signOut()}>Sign out</MenuItem>
+        <MenuItem onClick={()=>authentication.signOut()}>Sign out</MenuItem>
       </Menu>
     </div>
   );
