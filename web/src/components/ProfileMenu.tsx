@@ -6,6 +6,8 @@ import { AccountCircle, ExpandMore, HelpOutline } from '@material-ui/icons';
 import IconButton from '@material-ui/core/IconButton';
 import NotificationsIcon from './Notification';
 
+// @ts-ignore
+import authentication from "@kdpw/msal-b2c-react";
 
 export default function ProfileMenu(props: { Name: string} ) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -43,10 +45,7 @@ export default function ProfileMenu(props: { Name: string} ) {
         onClose={handleClose}
         style={{ top: '40px', left: '66px' }}
       >
-        <MenuItem onClick={handleClose}>Place Holder1</MenuItem>
-        <MenuItem onClick={handleClose}>Place Holder2</MenuItem>
-        <MenuItem onClick={handleClose}>Sign out</MenuItem>
-        <MenuItem onClick={handleClose}>Anything else</MenuItem>
+        <MenuItem onClick={authentication.signOut()}>Sign out</MenuItem>
       </Menu>
     </div>
   );
