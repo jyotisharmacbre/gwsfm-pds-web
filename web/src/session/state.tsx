@@ -41,3 +41,15 @@ export interface IProjectFormState {
     invalidHeadOfProject: boolean;
     InvalidProjectOwner: boolean;
 }
+
+
+export interface IListState{
+    locales: IListItemState[];
+    customerContract: IListItemState[];
+    error: any;
+}
+
+export interface IListItemState{
+    readonly name:string;
+    readonly value:string;
+}

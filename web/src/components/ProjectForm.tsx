@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Paper, Typography, makeStyles, createStyles, Theme, Grid, Container, MenuItem, FormControl, Divider, withStyles, InputLabel } from '@material-ui/core';
 import Switch, { } from '@material-ui/core/Switch';
 import { PageBtnActions } from './BtnActions';
@@ -13,6 +13,7 @@ import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
 import { Validator } from "class-validator";
 import { toCurrency } from '../helpers/int-helper';
+import { getLocaleActionCreator, getCustomerContractActionCreator } from '../session/ListItems/Actions';
 
 
 // Validation methods
@@ -21,41 +22,21 @@ const validator = new Validator();
 const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, AnyAction>) => {
     return {
         handleClick: () => { },
-        addToForm: (data: IProjectForm) => dispatch(addFormActionCreator(data))
+        addToForm: (data: IProjectForm) => dispatch(addFormActionCreator(data)),
+        getLocales: () => dispatch(getLocaleActionCreator()),
+        getCustomerContracts: (name:string) => dispatch(getCustomerContractActionCreator(name))
     }
 };
 
 const mapStateToProps = (state: IApplicationState) => {
     return {
-        form: state.projectFormState
+        form: state.projectFormState,
+        locales: state.listState.locales,
+        customerContracts: state.listState.customerContract
     }
 };
 
 
-
-const cust_contracts = [
-    {
-        name: '---Please choose an option---', value: ''
-    },
-    {
-        name: 'RS Electrical', value: 'RS Electrical'
-    },
-    {
-        name: 'Demostics', value: 'Demostics'
-    }
-];
-
-const locales = [
-    {
-        name: '---Please choose an option---', value: ''
-    },
-    {
-        name: 'English', value: 'English'
-    },
-    {
-        name: 'English (US)', value: 'English (US)'
-    }
-];
 
 const typesOfEngagement = [
     {
@@ -225,7 +206,11 @@ const AntSwitch = withStyles(theme => ({
 
 const ProjectForm: React.FC<IProjectFormProps> = (props) => {
 
-    
+    useEffect(() => {
+        props.getLocales();
+        props.getCustomerContracts('');
+      }, []);
+
     const classes = useStyles();
 
     const Buttons: IBtnActionProps[] = [
@@ -340,7 +325,6 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
         }
     }
 
-
     return (
         <Paper className={classes.root}>
             <Container component="main" maxWidth="md">
@@ -394,7 +378,7 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                                     error={props.form.invalidCustomerContract}
                                     helperText={props.form.invalidCustomerContract ? 'This field is required' : ''}
                                 >
-                                    {cust_contracts.map(option => (
+                                    {props.customerContracts.map(option => (
                                         <MenuItem key={option.value} value={option.value}>
                                             {option.name}
                                         </MenuItem>
@@ -644,7 +628,7 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                                     helperText={props.form.invalidLocale ? 'This field is required' : ''}
                                     onBlur={validateField}
                                 >
-                                    {locales.map(option => (
+                                    {props.locales.map(option => (
                                         <MenuItem key={option.value} value={option.value}>
                                             {option.name}
                                         </MenuItem>
