@@ -11,6 +11,7 @@ import { createStyles, lighten, makeStyles, Theme } from '@material-ui/core/styl
 import Paper from '@material-ui/core/Paper';
 import Responsive from 'react-responsive';
 import Grid from '@material-ui/core/Grid';
+import MultipleChart from '../components/MultipleCharts';
 
 //const Desktop = props => <Responsive {...props} minWidth={992} />;
 //const Tablet = props => <Responsive {...props} minWidth={768} maxWidth={991} />;
@@ -62,35 +63,28 @@ class Dashboard extends React.Component {
         return (
             <React.Fragment>
                 <HeaderPage Title={'Overview'} ActionList={this.GetButtons()} /> 
-               <div style={{"height" : "100%", "width" : "100%","display":"inline-block"}}> <div style={{"height" : "100%","background":"white", "width" : "49%","display":"inline-block"}}>
-                    <Typography variant="h6" id="tableTitle" style={{ color: "#00684d" , paddingLeft:"10px"}}>
-              Preferred
-          </Typography><PreferredChart Preferred={4} NotPreferred={6}/> </div><div style={{"height" : "100%", "width" : "2%","display":"inline-block"}}></div>
-              <div style={{"height" : "100%","background":"white", "width" : "49%","display":"inline-block"}}>  <Typography variant="h6" id="tableTitle" style={{ color: "#00684d" ,paddingLeft:"10px"}}>
-              Run Rate
-          </Typography> <RunRateChart Opportunities={9} JandA={4} Lost={3}/></div>
-             </div>
-                <HeaderPage Title={'Overview'} ActionList={this.GetButtons()} />
-                <Table IsSuperManager = { true }/>
-                <HeaderPage Title={'Overview'} ActionList={this.GetButtons()} />
+                   <Table IsSuperManager = { true }/>
                 
                 <Grid container spacing={2} style={{"height":"500px"}}>  
                     <Grid item xs={12} sm={12} lg={6} md={6} style={{"height":"500px"}} ><Paper  style={{ "width": "100%","height":"100%"}} >
-                    <Typography variant="h6" id="tableTitle" style={{ color: "#00684d", paddingLeft: "10px" }}>
+                    <Typography variant="h6" id="TitlePreferred" style={{ color: "#00684d", paddingLeft: "10px" }}>
                         Preferred
-          </Typography><PreferredChart Preferred={4} NotPreferred={6} /> 
+          </Typography><PreferredChart Preferred={4} NotPreferred={6}  /> 
           </Paper>  </Grid> 
                     <Grid item xs={12} sm={12} lg={6} md={6} style={{"height":"500px"}} ><Paper  style={{ "width": "100%","height":"100%"}} >
-                    <Typography variant="h6" id="tableTitle" style={{ color: "#00684d", paddingLeft: "10px" }}>
+                    <Typography variant="h6" id="TitleRunRate" style={{ color: "#00684d", paddingLeft: "10px" }}>
                         Run Rate
           </Typography> <RunRateChart ICE={56} JandA={12} BidSubmitted={30} OrderReceived={20} InProgress={24} Completed={20}/></Paper> 
 </Grid> 
                 </Grid>
-               
-                <Table IsSuperManager={true} />
+                <Grid container spacing={2} style={{"height":"300px"}}>  
+                    <Grid item xs={12} sm={12} lg={12} md={12} style={{"height":"300px"}} ><Paper  style={{ "width": "100%","height":"100%"}} >
+                    <Typography variant="h6" id="tableTitle" style={{ color: "#00684d", paddingLeft: "10px" }}>
+                        Analytics
+          </Typography>
+          <MultipleChart  ICE={56} JandA={12} BidSubmitted={30} OrderReceived={20} InProgress={24} Completed={20}/> 
+          </Paper>  </Grid> </Grid>
               
-             
-                <Table IsSuperManager={true} />
             </React.Fragment>
         );
     }
