@@ -31,9 +31,9 @@ const data = {
     }//, maintainAspectRatio:false     
 };
 export default function PreferredChart(props: {Preferred:number, NotPreferred:number}){
-    return (  <Grid item xs={12} sm={12} lg={12} md={12} style={{"textAlign": 'center', "height":"100%"}}  >
+    return (  <Grid item xs={12} sm={12} lg={12} md={12} style={{"textAlign": 'center', "height":"100%"}} id="GridPreferredChart" >
           <Pie  data={data}  options={optionsLabels} 
-          /></Grid>
+        /></Grid>
         
              );
    
