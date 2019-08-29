@@ -29,3 +29,7 @@ export interface IProjectFormProps {
     locales: IListItem[];
     customerContracts: IListItem[];
 }
+
+export interface ICardComponentProps{
+    Title:string
+}

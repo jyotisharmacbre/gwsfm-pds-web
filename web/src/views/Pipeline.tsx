@@ -1,6 +1,7 @@
 import React from 'react';
 import HeaderPage from '../components/HeaderPage';
 import ProjectsTable from '../components/ProjectsTable';
+import CardContainer from '../components/CardContainer';
 //import DatePicker from '../components/DatePicker';
 
 import { Doughnut, Pie, Polar } from 'react-chartjs-2';
@@ -30,8 +31,11 @@ class Dashboard extends React.Component {
             <React.Fragment>
                  <HeaderPage Title={'Pipeline'}  />
                  {/* <div>Select dates: from <DatePicker /> to <DatePicker /></div> */}
+                  <CardContainer Title="Your Projects">
                  <ProjectsTable />
+                 </CardContainer>
                  <Polar  data={data} />
+
             </React.Fragment>
         );
     }

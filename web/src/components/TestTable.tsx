@@ -15,7 +15,7 @@ export default function TestTable() {
 
     return (
         <MaterialTable
-        // icons={tableIcons}
+        //icons={tableIcons}
         style={{ color: "#00684d", marginTop: "24px" }}
           title="Custom Filtering Algorithm Preview"
           columns={[

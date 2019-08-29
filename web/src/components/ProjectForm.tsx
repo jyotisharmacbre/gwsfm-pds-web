@@ -237,7 +237,7 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
 
 
     const handleCheckChange = (name: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
-        var data = { ...props.form, [name]: event.target.checked };
+        var data = { ...props.form, [name]: event.target.checked }
         props.addToForm(data);
     };
 
