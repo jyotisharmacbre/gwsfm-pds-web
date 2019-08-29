@@ -9,12 +9,22 @@ const useStyles = makeStyles((theme: Theme) =>
         buttonPrimary: {
             margin: theme.spacing(1),
             color: 'white',
-            backgroundColor: 'black'
+            backgroundColor: 'black',
+            "&:hover": {
+                //you want this to be the same as the backgroundColor above
+                backgroundColor: '#4c4c4c',
+                
+            }
         },
         buttonSecondary: {
             margin: theme.spacing(1),
             color: '#ffffff',
-            backgroundColor: '#00684d'
+            backgroundColor: '#00684d',
+            "&:hover": {
+                //you want this to be the same as the backgroundColor above
+                backgroundColor: '#19775e',
+                
+            }
         },
         buttonSave: {
             margin: theme.spacing(1),
