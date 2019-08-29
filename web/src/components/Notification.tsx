@@ -7,7 +7,7 @@ export default function Notification(props: {NotificationCount:number, handleCli
         return (
            <IconButton color="inherit">
             <Badge badgeContent={props.NotificationCount} onClick={props.handleClick} > 
-              <NotificationsIconImage color="secondary"  />
+              <NotificationsIconImage id="BellIcon" name="BellIcon" color="secondary"  />
             </Badge>
           </IconButton>
          

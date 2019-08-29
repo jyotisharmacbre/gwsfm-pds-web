@@ -78,7 +78,7 @@ const GetButtonStyle = (type: AppTypes.Color) => {
 
 export function PageBtnActions(props: { Actions: IBtnActionProps[] }) {
     const items = props.Actions.map((item) =>
-        <Button type="submit" key={item.Title} variant='contained' color={(item.Color ? undefined : 'primary')} className={GetButtonStyle(item.Color || undefined)} onClick={item.HandleClick}  >
+        <Button type={item.isSubmit? "submit": undefined } key={item.Title} variant='contained' color={(item.Color ? undefined : 'primary')} className={GetButtonStyle(item.Color || undefined)} onClick={item.HandleClick}  >
             {GetIcons(item.Icon)}
             {item.Title}
         </Button>

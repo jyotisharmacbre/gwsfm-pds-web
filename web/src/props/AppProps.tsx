@@ -1,5 +1,6 @@
 import { AppTypes } from "./PropTypes";
 import { IProjectForm, IProjectFormAddAction } from "../session/ProjectForm/Type";
+import { IGetLocalesSuccessAction, IListItem, IGetCustomerContractSuccessAction } from "../session/ListItems/Type";
 
 export interface IAppProps {
     Theme: any,
@@ -15,28 +16,16 @@ export interface IBtnActionProps {
     Title: string,
     Icon?: any,
     Color?: AppTypes.Color,
-    HandleClick: () => void
-}
-
-export interface IProjectFormState {
-    readonly projectname: string,
-    readonly company: string;
-    readonly customer_contract: string,
-    readonly pmexperience: boolean;
-    readonly projectmanager: string;
-    readonly projectscope: string;
-    readonly locale: string;
-    invalidProjectName: boolean;
-    invalidProjectManager: boolean;
-    invalidCompany: boolean;
-    invalidCustomerContract: boolean;
-    invalidPMExperience: boolean;
-    invalidProjectScope: boolean;
-    invalidLocale: boolean;
+    HandleClick: () => void,
+    isSubmit?: boolean
 }
 
 export interface IProjectFormProps {
     handleClick: (data: any) => void;
     addToForm: (data: IProjectForm) => Promise<IProjectFormAddAction>;
+    getLocales: () => Promise<IGetLocalesSuccessAction>;
+    getCustomerContracts: (name:string) => Promise<IGetCustomerContractSuccessAction>;
     form: IProjectForm;
+    locales: IListItem[];
+    customerContracts: IListItem[];
 }
