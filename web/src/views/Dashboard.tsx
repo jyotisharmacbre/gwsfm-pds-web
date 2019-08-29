@@ -4,6 +4,7 @@ import { IBtnActionProps } from '../props/AppProps';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import Table from '../components/Table';
 import TestTable from '../components/TestTable'
+import Filters from '../components/Filters'
 
 class Dashboard extends React.Component {
 
@@ -33,8 +34,9 @@ class Dashboard extends React.Component {
         return (
             <React.Fragment>
                 <HeaderPage Title={'Overview'} ActionList={this.GetButtons()} />
-                <TestTable />
-                {/* <Table IsSuperManager={true} /> */}
+                {/* <Filters />
+                <TestTable /> */}
+                <Table IsSuperManager={true} />
             </React.Fragment>
         );
     }

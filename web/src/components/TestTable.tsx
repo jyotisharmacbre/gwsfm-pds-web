@@ -1,9 +1,11 @@
 import React from 'react';
 import MaterialTable from 'material-table';
 import { forwardRef } from 'react';
+import ChevronLeft from '@material-ui/icons/ChevronLeft'
 import ChevronRight from '@material-ui/icons/ChevronRight';
 import FirstPage from '@material-ui/icons/FirstPage';
 import LastPage from '@material-ui/icons/LastPage';
+import { SvgIconProps } from '@material-ui/core/SvgIcon'
 
 export default function TestTable() {
 
@@ -16,8 +18,16 @@ export default function TestTable() {
     return (
         <MaterialTable
         // icons={tableIcons}
+        // icons={{ 
+
+        //     FirstPage: () => <FirstPage /> as React.ReactElement<SvgIconProps>,
+        //     LastPage: () => <LastPage /> as React.ReactElement<SvgIconProps>,
+        //     NextPage: () => <ChevronRight /> as React.ReactElement<SvgIconProps>,
+        //     PreviousPage: () => <ChevronLeft /> as React.ReactElement<SvgIconProps>,
+        //     DetailPanel: () => <ChevronRight /> as React.ReactElement<SvgIconProps>,
+        //   }}
         style={{ color: "#00684d", marginTop: "24px" }}
-          title="Custom Filtering Algorithm Preview"
+          title="Test Preview"
           columns={[
             {
               title: 'Name', 
