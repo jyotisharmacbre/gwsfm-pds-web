@@ -3,6 +3,7 @@ import HeaderPage from '../components/HeaderPage';
 import ProjectsTable from '../components/ProjectsTable';
 import CardContainer from '../components/CardContainer';
 import TableDateFilter from '../components/TableDateFilter';
+import Filters from '../components/Filters';
 
 const data = {
     datasets: [{
@@ -94,7 +95,8 @@ class Dashboard extends React.Component {
         return (
             <React.Fragment>
                 <HeaderPage Title={'Pipeline'} />
-                <CardContainer Title="Your Projects">
+                <Filters></Filters>
+                <CardContainer Title="Current Pipeline">
                     <TableDateFilter columns={getTableColumns()} data={getTableData()} ActionList={[]} />
                 </CardContainer>
             </React.Fragment>
