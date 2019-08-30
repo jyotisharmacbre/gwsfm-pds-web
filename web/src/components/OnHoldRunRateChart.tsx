@@ -25,7 +25,7 @@ import Grid from '@material-ui/core/Grid';
     ]
   };
   var optionshideLabels={  
- 
+    cutoutPercentage: 70,
       legend: {
         display: false
       }//, maintainAspectRatio:false     

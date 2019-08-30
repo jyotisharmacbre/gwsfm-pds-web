@@ -65,24 +65,24 @@ class Dashboard extends React.Component {
                 <HeaderPage Title={'Overview'} ActionList={this.GetButtons()} /> 
                    <Table IsSuperManager = { true }/>
                 
-                <Grid container spacing={2} style={{"height":"500px"}}>  
+                <Grid container spacing={2} >  
                     <Grid item xs={12} sm={12} lg={6} md={6} style={{"height":"500px"}} ><Paper  style={{ "width": "100%","height":"100%"}} >
                     <Typography variant="h6" id="TitlePreferred" style={{ color: "#00684d", paddingLeft: "10px" }}>
                         Preferred
           </Typography><PreferredChart Preferred={4} NotPreferred={6} /> 
           </Paper>  </Grid> 
-                    <Grid item xs={12} sm={12} lg={6} md={6} style={{"height":"500px"}} ><Paper  style={{ "width": "100%","height":"100%"}} >
+                    <Grid item xs={12} sm={12} lg={6} md={6} min-Height={500}  ><Paper  style={{ "width": "100%","height":"100%"}} >
                     <Typography variant="h6" id="TitleRunRate" style={{ color: "#00684d", paddingLeft: "10px" }}>
                         Run Rate
           </Typography> <RunRateChart ICE={56} JandA={12} BidSubmitted={30} OrderReceived={20} InProgress={24} Completed={20}/></Paper> 
 </Grid> 
                 </Grid>
-                <Grid container spacing={2} style={{"height":"300px"}}>  
-                    <Grid item xs={12} sm={12} lg={12} md={12} style={{"height":"300px"}} ><Paper  style={{ "width": "100%","height":"100%"}} >
+                <Grid container spacing={2} min-Height={300} >  
+                    <Grid item xs={12} sm={12} lg={12} md={12} min-Height={300}  ><Paper  style={{ "width": "100%","height":"100%"}} >
                     <Typography variant="h6" id="tableTitle" style={{ color: "#00684d", paddingLeft: "10px" }}>
                         Analytics
           </Typography>
-          <MultipleChart  ICE={56} JandA={12} BidSubmitted={30} OrderReceived={20} InProgress={24} Completed={20}/> 
+          <MultipleChart ProjectTotal={200} ICE={50} Rejected={50} JandA={50} LostProjects={30} OrderReceived={20} OnHoldProject={15} InProgress={24} Completed={20}/> 
           </Paper>  </Grid> </Grid>
               
             </React.Fragment>
