@@ -40,3 +40,18 @@ export interface IFilterProps {
     locales: IListItem[];
     customerContracts: IListItem[];
 }
+
+export interface ICardComponentProps{
+    Title:string
+}
+
+export interface ITableProps{
+    columns: any[];
+    data: any[];
+    ActionList: IBtnActionProps[];
+}
+
+export interface ITableFilterProps extends ITableProps
+{
+    
+}
