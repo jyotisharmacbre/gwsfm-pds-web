@@ -1,5 +1,6 @@
 import { AppTypes } from "./PropTypes";
 import { IProjectForm, IProjectFormAddAction } from "../session/ProjectForm/Type";
+import { IFilter, IFilterAddAction } from "../session/Filters/Type";
 import { IGetLocalesSuccessAction, IListItem, IGetCustomerContractSuccessAction } from "../session/ListItems/Type";
 
 export interface IAppProps {
@@ -26,6 +27,16 @@ export interface IProjectFormProps {
     getLocales: () => Promise<IGetLocalesSuccessAction>;
     getCustomerContracts: (name:string) => Promise<IGetCustomerContractSuccessAction>;
     form: IProjectForm;
+    locales: IListItem[];
+    customerContracts: IListItem[];
+}
+
+export interface IFilterProps {
+    handleClick: (data: any) => void;
+    addToFilter: (data: IFilter) => Promise<IFilterAddAction>;
+    getLocales: () => Promise<IGetLocalesSuccessAction>;
+    getCustomerContracts: (name:string) => Promise<IGetCustomerContractSuccessAction>;
+    form: IFilter;
     locales: IListItem[];
     customerContracts: IListItem[];
 }
