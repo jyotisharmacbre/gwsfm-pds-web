@@ -33,10 +33,6 @@ class Dashboard extends React.Component {
                 <HeaderPage Title={'Pipeline'} />
                 {/* <div>Select dates: from <DatePicker /> to <DatePicker /></div> */}
                 <CardContainer Title="Your Projects">
-                    <ProjectsTable />
-                </CardContainer>
-                <Polar data={data} />
-                <CardContainer Title="Your Projects">
                     <TableDateFilter />
                 </CardContainer>
             </React.Fragment>

@@ -1,7 +1,7 @@
 
 import React from 'react';
 import HeaderPage from '../components/HeaderPage';
-import Table from '../components/Table';
+import Table from '../components/TestTable';
 
 class Notifications extends React.Component {
     render() {

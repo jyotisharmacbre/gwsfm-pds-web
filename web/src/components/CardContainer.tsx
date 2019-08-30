@@ -6,6 +6,9 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
             padding: theme.spacing(3, 2),
+        },
+        container:{
+            padding: '8px 8px',
         }
     }),
 );
@@ -21,7 +24,7 @@ const CardContainer: React.FC<ICardComponentProps> = (props) => {
                 </Typography>
             </div>
             <Divider />
-            <div className={classes.root} >
+            <div className={classes.container} >
                 {props.children}
             </div>
 

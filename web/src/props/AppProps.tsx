@@ -33,3 +33,9 @@ export interface IProjectFormProps {
 export interface ICardComponentProps{
     Title:string
 }
+
+export interface ITableProps{
+    columns: any[];
+    data: any[];
+    ActionList: IBtnActionProps[];
+}
