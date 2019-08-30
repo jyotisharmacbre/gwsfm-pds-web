@@ -1,10 +1,6 @@
 import React from 'react';
 import HeaderPage from '../components/HeaderPage';
 import { IBtnActionProps } from '../props/AppProps';
-import PreferredChart from '../components/PreferredChart';
-import RunRateChart from '../components/RunRateChart';
-import MediaQuery from 'react-responsive';
-import Typography from '@material-ui/core/Typography';
 import Table from '../components/Table';
 
 import { createStyles, lighten, makeStyles, Theme } from '@material-ui/core/styles';
@@ -12,6 +8,9 @@ import Paper from '@material-ui/core/Paper';
 import Responsive from 'react-responsive';
 import Grid from '@material-ui/core/Grid';
 import MultipleChart from '../components/MultipleCharts';
+import { Typography } from '@material-ui/core';
+import PreferredChart from '../components/PreferredChart';
+import RunRateChart from '../components/RunRateChart';
 
 //const Desktop = props => <Responsive {...props} minWidth={992} />;
 //const Tablet = props => <Responsive {...props} minWidth={768} maxWidth={991} />;
@@ -27,7 +26,7 @@ import MultipleChart from '../components/MultipleCharts';
 //       width: '100%',
 //       marginBottom: theme.spacing(2),
 //     },
-    
+
 //   }),
 // );
 // const classes = useStyles();
@@ -36,7 +35,7 @@ class Dashboard extends React.Component {
     constructor(props: any) {
         super(props);
     }
-   
+
     GetButtons() {
         const action1: IBtnActionProps = {
             Title: 'Create A New Project',
