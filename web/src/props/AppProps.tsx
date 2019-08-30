@@ -39,3 +39,8 @@ export interface ITableProps{
     data: any[];
     ActionList: IBtnActionProps[];
 }
+
+export interface ITableFilterProps extends ITableProps
+{
+    
+}
