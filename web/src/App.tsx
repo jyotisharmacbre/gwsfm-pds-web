@@ -15,7 +15,7 @@ const App : React.FC = () => {
         // contrastText: will be calculated to contrast with palette.primary.main
       },
       secondary: {
-        light: '#0066ff',
+        light: '#19775e',
         main: '#00684d',
         // dark: will be calculated from palette.secondary.main,
         contrastText: '#ffcc00',
