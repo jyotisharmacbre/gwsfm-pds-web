@@ -13,7 +13,6 @@ const Table: React.FC<ITableProps> = (props) => {
   return (
     <React.Fragment>
       <MaterialTable
-        style={{}}
         title=""
         columns={props.columns}
         data={props.data}
@@ -26,8 +25,6 @@ const Table: React.FC<ITableProps> = (props) => {
       <div style={{ textAlign: 'right' }}>
         <PageBtnActions Actions={props.ActionList} />
       </div>
-
-
     </React.Fragment>
 
   )
