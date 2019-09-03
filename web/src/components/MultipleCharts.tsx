@@ -21,7 +21,7 @@ var optionshideLabels = {
   }, maintainAspectRatio: false
 };
 export default function MultipleChart(props: { ProjectTotal: number, ICE: number, Rejected: number, JandA: number, LostProjects: number, OrderReceived: number, InProgress: number, Completed: number, OnHoldProject:number }) {
-  return (<Grid container spacing={0} min-Height={350} >
+  return (<Grid container spacing={0} min-Height={350} id="GridMultipleChart">
     <Grid item xs={6} sm={6} lg={2} md={2} style={{ "textAlign": 'center', 'height': '340px' }}  >
       <div style={{ "textAlign": 'center', 'height': '320px' }} >
         <Doughnut
@@ -37,7 +37,7 @@ export default function MultipleChart(props: { ProjectTotal: number, ICE: number
               label: 'My dataset' // for legend
             }],
             labels: [
-              'Initial Customer Enquiry', 'Projects Remaining'
+              'Initial Customer Enquiry', 'Other Projects'
             ]
           }} options={optionshideLabels} />
       </div>Initial Enquiry
@@ -56,7 +56,7 @@ export default function MultipleChart(props: { ProjectTotal: number, ICE: number
             label: 'My dataset' // for legend
           }],
           labels: [
-            'Rejected', 'Projects Remaining'
+            'Rejected', 'Other Projects'
           ]
         }} height={300} options={optionshideLabels}
       />
@@ -76,7 +76,7 @@ export default function MultipleChart(props: { ProjectTotal: number, ICE: number
               label: 'My dataset' // for legend
             }],
             labels: [
-              'J&A', 'Projects Remaining'
+              'J&A', 'Other Projects'
             ]
           }} height={300} options={optionshideLabels} />
       </div>J&A</Grid>
@@ -95,7 +95,7 @@ export default function MultipleChart(props: { ProjectTotal: number, ICE: number
               label: 'My dataset' // for legend
             }],
             labels: [
-              'J&A', 'Projects Remaining'
+              'J&A', 'Other Projects'
             ]
           }} options={optionshideLabels} /></div> Order Received</Grid>
     <Grid item xs={6} sm={6} lg={2} md={2} style={{ "textAlign": 'center', 'height': '340px' }}   >
@@ -113,7 +113,7 @@ export default function MultipleChart(props: { ProjectTotal: number, ICE: number
               label: 'My dataset' // for legend
             }],
             labels: [
-              'J&A', 'Project Total'
+              'J&A', 'Other Projects'
             ]
           }} height={300} options={optionshideLabels} /> </div>In Progress</Grid>
     <Grid item xs={6} sm={6} lg={2} md={2} style={{ "textAlign": 'center', 'height': '340px' }}  >
@@ -131,10 +131,10 @@ export default function MultipleChart(props: { ProjectTotal: number, ICE: number
               label: 'My dataset' // for legend
             }],
             labels: [
-              'J&A', 'Project Total'
+              'J&A', 'Other Projects'
             ]
           }} height={300} options={optionshideLabels} /></div>Completed </Grid>
-         <Grid item xs={12} sm={12} lg={12} md={12} style={{ "textAlign": 'center'}}> Lost : 30
+         <Grid item xs={12} sm={12} lg={12} md={12} style={{ "textAlign": 'center', 'padding':'10px'}}> Lost : 30
           On-Hold : 15 </Grid>
   </Grid>
   );
