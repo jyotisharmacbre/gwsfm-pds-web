@@ -81,7 +81,7 @@ class Dashboard extends React.Component {
                     <Typography variant="h6" id="tableTitle" style={{ color: "#00684d", paddingLeft: "10px" }}>
                         Analytics
           </Typography>
-          <MultipleChart ProjectTotal={200} ICE={50} Rejected={50} JandA={50} LostProjects={30} OrderReceived={20} OnHoldProject={15} InProgress={24} Completed={20}/> 
+          <MultipleChart ProjectTotal={200} ICE={50} Rejected={60} JandA={49} LostProjects={30} OrderReceived={20} OnHoldProject={15} InProgress={24} Completed={20}/> 
           </Paper>  </Grid> </Grid>
               
             </React.Fragment>

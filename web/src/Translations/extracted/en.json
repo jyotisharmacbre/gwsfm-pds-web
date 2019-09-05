@@ -1,5 +1,7 @@
 {
   "global": {
-    "hello": "Hello, {authenticatedUser}"
+    "hello": "Hello, {authenticatedUser}",
+    "InProgress":"In Progress"
+
   }
 }

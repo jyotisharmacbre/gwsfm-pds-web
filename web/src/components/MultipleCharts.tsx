@@ -1,8 +1,10 @@
 import React from 'react';
-
+import ReactDOM from 'react-dom';
 import { Doughnut } from 'react-chartjs-2';
-import Grid from '@material-ui/core/Grid';
-
+import Grid from '@material-ui/core/Grid';import ChartDataLabels from 'chartjs-plugin-datalabels';
+const Chart = require('react-chartjs-2').Chart;
+Chart.plugins.unregister(ChartDataLabels);
+// y
 
 var optionshideLabels = {
   elements: {
@@ -22,8 +24,8 @@ var optionshideLabels = {
 };
 export default function MultipleChart(props: { ProjectTotal: number, ICE: number, Rejected: number, JandA: number, LostProjects: number, OrderReceived: number, InProgress: number, Completed: number, OnHoldProject:number }) {
   return (<Grid container spacing={0} min-Height={350} id="GridMultipleChart">
-    <Grid item xs={6} sm={6} lg={2} md={2} style={{ "textAlign": 'center', 'height': '340px' }}  >
-      <div style={{ "textAlign": 'center', 'height': '320px' }} >
+    <Grid item xs={6} sm={6} lg={2} md={2} style={{ "textAlign": 'center', 'height': '280px' }}  >
+      <div style={{ "textAlign": 'center', 'height': '250px' }} >
         <Doughnut
           data={{
             datasets: [{
@@ -32,7 +34,7 @@ export default function MultipleChart(props: { ProjectTotal: number, ICE: number
                 props.ProjectTotal - props.ICE
               ],
               backgroundColor: [
-                '#526061'
+                '#CEF1A3'
               ],
               label: 'My dataset' // for legend
             }],
@@ -40,10 +42,10 @@ export default function MultipleChart(props: { ProjectTotal: number, ICE: number
               'Initial Customer Enquiry', 'Other Projects'
             ]
           }} options={optionshideLabels} />
-      </div>Initial Enquiry
+      </div><div style={{ "textAlign": 'center', paddingTop:'-20px' }} className="{graphTitle}">Initial Enquiry<br></br>{props.ICE} of {props.ProjectTotal} </div>
       </Grid>
-    <Grid item xs={6} sm={6} lg={2} md={2} style={{ "textAlign": 'center', 'height': '340px' }}  >
-      <div style={{ "textAlign": 'center', 'height': '320px' }} > <Doughnut
+    <Grid item xs={6} sm={6} lg={2} md={2} style={{ "textAlign": 'center', 'height': '280px' }}  >
+      <div style={{ "textAlign": 'center', 'height': '250px' }} > <Doughnut
         data={{
           datasets: [{
             data: [
@@ -51,7 +53,7 @@ export default function MultipleChart(props: { ProjectTotal: number, ICE: number
               props.ProjectTotal - props.Rejected
             ],
             backgroundColor: [
-              '#CEF1A3'
+              '#FBD55B'
             ],
             label: 'My dataset' // for legend
           }],
@@ -60,9 +62,10 @@ export default function MultipleChart(props: { ProjectTotal: number, ICE: number
           ]
         }} height={300} options={optionshideLabels}
       />
-      </div>Rejected</Grid>
-    <Grid item xs={6} sm={6} lg={2} md={2} style={{ "textAlign": 'center', 'height': '340px' }} >
-      <div style={{ "textAlign": 'center', 'height': '320px' }} >
+      </div><div style={{ "textAlign": 'center', paddingTop:'-20px' }} className="{graphTitle}">Rejected<br></br>{props.Rejected} of {props.ProjectTotal} </div>
+  </Grid>
+    <Grid item xs={6} sm={6} lg={2} md={2} style={{ "textAlign": 'center', 'height': '280px' }} >
+      <div style={{ "textAlign": 'center', 'height': '250px'}} >
         <Doughnut
           data={{
             datasets: [{
@@ -71,7 +74,7 @@ export default function MultipleChart(props: { ProjectTotal: number, ICE: number
                 props.ProjectTotal - props.JandA
               ],
               backgroundColor: [
-                '#FBD55B'
+                '#526061'
               ],
               label: 'My dataset' // for legend
             }],
@@ -79,9 +82,10 @@ export default function MultipleChart(props: { ProjectTotal: number, ICE: number
               'J&A', 'Other Projects'
             ]
           }} height={300} options={optionshideLabels} />
-      </div>J&A</Grid>
-    <Grid item xs={6} sm={6} lg={2} md={2} style={{ "textAlign": 'center', 'height': '340px' }} >
-      <div style={{ "textAlign": 'center', 'height': '320px' }} >
+      </div><div style={{ "textAlign": 'center', paddingTop:'-20px' }} className="{graphTitle}">J&A<br></br>{props.JandA} of {props.ProjectTotal} </div>
+  </Grid>
+    <Grid item xs={6} sm={6} lg={2} md={2} style={{ "textAlign": 'center', 'height': '280px' }} >
+      <div style={{ "textAlign": 'center', 'height': '250px'}}>
         <Doughnut
           data={{
             datasets: [{
@@ -95,11 +99,12 @@ export default function MultipleChart(props: { ProjectTotal: number, ICE: number
               label: 'My dataset' // for legend
             }],
             labels: [
-              'J&A', 'Other Projects'
+              'Order Received', 'Other Projects'
             ]
-          }} options={optionshideLabels} /></div> Order Received</Grid>
-    <Grid item xs={6} sm={6} lg={2} md={2} style={{ "textAlign": 'center', 'height': '340px' }}   >
-      <div style={{ "textAlign": 'center', 'height': '320px' }} >
+          }} options={optionshideLabels} /></div><div style={{ "textAlign": 'center', paddingTop:'-20px' }} className="{graphTitle}">Order Received<br></br>{props.OrderReceived} of {props.ProjectTotal} </div>
+          </Grid>
+    <Grid item xs={6} sm={6} lg={2} md={2} style={{ "textAlign": 'center', 'height': '280px' }}   >
+      <div style={{ "textAlign": 'center', 'height': '250px'}} >
         <Doughnut
           data={{
             datasets: [{
@@ -113,11 +118,13 @@ export default function MultipleChart(props: { ProjectTotal: number, ICE: number
               label: 'My dataset' // for legend
             }],
             labels: [
-              'J&A', 'Other Projects'
+              'In Progress', 'Other Projects'
             ]
-          }} height={300} options={optionshideLabels} /> </div>In Progress</Grid>
-    <Grid item xs={6} sm={6} lg={2} md={2} style={{ "textAlign": 'center', 'height': '340px' }}  >
-      <div style={{ "textAlign": 'center', 'height': '320px' }} >
+          }} height={300} options={optionshideLabels} /> </div>
+          <div style={{ "textAlign": 'center', paddingTop:'-20px' }} className="{graphTitle}">In Progress<br></br>{props.InProgress} of {props.ProjectTotal} </div>
+          </Grid>
+    <Grid item xs={6} sm={6} lg={2} md={2} style={{ "textAlign": 'center', 'height': '280px' }}  >
+      <div style={{ "textAlign": 'center', 'height': '250px'}} >
         <Doughnut
           data={{
             datasets: [{
@@ -133,7 +140,10 @@ export default function MultipleChart(props: { ProjectTotal: number, ICE: number
             labels: [
               'J&A', 'Other Projects'
             ]
-          }} height={300} options={optionshideLabels} /></div>Completed </Grid>
+          }} height={300} options={optionshideLabels} /></div>
+          
+          <div style={{ "textAlign": 'center', paddingTop:'-20px' }} className="{graphTitle}">Completed<br></br>{props.Completed} of {props.ProjectTotal} </div>
+   </Grid>
          <Grid item xs={12} sm={12} lg={12} md={12} style={{ "textAlign": 'center', 'padding':'10px'}}> Lost : 30
           On-Hold : 15 </Grid>
   </Grid>
