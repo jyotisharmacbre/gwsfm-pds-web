@@ -23,7 +23,7 @@ const data = {
     ]
   };
   const optionsLabels={  
-    responsive: true,
+    responsive: true,showLabel:false,
     maintainAspectRatio: true,
     legend: {
       display: true,
