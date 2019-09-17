@@ -32,7 +32,7 @@ export default function ProfileMenu(props: { Name: string} ) {
       <IconButton color="inherit">
         <HelpOutline />
       </IconButton>
-      <NotificationsIcon NotificationCount={4} handleClick={handleNotificationClick}/>
+      <NotificationsIcon/>
 
       <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
         <AccountCircle style={{ marginRight: '10px' }} /> {props.Name} <ExpandMore />

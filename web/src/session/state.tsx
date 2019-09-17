@@ -68,3 +68,7 @@ export interface IListItemState{
     readonly name:string;
     readonly value:string;
 }
+
+export interface INotificationState{
+    readonly notificationCount: number
+}

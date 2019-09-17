@@ -168,7 +168,7 @@ const Filters: React.FC<IFilterProps> = (props) => {
 
     return (
         <div style={{ marginTop: "24px" }}>
-            <ExpansionPanel>
+            <ExpansionPanel defaultExpanded={true}>
                 <ExpansionPanelSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel1a-content"
@@ -515,6 +515,7 @@ const Filters: React.FC<IFilterProps> = (props) => {
                                 </Grid>
                             </Box>
                             <Divider />
+                            <br/>
                             <Grid justify="space-between" container spacing={1}>
                                 <Grid item xs={4} sm={6} className='actions'>
                                     <Grid justify="space-between" container spacing={1}>

@@ -1,5 +1,4 @@
-.MTableToolbar-root-263, .MTableToolbar-root-339
-{
+[class*="MTableToolbar"]{
     display:none !important;
 }
 

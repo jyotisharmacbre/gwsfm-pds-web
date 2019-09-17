@@ -18,6 +18,7 @@
     "@types/react-router-dom": "^4.3.4",
     "@types/react-test-renderer": "^16.9.0",
     "@types/redux-logger": "^3.0.7",
+    "@types/redux-mock-store": "^1.0.1",
     "chart.js": "^2.8.0",
     "class-validator": "^0.10.0",
     "config": "^3.2.2",
@@ -37,6 +38,7 @@
     "react-test-renderer": "^16.9.0",
     "redux": "^4.0.4",
     "redux-logger": "^3.0.6",
+    "redux-mock-store": "^1.5.3",
     "redux-thunk": "^2.3.0",
     "typescript": "3.5.3"
   },

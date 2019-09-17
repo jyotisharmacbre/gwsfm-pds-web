@@ -2,6 +2,7 @@ import { AppTypes } from "./PropTypes";
 import { IProjectForm, IProjectFormAddAction } from "../session/ProjectForm/Type";
 import { IFilter, IFilterAddAction } from "../session/Filters/Type";
 import { IGetLocalesSuccessAction, IListItem, IGetCustomerContractSuccessAction } from "../session/ListItems/Type";
+import { IGetNotificationSuccessAction, INotification } from "../session/Notification/Type";
 
 export interface IAppProps {
     Theme: any,
@@ -54,4 +55,10 @@ export interface ITableProps{
 export interface ITableFilterProps extends ITableProps
 {
     
+}
+
+export interface INotificationProps{
+    handleClick: ()=> void;
+    getNotificationCount: () => Promise<IGetNotificationSuccessAction>;
+    data: INotification;
 }
