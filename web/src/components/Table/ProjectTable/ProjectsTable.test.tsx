@@ -1,10 +1,9 @@
-
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Table from './TestTable';
+import ProjectsTable from './ProjectsTable';
 
 it('renders without crashing', () => {
     const div = document.createElement('div');
-    ReactDOM.render(<Table IsSuperManager={ true } />, div);
+    ReactDOM.render(<ProjectsTable />, div);
     ReactDOM.unmountComponentAtNode(div);
   });

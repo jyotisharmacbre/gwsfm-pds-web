@@ -1,8 +1,8 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
-import { MainTitle } from './Title';
-import { PageBtnActions } from './BtnActions';
-import { IHeaderPageProps } from '../props/AppProps';
+import { MainTitle } from '../Title/Title';
+import { PageBtnActions } from '../BtnActions/BtnActions';
+import { IHeaderPageProps } from '../../props/AppProps';
 
 
 class HeaderPage extends React.Component<IHeaderPageProps>

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { PageBtnActions } from './BtnActions';
-import { IBtnActionProps } from '../props/AppProps';
+import { IBtnActionProps } from '../../props/AppProps';
 import renderer from 'react-test-renderer';
 import Enzyme, { mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';

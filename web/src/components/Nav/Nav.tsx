@@ -2,9 +2,9 @@ import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import { IAppProps } from '../props/AppProps';
-import ProfileMenu from '../components/ProfileMenu';
-import { getDisplayName } from '../helpers/auth-helper';
+import { IAppProps } from '../../props/AppProps';
+import ProfileMenu from '../Menu/ProfileMenu/ProfileMenu';
+import { getDisplayName } from '../../helpers/auth-helper';
 
 
 

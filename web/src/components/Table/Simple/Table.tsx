@@ -3,9 +3,9 @@ import MaterialTable from 'material-table';
 import { forwardRef } from 'react';
 import ChevronRight from '@material-ui/icons/ChevronRight';
 import FirstPage from '@material-ui/icons/FirstPage';
-import { ITableProps, IBtnActionProps } from '../props/AppProps';
+import { ITableProps, IBtnActionProps } from '../../../props/AppProps';
 import './Table.css';
-import { PageBtnActions } from './BtnActions';
+import { PageBtnActions } from '../../BtnActions/BtnActions';
 
 
 const Table: React.FC<ITableProps> = (props) => {

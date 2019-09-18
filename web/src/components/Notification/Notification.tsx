@@ -4,9 +4,9 @@ import { IconButton, Badge } from '@material-ui/core';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
 import { connect } from 'react-redux';
-import { IApplicationState } from '../session/rootReducer';
-import {  INotificationProps } from '../props/AppProps';
-import { getNotificationActionCreator } from '../session/Notification/Action';
+import { IApplicationState } from '../../session/rootReducer';
+import {  INotificationProps } from '../../props/AppProps';
+import { getNotificationActionCreator } from '../../session/Notification/Action';
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, AnyAction>) => {
   return {

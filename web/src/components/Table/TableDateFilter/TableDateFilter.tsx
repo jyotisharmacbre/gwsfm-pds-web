@@ -1,8 +1,8 @@
 import React from 'react';
 import { Grid, TextField, InputLabel, FormControlLabel, IconButton, createStyles, makeStyles, Theme, FormGroup, Checkbox } from "@material-ui/core";
 import { DateRange } from '@material-ui/icons';
-import Table from '../components/Table';
-import { ITableFilterProps } from '../props/AppProps';
+import Table from '../Simple/Table';
+import { ITableFilterProps } from '../../../props/AppProps';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({

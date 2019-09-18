@@ -1,6 +1,6 @@
 import React from 'react';
 import { Paper, Divider, Typography, makeStyles, Theme, createStyles } from '@material-ui/core';
-import { ICardComponentProps } from '../props/AppProps';
+import { ICardComponentProps } from '../../props/AppProps';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({

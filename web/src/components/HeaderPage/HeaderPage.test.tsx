@@ -1,6 +1,6 @@
 import React from 'react';
 import  HeaderPage from './HeaderPage';
-import { IHeaderPageProps, IBtnActionProps } from '../props/AppProps';
+import { IHeaderPageProps, IBtnActionProps } from '../../props/AppProps';
 import renderer from 'react-test-renderer';
 import Enzyme, { mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';

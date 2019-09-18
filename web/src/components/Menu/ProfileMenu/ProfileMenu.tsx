@@ -4,7 +4,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { AccountCircle, ExpandMore, HelpOutline } from '@material-ui/icons';
 import IconButton from '@material-ui/core/IconButton';
-import NotificationsIcon from './Notification';
+import NotificationsIcon from '../../Notification/Notification';
 
 // @ts-ignore
 import authentication from "@kdpw/msal-b2c-react";

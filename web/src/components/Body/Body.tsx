@@ -1,12 +1,12 @@
 import React from 'react';
 import Container from '@material-ui/core/Container';
-import { IAppProps } from '../props/AppProps';
+import { IAppProps } from '../../props/AppProps';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Footer from '../components/Footer';
-import Dashboard from '../views/Dashboard';
-import Pipeline from '../views/Pipeline';
-import Project from '../views/Project';
-import Notifications from '../views/Notifications';
+import Footer from '../Footer/Footer';
+import Dashboard from '../../views/Dashboard';
+import Pipeline from '../../views/Pipeline';
+import Project from '../../views/Project';
+import Notifications from '../../views/Notifications';
 
 
 class Body extends React.Component<IAppProps> {

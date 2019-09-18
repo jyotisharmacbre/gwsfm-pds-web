@@ -1,19 +1,19 @@
 import React, { useEffect } from 'react';
 import { Paper, Typography, makeStyles, createStyles, Theme, Grid, Container, MenuItem, FormControl, Divider, withStyles, InputLabel } from '@material-ui/core';
 import Switch, { } from '@material-ui/core/Switch';
-import { PageBtnActions } from './BtnActions';
+import { PageBtnActions } from '../../BtnActions/BtnActions';
 import TextField from '@material-ui/core/TextField';
-import { IBtnActionProps, IProjectFormProps } from '../props/AppProps';
+import { IBtnActionProps, IProjectFormProps } from '../../../props/AppProps';
 import './ProjectForm.css';
 import { connect } from 'react-redux';
-import { IProjectForm } from '../session/ProjectForm/Type';
-import { addFormActionCreator } from '../session/ProjectForm/Actions';
-import { IApplicationState } from '../session/rootReducer';
+import { IProjectForm } from '../../../session/ProjectForm/Type';
+import { addFormActionCreator } from '../../../session/ProjectForm/Actions';
+import { IApplicationState } from '../../../session/rootReducer';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
 import { Validator } from "class-validator";
-import { toCurrency } from '../helpers/int-helper';
-import { getLocaleActionCreator, getCustomerContractActionCreator } from '../session/ListItems/Actions';
+import { toCurrency } from '../../../helpers/int-helper';
+import { getLocaleActionCreator, getCustomerContractActionCreator } from '../../../session/ListItems/Actions';
 
 
 // Validation methods

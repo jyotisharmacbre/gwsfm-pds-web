@@ -1,9 +1,9 @@
 import React from 'react';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Nav from '../components/Nav';
-import Body from '../components/Body';
-import { IAppProps } from '../props/AppProps';
+import Nav from '../Nav/Nav';
+import Body from '../Body/Body';
+import { IAppProps } from '../../props/AppProps';
 
 
 

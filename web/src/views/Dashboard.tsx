@@ -1,13 +1,13 @@
 import React from 'react';
-import HeaderPage from '../components/HeaderPage';
+import HeaderPage from '../components/HeaderPage/HeaderPage';
 import { IBtnActionProps } from '../props/AppProps';
-import Table from '../components/Table';
+import Table from '../components/Table/Simple/Table';
 
 import Grid from '@material-ui/core/Grid';
-import MultipleChart from '../components/MultipleCharts';
-import PreferredChart from '../components/PreferredChart';
-import RunRateChart from '../components/RunRateChart';
-import CardContainer from '../components/CardContainer';
+import MultipleChart from '../components/Charts/MultipleCharts';
+import PreferredChart from '../components/Charts/PreferredChart';
+import RunRateChart from '../components/Charts/RunRateChart';
+import CardContainer from '../components/CardContainer/CardContainer';
 
 class Dashboard extends React.Component {
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, makeStyles, Theme, createStyles } from '@material-ui/core';
-import { IBtnActionProps } from '../props/AppProps';
-import { AppTypes } from '../props/PropTypes';
+import { IBtnActionProps } from '../../props/AppProps';
+import { AppTypes } from '../../props/PropTypes';
 import { Backspace, AddCircleOutline, LibraryBooks, ViewList } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme: Theme) =>
