@@ -3,11 +3,21 @@ import HeaderPage from '../components/HeaderPage';
 import { IBtnActionProps } from '../props/AppProps';
 import Table from '../components/Table';
 
+
+import { createStyles, lighten, makeStyles, Theme } from '@material-ui/core/styles';
+
+import Responsive from 'react-responsive';
 import Grid from '@material-ui/core/Grid';
 import MultipleChart from '../components/MultipleCharts';
+
+import { Typography } from '@material-ui/core';
 import PreferredChart from '../components/PreferredChart';
 import RunRateChart from '../components/RunRateChart';
+import Paper from '@material-ui/core/Paper';
+
+
 import CardContainer from '../components/CardContainer';
+
 
 class Dashboard extends React.Component {
 
