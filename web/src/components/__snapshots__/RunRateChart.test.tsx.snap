@@ -1,0 +1,165 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Notification should render 1`] = `
+<button
+  className="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit"
+  disabled={false}
+  onBlur={[Function]}
+  onDragLeave={[Function]}
+  onFocus={[Function]}
+  onKeyDown={[Function]}
+  onKeyUp={[Function]}
+  onMouseDown={[Function]}
+  onMouseLeave={[Function]}
+  onMouseUp={[Function]}
+  onTouchEnd={[Function]}
+  onTouchMove={[Function]}
+  onTouchStart={[Function]}
+  tabIndex={0}
+  type="button"
+>
+  <span
+    className="MuiIconButton-label"
+  >
+    <span
+      className="MuiBadge-root"
+      onClick={Array []}
+    >
+      <svg
+        aria-hidden="true"
+        className="MuiSvgIcon-root MuiSvgIcon-colorSecondary"
+        focusable="false"
+        id="BellIcon"
+        name="BellIcon"
+        role="presentation"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"
+        />
+      </svg>
+      <span
+        className="MuiBadge-badge"
+      >
+        5
+      </span>
+    </span>
+  </span>
+</button>
+`;
+
+exports[`Run Rate Chart should render 1`] = `
+Array [
+  <ForwardRef(WithStyles)
+    container={true}
+    id="GridRunRateChart"
+    spacing={0}
+    style={
+      Object {
+        "height": "100%",
+      }
+    }
+  >
+       
+    <ForwardRef(WithStyles)
+      item={true}
+      lg={6}
+      md={6}
+      sm={12}
+      style={
+        Object {
+          "height": "100%",
+          "verticalAlign": "middle",
+        }
+      }
+      xs={12}
+    >
+      <Polar
+        data={
+          Object {
+            "datasets": Array [
+              Object {
+                "backgroundColor": Array [
+                  "#CEF1A3",
+                  "#526061",
+                  "#FBD55B",
+                  "#935FD6",
+                  "#EA8032",
+                  "#3DAAE9",
+                ],
+                "data": Array [
+                  23,
+                  16,
+                  32,
+                  12,
+                  10,
+                  12,
+                ],
+                "label": "My dataset",
+              },
+            ],
+            "labels": Array [
+              "Initial Customer Enquiry",
+              "J&A",
+              "Bid Submitted",
+              "Order Received",
+              "In Progress",
+              "Completed",
+            ],
+          }
+        }
+        height={60}
+        options={
+          Object {
+            "legend": Object {
+              "display": true,
+              "position": "bottom",
+            },
+            "maintainAspectRatio": true,
+            "responsive": true,
+          }
+        }
+        width={50}
+      />
+       
+    </ForwardRef(WithStyles)>
+        
+    <ForwardRef(WithStyles)
+      id="GridLostRunRateChart"
+      item={true}
+      lg={6}
+      md={6}
+      sm={12}
+      style={
+        Object {
+          "textAlign": "center",
+        }
+      }
+      xs={12}
+    >
+      <h4>
+        Lost 
+      </h4>
+      <LostRunRateChart
+        BidSubmitted={30}
+        Completed={20}
+        ICE={56}
+        InProgress={24}
+        JandA={12}
+        OrderReceived={20}
+      />
+      <h4>
+        On-Hold 
+      </h4>
+      <OnHoldRunRateChart
+        BidSubmitted={30}
+        Completed={20}
+        ICE={56}
+        InProgress={24}
+        JandA={12}
+        OrderReceived={20}
+      />
+    </ForwardRef(WithStyles)>
+  </ForwardRef(WithStyles)>,
+]
+`;
