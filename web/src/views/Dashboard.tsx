@@ -4,13 +4,15 @@ import { IBtnActionProps } from '../props/AppProps';
 import Table from '../components/Table';
 
 import { createStyles, lighten, makeStyles, Theme } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
+
 import Responsive from 'react-responsive';
 import Grid from '@material-ui/core/Grid';
 import MultipleChart from '../components/MultipleCharts';
+
 import { Typography } from '@material-ui/core';
 import PreferredChart from '../components/PreferredChart';
 import RunRateChart from '../components/RunRateChart';
+import Paper from '@material-ui/core/Paper';
 
 //const Desktop = props => <Responsive {...props} minWidth={992} />;
 //const Tablet = props => <Responsive {...props} minWidth={768} maxWidth={991} />;
