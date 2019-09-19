@@ -3,33 +3,12 @@ import HeaderPage from '../components/HeaderPage';
 import { IBtnActionProps } from '../props/AppProps';
 import Table from '../components/Table';
 
-import { createStyles, lighten, makeStyles, Theme } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Responsive from 'react-responsive';
 import Grid from '@material-ui/core/Grid';
 import MultipleChart from '../components/MultipleCharts';
-import { Typography } from '@material-ui/core';
 import PreferredChart from '../components/PreferredChart';
 import RunRateChart from '../components/RunRateChart';
+import CardContainer from '../components/CardContainer';
 
-//const Desktop = props => <Responsive {...props} minWidth={992} />;
-//const Tablet = props => <Responsive {...props} minWidth={768} maxWidth={991} />;
-//const Mobile = props => <Responsive {...props} maxWidth={767} />;
-//const Default = props => <Responsive {...props} minWidth={768} />;
-// const useStyles = makeStyles((theme: Theme) =>
-//   createStyles({
-//     root: {
-//       width: '100%',
-//       marginTop: theme.spacing(3),
-//     },
-//     paper: {
-//       width: '100%',
-//       marginBottom: theme.spacing(2),
-//     },
-
-//   }),
-// );
-// const classes = useStyles();
 class Dashboard extends React.Component {
 
     constructor(props: any) {
@@ -58,12 +37,49 @@ class Dashboard extends React.Component {
         );
     }
 
+    viewAll: IBtnActionProps = {
+        Title: 'View All',
+        Icon: '',
+        Color: 'secondary',
+        HandleClick: () => {
+            window.location.href = '/Pipeline';
+        }
+    };
+
+    createTableColumns(){
+        return [
+            {
+              title: 'Name',
+              field: 'name',
+              customFilterAndSearch: (term: any, rowData:any) => term == rowData.name.length
+            },
+            { title: 'Updated By', field: 'updatedby' },
+            { title: 'Date', field: 'date', type: 'date' },
+            {
+              title: 'Status',
+              field: 'status',
+              lookup: { 1: 'Draft', 2: 'Submitted', 3: 'Completed' },
+            },
+          ];
+    }
+
+    getTableData(){
+        return [
+            { name: 'Russel street road works', updatedby: 'Stacy Salter', date: new Date('07/21/1987'), status: 1 },
+            { name: 'London Bridge aqueduct planning', updatedby: 'Hame Moore', date: new Date('07/21/1987'), status: 1 },
+            { name: '51 Southwark street refilling', updatedby: 'Lucy Benner', date: new Date('07/21/1987'), status: 2 },
+            { name: 'Church street reviewing', updatedby: 'Imran Khan', date: new Date('07/21/1987'), status: 3 },
+            { name: 'Russel street road works', updatedby: 'Jacy Lue', date: new Date('07/21/1987'), status: 1 },
+            { name: 'Gregory Nash approval', updatedby: 'Stirlin Archer', date: new Date('07/21/1987'), status: 3 },
+          ];
+    }
     render() {
         return (
             <React.Fragment>
                 <HeaderPage Title={'Overview'} ActionList={this.GetButtons()} /> 
-                   <Table IsSuperManager = { true }/>
-                
+                   <CardContainer Title="Your Projects">
+                <Table columns={this.createTableColumns()} data={this.getTableData()} ActionList={[this.viewAll]}/>
+                </CardContainer>
                 <Grid container spacing={2} >  
                     <Grid item xs={12} sm={12} lg={6} md={6} style={{"height":"500px"}} ><Paper  style={{ "width": "100%","height":"100%"}} >
                     <Typography variant="h6" id="TitlePreferred" style={{ color: "#00684d", paddingLeft: "10px" }}>
@@ -85,6 +101,8 @@ class Dashboard extends React.Component {
           </Paper>  </Grid> </Grid>
               
             </React.Fragment>
+
+               
         );
     }
 }

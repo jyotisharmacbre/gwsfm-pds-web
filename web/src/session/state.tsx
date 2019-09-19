@@ -42,6 +42,21 @@ export interface IProjectFormState {
     InvalidProjectOwner: boolean;
 }
 
+export interface IFilterState {
+    readonly projectname: string;
+    readonly customer_client: string;
+    readonly owner: string;
+    readonly contracttype: string;
+    readonly probofwinning?:number;
+    readonly status: string;
+    readonly cdmnotifiable:boolean;
+    readonly soldmargin?:number;
+    readonly expectedstartdate?:number;
+    readonly approximatevalue?:number;
+    readonly weightedtcv?:number;
+    readonly validForm: boolean;
+}
+
 
 export interface IListState{
     locales: IListItemState[];
