@@ -1,11 +1,9 @@
 import React from 'react';
 import MaterialTable from 'material-table';
-import { forwardRef } from 'react';
-import ChevronRight from '@material-ui/icons/ChevronRight';
-import FirstPage from '@material-ui/icons/FirstPage';
-import { ITableProps, IBtnActionProps } from '../../../props/AppProps';
+import { ITableProps } from '../../../props/AppProps';
 import './Table.css';
 import { PageBtnActions } from '../../BtnActions/BtnActions';
+import { HtmlAttributes } from 'csstype';
 
 
 const Table: React.FC<ITableProps> = (props) => {
@@ -21,6 +19,7 @@ const Table: React.FC<ITableProps> = (props) => {
           search: false,
           paging: false
         }}
+        onRowClick={(e: React.MouseEvent<Element, MouseEvent>|undefined, rowData:any)=> alert("hello" + rowData.name)}
       />
       <div style={{ textAlign: 'right' }}>
         <PageBtnActions Actions={props.ActionList} />
