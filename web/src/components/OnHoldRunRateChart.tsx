@@ -24,8 +24,8 @@ import Grid from '@material-ui/core/Grid';
       //ICE, J&A, Bid Submitted, Order Received, In Progress and Completed
     ]
   };
-  var optionshideLabels={  
- 
+  var optionshideLabels={  showTotalLabel:true,
+    cutoutPercentage: 70,
       legend: {
         display: false
       }//, maintainAspectRatio:false     
@@ -33,7 +33,7 @@ import Grid from '@material-ui/core/Grid';
 
 export default function OnHoldRunRateChart(props: {ICE:number, JandA:number, BidSubmitted:number, OrderReceived:number, InProgress:number , Completed:number}){
     return (    
-          <Doughnut   data={dataOnHold} options={optionshideLabels} />       
+          <Doughnut data={dataOnHold} options={optionshideLabels} />       
       
              );
    

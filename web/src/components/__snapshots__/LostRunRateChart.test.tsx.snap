@@ -1,0 +1,96 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Lost Run Rate & OnHold Chart should render 1`] = `
+Array [
+  <Doughnut
+    data={
+      Object {
+        "datasets": Array [
+          Object {
+            "backgroundColor": Array [
+              "#CEF1A3",
+              "#526061",
+              "#FBD55B",
+              "#935FD6",
+              "#EA8032",
+              "#3DAAE9",
+            ],
+            "data": Array [
+              4,
+              2,
+              7,
+              9,
+              23,
+              2,
+            ],
+            "label": "My dataset",
+          },
+        ],
+        "labels": Array [
+          "Initial Customer Enquiry",
+          "J&A",
+          "Bid Submitted",
+          "Order Received",
+          "In Progress",
+          "Completed",
+        ],
+      }
+    }
+    options={
+      Object {
+        "legend": Object {
+          "display": false,
+        },
+      }
+    }
+  />,
+]
+`;
+
+exports[`Notification should render 1`] = `
+<button
+  className="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit"
+  disabled={false}
+  onBlur={[Function]}
+  onDragLeave={[Function]}
+  onFocus={[Function]}
+  onKeyDown={[Function]}
+  onKeyUp={[Function]}
+  onMouseDown={[Function]}
+  onMouseLeave={[Function]}
+  onMouseUp={[Function]}
+  onTouchEnd={[Function]}
+  onTouchMove={[Function]}
+  onTouchStart={[Function]}
+  tabIndex={0}
+  type="button"
+>
+  <span
+    className="MuiIconButton-label"
+  >
+    <span
+      className="MuiBadge-root"
+      onClick={Array []}
+    >
+      <svg
+        aria-hidden="true"
+        className="MuiSvgIcon-root MuiSvgIcon-colorSecondary"
+        focusable="false"
+        id="BellIcon"
+        name="BellIcon"
+        role="presentation"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"
+        />
+      </svg>
+      <span
+        className="MuiBadge-badge"
+      >
+        5
+      </span>
+    </span>
+  </span>
+</button>
+`;

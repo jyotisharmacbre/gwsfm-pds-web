@@ -260,8 +260,8 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
         let dataType = e.target.getAttribute('dataformat');
         let val = e.target.value;
 
-        if (key != undefined) {
-            if (dataType == 'currency') {
+        if (key !== undefined) {
+            if (dataType === 'currency') {
                 val = toCurrency(val);
             }
             let data = { ...props.form, ['invalid' + name]: valid, [key]: val };
