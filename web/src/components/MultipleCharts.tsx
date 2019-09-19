@@ -171,7 +171,8 @@ export default function MultipleChart(props: { ProjectTotal: number, ICE: number
           }} height={300} options={optionshideLabels} /></div>
           
            </Grid>
-         <Grid item xs={12} sm={12} lg={12} md={12} style={{ "textAlign": 'center', 'padding':'10px'}}> <h3>Total : {props.ProjectTotal} Lost : {props.LostProjects} On-Hold : {props.OnHoldProject} </h3></Grid>
+         <Grid item xs={12} sm={12} lg={12} md={12} style={{ "textAlign": 'center', 'padding':'10px'}}> <h3>Lost : 30
+          On-Hold : 15 </h3></Grid>
   </Grid>
   );
 
