@@ -50,6 +50,7 @@ export interface ITableProps{
     columns: any[];
     data: any[];
     ActionList: IBtnActionProps[];
+    onRowClick?: (e: React.MouseEvent<Element, MouseEvent>|undefined, rowData:any) => void;
 }
 
 export interface ITableFilterProps extends ITableProps
@@ -61,4 +62,12 @@ export interface INotificationProps{
     handleClick: ()=> void;
     getNotificationCount: () => Promise<IGetNotificationSuccessAction>;
     data: INotification;
+}
+
+export interface INotificationViewProps{
+    tableData: []
+}
+
+export interface INotificationViewState{
+    tableData: []
 }

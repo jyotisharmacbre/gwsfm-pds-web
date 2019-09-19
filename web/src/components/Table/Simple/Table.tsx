@@ -8,6 +8,13 @@ import { HtmlAttributes } from 'csstype';
 
 const Table: React.FC<ITableProps> = (props) => {
 
+  const onRowClick = (e: React.MouseEvent<Element, MouseEvent> | undefined, rowData: any) => {
+
+    if (props.onRowClick !== undefined) {
+      props.onRowClick(e, rowData);
+    }
+  }
+
   return (
     <React.Fragment>
       <MaterialTable
@@ -17,9 +24,9 @@ const Table: React.FC<ITableProps> = (props) => {
         options={{
           filtering: false,
           search: false,
-          paging: false
+          paging: true
         }}
-        onRowClick={(e: React.MouseEvent<Element, MouseEvent>|undefined, rowData:any)=> alert("hello" + rowData.name)}
+        onRowClick={onRowClick}
       />
       <div style={{ textAlign: 'right' }}>
         <PageBtnActions Actions={props.ActionList} />
