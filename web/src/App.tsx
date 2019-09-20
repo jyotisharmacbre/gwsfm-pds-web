@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import Layout from './components/Layout'
+import Layout from './components/Layouts/Layout'
 import { makeStyles, createMuiTheme } from '@material-ui/core/styles';
 
 const App : React.FC = () => {

@@ -1,9 +1,9 @@
 import React from 'react';
-import HeaderPage from '../components/HeaderPage';
-import ProjectsTable from '../components/ProjectsTable';
-import CardContainer from '../components/CardContainer';
-import TableDateFilter from '../components/TableDateFilter';
-import Filters from '../components/Filters';
+import HeaderPage from '../components/HeaderPage/HeaderPage';
+import ProjectsTable from '../components/Table/ProjectTable/ProjectsTable';
+import CardContainer from '../components/CardContainer/CardContainer';
+import TableDateFilter from '../components/Table/TableDateFilter/TableDateFilter';
+import Filters from '../components/Filters/Filters';
 
 const data = {
     datasets: [{

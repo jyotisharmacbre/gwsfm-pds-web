@@ -1,22 +1,13 @@
 import React from 'react';
-import HeaderPage from '../components/HeaderPage';
+import HeaderPage from '../components/HeaderPage/HeaderPage';
 import { IBtnActionProps } from '../props/AppProps';
-import Table from '../components/Table';
-
-
-import { createStyles, lighten, makeStyles, Theme } from '@material-ui/core/styles';
-
-import Responsive from 'react-responsive';
-import Grid from '@material-ui/core/Grid';
-import MultipleChart from '../components/MultipleCharts';
-
-import { Typography } from '@material-ui/core';
-import PreferredChart from '../components/PreferredChart';
-import RunRateChart from '../components/RunRateChart';
+import Table from '../components/Table/Simple/Table';
+import MultipleChart from '../components/Charts/MultipleCharts';
+import { Typography, Grid } from '@material-ui/core';
+import PreferredChart from '../components/Charts/PreferredChart';
+import RunRateChart from '../components/Charts/RunRateChart';
 import Paper from '@material-ui/core/Paper';
-
-
-import CardContainer from '../components/CardContainer';
+import CardContainer from '../components/CardContainer/CardContainer';
 
 
 class Dashboard extends React.Component {
@@ -56,24 +47,24 @@ class Dashboard extends React.Component {
         }
     };
 
-    createTableColumns(){
+    createTableColumns() {
         return [
             {
-              title: 'Name',
-              field: 'name',
-              customFilterAndSearch: (term: any, rowData:any) => term == rowData.name.length
+                title: 'Name',
+                field: 'name',
+                customFilterAndSearch: (term: any, rowData: any) => term == rowData.name.length
             },
             { title: 'Updated By', field: 'updatedby' },
             { title: 'Date', field: 'date', type: 'date' },
             {
-              title: 'Status',
-              field: 'status',
-              lookup: { 1: 'Draft', 2: 'Submitted', 3: 'Completed' },
+                title: 'Status',
+                field: 'status',
+                lookup: { 1: 'Draft', 2: 'Submitted', 3: 'Completed' },
             },
-          ];
+        ];
     }
 
-    getTableData(){
+    getTableData() {
         return [
             { name: 'Russel street road works', updatedby: 'Stacy Salter', date: new Date('07/21/1987'), status: 1 },
             { name: 'London Bridge aqueduct planning', updatedby: 'Hame Moore', date: new Date('07/21/1987'), status: 1 },
@@ -81,38 +72,41 @@ class Dashboard extends React.Component {
             { name: 'Church street reviewing', updatedby: 'Imran Khan', date: new Date('07/21/1987'), status: 3 },
             { name: 'Russel street road works', updatedby: 'Jacy Lue', date: new Date('07/21/1987'), status: 1 },
             { name: 'Gregory Nash approval', updatedby: 'Stirlin Archer', date: new Date('07/21/1987'), status: 3 },
-          ];
+        ];
     }
     render() {
         return (
             <React.Fragment>
-                <HeaderPage Title={'Overview'} ActionList={this.GetButtons()} /> 
-                   <CardContainer Title="Your Projects">
-                <Table columns={this.createTableColumns()} data={this.getTableData()} ActionList={[this.viewAll]}/>
+                <HeaderPage Title={'Overview'} ActionList={this.GetButtons()} />
+                <CardContainer Title="Your Projects">
+                    <Table columns={this.createTableColumns()} data={this.getTableData()} ActionList={[this.viewAll]} />
                 </CardContainer>
-                <Grid container spacing={2} >  
-                    <Grid item xs={12} sm={12} lg={6} md={6} style={{"height":"500px"}} ><Paper  style={{ "width": "100%","height":"100%"}} >
-                    <Typography variant="h6" id="TitlePreferred" style={{ color: "#00684d", paddingLeft: "10px" }}>
-                        Preferred
-          </Typography><PreferredChart Preferred={4} NotPreferred={6} /> 
-          </Paper>  </Grid> 
-                    <Grid item xs={12} sm={12} lg={6} md={6} min-Height={500}  ><Paper  style={{ "width": "100%","height":"100%"}} >
-                    <Typography variant="h6" id="TitleRunRate" style={{ color: "#00684d", paddingLeft: "10px" }}>
-                        Run Rate
-          </Typography> <RunRateChart ICE={56} JandA={12} BidSubmitted={30} OrderReceived={20} InProgress={24} Completed={20}/></Paper> 
-</Grid> 
+                <Grid container spacing={2}>
+                    <Grid item container spacing={2}>
+                        <Grid item xs={12} sm={12} lg={6} md={6}>
+                            <CardContainer Title="Preferred">
+                                <PreferredChart Preferred={4} NotPreferred={6} />
+                            </CardContainer>
+                        </Grid>
+                        <Grid item xs={12} sm={12} lg={6} md={6}>
+                            <CardContainer Title="Run Rate">
+                                <RunRateChart ICE={56} JandA={12} BidSubmitted={30} OrderReceived={20} InProgress={24} Completed={20} />
+                            </CardContainer>
+
+                        </Grid>
+
+                    </Grid>
+                    <Grid item container spacing={2}>
+                        <Grid item xs={12} sm={12} lg={12} md={12} >
+                            <CardContainer Title=" Analytics">
+                                <MultipleChart ProjectTotal={200} ICE={50} Rejected={60} JandA={49} LostProjects={30} OrderReceived={20} OnHoldProject={15} InProgress={24} Completed={20} />
+                            </CardContainer>
+                        </Grid>
+                    </Grid>
                 </Grid>
-                <Grid container spacing={2} min-Height={300} >  
-                    <Grid item xs={12} sm={12} lg={12} md={12} min-Height={300}  ><Paper  style={{ "width": "100%","height":"100%"}} >
-                    <Typography variant="h6" id="tableTitle" style={{ color: "#00684d", paddingLeft: "10px" }}>
-                        Analytics
-          </Typography>
-          <MultipleChart ProjectTotal={200} ICE={50} Rejected={60} JandA={49} LostProjects={30} OrderReceived={20} OnHoldProject={15} InProgress={24} Completed={20}/> 
-          </Paper>  </Grid> </Grid>
-              
+
             </React.Fragment>
 
-               
         );
     }
 }
