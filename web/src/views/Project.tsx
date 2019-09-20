@@ -1,6 +1,6 @@
 import React from 'react';
-import HeaderPage from '../components/HeaderPage';
-import ProjectForm from '../components/ProjectForm';
+import HeaderPage from '../components/HeaderPage/HeaderPage';
+import ProjectForm from '../components/Forms/ProjectForm/ProjectForm';
 
 class Project extends React.Component {
 

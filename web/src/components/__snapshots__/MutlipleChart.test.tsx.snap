@@ -1,0 +1,418 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Lost Run Rate & OnHold Chart should render 1`] = `
+Array [
+  <ForwardRef(WithStyles)
+    container={true}
+    id="GridMultipleChart"
+    min-Height={350}
+    spacing={0}
+  >
+    <ForwardRef(WithStyles)
+      item={true}
+      lg={2}
+      md={2}
+      sm={6}
+      style={
+        Object {
+          "height": "340px",
+          "textAlign": "center",
+        }
+      }
+      xs={6}
+    >
+      <div
+        style={
+          Object {
+            "height": "320px",
+            "textAlign": "center",
+          }
+        }
+      >
+        <Doughnut
+          data={
+            Object {
+              "datasets": Array [
+                Object {
+                  "backgroundColor": Array [
+                    "#526061",
+                  ],
+                  "data": Array [
+                    50,
+                    150,
+                  ],
+                  "label": "My dataset",
+                },
+              ],
+              "labels": Array [
+                "Initial Customer Enquiry",
+                "Other Projects",
+              ],
+            }
+          }
+          options={
+            Object {
+              "cutoutPercentage": 75,
+              "elements": Object {
+                "center": Object {
+                  "color": "#FF6384",
+                  "fontStyle": "Arial",
+                  "sidePadding": 20,
+                  "text": "90%",
+                },
+              },
+              "fillText": 23423,
+              "legend": Object {
+                "display": false,
+              },
+              "maintainAspectRatio": false,
+            }
+          }
+        />
+      </div>
+      Initial Enquiry
+    </ForwardRef(WithStyles)>
+    <ForwardRef(WithStyles)
+      item={true}
+      lg={2}
+      md={2}
+      sm={6}
+      style={
+        Object {
+          "height": "340px",
+          "textAlign": "center",
+        }
+      }
+      xs={6}
+    >
+      <div
+        style={
+          Object {
+            "height": "320px",
+            "textAlign": "center",
+          }
+        }
+      >
+         
+        <Doughnut
+          data={
+            Object {
+              "datasets": Array [
+                Object {
+                  "backgroundColor": Array [
+                    "#CEF1A3",
+                  ],
+                  "data": Array [
+                    50,
+                    150,
+                  ],
+                  "label": "My dataset",
+                },
+              ],
+              "labels": Array [
+                "Rejected",
+                "Other Projects",
+              ],
+            }
+          }
+          height={300}
+          options={
+            Object {
+              "cutoutPercentage": 75,
+              "elements": Object {
+                "center": Object {
+                  "color": "#FF6384",
+                  "fontStyle": "Arial",
+                  "sidePadding": 20,
+                  "text": "90%",
+                },
+              },
+              "fillText": 23423,
+              "legend": Object {
+                "display": false,
+              },
+              "maintainAspectRatio": false,
+            }
+          }
+        />
+      </div>
+      Rejected
+    </ForwardRef(WithStyles)>
+    <ForwardRef(WithStyles)
+      item={true}
+      lg={2}
+      md={2}
+      sm={6}
+      style={
+        Object {
+          "height": "340px",
+          "textAlign": "center",
+        }
+      }
+      xs={6}
+    >
+      <div
+        style={
+          Object {
+            "height": "320px",
+            "textAlign": "center",
+          }
+        }
+      >
+        <Doughnut
+          data={
+            Object {
+              "datasets": Array [
+                Object {
+                  "backgroundColor": Array [
+                    "#FBD55B",
+                  ],
+                  "data": Array [
+                    50,
+                    150,
+                  ],
+                  "label": "My dataset",
+                },
+              ],
+              "labels": Array [
+                "J&A",
+                "Other Projects",
+              ],
+            }
+          }
+          height={300}
+          options={
+            Object {
+              "cutoutPercentage": 75,
+              "elements": Object {
+                "center": Object {
+                  "color": "#FF6384",
+                  "fontStyle": "Arial",
+                  "sidePadding": 20,
+                  "text": "90%",
+                },
+              },
+              "fillText": 23423,
+              "legend": Object {
+                "display": false,
+              },
+              "maintainAspectRatio": false,
+            }
+          }
+        />
+      </div>
+      J&A
+    </ForwardRef(WithStyles)>
+    <ForwardRef(WithStyles)
+      item={true}
+      lg={2}
+      md={2}
+      sm={6}
+      style={
+        Object {
+          "height": "340px",
+          "textAlign": "center",
+        }
+      }
+      xs={6}
+    >
+      <div
+        style={
+          Object {
+            "height": "320px",
+            "textAlign": "center",
+          }
+        }
+      >
+        <Doughnut
+          data={
+            Object {
+              "datasets": Array [
+                Object {
+                  "backgroundColor": Array [
+                    "#935FD6",
+                  ],
+                  "data": Array [
+                    20,
+                    180,
+                  ],
+                  "label": "My dataset",
+                },
+              ],
+              "labels": Array [
+                "J&A",
+                "Other Projects",
+              ],
+            }
+          }
+          options={
+            Object {
+              "cutoutPercentage": 75,
+              "elements": Object {
+                "center": Object {
+                  "color": "#FF6384",
+                  "fontStyle": "Arial",
+                  "sidePadding": 20,
+                  "text": "90%",
+                },
+              },
+              "fillText": 23423,
+              "legend": Object {
+                "display": false,
+              },
+              "maintainAspectRatio": false,
+            }
+          }
+        />
+      </div>
+       Order Received
+    </ForwardRef(WithStyles)>
+    <ForwardRef(WithStyles)
+      item={true}
+      lg={2}
+      md={2}
+      sm={6}
+      style={
+        Object {
+          "height": "340px",
+          "textAlign": "center",
+        }
+      }
+      xs={6}
+    >
+      <div
+        style={
+          Object {
+            "height": "320px",
+            "textAlign": "center",
+          }
+        }
+      >
+        <Doughnut
+          data={
+            Object {
+              "datasets": Array [
+                Object {
+                  "backgroundColor": Array [
+                    "#EA8032",
+                  ],
+                  "data": Array [
+                    24,
+                    176,
+                  ],
+                  "label": "My dataset",
+                },
+              ],
+              "labels": Array [
+                "J&A",
+                "Other Projects",
+              ],
+            }
+          }
+          height={300}
+          options={
+            Object {
+              "cutoutPercentage": 75,
+              "elements": Object {
+                "center": Object {
+                  "color": "#FF6384",
+                  "fontStyle": "Arial",
+                  "sidePadding": 20,
+                  "text": "90%",
+                },
+              },
+              "fillText": 23423,
+              "legend": Object {
+                "display": false,
+              },
+              "maintainAspectRatio": false,
+            }
+          }
+        />
+         
+      </div>
+      In Progress
+    </ForwardRef(WithStyles)>
+    <ForwardRef(WithStyles)
+      item={true}
+      lg={2}
+      md={2}
+      sm={6}
+      style={
+        Object {
+          "height": "340px",
+          "textAlign": "center",
+        }
+      }
+      xs={6}
+    >
+      <div
+        style={
+          Object {
+            "height": "320px",
+            "textAlign": "center",
+          }
+        }
+      >
+        <Doughnut
+          data={
+            Object {
+              "datasets": Array [
+                Object {
+                  "backgroundColor": Array [
+                    "#3DAAE9",
+                  ],
+                  "data": Array [
+                    20,
+                    180,
+                  ],
+                  "label": "My dataset",
+                },
+              ],
+              "labels": Array [
+                "J&A",
+                "Other Projects",
+              ],
+            }
+          }
+          height={300}
+          options={
+            Object {
+              "cutoutPercentage": 75,
+              "elements": Object {
+                "center": Object {
+                  "color": "#FF6384",
+                  "fontStyle": "Arial",
+                  "sidePadding": 20,
+                  "text": "90%",
+                },
+              },
+              "fillText": 23423,
+              "legend": Object {
+                "display": false,
+              },
+              "maintainAspectRatio": false,
+            }
+          }
+        />
+      </div>
+      Completed 
+    </ForwardRef(WithStyles)>
+    <ForwardRef(WithStyles)
+      item={true}
+      lg={12}
+      md={12}
+      sm={12}
+      style={
+        Object {
+          "padding": "10px",
+          "textAlign": "center",
+        }
+      }
+      xs={12}
+    >
+       Lost : 30 On-Hold : 15 
+    </ForwardRef(WithStyles)>
+  </ForwardRef(WithStyles)>,
+]
+`;

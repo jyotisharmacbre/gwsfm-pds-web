@@ -8,29 +8,9 @@ import { Provider } from 'react-redux'
 // @ts-ignore
 import b2cauth from '@kdpw/msal-b2c-react';
 import appConfig from "./helpers/config-helper";
-import { Doughnut, Pie, Polar } from 'react-chartjs-2';
 import configureStore from './session/store';
 
-const data = {
-  datasets: [{
-    data: [
-      11,
-      16,
 
-    ],
-    backgroundColor: [
-      '#4cbd7f',
-      '#f3ca55'
-
-    ],
-    label: 'My dataset' // for legend
-  }],
-  labels: [
-    'Preferred',
-    'Not prefrerred',
-
-  ]
-};
 
 const config = appConfig();
 b2cauth.initialize({
