@@ -16,19 +16,19 @@ class Body extends React.Component<IAppProps> {
 
         return (
             <main className={UseStyles.content}>
-                   <Router>
-                <div className={UseStyles.appBarSpacer} />
-                <Container maxWidth="lg" className={UseStyles.container}>
-                 
+                <Router>
+                    <div className={UseStyles.appBarSpacer} />
+                    <Container maxWidth="lg" className={UseStyles.container}>
+
                         <Switch>
                             <Route exact path="/" component={Dashboard} />
                             <Route exact path="/Pipeline" component={Pipeline} />
                             <Route exact path="/Project" component={Project} />
                             <Route exact path="/Notifications" component={Notifications} />
                         </Switch>
-                        {/* <Table /> */}
-                </Container>
-                <Footer />
+
+                    </Container>
+                    <Footer />
                 </Router>
             </main>
 
