@@ -27,13 +27,13 @@ export default function ProfileMenu(props: { Name: string }) {
   return (
     <div style={{ display: 'flex', justifyContent: 'flex-end', width:'100%' }}>
 
-      <IconButton color="inherit">
+      <IconButton color="secondary">
         <HelpOutline />
       </IconButton>
       <NotificationsIcon />
 
-      <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-        <AccountCircle style={{ marginRight: '10px' }} /> {props.Name} <ExpandMore />
+      <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick} color="secondary">
+        <AccountCircle  style={{ marginRight: '10px' }} /> {props.Name} <ExpandMore />
       </Button>
       <Menu
         id="simple-menu"

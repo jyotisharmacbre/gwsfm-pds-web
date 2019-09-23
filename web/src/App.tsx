@@ -4,19 +4,20 @@ import Layout from './components/Layouts/Layout'
 import { makeStyles, createMuiTheme } from '@material-ui/core/styles';
 
 const App: React.FC = () => {
-  const drawerWidth = 240;
+  const drawerWidth = 250;
 
   const theme = createMuiTheme({
     palette: {
       primary: {
         // light: will be calculated from palette.primary.main,
-        main: '#ffffff',
+        main: '#00684d',
         // dark: will be calculated from palette.primary.main,
         // contrastText: will be calculated to contrast with palette.primary.main
       },
       secondary: {
         light: '#19775e',
-        main: '#00684d',
+        main: '#ffffff',
+        
         // dark: will be calculated from palette.secondary.main,
         contrastText: '#ffcc00',
       },
@@ -71,7 +72,7 @@ const App: React.FC = () => {
     },
     title: {
       flexGrow: 1,
-      color: '#00684d',
+      color: 'white',
       fontSize: '1.8em',
       width: '100%'
     },
@@ -86,6 +87,7 @@ const App: React.FC = () => {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.enteringScreen,
       }),
+      backgroundColor:'#272728'
     },
     drawerPaperClose: {
       overflowX: 'hidden',

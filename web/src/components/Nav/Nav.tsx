@@ -9,6 +9,7 @@ import { Drawer, IconButton } from '@material-ui/core';
 import { ChevronLeft, MenuOutlined } from '@material-ui/icons';
 import clsx from 'clsx';
 import LeftMenu from '../Menu/LeftMenu';
+import './style.css';
 
 
 
@@ -18,7 +19,7 @@ class Nav extends React.Component<IAppProps, INaveState>{
         super(props);
 
         this.state = {
-            open: false
+            open: true
         }
     }
 
@@ -62,13 +63,15 @@ class Nav extends React.Component<IAppProps, INaveState>{
                 </AppBar>
                 <Drawer
                     variant="persistent"
+                    className={clsx('drawer', !this.state.open && 'drawerhidden')}
                     classes={{
                         paper: clsx(UseStyles.drawerPaper, !this.state.open && UseStyles.drawerPaperClose),
                     }}
+                
                     open={this.state.open}
                 >
-                    <div className={UseStyles.toolbarIcon}>
-                        <Typography component="h1" variant="h6" color="inherit" noWrap className={UseStyles.title} onClick={this.handleClick}>
+                    <div className={UseStyles.toolbarIcon} style={{backgroundColor: '#272728', paddingTop: 10, paddingBottom: 50}} >
+                        <Typography component="h1" variant="h6" noWrap className={UseStyles.title} onClick={this.handleClick}>
                             <strong>CBRE</strong> PDS
                         </Typography>
                         <IconButton onClick={this.handleDrawerClose}>
