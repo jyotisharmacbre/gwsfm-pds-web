@@ -1,6 +1,5 @@
 import React from 'react';
 import './style.css';
-import { statement } from '@babel/template';
 import clsx from 'clsx';
 
 
@@ -10,7 +9,7 @@ const LeftMenu: React.FC = () => {
 
     const getMenu = () => {
         return [{ name: 'Customer Enquiry', link: '/' },
-        { name: 'Project Overview', link: '/' },
+        { name: 'Project Overview', link: '/ProjectOverview' },
         { name: 'Justification & Authorisation', link: '/', hasSubmenu: true, subItems: [{ name: 'Preliminaries', link: '/' }, { name: 'Subcontractors', link: '/' }, { name: 'Discounts', link: '/' }] },
         { name: 'Review & Submit', link: '/' }]
     }
