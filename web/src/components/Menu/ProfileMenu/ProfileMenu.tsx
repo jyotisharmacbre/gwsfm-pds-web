@@ -9,7 +9,7 @@ import NotificationsIcon from '../../Notification/Notification';
 // @ts-ignore
 import authentication from "@kdpw/msal-b2c-react";
 
-export default function ProfileMenu(props: { Name: string} ) {
+export default function ProfileMenu(props: { Name: string }) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
@@ -20,22 +20,20 @@ export default function ProfileMenu(props: { Name: string} ) {
     setAnchorEl(null);
   }
 
-  function handleNotificationClick(){
-    window.location.href="/Notifications";
+  function handleNotificationClick() {
+    window.location.href = "/Notifications";
   }
 
   return (
-    <div>
-      {/* <IconButton color="inherit" size="small">
-        FM Cloud
-      </IconButton> */}
-      <IconButton color="inherit">
+    <div style={{ display: 'flex', justifyContent: 'flex-end', width:'100%' }}>
+
+      <IconButton color="secondary">
         <HelpOutline />
       </IconButton>
-      <NotificationsIcon/>
+      <NotificationsIcon />
 
-      <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-        <AccountCircle style={{ marginRight: '10px' }} /> {props.Name} <ExpandMore />
+      <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick} color="secondary">
+        <AccountCircle  style={{ marginRight: '10px' }} /> {props.Name} <ExpandMore />
       </Button>
       <Menu
         id="simple-menu"
@@ -45,7 +43,7 @@ export default function ProfileMenu(props: { Name: string} ) {
         onClose={handleClose}
         style={{ top: '40px', left: '66px' }}
       >
-        <MenuItem onClick={()=>authentication.signOut()}>Sign out</MenuItem>
+        <MenuItem onClick={() => authentication.signOut()}>Sign out</MenuItem>
       </Menu>
     </div>
   );

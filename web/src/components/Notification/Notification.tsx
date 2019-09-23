@@ -32,7 +32,7 @@ const Notification: React.FC<INotificationProps> = (props) => {
 
   return (
     <IconButton color="inherit" onClick={props.handleClick}>
-      <Badge badgeContent="5" >
+      <Badge badgeContent="5" color="error" >
         <NotificationsIconImage id="BellIcon" name="BellIcon" color="secondary" />
 
       </Badge>

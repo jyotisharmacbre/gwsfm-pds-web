@@ -1,0 +1,10 @@
+.drawerhidden{
+    height: 100%;
+    display: none !important;
+}
+
+.drawer{
+    height: 100%;
+    display: block;
+    background-color: #272728;
+}

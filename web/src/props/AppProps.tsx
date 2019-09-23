@@ -5,8 +5,12 @@ import { IGetLocalesSuccessAction, IListItem, IGetCustomerContractSuccessAction 
 import { IGetNotificationSuccessAction, INotification } from "../session/Notification/Type";
 
 export interface IAppProps {
-    Theme: any,
-    UseStyles: any
+    Theme: any;
+    UseStyles: any;
+}
+
+export interface INaveState {
+    open: boolean;
 }
 
 export interface IHeaderPageProps {

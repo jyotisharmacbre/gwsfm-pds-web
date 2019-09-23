@@ -3,20 +3,21 @@ import './App.css';
 import Layout from './components/Layouts/Layout'
 import { makeStyles, createMuiTheme } from '@material-ui/core/styles';
 
-const App : React.FC = () => {
-  const drawerWidth = 240;
+const App: React.FC = () => {
+  const drawerWidth = 250;
 
   const theme = createMuiTheme({
     palette: {
       primary: {
         // light: will be calculated from palette.primary.main,
-        main: '#ffffff',
+        main: '#00684d',
         // dark: will be calculated from palette.primary.main,
         // contrastText: will be calculated to contrast with palette.primary.main
       },
       secondary: {
         light: '#19775e',
-        main: '#00684d',
+        main: '#ffffff',
+        
         // dark: will be calculated from palette.secondary.main,
         contrastText: '#ffcc00',
       },
@@ -28,7 +29,7 @@ const App : React.FC = () => {
         '-apple-system,system-ui,BlinkMacSystemFont,' +
         'Roboto,"Helvetica",sans-serif',
     },
-    
+
   });
 
   const useStyles = makeStyles(theme => ({
@@ -53,10 +54,11 @@ const App : React.FC = () => {
       }),
     },
     appBarShift: {
-     // marginLeft: drawerWidth,
-      //marginRight: drawerWidth,
-     // width: `calc(100% - ${drawerWidth}px - ${drawerWidth}px)`,
-     width: '100%',
+      // marginLeft: drawerWidth,
+      // marginRight: drawerWidth,
+      //width: '100%',
+      marginLeft: drawerWidth,
+      width: `calc(100% - ${drawerWidth}px)`,
       transition: theme.transitions.create(['width', 'margin'], {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.enteringScreen,
@@ -70,8 +72,12 @@ const App : React.FC = () => {
     },
     title: {
       flexGrow: 1,
-      color: '#00684d',
-      fontSize: '1.8em'
+      color: 'white',
+      fontSize: '1.8em',
+      width: '100%'
+    },
+    titleHidden: {
+      display: 'none',
     },
     drawerPaper: {
       position: 'relative',
@@ -81,6 +87,7 @@ const App : React.FC = () => {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.enteringScreen,
       }),
+      backgroundColor:'#272728'
     },
     drawerPaperClose: {
       overflowX: 'hidden',
@@ -103,7 +110,7 @@ const App : React.FC = () => {
     container: {
       paddingTop: theme.spacing(4),
       paddingBottom: theme.spacing(4),
-    
+
     },
     paper: {
       padding: theme.spacing(2),
