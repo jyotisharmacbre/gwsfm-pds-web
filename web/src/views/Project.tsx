@@ -1,6 +1,7 @@
 import React from 'react';
 import HeaderPage from '../components/HeaderPage/HeaderPage';
 import ProjectForm from '../components/Forms/ProjectForm/ProjectForm';
+import { Container } from '@material-ui/core';
 
 class Project extends React.Component {
 
@@ -8,10 +9,11 @@ class Project extends React.Component {
 
         return (
             <React.Fragment>
-                <HeaderPage Title={'New Project'} />
-                <ProjectForm ></ProjectForm>
-
-            </React.Fragment>
+                <Container component="main" >
+                    <HeaderPage Title={'New Project'} />
+                    <ProjectForm ></ProjectForm>
+                </Container>
+            </React.Fragment >
         );
     }
 }
