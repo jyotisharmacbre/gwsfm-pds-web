@@ -1,0 +1,8 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/react-datepicker/2.8.0/react-datepicker.min.css');
+.react-datepicker-wrapper .react-datepicker__input-container input{
+    padding: 18.5px 14px;
+}
+
+.react-datepicker-wrapper{
+    padding-top: 10px;
+}
