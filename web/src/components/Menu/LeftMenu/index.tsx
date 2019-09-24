@@ -1,6 +1,5 @@
 import React from 'react';
 import './style.css';
-import { statement } from '@babel/template';
 import clsx from 'clsx';
 
 
@@ -10,13 +9,13 @@ const LeftMenu: React.FC = () => {
 
     const getMenu = () => {
         return [{ name: 'Customer Enquiry', link: '/' },
-        { name: 'Project Overview', link: '/' },
+        { name: 'Project Overview', link: '/ProjectOverview' },
         { name: 'Justification & Authorisation', link: '/', hasSubmenu: true, subItems: [{ name: 'Preliminaries', link: '/' }, { name: 'Subcontractors', link: '/' }, { name: 'Discounts', link: '/' }] },
         { name: 'Review & Submit', link: '/' }]
     }
 
     const getSubItems = (items: any[]) => {
-        return items.map(x => <a href={x.link} onClick={handleSubClick}>
+        return items.map(x => <a key={x.name} href={x.link} onClick={handleSubClick}>
 
             {x.name}</a>)
     }
@@ -48,7 +47,7 @@ const LeftMenu: React.FC = () => {
     const menu = getMenu().map((x) => {
         {
             if (x.hasSubmenu) {
-                return (<React.Fragment>
+                return (<React.Fragment key={x.name}>
                     <button className={clsx("dropdown-btn", !hide && "active")} onClick={handleClick} >{x.name}
                         <i className="fa fa-caret-down"></i>
                     </button>
@@ -57,7 +56,7 @@ const LeftMenu: React.FC = () => {
                     </div>
                 </React.Fragment>);
             } else {
-                return (<a href={x.link}>{x.name}</a>);
+                return (<a key={x.name} href={x.link}>{x.name}</a>);
             }
 
         }
