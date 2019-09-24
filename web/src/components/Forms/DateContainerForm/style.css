@@ -5,3 +5,14 @@
     padding: 15px;
 }
 
+.react-datepicker__day--selected
+{
+    background-color: #00684d;
+}
+
+
+
+.react-datepicker__day--selected:hover
+{
+    background-color: #00684d;
+}
