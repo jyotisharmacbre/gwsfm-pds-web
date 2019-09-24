@@ -11,10 +11,9 @@
   .radio-toolbar label {
       display: inline-block;
       background-color: #ddd;
-      padding: 10px 20px;
+      padding: 5px 25px;
       font-family: sans-serif, Arial;
-      font-size: 16px;
-      border: 1px solid gray;
+      font-size: 16px;   
       border-radius: 4px;
       margin-right: 10px;
       margin-top: 10px;
@@ -33,5 +32,6 @@
       background-color:  #4CBE7F;
       border-color: #4CBE7F;
       color: white;
+      font-weight: 600;
   }
   
