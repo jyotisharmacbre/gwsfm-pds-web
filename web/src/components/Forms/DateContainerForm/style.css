@@ -1,0 +1,18 @@
+.date-container{
+    width: 500px;
+    background-color: #E8ECF3;
+    color: rgb(91,91,91);
+    padding: 15px;
+}
+
+.react-datepicker__day--selected
+{
+    background-color: #00684d;
+}
+
+
+
+.react-datepicker__day--selected:hover
+{
+    background-color: #00684d;
+}

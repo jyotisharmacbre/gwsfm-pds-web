@@ -4,6 +4,7 @@ import { PageBtnActions } from '../../BtnActions/BtnActions';
 import { IBtnActionProps } from '../../../props/AppProps';
 import SquareRadio from '../../Buttons/SquareRadio';
 import { ISquareRadioProps } from '../../Buttons/SquareRadio/props';
+import DateContainerForm from '../DateContainerForm';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -43,11 +44,11 @@ const workTypes = [{ name: 'Select', value: '' }, { name: 'val 1', value: 'val1'
 const projectBudget = [{ name: 'Select', value: '' }, { name: 'Up to £3 million', value: '3million' }];
 const radio: ISquareRadioProps[] = [
     { value: 'true', label: 'Yes', id: 'cmdyes' },
-    { value: 'false', label: 'No' , id: 'cmdno'}
+    { value: 'false', label: 'No', id: 'cmdno' }
 ]
 const radioProject: ISquareRadioProps[] = [
     { value: 'true', label: 'Yes', id: 'plyes' },
-    { value: 'false', label: 'No' , id: 'plno'}
+    { value: 'false', label: 'No', id: 'plno' }
 ]
 
 const Buttons: IBtnActionProps[] = [
@@ -366,7 +367,31 @@ const ProjectOverviewForm: React.FC = (props: any) => {
                     <InputLabel shrink className={classes.label}>
                         Project Plan
                                 </InputLabel>
+                    <DateContainerForm dateOneLabel='Commence Date' dateTwoLabel='Completion Date'>
+                        <FormControl fullWidth>
+                            <InputLabel shrink className={classes.label}>
+                                Project Milestone
+                                </InputLabel>
 
+                            <TextField
+                                id="main-contractor"
+                                multiline
+                                rows={4}
+                                className={classes.textField}
+                                onChange={handleValueChange('maincontractor')}
+                                value={''}
+                                margin="normal"
+                                variant="outlined"
+                                required
+                                fullWidth
+                                autoFocus
+                                error={false}
+                            >
+
+                            </TextField>
+
+                        </FormControl>
+                    </DateContainerForm>
 
 
                 </FormControl>
@@ -374,9 +399,52 @@ const ProjectOverviewForm: React.FC = (props: any) => {
             <Grid item xs={12} sm={12}>
                 <FormControl fullWidth>
                     <InputLabel shrink className={classes.label}>
-                        Project Plan 2
+                        Project Plan
+                                </InputLabel>
+                    <DateContainerForm dateOneLabel='First Valuation Date' dateTwoLabel='Final Account Date'>
+                        <FormControl fullWidth>
+                            <InputLabel shrink className={classes.label}>
+                                Valuation Intervals
                                 </InputLabel>
 
+                            <TextField
+                                id="main-contractor"
+                                className={classes.textField}
+                                onChange={handleValueChange('maincontractor')}
+                                value={''}
+                                margin="normal"
+                                variant="outlined"
+                                required
+                                fullWidth
+                                autoFocus
+                                error={false}
+                            >
+
+                            </TextField>
+
+                        </FormControl>
+                        <FormControl fullWidth>
+                            <InputLabel shrink className={classes.label}>
+                                Payment Terms
+                                </InputLabel>
+
+                            <TextField
+                                id="main-contractor"
+                                className={classes.textField}
+                                onChange={handleValueChange('maincontractor')}
+                                value={''}
+                                margin="normal"
+                                variant="outlined"
+                                required
+                                fullWidth
+                                autoFocus
+                                error={false}
+                            >
+
+                            </TextField>
+
+                        </FormControl>
+                    </DateContainerForm>
 
 
                 </FormControl>

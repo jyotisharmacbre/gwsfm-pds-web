@@ -105,7 +105,7 @@ const App: React.FC = () => {
       flexGrow: 1,
       height: '100vh',
       overflow: 'auto',
-      backgroundColor: 'rgb(235, 238, 245)'
+      backgroundColor: '#f4f6fb'
     },
     container: {
       paddingTop: theme.spacing(4),

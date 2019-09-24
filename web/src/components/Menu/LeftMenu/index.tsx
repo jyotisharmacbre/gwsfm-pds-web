@@ -15,7 +15,7 @@ const LeftMenu: React.FC = () => {
     }
 
     const getSubItems = (items: any[]) => {
-        return items.map(x => <a href={x.link} onClick={handleSubClick}>
+        return items.map(x => <a key={x.name} href={x.link} onClick={handleSubClick}>
 
             {x.name}</a>)
     }
@@ -47,7 +47,7 @@ const LeftMenu: React.FC = () => {
     const menu = getMenu().map((x) => {
         {
             if (x.hasSubmenu) {
-                return (<React.Fragment>
+                return (<React.Fragment key={x.name}>
                     <button className={clsx("dropdown-btn", !hide && "active")} onClick={handleClick} >{x.name}
                         <i className="fa fa-caret-down"></i>
                     </button>
@@ -56,7 +56,7 @@ const LeftMenu: React.FC = () => {
                     </div>
                 </React.Fragment>);
             } else {
-                return (<a href={x.link}>{x.name}</a>);
+                return (<a key={x.name} href={x.link}>{x.name}</a>);
             }
 
         }
