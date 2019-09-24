@@ -5,8 +5,13 @@
     padding: 10px;
 }
 
-.general-table thead tr th{
+.general-table thead tr:first-child th{
     text-align: left;
+    width: 150px;
+}
+
+.general-table thead tr th:last-child{
+    text-align: right;
 }
 
 .general-table thead tr:first-child th:last-child{
