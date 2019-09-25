@@ -8,7 +8,7 @@ const LeftMenu: React.FC = () => {
     const [hide, setHide] = React.useState<boolean>(true);
 
     const getMenu = () => {
-        return [{ name: 'Customer Enquiry', link: '/' },
+        return [{ name: 'Customer Enquiry', link: '/Project' },
         { name: 'Project Overview', link: '/ProjectOverview' },
         { name: 'Justification & Authorisation', link: '/', hasSubmenu: true, subItems: [{ name: 'Preliminaries', link: '/' }, { name: 'Subcontractors', link: '/' }, { name: 'Discounts', link: '/' }] },
         { name: 'Review & Submit', link: '/' }]

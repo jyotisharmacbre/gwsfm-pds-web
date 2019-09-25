@@ -164,7 +164,6 @@ const useStyles = makeStyles((theme: Theme) =>
             fontWeight: 'bold'
         },
         select: {
-            backgroundColor: 'white'
             //marginTop: '0px'
         }
     }),
@@ -338,7 +337,9 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
 
                         <TextField
                             id="outlined-select-company"
-                            className={classes.textField}
+                            inputProps={{
+                                className: classes.textField,
+                            }}
                             onChange={handleValueChange('company')}
                             value={props.form.company}
                             margin="normal"
@@ -361,7 +362,9 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                                 </InputLabel>
                         <TextField
                             id="outlined-select-custcontract"
-                            className={classes.textField}
+                            inputProps={{
+                                className: classes.textField,
+                            }}
                             select
                             onChange={handleValueChange('customer_contract')}
                             SelectProps={{
@@ -396,7 +399,7 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                                 </InputLabel>
                         <TextField
                             variant="outlined"
-                            className={classes.textField}
+                            inputProps={{ className: classes.textField, }}
                             required
                             fullWidth
                             margin="normal"
@@ -425,7 +428,7 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                                     className: classes.menu,
                                 },
                             }}
-                            className={classes.select}
+                            inputProps={{ className: classes.textField }}
                             margin="normal"
                             name="ProjectStatus"
                             variant="outlined"
@@ -448,13 +451,12 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                                 </InputLabel>
                         <TextField
                             variant="outlined"
-                            className={classes.textField}
                             required
                             margin="normal"
                             fullWidth
                             value={props.form.projectscope}
                             name="ProjectScope"
-
+                            inputProps={{ className: classes.textField }}
                             id="ProjectScope"
                             multiline
                             rows="4"
@@ -472,7 +474,7 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                                 </InputLabel>
                         <TextField
                             variant="outlined"
-                            className={classes.textField}
+                            inputProps={{ className: classes.textField, }}
                             required
                             margin="normal"
                             fullWidth
@@ -514,7 +516,7 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                             variant="outlined"
                             required
                             margin="normal"
-                            className={classes.textField}
+                            inputProps={{ className: classes.textField, }}
                             fullWidth
                             value={props.form.headofproject}
                             name="HeadOfProject"
@@ -536,7 +538,7 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                             fullWidth
                             value={props.form.projectowner}
                             name="ProjectOwner"
-                            className={classes.textField}
+                            inputProps={{ className: classes.textField, }}
                             margin="normal"
                             id="ProjectOwner"
                             onChange={handleValueChange('projectowner')}
@@ -555,7 +557,7 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                             variant="outlined"
                             fullWidth
                             margin="normal"
-                            className={classes.textField}
+                            inputProps={{ className: classes.textField, }}
                             value={props.form.cnnumber}
                             name="cnnumber"
                             id="CNNumber"
@@ -591,7 +593,7 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                         <TextField
                             id="outlined-select-typeofengagement"
                             select
-                            className={classes.textField}
+                            inputProps={{ className: classes.textField, }}
                             onChange={handleValueChange('typeofengagement')}
                             SelectProps={{
                                 MenuProps: {
@@ -621,7 +623,7 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                         <TextField
                             id="outlined-select-country"
                             select
-                            className={classes.textField}
+                            inputProps={{ className: classes.textField, }}
                             name="Locale"
                             value={props.form.locale}
                             onChange={handleValueChange('locale')}
@@ -654,7 +656,7 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                                 </InputLabel>
                         <TextField
                             id="outlined-select-currency"
-                            className={classes.textField}
+                            inputProps={{ className: classes.textField, }}
                             select
                             name="Currency"
                             value={props.form.currency}
@@ -691,7 +693,7 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                             variant="outlined"
                             fullWidth
                             margin="normal"
-                            className={classes.textField}
+                            inputProps={{ className: classes.textField, }}
                             value={props.form.probofwinning}
                             type="number"
                             name="ProbOfWinning"
@@ -712,12 +714,11 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                         <TextField
                             variant="outlined"
                             fullWidth
-                            className={classes.textField}
+                            inputProps={{ className: classes.textField, 'dataformat': 'currency' }}
                             margin="normal"
                             value={props.form.approximatevalue}
                             name="ApproxValue"
                             id="ApproximateValue"
-                            inputProps={{ 'dataformat': 'currency' }}
                             required
                             onChange={handleValueChange('approximatevalue')}
                             error={props.form.invalidApproxValue}
@@ -742,6 +743,7 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                                     className: classes.menu,
                                 },
                             }}
+                            inputProps={{ className: classes.textField, }}
                             className={classes.select}
                             margin="normal"
                             variant="outlined"
@@ -791,7 +793,7 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                         <TextField
                             id="outlined-select-asworkedprimary"
                             select
-                            className={classes.textField}
+                            inputProps={{ className: classes.textField, }}
                             name="AssetsWorkedOnPrimary"
                             value={props.form.assetworkedonprimary}
                             onChange={handleValueChange('assetworkedonprimary')}
@@ -825,7 +827,7 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                         <TextField
                             id="outlined-select-asworked2"
                             select
-                            className={classes.textField}
+                            inputProps={{ className: classes.textField, }}
                             name="AsWorked2"
                             value={props.form.assetworkedonsecond}
                             onChange={handleValueChange('assetworkedonsecond')}
@@ -855,7 +857,7 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                         <TextField
                             id="outlined-select-asworked3"
                             select
-                            className={classes.textField}
+                            inputProps={{ className: classes.textField, }}
                             name="AsWorked3"
                             value={props.form.assetworkedonthird}
                             onChange={handleValueChange('assetworkedonthird')}
@@ -883,7 +885,7 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                             Sold Margin
                                 </InputLabel>
                         <TextField
-                            className={classes.textField}
+                            inputProps={{ className: classes.textField, }}
                             variant="outlined"
                             fullWidth
                             value={props.form.soldmargin}
@@ -903,7 +905,7 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                         <TextField
                             variant="outlined"
                             fullWidth
-                            className={classes.textField}
+                            inputProps={{ className: classes.textField, }}
                             margin="normal"
                             value={props.form.weightedtcv}
                             name="Weightedtcv"
@@ -920,7 +922,7 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
                         <TextField
                             variant="outlined"
                             fullWidth
-                            className={classes.textField}
+                            inputProps={{ className: classes.textField, }}
                             margin="normal"
                             value={props.form.rank}
                             name="rank"

@@ -20,8 +20,6 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         textField: {
             backgroundColor: 'white'
-            // marginLeft: theme.spacing(1),
-            // marginRight: theme.spacing(1),
         },
         menu: {
             width: 200,
@@ -90,7 +88,9 @@ const ProjectOverviewForm: React.FC = (props: any) => {
 
                     <TextField
                         id="main-contractor"
-                        className={classes.textField}
+                        inputProps={{
+                            className: classes.textField,
+                        }}
                         onChange={handleValueChange('maincontractor')}
                         value={''}
                         margin="normal"
