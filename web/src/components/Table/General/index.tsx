@@ -2,35 +2,30 @@ import React from 'react';
 import './style.css';
 import { Divider, IconButton } from '@material-ui/core';
 import { Create } from '@material-ui/icons';
+import { IGeneralTableProps } from './props';
 
 
-const GeneralTable: React.FC = () => {
+const GeneralTable: React.FC<IGeneralTableProps> = (props) => {
 
     return (<React.Fragment>
         <table className={'general-table'}>
             <thead>
                 <tr>
+                    {props.headers.map(h => {
+                        return (
+                            <th key={h.heading}>
+                                <label className="general-table-title">{h.heading}<br /> <span>{h.subHeading}</span></label>
+                            </th>
+                        );
+                    })}
                     <th>
-                        <label className="general-table-title">Header 1 <br /> <span>subtitle</span></label>
-
-                    </th>
-                    <th>
-                        <label className="general-table-title">Header 2 <br /> <span>subtitle</span></label>
-                    </th>
-                    <th>
-                        <label className="general-table-title">Header 3 <br /> <span>subtitle</span></label>
-                    </th>
-                    <th>
-                        <label className="general-table-title">Header 4 <br /> <span>subtitle</span></label>
-                    </th>
-                    <th>
-                        <IconButton color="primary">
+                        <IconButton color="primary" onClick={props.editActionClick}>
                             <Create />
                         </IconButton>
                     </th>
                 </tr>
                 <tr>
-                    <th colSpan={6}>
+                    <th colSpan={props.headers.length + 1}>
                         <Divider /></th>
                 </tr>
 
@@ -40,11 +35,7 @@ const GeneralTable: React.FC = () => {
                     <td>
                         Scope of Work:
                     <ul className="listitems">
-                            <li>Topic 1</li>
-                            <li>Topic 1</li>
-                            <li>Topic 1</li>
-                            <li>Topic 1</li>
-                            <li>Topic 1</li>
+                            <li>{props.content}</li>
                         </ul>
                     </td>
 
