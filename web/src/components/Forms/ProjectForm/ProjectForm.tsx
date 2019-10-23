@@ -254,7 +254,7 @@ const ProjectForm: React.FC<IProjectFormProps> = (props) => {
         props.addToForm(data);
     }
 
-    const validateField = (key?: string) => (e: React.FocusEvent<HTMLInputElement>) => {
+    const validateField = (key?: any) => (e: React.FocusEvent<HTMLInputElement>) => {
         let valid = isValid(e.target.value);
         let name = e.target.name;
         let dataType = e.target.getAttribute('dataformat');
