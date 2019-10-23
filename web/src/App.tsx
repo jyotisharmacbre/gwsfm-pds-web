@@ -123,8 +123,11 @@ const App: React.FC = () => {
     }
   }));
 
-  var language = navigator.language.split(/[-_]/)[0];
-  if (!language) language = 'en';
+  var language = 'en';
+
+  if (navigator.language && navigator.language.split(/[-_]/).length > 0) {
+    language = navigator.language.split(/[-_]/)[0];
+  }
 
   return (
     <div>
