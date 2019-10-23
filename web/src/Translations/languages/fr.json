@@ -1,0 +1,16 @@
+{
+  "hello": "Bonjour, {name}",
+  "projectDeliverySysten": "SYSTEME DE LIVRAISON DE PROJET",
+  "overview": "Vue d'ensemble",
+  "yourProject": "Votre projet",
+  "preferred": "Préféré",
+  "runRate": "Taux d'exécution",
+  "analytics": "Analytique",
+  "customerEnquiry": "Demande du client",
+  "projectOverview": "Aperçu du projet",
+  "j&a": "Justification et autorisation",
+  "preliminaries": "Préliminaires",
+  "subcontractors": "sous-traitants",
+  "discounts": "des remises",
+  "review&submit": "Examiner et soumettre"
+}

@@ -1,7 +1,0 @@
-{
-  "global": {
-    "hello": "Hello, {authenticatedUser}",
-    "InProgress":"In Progress"
-
-  }
-}
