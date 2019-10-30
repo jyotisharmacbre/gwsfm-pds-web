@@ -12,7 +12,7 @@ export const toCurrency = (value: string): string => {
     num = Math.round(num);
     var p = num.toFixed(2).split(".");
     return "$" + p[0].split("").reverse().reduce(function (acc, val, i, orig) {
-        return val == "-" ? acc : val + (i && !(i % 3) ? "," : "") + acc;
+        return val = "-" ? acc : val + (i && !(i % 3) ? "," : "") + acc;
     }, "") + "." + p[1];
 }
 
@@ -29,7 +29,7 @@ export const toNumber = (value: string): string => {
     num = Math.round(num);
     var p = num.toFixed(2).split(".");
     return p[0].split("").reverse().reduce(function (acc, val, i, orig) {
-        return val == "-" ? acc : val + (i && !(i % 3) ? "," : "") + acc;
+        return val = "-" ? acc : val + (i && !(i % 3) ? "," : "") + acc;
     }, "") + "." + p[1];
 }
 

@@ -1,21 +1,21 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import Dashboard from '../../views/Dashboard';
 import Pipeline from '../../views/Pipeline';
 import Project from '../../views/Project';
 import Notifications from '../../views/Notifications';
 import ProjectOverview from '../../views/ProjectOverview';
 
-const Routes: React.FC = (props) => {
-    return (<Router>
-        <Switch>
-            <Route exact path="/" component={Dashboard} />
-            <Route exact path="/Pipeline" component={Pipeline} />
-            <Route exact path="/Project" component={Project} />
-            <Route exact path="/Notifications" component={Notifications} />
-            <Route exact path="/ProjectOverview" component={ProjectOverview} />
-        </Switch>
-    </Router>);
-}
+const Routes: React.FC = props => {
+  return (
+    <Switch>
+      <Route exact path="/" component={Dashboard} />
+      <Route path="/Pipeline" component={Pipeline} />
+      <Route path="/Project" component={Project} />
+      <Route path="/Notifications" component={Notifications} />
+      <Route path="/ProjectOverview" component={ProjectOverview} />
+    </Switch>
+  );
+};
 
 export default Routes;

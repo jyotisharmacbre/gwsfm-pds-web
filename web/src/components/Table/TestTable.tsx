@@ -1,7 +1,11 @@
-
 import React from 'react';
 import clsx from 'clsx';
-import { createStyles, lighten, makeStyles, Theme } from '@material-ui/core/styles';
+import {
+  createStyles,
+  lighten,
+  makeStyles,
+  Theme
+} from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -24,7 +28,7 @@ import { PageBtnActions } from '../BtnActions/BtnActions';
 import { IBtnActionProps } from '../../props/AppProps';
 
 interface Data {
-  id: number,
+  id: number;
   name: string;
   updatedby: string;
   date: string;
@@ -36,7 +40,7 @@ function createData(
   name: string,
   updatedby: string,
   date: string,
-  status: string,
+  status: string
 ): Data {
   return { id, name, updatedby, date, status };
 }
@@ -51,7 +55,7 @@ const rows = [
   createData(7, 'Twitter', 'Paul McCartney', '6 October 2019', 'Open'),
   createData(8, 'Instagram', 'Tom Scholz', '1 January 2019', 'Closed'),
   createData(9, 'YouTube', 'Michael Jackson', '8 August 2019', 'Signed Off'),
-  createData(10, 'Tinder?', 'Donald Trump', '27 June 2019', 'New'),
+  createData(10, 'Tinder?', 'Donald Trump', '27 June 2019', 'New')
 ];
 
 function desc<T>(a: T, b: T, orderBy: keyof T) {
@@ -78,9 +82,14 @@ type Order = 'asc' | 'desc';
 
 function getSorting<K extends keyof any>(
   order: Order,
-  orderBy: K,
-): (a: { [key in K]: number | string }, b: { [key in K]: number | string }) => number {
-  return order === 'desc' ? (a, b) => desc(a, b, orderBy) : (a, b) => -desc(a, b, orderBy);
+  orderBy: K
+): (
+  a: { [key in K]: number | string },
+  b: { [key in K]: number | string }
+) => number {
+  return order === 'desc'
+    ? (a, b) => desc(a, b, orderBy)
+    : (a, b) => -desc(a, b, orderBy);
 }
 
 interface HeadRow {
@@ -92,24 +101,45 @@ interface HeadRow {
 
 const headRows: HeadRow[] = [
   { id: 'name', numeric: false, disablePadding: true, label: 'NAME' },
-  { id: 'updatedby', numeric: false, disablePadding: false, label: 'UPDATEDBY' },
+  {
+    id: 'updatedby',
+    numeric: false,
+    disablePadding: false,
+    label: 'UPDATEDBY'
+  },
   { id: 'date', numeric: false, disablePadding: false, label: 'DATE' },
-  { id: 'status', numeric: false, disablePadding: false, label: 'STATUS' },
+  { id: 'status', numeric: false, disablePadding: false, label: 'STATUS' }
 ];
 
 interface EnhancedTableProps {
   classes: ReturnType<typeof useStyles>;
   numSelected: number;
-  onRequestSort: (event: React.MouseEvent<unknown>, property: keyof Data) => void;
-  onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => void;
+  onRequestSort: (
+    event: React.MouseEvent<unknown>,
+    property: keyof Data
+  ) => void;
+  onSelectAllClick: (
+    event: React.ChangeEvent<HTMLInputElement>,
+    checked: boolean
+  ) => void;
   order: Order;
   orderBy: string;
   rowCount: number;
 }
 
 function EnhancedTableHead(props: EnhancedTableProps) {
-  const { classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
-  const createSortHandler = (property: keyof Data) => (event: React.MouseEvent<unknown>) => {
+  const {
+    classes,
+    onSelectAllClick,
+    order,
+    orderBy,
+    numSelected,
+    rowCount,
+    onRequestSort
+  } = props;
+  const createSortHandler = (property: keyof Data) => (
+    event: React.MouseEvent<unknown>
+  ) => {
     onRequestSort(event, property);
   };
 
@@ -130,7 +160,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
             // align={row.numeric ? 'right' : 'left'}
             //padding={row.disablePadding ? 'none' : 'default'}
             sortDirection={orderBy === row.id ? order : false}
-            style={{ fontWeight: "bolder" }}
+            style={{ fontWeight: 'bolder' }}
           >
             <TableSortLabel
               active={orderBy === row.id}
@@ -155,28 +185,28 @@ const useToolbarStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       paddingLeft: theme.spacing(2),
-      paddingRight: theme.spacing(1),
+      paddingRight: theme.spacing(1)
     },
     highlight:
       theme.palette.type === 'light'
         ? {
-          color: theme.palette.secondary.main,
-          backgroundColor: lighten(theme.palette.secondary.light, 0.85),
-        }
+            color: theme.palette.secondary.main,
+            backgroundColor: lighten(theme.palette.secondary.light, 0.85)
+          }
         : {
-          color: theme.palette.text.primary,
-          backgroundColor: theme.palette.secondary.dark,
-        },
+            color: theme.palette.text.primary,
+            backgroundColor: theme.palette.secondary.dark
+          },
     spacer: {
-      flex: '1 1 100%',
+      flex: '1 1 100%'
     },
     actions: {
-      color: theme.palette.text.secondary,
+      color: theme.palette.text.secondary
     },
     title: {
-      flex: '0 0 auto',
-    },
-  }),
+      flex: '0 0 auto'
+    }
+  })
 );
 
 interface EnhancedTableToolbarProps {
@@ -189,9 +219,9 @@ const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
 
   return (
     <Toolbar
-      // className={clsx(classes.root, {
-      //   [classes.highlight]: numSelected > 0,
-      // })}
+    // className={clsx(classes.root, {
+    //   [classes.highlight]: numSelected > 0,
+    // })}
     >
       <div className={classes.title}>
         {/* {numSelected > 0 ? (
@@ -203,9 +233,9 @@ const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
               Your Notifications
           </Typography>
           )} */}
-        <Typography variant="h6" id="tableTitle" style={{ color: "#00684d" }}>
+        <Typography variant="h6" id="tableTitle" style={{ color: '#00684d' }}>
           Your Notifications
-          </Typography>
+        </Typography>
       </div>
       {/* <div className={classes.spacer} />
       <div className={classes.actions}>
@@ -231,17 +261,17 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       width: '100%',
-      marginTop: theme.spacing(3),
+      marginTop: theme.spacing(3)
     },
     paper: {
       width: '100%',
-      marginBottom: theme.spacing(2),
+      marginBottom: theme.spacing(2)
     },
     table: {
-      minWidth: 750,
+      minWidth: 750
     },
     tableWrapper: {
-      overflowX: 'auto',
+      overflowX: 'auto'
     },
     visuallyHidden: {
       border: 0,
@@ -252,11 +282,10 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: 0,
       position: 'absolute',
       top: 20,
-      width: 1,
-    },
-  }),
+      width: 1
+    }
+  })
 );
-
 
 export default function EnhancedTable(props: { IsSuperManager: boolean }) {
   const classes = useStyles();
@@ -267,7 +296,10 @@ export default function EnhancedTable(props: { IsSuperManager: boolean }) {
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-  function handleRequestSort(event: React.MouseEvent<unknown>, property: keyof Data) {
+  function handleRequestSort(
+    event: React.MouseEvent<unknown>,
+    property: keyof Data
+  ) {
     const isDesc = orderBy === property && order === 'desc';
     setOrder(isDesc ? 'asc' : 'desc');
     setOrderBy(property);
@@ -295,7 +327,7 @@ export default function EnhancedTable(props: { IsSuperManager: boolean }) {
     } else if (selectedIndex > 0) {
       newSelected = newSelected.concat(
         selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1),
+        selected.slice(selectedIndex + 1)
       );
     }
 
@@ -319,7 +351,8 @@ export default function EnhancedTable(props: { IsSuperManager: boolean }) {
 
   //const isSuperManger = true;
 
-  const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+  const emptyRows =
+    rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
   function getButtons() {
     const act: IBtnActionProps = {
@@ -328,7 +361,7 @@ export default function EnhancedTable(props: { IsSuperManager: boolean }) {
       HandleClick: () => {
         window.location.href = '/Notifications';
       }
-    }
+    };
     return [act];
   }
 
@@ -339,7 +372,7 @@ export default function EnhancedTable(props: { IsSuperManager: boolean }) {
       HandleClick: () => {
         window.history.back();
       }
-    }
+    };
     return [act];
   }
 
@@ -411,10 +444,10 @@ export default function EnhancedTable(props: { IsSuperManager: boolean }) {
             rowsPerPage={rowsPerPage}
             page={page}
             backIconButtonProps={{
-              'aria-label': 'previous page',
+              'aria-label': 'previous page'
             }}
             nextIconButtonProps={{
-              'aria-label': 'next page',
+              'aria-label': 'next page'
             }}
             onChangePage={handleChangePage}
             onChangeRowsPerPage={handleChangeRowsPerPage}
@@ -423,9 +456,12 @@ export default function EnhancedTable(props: { IsSuperManager: boolean }) {
             <PageBtnActions Actions={getButtons_Back()} />
           </div>
           <div style={{ textAlign: 'right' }}>
-            {props.IsSuperManager ? (<PageBtnActions Actions={getButtons()} />) : null}
+            {props.IsSuperManager ? (
+              <PageBtnActions Actions={getButtons()} />
+            ) : null}
           </div>
-        </Paper>) : null}
+        </Paper>
+      ) : null}
       {/* <FormControlLabel
         control={<Switch checked={dense} onChange={handleChangeDense} />}
         label="Dense padding"
