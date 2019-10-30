@@ -1,9 +1,16 @@
 import React from 'react';
 import './style.css';
 import clsx from 'clsx';
+<<<<<<< HEAD
 import { Link } from 'react-router-dom';
 
 const LeftMenu: React.FC = () => {
+=======
+import { injectIntl } from 'react-intl';
+import Translate from '../../../Translations/translate';
+
+const LeftMenu: React.FC = (props: any) => {
+>>>>>>> 0bafd71dabc84532fecce3c68f412a9ff204609a
   const [hide, setHide] = React.useState<boolean>(true);
 
   const getMenu = () => {
@@ -87,4 +94,4 @@ const LeftMenu: React.FC = () => {
   return <div className="sidenav">{menu}</div>;
 };
 
-export default LeftMenu;
+export default injectIntl(LeftMenu);

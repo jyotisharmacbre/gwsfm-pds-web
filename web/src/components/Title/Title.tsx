@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
+import { FormattedMessage } from 'react-intl';
 
 export default function Title(props: any) {
   return (
@@ -18,7 +19,9 @@ export default function Title(props: any) {
 export function MainTitle(props: any) {
   return (
     <div>
-      <b>PROJECT DELIVERY SYSTEM</b>
+      <b>
+        <FormattedMessage id="projectDeliverySysten" />
+      </b>
       <br />
       <Typography
         component="h1"

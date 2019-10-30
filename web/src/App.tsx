@@ -2,6 +2,8 @@ import React from 'react';
 import './App.css';
 import Layout from './components/Layouts/Layout';
 import { makeStyles, createMuiTheme } from '@material-ui/core/styles';
+import { IntlProvider } from 'react-intl';
+import translations from './Translations/translation';
 
 const App: React.FC = () => {
   const drawerWidth = 250;
@@ -120,9 +122,21 @@ const App: React.FC = () => {
       height: 240
     }
   }));
+
+  var language = 'en';
+
+  if (navigator.language && navigator.language.split(/[-_]/).length > 0) {
+    language = navigator.language.split(/[-_]/)[0];
+  }
+
   return (
     <div>
-      <Layout Theme={theme} UseStyles={useStyles()} />
+      <IntlProvider
+        locale={language}
+        messages={translations[language].messages}
+      >
+        <Layout Theme={theme} UseStyles={useStyles()} />
+      </IntlProvider>
     </div>
   );
 };

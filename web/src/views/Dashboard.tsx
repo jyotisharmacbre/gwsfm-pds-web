@@ -1,7 +1,7 @@
+import { Grid } from '@material-ui/core';
 import React from 'react';
-import HeaderPage from '../components/HeaderPage/HeaderPage';
-import { IBtnActionProps } from '../props/AppProps';
-import Table from '../components/Table/Simple/Table';
+import { injectIntl } from 'react-intl';
+import CardContainer from '../components/CardContainer/CardContainer';
 import MultipleChart from '../components/Charts/MultipleCharts';
 import { Grid } from '@material-ui/core';
 import PreferredChart from '../components/Charts/PreferredChart';
@@ -93,8 +93,11 @@ class Dashboard extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <HeaderPage Title={'Overview'} ActionList={this.GetButtons()} />
-        <CardContainer Title="Your Projects">
+        <HeaderPage
+          Title={Translate.getLabel(this.props, 'overview')}
+          ActionList={this.GetButtons()}
+        />
+        <CardContainer Title={Translate.getLabel(this.props, 'yourProject')}>
           <Table
             columns={this.createTableColumns()}
             data={this.getTableData()}
@@ -104,12 +107,14 @@ class Dashboard extends React.Component {
         <Grid container spacing={2}>
           <Grid item container spacing={2}>
             <Grid item xs={12} sm={12} lg={6} md={6}>
-              <CardContainer Title="Preferred">
+              <CardContainer
+                Title={Translate.getLabel(this.props, 'preferred')}
+              >
                 <PreferredChart Preferred={4} NotPreferred={6} />
               </CardContainer>
             </Grid>
             <Grid item xs={12} sm={12} lg={6} md={6}>
-              <CardContainer Title="Run Rate">
+              <CardContainer Title={Translate.getLabel(this.props, 'runRate')}>
                 <RunRateChart
                   ICE={56}
                   JandA={12}
@@ -123,7 +128,9 @@ class Dashboard extends React.Component {
           </Grid>
           <Grid item container spacing={2}>
             <Grid item xs={12} sm={12} lg={12} md={12}>
-              <CardContainer Title=" Analytics">
+              <CardContainer
+                Title={Translate.getLabel(this.props, 'analytics')}
+              >
                 <MultipleChart
                   ProjectTotal={200}
                   ICE={50}
@@ -144,4 +151,4 @@ class Dashboard extends React.Component {
   }
 }
 
-export default Dashboard;
+export default injectIntl(Dashboard);

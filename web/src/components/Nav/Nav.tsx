@@ -120,4 +120,4 @@ class Nav extends React.Component<IAppProps, INaveState> {
   }
 }
 
-export default Nav;
+export default injectIntl(Nav);
