@@ -3,12 +3,15 @@ import React from 'react';
 import { injectIntl } from 'react-intl';
 import CardContainer from '../components/CardContainer/CardContainer';
 import MultipleChart from '../components/Charts/MultipleCharts';
-import { Grid } from '@material-ui/core';
 import PreferredChart from '../components/Charts/PreferredChart';
 import RunRateChart from '../components/Charts/RunRateChart';
-import CardContainer from '../components/CardContainer/CardContainer';
+import HeaderPage from '../components/HeaderPage/HeaderPage';
+import Table from '../components/Table/Simple/Table';
+import { IBtnActionProps } from '../props/AppProps';
+import IReactIntl from '../Translations/IReactIntl';
+import Translate from '../Translations/translate';
 
-class Dashboard extends React.Component {
+class Dashboard extends React.Component<IReactIntl> {
   GetButtons() {
     const action1: IBtnActionProps = {
       Title: 'Create A New Project',

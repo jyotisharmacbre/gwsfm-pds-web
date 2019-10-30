@@ -1,33 +1,34 @@
 import React from 'react';
 import './style.css';
 import clsx from 'clsx';
-<<<<<<< HEAD
-import { Link } from 'react-router-dom';
-
-const LeftMenu: React.FC = () => {
-=======
 import { injectIntl } from 'react-intl';
 import Translate from '../../../Translations/translate';
+import { Link } from 'react-router-dom';
 
 const LeftMenu: React.FC = (props: any) => {
->>>>>>> 0bafd71dabc84532fecce3c68f412a9ff204609a
   const [hide, setHide] = React.useState<boolean>(true);
 
   const getMenu = () => {
     return [
-      { name: 'Customer Enquiry', link: '/Project' },
-      { name: 'Project Overview', link: '/ProjectOverview' },
       {
-        name: 'Justification & Authorisation',
+        name: Translate.getLabel(props, 'customerEnquiry'),
+        link: '/Project'
+      },
+      {
+        name: Translate.getLabel(props, 'projectOverview'),
+        link: '/ProjectOverview'
+      },
+      {
+        name: Translate.getLabel(props, 'j&a'),
         link: '/',
         hasSubmenu: true,
         subItems: [
-          { name: 'Preliminaries', link: '/' },
-          { name: 'Subcontractors', link: '/' },
-          { name: 'Discounts', link: '/' }
+          { name: Translate.getLabel(props, 'preliminaries'), link: '/' },
+          { name: Translate.getLabel(props, 'subcontractors'), link: '/' },
+          { name: Translate.getLabel(props, 'discounts'), link: '/' }
         ]
       },
-      { name: 'Review & Submit', link: '/' }
+      { name: Translate.getLabel(props, 'review&submit'), link: '/' }
     ];
   };
 

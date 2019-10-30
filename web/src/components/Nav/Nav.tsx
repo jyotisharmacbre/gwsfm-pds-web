@@ -10,23 +10,25 @@ import { ChevronLeft, MenuOutlined } from '@material-ui/icons';
 import clsx from 'clsx';
 import LeftMenu from '../Menu/LeftMenu';
 import './style.css';
+import { injectIntl } from 'react-intl';
+import IReactIntl from '../../Translations/IReactIntl';
+import Translate from '../../Translations/translate';
 import { Link } from 'react-router-dom';
 
-class Nav extends React.Component<IAppProps, INaveState> {
-  constructor(props: IAppProps) {
+class Nav extends React.Component<IAppProps & IReactIntl, INaveState> {
+  constructor(props: IAppProps & IReactIntl) {
     super(props);
 
     this.state = {
       open: true
     };
   }
-
   handleClick() {
     window.location.href = '/';
   }
 
   helloAuthenticatedUser() {
-    return 'Hello, ' + getDisplayName();
+    return Translate.getLabel(this.props, 'hello', { name: getDisplayName() });
   }
 
   handleDrawerOpen = () => {
