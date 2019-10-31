@@ -1,12 +1,10 @@
-export interface IGeneralTableProps
-{
-    headers: IGeneralTableHeaderProps[];
-    content: string;
-    editActionClick: ()=> void;
+export interface IGeneralTableProps {
+  headers: IGeneralTableHeaderProps[];
+  content: string;
+  editActionClick: () => void;
 }
 
-export interface IGeneralTableHeaderProps
-{
-    heading:string;
-    subHeading:string;
+export interface IGeneralTableHeaderProps {
+  heading: string;
+  subHeading: string;
 }

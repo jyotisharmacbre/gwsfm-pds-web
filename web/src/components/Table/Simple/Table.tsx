@@ -3,17 +3,16 @@ import MaterialTable from 'material-table';
 import { ITableProps } from '../../../props/AppProps';
 import './Table.css';
 import { PageBtnActions } from '../../BtnActions/BtnActions';
-import { HtmlAttributes } from 'csstype';
 
-
-const Table: React.FC<ITableProps> = (props) => {
-
-  const onRowClick = (e: React.MouseEvent<Element, MouseEvent> | undefined, rowData: any) => {
-
+const Table: React.FC<ITableProps> = props => {
+  const onRowClick = (
+    e: React.MouseEvent<Element, MouseEvent> | undefined,
+    rowData: any
+  ) => {
     if (props.onRowClick !== undefined) {
       props.onRowClick(e, rowData);
     }
-  }
+  };
 
   return (
     <React.Fragment>
@@ -32,8 +31,7 @@ const Table: React.FC<ITableProps> = (props) => {
         <PageBtnActions Actions={props.ActionList} />
       </div>
     </React.Fragment>
-
-  )
-}
+  );
+};
 
 export default Table;

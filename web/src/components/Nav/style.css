@@ -1,10 +1,14 @@
-.drawerhidden{
+.drawerhidden {
     height: 100%;
     display: none !important;
 }
 
-.drawer{
+.drawer {
     height: 100%;
     display: block;
     background-color: #272728;
+}
+
+.logo-hover a {
+    text-decoration: none;
 }

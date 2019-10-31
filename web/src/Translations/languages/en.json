@@ -1,0 +1,16 @@
+{
+  "hello": "Hello, {name}",
+  "projectDeliverySysten": "PROJECT DELIVERY SYSTEM",
+  "overview": "Overview",
+  "yourProject": "Your Project",
+  "preferred": "Preferred",
+  "runRate": "RunRate",
+  "analytics": "Analytics",
+  "customerEnquiry": "Customer Enquiry",
+  "projectOverview": "Project Overview",
+  "j&a": "Justification & Authorisation",
+  "preliminaries": "Preliminaries",
+  "subcontractors": "Subcontractors",
+  "discounts": "Discounts",
+  "review&submit": "Review & Submit"
+}

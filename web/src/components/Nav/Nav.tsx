@@ -10,79 +10,116 @@ import { ChevronLeft, MenuOutlined } from '@material-ui/icons';
 import clsx from 'clsx';
 import LeftMenu from '../Menu/LeftMenu';
 import './style.css';
+import { injectIntl } from 'react-intl';
+import IReactIntl from '../../Translations/IReactIntl';
+import Translate from '../../Translations/translate';
+import { Link } from 'react-router-dom';
 
+class Nav extends React.Component<IAppProps & IReactIntl, INaveState> {
+  constructor(props: IAppProps & IReactIntl) {
+    super(props);
 
-
-class Nav extends React.Component<IAppProps, INaveState>{
-
-    constructor(props: IAppProps) {
-        super(props);
-
-        this.state = {
-            open: true
-        }
-    }
-
-    handleClick() {
-        window.location.href = '/';
-    }
-
-    helloAuthenticatedUser() {
-        return "Hello, " + getDisplayName();
-    }
-
-    handleDrawerOpen = () => {
-        this.setState({ open: true });
+    this.state = {
+      open: true
     };
+  }
+  handleClick() {
+    window.location.href = '/';
+  }
 
-    handleDrawerClose = () => {
-        this.setState({ open: false });
-    };
+  helloAuthenticatedUser() {
+    return Translate.getLabel(this.props, 'hello', { name: getDisplayName() });
+  }
 
-    render() {
-        const { UseStyles } = this.props;
-        return (
-            <div >
-                <AppBar position="absolute" className={clsx(UseStyles.appBar, this.state.open && UseStyles.appBarShift)}>
-                    <Toolbar className={UseStyles.toolbar}>
-                        <IconButton
-                            edge="start"
-                            color="inherit"
-                            aria-label="open drawer"
-                            onClick={this.handleDrawerOpen}
-                            className={clsx(UseStyles.menuButton, this.state.open && UseStyles.menuButtonHidden)}
-                        >
-                            <MenuOutlined />
-                        </IconButton>
-                        <Typography component="h1" variant="h6" color="inherit" noWrap className={clsx(UseStyles.title, this.state.open && UseStyles.titleHidden)} onClick={this.handleClick}>
-                            <strong>CBRE</strong> PDS
-                        </Typography>
-                        <div></div>
-                        <ProfileMenu Name={this.helloAuthenticatedUser()} />
-                    </Toolbar>
-                </AppBar>
-                <Drawer
-                    variant="persistent"
-                    className={clsx('drawer', !this.state.open && 'drawerhidden')}
-                    classes={{
-                        paper: clsx(UseStyles.drawerPaper, !this.state.open && UseStyles.drawerPaperClose),
-                    }}
-                
-                    open={this.state.open}
-                >
-                    <div className={UseStyles.toolbarIcon} style={{backgroundColor: '#272728', paddingTop: 10, paddingBottom: 50}} >
-                        <Typography component="h1" variant="h6" noWrap className={UseStyles.title} onClick={this.handleClick}>
-                            <strong>CBRE</strong> PDS
-                        </Typography>
-                        <IconButton onClick={this.handleDrawerClose}>
-                            <ChevronLeft />
-                        </IconButton>
-                    </div>
-                   <LeftMenu />
-                </Drawer>
-            </div>
-        );
-    }
+  handleDrawerOpen = () => {
+    this.setState({ open: true });
+  };
+
+  handleDrawerClose = () => {
+    this.setState({ open: false });
+  };
+
+  render() {
+    const { UseStyles } = this.props;
+    return (
+      <div>
+        <AppBar
+          position="absolute"
+          className={clsx(
+            UseStyles.appBar,
+            this.state.open && UseStyles.appBarShift
+          )}
+        >
+          <Toolbar className={UseStyles.toolbar}>
+            <IconButton
+              edge="start"
+              color="inherit"
+              aria-label="open drawer"
+              onClick={this.handleDrawerOpen}
+              className={clsx(
+                UseStyles.menuButton,
+                this.state.open && UseStyles.menuButtonHidden
+              )}
+            >
+              <MenuOutlined />
+            </IconButton>
+            <Link to="/">
+              <Typography
+                component="h1"
+                variant="h6"
+                color="inherit"
+                noWrap
+                className={clsx(
+                  UseStyles.title,
+                  this.state.open && UseStyles.titleHidden
+                )}
+              >
+                <strong>CBRE</strong> PDS
+              </Typography>
+            </Link>
+            <div></div>
+            <ProfileMenu Name={this.helloAuthenticatedUser()} />
+          </Toolbar>
+        </AppBar>
+        <Drawer
+          variant="persistent"
+          className={clsx('drawer', !this.state.open && 'drawerhidden')}
+          classes={{
+            paper: clsx(
+              UseStyles.drawerPaper,
+              !this.state.open && UseStyles.drawerPaperClose
+            )
+          }}
+          open={this.state.open}
+        >
+          <div
+            className={clsx('logo-hover', UseStyles.toolbarIcon)}
+            style={{
+              backgroundColor: '#272728',
+              paddingTop: 10,
+              paddingBottom: 50,
+              justifyContent: 'space-between'
+            }}
+          >
+            <Link to="/">
+              <Typography
+                component="h1"
+                variant="h6"
+                noWrap
+                className={UseStyles.title}
+              >
+                <strong>CBRE</strong> PDS
+              </Typography>
+            </Link>
+            <IconButton color="secondary" onClick={this.handleDrawerClose}>
+              <ChevronLeft />
+            </IconButton>
+          </div>
+          <LeftMenu />
+        </Drawer>
+      </div>
+    );
+  }
 }
 
-export default Nav;
+export default injectIntl(Nav);

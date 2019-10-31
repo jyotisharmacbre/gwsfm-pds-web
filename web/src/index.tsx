@@ -3,14 +3,13 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { Provider } from 'react-redux'
+import { Provider } from 'react-redux';
 
 // @ts-ignore
 import b2cauth from '@kdpw/msal-b2c-react';
-import appConfig from "./helpers/config-helper";
+import appConfig from './helpers/config-helper';
 import configureStore from './session/store';
-
-
+import { BrowserRouter as Router } from 'react-router-dom';
 
 const config = appConfig();
 b2cauth.initialize({
@@ -19,15 +18,20 @@ b2cauth.initialize({
   signInPolicy: config.REACT_APP_AUTH_SIGNINPOLICY,
   applicationId: config.REACT_APP_AUTH_APPID,
   cacheLocation: 'sessionStorage',
-  scopes: ["openid"],
+  scopes: ['openid'],
   redirectUri: window.location.origin,
   postLogoutRedirectUri: window.location.origin,
   validateAuthority: false
 });
 
 b2cauth.run(() => {
-  ReactDOM.render(<Provider store={configureStore()}>
-    <App />
-  </Provider>, document.getElementById("root") as HTMLElement);
+  ReactDOM.render(
+    <Provider store={configureStore()}>
+      <Router>
+        <App />
+      </Router>
+    </Provider>,
+    document.getElementById('root') as HTMLElement
+  );
   serviceWorker.register();
 });

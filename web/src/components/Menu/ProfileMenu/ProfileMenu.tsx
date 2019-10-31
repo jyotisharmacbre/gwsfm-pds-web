@@ -7,7 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import NotificationsIcon from '../../Notification/Notification';
 
 // @ts-ignore
-import authentication from "@kdpw/msal-b2c-react";
+import authentication from '@kdpw/msal-b2c-react';
 
 export default function ProfileMenu(props: { Name: string }) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -20,20 +20,21 @@ export default function ProfileMenu(props: { Name: string }) {
     setAnchorEl(null);
   }
 
-  function handleNotificationClick() {
-    window.location.href = "/Notifications";
-  }
-
   return (
-    <div style={{ display: 'flex', justifyContent: 'flex-end', width:'100%' }}>
-
+    <div style={{ display: 'flex', justifyContent: 'flex-end', width: '100%' }}>
       <IconButton color="secondary">
         <HelpOutline />
       </IconButton>
       <NotificationsIcon />
 
-      <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick} color="secondary">
-        <AccountCircle  style={{ marginRight: '10px' }} /> {props.Name} <ExpandMore />
+      <Button
+        aria-controls="simple-menu"
+        aria-haspopup="true"
+        onClick={handleClick}
+        color="secondary"
+      >
+        <AccountCircle style={{ marginRight: '10px' }} /> {props.Name}{' '}
+        <ExpandMore />
       </Button>
       <Menu
         id="simple-menu"
@@ -48,4 +49,3 @@ export default function ProfileMenu(props: { Name: string }) {
     </div>
   );
 }
-
