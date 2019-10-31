@@ -55,7 +55,7 @@
         "build": "react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
-        "prettify": "prettier -l \"src/**/*.js\" --write",
+        "prettify": "prettier -l \"src/**/*.tsx\" --write",
         "intl": "cross-env NODE_ENV=development extract-messages --locales=en --output src/Translations/extracted 'src/Translations/messages.ts'"
     },
     "eslintConfig": {

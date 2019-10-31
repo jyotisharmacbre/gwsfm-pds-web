@@ -13,6 +13,7 @@ import './style.css';
 import { injectIntl } from 'react-intl';
 import IReactIntl from '../../Translations/IReactIntl';
 import Translate from '../../Translations/translate';
+import { Link } from 'react-router-dom';
 
 class Nav extends React.Component<IAppProps & IReactIntl, INaveState> {
   constructor(props: IAppProps & IReactIntl) {
@@ -62,19 +63,20 @@ class Nav extends React.Component<IAppProps & IReactIntl, INaveState> {
             >
               <MenuOutlined />
             </IconButton>
-            <Typography
-              component="h1"
-              variant="h6"
-              color="inherit"
-              noWrap
-              className={clsx(
-                UseStyles.title,
-                this.state.open && UseStyles.titleHidden
-              )}
-              onClick={this.handleClick}
-            >
-              <strong>CBRE</strong> PDS
-            </Typography>
+            <Link to="/">
+              <Typography
+                component="h1"
+                variant="h6"
+                color="inherit"
+                noWrap
+                className={clsx(
+                  UseStyles.title,
+                  this.state.open && UseStyles.titleHidden
+                )}
+              >
+                <strong>CBRE</strong> PDS
+              </Typography>
+            </Link>
             <div></div>
             <ProfileMenu Name={this.helloAuthenticatedUser()} />
           </Toolbar>
@@ -91,23 +93,25 @@ class Nav extends React.Component<IAppProps & IReactIntl, INaveState> {
           open={this.state.open}
         >
           <div
-            className={UseStyles.toolbarIcon}
+            className={clsx('logo-hover', UseStyles.toolbarIcon)}
             style={{
               backgroundColor: '#272728',
               paddingTop: 10,
-              paddingBottom: 50
+              paddingBottom: 50,
+              justifyContent: 'space-between'
             }}
           >
-            <Typography
-              component="h1"
-              variant="h6"
-              noWrap
-              className={UseStyles.title}
-              onClick={this.handleClick}
-            >
-              <strong>CBRE</strong> PDS
-            </Typography>
-            <IconButton onClick={this.handleDrawerClose}>
+            <Link to="/">
+              <Typography
+                component="h1"
+                variant="h6"
+                noWrap
+                className={UseStyles.title}
+              >
+                <strong>CBRE</strong> PDS
+              </Typography>
+            </Link>
+            <IconButton color="secondary" onClick={this.handleDrawerClose}>
               <ChevronLeft />
             </IconButton>
           </div>

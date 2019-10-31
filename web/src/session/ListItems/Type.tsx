@@ -1,34 +1,39 @@
 import { Action } from 'redux';
 
-
 export interface IListItem {
   name: string;
-  value: string
+  value: string;
 }
 
-export interface IGetLocalesBeginAction extends Action<'GetLocalesBegin'> {
-}
+export interface IGetLocalesBeginAction extends Action<'GetLocalesBegin'> {}
 
 export interface IGetLocalesSuccessAction extends Action<'GetLocalesSuccess'> {
-  data: IListItem[]
+  data: IListItem[];
 }
 
 export interface IGetLocalesFailureAction extends Action<'GetLocalesFailure'> {
-  data: IListItem[],
-  error: any
+  data: IListItem[];
+  error: any;
 }
 
-export interface IGetCustomerContractBeginAction extends Action<'GetCustomerContractBegin'> {
+export interface IGetCustomerContractBeginAction
+  extends Action<'GetCustomerContractBegin'> {}
+
+export interface IGetCustomerContractSuccessAction
+  extends Action<'GetCustomerContractSuccess'> {
+  data: IListItem[];
 }
 
-export interface IGetCustomerContractSuccessAction extends Action<'GetCustomerContractSuccess'> {
-  data: IListItem[]
+export interface IGetCustomerContractFailureAction
+  extends Action<'GetCustomerContractFailure'> {
+  data: IListItem[];
+  error: any;
 }
 
-export interface IGetCustomerContractFailureAction extends Action<'GetCustomerContractFailure'> {
-  data: IListItem[],
-  error: any
-}
-
-
-export type ListItemActions = IGetLocalesBeginAction | IGetLocalesSuccessAction | IGetLocalesFailureAction| IGetCustomerContractBeginAction | IGetCustomerContractSuccessAction | IGetCustomerContractFailureAction;
+export type ListItemActions =
+  | IGetLocalesBeginAction
+  | IGetLocalesSuccessAction
+  | IGetLocalesFailureAction
+  | IGetCustomerContractBeginAction
+  | IGetCustomerContractSuccessAction
+  | IGetCustomerContractFailureAction;

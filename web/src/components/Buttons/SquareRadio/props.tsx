@@ -1,5 +1,5 @@
-export interface ISquareRadioProps{
-    value:string;
-    label:string;
-    id:string;
+export interface ISquareRadioProps {
+  value: string;
+  label: string;
+  id: string;
 }

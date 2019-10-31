@@ -12,26 +12,18 @@ import IReactIntl from '../Translations/IReactIntl';
 import Translate from '../Translations/translate';
 
 class Dashboard extends React.Component<IReactIntl> {
-  constructor(props: any) {
-    super(props);
-  }
-
   GetButtons() {
     const action1: IBtnActionProps = {
       Title: 'Create A New Project',
       Icon: 'create',
       Color: 'primary',
-      HandleClick: () => {
-        window.location.href = '/Project';
-      }
+      LinkTo: '/Project'
     };
     const action2: IBtnActionProps = {
       Title: 'Pipeline',
       Icon: 'pipeline',
       Color: 'secondary',
-      HandleClick: () => {
-        window.location.href = '/Pipeline';
-      }
+      LinkTo: '/Pipeline'
     };
     return [action1, action2];
   }
@@ -40,9 +32,7 @@ class Dashboard extends React.Component<IReactIntl> {
     Title: 'View All',
     Icon: '',
     Color: 'secondary',
-    HandleClick: () => {
-      window.location.href = '/Pipeline';
-    }
+    LinkTo: '/Pipeline'
   };
 
   createTableColumns() {
@@ -51,7 +41,7 @@ class Dashboard extends React.Component<IReactIntl> {
         title: 'Name',
         field: 'name',
         customFilterAndSearch: (term: any, rowData: any) =>
-          term == rowData.name.length
+          (term = rowData.name.length)
       },
       { title: 'Updated By', field: 'updatedby' },
       { title: 'Date', field: 'date', type: 'date' },

@@ -1,8 +1,8 @@
-import React from "react";
-import { Doughnut } from "react-chartjs-2";
-import Grid from "@material-ui/core/Grid";
-import ChartDataLabels from "chartjs-plugin-datalabels";
-const Chart = require("react-chartjs-2").Chart;
+import React from 'react';
+import { Doughnut } from 'react-chartjs-2';
+import Grid from '@material-ui/core/Grid';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
+const Chart = require('react-chartjs-2').Chart;
 
 const originalDoughnutDraw = Chart.controllers.doughnut.prototype.draw;
 
@@ -18,8 +18,8 @@ Chart.helpers.extend(Chart.controllers.doughnut.prototype, {
       ctx = chart.chart.ctx;
 
     var fontSize = (height / 114).toFixed(2);
-    ctx.font = fontSize + "em sans-serif";
-    ctx.textBaseline = "middle";
+    ctx.font = fontSize + 'em sans-serif';
+    ctx.textBaseline = 'middle';
 
     var sum = 0;
     for (var i = 0; i < chart.config.data.datasets[0].data.length; i++) {
@@ -44,9 +44,9 @@ Chart.helpers.extend(Chart.controllers.doughnut.prototype, {
 var optionshideLabels = {
   elements: {
     center: {
-      text: "90%",
-      color: "#FF6384", // Default is #000000
-      fontStyle: "Arial", // Default is Arial
+      text: '90%',
+      color: '#FF6384', // Default is #000000
+      fontStyle: 'Arial', // Default is Arial
       sidePadding: 20 // Defualt is 20 (as a percentage)
     }
   },
@@ -78,25 +78,25 @@ export default function MultipleChart(props: {
         sm={6}
         lg={2}
         md={2}
-        style={{ textAlign: "center", height: "280px" }}
+        style={{ textAlign: 'center', height: '280px' }}
       >
         <h4>Initial Enquiry</h4>
-        <div style={{ textAlign: "center", height: "250px" }}>
+        <div style={{ textAlign: 'center', height: '250px' }}>
           <Doughnut
             type={{ originalDoughnutDraw }}
             data={{
               datasets: [
                 {
                   data: [props.ICE, props.ProjectTotal - props.ICE],
-                  backgroundColor: ["#CEF1A3"],
-                  label: "My dataset" // for legend
+                  backgroundColor: ['#CEF1A3'],
+                  label: 'My dataset' // for legend
                 }
               ],
-              labels: ["Initial Customer Enquiry", "Other Projects"]
+              labels: ['Initial Customer Enquiry', 'Other Projects']
             }}
             options={optionshideLabels}
           />
-        </div>{" "}
+        </div>{' '}
       </Grid>
       <Grid
         item
@@ -104,26 +104,26 @@ export default function MultipleChart(props: {
         sm={6}
         lg={2}
         md={2}
-        style={{ textAlign: "center", height: "280px" }}
+        style={{ textAlign: 'center', height: '280px' }}
       >
         <h4>Rejected</h4>
-        <div style={{ textAlign: "center", height: "250px" }}>
-          {" "}
+        <div style={{ textAlign: 'center', height: '250px' }}>
+          {' '}
           <Doughnut
             data={{
               datasets: [
                 {
                   data: [props.Rejected, props.ProjectTotal - props.Rejected],
-                  backgroundColor: ["#FBD55B"],
-                  label: "My dataset" // for legend
+                  backgroundColor: ['#FBD55B'],
+                  label: 'My dataset' // for legend
                 }
               ],
-              labels: ["Rejected", "Other Projects"]
+              labels: ['Rejected', 'Other Projects']
             }}
             height={300}
             options={optionshideLabels}
           />
-        </div>{" "}
+        </div>{' '}
       </Grid>
       <Grid
         item
@@ -131,25 +131,25 @@ export default function MultipleChart(props: {
         sm={6}
         lg={2}
         md={2}
-        style={{ textAlign: "center", height: "280px" }}
+        style={{ textAlign: 'center', height: '280px' }}
       >
         <h4>J&A</h4>
-        <div style={{ textAlign: "center", height: "250px" }}>
+        <div style={{ textAlign: 'center', height: '250px' }}>
           <Doughnut
             data={{
               datasets: [
                 {
                   data: [props.JandA, props.ProjectTotal - props.JandA],
-                  backgroundColor: ["#526061"],
-                  label: "My dataset" // for legend
+                  backgroundColor: ['#526061'],
+                  label: 'My dataset' // for legend
                 }
               ],
-              labels: ["J&A", "Other Projects"]
+              labels: ['J&A', 'Other Projects']
             }}
             height={300}
             options={optionshideLabels}
           />
-        </div>{" "}
+        </div>{' '}
       </Grid>
       <Grid
         item
@@ -157,10 +157,10 @@ export default function MultipleChart(props: {
         sm={6}
         lg={2}
         md={2}
-        style={{ textAlign: "center", height: "280px" }}
+        style={{ textAlign: 'center', height: '280px' }}
       >
         <h4>Order Received</h4>
-        <div style={{ textAlign: "center", height: "250px" }}>
+        <div style={{ textAlign: 'center', height: '250px' }}>
           <Doughnut
             data={{
               datasets: [
@@ -169,15 +169,15 @@ export default function MultipleChart(props: {
                     props.OrderReceived,
                     props.ProjectTotal - props.OrderReceived
                   ],
-                  backgroundColor: ["#935FD6"],
-                  label: "My dataset" // for legend
+                  backgroundColor: ['#935FD6'],
+                  label: 'My dataset' // for legend
                 }
               ],
-              labels: ["Order Received", "Other Projects"]
+              labels: ['Order Received', 'Other Projects']
             }}
             options={optionshideLabels}
           />
-        </div>{" "}
+        </div>{' '}
       </Grid>
       <Grid
         item
@@ -185,10 +185,10 @@ export default function MultipleChart(props: {
         sm={6}
         lg={2}
         md={2}
-        style={{ textAlign: "center", height: "280px" }}
+        style={{ textAlign: 'center', height: '280px' }}
       >
         <h4>In Progress</h4>
-        <div style={{ textAlign: "center", height: "250px" }}>
+        <div style={{ textAlign: 'center', height: '250px' }}>
           <Doughnut
             data={{
               datasets: [
@@ -197,15 +197,15 @@ export default function MultipleChart(props: {
                     props.InProgress,
                     props.ProjectTotal - props.InProgress
                   ],
-                  backgroundColor: ["#EA8032"],
-                  label: "My dataset" // for legend
+                  backgroundColor: ['#EA8032'],
+                  label: 'My dataset' // for legend
                 }
               ],
-              labels: ["In Progress", "Other Projects"]
+              labels: ['In Progress', 'Other Projects']
             }}
             height={300}
             options={optionshideLabels}
-          />{" "}
+          />{' '}
         </div>
         {/* <div style={{ "textAlign": 'center', paddingTop:'-20px' }} className="{graphTitle}"><br></br>{props.InProgress} of {props.ProjectTotal} </div> */}
       </Grid>
@@ -215,20 +215,20 @@ export default function MultipleChart(props: {
         sm={6}
         lg={2}
         md={2}
-        style={{ textAlign: "center", height: "280px" }}
+        style={{ textAlign: 'center', height: '280px' }}
       >
         <h4>Completed</h4>
-        <div style={{ textAlign: "center", height: "250px" }}>
+        <div style={{ textAlign: 'center', height: '250px' }}>
           <Doughnut
             data={{
               datasets: [
                 {
                   data: [props.Completed, props.ProjectTotal - props.Completed],
-                  backgroundColor: ["#3DAAE9"],
-                  label: "My dataset" // for legend
+                  backgroundColor: ['#3DAAE9'],
+                  label: 'My dataset' // for legend
                 }
               ],
-              labels: ["J&A", "Other Projects"]
+              labels: ['J&A', 'Other Projects']
             }}
             height={300}
             options={optionshideLabels}
@@ -241,12 +241,12 @@ export default function MultipleChart(props: {
         sm={12}
         lg={12}
         md={12}
-        style={{ textAlign: "center", padding: "10px" }}
+        style={{ textAlign: 'center', padding: '10px' }}
       >
-        {" "}
+        {' '}
         <h3>
-          Total : {props.ProjectTotal} Lost : {props.LostProjects} On-Hold :{" "}
-          {props.OnHoldProject}{" "}
+          Total : {props.ProjectTotal} Lost : {props.LostProjects} On-Hold :{' '}
+          {props.OnHoldProject}{' '}
         </h3>
       </Grid>
     </Grid>

@@ -3,6 +3,7 @@ import './style.css';
 import clsx from 'clsx';
 import { injectIntl } from 'react-intl';
 import Translate from '../../../Translations/translate';
+import { Link } from 'react-router-dom';
 
 const LeftMenu: React.FC = (props: any) => {
   const [hide, setHide] = React.useState<boolean>(true);
@@ -63,29 +64,31 @@ const LeftMenu: React.FC = (props: any) => {
   };
 
   const menu = getMenu().map(x => {
-    {
-      if (x.hasSubmenu) {
-        return (
-          <React.Fragment key={x.name}>
-            <button
-              className={clsx('dropdown-btn', !hide && 'active')}
-              onClick={handleClick}
-            >
-              {x.name}
-              <i className="fa fa-caret-down"></i>
-            </button>
-            <div className={clsx('dropdown-container', !hide && 'showmenu')}>
-              {getSubItems(x.subItems || [])}
-            </div>
-          </React.Fragment>
-        );
-      } else {
-        return (
-          <a key={x.name} href={x.link}>
+    if (x.hasSubmenu) {
+      return (
+        <React.Fragment key={x.name}>
+          <button
+            className={clsx('dropdown-btn', !hide && 'active')}
+            onClick={handleClick}
+          >
             {x.name}
-          </a>
-        );
-      }
+            <i className="fa fa-caret-down"></i>
+          </button>
+          <div className={clsx('dropdown-container', !hide && 'showmenu')}>
+            {getSubItems(x.subItems || [])}
+          </div>
+        </React.Fragment>
+      );
+    } else {
+      return (
+        <Link
+          to={{
+            pathname: x.link
+          }}
+        >
+          {x.name}
+        </Link>
+      );
     }
   });
 

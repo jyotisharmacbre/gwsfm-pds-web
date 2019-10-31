@@ -1,6 +1,11 @@
 import React from 'react';
 import clsx from 'clsx';
-import { createStyles, lighten, makeStyles, Theme } from '@material-ui/core/styles';
+import {
+  createStyles,
+  lighten,
+  makeStyles,
+  Theme
+} from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -24,351 +29,403 @@ import { IBtnActionProps } from '../../../props/AppProps';
 //import DatePicker from '../components/DatePicker';
 
 interface Data {
-    id: number,
-    name: string;
-    updatedby: string;
-    date: string;
-    status: string;
+  id: number;
+  name: string;
+  updatedby: string;
+  date: string;
+  status: string;
 }
 
 function createData(
-    id: number,
-    name: string,
-    updatedby: string,
-    date: string,
-    status: string,
+  id: number,
+  name: string,
+  updatedby: string,
+  date: string,
+  status: string
 ): Data {
-    return { id, name, updatedby, date, status };
+  return { id, name, updatedby, date, status };
 }
 
 const rows = [
-    createData(0, 'Russel street road works', 'Stacy Salter', new Date('20 Feb 2019').toLocaleDateString(), 'Draft'),
-    createData(1, '51 Southwark street refilling', 'Harmony Jordan', new Date('23 Jan 2019').toLocaleDateString(), 'Completed'),
-    createData(2, 'London Bridge aqueduct planning', 'Tyler Monroe', new Date('19 Jan 2019').toLocaleDateString(), 'Submitted'),
-    createData(3, 'Church street reviewing', 'Vikky Normanully', new Date('16 Jan 2019').toLocaleDateString(), 'Completed'),
-    createData(4, 'Gregory Nash Approval', 'Tyler Monroe', new Date('9 Jan 2019').toLocaleDateString(), 'Draft')
+  createData(
+    0,
+    'Russel street road works',
+    'Stacy Salter',
+    new Date('20 Feb 2019').toLocaleDateString(),
+    'Draft'
+  ),
+  createData(
+    1,
+    '51 Southwark street refilling',
+    'Harmony Jordan',
+    new Date('23 Jan 2019').toLocaleDateString(),
+    'Completed'
+  ),
+  createData(
+    2,
+    'London Bridge aqueduct planning',
+    'Tyler Monroe',
+    new Date('19 Jan 2019').toLocaleDateString(),
+    'Submitted'
+  ),
+  createData(
+    3,
+    'Church street reviewing',
+    'Vikky Normanully',
+    new Date('16 Jan 2019').toLocaleDateString(),
+    'Completed'
+  ),
+  createData(
+    4,
+    'Gregory Nash Approval',
+    'Tyler Monroe',
+    new Date('9 Jan 2019').toLocaleDateString(),
+    'Draft'
+  )
 ];
 
 function desc<T>(a: T, b: T, orderBy: keyof T) {
-    if (b[orderBy] < a[orderBy]) {
-        return -1;
-    }
-    if (b[orderBy] > a[orderBy]) {
-        return 1;
-    }
-    return 0;
+  if (b[orderBy] < a[orderBy]) {
+    return -1;
+  }
+  if (b[orderBy] > a[orderBy]) {
+    return 1;
+  }
+  return 0;
 }
 
 function stableSort<T>(array: T[], cmp: (a: T, b: T) => number) {
-    const stabilizedThis = array.map((el, index) => [el, index] as [T, number]);
-    stabilizedThis.sort((a, b) => {
-        const order = cmp(a[0], b[0]);
-        if (order !== 0) return order;
-        return a[1] - b[1];
-    });
-    return stabilizedThis.map(el => el[0]);
+  const stabilizedThis = array.map((el, index) => [el, index] as [T, number]);
+  stabilizedThis.sort((a, b) => {
+    const order = cmp(a[0], b[0]);
+    if (order !== 0) return order;
+    return a[1] - b[1];
+  });
+  return stabilizedThis.map(el => el[0]);
 }
 
 type Order = 'asc' | 'desc';
 
 function getSorting<K extends keyof any>(
-    order: Order,
-    orderBy: K,
-): (a: { [key in K]: number | string }, b: { [key in K]: number | string }) => number {
-    return order === 'desc' ? (a, b) => desc(a, b, orderBy) : (a, b) => -desc(a, b, orderBy);
+  order: Order,
+  orderBy: K
+): (
+  a: { [key in K]: number | string },
+  b: { [key in K]: number | string }
+) => number {
+  return order === 'desc'
+    ? (a, b) => desc(a, b, orderBy)
+    : (a, b) => -desc(a, b, orderBy);
 }
 
 interface HeadRow {
-    disablePadding: boolean;
-    id: keyof Data;
-    label: string;
-    numeric: boolean;
+  disablePadding: boolean;
+  id: keyof Data;
+  label: string;
+  numeric: boolean;
 }
 
 const headRows: HeadRow[] = [
-    { id: 'name', numeric: false, disablePadding: true, label: 'NAME' },
-    { id: 'updatedby', numeric: false, disablePadding: true, label: 'UPDATEDBY' },
-    { id: 'date', numeric: false, disablePadding: true, label: 'DATE' },
-    { id: 'status', numeric: false, disablePadding: true, label: 'STATUS' },
+  { id: 'name', numeric: false, disablePadding: true, label: 'NAME' },
+  { id: 'updatedby', numeric: false, disablePadding: true, label: 'UPDATEDBY' },
+  { id: 'date', numeric: false, disablePadding: true, label: 'DATE' },
+  { id: 'status', numeric: false, disablePadding: true, label: 'STATUS' }
 ];
 
 interface EnhancedTableProps {
-    classes: ReturnType<typeof useStyles>;
-    numSelected: number;
-    onRequestSort: (event: React.MouseEvent<unknown>, property: keyof Data) => void;
-    onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => void;
-    order: Order;
-    orderBy: string;
-    rowCount: number;
+  classes: ReturnType<typeof useStyles>;
+  numSelected: number;
+  onRequestSort: (
+    event: React.MouseEvent<unknown>,
+    property: keyof Data
+  ) => void;
+  onSelectAllClick: (
+    event: React.ChangeEvent<HTMLInputElement>,
+    checked: boolean
+  ) => void;
+  order: Order;
+  orderBy: string;
+  rowCount: number;
 }
 
 function EnhancedTableHead(props: EnhancedTableProps) {
-    const { classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
-    const createSortHandler = (property: keyof Data) => (event: React.MouseEvent<unknown>) => {
-        onRequestSort(event, property);
-    };
+  const {
+    classes,
+    onSelectAllClick,
+    order,
+    orderBy,
+    numSelected,
+    rowCount,
+    onRequestSort
+  } = props;
+  const createSortHandler = (property: keyof Data) => (
+    event: React.MouseEvent<unknown>
+  ) => {
+    onRequestSort(event, property);
+  };
 
-    return (
-        <TableHead>
-            <TableRow>
-                {headRows.map(row => (
-                    <TableCell
-                        key={row.id}
-                        sortDirection={orderBy === row.id ? order : false}
-                        style={{ fontWeight: "bolder" }}
-                    >
-                        <TableSortLabel
-                            active={orderBy === row.id}
-                            direction={order}
-                            onClick={createSortHandler(row.id)}
-                        >
-                            {row.label}
-                            {orderBy === row.id ? (
-                                <span className={classes.visuallyHidden}>
-                                    {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                                </span>
-                            ) : null}
-                        </TableSortLabel>
-                    </TableCell>
-                ))}
-            </TableRow>
-        </TableHead>
-    );
+  return (
+    <TableHead>
+      <TableRow>
+        {headRows.map(row => (
+          <TableCell
+            key={row.id}
+            sortDirection={orderBy === row.id ? order : false}
+            style={{ fontWeight: 'bolder' }}
+          >
+            <TableSortLabel
+              active={orderBy === row.id}
+              direction={order}
+              onClick={createSortHandler(row.id)}
+            >
+              {row.label}
+              {orderBy === row.id ? (
+                <span className={classes.visuallyHidden}>
+                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                </span>
+              ) : null}
+            </TableSortLabel>
+          </TableCell>
+        ))}
+      </TableRow>
+    </TableHead>
+  );
 }
 
 const useToolbarStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        root: {
-            paddingLeft: theme.spacing(2),
-            paddingRight: theme.spacing(1),
-        },
-        highlight:
-            theme.palette.type === 'light'
-                ? {
-                    color: theme.palette.secondary.main,
-                    backgroundColor: lighten(theme.palette.secondary.light, 0.85),
-                }
-                : {
-                    color: theme.palette.text.primary,
-                    backgroundColor: theme.palette.secondary.dark,
-                },
-        spacer: {
-            flex: '1 1 100%',
-        },
-        actions: {
-            color: theme.palette.text.secondary,
-        },
-        title: {
-            flex: '0 0 auto',
-        },
-    }),
+  createStyles({
+    root: {
+      paddingLeft: theme.spacing(2),
+      paddingRight: theme.spacing(1)
+    },
+    highlight:
+      theme.palette.type === 'light'
+        ? {
+            color: theme.palette.secondary.main,
+            backgroundColor: lighten(theme.palette.secondary.light, 0.85)
+          }
+        : {
+            color: theme.palette.text.primary,
+            backgroundColor: theme.palette.secondary.dark
+          },
+    spacer: {
+      flex: '1 1 100%'
+    },
+    actions: {
+      color: theme.palette.text.secondary
+    },
+    title: {
+      flex: '0 0 auto'
+    }
+  })
 );
 
 interface EnhancedTableToolbarProps {
-    numSelected: number;
+  numSelected: number;
 }
 
 const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
-    const classes = useToolbarStyles();
-    return (
-        <Toolbar>
-            <div className={classes.title}>
-                <Typography variant="h6" id="tableTitle" style={{ color: "#00684d" }}>
-                    Your Projects
-          </Typography>
-          {/* <div>Select dates: from <DatePicker /> to <DatePicker /></div> */}
-            </div>
-        </Toolbar>
-    );
+  const classes = useToolbarStyles();
+  return (
+    <Toolbar>
+      <div className={classes.title}>
+        <Typography variant="h6" id="tableTitle" style={{ color: '#00684d' }}>
+          Your Projects
+        </Typography>
+        {/* <div>Select dates: from <DatePicker /> to <DatePicker /></div> */}
+      </div>
+    </Toolbar>
+  );
 };
 
 const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        root: {
-            width: '100%',
-            marginTop: theme.spacing(3),
-        },
-        paper: {
-            width: '100%',
-            marginBottom: theme.spacing(2),
-        },
-        table: {
-            minWidth: 750,
-        },
-        tableWrapper: {
-            overflowX: 'auto',
-        },
-        visuallyHidden: {
-            border: 0,
-            clip: 'rect(0 0 0 0)',
-            height: 1,
-            margin: -1,
-            overflow: 'hidden',
-            padding: 0,
-            position: 'absolute',
-            top: 20,
-            width: 1,
-        },
-    }),
+  createStyles({
+    root: {
+      width: '100%',
+      marginTop: theme.spacing(3)
+    },
+    paper: {
+      width: '100%',
+      marginBottom: theme.spacing(2)
+    },
+    table: {
+      minWidth: 750
+    },
+    tableWrapper: {
+      overflowX: 'auto'
+    },
+    visuallyHidden: {
+      border: 0,
+      clip: 'rect(0 0 0 0)',
+      height: 1,
+      margin: -1,
+      overflow: 'hidden',
+      padding: 0,
+      position: 'absolute',
+      top: 20,
+      width: 1
+    }
+  })
 );
 
-
 export default function EnhancedTable() {
-    const classes = useStyles();
-    const [order, setOrder] = React.useState<Order>('asc');
-    const [orderBy, setOrderBy] = React.useState<keyof Data>('name');
-    const [selected, setSelected] = React.useState<string[]>([]);
-    const [page, setPage] = React.useState(0);
-    const [dense, setDense] = React.useState(false);
-    const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const classes = useStyles();
+  const [order, setOrder] = React.useState<Order>('asc');
+  const [orderBy, setOrderBy] = React.useState<keyof Data>('name');
+  const [selected, setSelected] = React.useState<string[]>([]);
+  const [page, setPage] = React.useState(0);
+  const [dense, setDense] = React.useState(false);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-    function handleRequestSort(event: React.MouseEvent<unknown>, property: keyof Data) {
-        const isDesc = orderBy === property && order === 'desc';
-        setOrder(isDesc ? 'asc' : 'desc');
-        setOrderBy(property);
+  function handleRequestSort(
+    event: React.MouseEvent<unknown>,
+    property: keyof Data
+  ) {
+    const isDesc = orderBy === property && order === 'desc';
+    setOrder(isDesc ? 'asc' : 'desc');
+    setOrderBy(property);
+  }
+
+  function handleSelectAllClick(event: React.ChangeEvent<HTMLInputElement>) {
+    if (event.target.checked) {
+      const newSelecteds = rows.map(n => n.name);
+      setSelected(newSelecteds);
+      return;
+    }
+    setSelected([]);
+  }
+
+  function handleClick(event: React.MouseEvent<unknown>, name: string) {
+    const selectedIndex = selected.indexOf(name);
+    let newSelected: string[] = [];
+
+    if (selectedIndex === -1) {
+      newSelected = newSelected.concat(selected, name);
+    } else if (selectedIndex === 0) {
+      newSelected = newSelected.concat(selected.slice(1));
+    } else if (selectedIndex === selected.length - 1) {
+      newSelected = newSelected.concat(selected.slice(0, -1));
+    } else if (selectedIndex > 0) {
+      newSelected = newSelected.concat(
+        selected.slice(0, selectedIndex),
+        selected.slice(selectedIndex + 1)
+      );
     }
 
-    function handleSelectAllClick(event: React.ChangeEvent<HTMLInputElement>) {
-        if (event.target.checked) {
-            const newSelecteds = rows.map(n => n.name);
-            setSelected(newSelecteds);
-            return;
-        }
-        setSelected([]);
-    }
+    setSelected(newSelected);
+  }
 
-    function handleClick(event: React.MouseEvent<unknown>, name: string) {
-        const selectedIndex = selected.indexOf(name);
-        let newSelected: string[] = [];
+  function handleChangePage(event: unknown, newPage: number) {
+    setPage(newPage);
+  }
 
-        if (selectedIndex === -1) {
-            newSelected = newSelected.concat(selected, name);
-        } else if (selectedIndex === 0) {
-            newSelected = newSelected.concat(selected.slice(1));
-        } else if (selectedIndex === selected.length - 1) {
-            newSelected = newSelected.concat(selected.slice(0, -1));
-        } else if (selectedIndex > 0) {
-            newSelected = newSelected.concat(
-                selected.slice(0, selectedIndex),
-                selected.slice(selectedIndex + 1),
-            );
-        }
+  function handleChangeRowsPerPage(event: React.ChangeEvent<HTMLInputElement>) {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  }
 
-        setSelected(newSelected);
-    }
+  function handleChangeDense(event: React.ChangeEvent<HTMLInputElement>) {
+    setDense(event.target.checked);
+  }
 
-    function handleChangePage(event: unknown, newPage: number) {
-        setPage(newPage);
-    }
+  const isSelected = (name: string) => selected.indexOf(name) !== -1;
 
-    function handleChangeRowsPerPage(event: React.ChangeEvent<HTMLInputElement>) {
-        setRowsPerPage(+event.target.value);
-        setPage(0);
-    }
+  const emptyRows =
+    rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
-    function handleChangeDense(event: React.ChangeEvent<HTMLInputElement>) {
-        setDense(event.target.checked);
-    }
+  function getButtons() {
+    const act: IBtnActionProps = {
+      Title: 'View All',
+      Icon: 'viewall',
+      HandleClick: () => {
+        window.location.href = '/Pipeline';
+      }
+    };
+    return [act];
+  }
 
-    const isSelected = (name: string) => selected.indexOf(name) !== -1;
+  function getButtons_Back() {
+    const act: IBtnActionProps = {
+      Title: 'Back',
+      Icon: 'backspace',
+      HandleClick: () => {
+        window.history.back();
+      }
+    };
+    return [act];
+  }
 
-    const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+  return (
+    <div className={classes.root}>
+      {/* <EnhancedTableToolbar numSelected={selected.length} /> */}
+      <div className={classes.tableWrapper}>
+        <Table
+          className={classes.table}
+          aria-labelledby="tableTitle"
+          size={dense ? 'small' : 'medium'}
+        >
+          <EnhancedTableHead
+            classes={classes}
+            numSelected={selected.length}
+            order={order}
+            orderBy={orderBy}
+            onSelectAllClick={handleSelectAllClick}
+            onRequestSort={handleRequestSort}
+            rowCount={rows.length}
+          />
+          <TableBody>
+            {stableSort(rows, getSorting(order, orderBy))
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((row, index) => {
+                const isItemSelected = isSelected(row.name);
+                const labelId = `enhanced-table-checkbox-${index}`;
 
-    function getButtons() {
-        const act: IBtnActionProps = {
-            Title: 'View All',
-            Icon: 'viewall',
-            HandleClick: () => {
-                window.location.href = '/Pipeline';
-            }
-        }
-        return [act];
-    }
-
-    function getButtons_Back() {
-        const act: IBtnActionProps = {
-            Title: 'Back',
-            Icon: 'backspace',
-            HandleClick: () => {
-                window.history.back();
-            }
-        }
-        return [act];
-    }
-
-    return (
-        <div className={classes.root}>
-
-                {/* <EnhancedTableToolbar numSelected={selected.length} /> */}
-                <div className={classes.tableWrapper}>
-                    <Table
-                        className={classes.table}
-                        aria-labelledby="tableTitle"
-                        size={dense ? 'small' : 'medium'}
-                    >
-                        <EnhancedTableHead
-                            classes={classes}
-                            numSelected={selected.length}
-                            order={order}
-                            orderBy={orderBy}
-                            onSelectAllClick={handleSelectAllClick}
-                            onRequestSort={handleRequestSort}
-                            rowCount={rows.length}
-                        />
-                        <TableBody>
-                            {stableSort(rows, getSorting(order, orderBy))
-                                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                .map((row, index) => {
-                                    const isItemSelected = isSelected(row.name);
-                                    const labelId = `enhanced-table-checkbox-${index}`;
-
-                                    return (
-                                        <TableRow
-                                            hover
-                                            onClick={event => handleClick(event, row.name)}
-                                            // role="checkbox"
-                                            // aria-checked={isItemSelected}
-                                            tabIndex={-1}
-                                            key={row.id}
-                                        // selected={isItemSelected}
-                                        >
-                                            <TableCell>{row.name}</TableCell>
-                                            <TableCell>{row.updatedby}</TableCell>
-                                            <TableCell>{row.date}</TableCell>
-                                            <TableCell>{row.status}</TableCell>
-                                        </TableRow>
-                                    );
-                                })}
-                            {emptyRows > 0 && (
-                                <TableRow style={{ height: 49 * emptyRows }}>
-                                    <TableCell colSpan={6} />
-                                </TableRow>
-                            )}
-                        </TableBody>
-                    </Table>
-                </div>
-                <TablePagination
-                    rowsPerPageOptions={[5, 10, 25]}
-                    component="div"
-                    count={rows.length}
-                    rowsPerPage={rowsPerPage}
-                    page={page}
-                    backIconButtonProps={{
-                        'aria-label': 'previous page',
-                    }}
-                    nextIconButtonProps={{
-                        'aria-label': 'next page',
-                    }}
-                    onChangePage={handleChangePage}
-                    onChangeRowsPerPage={handleChangeRowsPerPage}
-                />
-                <div style={{ float: 'left' }}>
-                    <PageBtnActions Actions={getButtons_Back()} />
-                </div>
-                <div style={{ textAlign: 'right' }}>
-                    <PageBtnActions Actions={getButtons()} />
-                </div>
-           
-        </div>
-    );
+                return (
+                  <TableRow
+                    hover
+                    onClick={event => handleClick(event, row.name)}
+                    // role="checkbox"
+                    // aria-checked={isItemSelected}
+                    tabIndex={-1}
+                    key={row.id}
+                    // selected={isItemSelected}
+                  >
+                    <TableCell>{row.name}</TableCell>
+                    <TableCell>{row.updatedby}</TableCell>
+                    <TableCell>{row.date}</TableCell>
+                    <TableCell>{row.status}</TableCell>
+                  </TableRow>
+                );
+              })}
+            {emptyRows > 0 && (
+              <TableRow style={{ height: 49 * emptyRows }}>
+                <TableCell colSpan={6} />
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </div>
+      <TablePagination
+        rowsPerPageOptions={[5, 10, 25]}
+        component="div"
+        count={rows.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        backIconButtonProps={{
+          'aria-label': 'previous page'
+        }}
+        nextIconButtonProps={{
+          'aria-label': 'next page'
+        }}
+        onChangePage={handleChangePage}
+        onChangeRowsPerPage={handleChangeRowsPerPage}
+      />
+      <div style={{ float: 'left' }}>
+        <PageBtnActions Actions={getButtons_Back()} />
+      </div>
+      <div style={{ textAlign: 'right' }}>
+        <PageBtnActions Actions={getButtons()} />
+      </div>
+    </div>
+  );
 }
