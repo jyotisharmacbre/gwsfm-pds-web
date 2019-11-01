@@ -4,6 +4,7 @@
 /web/node_modules
 /node_modules
 /web/build
+/web/package-lock.json
 /.pnp
 .pnp.js
 

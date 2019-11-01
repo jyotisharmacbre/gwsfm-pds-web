@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>PDS</title>
+    <meta charset="UTF-8">
+    <!--css files-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/all.css">
+    <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- Sidebar Holder -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <img src="images/logo-black.jpg">
+                </div>
+            </div>
+
+            <ul class="list-unstyled components">
+                <p class="upload"><img src="images/upload-icon.jpg" alt="upload icon">upload library</p>
+                <li class="active">
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">customer
+                        enquiry</a>
+                </li>
+                <li class="active">
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">project
+                        overview</a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu">
+                        <li>
+                            <a href="#">justification & authorisation</a>
+                        </li>
+                        <li>
+                            <a href="#">preliminaries</a>
+                        </li>
+                        <li>
+                            <a href="#">subcontractors</a>
+                        </li>
+                        <li>
+                            <a href="#">discounts</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">review & submit</a>
+                </li>
+                <li>
+                    <a href="#">review & approve</a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Page Content Holder -->
+        <div id="content">
+            <nav class="topbar">
+                <div class="container-fluid">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-sm-3">
+                            <div class="logo">
+                                <img src="images/logo.jpg">
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <ul class="icons-blocks">
+                                <li><a href="#"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+                                <li><a href="#"><i class="fa fa-bell" aria-hidden="true"><span
+                                                class="badge badge-light"></span></i></a></li>
+                                <li>
+                                    <div class="dropdown show">
+                                        <a class="btn btn-secondary dropdown-toggle" href="https://example.com" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fa fa-user" aria-hidden="true"></i> Name Surname
+                                            <span class="down-arrow"><img src="images/down-arrow.jpg"
+                                                    alt="down arow"></span>
+                                        </a>
+
+                                        <div class="dropdown-menu user-dropdown" aria-labelledby="dropdownMenuLink">
+                                            <button type="button">SAVE</button>
+                                            <form>
+                                                <h3>Username Surname <span>Access Type</span></h3>
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">Location</label>
+                                                    <input type="email" class="form-control" placeholder="Eg.New York">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">Preferred Currency</label>
+                                                    <input type="email" class="form-control" placeholder="Eg.American Dollars">
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">logout</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-1">
+                            <button type="button" id="sidebarCollapse" class="navbar-btn">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="container-fluid">
+                <div class=" row">
+                    <div class="col-md-8">
+                        <form class="customer-enquiry">
+                            <h1>customer enquiry</h1>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">project*</label>
+                                <input type="email" class="form-control" placeholder="Enter project name">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">company*</label>
+                                <input type="email" class="form-control" placeholder="Enter company name">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">contract*</label>
+                                <input type="email" class="form-control" placeholder="Enter contract">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">head of project*</label>
+                                <input type="email" class="form-control" placeholder="Enter head of project name">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">project owner*</label>
+                                <input type="email" class="form-control" placeholder="project owner name">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">project manager*</label>
+                                <input type="email" class="form-control" placeholder="enter project manager name">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">project manager has experience in this type of
+                                    project</label>
+                                <div>
+                                    <button type="button">YES</button>
+                                    <button class="active" type="button">NO</button>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">project scope*</label>
+                                <textarea class="form-control" rows="7" placeholder="type in the details involved in this project"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">CN number</label>
+                                <input type="email" class="form-control" placeholder="enter CN number">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">project status*</label>
+                                <div class="select-wrapper">
+                                    <select class="form-control">
+                                        <option>select status</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Type of engagement</label>
+                                <div class="form-check">
+                                    <input type="radio" class="form-check-input" name="optradio" id="1">
+                                    <label class="form-check-label" for="1">type 1</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="radio" class="form-check-input" name="optradio" id="2">
+                                    <label class="form-check-label" for="2">
+                                        type 1
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="radio" class="form-check-input" name="optradio" id="3">
+                                    <label class="form-check-label" for="3">
+                                        type 1
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="radio" class="form-check-input" name="optradio" id="4">
+                                    <label class="form-check-label" for="4">
+                                        type 1
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">country*</label>
+                                <div class="select-wrapper">
+                                    <select class="form-control">
+                                        <option>select country</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">currency*</label>
+                                <div class="select-wrapper">
+                                    <select class="form-control">
+                                        <option>select currency</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">probability of wining*</label>
+                                <input type="email" class="form-control text-right width-75" placeholder="190%">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">approximate value*</label>
+                                <input type="email" class="form-control width-120" placeholder="&#">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">contract type*</label>
+                                <div class="select-wrapper">
+                                    <select class="form-control">
+                                        <option>select contract type</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">CDM notifiable*</label>
+                                <div>
+                                    <button type="button">YES</button>
+                                    <button class="active" type="button">NO</button>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">assets worked on*</label>
+                                <div class="select-wrapper mb-2">
+                                    <select class="form-control">
+                                        <option>select first asset</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                    </select>
+                                </div>
+                                <div class="select-wrapper mb-2">
+                                    <select class="form-control">
+                                        <option>select second asset</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                    </select>
+                                </div>
+                                <div class="select-wrapper">
+                                    <select class="form-control">
+                                        <option>select third asset</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">comments</label>
+                                <textarea class="form-control" rows="7" placeholder="type in additional comments"></textarea>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+                <div class="mx-35 d-flex justify-content-between mb-4">
+                    <button type="submit" class="btn btn-primary mb-4 mt-5">SAVE AND CLOSE</button>
+                    <button type="submit" class="btn btn-primary mb-4 mt-5 text-right">NEXT</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/common.js"></script>
+</body>
+
+</html>

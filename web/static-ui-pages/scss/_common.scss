@@ -1,0 +1,181 @@
+body {
+    background-color: map-get($colors , grey04);
+    font-family: 'Hind', sans-serif;
+}
+
+#content {
+    width: 100%;
+    min-height: 100vh;
+    transition: all 0.3s;
+}
+
+::placeholder { /* Firefox, Chrome, Opera */ 
+    color: map-get($colors , lightenBgColor ); 
+} 
+  
+:-ms-input-placeholder { /* Internet Explorer 10-11 */ 
+    color: map-get($colors , lightenBgColor );
+} 
+  
+::-ms-input-placeholder { /* Microsoft Edge */ 
+    color: map-get($colors , lightenBgColor );
+} 
+
+form {
+    label {
+        color: map-get($colors , grey03 );
+        margin-bottom: 10px;
+        font-size: 14px;
+        font-weight: 600;
+    }
+    .form-control {
+        border-radius: 0;
+        border: 1px solid map-get($colors , grey05);
+        height: auto;
+        padding: 10px;
+        font-size: 13px;
+        border-radius: 2px;
+    }
+    textarea {
+        resize: none;
+    }
+    button {
+        background: map-get($colors , grey04);;
+        border: 1px solid map-get($colors , grey06);
+        border-radius: 2px;
+        color: map-get($colors , grey06);
+        padding: 4px 25px;
+        font-size: 13px;
+        line-height: normal;
+        margin-right: 8px;
+        &.active {
+            background: map-get($colors , lightGreen02 );
+            color: map-get($colors, whiteColor );
+            border: 1px solid map-get($colors , lightGreen02);
+        }
+    }
+    .select-wrapper {
+        position: relative;
+        select {
+            &.form-control {
+                max-width: 285px;
+                color: #999;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                appearance: none;
+                border: 1px solid map-get($colors , grey08 );
+                position: relative;
+                border-radius: 6px;
+                padding: 7px 10px;
+                height: auto !important;
+            }
+        }
+        &:after {
+            content: '';
+            position: absolute;
+            background: url(../images/select-arrow.jpg) #fff;
+            background-repeat: no-repeat;
+            background-position: center right;
+            width: 12px;
+            height: 8px;
+            right: calc(100% - 272px);
+            top: 0;
+            bottom: 0;
+            margin: auto 0;
+        }
+    }
+    .form-check {
+        position: relative;
+        input[type="radio"] {
+          opacity: 0;
+        }
+        label {
+          padding-left: 10px;
+          color: map-get($colors , grey09 );
+          cursor: pointer;
+          margin-bottom: 7px !important;
+          &:before {
+            width: 15px;
+            height: 15px;
+            position: absolute;
+            top: 4px;
+            left: 0;
+            content: '';
+            display: inline-block;
+            -moz-border-radius: 50px;
+            -webkit-border-radius: 50px;
+            border-radius: 50px;
+            border: 1px solid map-get($colors , grey09 );
+            background: transparent;
+            z-index: -1;
+          }
+        }
+        input[type="radio"] {
+            margin:3px 0 0 -17px;
+        //     &:disabled + label {
+        //     color: #999;
+        //     &:before {
+        //       background-color: #000;
+        //     }
+        //   }
+        &:checked + label{
+            color: map-get($colors , black );
+            &:after {
+                content: '';
+                position: absolute;
+                top: 8px;
+                left: 4px;
+                display: inline-block;
+                font-size: 11px;
+                width: 7px;
+                height: 7px;
+                background-color: map-get($colors , lightGreen02 );
+                -moz-border-radius: 50px;
+                -webkit-border-radius: 50px;
+                border-radius: 50px;
+              }
+              &:before {
+                border: 1px solid map-get($colors , lightGreen02 );
+              }
+        }
+        }
+      }
+      
+    //   .rdio-default input[type="radio"]:checked + label:before {
+    //     border-color: #fbc52d;
+    //   }
+      
+    //   .rdio-primary input[type="radio"]:checked + label {
+    //     &:before {
+    //       border-color: #fbc52d;
+    //     }
+    //     &::after {
+    //       background-color: #fbc52d;
+    //     }
+    //   }
+    
+}
+button[type="submit"] {
+    background-color: #006a4d;
+    border: 0;
+    font-weight: 600;
+    padding: 15px 35px;
+    font-size: 18px;
+    letter-spacing: 2px;
+    @include smScreen{
+        padding: 10px 20px;
+        font-size: 16px;
+    }
+}
+.width-75 {
+    max-width: 75px;
+}
+.width-120 {
+    max-width: 120px;
+}
+.mx-35 {
+    margin: 0 35px;
+    @include smScreen {
+        margin: 0 0;
+    }
+}

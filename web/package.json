@@ -56,6 +56,11 @@
         "test": "react-scripts test",
         "eject": "react-scripts eject",
         "prettify": "prettier -l \"src/**/*.tsx\" --write",
+        "copy-css": "cp static-ui-pages/css/style.css public/css/style.css",
+        "win-copy-css": "copy static-ui-pages\\css\\style.css public\\css\\style.css",
+        "build-css": "node-sass --include -path scss static-ui-pages/scss/style.scss static-ui-pages/css/style.css",
+        "watch-css": "nodemon -e scss -x \"npm run build-css\"",
+        "win-watch-css": "npm run win-build-css && nodemon -e scss -x 'npm run win-build-css'",
         "intl": "cross-env NODE_ENV=development extract-messages --locales=en --output src/Translations/extracted 'src/Translations/messages.ts'"
     },
     "eslintConfig": {
@@ -70,7 +75,8 @@
         "@types/jwt-decode": "^2.2.1",
         "cross-env": "^5.2.0",
         "extract-react-intl-messages": "^1.1.0",
-        "node-sass-chokidar": "^1.3.5",
+        "node-sass": "^4.13.0",
+        "nodemon": "^1.19.4",
         "prettier": "^1.18.2"
     }
 }
