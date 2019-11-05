@@ -7,10 +7,10 @@
     <!--css files-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.css">
+
     <link rel="stylesheet" href="css/all.css">
     <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700&display=swap" rel="stylesheet">
-
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
@@ -18,25 +18,36 @@
         <!-- Sidebar Holder -->
         <nav id="sidebar">
             <div class="sidebar-header">
-                <div class="logo">
+                <div id="sm_none" class="logo">
                     <img src="images/logo-black.jpg">
+                </div>
+                <div class="cross-menu">
+                    MENU
+                    <button type="button" id="cross-inner" class="cross-sidebar">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
                 </div>
             </div>
 
-            <ul class="list-unstyled components">
-                <p class="upload"><img src="images/upload-icon.jpg" alt="upload icon">upload library</p>
-                <li class="active">
-                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">customer
-                        enquiry</a>
+            <ul id="homeMenu" class="list-unstyled components">
+                <p class="upload mb-0"><img src="images/upload-icon.jpg" alt="upload icon">upload library</p>
+                <li>
+                    <a href="#">Home</a>
                 </li>
                 <li class="active">
-                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">project
+                    <a href="#">customer
+                        enquiry</a>
+                </li>
+                <li>
+                    <a href="#" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle collapsed">project
                         overview</a>
+                </li>
+                <li class="">
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle collapsed">justification & authorisation</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu">
-                        <li>
-                            <a href="#">justification & authorisation</a>
-                        </li>
-                        <li>
+                        <li class="subactive">
                             <a href="#">preliminaries</a>
                         </li>
                         <li>
@@ -53,101 +64,107 @@
                 <li>
                     <a href="#">review & approve</a>
                 </li>
+                <li>
+                    <a href="#">Logout</a>
+                </li>
             </ul>
         </nav>
 
         <!-- Page Content Holder -->
         <div id="content">
+
             <nav class="topbar">
                 <div class="container-fluid">
                     <div class="row d-flex align-items-center">
-                        <div class="col-sm-3">
+                        <div class="col-sm-12">
                             <div class="logo">
                                 <img src="images/logo.jpg">
                             </div>
-                        </div>
-                        <div class="col-sm-8">
                             <ul class="icons-blocks">
-                                <li><a href="#"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+                                <li id="sm_none"><a href="#"><i class="fa fa-home" aria-hidden="true"></i></a></li>
                                 <li><a href="#"><i class="fa fa-bell" aria-hidden="true"><span
                                                 class="badge badge-light"></span></i></a></li>
                                 <li>
                                     <div class="dropdown show">
-                                        <a class="btn btn-secondary dropdown-toggle" href="https://example.com" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fa fa-user" aria-hidden="true"></i> Name Surname
+                                        <a id="js-usertext" class="btn btn-secondary dropdown-toggle p-0" href="https://example.com" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fa fa-user" aria-hidden="true"></i>
+                                            <span id="sm_none">Name Surname</span>
                                             <span class="down-arrow"><img src="images/down-arrow.jpg"
                                                     alt="down arow"></span>
                                         </a>
 
-                                        <div class="dropdown-menu user-dropdown" aria-labelledby="dropdownMenuLink">
+                                        <div class="dropdown-menu dropdown-menu-right user-dropdown" aria-labelledby="dropdownMenuLink">
                                             <button type="button">SAVE</button>
                                             <form>
                                                 <h3>Username Surname <span>Access Type</span></h3>
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1">Location</label>
-                                                    <input type="email" class="form-control" placeholder="Eg.New York">
+                                                    <input type="email" class="form-control" placeholder="Eg. New York">
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1">Preferred Currency</label>
-                                                    <input type="email" class="form-control" placeholder="Eg.American Dollars">
+                                                    <input type="email" class="form-control" placeholder="Eg. American Dollars">
                                                 </div>
                                             </form>
                                         </div>
                                     </div>
                                 </li>
+                                <li id="sm_none">
+                                    <a class="" href="#">logout</a>
+                                </li>
                                 <li>
-                                    <a class="dropdown-item" href="#">logout</a>
+                                    <button type="button" id="sidebarCollapse" class="navbar-btn">
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                    </button>
                                 </li>
                             </ul>
                         </div>
-                        <div class="col-sm-1">
-                            <button type="button" id="sidebarCollapse" class="navbar-btn">
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                            </button>
-                        </div>
+                        <!-- <div class="col-sm-9">
+                            
+                        </div> -->
                     </div>
                 </div>
             </nav>
 
             <div class="container-fluid">
                 <div class=" row">
-                    <div class="col-md-8">
+                    <div class="col-lg-8 col-sm-12">
                         <form class="customer-enquiry">
-                            <h1>customer enquiry</h1>
+                            <h1>Customer Enquiry</h1>
                             <div class="form-group">
-                                <label for="exampleInputEmail1">project*</label>
+                                <label for="exampleInputEmail1">Project*</label>
                                 <input type="email" class="form-control" placeholder="Enter project name">
                             </div>
 
                             <div class="form-group">
-                                <label for="exampleInputEmail1">company*</label>
+                                <label for="exampleInputEmail1">Company*</label>
                                 <input type="email" class="form-control" placeholder="Enter company name">
                             </div>
 
                             <div class="form-group">
-                                <label for="exampleInputEmail1">contract*</label>
+                                <label for="exampleInputEmail1">Contract*</label>
                                 <input type="email" class="form-control" placeholder="Enter contract">
                             </div>
 
                             <div class="form-group">
-                                <label for="exampleInputEmail1">head of project*</label>
+                                <label for="exampleInputEmail1">Head of project*</label>
                                 <input type="email" class="form-control" placeholder="Enter head of project name">
                             </div>
 
                             <div class="form-group">
-                                <label for="exampleInputEmail1">project owner*</label>
-                                <input type="email" class="form-control" placeholder="project owner name">
+                                <label for="exampleInputEmail1">Project owner*</label>
+                                <input type="email" class="form-control" placeholder="Project owner name">
                             </div>
 
                             <div class="form-group">
-                                <label for="exampleInputEmail1">project manager*</label>
-                                <input type="email" class="form-control" placeholder="enter project manager name">
+                                <label for="exampleInputEmail1">Project manager*</label>
+                                <input type="email" class="form-control" placeholder="Enter project manager name">
                             </div>
 
                             <div class="form-group">
-                                <label for="exampleInputEmail1">project manager has experience in this type of
+                                <label for="exampleInputEmail1">Project manager has experience in this type of
                                     project</label>
                                 <div>
                                     <button type="button">YES</button>
@@ -156,17 +173,17 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="exampleInputEmail1">project scope*</label>
-                                <textarea class="form-control" rows="7" placeholder="type in the details involved in this project"></textarea>
+                                <label for="exampleInputEmail1">Project scope*</label>
+                                <textarea class="form-control" rows="7" placeholder="Type in the details involved in this project"></textarea>
                             </div>
 
                             <div class="form-group">
                                 <label for="exampleInputEmail1">CN number</label>
-                                <input type="email" class="form-control" placeholder="enter CN number">
+                                <input type="email" class="form-control" placeholder="Enter CN number">
                             </div>
 
                             <div class="form-group">
-                                <label for="exampleInputEmail1">project status*</label>
+                                <label for="exampleInputEmail1">Project status*</label>
                                 <div class="select-wrapper">
                                     <select class="form-control">
                                         <option>select status</option>
@@ -182,30 +199,30 @@
                                 <label for="exampleInputEmail1">Type of engagement</label>
                                 <div class="form-check">
                                     <input type="radio" class="form-check-input" name="optradio" id="1">
-                                    <label class="form-check-label" for="1">type 1</label>
+                                    <label class="form-check-label" for="1">Type 1</label>
                                 </div>
                                 <div class="form-check">
                                     <input type="radio" class="form-check-input" name="optradio" id="2">
                                     <label class="form-check-label" for="2">
-                                        type 1
+                                        Type 1
                                     </label>
                                 </div>
                                 <div class="form-check">
                                     <input type="radio" class="form-check-input" name="optradio" id="3">
                                     <label class="form-check-label" for="3">
-                                        type 1
+                                        Type 1
                                     </label>
                                 </div>
                                 <div class="form-check">
                                     <input type="radio" class="form-check-input" name="optradio" id="4">
                                     <label class="form-check-label" for="4">
-                                        type 1
+                                        Type 1
                                     </label>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label for="exampleInputEmail1">country*</label>
+                                <label for="exampleInputEmail1">Country*</label>
                                 <div class="select-wrapper">
                                     <select class="form-control">
                                         <option>select country</option>
@@ -218,7 +235,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="exampleInputEmail1">currency*</label>
+                                <label for="exampleInputEmail1">Currency*</label>
                                 <div class="select-wrapper">
                                     <select class="form-control">
                                         <option>select currency</option>
@@ -231,17 +248,17 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="exampleInputEmail1">probability of wining*</label>
-                                <input type="email" class="form-control text-right width-75" placeholder="190%">
+                                <label for="exampleInputEmail1">Probability of wining*</label>
+                                <input type="email" class="form-control text-right width-100" placeholder="190%">
                             </div>
 
                             <div class="form-group">
-                                <label for="exampleInputEmail1">approximate value*</label>
+                                <label for="exampleInputEmail1">Approximate value*</label>
                                 <input type="email" class="form-control width-120" placeholder="&#">
                             </div>
 
                             <div class="form-group">
-                                <label for="exampleInputEmail1">contract type*</label>
+                                <label for="exampleInputEmail1">Contract type*</label>
                                 <div class="select-wrapper">
                                     <select class="form-control">
                                         <option>select contract type</option>
@@ -262,7 +279,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="exampleInputEmail1">assets worked on*</label>
+                                <label for="exampleInputEmail1">Assets worked on*</label>
                                 <div class="select-wrapper mb-2">
                                     <select class="form-control">
                                         <option>select first asset</option>
@@ -293,20 +310,21 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="exampleInputEmail1">comments</label>
-                                <textarea class="form-control" rows="7" placeholder="type in additional comments"></textarea>
+                                <label for="exampleInputEmail1">Comments</label>
+                                <textarea class="form-control" rows="7" placeholder="Type in additional comments"></textarea>
                             </div>
                         </form>
 
                     </div>
                 </div>
                 <div class="mx-35 d-flex justify-content-between mb-4">
-                    <button type="submit" class="btn btn-primary mb-4 mt-5">SAVE AND CLOSE</button>
-                    <button type="submit" class="btn btn-primary mb-4 mt-5 text-right">NEXT</button>
+                    <button type="submit" class="active mb-4 mt-5">SAVE AND CLOSE</button>
+                    <button type="submit" class="mb-4 mt-5 text-right">NEXT</button>
                 </div>
             </div>
         </div>
 
+    </div>
     </div>
 
     <script src="js/jquery.min.js"></script>

@@ -1,4 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { Field, InjectedFormProps, reduxForm, change } from 'redux-form';
+import ReduxFormInput from '../../components/ReduxFormInput';
 
 const ProjectContainerForm = () => {
   return (
