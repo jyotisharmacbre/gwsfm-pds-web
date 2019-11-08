@@ -1,3 +1,3 @@
-export interface DecodedToken{
-    name: string;
-  }
+export interface DecodedToken {
+  name: string;
+}

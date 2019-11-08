@@ -9,6 +9,7 @@ import { Provider } from 'react-redux';
 import b2cauth from '@kdpw/msal-b2c-react';
 import appConfig from './helpers/config-helper';
 import configureStore from './session/store';
+import { store } from './redux/store';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 const config = appConfig();
@@ -26,7 +27,7 @@ b2cauth.initialize({
 
 b2cauth.run(() => {
   ReactDOM.render(
-    <Provider store={configureStore()}>
+    <Provider store={store}>
       <Router>
         <App />
       </Router>

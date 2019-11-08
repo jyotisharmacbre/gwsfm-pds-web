@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import {
   Typography,
   makeStyles,
@@ -25,225 +25,54 @@ import { AnyAction } from 'redux';
 import { Validator } from 'class-validator';
 import { toCurrency } from '../../../helpers/int-helper';
 import {
+  projectStatusData,
+  engagementData
+} from '../../../helpers/dropDownFormValues';
+import {
   getLocaleActionCreator,
   getCustomerContractActionCreator
 } from '../../../session/ListItems/Actions';
+import { MainTitle } from '../../Title/Title';
 
+import { Field, InjectedFormProps, reduxForm, change, reset } from 'redux-form';
+import ReduxFormInput from '../../ReduxFormHandlers/ReduxFromInput';
+import ReduxFormSelect from '../../ReduxFormHandlers/ReduxFormSelect';
+import ReduxFormRadio from '../../ReduxFormHandlers/ReduxFormRadio';
+import { booleanLiteral } from '@babel/types';
+import ReduxFormTextArea from '../../ReduxFormHandlers/ReduxFormTextArea';
+import { addProject } from '../../../redux/actions';
+// import ReduxFormSelect from '../../ReduxFormHandlers/ReduxFormSelect';
 // Validation methods
 const validator = new Validator();
 
-const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, AnyAction>) => {
-  return {
-    handleClick: () => {},
-    addToForm: (data: IProjectForm) => dispatch(addFormActionCreator(data)),
-    getLocales: () => dispatch(getLocaleActionCreator()),
-    getCustomerContracts: (name: string) =>
-      dispatch(getCustomerContractActionCreator(name))
-  };
-};
+interface Props {}
 
-const mapStateToProps = (state: IApplicationState) => {
-  return {
-    form: state.projectFormState,
-    locales: state.listState.locales,
-    customerContracts: state.listState.customerContract
-  };
-};
+// const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, AnyAction>) => {
+//   return {
+//     handleClick: () => {},
+//     addToForm: (data: IProjectForm) => dispatch(addFormActionCreator(data)),
+//     getLocales: () => dispatch(getLocaleActionCreator()),
+//     getCustomerContracts: (name: string) =>
+//       dispatch(getCustomerContractActionCreator(name))
+//   };
+// };
 
-const typesOfEngagement = [
-  {
-    name: '---Please choose an option---',
-    value: ''
-  },
-  {
-    name: 'Fixed Price',
-    value: 'Fixed Price'
-  },
-  {
-    name: 'Time and Materials',
-    value: 'Time and Materials'
-  },
-  {
-    name: 'Risk and Reward',
-    value: 'Risk and Reward'
-  },
-  {
-    name: 'Cost Plus',
-    value: 'Cost Plus'
-  }
-];
+// const mapStateToProps = (state: IApplicationState) => {
+//   return {
+//     form: state.projectFormState,
+//     locales: state.listState.locales,
+//     customerContracts: state.listState.customerContract
+//   };
+// };
 
-const contractType = [
-  {
-    name: '---Please choose an option---',
-    value: ''
-  },
-  {
-    name: 'CT 1',
-    value: 'CT 1'
-  },
-  {
-    name: 'CT 2',
-    value: 'CT 2'
-  }
-];
-
-const currency = [
-  {
-    name: '---Please choose an option---',
-    value: ''
-  },
-  {
-    name: 'AED (UAE Dirham)',
-    value: 'AED'
-  },
-  {
-    name: 'AFN (Afghani)',
-    value: 'AFN'
-  },
-  {
-    name: 'ALL (Lek)',
-    value: 'ALL'
-  },
-  {
-    name: 'AMD (Dram)',
-    value: 'AMD'
-  },
-  {
-    name: 'ANG (Dutch Antilles Guilder)',
-    value: 'ANG'
-  },
-  {
-    name: 'AOA (Kwanza)',
-    value: 'AOA'
-  },
-  {
-    name: 'ARS (Peso)',
-    value: 'ARS'
-  }
-];
-
-const projectStatus = [
-  {
-    name: '---Please choose an option---',
-    value: ''
-  },
-  {
-    name: 'Initial Customer Inquiry',
-    value: 'Initial Customer Inquiry'
-  },
-  {
-    name: 'J&A',
-    value: 'J&A'
-  },
-  {
-    name: 'Archived',
-    value: 'Archived'
-  },
-  {
-    name: 'Lost',
-    value: 'Lost'
-  },
-  {
-    name: 'Order Received',
-    value: 'Order Received'
-  },
-  {
-    name: 'CPP',
-    value: 'CPP'
-  },
-  {
-    name: 'Complete',
-    value: 'Complete'
-  }
-];
-
-const assetsWorkedOn = [
-  {
-    name: '---Please choose an option---',
-    value: ''
-  },
-  {
-    name: 'AS 1',
-    value: 'AS 1'
-  },
-  {
-    name: 'AS 2',
-    value: 'AS 2'
-  }
-];
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      padding: theme.spacing(3, 2)
-    },
-    form: {
-      width: '100%', // Fix IE 11 issue.
-      marginTop: theme.spacing(3)
-    },
-    submit: {
-      margin: theme.spacing(3, 0, 2)
-    },
-    textField: {
-      backgroundColor: 'white'
-      // marginLeft: theme.spacing(1),
-      // marginRight: theme.spacing(1),
-    },
-    menu: {
-      width: 200
-    },
-    label: {
-      position: 'relative',
-      color: '#5b5b5b',
-      fontWeight: 'bold'
-    },
-    select: {
-      //marginTop: '0px'
-    }
-  })
-);
-
-const AntSwitch = withStyles(theme => ({
-  root: {
-    width: 28,
-    height: 16,
-    padding: 0,
-    display: 'flex'
-  },
-  switchBase: {
-    padding: 2,
-    color: theme.palette.grey[500],
-    '&$checked': {
-      color: theme.palette.secondary.main,
-      '& + $track': {
-        opacity: 0.5,
-        backgroundColor: theme.palette.secondary.main,
-        borderColor: theme.palette.secondary.main
-      }
-    }
-  },
-  thumb: {
-    width: 12,
-    height: 12,
-    boxShadow: 'none'
-  },
-  track: {
-    border: `1px solid ${theme.palette.grey[500]}`,
-    borderRadius: 16 / 2,
-    opacity: 1,
-    backgroundColor: theme.palette.common.white
-  },
-  checked: {}
-}))(Switch);
-
-const ProjectForm: React.FC<IProjectFormProps> = props => {
-  useEffect(() => {
-    props.getLocales();
-    props.getCustomerContracts('');
-  }, []);
-
-  const classes = useStyles();
+export const ProjectForm: React.FC<
+  Props & InjectedFormProps<{}, Props>
+> = (props: any) => {
+  const { error, pristine, reset, submitting } = props;
+  // useEffect(() => {
+  //   props.getLocales();
+  //   props.getCustomerContracts('');
+  // }, []);
 
   const Buttons: IBtnActionProps[] = [
     {
@@ -270,12 +99,7 @@ const ProjectForm: React.FC<IProjectFormProps> = props => {
     }
   ];
 
-  const handleCheckChange = (name: string) => (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    var data = { ...props.form, [name]: event.target.checked };
-    props.addToForm(data);
-  };
+
 
   const handleValueChange = (name: string) => (
     event: React.ChangeEvent<HTMLInputElement>
@@ -320,700 +144,290 @@ const ProjectForm: React.FC<IProjectFormProps> = props => {
     return !validator.isEmail(value);
   };
 
-  const handleSubmit = (e: React.FormEvent<Element>) => {
-    e.preventDefault();
-    var data = {
-      ...props.form,
-      invalidCompany: isValid(props.form.company),
-      invalidCustomerContract: isValid(props.form.customer_contract),
-      invalidLocale: isValid(props.form.locale),
-      invalidProjectManager: isValidEmail(props.form.projectmanager),
-      invalidProjectName: isValid(props.form.projectname),
-      invalidProjectScope: isValid(props.form.projectscope),
-      invalidHeadOfProject: isValidEmail(props.form.headofproject),
-      invalidCurrency: isValid(props.form.currency),
-      invalidApproxValue: isValid(props.form.approximatevalue),
-      invalidAssetsWorkedOnPrimary: isValid(props.form.assetworkedonprimary),
-      invalidCMDNotifiable: isValid(props.form.cdmnotifiable.toString()),
-      invalidProbOfWinning: isValid(props.form.probofwinning),
-      invalidContractType: isValid(props.form.contracttype)
-    };
-
-    if (
-      !data.invalidCompany &&
-      !data.invalidCustomerContract &&
-      !data.invalidProjectManager &&
-      !data.invalidProjectName &&
-      !data.invalidProjectScope &&
-      !data.invalidPMExperience &&
-      !data.invalidHeadOfProject &&
-      !data.invalidLocale &&
-      !data.invalidCurrency &&
-      !data.invalidApproxValue &&
-      !data.invalidAssetsWorkedOnPrimary &&
-      !data.invalidCMDNotifiable &&
-      !data.invalidProbOfWinning
-    ) {
-      props.addToForm({ ...data, validForm: true });
-
-      alert('Form is Valid');
-    } else {
-      props.addToForm({ ...data, validForm: false });
-      props.addToForm(data);
-    }
+  const handleSubmit = (values: any) => {
+    console.log('here');
+    console.log('values', values);
+    props.dispatch(addProject(values));
+    // props.dispatch(reset('projectForm'));
   };
 
-  return (
-    <form className={classes.form} noValidate onSubmit={handleSubmit}>
-      <Grid container spacing={3}>
-        <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
-            <InputLabel shrink className={classes.label}>
-              Company*
-            </InputLabel>
+// function submit(values: any) {
+//     //Can log the values to the console, but submitFormValues actionCreator does not appear to be dispatched.
+//     console.log(values)
+// }
 
-            <TextField
-              id="outlined-select-company"
-              inputProps={{
-                className: classes.textField
-              }}
-              onChange={handleValueChange('company')}
-              value={props.form.company}
-              margin="normal"
-              variant="outlined"
-              required
-              fullWidth
-              autoFocus
-              onBlur={validateField}
-              error={props.form.invalidCompany}
-              helperText={
-                props.form.invalidCompany ? 'This field is required' : ''
-              }
-            ></TextField>
-          </FormControl>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
-            <InputLabel shrink className={classes.label}>
-              Customer & Contract*
-            </InputLabel>
-            <TextField
-              id="outlined-select-custcontract"
-              inputProps={{
-                className: classes.textField
-              }}
-              select
-              onChange={handleValueChange('customer_contract')}
-              SelectProps={{
-                MenuProps: {
-                  className: classes.menu
-                }
-              }}
-              margin="normal"
-              name="CustomerContract"
-              variant="outlined"
-              required
-              fullWidth
-              autoFocus
-              value={props.form.customer_contract}
-              onBlur={validateField}
-              error={props.form.invalidCustomerContract}
-              helperText={
-                props.form.invalidCustomerContract
-                  ? 'This field is required'
-                  : ''
-              }
-            >
-              {props.customerContracts.map(option => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.name}
-                </MenuItem>
-              ))}
-            </TextField>
-          </FormControl>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
-            <InputLabel shrink className={classes.label}>
-              Project Name*
-            </InputLabel>
-            <TextField
-              variant="outlined"
-              inputProps={{ className: classes.textField }}
-              required
-              fullWidth
-              margin="normal"
-              id="project-name"
-              name="ProjectName"
-              error={props.form.invalidProjectName}
-              helperText={
-                props.form.invalidProjectName ? 'This field is required' : ''
-              }
-              value={props.form.projectname}
-              onBlur={validateField}
-              onChange={handleValueChange('projectname')}
-            />
-          </FormControl>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
-            <InputLabel shrink className={classes.label}>
-              Project Status*
-            </InputLabel>
-            <TextField
-              id="outlined-select-projectstatus"
-              select
-              onChange={handleValueChange('projectstatus')}
-              SelectProps={{
-                MenuProps: {
-                  className: classes.menu
-                }
-              }}
-              inputProps={{ className: classes.textField }}
-              margin="normal"
-              name="ProjectStatus"
-              variant="outlined"
-              fullWidth
-              autoFocus
-              value={props.form.projectstatus}
-            >
-              {projectStatus.map(option => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.name}
-                </MenuItem>
-              ))}
-            </TextField>
-          </FormControl>
-        </Grid>
-        <Grid item xs={12}>
-          <FormControl fullWidth>
-            <InputLabel shrink className={classes.label}>
-              Project Scope*
-            </InputLabel>
-            <TextField
-              variant="outlined"
-              required
-              margin="normal"
-              fullWidth
-              value={props.form.projectscope}
-              name="ProjectScope"
-              inputProps={{ className: classes.textField }}
-              id="ProjectScope"
-              multiline
-              rows="4"
-              error={props.form.invalidProjectScope}
-              helperText={
-                props.form.invalidProjectScope ? 'This field is required' : ''
-              }
-              onChange={handleValueChange('projectscope')}
-              onBlur={validateField}
-            />
-          </FormControl>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
-            <InputLabel shrink className={classes.label}>
-              Project Manager*
-            </InputLabel>
-            <TextField
-              variant="outlined"
-              inputProps={{ className: classes.textField }}
-              required
-              margin="normal"
-              fullWidth
-              value={props.form.projectmanager}
-              name="ProjectManager"
-              id="ProjectManager"
-              error={props.form.invalidProjectManager}
-              helperText={
-                props.form.invalidProjectManager ? 'Enter a valid email' : ''
-              }
-              onChange={handleValueChange('projectmanager')}
-              onBlur={validateEmail}
-            />
-          </FormControl>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <FormControl component="fieldset">
-            <InputLabel shrink className={classes.label}>
-              Project manager has experience in this type of projects?
-            </InputLabel>
-            <br />
-            <Typography component="div">
-              <Grid component="label" container alignItems="center" spacing={1}>
-                <Grid item>No</Grid>
-                <Grid item>
-                  <AntSwitch
-                    checked={props.form.pmexperience}
-                    onChange={handleCheckChange('pmexperience')}
-                    value="pmexperience"
-                  />
-                </Grid>
-                <Grid item>Yes</Grid>
-              </Grid>
-            </Typography>
-          </FormControl>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
-            <InputLabel shrink className={classes.label}>
-              Head of Project*
-            </InputLabel>
-            <TextField
-              variant="outlined"
-              required
-              margin="normal"
-              inputProps={{ className: classes.textField }}
-              fullWidth
-              value={props.form.headofproject}
-              name="HeadOfProject"
-              id="HeadOfProject"
-              error={props.form.invalidHeadOfProject}
-              helperText={
-                props.form.invalidHeadOfProject ? 'Enter a valid email' : ''
-              }
-              onChange={handleValueChange('headofproject')}
-              onBlur={validateEmail}
-            />
-          </FormControl>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
-            <InputLabel shrink className={classes.label}>
-              Project Owner
-            </InputLabel>
-            <TextField
-              variant="outlined"
-              fullWidth
-              value={props.form.projectowner}
-              name="ProjectOwner"
-              inputProps={{ className: classes.textField }}
-              margin="normal"
-              id="ProjectOwner"
-              onChange={handleValueChange('projectowner')}
-              error={props.form.InvalidProjectOwner}
-              helperText={
-                props.form.InvalidProjectOwner ? 'Enter a valid email' : ''
-              }
-              onBlur={validateEmail}
-            />
-          </FormControl>
-        </Grid>
-        <Grid item xs={12} sm={12}>
-          <FormControl fullWidth>
-            <InputLabel shrink className={classes.label}>
-              CN Number
-            </InputLabel>
-            <TextField
-              variant="outlined"
-              fullWidth
-              margin="normal"
-              inputProps={{ className: classes.textField }}
-              value={props.form.cnnumber}
-              name="cnnumber"
-              id="CNNumber"
-              onChange={handleValueChange('cnnumber')}
-            />
-          </FormControl>
-        </Grid>
-        <Grid item xs={12} sm={12}>
-          <FormControl fullWidth>
-            <InputLabel shrink className={classes.label}>
-              Comments
-            </InputLabel>
-            <TextField
-              variant="outlined"
-              fullWidth
-              className={classes.textField}
-              multiline
-              margin="normal"
-              rows="4"
-              value={props.form.comments}
-              name="comments"
-              id="Comments"
-              onChange={handleValueChange('comments')}
-            />
-          </FormControl>
-        </Grid>
-        <Grid item xs={12} sm={4}>
-          <FormControl fullWidth>
-            <InputLabel shrink className={classes.label}>
-              Type of Engagement
-            </InputLabel>
-            <TextField
-              id="outlined-select-typeofengagement"
-              select
-              inputProps={{ className: classes.textField }}
-              onChange={handleValueChange('typeofengagement')}
-              SelectProps={{
-                MenuProps: {
-                  className: classes.menu
-                }
-              }}
-              margin="normal"
-              name="TypeOfEngagement"
-              variant="outlined"
-              fullWidth
-              autoFocus
-              value={props.form.typeofengagement}
-            >
-              {typesOfEngagement.map(option => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.name}
-                </MenuItem>
-              ))}
-            </TextField>
-          </FormControl>
-        </Grid>
-        <Grid item xs={4}>
-          <FormControl fullWidth>
-            <InputLabel shrink className={classes.label}>
-              Country*
-            </InputLabel>
-            <TextField
-              id="outlined-select-country"
-              select
-              inputProps={{ className: classes.textField }}
-              name="Locale"
-              value={props.form.locale}
-              onChange={handleValueChange('locale')}
-              SelectProps={{
-                MenuProps: {
-                  className: classes.menu
-                }
-              }}
-              margin="normal"
-              variant="outlined"
-              required
-              fullWidth
-              autoFocus
-              error={props.form.invalidLocale}
-              helperText={
-                props.form.invalidLocale ? 'This field is required' : ''
-              }
-              onBlur={validateField}
-            >
-              {props.locales.map(option => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.name}
-                </MenuItem>
-              ))}
-            </TextField>
-          </FormControl>
-        </Grid>
-        <Grid item xs={4}>
-          <FormControl fullWidth>
-            <InputLabel shrink className={classes.label}>
-              Currency*
-            </InputLabel>
-            <TextField
-              id="outlined-select-currency"
-              inputProps={{ className: classes.textField }}
-              select
-              name="Currency"
-              value={props.form.currency}
-              onChange={handleValueChange('currency')}
-              SelectProps={{
-                MenuProps: {
-                  className: classes.menu
-                }
-              }}
-              margin="normal"
-              variant="outlined"
-              required
-              fullWidth
-              autoFocus
-              error={props.form.invalidCurrency}
-              helperText={
-                props.form.invalidCurrency ? 'This field is required' : ''
-              }
-              onBlur={validateField}
-            >
-              {currency.map(option => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.name}
-                </MenuItem>
-              ))}
-            </TextField>
-          </FormControl>
-        </Grid>
+  // const handleSubmit = (e: React.FormEvent<Element>) => {
+  //   e.preventDefault();
+  //   var data = {
+  //     ...props.form,
+  //     invalidCompany: isValid(props.form.company),
+  //     invalidCustomerContract: isValid(props.form.customer_contract),
+  //     invalidLocale: isValid(props.form.locale),
+  //     invalidProjectManager: isValidEmail(props.form.projectmanager),
+  //     invalidProjectName: isValid(props.form.projectname),
+  //     invalidProjectScope: isValid(props.form.projectscope),
+  //     invalidHeadOfProject: isValidEmail(props.form.headofproject),
+  //     invalidCurrency: isValid(props.form.currency),
+  //     invalidApproxValue: isValid(props.form.approximatevalue),
+  //     invalidAssetsWorkedOnPrimary: isValid(props.form.assetworkedonprimary),
+  //     invalidCMDNotifiable: isValid(props.form.cdmnotifiable.toString()),
+  //     invalidProbOfWinning: isValid(props.form.probofwinning),
+  //     invalidContractType: isValid(props.form.contracttype)
+  //   };
 
-        <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
-            <InputLabel shrink className={classes.label}>
-              Probability of winning, %*
-            </InputLabel>
-            <TextField
-              variant="outlined"
-              fullWidth
-              margin="normal"
-              inputProps={{ className: classes.textField }}
-              value={props.form.probofwinning}
-              type="number"
-              name="ProbOfWinning"
-              id="ProbOfWinning"
-              required
-              onChange={handleValueChange('probofwinning')}
-              error={props.form.invalidProbOfWinning}
-              helperText={
-                props.form.invalidProbOfWinning ? 'This field is required' : ''
-              }
-              onBlur={validateField}
-            />
-          </FormControl>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
-            <InputLabel shrink className={classes.label}>
-              Approximate value*
-            </InputLabel>
-            <TextField
-              variant="outlined"
-              fullWidth
-              inputProps={{
-                className: classes.textField,
-                dataformat: 'currency'
-              }}
-              margin="normal"
-              value={props.form.approximatevalue}
-              name="ApproxValue"
-              id="ApproximateValue"
-              required
-              onChange={handleValueChange('approximatevalue')}
-              error={props.form.invalidApproxValue}
-              helperText={
-                props.form.invalidApproxValue ? 'This field is required' : ''
-              }
-              onBlur={validateField('approximatevalue')}
-            />
-          </FormControl>
-        </Grid>
-        <Grid item xs={6}>
-          <FormControl fullWidth>
-            <InputLabel shrink className={classes.label}>
-              Contract Type*
-            </InputLabel>
-            <TextField
-              id="outlined-select-contracttype"
-              select
-              name="ContractType"
-              value={props.form.contracttype}
-              onChange={handleValueChange('contracttype')}
-              SelectProps={{
-                MenuProps: {
-                  className: classes.menu
-                }
-              }}
-              inputProps={{ className: classes.textField }}
-              className={classes.select}
-              margin="normal"
-              variant="outlined"
-              required
-              fullWidth
-              autoFocus
-              error={props.form.invalidContractType}
-              helperText={
-                props.form.invalidContractType ? 'This field is required' : ''
-              }
-              onBlur={validateField}
-            >
-              {contractType.map(option => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.name}
-                </MenuItem>
-              ))}
-            </TextField>
-          </FormControl>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <FormControl component="fieldset">
-            <InputLabel shrink className={classes.label}>
-              CDM Notifiable *
-            </InputLabel>
+  //   if (
+  //     !data.invalidCompany &&
+  //     !data.invalidCustomerContract &&
+  //     !data.invalidProjectManager &&
+  //     !data.invalidProjectName &&
+  //     !data.invalidProjectScope &&
+  //     !data.invalidPMExperience &&
+  //     !data.invalidHeadOfProject &&
+  //     !data.invalidLocale &&
+  //     !data.invalidCurrency &&
+  //     !data.invalidApproxValue &&
+  //     !data.invalidAssetsWorkedOnPrimary &&
+  //     !data.invalidCMDNotifiable &&
+  //     !data.invalidProbOfWinning
+  //   ) {
+  //     props.addToForm({ ...data, validForm: true });
 
-            <br />
-            <Typography component="div">
-              <Grid component="label" container alignItems="center" spacing={1}>
-                <Grid item>No</Grid>
-                <Grid item>
-                  <AntSwitch
-                    checked={props.form.cdmnotifiable}
-                    onChange={handleCheckChange('cdmnotifiable')}
-                    value="cdmnotifiable"
-                  />
-                </Grid>
-                <Grid item>Yes</Grid>
-              </Grid>
-            </Typography>
-          </FormControl>
-        </Grid>
-        <Grid item xs={4}>
-          <FormControl fullWidth>
-            <InputLabel shrink className={classes.label}>
-              Assets worked on (primary)*
-            </InputLabel>
-            <TextField
-              id="outlined-select-asworkedprimary"
-              select
-              inputProps={{ className: classes.textField }}
-              name="AssetsWorkedOnPrimary"
-              value={props.form.assetworkedonprimary}
-              onChange={handleValueChange('assetworkedonprimary')}
-              SelectProps={{
-                MenuProps: {
-                  className: classes.menu
-                }
-              }}
-              margin="normal"
-              variant="outlined"
-              required
-              fullWidth
-              autoFocus
-              error={props.form.invalidAssetsWorkedOnPrimary}
-              helperText={
-                props.form.invalidAssetsWorkedOnPrimary
-                  ? 'This field is required'
-                  : ''
-              }
-              onBlur={validateField}
-            >
-              {assetsWorkedOn.map(option => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.name}
-                </MenuItem>
-              ))}
-            </TextField>
-          </FormControl>
-        </Grid>
-        <Grid item xs={4}>
-          <FormControl fullWidth>
-            <InputLabel shrink className={classes.label}>
-              Assets worked on
-            </InputLabel>
-            <TextField
-              id="outlined-select-asworked2"
-              select
-              inputProps={{ className: classes.textField }}
-              name="AsWorked2"
-              value={props.form.assetworkedonsecond}
-              onChange={handleValueChange('assetworkedonsecond')}
-              SelectProps={{
-                MenuProps: {
-                  className: classes.menu
-                }
-              }}
-              margin="normal"
-              variant="outlined"
-              fullWidth
-              autoFocus
-            >
-              {assetsWorkedOn.map(option => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.name}
-                </MenuItem>
-              ))}
-            </TextField>
-          </FormControl>
-        </Grid>
-        <Grid item xs={4}>
-          <FormControl fullWidth>
-            <InputLabel shrink className={classes.label}>
-              Assets worked on
-            </InputLabel>
-            <TextField
-              id="outlined-select-asworked3"
-              select
-              inputProps={{ className: classes.textField }}
-              name="AsWorked3"
-              value={props.form.assetworkedonthird}
-              onChange={handleValueChange('assetworkedonthird')}
-              SelectProps={{
-                MenuProps: {
-                  className: classes.menu
-                }
-              }}
-              margin="normal"
-              variant="outlined"
-              fullWidth
-              autoFocus
-            >
-              {assetsWorkedOn.map(option => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.name}
-                </MenuItem>
-              ))}
-            </TextField>
-          </FormControl>
-        </Grid>
-        <Grid item xs={12} sm={4}>
-          <FormControl fullWidth>
-            <InputLabel shrink className={classes.label}>
-              Sold Margin
-            </InputLabel>
-            <TextField
-              inputProps={{ className: classes.textField }}
-              variant="outlined"
-              fullWidth
-              value={props.form.soldmargin}
-              name="SoldMargin"
-              margin="normal"
-              id="SoldMargin"
-              onChange={handleValueChange('soldmargin')}
-            />
-          </FormControl>
-        </Grid>
-        <Grid item xs={12} sm={4}>
-          <FormControl fullWidth>
-            <InputLabel shrink className={classes.label}>
-              Weighed TCV
-            </InputLabel>
-            <TextField
-              variant="outlined"
-              fullWidth
-              inputProps={{ className: classes.textField }}
-              margin="normal"
-              value={props.form.weightedtcv}
-              name="Weightedtcv"
-              id="WeighedTCV"
-              onChange={handleValueChange('weightedtcv')}
-            />
-          </FormControl>
-        </Grid>
-        <Grid item xs={12} sm={4}>
-          <FormControl fullWidth>
-            <InputLabel shrink className={classes.label}>
-              Rank
-            </InputLabel>
-            <TextField
-              variant="outlined"
-              fullWidth
-              inputProps={{ className: classes.textField }}
-              margin="normal"
-              value={props.form.rank}
-              name="rank"
-              id="Rank"
-              onChange={handleValueChange('rank')}
-            />
-          </FormControl>
-        </Grid>
-      </Grid>
-      <br />
-      <Divider />
-      <Grid justify="space-between" container spacing={3}>
-        <Grid item xs={12} sm={12} className="actions">
-          <div className="leftalign">
-            <PageBtnActions Actions={[Buttons[2]]} />
-          </div>
-          <div className="rightalign">
-            <PageBtnActions Actions={[Buttons[0], Buttons[1]]} />
-          </div>
-        </Grid>
-      </Grid>
-    </form>
+  //     alert('Form is Valid');
+  //   } else {
+  //     props.addToForm({ ...data, validForm: false });
+  //     props.addToForm(data);
+  //   }
+  // };
+
+  const YES_NO_BUTTON = ['YES', 'NO'];
+
+  const [active, setActive] = useState(false);
+
+  const [showActive, showSetActive] = useState(false);
+
+  const ButtonComponent = ({ ...props }) => (
+    <button
+     value = {props.button_name}
+      onClick={() => { handleCheckChange(props.button_name, props.name);setActive(props.button_name) }}
+      className={active === props.button_name ? 'active' : ''}
+    >
+      {props.button_name}
+    </button>
   );
+
+  const handleCheckChange = (button_name: string, name: string) => {
+    console.log(button_name, name)
+    // var data = { ...props.form, [name]: event.target.checked };
+    // props.addToForm(data);
+    var data = {
+      [name]: button_name
+    }
+    console.log(data)
+  };
+
+  const CDMButtonComponent = ({ ...props }) => (
+    <button
+      onClick={() => {handleCheckChange(props.button_name, props.name);showSetActive(props.button_name)}}
+      className={showActive === props.button_name ? 'active' : ''}
+    >
+      {props.button_name}
+    </button>
+  );
+
+  return (
+    <div className="container-fluid">
+      <div className=" row">
+        <div className="col-lg-8 col-sm-12">
+          <form className="customer-enquiry" onSubmit={handleSubmit} {...props} noValidate={true}>
+            <MainTitle>Customer Enquiry</MainTitle>
+            <Field
+              name="projectName"
+              type="text"
+              component={ReduxFormInput}
+              label="Project*"
+              placeHolder="Enter project name"
+            />
+            <Field
+              name="companyName"
+              type="text"
+              component={ReduxFormInput}
+              label="Company*"
+              placeHolder="Enter company name"
+            />
+            <Field
+              name="contractName"
+              type="text"
+              component={ReduxFormInput}
+              label="Company*"
+              placeHolder="Enter contract"
+            />
+            <Field
+              name="projectHead"
+              type="text"
+              component={ReduxFormInput}
+              label="Head of project*"
+              placeHolder="Enter head of project name"
+            />
+            <Field
+              name="projectOwner"
+              type="text"
+              component={ReduxFormInput}
+              label="Project Owner*"
+              placeHolder="Project Owner name"
+            />
+            <Field
+              name="projectManager"
+              type="text"
+              component={ReduxFormInput}
+              label="Project Manager*"
+              placeHolder="Enter Project Manager name"
+            />
+
+            <div className="form-group">
+              <label>
+                Project manager has experience in this type of project
+              </label>
+              <div>
+                {YES_NO_BUTTON.map(button => (
+                  <ButtonComponent button_name={button} name= 'managerExp'/>
+                ))}
+              </div>
+            </div>
+            <Field
+              label="Project scope*"
+              name="projectScope"
+              rows="7"
+              component={ReduxFormTextArea}
+              placeHolder="Type in the details involved in this project"
+            />
+            <Field
+              name="cnNumber"
+              type="text"
+              component={ReduxFormInput}
+              label="CN Number*"
+              placeHolder="Enter CN Number"
+            />
+
+            <Field
+              name="projectStatus"
+              type="text"
+              datas={projectStatusData}
+              component={ReduxFormSelect}
+              label="Project status*"
+              placeHolder="Select status"
+            />
+
+            <Field
+              name="engagementType"
+              type="radio"
+              datas={engagementData}
+              component={ReduxFormRadio}
+              label="Type of engagement*"
+            />
+
+            <Field
+              name="country"
+              type="text"
+              datas={projectStatusData}
+              component={ReduxFormSelect}
+              label="Country*"
+              placeHolder="Select country"
+            />
+
+            <Field
+              name="currency"
+              type="text"
+              datas={projectStatusData}
+              component={ReduxFormSelect}
+              label="Currency*"
+              placeHolder="Select currency"
+            />
+
+            <Field
+              name="winProbabilty"
+              type="text"
+              component={ReduxFormInput}
+              label="Probability of wining (%)*"
+              placeHolder="00%"
+              className="width-100"
+            />
+
+            <Field
+              name="approxValue"
+              type="text"
+              component={ReduxFormInput}
+              label="Approximate value*"
+              placeHolder=""
+              className="width-120"
+            />
+
+            <Field
+              name="contractType"
+              type="text"
+              datas={projectStatusData}
+              component={ReduxFormSelect}
+              label="Contract type*"
+              placeHolder="Select contract type"
+            />
+            <div className="form-group">
+              <label>CDM notifiable*</label>
+              <div>
+                {YES_NO_BUTTON.map(button => (
+                  <CDMButtonComponent button_name={button} name= 'cdmNotify'/>
+                ))}
+              </div>
+            </div>
+            <Field
+              name="assetworkedonprimary"
+              type="text"
+              datas={projectStatusData}
+              component={ReduxFormSelect}
+              label="Assets worked on*"
+              placeHolder="Select First Asset"
+            />
+            <Field
+              name="assetworkedonsecond"
+              type="text"
+              datas={projectStatusData}
+              component={ReduxFormSelect}
+              placeHolder="Select Second Asset"
+            />
+            <Field
+              name="assetworkedonthird"
+              type="text"
+              datas={projectStatusData}
+              component={ReduxFormSelect}
+              placeHolder="Select Third Asset"
+            />
+            <Field
+              label="Comments"
+              name="comments"
+              rows="7"
+              component={ReduxFormTextArea}
+              placeHolder="Type in additional comments"
+            />
+          </form>
+        </div>
+      </div>
+      <div className="mx-35 d-flex justify-content-between mb-4">
+        <button className="active mb-4 mt-5">
+          SAVE AND CLOSE
+        </button>
+        <button type="submit" className="mb-4 mt-5 text-right">
+          NEXT
+        </button>
+      </div>
+    </div>
+  );
+
+  
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ProjectForm);
+const form = reduxForm<{}, Props>({
+  destroyOnUnmount: false,
+  forceUnregisterOnUnmount: false,
+  form: 'projectForm'
+})(ProjectForm);
+
+
+export default connect(null)(form);

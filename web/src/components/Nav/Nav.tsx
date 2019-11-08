@@ -27,9 +27,9 @@ class Nav extends React.Component<IAppProps & IReactIntl, INaveState> {
     window.location.href = '/';
   }
 
-  helloAuthenticatedUser() {
-    return Translate.getLabel(this.props, 'hello', { name: getDisplayName() });
-  }
+  // helloAuthenticatedUser() {
+  //   return Translate.getLabel(this.props, 'hello', { name: getDisplayName() });
+  // }
 
   handleDrawerOpen = () => {
     this.setState({ open: true });
@@ -41,9 +41,9 @@ class Nav extends React.Component<IAppProps & IReactIntl, INaveState> {
 
   render() {
     const { UseStyles } = this.props;
-    return (
-      <div>
-        <AppBar
+    return <LeftMenu />;
+    {
+      /* <AppBar
           position="absolute"
           className={clsx(
             UseStyles.appBar,
@@ -81,7 +81,7 @@ class Nav extends React.Component<IAppProps & IReactIntl, INaveState> {
             <ProfileMenu Name={this.helloAuthenticatedUser()} />
           </Toolbar>
         </AppBar>
-        <Drawer
+        <Drawer 
           variant="persistent"
           className={clsx('drawer', !this.state.open && 'drawerhidden')}
           classes={{
@@ -116,9 +116,8 @@ class Nav extends React.Component<IAppProps & IReactIntl, INaveState> {
             </IconButton>
           </div>
           <LeftMenu />
-        </Drawer>
-      </div>
-    );
+        </Drawer>*/
+    }
   }
 }
 
