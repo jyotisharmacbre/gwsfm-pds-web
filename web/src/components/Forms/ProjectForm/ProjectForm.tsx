@@ -44,52 +44,58 @@ import ReduxFormTextArea from '../../ReduxFormHandlers/ReduxFormTextArea';
 import { addProject } from '../../../redux/actions';
 // import ReduxFormSelect from '../../ReduxFormHandlers/ReduxFormSelect';
 // Validation methods
+import validate from './validate';
 const validator = new Validator();
 
-interface Props {
-  showActive: boolean;
-  YES_NO_BUTTON: any;
-}
+// interface Props {
+//   showActive: boolean;
+//   YES_NO_BUTTON: any;
+// }
 
-class ProjectForm extends React.Component<InjectedFormProps, Props> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      YES_NO_BUTTON: [
-        { name: 'YES', isActive: false },
-        { name: 'NO', isActive: false }
-      ],
-      showActive: false
-    };
-    //  this.toggleVisibility = this.toggleVisibility.bind(this);
-  }
+// class ProjectForm extends React.Component<InjectedFormProps, Props> {
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       YES_NO_BUTTON: [
+//         { name: 'YES', isActive: false },
+//         { name: 'NO', isActive: false }
+//       ],
+//       showActive: false
+//     };
+//     //  this.toggleVisibility = this.toggleVisibility.bind(this);
+//   }
 
-  toggleVisibility = index => {
-    let tmp = this.state.YES_NO_BUTTON;
-    tmp[index].isActive = !tmp[index].isActive;
-    this.setState({ YES_NO_BUTTON: tmp });
-  };
+//   toggleVisibility = index => {
+//     let tmp = this.state.YES_NO_BUTTON;
+//     tmp[index].isActive = !tmp[index].isActive;
+//     this.setState({ YES_NO_BUTTON: tmp });
+//   };
 
-  // toggleVisibility = () => {
-  //   this.setState(previousState => {
-  //     return {
-  //       showActive: !previousState.showActive
-  //     };
-  //   });
-  // };
+// toggleVisibility = () => {
+//   this.setState(previousState => {
+//     return {
+//       showActive: !previousState.showActive
+//     };
+//   });
+// };
 
-  // toggleVisibility() {
-  //   this.setState({
-  //     showActive: !this.state.showActive
-  //   });
+// toggleVisibility() {
+//   this.setState({
+//     showActive: !this.state.showActive
+//   });
+// }
+interface Props {}
+export const ProjectForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
+  props: any
+) => {
+  const { handleSubmit } = props;
+
+  // handleSubmit(formValues: any) {
+  //   console.log('here');
+  //   console.log('values', formValues);
+  //   //  this.props.dispatch(addProject(formValues));
+  //   // props.dispatch(reset('projectForm'));
   // }
-
-  onSubmit(formValues: any) {
-    console.log('here');
-    console.log('values', formValues);
-    //  this.props.dispatch(addProject(formValues));
-    // props.dispatch(reset('projectForm'));
-  }
 
   // ButtonComponent = ({ ...props }) => (
   //   <button
@@ -126,65 +132,65 @@ class ProjectForm extends React.Component<InjectedFormProps, Props> {
   //     {props.button_name}
   //   </button>
   // );
-  render() {
-    return (
-      <div className="container-fluid">
-        <div className=" row">
-          <div className="col-lg-8 col-sm-12">
-            <form
-              className="customer-enquiry"
-              onSubmit={this.props.handleSubmit(this.onSubmit)}
-              noValidate={true}
-            >
-              <MainTitle>Customer Enquiry</MainTitle>
-              <Field
-                name="projectName"
-                type="text"
-                component={ReduxFormInput}
-                label="Project*"
-                placeHolder="Enter project name"
-              />
-              <Field
-                name="companyName"
-                type="text"
-                component={ReduxFormInput}
-                label="Company*"
-                placeHolder="Enter company name"
-              />
-              <Field
-                name="contractName"
-                type="text"
-                component={ReduxFormInput}
-                label="Company*"
-                placeHolder="Enter contract"
-              />
-              <Field
-                name="projectHead"
-                type="text"
-                component={ReduxFormInput}
-                label="Head of project*"
-                placeHolder="Enter head of project name"
-              />
-              <Field
-                name="projectOwner"
-                type="text"
-                component={ReduxFormInput}
-                label="Project Owner*"
-                placeHolder="Project Owner name"
-              />
-              <Field
-                name="projectManager"
-                type="text"
-                component={ReduxFormInput}
-                label="Project Manager*"
-                placeHolder="Enter Project Manager name"
-              />
 
-              <div className="form-group">
-                <label>
-                  Project manager has experience in this type of project
-                </label>
-                <div>
+  return (
+    <div className="container-fluid">
+      <div className=" row">
+        <div className="col-lg-8 col-sm-12">
+          <form
+            className="customer-enquiry"
+            onSubmit={handleSubmit}
+            noValidate={true}
+          >
+            <MainTitle>Customer Enquiry</MainTitle>
+            <Field
+              name="projectName"
+              type="text"
+              component={ReduxFormInput}
+              label="Project*"
+              placeHolder="Enter project name"
+            />
+            <Field
+              name="companyName"
+              type="text"
+              component={ReduxFormInput}
+              label="Company*"
+              placeHolder="Enter company name"
+            />
+            <Field
+              name="contractName"
+              type="text"
+              component={ReduxFormInput}
+              label="Company*"
+              placeHolder="Enter contract"
+            />
+            <Field
+              name="projectHead"
+              type="text"
+              component={ReduxFormInput}
+              label="Head of project*"
+              placeHolder="Enter head of project name"
+            />
+            <Field
+              name="projectOwner"
+              type="text"
+              component={ReduxFormInput}
+              label="Project Owner*"
+              placeHolder="Project Owner name"
+            />
+            <Field
+              name="projectManager"
+              type="text"
+              component={ReduxFormInput}
+              label="Project Manager*"
+              placeHolder="Enter Project Manager name"
+            />
+
+            <div className="form-group">
+              <label>
+                Project manager has experience in this type of project
+              </label>
+              {/* <div>
                   {this.state.YES_NO_BUTTON.map((button_name, index) => (
                     <button
                       key={index}
@@ -196,85 +202,85 @@ class ProjectForm extends React.Component<InjectedFormProps, Props> {
                       {button_name.name}
                     </button>
                   ))}
-                </div>
-              </div>
-              <Field
-                label="Project scope*"
-                name="projectScope"
-                rows="7"
-                component={ReduxFormTextArea}
-                placeHolder="Type in the details involved in this project"
-              />
-              <Field
-                name="cnNumber"
-                type="text"
-                component={ReduxFormInput}
-                label="CN Number*"
-                placeHolder="Enter CN Number"
-              />
+                </div> */}
+            </div>
+            <Field
+              label="Project scope*"
+              name="projectScope"
+              rows="7"
+              component={ReduxFormTextArea}
+              placeHolder="Type in the details involved in this project"
+            />
+            <Field
+              name="cnNumber"
+              type="text"
+              component={ReduxFormInput}
+              label="CN Number*"
+              placeHolder="Enter CN Number"
+            />
 
-              <Field
-                name="projectStatus"
-                type="text"
-                datas={projectStatusData}
-                component={ReduxFormSelect}
-                label="Project status*"
-                placeHolder="Select status"
-              />
+            <Field
+              name="projectStatus"
+              type="text"
+              datas={projectStatusData}
+              component={ReduxFormSelect}
+              label="Project status*"
+              placeHolder="Select status"
+            />
 
-              <Field
-                name="engagementType"
-                type="radio"
-                datas={engagementData}
-                component={ReduxFormRadio}
-                label="Type of engagement*"
-              />
+            <Field
+              name="engagementType"
+              type="radio"
+              datas={engagementData}
+              component={ReduxFormRadio}
+              label="Type of engagement*"
+            />
 
-              <Field
-                name="country"
-                type="text"
-                datas={projectStatusData}
-                component={ReduxFormSelect}
-                label="Country*"
-                placeHolder="Select country"
-              />
+            <Field
+              name="country"
+              type="text"
+              datas={projectStatusData}
+              component={ReduxFormSelect}
+              label="Country*"
+              placeHolder="Select country"
+            />
 
-              <Field
-                name="currency"
-                type="text"
-                datas={projectStatusData}
-                component={ReduxFormSelect}
-                label="Currency*"
-                placeHolder="Select currency"
-              />
+            <Field
+              name="currency"
+              type="text"
+              datas={projectStatusData}
+              component={ReduxFormSelect}
+              label="Currency*"
+              placeHolder="Select currency"
+            />
 
-              <Field
-                name="winProbabilty"
-                type="text"
-                component={ReduxFormInput}
-                label="Probability of wining (%)*"
-                placeHolder="00%"
-                className="width-100"
-              />
+            <Field
+              name="winProbabilty"
+              type="text"
+              component={ReduxFormInput}
+              label="Probability of wining (%)*"
+              placeHolder="00%"
+              className="width-100"
+            />
 
-              <Field
-                name="approxValue"
-                type="text"
-                component={ReduxFormInput}
-                label="Approximate value*"
-                placeHolder=""
-                className="width-120"
-              />
+            <Field
+              name="approxValue"
+              type="text"
+              component={ReduxFormInput}
+              label="Approximate value*"
+              placeHolder=""
+              className="width-120"
+            />
 
-              <Field
-                name="contractType"
-                type="text"
-                datas={projectStatusData}
-                component={ReduxFormSelect}
-                label="Contract type*"
-                placeHolder="Select contract type"
-              />
-              {/* // <div className="form-group">
+            <Field
+              name="contractType"
+              type="text"
+              datas={projectStatusData}
+              component={ReduxFormSelect}
+              label="Contract type*"
+              placeHolder="Select contract type"
+            />
+            {/* // <div className="form-group">
             //   <label>CDM notifiable*</label>
             //   <div>
             //     {YES_NO_BUTTON.map(button => (
@@ -282,77 +288,55 @@ class ProjectForm extends React.Component<InjectedFormProps, Props> {
             //     ))}
             //   </div>
             // </div> */}
-              <Field
-                name="assetworkedonprimary"
-                type="text"
-                datas={projectStatusData}
-                component={ReduxFormSelect}
-                label="Assets worked on*"
-                placeHolder="Select First Asset"
-              />
-              <Field
-                name="assetworkedonsecond"
-                type="text"
-                datas={projectStatusData}
-                component={ReduxFormSelect}
-                placeHolder="Select Second Asset"
-              />
-              <Field
-                name="assetworkedonthird"
-                type="text"
-                datas={projectStatusData}
-                component={ReduxFormSelect}
-                placeHolder="Select Third Asset"
-              />
-              <Field
-                label="Comments"
-                name="comments"
-                rows="7"
-                component={ReduxFormTextArea}
-                placeHolder="Type in additional comments"
-              />
-              <div className="mx-35 d-flex justify-content-between mb-4">
-                <button className="active mb-4 mt-5" type="submit">
-                  SAVE AND CLOSE
-                </button>
-                <button type="submit" className="mb-4 mt-5 text-right">
-                  NEXT
-                </button>
-              </div>
-            </form>
-          </div>
+            <Field
+              name="assetworkedonprimary"
+              type="text"
+              datas={projectStatusData}
+              component={ReduxFormSelect}
+              label="Assets worked on*"
+              placeHolder="Select First Asset"
+            />
+            <Field
+              name="assetworkedonsecond"
+              type="text"
+              datas={projectStatusData}
+              component={ReduxFormSelect}
+              placeHolder="Select Second Asset"
+            />
+            <Field
+              name="assetworkedonthird"
+              type="text"
+              datas={projectStatusData}
+              component={ReduxFormSelect}
+              placeHolder="Select Third Asset"
+            />
+            <Field
+              label="Comments"
+              name="comments"
+              rows="7"
+              component={ReduxFormTextArea}
+              placeHolder="Type in additional comments"
+            />
+            <div className="mx-35 d-flex justify-content-between mb-4">
+              <button className="active mb-4 mt-5" type="submit">
+                SAVE AND CLOSE
+              </button>
+              <button type="submit" className="mb-4 mt-5 text-right">
+                NEXT
+              </button>
+            </div>
+          </form>
         </div>
       </div>
-    );
-  }
-}
-
-const validate = formValues => {
-  const errors = {
-    projectName: 'string'
-  };
-
-  if (!formValues.projectName) {
-    errors.projectName = 'Enter project name';
-  }
+    </div>
+  );
 };
 
-// const ButtonComponent = props => {
-//   console.log(props);
-//   return (
-//     <button
-//       name={props.name}
-//       onClick={props.toggleVisibility}
-//       className={props.showActive ? 'active' : ''}
-//     >
-//       {props.button}
-//     </button>
-//   );
-// };
-
-export default reduxForm({
+const form = reduxForm<{}, Props>({
+  destroyOnUnmount: false,
+  forceUnregisterOnUnmount: false,
   form: 'projectForm',
   validate
 })(ProjectForm);
 
-//export default connect(null)(form);
+export default connect(null)(form);
