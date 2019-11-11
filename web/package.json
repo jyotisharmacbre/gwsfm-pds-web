@@ -44,7 +44,6 @@
         "react-router": "^5.0.1",
         "react-router-dom": "^5.0.1",
         "react-scripts": "3.0.1",
-        "react-test-renderer": "^16.9.0",
         "redux": "^4.0.4",
         "redux-form": "^8.2.6",
         "redux-logger": "^3.0.6",
@@ -64,7 +63,8 @@
         "build-css": "node-sass --include -path scss static-ui-pages/scss/style.scss static-ui-pages/css/style.css",
         "watch-css": "nodemon -e scss -x \"npm run build-css\"",
         "win-watch-css": "npm run win-build-css && nodemon -e scss -x 'npm run win-build-css'",
-        "intl": "cross-env NODE_ENV=development extract-messages --locales=en --output src/Translations/extracted 'src/Translations/messages.ts'"
+        "intl": "cross-env NODE_ENV=development extract-messages --locales=en --output src/Translations/extracted 'src/Translations/messages.ts'",
+        "test:watch": "npm run test -- --watch"
     },
     "eslintConfig": {
         "extends": "react-app"
@@ -78,10 +78,12 @@
         "@types/jwt-decode": "^2.2.1",
         "@types/lodash": "^4.14.145",
         "@types/redux-form": "^8.1.9",
+        "check-prop-types": "^1.1.2",
         "cross-env": "^5.2.0",
         "extract-react-intl-messages": "^1.1.0",
         "node-sass": "^4.13.0",
         "nodemon": "^1.19.4",
-        "prettier": "^1.18.2"
+        "prettier": "^1.18.2",
+        "react-test-renderer": "^16.11.0"
     }
 }
