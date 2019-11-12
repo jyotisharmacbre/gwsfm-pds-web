@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import { reducer as reducerForm } from 'redux-form';
-import projectReducer from './projectReducer';
+import projectAddReducer from './projectAddReducer';
 
-const rootReducer = combineReducers({
+const allReducer = combineReducers({
   form: reducerForm,
-  user: projectReducer
+  project: projectAddReducer
 });
 
-export default rootReducer;
+export default allReducer;

@@ -10,6 +10,7 @@ const ReduxFormTextArea: React.FC = (field: any) => (
       placeholder={field.placeHolder}
       className={'form-control ' + field.className}
     />
+    {field.meta.touched && <p className="text-danger">{field.meta.error}</p>}
   </div>
 );
 

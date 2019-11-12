@@ -43,6 +43,7 @@
         "react-responsive": "^7.0.0",
         "react-router": "^5.0.1",
         "react-router-dom": "^5.0.1",
+        "react-router-redux": "^4.0.8",
         "react-scripts": "3.0.1",
         "redux": "^4.0.4",
         "redux-form": "^8.2.6",

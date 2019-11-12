@@ -5,7 +5,7 @@ const INITIAL_STATE: ProjectState = {
   data: []
 };
 
-function userReducer(
+function projectAddReducer(
   state = INITIAL_STATE,
   action: ProjectTypes
 ): ProjectState {
@@ -21,4 +21,4 @@ function userReducer(
   }
 }
 
-export default userReducer;
+export default projectAddReducer;
