@@ -16,6 +16,7 @@ import ReduxFormRadio from '../../ReduxFormHandlers/ReduxFormRadio';
 import ReduxFormTextArea from '../../ReduxFormHandlers/ReduxFormTextArea';
 import validate from './validate';
 import { addProject } from '../../../redux/actions/projectFrom/project';
+import ReduxFormButton from '../../ReduxFormHandlers/ReduxFormButton';
 
 interface Props {}
 
@@ -41,6 +42,7 @@ class ProjectForm extends Component<InjectedFormProps> {
               <div className="row">
                 <div className="col-lg-8">
                   <MainTitle>Customer Enquiry</MainTitle>
+
                   <Field
                     name="projectName"
                     type="text"
@@ -82,6 +84,12 @@ class ProjectForm extends Component<InjectedFormProps> {
                     component={ReduxFormInput}
                     label="Project Manager*"
                     placeHolder="Enter Project Manager name"
+                  />
+
+                  <Field
+                    name="mngExperience"
+                    component={ReduxFormButton}
+                    label="Project Manager has experience in this type of project"
                   />
 
                   <Field
