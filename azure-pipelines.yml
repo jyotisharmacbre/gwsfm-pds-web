@@ -38,7 +38,7 @@ steps:
     customCommand: 'run build'
 
 - task: Npm@1
-  displayName:'npm test'
+  displayName: 'npm test'
   inputs:
     command: 'custom'
     workingDir: 'web'
