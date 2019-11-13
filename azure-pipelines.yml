@@ -38,10 +38,11 @@ steps:
     customCommand: 'run build'
 
 - task: Npm@1
+  displayName:'npm test'
   inputs:
     command: 'custom'
     workingDir: 'web'
-    customCommand: 'test'
+    customCommand: 'run test'
 
 - task: ArchiveFiles@2
   inputs:
