@@ -20,13 +20,23 @@ import ReduxFormButton from '../../ReduxFormHandlers/ReduxFormButton';
 
 interface Props {}
 
+const mngExperienceButtons = [
+  {
+    title: 'YES',
+    value: true
+  },
+  {
+    title: 'NO',
+    value: false
+  }
+];
+
 // const ProjectForm = props => {
 class ProjectForm extends Component<InjectedFormProps> {
   onSubmit(props) {
-    console.log(props);
     addProject(props);
   }
-
+  
   render() {
     const { handleSubmit } = this.props;
 
@@ -89,6 +99,7 @@ class ProjectForm extends Component<InjectedFormProps> {
                   <Field
                     name="mngExperience"
                     component={ReduxFormButton}
+                    buttons={mngExperienceButtons}
                     label="Project Manager has experience in this type of project"
                   />
 
