@@ -69,10 +69,10 @@ const LeftMenu: React.FC = (props: any) => {
           </ul>
         </li>
         <li>
-          <Link to="/">review &amp; submit</Link>
+          <Link to="/">review & submit</Link>
         </li>
         <li>
-          <Link to="/">review &amp; approve</Link>
+          <Link to="/">review & approve</Link>
         </li>
         <li>
           <Link to="/">Logout</Link>

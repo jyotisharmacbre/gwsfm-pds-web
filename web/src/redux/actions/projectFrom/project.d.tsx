@@ -1,5 +1,3 @@
-import { StringLiteral } from '@babel/types';
-
 export interface ProjectData {
   projectName: string;
   companyName: string;
