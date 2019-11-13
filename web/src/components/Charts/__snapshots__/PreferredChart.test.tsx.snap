@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Preferred Chart should render 1`] = `
+Array [
+  <ForwardRef(WithStyles)
+    id="GridPreferredChart"
+    item={true}
+    lg={12}
+    md={12}
+    sm={12}
+    style={
+      Object {
+        "height": "100%",
+        "textAlign": "center",
+      }
+    }
+    xs={12}
+  >
+    <Pie
+      data={
+        Object {
+          "datasets": Array [
+            Object {
+              "backgroundColor": Array [
+                "#4cbd7f",
+                "#EA8032",
+              ],
+              "data": Array [
+                11,
+                16,
+              ],
+              "label": "My dataset",
+            },
+          ],
+          "labels": Array [
+            "Preferred",
+            "Not preferred",
+          ],
+        }
+      }
+      options={
+        Object {
+          "legend": Object {
+            "display": true,
+            "position": "bottom",
+          },
+          "maintainAspectRatio": true,
+          "responsive": true,
+          "showLabel": false,
+        }
+      }
+    />
+  </ForwardRef(WithStyles)>,
+]
+`;
