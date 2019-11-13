@@ -18,7 +18,6 @@ class ReduxFormButton extends React.Component<Props> {
 
   render() {
     const { buttons, input, label } = this.props;
-    console.log('Type of ', input);
     return (
       <div className="form-group">
         {label && <label>{label}</label>}

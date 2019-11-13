@@ -5,7 +5,6 @@ const ROOT_URL =
   'https://qat-pds-middletier.azurewebsites.net/swagger/index.html';
 
 export const addProject = (data: any) => {
-  console.log('submitted values', data);
   return function(dispatch) {
     axios.post(`${ROOT_URL}`, data).then(response => {
       dispatch({ payload: data, type: PROJECT_ADD }).catch(error =>
