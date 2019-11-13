@@ -26,6 +26,7 @@ export interface ProjectData {
 
 export interface ProjectState {
   data: ProjectData[];
+  status: string;
 }
 
 export interface ProjectAction {
