@@ -36,7 +36,7 @@ class ProjectForm extends Component<InjectedFormProps> {
   onSubmit(props) {
     addProject(props);
   }
-  
+
   render() {
     const { handleSubmit } = this.props;
 
