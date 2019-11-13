@@ -38,11 +38,18 @@ steps:
     customCommand: 'run build'
 
 - task: Npm@1
-  displayName: 'Test Run'
+  displayName: 'Set CI'
   inputs:
     command: 'custom'
     workingDir: 'web'
     customCommand: 'run citest'
+
+- task: Npm@1
+  displayName: 'Test Run'
+  inputs:
+    command: 'custom'
+    workingDir: 'web'
+    customCommand: 'run test'
 
 - task: ArchiveFiles@2
   inputs:
