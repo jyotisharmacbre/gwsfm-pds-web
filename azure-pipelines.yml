@@ -37,6 +37,12 @@ steps:
     verbose: false
     customCommand: 'run build'
 
+- task: Npm@1
+  inputs:
+    command: 'custom'
+    workingDir: 'web'
+    customCommand: 'test'
+
 - task: ArchiveFiles@2
   inputs:
     rootFolderOrFile: 'web/build'
