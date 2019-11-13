@@ -42,8 +42,19 @@ steps:
   inputs:
     command: 'custom'
     workingDir: 'web'
-    customCommand: 'run citest'
+    customCommand: 'run test:ci'
+    
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: 'web/junit.xml'
 
+- task: PublishCodeCoverageResults@1
+  inputs:
+    codeCoverageTool: 'Cobertura'
+    summaryFileLocation: 'cobertura-coverage.xml'
+    pathToSources: '$(Build.Repository.LocalPath\coverage\)'
+    reportDirectory: '$(Build.Repository.LocalPath\coverage\'
 - task: ArchiveFiles@2
   inputs:
     rootFolderOrFile: 'web/build'
