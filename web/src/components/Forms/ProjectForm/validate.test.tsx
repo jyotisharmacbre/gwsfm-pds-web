@@ -1,25 +1,24 @@
 import validate from './validate';
 import { AddProjectParams } from './AddProjectParams.d';
 import { FormErrors } from 'redux-form';
-import {ProjectFormProps} from './ProjectTestData';
+import { ProjectFormProps } from './ProjectTestData';
 
 describe('Project Form Validation', () => {
   describe('Checking required fields', () => {
     let error: FormErrors<AddProjectParams>;
+    
+    it('Complete form validation', () => {
+      const expectedProps = { ...ProjectFormProps};
+      error = validate(expectedProps);
+      expect(error).toEqual({});
+    });
 
-        let error:FormErrors<AddProjectParams>;
-        /*
-        beforeEach(()=>{
-            const expectedProps = ProjectFormProps; 
-            error = validate(expectedProps);
-        });  
-        */
-        it('Project name is required',()=>{
-            const expectedProps = {...ProjectFormProps,...{projectName:''}};
-            error = validate(expectedProps);
-            expect(error.projectName).toBeDefined(); 
-        });
-        /*
+    it('Project name is required', () => {
+      const expectedProps = { ...ProjectFormProps, ...{ projectName: '' } };
+      error = validate(expectedProps);
+      expect(error.projectName).toBeDefined();
+    });
+    /*
         it('Company name is required',()=>{
             expect(error.companyName).toBeDefined(); 
         });
@@ -70,6 +69,5 @@ describe('Project Form Validation', () => {
             expect(error.assetworkedonthird).toBeDefined(); 
         });
         */
-    });
   });
 });
