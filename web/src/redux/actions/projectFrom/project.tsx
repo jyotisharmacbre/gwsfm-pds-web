@@ -1,4 +1,4 @@
-import { PROJECT_ADD, PROJECT_ADD_ERROR } from '../../actionTypes/projectTypes';
+import { ActionType } from '../../actionTypes/projectTypes';
 import axios from 'axios';
 
 const ROOT_URL =
@@ -7,9 +7,9 @@ const ROOT_URL =
 export const addProject = (data: any) => {
   return function(dispatch) {
     axios.post(`${ROOT_URL}`, data).then(response => {
-      dispatch({ payload: data, type: PROJECT_ADD }).catch(error =>
+      dispatch({ payload: data, type: ActionType.PROJECT_ADD }).catch(error =>
         dispatch({
-          type: PROJECT_ADD_ERROR,
+          type: ActionType.PROJECT_ADD_ERROR,
           payload: error
         })
       );

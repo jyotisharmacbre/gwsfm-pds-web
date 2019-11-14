@@ -1,3 +1,4 @@
-export const PROJECT_ADD = 'PROJECT_ADD';
-
-export const PROJECT_ADD_ERROR = 'PROJECT_ADD_ERROR';
+export enum ActionType {
+  PROJECT_ADD = 'PROJECT_ADD',
+  PROJECT_ADD_ERROR = 'PROJECT_ADD_ERROR'
+}
