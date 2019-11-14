@@ -20,7 +20,7 @@ import ReduxFormButton from '../../ReduxFormHandlers/ReduxFormButton';
 
 interface Props {}
 
-const mngExperienceButtons = [
+const selectionButtons = [
   {
     title: 'YES',
     value: true
@@ -74,6 +74,7 @@ class ProjectForm extends Component<InjectedFormProps> {
                     label="Contract*"
                     placeHolder="Enter contract"
                   />
+
                   <Field
                     name="projectHead"
                     type="text"
@@ -99,7 +100,7 @@ class ProjectForm extends Component<InjectedFormProps> {
                   <Field
                     name="mngExperience"
                     component={ReduxFormButton}
-                    buttons={mngExperienceButtons}
+                    buttons={selectionButtons}
                     label="Project Manager has experience in this type of project"
                   />
 
@@ -178,6 +179,12 @@ class ProjectForm extends Component<InjectedFormProps> {
                     component={ReduxFormSelect}
                     label="Contract type*"
                     placeHolder="Select contract type"
+                  />
+                  <Field
+                    name="cdmNotifiable"
+                    component={ReduxFormButton}
+                    buttons={selectionButtons}
+                    label="CDM notifiable"
                   />
                   <Field
                     name="assetworkedonprimary"

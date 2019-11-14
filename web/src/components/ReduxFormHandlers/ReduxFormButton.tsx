@@ -12,13 +12,13 @@ interface Props{
 }
 
 class ReduxFormButton extends React.Component<Props> {
-  handleClick(b) {
+  handleClick(event,b) {
+    event.preventDefault();
     this.props.input.onChange(b.value);
   }
 
   render() {
     const { buttons,input, label } = this.props;
-    console.log("Type of " , input);
     return (
       <div className="form-group">
         {label && <label>{label}</label>}
@@ -26,7 +26,7 @@ class ReduxFormButton extends React.Component<Props> {
           {buttons.map(b => (
             <button data-test="buttonComponent"
               key={b.title}
-              onClick={() => this.handleClick(b)}
+              onClick={(event) => this.handleClick(event,b)}
               className={b.value === input.value ? 'active' : ''}
             >
               {b.title}

@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import checkPropTypes from 'check-prop-types';
 import ReduxFormButton from './ReduxFormButton';
-import { findByTestAtrr,checkProps } from '../../helpers/unit-test-helper';
+import { findByTestAtrr,checkProps } from '../../helpers/test-helper';
 
 describe('ReduxFormButton Component',()=>{
     describe('Checking PropTypes',()=>{
