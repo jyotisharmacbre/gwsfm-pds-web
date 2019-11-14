@@ -1,31 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`HeaderPage should render 1`] = `
-<div
-  className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-3"
->
-  <div
-    className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-6 MuiGrid-grid-lg-8"
-  >
-    <div>
-      <b>
-        PROJECT DELIVERY SYSTEM
-      </b>
-      <br />
-      <h1
-        className="MuiTypography-root MuiTypography-h5 MuiTypography-gutterBottom"
-        style={
-          Object {
-            "color": "#00684d",
-          }
-        }
-      >
-        
-      </h1>
-    </div>
-  </div>
-  <div
-    className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-6 MuiGrid-grid-lg-4"
-  />
+<div>
+  <h1>
+    
+  </h1>
 </div>
 `;

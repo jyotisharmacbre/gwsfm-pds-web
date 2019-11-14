@@ -1,8 +1,9 @@
-import { PROJECT_ADD } from '../actionTypes/projectTypes';
+import { PROJECT_ADD, PROJECT_ADD_ERROR } from '../actionTypes/projectTypes';
 import { ProjectState, ProjectTypes } from '../actions/projectFrom/project.d';
 
 const INITIAL_STATE: ProjectState = {
-  data: []
+  data: [],
+  status: ''
 };
 
 function projectAddReducer(
@@ -14,6 +15,12 @@ function projectAddReducer(
       return {
         ...state,
         data: [action.payload, ...state.data]
+      };
+    }
+    case PROJECT_ADD_ERROR: {
+      return {
+        status: 'failed',
+        data: [action.payload]
       };
     }
     default:

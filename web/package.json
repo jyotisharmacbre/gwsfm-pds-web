@@ -22,6 +22,7 @@
         "@types/react-test-renderer": "^16.9.0",
         "@types/redux-logger": "^3.0.7",
         "@types/redux-mock-store": "^1.0.1",
+        "axios": "^0.19.0",
         "babel-loader": "^8.0.5",
         "chart.js": "^2.8.0",
         "chartjs-plugin-datalabels": "^0.6.0",
@@ -55,16 +56,14 @@
         "typescript": "3.5.3"
     },
     "scripts": {
-        "start": "react-scripts start",
-        "build": "react-scripts build",
-        "test": "react-scripts test",
-        "eject": "react-scripts eject",
-        "prettify": "prettier -l \"src/**/*.tsx\" \"src/**/*.ts\" --write",
-        "copy-css": "cp static-ui-pages/css/style.css public/css/style.css",
-        "win-copy-css": "copy static-ui-pages\\css\\style.css public\\css\\style.css",
-        "build-css": "node-sass --include -path scss static-ui-pages/scss/style.scss static-ui-pages/css/style.css",
+        "build-css": "node-sass --include -path scss public/scss/style.scss public/css/style.css",
         "watch-css": "nodemon -e scss -x \"npm run build-css\"",
-        "win-watch-css": "npm run win-build-css && nodemon -e scss -x 'npm run win-build-css'",
+        "prettify": "prettier -l \"src/**/*.tsx\" \"src/**/*.ts\" --write",
+        "start": "npm-run-all -p prettify watch-css start-js",
+        "build": "npm run build-css && react-scripts build",
+        "start-js": "react-scripts start",
+        "eject": "react-scripts eject",
+        "test": "react-scripts test",
         "intl": "cross-env NODE_ENV=development extract-messages --locales=en --output src/Translations/extracted 'src/Translations/messages.ts'",
         "test:watch": "npm run test -- --watch"
     },
@@ -85,6 +84,7 @@
         "extract-react-intl-messages": "^1.1.0",
         "node-sass": "^4.13.0",
         "nodemon": "^1.19.4",
+        "npm-run-all": "^4.1.5",
         "prettier": "^1.18.2",
         "react-test-renderer": "^16.11.0"
     }

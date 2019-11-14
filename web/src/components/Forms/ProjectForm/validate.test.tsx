@@ -3,8 +3,9 @@ import { AddProjectParams } from './AddProjectParams.d';
 import { FormErrors } from 'redux-form';
 import {ProjectFormProps} from './ProjectTestData';
 
-describe('Project Form Validation',()=>{
-    describe('Checking required fields',()=>{
+describe('Project Form Validation', () => {
+  describe('Checking required fields', () => {
+    let error: FormErrors<AddProjectParams>;
 
         let error:FormErrors<AddProjectParams>;
         /*
@@ -70,4 +71,5 @@ describe('Project Form Validation',()=>{
         });
         */
     });
+  });
 });

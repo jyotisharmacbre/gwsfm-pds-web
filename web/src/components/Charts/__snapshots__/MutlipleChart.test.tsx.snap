@@ -15,16 +15,19 @@ Array [
       sm={6}
       style={
         Object {
-          "height": "340px",
+          "height": "280px",
           "textAlign": "center",
         }
       }
       xs={6}
     >
+      <h4>
+        Initial Enquiry
+      </h4>
       <div
         style={
           Object {
-            "height": "320px",
+            "height": "250px",
             "textAlign": "center",
           }
         }
@@ -35,7 +38,7 @@ Array [
               "datasets": Array [
                 Object {
                   "backgroundColor": Array [
-                    "#526061",
+                    "#CEF1A3",
                   ],
                   "data": Array [
                     50,
@@ -61,16 +64,21 @@ Array [
                   "text": "90%",
                 },
               },
-              "fillText": 23423,
               "legend": Object {
                 "display": false,
               },
               "maintainAspectRatio": false,
+              "showfirstItemLabel": true,
+            }
+          }
+          type={
+            Object {
+              "originalDoughnutDraw": [Function],
             }
           }
         />
       </div>
-      Initial Enquiry
+       
     </ForwardRef(WithStyles)>
     <ForwardRef(WithStyles)
       item={true}
@@ -79,16 +87,19 @@ Array [
       sm={6}
       style={
         Object {
-          "height": "340px",
+          "height": "280px",
           "textAlign": "center",
         }
       }
       xs={6}
     >
+      <h4>
+        Rejected
+      </h4>
       <div
         style={
           Object {
-            "height": "320px",
+            "height": "250px",
             "textAlign": "center",
           }
         }
@@ -100,7 +111,7 @@ Array [
               "datasets": Array [
                 Object {
                   "backgroundColor": Array [
-                    "#CEF1A3",
+                    "#FBD55B",
                   ],
                   "data": Array [
                     50,
@@ -127,16 +138,16 @@ Array [
                   "text": "90%",
                 },
               },
-              "fillText": 23423,
               "legend": Object {
                 "display": false,
               },
               "maintainAspectRatio": false,
+              "showfirstItemLabel": true,
             }
           }
         />
       </div>
-      Rejected
+       
     </ForwardRef(WithStyles)>
     <ForwardRef(WithStyles)
       item={true}
@@ -145,16 +156,19 @@ Array [
       sm={6}
       style={
         Object {
-          "height": "340px",
+          "height": "280px",
           "textAlign": "center",
         }
       }
       xs={6}
     >
+      <h4>
+        J&A
+      </h4>
       <div
         style={
           Object {
-            "height": "320px",
+            "height": "250px",
             "textAlign": "center",
           }
         }
@@ -165,7 +179,7 @@ Array [
               "datasets": Array [
                 Object {
                   "backgroundColor": Array [
-                    "#FBD55B",
+                    "#526061",
                   ],
                   "data": Array [
                     50,
@@ -192,16 +206,16 @@ Array [
                   "text": "90%",
                 },
               },
-              "fillText": 23423,
               "legend": Object {
                 "display": false,
               },
               "maintainAspectRatio": false,
+              "showfirstItemLabel": true,
             }
           }
         />
       </div>
-      J&A
+       
     </ForwardRef(WithStyles)>
     <ForwardRef(WithStyles)
       item={true}
@@ -210,16 +224,19 @@ Array [
       sm={6}
       style={
         Object {
-          "height": "340px",
+          "height": "280px",
           "textAlign": "center",
         }
       }
       xs={6}
     >
+      <h4>
+        Order Received
+      </h4>
       <div
         style={
           Object {
-            "height": "320px",
+            "height": "250px",
             "textAlign": "center",
           }
         }
@@ -240,7 +257,7 @@ Array [
                 },
               ],
               "labels": Array [
-                "J&A",
+                "Order Received",
                 "Other Projects",
               ],
             }
@@ -256,16 +273,16 @@ Array [
                   "text": "90%",
                 },
               },
-              "fillText": 23423,
               "legend": Object {
                 "display": false,
               },
               "maintainAspectRatio": false,
+              "showfirstItemLabel": true,
             }
           }
         />
       </div>
-       Order Received
+       
     </ForwardRef(WithStyles)>
     <ForwardRef(WithStyles)
       item={true}
@@ -274,16 +291,19 @@ Array [
       sm={6}
       style={
         Object {
-          "height": "340px",
+          "height": "280px",
           "textAlign": "center",
         }
       }
       xs={6}
     >
+      <h4>
+        In Progress
+      </h4>
       <div
         style={
           Object {
-            "height": "320px",
+            "height": "250px",
             "textAlign": "center",
           }
         }
@@ -304,7 +324,7 @@ Array [
                 },
               ],
               "labels": Array [
-                "J&A",
+                "In Progress",
                 "Other Projects",
               ],
             }
@@ -321,17 +341,16 @@ Array [
                   "text": "90%",
                 },
               },
-              "fillText": 23423,
               "legend": Object {
                 "display": false,
               },
               "maintainAspectRatio": false,
+              "showfirstItemLabel": true,
             }
           }
         />
          
       </div>
-      In Progress
     </ForwardRef(WithStyles)>
     <ForwardRef(WithStyles)
       item={true}
@@ -340,16 +359,19 @@ Array [
       sm={6}
       style={
         Object {
-          "height": "340px",
+          "height": "280px",
           "textAlign": "center",
         }
       }
       xs={6}
     >
+      <h4>
+        Completed
+      </h4>
       <div
         style={
           Object {
-            "height": "320px",
+            "height": "250px",
             "textAlign": "center",
           }
         }
@@ -387,16 +409,15 @@ Array [
                   "text": "90%",
                 },
               },
-              "fillText": 23423,
               "legend": Object {
                 "display": false,
               },
               "maintainAspectRatio": false,
+              "showfirstItemLabel": true,
             }
           }
         />
       </div>
-      Completed 
     </ForwardRef(WithStyles)>
     <ForwardRef(WithStyles)
       item={true}
@@ -411,7 +432,17 @@ Array [
       }
       xs={12}
     >
-       Lost : 30 On-Hold : 15 
+       
+      <h3>
+        Total : 
+        200
+         Lost : 
+        30
+         On-Hold :
+         
+        15
+         
+      </h3>
     </ForwardRef(WithStyles)>
   </ForwardRef(WithStyles)>,
 ]

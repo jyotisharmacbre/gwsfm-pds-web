@@ -1,5 +1,3 @@
-import { StringLiteral } from '@babel/types';
-
 export interface ProjectData {
   projectName: string;
   companyName: string;
@@ -26,6 +24,7 @@ export interface ProjectData {
 
 export interface ProjectState {
   data: ProjectData[];
+  status: string;
 }
 
 export interface ProjectAction {
