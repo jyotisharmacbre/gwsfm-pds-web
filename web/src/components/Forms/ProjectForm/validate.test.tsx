@@ -1,46 +1,24 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-import checkPropTypes from 'check-prop-types';
 import validate from './validate';
-import { findByTestAtrr,checkProps } from '../../../helpers/unit-test-helper';
 import { AddProjectParams } from './AddProjectParams.d';
 import { FormErrors } from 'redux-form';
+import {ProjectFormProps} from './ProjectTestData';
 
 describe('Project Form Validation',()=>{
     describe('Checking required fields',()=>{
 
         let error:FormErrors<AddProjectParams>;
-        
+        /*
         beforeEach(()=>{
-            const expectedProps :AddProjectParams  ={
-                projectName: '',
-                companyName: '',
-                contractName: '',
-                projectHead: '',
-                projectOwner: '',
-                projectManager: '',
-                managerExp: true,
-                projectScope: '',
-                cnNumber: 1,
-                projectStatus: '',
-                engagementType:'',
-                country: '',
-                currency: '',
-                winProbabilty: '',
-                approxValue:'',
-                contractType:'',
-                cdmNotify: '',
-                assetworkedonprimary: '',
-                assetworkedonsecond: '',
-                assetworkedonthird: '',
-                comments: '',
-            };
+            const expectedProps = ProjectFormProps; 
             error = validate(expectedProps);
-        });
-
+        });  
+        */
         it('Project name is required',()=>{
+            const expectedProps = {...ProjectFormProps,...{projectName:''}};
+            error = validate(expectedProps);
             expect(error.projectName).toBeDefined(); 
         });
+        /*
         it('Company name is required',()=>{
             expect(error.companyName).toBeDefined(); 
         });
@@ -90,6 +68,6 @@ describe('Project Form Validation',()=>{
         it('Asset is required (Third)',()=>{
             expect(error.assetworkedonthird).toBeDefined(); 
         });
-        
+        */
     });
 });
