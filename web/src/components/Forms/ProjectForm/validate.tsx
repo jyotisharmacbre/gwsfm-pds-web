@@ -55,8 +55,8 @@ const validate = (values: AddProjectParams): FormErrors<AddProjectParams> => {
     errors.contractType = 'Contract type is required';
   }
 
-  if (!values.cdmNotify) {
-    errors.cdmNotify = 'CDM notifiable is required';
+  if (!values.cdmNotifiable) {
+    errors.cdmNotifiable = 'CDM notifiable is required';
   }
 
   if (!values.assetworkedonprimary) {

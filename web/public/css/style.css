@@ -296,6 +296,14 @@
   #sm_none {
     display: none; } }
 
+.error {
+  border-color: #e13e3e !important; }
+
+.text-danger {
+  font-size: 12px;
+  font-style: italic;
+  font-weight: 300; }
+
 body {
   background-color: #f4f6fb;
   font-family: 'Hind', sans-serif; }

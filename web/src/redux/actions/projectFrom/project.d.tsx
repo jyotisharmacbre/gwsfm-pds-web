@@ -15,7 +15,7 @@ export interface ProjectData {
   winProbabilty: String;
   approxValue: string;
   contractType: string;
-  cdmNotify: boolean;
+  cdmNotifiable: boolean;
   assetworkedonprimary: string;
   assetworkedonsecond: string;
   assetworkedonthird: string;

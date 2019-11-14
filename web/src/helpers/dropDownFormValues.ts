@@ -5,9 +5,9 @@ export const projectStatusData: object[] = [
 ];
 
 export const engagementData: object[] = [
-  { label: '1', value: '1' },
-  { label: '2', value: '2' },
-  { label: '3', value: '3' }
+  { label: 'Type 1', value: '1' },
+  { label: 'Type 2', value: '2' },
+  { label: 'Type 3', value: '3' }
 ];
 
 export const typesOfEngagement: object[] = [

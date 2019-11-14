@@ -1,8 +1,4 @@
-import React, { Component } from 'react';
-import './ProjectForm.css';
-import { connect } from 'react-redux';
-import { ThunkDispatch } from 'redux-thunk';
-import { AnyAction } from 'redux';
+import React from 'react';
 import {
   projectStatusData,
   engagementData
@@ -15,21 +11,8 @@ import ReduxFormSelect from '../../ReduxFormHandlers/ReduxFormSelect';
 import ReduxFormRadio from '../../ReduxFormHandlers/ReduxFormRadio';
 import ReduxFormTextArea from '../../ReduxFormHandlers/ReduxFormTextArea';
 import validate from './validate';
-import { addProject } from '../../../redux/actions/projectFrom/project';
 import ReduxFormButton from '../../ReduxFormHandlers/ReduxFormButton';
-
-interface Props {}
-
-const mngExperienceButtons = [
-  {
-    title: 'YES',
-    value: true
-  },
-  {
-    title: 'NO',
-    value: false
-  }
-];
+import { selectionButtons } from '../../../helpers/constants';
 
 const ProjectForm = props => {
   const { handleSubmit } = props;
@@ -46,7 +29,6 @@ const ProjectForm = props => {
             <div className="row">
               <div className="col-lg-8">
                 <MainTitle>Customer Enquiry</MainTitle>
-
                 <Field
                   name="projectName"
                   type="text"
@@ -93,7 +75,7 @@ const ProjectForm = props => {
                 <Field
                   name="mngExperience"
                   component={ReduxFormButton}
-                  buttons={mngExperienceButtons}
+                  buttons={selectionButtons}
                   label="Project Manager has experience in this type of project"
                 />
 
@@ -172,6 +154,13 @@ const ProjectForm = props => {
                   component={ReduxFormSelect}
                   label="Contract type*"
                   placeHolder="Select contract type"
+                />
+
+                <Field
+                  name="cdmNotifiable"
+                  component={ReduxFormButton}
+                  buttons={selectionButtons}
+                  label="CDM notifiable"
                 />
                 <Field
                   name="assetworkedonprimary"

@@ -15,7 +15,7 @@ export interface AddProjectParams {
   winProbabilty: String;
   approxValue: string;
   contractType: string;
-  cdmNotify: string;
+  cdmNotifiable: boolean;
   assetworkedonprimary: string;
   assetworkedonsecond: string;
   assetworkedonthird: string;
