@@ -42,7 +42,7 @@ steps:
   inputs:
     command: 'custom'
     workingDir: 'web'
-    customCommand: 'npm run test:ci'
+    customCommand: 'run test:ci'
 
 - task: ArchiveFiles@2
   inputs:
