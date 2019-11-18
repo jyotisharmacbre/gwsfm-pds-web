@@ -3,8 +3,10 @@ import { Grid } from '@material-ui/core';
 import { MainTitle } from '../Title/Title';
 import { PageBtnActions } from '../BtnActions/BtnActions';
 import { IHeaderPageProps } from '../../props/AppProps';
+import { injectIntl } from 'react-intl';
+import IReactIntl from '../../Translations/IReactIntl';
 
-class HeaderPage extends React.Component<IHeaderPageProps> {
+class HeaderPage extends React.Component<IHeaderPageProps& IReactIntl> {
   render() {
     const { ActionList, Title } = this.props;
     return (
@@ -20,4 +22,4 @@ class HeaderPage extends React.Component<IHeaderPageProps> {
   }
 }
 
-export default HeaderPage;
+export default  injectIntl(HeaderPage);
