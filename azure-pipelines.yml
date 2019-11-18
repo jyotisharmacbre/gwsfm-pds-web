@@ -42,7 +42,7 @@ steps:
   inputs:
     command: 'custom'
     workingDir: 'web'
-    customCommand: 'run test:ci'
+    customCommand: 'CI=true npm run test:ci'
 
 - task: PublishTestResults@2
   inputs:
