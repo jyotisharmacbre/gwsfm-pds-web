@@ -69,7 +69,7 @@
         "start": "react-scripts start",
         "build": "react-scripts build",
         "test": "react-scripts test",
-        "test:ci": "react-scripts test --env=jsdom --testResultsProcessor=\"jest-junit\" --coverage",
+        "test:ci": "react-scripts test --env=jsdom --testResultsProcessor=\"jest-junit\" --coverage --watchAll=false",
         "eject": "react-scripts eject",
         "prettify": "prettier -l \"src/**/*.tsx\" --write",
         "intl": "cross-env NODE_ENV=development extract-messages --locales=en --output src/Translations/extracted 'src/Translations/messages.ts'"
