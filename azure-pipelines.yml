@@ -42,12 +42,12 @@ steps:
   inputs:
     command: 'custom'
     workingDir: 'web'
-    customCommand: 'CI=true npm run test:ci'
+    customCommand: 'run test:ci'
 
 - task: PublishTestResults@2
   inputs:
     testResultsFormat: 'JUnit'
-    testResultsFiles: 'web/junit.xml'
+    testResultsFiles: '**/junit.xml'
 
 - task: PublishCodeCoverageResults@1
   inputs:
@@ -55,6 +55,7 @@ steps:
     summaryFileLocation: 'cobertura-coverage.xml'
     pathToSources: '$(Build.Repository.LocalPath\coverage\)'
     reportDirectory: '$(Build.Repository.LocalPath\coverage\)'
+
 - task: ArchiveFiles@2
   inputs:
     rootFolderOrFile: 'web/build'
