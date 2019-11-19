@@ -54,7 +54,7 @@ const LeftMenu: React.FC = (props: any) => {
             aria-expanded="false"
             className="dropdown-toggle collapsed"
           >
-            justification & authorisation
+            justification &amp; authorisation
           </Link>
           <ul className="collapse list-unstyled" id="homeSubmenu">
             <li className="subactive">
@@ -69,10 +69,10 @@ const LeftMenu: React.FC = (props: any) => {
           </ul>
         </li>
         <li>
-          <Link to="/">review & submit</Link>
+          <Link to="/">review &amp; submit</Link>
         </li>
         <li>
-          <Link to="/">review & approve</Link>
+          <Link to="/">review &amp; approve</Link>
         </li>
         <li>
           <Link to="/">Logout</Link>

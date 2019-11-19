@@ -1,8 +1,8 @@
 import { FormErrors } from 'redux-form';
-import { AddProjectParams } from './AddProjectParams.d';
+import { Project } from './Project.d';
 
-const validate = (values: AddProjectParams): FormErrors<AddProjectParams> => {
-  const errors: FormErrors<AddProjectParams> = {};
+const validate = (values: Project): FormErrors<Project> => {
+  const errors: FormErrors<Project> = {};
 
   if (!values.projectName) {
     errors.projectName = 'Project name is required';

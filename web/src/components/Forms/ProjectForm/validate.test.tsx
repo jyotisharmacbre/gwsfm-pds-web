@@ -1,11 +1,11 @@
 import validate from './validate';
-import { AddProjectParams } from './AddProjectParams.d';
+import { Project } from './Project.d';
 import { FormErrors } from 'redux-form';
 import { ProjectFormProps } from './ProjectTestData';
 
 describe('Project Form Validation', () => {
   describe('Checking required fields', () => {
-    let error: FormErrors<AddProjectParams>;
+    let error: FormErrors<Project>;
 
     it('Complete form validation', () => {
       const expectedProps = { ...ProjectFormProps };

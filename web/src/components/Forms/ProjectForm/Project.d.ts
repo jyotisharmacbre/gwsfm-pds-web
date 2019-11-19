@@ -1,4 +1,4 @@
-export interface AddProjectParams {
+export interface Project {
   projectName: string;
   companyName: string;
   contractName: string;
