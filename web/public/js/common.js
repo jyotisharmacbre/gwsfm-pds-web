@@ -33,15 +33,10 @@ function side_menu() {
         $(this).addClass('subactive');
     });
     $('#homeMenu > li > a').click(function() {
-        //$(this).parent().find('ul#homeSubmenu').addClass('show');//.animate({ "display": "block" }, 1000);
-        // $('#homeSubmenu').removeClass('show');//.animate({ "display": "none" }, 1000);;
-    });
-    $('#homeMenu > li > a').click(function() {
         $(this)
             .parents('li')
             .siblings()
             .find('a[aria-expanded="true"]')
             .trigger('click');
-        //$(this).parents('li').prev().find('a[aria-expanded="true"]').trigger('click');
     });
 }

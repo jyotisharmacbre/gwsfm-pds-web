@@ -1,7 +1,7 @@
 import { map } from 'lodash';
 import React from 'react';
 
-const ReduxFormSelect: React.FC = (field: any) => (
+const PdsFormSelect: React.FC = (field: any) => (
   <div className={'form-group ' + field.className}>
     {field.label && <label>{field.label}</label>}
     <div className="select-wrapper">
@@ -21,4 +21,4 @@ const ReduxFormSelect: React.FC = (field: any) => (
   </div>
 );
 
-export default ReduxFormSelect;
+export default PdsFormSelect;

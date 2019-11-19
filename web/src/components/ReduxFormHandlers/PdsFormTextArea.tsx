@@ -1,14 +1,14 @@
 import React from 'react';
 
-const ReduxFormInput: React.FC = (field: any) => {
+const PdsFormTextArea: React.FC = (field: any) => {
   const errorClass = `${field.meta.error && field.meta.touched ? 'error' : ''}`;
-
   return (
-    <div className={'form-group'}>
+    <div className="form-group">
       {field.label && <label>{field.label}</label>}
-      <input
+      <textarea
         {...field.input}
         type={field.type}
+        rows={field.rows}
         placeholder={field.placeHolder}
         className={'form-control ' + field.className + ' ' + errorClass}
       />
@@ -17,4 +17,4 @@ const ReduxFormInput: React.FC = (field: any) => {
   );
 };
 
-export default ReduxFormInput;
+export default PdsFormTextArea;

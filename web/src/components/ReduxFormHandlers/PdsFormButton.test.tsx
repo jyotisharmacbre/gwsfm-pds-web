@@ -1,10 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import checkPropTypes from 'check-prop-types';
-import ReduxFormButton from './ReduxFormButton';
+import PdsFormButton from './PdsFormButton';
 import { findByTestAtrr, checkProps } from '../../helpers/test-helper';
 
-describe('ReduxFormButton Component', () => {
+describe('PdsFormButton Component', () => {
   describe('Checking PropTypes', () => {
     it('Should Not throw a warning', () => {
       const expectedProps = {
@@ -12,13 +12,13 @@ describe('ReduxFormButton Component', () => {
         input: '',
         label: ''
       };
-      const propsError = checkProps(ReduxFormButton, expectedProps);
+      const propsError = checkProps(PdsFormButton, expectedProps);
       expect(propsError).toBeUndefined();
     });
   });
 });
 
-describe('ReduxFormButton Renders', () => {
+describe('PdsFormButton Renders', () => {
   let wrapper: any;
   beforeEach(() => {
     const props = {
@@ -35,7 +35,7 @@ describe('ReduxFormButton Renders', () => {
       input: React.Component,
       label: ''
     };
-    wrapper = shallow(<ReduxFormButton {...props} />);
+    wrapper = shallow(<PdsFormButton {...props} />);
   });
   it('Should render a button', () => {
     const button = findByTestAtrr(wrapper, 'buttonComponent');

@@ -53,7 +53,7 @@
         "redux-mock-store": "^1.5.3",
         "redux-persist": "^6.0.0",
         "redux-thunk": "^2.3.0",
-        "typescript": "3.5.3"
+        "typescript": "^3.4.5"
     },
     "scripts": {
         "build-css": "node-sass --include -path scss public/scss/style.scss public/css/style.css",

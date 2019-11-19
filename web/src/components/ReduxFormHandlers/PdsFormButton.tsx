@@ -11,7 +11,7 @@ interface Props {
   label: string;
 }
 
-class ReduxFormButton extends React.Component<Props> {
+class PdsFormButton extends React.Component<Props> {
   handleClick(event, b) {
     event.preventDefault();
     this.props.input.onChange(b.value);
@@ -39,4 +39,4 @@ class ReduxFormButton extends React.Component<Props> {
   }
 }
 
-export default ReduxFormButton;
+export default PdsFormButton;

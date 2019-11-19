@@ -5,13 +5,13 @@ import {
 } from '../../../helpers/dropDownFormValues';
 import { MainTitle } from '../../Title/Title';
 
-import { Field, reduxForm, InjectedFormProps } from 'redux-form';
-import ReduxFormInput from '../../ReduxFormHandlers/ReduxFromInput';
-import ReduxFormSelect from '../../ReduxFormHandlers/ReduxFormSelect';
-import ReduxFormRadio from '../../ReduxFormHandlers/ReduxFormRadio';
-import ReduxFormTextArea from '../../ReduxFormHandlers/ReduxFormTextArea';
+import { Field, reduxForm } from 'redux-form';
+import PdsFormInput from '../../ReduxFormHandlers/PdsFromInput';
+import PdsFormSelect from '../../ReduxFormHandlers/PdsFormSelect';
+import PdsFormRadio from '../../ReduxFormHandlers/PdsFormRadio';
+import PdsFormTextArea from '../../ReduxFormHandlers/PdsFormTextArea';
 import validate from './validate';
-import ReduxFormButton from '../../ReduxFormHandlers/ReduxFormButton';
+import PdsFormButton from '../../ReduxFormHandlers/PdsFormButton';
 import { selectionButtons } from '../../../helpers/constants';
 
 const ProjectForm = props => {
@@ -32,49 +32,49 @@ const ProjectForm = props => {
                 <Field
                   name="projectName"
                   type="text"
-                  component={ReduxFormInput}
+                  component={PdsFormInput}
                   label="Project*"
                   placeHolder="Enter project name"
                 />
                 <Field
                   name="companyName"
                   type="text"
-                  component={ReduxFormInput}
+                  component={PdsFormInput}
                   label="Company*"
                   placeHolder="Enter company name"
                 />
                 <Field
                   name="contractName"
                   type="text"
-                  component={ReduxFormInput}
+                  component={PdsFormInput}
                   label="Contract*"
                   placeHolder="Enter contract"
                 />
                 <Field
                   name="projectHead"
                   type="text"
-                  component={ReduxFormInput}
+                  component={PdsFormInput}
                   label="Head of project*"
                   placeHolder="Enter head of project name"
                 />
                 <Field
                   name="projectOwner"
                   type="text"
-                  component={ReduxFormInput}
+                  component={PdsFormInput}
                   label="Project Owner*"
                   placeHolder="Project Owner name"
                 />
                 <Field
                   name="projectManager"
                   type="text"
-                  component={ReduxFormInput}
+                  component={PdsFormInput}
                   label="Project Manager*"
                   placeHolder="Enter Project Manager name"
                 />
 
                 <Field
                   name="mngExperience"
-                  component={ReduxFormButton}
+                  component={PdsFormButton}
                   buttons={selectionButtons}
                   label="Project Manager has experience in this type of project"
                 />
@@ -83,13 +83,13 @@ const ProjectForm = props => {
                   label="Project scope*"
                   name="projectScope"
                   rows="7"
-                  component={ReduxFormTextArea}
+                  component={PdsFormTextArea}
                   placeHolder="Type in the details involved in this project"
                 />
                 <Field
                   name="cnNumber"
                   type="text"
-                  component={ReduxFormInput}
+                  component={PdsFormInput}
                   label="CN Number"
                   placeHolder="Enter CN Number"
                 />
@@ -98,7 +98,7 @@ const ProjectForm = props => {
                   name="projectStatus"
                   type="text"
                   datas={projectStatusData}
-                  component={ReduxFormSelect}
+                  component={PdsFormSelect}
                   label="Project status*"
                   placeHolder="Select status"
                 />
@@ -107,7 +107,7 @@ const ProjectForm = props => {
                   name="engagementType"
                   type="radio"
                   datas={engagementData}
-                  component={ReduxFormRadio}
+                  component={PdsFormRadio}
                   label="Type of engagement*"
                 />
 
@@ -115,7 +115,7 @@ const ProjectForm = props => {
                   name="country"
                   type="text"
                   datas={projectStatusData}
-                  component={ReduxFormSelect}
+                  component={PdsFormSelect}
                   label="Country*"
                   placeHolder="Select country"
                 />
@@ -124,7 +124,7 @@ const ProjectForm = props => {
                   name="currency"
                   type="text"
                   datas={projectStatusData}
-                  component={ReduxFormSelect}
+                  component={PdsFormSelect}
                   label="Currency*"
                   placeHolder="Select currency"
                 />
@@ -132,7 +132,7 @@ const ProjectForm = props => {
                 <Field
                   name="winProbabilty"
                   type="text"
-                  component={ReduxFormInput}
+                  component={PdsFormInput}
                   label="Probability of wining (%)*"
                   placeHolder="00%"
                   className="width-100"
@@ -141,7 +141,7 @@ const ProjectForm = props => {
                 <Field
                   name="approxValue"
                   type="text"
-                  component={ReduxFormInput}
+                  component={PdsFormInput}
                   label="Approximate value*"
                   placeHolder=""
                   className="width-120"
@@ -151,14 +151,14 @@ const ProjectForm = props => {
                   name="contractType"
                   type="text"
                   datas={projectStatusData}
-                  component={ReduxFormSelect}
+                  component={PdsFormSelect}
                   label="Contract type*"
                   placeHolder="Select contract type"
                 />
 
                 <Field
                   name="cdmNotifiable"
-                  component={ReduxFormButton}
+                  component={PdsFormButton}
                   buttons={selectionButtons}
                   label="CDM notifiable"
                 />
@@ -166,7 +166,7 @@ const ProjectForm = props => {
                   name="assetworkedonprimary"
                   type="text"
                   datas={projectStatusData}
-                  component={ReduxFormSelect}
+                  component={PdsFormSelect}
                   label="Assets worked on*"
                   placeHolder="Select First Asset"
                 />
@@ -174,21 +174,21 @@ const ProjectForm = props => {
                   name="assetworkedonsecond"
                   type="text"
                   datas={projectStatusData}
-                  component={ReduxFormSelect}
+                  component={PdsFormSelect}
                   placeHolder="Select Second Asset"
                 />
                 <Field
                   name="assetworkedonthird"
                   type="text"
                   datas={projectStatusData}
-                  component={ReduxFormSelect}
+                  component={PdsFormSelect}
                   placeHolder="Select Third Asset"
                 />
                 <Field
                   label="Comments"
                   name="comments"
                   rows="7"
-                  component={ReduxFormTextArea}
+                  component={PdsFormTextArea}
                   placeHolder="Type in additional comments"
                 />
               </div>

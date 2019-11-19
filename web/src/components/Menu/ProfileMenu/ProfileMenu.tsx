@@ -1,27 +1,10 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import { AccountCircle, ExpandMore, HelpOutline } from '@material-ui/icons';
-import IconButton from '@material-ui/core/IconButton';
-import NotificationsIcon from '../../Notification/Notification';
 import close_icon from '../../images/logo.jpg';
 
 // @ts-ignore
 import authentication from '@kdpw/msal-b2c-react';
-import Nav from '../../Nav/Nav';
 
 export default function ProfileMenu(props: { Name?: string }) {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-
-  function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
-    setAnchorEl(event.currentTarget);
-  }
-
-  function handleClose() {
-    setAnchorEl(null);
-  }
-
   return (
     <nav className="topbar">
       <div className="container-fluid">
