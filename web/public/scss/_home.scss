@@ -1,0 +1,351 @@
+.wrapper {
+    display: flex;
+    align-items: stretch;
+}
+
+
+/*topbar*/
+
+.logo {
+    padding: 14px 0;
+    cursor: pointer;
+}
+
+.topbar {
+    background: map-get($colors, darkgreen);
+    height: 50px;
+    .logo {
+        display: none;
+        max-width: 133px;
+        float: left;
+        cursor: pointer;
+        @include smScreen {
+            display: block;
+            img {
+                max-width: 110px;
+            }
+        }
+    }
+    .icons-blocks {
+        list-style: none;
+        margin: 0;
+        padding: 8px 0;
+        align-items: center;
+        display: inline-flex;
+        float: right;
+        height: 50px;
+        li {
+            display: inline-block;
+            margin: 0 15px;
+            &:last-child {
+                margin: 0;
+            }
+            @include smScreen {
+                margin: 0 10px;
+            }
+            &:nth-child(2) {
+                .badge {
+                    background: map-get($colors, red);
+                    width: 8px;
+                    height: 8px;
+                    @include borderRadius(50%);
+                    padding: 0;
+                    position: absolute;
+                    top: 2px;
+                    right: -7px;
+                    display: block;
+                }
+            }
+            a {
+                color: map-get($colors, whiteColor);
+                display: block;
+                font-size: 14px;
+                text-transform: capitalize;
+                position: relative;
+                background-color: transparent !important;
+                border: 0;
+                text-decoration: none;
+                &:after {
+                    border: 0;
+                }
+                &:hover,
+                &:focus {
+                    color: map-get($colors, whiteColor);
+                    @include boxShadow(none);
+                }
+                .down-arrow {
+                    img {
+                        margin-left: 10px;
+                        @include transition(all ease 0.2s);
+                        @include smScreen {
+                            display: none;
+                        }
+                        &.active {
+                            transform: rotate(180deg);
+                        }
+                    }
+                }
+                #sm_none {
+                    padding-left: 5px;
+                }
+                .fa-home {
+                    font-size: 15px;
+                    outline: none;
+                }
+            }
+        }
+    }
+}
+
+.dropdown-menu {
+    &.user-dropdown {
+        top: 12px !important;
+        width: 275px;
+        border-top: 5px solid map-get($colors, darkgreen);
+        @include borderRadius(0 0 5px 0);
+        padding: 12px;
+        @include boxShadow(0px 7px 11px rgba(204, 204, 204, 0.86));
+        border-right: 0;
+        border-left: 0;
+        border-bottom: 0;
+        button {
+            border: 1px solid #006a4d;
+            background: transparent;
+            color: #006a4d;
+            @include borderRadius(3px);
+            padding: 5px 15px;
+            float: right;
+            font-weight: 600;
+        }
+        form {
+            float: left;
+            color: #737f80;
+            width: 100%;
+            .form-control {
+                font-size: 13px;
+            }
+            h3 {
+                font-size: 16px;
+                font-weight: 600;
+                line-height: 24px;
+                padding-bottom: 10px;
+                margin: 0;
+                span {
+                    display: block;
+                    font-size: 14px;
+                    font-weight: 400;
+                    line-height: 20px;
+                }
+            }
+        }
+    }
+}
+
+
+/*sidebar*/
+
+#sidebar {
+    position: relative;
+    min-width: 300px;
+    max-width: 300px;
+    background: map-get($colors, grey01);
+    color: #fff;
+    @include transition(all 0.6s cubic-bezier(0, 0.4, 0.58, 1));
+    transform-origin: center left;
+    @include mdScreen {
+        min-width: 300px;
+        max-width: 300px;
+    }
+    @include smScreen {
+        margin-left: -300px;
+    }
+    &.active {
+        margin-left: -300px;
+        transform: rotateY(100deg);
+        @include smScreen {
+            margin-left: 0;
+            transform: none;
+            min-width: 100%;
+            max-width: 100%;
+        }
+    }
+    .sidebar-header {
+        padding: 0px 0 30px 15px;
+    }
+    .upload {
+        background: #006a4d;
+        padding: 10px 12px;
+        font-size: 18px;
+        text-transform: capitalize;
+        img {
+            padding-right: 8px;
+        }
+    }
+    ul#homeMenu {
+        >li {
+            &.active {
+                >a {
+                    color: map-get($colors, whiteColor);
+                    background: map-get($colors, black);
+                    &:before {
+                        background: map-get($colors, lightGreen);
+                        content: '';
+                        width: 6px;
+                        height: 100%;
+                        position: absolute;
+                        left: 0;
+                        top: 0;
+                    }
+                }
+            }
+            a {
+                padding: 14px 0 14px 20px;
+                display: block;
+                color: map-get($colors, grey10);
+                text-transform: capitalize;
+                font-size: 18px;
+                position: relative;
+                text-decoration: none;
+                background: map-get($colors, grey02);
+                @include transition(all ease-in-out 0.5s);
+                &:after {
+                    content: '';
+                    border: 0;
+                }
+            }
+        }
+    }
+    ul#homeSubmenu {
+        transition: 200ms ease;
+        li {
+            &.subactive {
+                >a {
+                    color: map-get($colors, lightGreen);
+                    &:before {
+                        background: none;
+                    }
+                }
+            }
+            a {
+                font-weight: 300;
+                font-size: 16px;
+                padding-left: 44px;
+            }
+        }
+    }
+    .cross-menu {
+        @include smScreen {
+            display: block;
+        }
+        padding-top: 10px;
+        display: none;
+        .cross-sidebar {
+            width: 35px;
+            height: 35px;
+            background: transparent;
+            border: none;
+            position: absolute;
+            right: 15px;
+            cursor: pointer;
+            span {
+                width: 100%;
+                height: 2px;
+                margin: 0 auto;
+                display: block;
+                background: map-get($colors, whiteColor);
+                @include transition(all 0.8s cubic-bezier(0.81, -0.33, 0.345, 1.375));
+            }
+            span {
+                &:first-of-type {
+                    transform: rotate(45deg) translate(0px, 2px);
+                }
+                &:nth-of-type(2) {
+                    opacity: 0;
+                    @include smScreen {
+                        opacity: 0;
+                    }
+                }
+                &:last-of-type {
+                    transform: rotate(-45deg) translate(1px, -4px);
+                }
+            }
+        }
+    }
+}
+
+#sidebarCollapse {
+    width: 30px;
+    height: 30px;
+    background: map-get($colors, darkGreen02);
+    border: none;
+    display: none;
+    @include smScreen {
+        display: block;
+        cursor: pointer;
+    }
+    span {
+        width: 100%;
+        height: 2px;
+        margin: 0 auto;
+        display: block;
+        background: map-get($colors, whiteColor);
+        @include transition(all 0.8s cubic-bezier(0.81, -0.33, 0.345, 1.375));
+    }
+}
+
+
+/*customer enquiry*/
+
+.customer-enquiry {
+    padding: 23px 0 0 35px;
+    @include smScreen {
+        padding: 23px 0 0 0px;
+    }
+    h1 {
+        margin-bottom: 50px;
+        margin-top: 31px;
+        font-size: 38px;
+        font-weight: 300;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1;
+        letter-spacing: normal;
+        color: map-get($colors, grey07);
+        @include mdScreen {
+            margin-bottom: 30px;
+            margin-top: 20px;
+            font-size: 32px;
+        }
+        @include smScreen {
+            margin-bottom: 20px;
+            margin-top: 10px;
+            font-size: 28px;
+        }
+    }
+}
+
+
+/*media query*/
+
+@include smScreen {
+    #sidebarCollapse span:first-of-type,
+    #sidebarCollapse span:nth-of-type(2),
+    #sidebarCollapse span:last-of-type {
+        transform: none;
+        opacity: 1;
+        margin: 5px auto;
+    }
+    #sm_none {
+        display: none;
+    }
+}
+
+.error {
+    border-color: #e13e3e !important;
+}
+
+.text-danger {
+    font-size: 12px;
+    font-style: italic;
+    font-weight: 300;
+}

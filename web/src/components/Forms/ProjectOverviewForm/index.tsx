@@ -93,7 +93,6 @@ const ProjectOverviewForm: React.FC = (props: any) => {
   ) => {
     let val = event.target.value;
     let data = { ...props.form, [name]: val };
-    console.log(data);
   };
 
   return (

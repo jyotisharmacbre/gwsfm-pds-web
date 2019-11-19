@@ -1,0 +1,4 @@
+export enum ActionType {
+  PROJECT_ADD = 'PROJECT_ADD',
+  PROJECT_ADD_ERROR = 'PROJECT_ADD_ERROR'
+}

@@ -1,0 +1,23 @@
+export const ProjectFormProps = {
+  projectName: 'Test',
+  companyName: 'Test',
+  contractName: 'Test',
+  projectHead: 'Test',
+  projectOwner: 'Test',
+  projectManager: 'Test',
+  managerExp: true,
+  projectScope: 'Test',
+  cnNumber: 1,
+  projectStatus: 'Test',
+  engagementType: 'Test',
+  country: 'Test',
+  currency: 'Test',
+  winProbabilty: 'Test',
+  approxValue: 'Test',
+  contractType: 'Test',
+  cdmNotifiable: true,
+  assetworkedonprimary: 'Test',
+  assetworkedonsecond: 'Test',
+  assetworkedonthird: 'Test',
+  comments: 'Test'
+};
