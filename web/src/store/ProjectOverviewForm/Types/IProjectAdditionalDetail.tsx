@@ -1,0 +1,30 @@
+export interface IProjectAdditionalDetail {
+  projectAddDetailId: string;
+  projectId: string;
+  mainContractor: string;
+  enquiryReceivedFrom: string;
+  potentialCustomer: string;
+  enquiryTypeId: string;
+  creditCheckResult: string;
+  siteAddress: string;
+  cdmNotifiable: boolean;
+  formOfContract: string;
+  retention: string;
+  liquidatedDamages: string;
+  insurance: string;
+  workTypeId: string;
+  commenceDate: string;
+  completionDate: string;
+  milestones: string;
+  firstValuationDate: string;
+  finalAccountDate: string;
+  valuationIntervals: string;
+  paymentTerms: string;
+  isProjectLive: boolean;
+  comments: string;
+  authorizedByHop: string;
+  budget: string;
+  authorizedBy:string;
+  authorizedBySecond:string;
+  authorizedByThird:string;
+}
