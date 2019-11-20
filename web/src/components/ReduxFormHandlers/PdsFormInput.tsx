@@ -1,24 +1,22 @@
 import React from 'react';
 
-export function PdsFormTextArea({
+export function PdsFormInput({
   input,
   label,
   type,
   name,
   placeholder,
-  rows,
+  message,
   meta: { touched, error, warning },
-  className,
-  message
+  className
 }) {
   const errorClass = `${(error && touched) || warning ? 'error' : ''}`;
   return (
     <div className="form-group">
       {label && <label htmlFor={name}>{label}</label>}
-      <textarea
+      <input
         {...input}
         placeholder={placeholder}
-        rows={rows}
         type={type}
         className={'form-control ' + className + ' ' + errorClass}
       />
@@ -31,4 +29,4 @@ export function PdsFormTextArea({
   );
 }
 
-export default PdsFormTextArea;
+export default PdsFormInput;
