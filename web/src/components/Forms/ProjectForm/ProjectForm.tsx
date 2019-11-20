@@ -6,26 +6,32 @@ import {
 import { MainTitle } from '../../Title/Title';
 
 import { Field, reduxForm } from 'redux-form';
-import PdsFormInput from '../../PdsFormHandlers/PdsFromInput';
+import PdsFormInput from '../../PdsFormHandlers/PdsFormInput';
 import PdsFormSelect from '../../PdsFormHandlers/PdsFormSelect';
 import PdsFormRadio from '../../PdsFormHandlers/PdsFormRadio';
 import PdsFormTextArea from '../../PdsFormHandlers/PdsFormTextArea';
-import validate from './validate';
 import PdsFormButton from '../../PdsFormHandlers/PdsFormButton';
 import { selectionButtons } from '../../../helpers/constants';
+import {
+  required,
+  maxLength1000,
+  alphaNumeric
+} from '../../../helpers/fieldValidations';
 
 const ProjectForm = props => {
   const { handleSubmit } = props;
+
+  const DropdownOptions = projectStatusData.map((status: any, i: number) => (
+    <option key={i} value={status.value}>
+      {status.label}
+    </option>
+  ));
 
   return (
     <div className="container-fluid">
       <div className=" row">
         <div className="col-lg-12 col-sm-12">
-          <form
-            className="customer-enquiry"
-            onSubmit={handleSubmit}
-            noValidate={true}
-          >
+          <form className="customer-enquiry" onSubmit={handleSubmit}>
             <div className="row">
               <div className="col-lg-8">
                 <MainTitle>Customer Enquiry</MainTitle>
@@ -35,6 +41,9 @@ const ProjectForm = props => {
                   component={PdsFormInput}
                   label="Project*"
                   placeHolder="Enter project name"
+                  validate={[required, maxLength1000]}
+                  warn={alphaNumeric}
+                  message="Project name"
                 />
                 <Field
                   name="companyName"
@@ -42,6 +51,9 @@ const ProjectForm = props => {
                   component={PdsFormInput}
                   label="Company*"
                   placeHolder="Enter company name"
+                  validate={[required, maxLength1000]}
+                  warn={alphaNumeric}
+                  message="Company name"
                 />
                 <Field
                   name="contractName"
@@ -49,6 +61,9 @@ const ProjectForm = props => {
                   component={PdsFormInput}
                   label="Contract*"
                   placeHolder="Enter contract"
+                  validate={[required, maxLength1000]}
+                  warn={alphaNumeric}
+                  message="Contract name"
                 />
                 <Field
                   name="projectHead"
@@ -56,6 +71,9 @@ const ProjectForm = props => {
                   component={PdsFormInput}
                   label="Head of project*"
                   placeHolder="Enter head of project name"
+                  validate={[required, maxLength1000]}
+                  warn={alphaNumeric}
+                  message="Head of project"
                 />
                 <Field
                   name="projectOwner"
@@ -63,6 +81,9 @@ const ProjectForm = props => {
                   component={PdsFormInput}
                   label="Project Owner*"
                   placeHolder="Project Owner name"
+                  validate={[required, maxLength1000]}
+                  warn={alphaNumeric}
+                  message="Project Owner"
                 />
                 <Field
                   name="projectManager"
@@ -70,6 +91,9 @@ const ProjectForm = props => {
                   component={PdsFormInput}
                   label="Project Manager*"
                   placeHolder="Enter Project Manager name"
+                  validate={[required, maxLength1000]}
+                  warn={alphaNumeric}
+                  message="Project manager"
                 />
 
                 <Field
@@ -85,6 +109,9 @@ const ProjectForm = props => {
                   rows="7"
                   component={PdsFormTextArea}
                   placeHolder="Type in the details involved in this project"
+                  validate={[required, maxLength1000]}
+                  warn={alphaNumeric}
+                  message="Project scope"
                 />
                 <Field
                   name="cnNumber"
@@ -93,41 +120,61 @@ const ProjectForm = props => {
                   label="CN Number"
                   placeHolder="Enter CN Number"
                 />
-
-                <Field
-                  name="projectStatus"
-                  type="text"
-                  datas={projectStatusData}
-                  component={PdsFormSelect}
-                  label="Project status*"
-                  placeHolder="Select status"
-                />
+                <div className={'form-group'}>
+                  <label>Project status*</label>
+                  <div className="select-wrapper">
+                    <Field
+                      name="projectStatus"
+                      component={PdsFormSelect}
+                      validate={required}
+                      placeHolder="Select status"
+                      message="Project status"
+                    >
+                      <option value="">Select project status</option>
+                      {DropdownOptions}
+                    </Field>
+                  </div>
+                </div>
 
                 <Field
                   name="engagementType"
                   type="radio"
                   datas={engagementData}
                   component={PdsFormRadio}
-                  label="Type of engagement*"
+                  label="Type of engagement"
                 />
 
-                <Field
-                  name="country"
-                  type="text"
-                  datas={projectStatusData}
-                  component={PdsFormSelect}
-                  label="Country*"
-                  placeHolder="Select country"
-                />
+                <div className={'form-group'}>
+                  <label>Country*</label>
+                  <div className="select-wrapper">
+                    <Field
+                      name="country"
+                      component={PdsFormSelect}
+                      validate={required}
+                      placeHolder="Select country"
+                      message="Country"
+                    >
+                      <option value="">Select country</option>
+                      {DropdownOptions}
+                    </Field>
+                  </div>
+                </div>
 
-                <Field
-                  name="currency"
-                  type="text"
-                  datas={projectStatusData}
-                  component={PdsFormSelect}
-                  label="Currency*"
-                  placeHolder="Select currency"
-                />
+                <div className={'form-group'}>
+                  <label>Currency*</label>
+                  <div className="select-wrapper">
+                    <Field
+                      name="currency"
+                      component={PdsFormSelect}
+                      validate={required}
+                      placeHolder="Select currency"
+                      message="Currency"
+                    >
+                      <option value="">Select country</option>
+                      {DropdownOptions}
+                    </Field>
+                  </div>
+                </div>
 
                 <Field
                   name="winProbabilty"
@@ -136,6 +183,9 @@ const ProjectForm = props => {
                   label="Probability of wining (%)*"
                   placeHolder="00%"
                   className="width-100"
+                  validate={[required, maxLength1000]}
+                  warn={alphaNumeric}
+                  message="Probability of wining"
                 />
 
                 <Field
@@ -145,16 +195,26 @@ const ProjectForm = props => {
                   label="Approximate value*"
                   placeHolder=""
                   className="width-120"
+                  validate={[required, maxLength1000]}
+                  warn={alphaNumeric}
+                  message="Approximate value"
                 />
 
-                <Field
-                  name="contractType"
-                  type="text"
-                  datas={projectStatusData}
-                  component={PdsFormSelect}
-                  label="Contract type*"
-                  placeHolder="Select contract type"
-                />
+                <div className={'form-group'}>
+                  <label>Contract type*</label>
+                  <div className="select-wrapper">
+                    <Field
+                      name="contractType"
+                      component={PdsFormSelect}
+                      validate={required}
+                      placeHolder="Select contract type"
+                      message="Contract type"
+                    >
+                      <option value="">Select contract type</option>
+                      {DropdownOptions}
+                    </Field>
+                  </div>
+                </div>
 
                 <Field
                   name="cdmNotifiable"
@@ -162,28 +222,44 @@ const ProjectForm = props => {
                   buttons={selectionButtons}
                   label="CDM notifiable"
                 />
-                <Field
-                  name="assetworkedonprimary"
-                  type="text"
-                  datas={projectStatusData}
-                  component={PdsFormSelect}
-                  label="Assets worked on*"
-                  placeHolder="Select First Asset"
-                />
-                <Field
-                  name="assetworkedonsecond"
-                  type="text"
-                  datas={projectStatusData}
-                  component={PdsFormSelect}
-                  placeHolder="Select Second Asset"
-                />
-                <Field
-                  name="assetworkedonthird"
-                  type="text"
-                  datas={projectStatusData}
-                  component={PdsFormSelect}
-                  placeHolder="Select Third Asset"
-                />
+                <div className={'form-group'}>
+                  <label>Assets worked on*</label>
+                  <div className="select-wrapper">
+                    <Field
+                      name="assetworkedonprimary"
+                      component={PdsFormSelect}
+                      validate={required}
+                      placeHolder="Select First Asset"
+                      message="First Asset"
+                    >
+                      <option value="">Select First Asset</option>
+                      {DropdownOptions}
+                    </Field>
+                  </div>
+
+                  <div className="select-wrapper">
+                    <Field
+                      name="assetworkedonsecond"
+                      component={PdsFormSelect}
+                      placeHolder="Select Second Asset"
+                    >
+                      <option value="">Select Second Asset</option>
+                      {DropdownOptions}
+                    </Field>
+                  </div>
+
+                  <div className="select-wrapper">
+                    <Field
+                      name="assetworkedonthird"
+                      component={PdsFormSelect}
+                      placeHolder="Select Third Asset"
+                    >
+                      <option value="">Select Third Asset</option>
+                      {DropdownOptions}
+                    </Field>
+                  </div>
+                </div>
+
                 <Field
                   label="Comments"
                   name="comments"
@@ -209,8 +285,7 @@ const ProjectForm = props => {
 };
 
 const ProjectAddForm = reduxForm({
-  form: 'ProjectForm',
-  validate // a unique identifier for this form
+  form: 'ProjectForm'
 })(ProjectForm);
 
 export default ProjectAddForm;

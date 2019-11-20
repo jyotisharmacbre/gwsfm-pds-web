@@ -80,6 +80,7 @@
         "IE 11"
     ],
     "devDependencies": {
+        "@types/classnames": "^2.2.9",
         "@types/jwt-decode": "^2.2.1",
         "@types/lodash": "^4.14.145",
         "@types/redux-form": "^8.1.9",

@@ -1,24 +1,24 @@
-import { map } from 'lodash';
 import React from 'react';
 
-const PdsFormSelect: React.FC = (field: any) => (
-  <div className={'form-group ' + field.className}>
-    {field.label && <label>{field.label}</label>}
-    <div className="select-wrapper">
-      <select {...field.input} className="form-control">
-        <option value="" disabled={true}>
-          {field.placeHolder}
-        </option>
-        {map(field.datas, (data: any, i: number) => {
-          return (
-            <option key={i} value={data.value}>
-              {data.label}
-            </option>
-          );
-        })}
+export function PdsFormSelect({
+  input,
+  meta: { touched, error },
+  message,
+  children
+}) {
+  const errorClass = `${error && touched ? 'error' : ''}`;
+  return (
+    <React.Fragment>
+      <select className={'form-control' + ' ' + errorClass} {...input}>
+        {children}
       </select>
-    </div>
-  </div>
-);
+
+      {touched &&
+        (error && (
+          <span className="text-danger">{message + ' is ' + error}</span>
+        ))}
+    </React.Fragment>
+  );
+}
 
 export default PdsFormSelect;
