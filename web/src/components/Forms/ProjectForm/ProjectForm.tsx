@@ -17,6 +17,7 @@ import {
   maxLength1000,
   alphaNumeric
 } from '../../../helpers/fieldValidations';
+import { FormattedMessage } from 'react-intl';
 
 const ProjectForm = props => {
   const { handleSubmit } = props;
@@ -34,81 +35,83 @@ const ProjectForm = props => {
           <form className="customer-enquiry" onSubmit={handleSubmit}>
             <div className="row">
               <div className="col-lg-8">
-                <MainTitle>Customer Enquiry</MainTitle>
+                <MainTitle>
+                  <FormattedMessage id="customerEnquiry" />
+                </MainTitle>
                 <Field
                   name="projectName"
                   type="text"
                   component={PdsFormInput}
-                  label="Project*"
-                  placeHolder="Enter project name"
                   validate={[required, maxLength1000]}
                   warn={alphaNumeric}
-                  message="Project name"
+                  message="projectName"
+                  label="project*"
+                  placeHolder="enterProjectName"
                 />
                 <Field
                   name="companyName"
                   type="text"
                   component={PdsFormInput}
-                  label="Company*"
-                  placeHolder="Enter company name"
                   validate={[required, maxLength1000]}
                   warn={alphaNumeric}
                   message="Company name"
+                  label="company*"
+                  placeHolder="enterCompanyName"
                 />
                 <Field
                   name="contractName"
                   type="text"
-                  component={PdsFormInput}
-                  label="Contract*"
-                  placeHolder="Enter contract"
+                  component={PdsFormInput}   
                   validate={[required, maxLength1000]}
                   warn={alphaNumeric}
                   message="Contract name"
+                  label="contract*"
+                  placeHolder="enterContract"
                 />
                 <Field
                   name="projectHead"
                   type="text"
-                  component={PdsFormInput}
-                  label="Head of project*"
-                  placeHolder="Enter head of project name"
+                  component={PdsFormInput}                 
                   validate={[required, maxLength1000]}
                   warn={alphaNumeric}
-                  message="Head of project"
+                  message="headOfProject"
+                  label="headOfProject*"
+                  placeHolder="enterHeadOfProjectName"
                 />
                 <Field
                   name="projectOwner"
                   type="text"
                   component={PdsFormInput}
-                  label="Project Owner*"
-                  placeHolder="Project Owner name"
                   validate={[required, maxLength1000]}
                   warn={alphaNumeric}
-                  message="Project Owner"
+                  message="projectOwner"
+                  label="projectOwner*"
+                  placeHolder="projectOwnerName"
                 />
                 <Field
                   name="projectManager"
                   type="text"
-                  component={PdsFormInput}
-                  label="Project Manager*"
-                  placeHolder="Enter Project Manager name"
+                  component={PdsFormInput}                 
                   validate={[required, maxLength1000]}
                   warn={alphaNumeric}
                   message="Project manager"
+                  label="projectManager*"
+                  placeHolder="enterProjectManagerName"
                 />
 
                 <Field
                   name="mngExperience"
                   component={PdsFormButton}
                   buttons={selectionButtons}
-                  label="Project Manager has experience in this type of project"
+                  label="projectManagerHasExperiencen"
                 />
 
                 <Field
-                  label="Project scope*"
+                  label="projectScope*"
                   name="projectScope"
                   rows="7"
                   component={PdsFormTextArea}
-                  placeHolder="Type in the details involved in this project"
+                  placeHolder="typeInTheDetailsInvolved"
                   validate={[required, maxLength1000]}
                   warn={alphaNumeric}
                   message="Project scope"
@@ -117,8 +120,8 @@ const ProjectForm = props => {
                   name="cnNumber"
                   type="text"
                   component={PdsFormInput}
-                  label="CN Number"
-                  placeHolder="Enter CN Number"
+                  label="cNNumber"
+                  placeHolder="enterCNNumber"
                 />
                 <div className={'form-group'}>
                   <label>Project status*</label>
@@ -180,7 +183,7 @@ const ProjectForm = props => {
                   name="winProbabilty"
                   type="text"
                   component={PdsFormInput}
-                  label="Probability of wining (%)*"
+                  label="probabilityOfWining*"
                   placeHolder="00%"
                   className="width-100"
                   validate={[required, maxLength1000]}
@@ -192,7 +195,7 @@ const ProjectForm = props => {
                   name="approxValue"
                   type="text"
                   component={PdsFormInput}
-                  label="Approximate value*"
+                  label="approximateValue*"
                   placeHolder=""
                   className="width-120"
                   validate={[required, maxLength1000]}
@@ -220,7 +223,7 @@ const ProjectForm = props => {
                   name="cdmNotifiable"
                   component={PdsFormButton}
                   buttons={selectionButtons}
-                  label="CDM notifiable"
+                  label="cDMNotifiable"
                 />
                 <div className={'form-group'}>
                   <label>Assets worked on*</label>
@@ -261,20 +264,20 @@ const ProjectForm = props => {
                 </div>
 
                 <Field
-                  label="Comments"
+                  label="comments"
                   name="comments"
                   rows="7"
                   component={PdsFormTextArea}
-                  placeHolder="Type in additional comments"
+                  placeHolder="typeInAdditionalComments"
                 />
               </div>
             </div>
             <div className="mr-35 d-flex justify-content-between mb-4">
               <button className="active mb-4 mt-5" type="submit">
-                SAVE AND CLOSE
+                <FormattedMessage id="saveAndClose" />
               </button>
               <button type="submit" className="mb-4 mt-5 text-right mr-0">
-                NEXT
+                <FormattedMessage id="next" />
               </button>
             </div>
           </form>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 
 interface CustomButton {
   title: string;
@@ -21,7 +22,11 @@ class PdsFormButton extends React.Component<Props> {
     const { buttons, input, label } = this.props;
     return (
       <div className="form-group">
-        {label && <label>{label}</label>}
+        {label && (
+          <label>
+            <FormattedMessage id={label} />
+          </label>
+        )}
         <div>
           {buttons.map(b => (
             <button
@@ -30,7 +35,7 @@ class PdsFormButton extends React.Component<Props> {
               onClick={event => this.handleClick(event, b)}
               className={b.value === input.value ? 'active' : ''}
             >
-              {b.title}
+              <FormattedMessage id={b.title} />
             </button>
           ))}
         </div>

@@ -5,69 +5,69 @@ const validate = (values: Project): FormErrors<Project> => {
   const errors: FormErrors<Project> = {};
 
   if (!values.projectName) {
-    errors.projectName = 'Project name is required';
+    errors.projectName = 'projectNameIsRequired';
   }
 
   if (!values.companyName) {
-    errors.companyName = ' name is required';
+    errors.companyName = 'nameIsRequired';
   }
 
   if (!values.contractName) {
-    errors.contractName = 'Contract name is required';
+    errors.contractName = 'contractNameIsRequired';
   }
 
   if (!values.projectHead) {
-    errors.projectHead = 'Head of project name is required';
+    errors.projectHead = 'headOfProjectNameRequired';
   }
 
   if (!values.projectOwner) {
-    errors.projectOwner = 'Project owner is required';
+    errors.projectOwner = 'projectOwnerRequired';
   }
 
   if (!values.projectManager) {
-    errors.projectManager = 'Project manager name is required';
+    errors.projectManager = 'projectManagerNameRequired';
   }
 
   if (!values.projectScope) {
-    errors.projectScope = 'Project scope is required';
+    errors.projectScope = 'projectScopeRequired';
   }
 
   if (!values.projectStatus) {
-    errors.projectStatus = 'Project status is required';
+    errors.projectStatus = 'projectStatusRequired';
   }
 
   if (!values.country) {
-    errors.country = 'Country name is required';
+    errors.country = 'countryNameRequired';
   }
 
   if (!values.winProbabilty) {
-    errors.winProbabilty = 'Probability of winning is required';
+    errors.winProbabilty = 'probabilityOfWinningRequired';
   }
 
   if (!values.currency) {
-    errors.currency = 'Currency is required';
+    errors.currency = 'currencyIsRequired';
   }
 
   if (!values.approxValue) {
-    errors.approxValue = 'Approximate value is required';
+    errors.approxValue = 'approximateValueRequired';
   }
   if (!values.contractType) {
-    errors.contractType = 'Contract type is required';
+    errors.contractType = 'contractTypeRequired';
   }
 
   if (!values.cdmNotifiable) {
-    errors.cdmNotifiable = 'CDM notifiable is required';
+    errors.cdmNotifiable = 'cDMnotifiableRequired';
   }
 
   if (!values.assetworkedonprimary) {
-    errors.assetworkedonprimary = 'Asset is required';
+    errors.assetworkedonprimary = 'assetIsRequired';
   }
 
   if (!values.assetworkedonsecond) {
-    errors.assetworkedonsecond = 'Asset is required';
+    errors.assetworkedonsecond = 'assetIsRequired';
   }
   if (!values.assetworkedonthird) {
-    errors.assetworkedonthird = 'Asset is required';
+    errors.assetworkedonthird = 'assetIsRequired';
   }
   return errors;
 };
