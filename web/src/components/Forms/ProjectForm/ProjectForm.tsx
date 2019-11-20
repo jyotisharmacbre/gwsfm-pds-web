@@ -5,7 +5,7 @@ import {
 } from '../../../helpers/dropDownFormValues';
 import { MainTitle } from '../../Title/Title';
 
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, InjectedFormProps } from 'redux-form';
 import PdsFormInput from '../../PdsFormHandlers/PdsFormInput';
 import PdsFormSelect from '../../PdsFormHandlers/PdsFormSelect';
 import PdsFormRadio from '../../PdsFormHandlers/PdsFormRadio';
@@ -17,13 +17,19 @@ import {
   maxLength1000,
   alphaNumeric
 } from '../../../helpers/fieldValidations';
+import { connect } from 'react-redux';
 
-const ProjectForm = props => {
-  const { handleSubmit } = props;
-
-  const DropdownOptions = projectStatusData.map((status: any, i: number) => (
-    <option key={i} value={status.value}>
-      {status.label}
+interface Props {
+  projectstatus: any;
+}
+const ProjectForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
+  props: any
+) => {
+  const { handleSubmit, projectstatus } = props;
+  console.log(JSON.stringify(projectstatus));
+  const DropdownOptions = projectstatus.map((status: any, i: number) => (
+    <option key={status.lookupId} value={status.description}>
+      {status.description}
     </option>
   ));
 
@@ -284,8 +290,10 @@ const ProjectForm = props => {
   );
 };
 
-const ProjectAddForm = reduxForm({
+const form = reduxForm<{}, Props>({
+  destroyOnUnmount: false,
+  forceUnregisterOnUnmount: false,
   form: 'ProjectForm'
 })(ProjectForm);
 
-export default ProjectAddForm;
+export default connect(null)(form);

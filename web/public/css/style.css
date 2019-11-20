@@ -491,3 +491,101 @@ button[type="submit"] {
   box-shadow: none;
   -moz-box-shadow: none;
   -webkit-box-shadow: none; }
+
+/*
+ * project info details
+ */
+.project-info-block {
+  background: #e8ecf3;
+  color: #526061;
+  font-size: 14px;
+  text-transform: capitalize;
+  padding: 15px;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px; }
+  .project-info-block .edit-btn {
+    height: fit-content;
+    margin-top: 7px;
+    padding: 6px 25px 3px;
+    border-width: 1px; }
+    .project-info-block .edit-btn:focus {
+      outline: none; }
+    .project-info-block .edit-btn.active {
+      border-width: 1px; }
+  .project-info-block label {
+    margin-bottom: 5px;
+    font-weight: 600; }
+  .project-info-block p {
+    font-weight: 300;
+    margin-bottom: 0; }
+  .project-info-block ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 8px 0; }
+    .project-info-block ul li {
+      position: relative;
+      padding-left: 15px;
+      margin-bottom: 5px; }
+      .project-info-block ul li:before {
+        content: '';
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        background: #006a4d;
+        left: 0px;
+        top: 6px; }
+
+/*
+ * calender style
+ */
+label {
+  color: #526061;
+  margin-bottom: 5px;
+  font-size: 14px;
+  font-weight: 600; }
+
+.calender-wrap {
+  background: #e8ecf3; }
+
+/*
+ * Pricing Summary
+ */
+.price-sumry {
+  width: 100%;
+  margin: 30px 0; }
+  @media only screen and (max-width: 991px) {
+    .price-sumry .inner-block {
+      overflow-x: auto; } }
+  .price-sumry label {
+    color: #526061;
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: 600; }
+  .price-sumry table {
+    width: 100%;
+    border-collapse: collapse;
+    overflow-x: scroll;
+    margin-bottom: 15px; }
+    .price-sumry table th {
+      font-size: 14px;
+      font-weight: 700;
+      padding: 5px 5px 5px 15px; }
+    .price-sumry table td {
+      padding: 5px 5px 5px 15px;
+      border: solid 1px #cad0d8;
+      color: #526061;
+      font-size: 14px; }
+    .price-sumry table.price-table {
+      margin-bottom: 15px; }
+      .price-sumry table.price-table th {
+        color: #526061; }
+      .price-sumry table.price-table td {
+        background-color: #e8ecf3; }
+        .price-sumry table.price-table td:first-child {
+          font-weight: 700; }
+    .price-sumry table.cost-table th {
+      color: #006a4d;
+      font-weight: 700; }
+    .price-sumry table.cost-table td {
+      font-weight: 600; }
