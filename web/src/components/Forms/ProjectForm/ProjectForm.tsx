@@ -6,11 +6,11 @@ import {
 import { MainTitle } from '../../Title/Title';
 
 import { Field, reduxForm } from 'redux-form';
-import PdsFormInput from '../../ReduxFormHandlers/PdsFormInput';
-import PdsFormSelect from '../../ReduxFormHandlers/PdsFormSelect';
-import PdsFormRadio from '../../ReduxFormHandlers/PdsFormRadio';
-import PdsFormTextArea from '../../ReduxFormHandlers/PdsFormTextArea';
-import PdsFormButton from '../../ReduxFormHandlers/PdsFormButton';
+import PdsFormInput from '../../PdsFormHandlers/PdsFromInput';
+import PdsFormSelect from '../../PdsFormHandlers/PdsFormSelect';
+import PdsFormRadio from '../../PdsFormHandlers/PdsFormRadio';
+import PdsFormTextArea from '../../PdsFormHandlers/PdsFormTextArea';
+import PdsFormButton from '../../PdsFormHandlers/PdsFormButton';
 import { selectionButtons } from '../../../helpers/constants';
 import {
   required,

@@ -1,4 +1,4 @@
-import { addProject } from '../../../redux/actions';
+import { addProject } from '../../../store/actions';
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
