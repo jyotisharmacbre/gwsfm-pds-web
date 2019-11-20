@@ -3,7 +3,6 @@ import React from 'react';
 import { Field } from 'redux-form';
 
 const PdsFormRadio: React.FC = (field: any) => {
-  debugger;
   const errorClass = `${field.meta.error && field.meta.touched ? 'error' : ''}`;
   return (
     <div className="form-group">
