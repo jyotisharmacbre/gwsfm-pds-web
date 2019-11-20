@@ -18,9 +18,7 @@ interface Props {
 const validDate = (year, month, day) =>
   moment(moment(year + '-' + month + '-' + day), 'YYYY-MM-DD', true).isValid();
 
-class ReactDates extends PureComponent<
-  Props & InjectedFormProps<{}, Props>
-> {
+class ReactDates extends PureComponent<Props & InjectedFormProps<{}, Props>> {
   constructor(props) {
     super(props);
   }

@@ -30,9 +30,9 @@ const initialState: IProjectOverviewState = {
     comments: '',
     authorizedByHop: '',
     budget: '',
-    authorizedBy:'',
-    authorizedBySecond:'',
-    authorizedByThird:'',
+    authorizedBy: '',
+    authorizedBySecond: '',
+    authorizedByThird: ''
   },
   error: null,
   loading: false

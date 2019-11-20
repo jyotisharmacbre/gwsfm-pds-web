@@ -14,11 +14,6 @@ import { IState } from '../../../store/state';
 import { IProjectAdditionalDetail } from '../../../store/ProjectOverviewForm/Types/IProjectAdditionalDetail';
 import { getPropertyName } from '../../../helpers/utility-helper';
 import {
-  isRequired,
-  isEmail,
-  maxLength30
-} from '../../../helpers/validation-helper';
-import {
   projectStatusData,
   engagementData
 } from '../../../helpers/dropDownFormValues';
@@ -56,10 +51,6 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   component={PdsFormInput}
                   label="Main Contractor*"
                   placeHolder="Contractor's name"
-                  validate={[isRequired, isEmail, maxLength30]}
-                  messages={{
-                    isRequired: () => 'Main Contractor is required.'
-                  }}
                 />
                 <Field
                   name={getPropertyName(
@@ -71,10 +62,6 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   component={PdsFormInput}
                   label="Enquiry Received From*"
                   placeHolder="Enquiry Sender Name"
-                  validate={[isRequired]}
-                  messages={{
-                    isRequired: () => 'Required.'
-                  }}
                 />
                 <Field
                   name={getPropertyName(
@@ -86,10 +73,6 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   component={PdsFormInput}
                   label="Potential Customer*"
                   placeHolder="Potential Customer's name"
-                  validate={[isRequired]}
-                  messages={{
-                    isRequired: () => 'Required.'
-                  }}
                 />
                 <Field
                   name={getPropertyName(
@@ -248,10 +231,6 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                           component={PdsFormInput}
                           label="Valuation Intervals"
                           placeHolder="Add valuation intervals"
-                          validate={[isRequired, isEmail, maxLength30]}
-                          messages={{
-                            isRequired: () => 'Main Contractor is required.'
-                          }}
                         />
                       </Col>
                     </Row>
@@ -267,10 +246,6 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                           component={PdsFormInput}
                           label="Payment Terms"
                           placeHolder="Add payment terms"
-                          validate={[isRequired, isEmail, maxLength30]}
-                          messages={{
-                            isRequired: () => 'Main Contractor is required.'
-                          }}
                         />
                       </Col>
                     </Row>
@@ -285,10 +260,6 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   type="text"
                   component={PdsFormInput}
                   label="Authorized by HOP"
-                  validate={[isRequired, isEmail, maxLength30]}
-                  messages={{
-                    isRequired: () => 'Main Contractor is required.'
-                  }}
                 />
                 <Field
                   name={getPropertyName(initialValues, prop => prop.budget)}

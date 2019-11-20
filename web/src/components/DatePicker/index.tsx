@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import { Field } from 'redux-form';
-import ReactDates from './ReactDates'
+import ReactDates from './ReactDates';
 
 const formatDates = value => (value ? moment(value) : null);
 

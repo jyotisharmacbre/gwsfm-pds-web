@@ -24,7 +24,7 @@ export interface IProjectAdditionalDetail {
   comments: string;
   authorizedByHop: string;
   budget: string;
-  authorizedBy:string;
-  authorizedBySecond:string;
-  authorizedByThird:string;
+  authorizedBy: string;
+  authorizedBySecond: string;
+  authorizedByThird: string;
 }
