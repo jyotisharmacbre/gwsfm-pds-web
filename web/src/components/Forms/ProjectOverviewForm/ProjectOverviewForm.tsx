@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, Row, Col, Button, Form } from 'react-bootstrap';
 import { Field, reduxForm, InjectedFormProps } from 'redux-form';
 import { connect } from 'react-redux';
-import PdsFormInput from '../../PdsFormHandlers/PdsFromInput';
+import PdsFormInput from '../../PdsFormHandlers/PdsFormInput';
 import PdsFormSelect from '../../PdsFormHandlers/PdsFormSelect';
 import PdsFormRadio from '../../PdsFormHandlers/PdsFormRadio';
 import PdsFormTextArea from '../../PdsFormHandlers/PdsFormTextArea';

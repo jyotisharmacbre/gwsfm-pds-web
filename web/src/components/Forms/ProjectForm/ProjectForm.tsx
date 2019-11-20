@@ -6,7 +6,7 @@ import {
 import { MainTitle } from '../../Title/Title';
 
 import { Field, reduxForm } from 'redux-form';
-import PdsFormInput from '../../PdsFormHandlers/PdsFromInput';
+import PdsFormInput from '../../PdsFormHandlers/PdsFormInput';
 import PdsFormSelect from '../../PdsFormHandlers/PdsFormSelect';
 import PdsFormRadio from '../../PdsFormHandlers/PdsFormRadio';
 import PdsFormTextArea from '../../PdsFormHandlers/PdsFormTextArea';
