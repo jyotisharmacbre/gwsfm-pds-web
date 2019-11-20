@@ -67,5 +67,16 @@
   "cDMnotifiableRequired": "La notification obligatoire du MDP est requise",
   "assetIsRequired": "L'actif est requis",
   "yes": "OUI",
-  "no": "NON"
+  "no": "NON",
+  "selectProjectStatus": "Sélectionner le statut",
+  "projectName":    "Nom du projet",
+  "companyName":    "Nom de la compagnie",
+  "contractName":   "Nom du contrat",
+  "headOfProject":    "Chef de projet",
+  "projectOwner":   "Propriétaire du projet",
+  "projectManager": "Chef de projet",
+  "projectScope":     "Portée du projet",
+  "projectStatus":   "L'état du projet",
+  "nameIsRequired":    "Le nom est requis"
+
 }

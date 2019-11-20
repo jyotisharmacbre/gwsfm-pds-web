@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage, injectIntl } from 'react-intl';
 
 export function PdsFormInput({
   input,
@@ -8,25 +9,32 @@ export function PdsFormInput({
   placeholder,
   message,
   meta: { touched, error, warning },
-  className
+  className,
+  intl
 }) {
   const errorClass = `${(error && touched) || warning ? 'error' : ''}`;
+  const _placeHolder = placeholder
+    ? intl.formatMessage({ id: placeholder })
+    : placeholder;
+  const _message = message ? intl.formatMessage({ id: message }) : message;
+  const _error = error ? intl.formatMessage({ id: error }) : error;
+  debugger;
   return (
     <div className="form-group">
-      {label && <label htmlFor={name}>{label}</label>}
+      {label && <label htmlFor={name}>{<FormattedMessage id={label} />}</label>}
       <input
         {...input}
-        placeholder={placeholder}
+        placeholder={_placeHolder}
         type={type}
         className={'form-control ' + className + ' ' + errorClass}
       />
       {touched &&
         ((error && (
-          <span className="text-danger">{message + ' is ' + error}</span>
+          <span className="text-danger">{_message + ' is ' + _error}</span>
         )) ||
           (warning && <span className="text-danger">{warning}</span>))}
     </div>
   );
 }
 
-export default PdsFormInput;
+export default injectIntl(PdsFormInput);
