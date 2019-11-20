@@ -8,8 +8,7 @@ import { Provider } from 'react-redux';
 // @ts-ignore
 import b2cauth from '@kdpw/msal-b2c-react';
 import appConfig from './helpers/config-helper';
-import configureStore from './session/store';
-import { store } from './redux/store';
+import { store } from './store';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 const config = appConfig();

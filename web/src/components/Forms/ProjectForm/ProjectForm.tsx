@@ -6,12 +6,12 @@ import {
 import { MainTitle } from '../../Title/Title';
 
 import { Field, reduxForm } from 'redux-form';
-import PdsFormInput from '../../ReduxFormHandlers/PdsFromInput';
-import PdsFormSelect from '../../ReduxFormHandlers/PdsFormSelect';
-import PdsFormRadio from '../../ReduxFormHandlers/PdsFormRadio';
-import PdsFormTextArea from '../../ReduxFormHandlers/PdsFormTextArea';
+import PdsFormInput from '../../PdsFormHandlers/PdsFromInput';
+import PdsFormSelect from '../../PdsFormHandlers/PdsFormSelect';
+import PdsFormRadio from '../../PdsFormHandlers/PdsFormRadio';
+import PdsFormTextArea from '../../PdsFormHandlers/PdsFormTextArea';
 import validate from './validate';
-import PdsFormButton from '../../ReduxFormHandlers/PdsFormButton';
+import PdsFormButton from '../../PdsFormHandlers/PdsFormButton';
 import { selectionButtons } from '../../../helpers/constants';
 
 const ProjectForm = props => {

@@ -1,4 +1,6 @@
+import { map } from 'lodash';
 import React from 'react';
+import { Field } from 'redux-form';
 
 const PdsFormRadio: React.FC = (field: any) => {
   const errorClass = `${field.meta.error && field.meta.touched ? 'error' : ''}`;
@@ -8,12 +10,11 @@ const PdsFormRadio: React.FC = (field: any) => {
       {field.datas.map(data => {
         return (
           <div className="form-check">
-            <input
-              {...field.input}
-              type={field.type}
-              id={data.value}
-              key={data.value}
-              className={'form-check-label' + ' ' + errorClass}
+            <Field
+              name="enquiryTypeId"
+              component="input"
+              type="radio"
+              value={data.value}
             />
             <label className="form-check-label">{data.label}</label>
           </div>
