@@ -1,0 +1,23 @@
+.DateInput{
+    width:0px;
+    display:none;
+}
+
+.date-picker-wrap input {
+    display: inline-block;
+    width: 50px;
+    margin-right: 5px;
+    padding: 7px 5px 8px;
+    text-align: center;
+}
+.date-picker-wrap input.form-control[placeholder="YYYY"] {
+    width: 60px;
+}
+
+.SingleDatePickerInput {
+    background-color: transparent;
+}
+
+.SingleDatePickerInput_calendarIcon {
+    margin:0px;
+}

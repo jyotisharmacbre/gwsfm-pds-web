@@ -2,7 +2,7 @@ import React from 'react';
 import HeaderPage from '../components/HeaderPage/HeaderPage';
 import GeneralTable from '../components/Table/General';
 import { Grid, Container } from '@material-ui/core';
-import ProjectOverviewForm from '../components/Forms/ProjectOverviewForm';
+import ProjectOverviewForm from '../components/Forms/ProjectOverviewForm/ProjectOverviewForm';
 import {
   IGeneralTableHeaderProps,
   IGeneralTableProps
