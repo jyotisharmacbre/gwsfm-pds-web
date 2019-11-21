@@ -4,11 +4,11 @@
     "private": true,
     "jest": {
         "coverageReporters": [
-          "cobertura",
-          "html"
+            "cobertura",
+            "html"
         ]
-      },
-      "jest-junit": {
+    },
+    "jest-junit": {
         "suiteName": "jest tests",
         "output": "test/junit.xml",
         "classNameTemplate": "{classname} - {title}",
@@ -74,19 +74,19 @@
         "redux-thunk": "^2.3.0",
         "typescript": "^3.4.5"
     },
-  "scripts": {
-    "build-css": "node-sass --include -path scss public/scss/style.scss public/css/style.css",
-    "watch-css": "nodemon -e scss -x \"npm run build-css\"",
-    "prettify": "prettier -l \"src/**/*.tsx\" \"src/**/*.ts\" --write",
-    "start": "npm-run-all -p prettify watch-css start-js",
-    "build": "npm run build-css && react-scripts build",
-    "start-js": "react-scripts start",
-    "eject": "react-scripts eject",
-    "test": "react-scripts test",
-    "intl": "cross-env NODE_ENV=development extract-messages --locales=en --output src/Translations/extracted 'src/Translations/messages.ts'",
-    "test:watch": "npm run test -- --watch",
-    "test:ci": "react-scripts test --env=jsdom --testResultsProcessor=\"jest-junit\" --coverage --watchAll=false"
-  },
+    "scripts": {
+        "build-css": "node-sass --include -path scss public/scss/style.scss public/css/style.css",
+        "watch-css": "nodemon -e scss -x \"npm run build-css\"",
+        "prettify": "prettier -l \"src/**/*.tsx\" \"src/**/*.ts\" --write",
+        "start": "npm-run-all -p prettify watch-css start-js",
+        "build": "npm run build-css && react-scripts build",
+        "start-js": "react-scripts start",
+        "eject": "react-scripts eject",
+        "test": "react-scripts test",
+        "intl": "cross-env NODE_ENV=development extract-messages --locales=en --output src/Translations/extracted 'src/Translations/messages.ts'",
+        "test:watch": "npm run test -- --watch",
+        "test:ci": "react-scripts test --env=jsdom --testResultsProcessor=\"jest-junit\" --coverage --watchAll=false"
+    },
     "eslintConfig": {
         "extends": "react-app"
     },
@@ -100,6 +100,7 @@
         "@types/jwt-decode": "^2.2.1",
         "@types/lodash": "^4.14.145",
         "@types/redux-form": "^8.1.9",
+        "canvas": "^2.6.0",
         "check-prop-types": "^1.1.2",
         "cross-env": "^5.2.0",
         "extract-react-intl-messages": "^1.1.0",
