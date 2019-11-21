@@ -17,7 +17,7 @@ import {
   projectStatusData,
   engagementData
 } from '../../../helpers/dropDownFormValues';
-import { required } from '../../../helpers/fieldValidations';
+import { required,email } from '../../../helpers/fieldValidations';
 interface Props {}
 
 let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
@@ -47,6 +47,9 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   label="Main Contractor*"
                   placeHolder="Contractor's name"
                   validate={[required]}
+                  messages={{
+                  required: () => 'Main Contractor is required.',
+                  }}
                 />
                 <Field
                   name={getPropertyName(
@@ -58,6 +61,10 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   component={PdsFormInput}
                   label="Enquiry Received From*"
                   placeHolder="Enquiry Sender Name"
+                  validate={[required]}
+                  messages={{
+                  required: () => 'Required.',
+                  }}
                 />
                 <Field
                   name={getPropertyName(
@@ -69,6 +76,10 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   component={PdsFormInput}
                   label="Potential Customer*"
                   placeHolder="Potential Customer's name"
+                  validate={[required]}
+                  messages={{
+                  required: () => 'Required.',
+                  }}
                 />
                 <Field
                   name={getPropertyName(
@@ -91,6 +102,10 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   component={PdsFormInput}
                   label="Credit Check Result*"
                   placeHolder="Credit Check Result details"
+                  validate={[required]}
+                  messages={{
+                  required: () => 'Required.',
+                  }}
                 />
                 <Field
                   name={getPropertyName(
@@ -102,6 +117,10 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   component={PdsFormInput}
                   label="Site Address*"
                   placeHolder="Add Site address"
+                  validate={[required]}
+                  messages={{
+                  required: () => 'Required.',
+                  }}
                 />
                 <Field
                   name={getPropertyName(
@@ -123,6 +142,10 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   component={PdsFormInput}
                   label="Form of Contract*"
                   placeHolder="Add form of contract"
+                  validate={[required]}
+                  messages={{
+                  required: () => 'Required.',
+                  }}
                 />
                 <Field
                   name={getPropertyName(initialValues, prop => prop.retention)}
@@ -131,6 +154,10 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   component={PdsFormInput}
                   label="Retention*"
                   placeHolder="Add retention"
+                  validate={[required]}
+                  messages={{
+                  required: () => 'Required.',
+                  }}
                 />
                 <Field
                   name={getPropertyName(
@@ -142,6 +169,10 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   component={PdsFormInput}
                   label="Liquidated Damages*"
                   placeHolder="Add Liquidated Damages"
+                  validate={[required]}
+                  messages={{
+                  required: () => 'Required.',
+                  }}
                 />
                 <Field
                   name={getPropertyName(initialValues, prop => prop.insurance)}
@@ -150,6 +181,10 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   component={PdsFormInput}
                   label="Insurance*"
                   placeHolder="Add Insurance"
+                  validate={[required]}
+                  messages={{
+                  required: () => 'Required.',
+                  }}
                 />
                 <Field
                   name={getPropertyName(initialValues, prop => prop.workTypeId)}

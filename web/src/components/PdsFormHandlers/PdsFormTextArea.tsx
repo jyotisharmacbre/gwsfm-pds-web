@@ -9,7 +9,7 @@ export function PdsFormTextArea({
   rows,
   meta: { touched, error, warning },
   className,
-  message
+  messages
 }) {
   const errorClass = `${(error && touched) || warning ? 'error' : ''}`;
   return (
@@ -24,7 +24,7 @@ export function PdsFormTextArea({
       />
       {touched &&
         ((error && (
-          <span className="text-danger">{message + ' is ' + error}</span>
+          <span className="text-danger">{messages && messages[error](input.value)}</span>
         )) ||
           (warning && <span className="text-danger">{warning}</span>))}
     </div>

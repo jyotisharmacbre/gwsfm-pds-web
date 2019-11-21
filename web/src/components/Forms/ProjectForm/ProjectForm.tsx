@@ -43,7 +43,9 @@ const ProjectForm = props => {
                   placeHolder="Enter project name"
                   validate={[required, maxLength1000]}
                   warn={alphaNumeric}
-                  message="Project name"
+                  messages={{
+                  required: () => 'Required.',
+                  }}
                 />
                 <Field
                   name="companyName"
@@ -53,7 +55,9 @@ const ProjectForm = props => {
                   placeHolder="Enter company name"
                   validate={[required, maxLength1000]}
                   warn={alphaNumeric}
-                  message="Company name"
+                  messages={{
+                  required: () => 'Required.',
+                  }}
                 />
                 <Field
                   name="contractName"
@@ -63,7 +67,9 @@ const ProjectForm = props => {
                   placeHolder="Enter contract"
                   validate={[required, maxLength1000]}
                   warn={alphaNumeric}
-                  message="Contract name"
+                  messages={{
+                  required: () => 'Required.',
+                  }}
                 />
                 <Field
                   name="projectHead"
@@ -73,7 +79,9 @@ const ProjectForm = props => {
                   placeHolder="Enter head of project name"
                   validate={[required, maxLength1000]}
                   warn={alphaNumeric}
-                  message="Head of project"
+                  messages={{
+                  required: () => 'Required.',
+                  }}
                 />
                 <Field
                   name="projectOwner"
@@ -83,7 +91,9 @@ const ProjectForm = props => {
                   placeHolder="Project Owner name"
                   validate={[required, maxLength1000]}
                   warn={alphaNumeric}
-                  message="Project Owner"
+                  messages={{
+                  required: () => 'Required.',
+                  }}
                 />
                 <Field
                   name="projectManager"
@@ -93,7 +103,9 @@ const ProjectForm = props => {
                   placeHolder="Enter Project Manager name"
                   validate={[required, maxLength1000]}
                   warn={alphaNumeric}
-                  message="Project manager"
+                  messages={{
+                  required: () => 'Required.',
+                  }}
                 />
 
                 <Field
@@ -111,7 +123,9 @@ const ProjectForm = props => {
                   placeHolder="Type in the details involved in this project"
                   validate={[required, maxLength1000]}
                   warn={alphaNumeric}
-                  message="Project scope"
+                  messages={{
+                  required: () => 'Required.',
+                  }}
                 />
                 <Field
                   name="cnNumber"
@@ -128,7 +142,9 @@ const ProjectForm = props => {
                       component={PdsFormSelect}
                       validate={required}
                       placeHolder="Select status"
-                      message="Project status"
+                      messages={{
+                  required: () => 'Required.',
+                  }}
                     >
                       <option value="">Select project status</option>
                       {DropdownOptions}
@@ -152,7 +168,9 @@ const ProjectForm = props => {
                       component={PdsFormSelect}
                       validate={required}
                       placeHolder="Select country"
-                      message="Country"
+                      messages={{
+                  required: () => 'Required.',
+                  }}
                     >
                       <option value="">Select country</option>
                       {DropdownOptions}
@@ -168,7 +186,9 @@ const ProjectForm = props => {
                       component={PdsFormSelect}
                       validate={required}
                       placeHolder="Select currency"
-                      message="Currency"
+                      messages={{
+                  required: () => 'Required.',
+                  }}
                     >
                       <option value="">Select country</option>
                       {DropdownOptions}
@@ -185,7 +205,9 @@ const ProjectForm = props => {
                   className="width-100"
                   validate={[required, maxLength1000]}
                   warn={alphaNumeric}
-                  message="Probability of wining"
+                  messages={{
+                  required: () => 'Required.',
+                  }}
                 />
 
                 <Field
@@ -197,7 +219,9 @@ const ProjectForm = props => {
                   className="width-120"
                   validate={[required, maxLength1000]}
                   warn={alphaNumeric}
-                  message="Approximate value"
+                  messages={{
+                  required: () => 'Required.',
+                  }}
                 />
 
                 <div className={'form-group'}>
@@ -208,7 +232,9 @@ const ProjectForm = props => {
                       component={PdsFormSelect}
                       validate={required}
                       placeHolder="Select contract type"
-                      message="Contract type"
+                      messages={{
+                  required: () => 'Required.',
+                  }}
                     >
                       <option value="">Select contract type</option>
                       {DropdownOptions}
@@ -230,7 +256,9 @@ const ProjectForm = props => {
                       component={PdsFormSelect}
                       validate={required}
                       placeHolder="Select First Asset"
-                      message="First Asset"
+                      messages={{
+                  required: () => 'Required.',
+                  }}
                     >
                       <option value="">Select First Asset</option>
                       {DropdownOptions}

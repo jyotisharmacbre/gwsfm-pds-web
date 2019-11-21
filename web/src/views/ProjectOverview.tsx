@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import HeaderPage from '../components/HeaderPage/HeaderPage';
 import GeneralTable from '../components/Table/General';
@@ -30,7 +30,7 @@ const table: IGeneralTableProps = {
 
 interface IMapStateToProps {
   form: IProjectAdditionalDetail;
-  notify:Notify;
+  notify: Notify;
 }
 interface IMapDispatchToProps {
   handleProjectOverviewFormSubmit: (
@@ -45,16 +45,18 @@ interface IProps {
 const ProjectOverview: React.FC<
   IProps & IMapStateToProps & IMapDispatchToProps
 > = props => {
-
   useEffect(() => {
-    if(props.notify == Notify.success){
-      alert("data saved successfully");
+    if (props.notify == Notify.success) {
+      alert('data saved successfully');
     }
-  }, [props.notify]); 
+  }, [props.notify]);
 
   const handleSubmit = (values: any) => {
     debugger;
-    props.handleProjectOverviewFormSubmit("69e02934-e33e-488b-c744-08d76e51923c",values);
+    props.handleProjectOverviewFormSubmit(
+      '69e02934-e33e-488b-c744-08d76e51923c',
+      values
+    );
   };
 
   return (
@@ -76,7 +78,7 @@ const ProjectOverview: React.FC<
 
 const mapStateToProps = (state: IState) => ({
   form: state.projectOverview.form,
-  notify:state.projectOverview.notify,
+  notify: state.projectOverview.notify
 });
 
 const mapDispatchToProps = dispatch => {
