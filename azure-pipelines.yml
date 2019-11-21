@@ -52,9 +52,8 @@ steps:
 - task: PublishCodeCoverageResults@1
   inputs:
     codeCoverageTool: 'Cobertura'
-    summaryFileLocation: 'cobertura-coverage.xml'
-    pathToSources: '$(Build.Repository.LocalPath\coverage\)'
-    reportDirectory: '$(Build.Repository.LocalPath\coverage\)'
+    summaryFileLocation: '$(System.DefaultWorkingDirectory)/coverage/cobertura-coverage.xml'
+    reportDirectory: '$(System.DefaultWorkingDirectory)/coverage/'
 
 - task: ArchiveFiles@2
   inputs:
