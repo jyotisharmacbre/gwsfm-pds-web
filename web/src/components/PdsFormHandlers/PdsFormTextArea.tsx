@@ -6,7 +6,7 @@ export function PdsFormTextArea({
   labelKey,
   type,
   name,
-  placeholder,
+  placeholderKey,
   rows,
   meta: { touched, error, warning },
   className,
@@ -14,9 +14,9 @@ export function PdsFormTextArea({
   intl
 }) {
   const errorClass = `${(error && touched) || warning ? 'error' : ''}`;
-  const _placeHolder = placeholder
-    ? intl.formatMessage({ id: placeholder })
-    : placeholder;
+  const _placeholder = placeholderKey
+    ? intl.formatMessage({ id: placeholderKey })
+    : placeholderKey;
   const _message = message ? intl.formatMessage({ id: message }) : message;
   const _error = error ? intl.formatMessage({ id: error }) : error;
   return (
@@ -26,7 +26,7 @@ export function PdsFormTextArea({
       )}
       <textarea
         {...input}
-        placeholder={_placeHolder}
+        placeholder={_placeholder}
         rows={rows}
         type={type}
         className={'form-control ' + className + ' ' + errorClass}

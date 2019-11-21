@@ -46,7 +46,7 @@ const ProjectForm = props => {
                   warn={alphaNumeric}
                   message="MESSAGE_PROJECT_NAME"
                   labelKey="LABEL_PROJECT"
-                  placeholder="PLACEHOLDER_PROJECT_NAME"
+                  placeholderKey="PLACEHOLDER_PROJECT_NAME"
                 />
                 <Field
                   name="companyName"
@@ -56,7 +56,7 @@ const ProjectForm = props => {
                   warn={alphaNumeric}
                   message="MESSAGE_COMPANY_NAME"
                   labelKey="LABEL_COMPANY"
-                  placeholder="PLACEHOLDER_COMPANY_NAME"
+                  placeholderKey="PLACEHOLDER_COMPANY_NAME"
                 />
                 <Field
                   name="contractName"
@@ -66,7 +66,7 @@ const ProjectForm = props => {
                   warn={alphaNumeric}
                   message="MESSAGE_CONTRACT_NAME"
                   labelKey="LABEL_CONTRACT"
-                  placeholder="PLACEHOLDER_CONTRACT"
+                  placeholderKey="PLACEHOLDER_CONTRACT"
                 />
                 <Field
                   name="projectHead"
@@ -76,7 +76,7 @@ const ProjectForm = props => {
                   warn={alphaNumeric}
                   message="MESSAGE_HEAD_OF_PROJECT"
                   labelKey="LABEL_HEAD_OF_PROJECT"
-                  placeholder="PLACEHOLDER_HEAD_OF_PROJECT_NAME"
+                  placeholderKey="PLACEHOLDER_HEAD_OF_PROJECT_NAME"
                 />
                 <Field
                   name="projectOwner"
@@ -85,8 +85,8 @@ const ProjectForm = props => {
                   validate={[required, maxLength1000]}
                   warn={alphaNumeric}
                   message="MESSAGE_PROJECT_OWNER"
-                  labelKey="LABEL_PROJECT_OWNER*"
-                  placeholder="PLACEHOLDER_PROJECT_OWNER_NAME"
+                  labelKey="LABEL_PROJECT_OWNER"
+                  placeholderKey="PLACEHOLDER_PROJECT_OWNER_NAME"
                 />
                 <Field
                   name="projectManager"
@@ -95,8 +95,8 @@ const ProjectForm = props => {
                   validate={[required, maxLength1000]}
                   warn={alphaNumeric}
                   message="MESSAGE_PROJECT_MANAGER"
-                  labelKey="LABEL_PROJECT_MANAGER*"
-                  placeholder="PLACEHOLDER_PROJECT_MANAGER"
+                  labelKey="LABEL_PROJECT_MANAGER"
+                  placeholderKey="PLACEHOLDER_PROJECT_MANAGER"
                 />
 
                 <Field
@@ -111,7 +111,7 @@ const ProjectForm = props => {
                   name="projectScope"
                   rows="7"
                   component={PdsFormTextArea}
-                  placeholder="PACEHODER_PROJECT_SCOPE"
+                  placeholderKey="PACEHODER_PROJECT_SCOPE"
                   validate={[required, maxLength1000]}
                   warn={alphaNumeric}
                   message="MESSAGE_PROJECT_SCOPE"
@@ -121,7 +121,7 @@ const ProjectForm = props => {
                   type="text"
                   component={PdsFormInput}
                   labelKey="LABEL_CN_NUMBER"
-                  placeholder="PLACEHOLDER_CN_NUMBER"
+                  placeholderKey="PLACEHOLDER_CN_NUMBER"
                 />
                 <div className={'form-group'}>
                   <label>
@@ -132,7 +132,7 @@ const ProjectForm = props => {
                       name="projectStatus"
                       component={PdsFormSelect}
                       validate={required}
-                      placeholder="PLACEHOLDER_PROJECT_STATUS"
+                      placeholderKey="PLACEHOLDER_PROJECT_STATUS"
                       message="MESSAGE_PROJECT_STATUS"
                     >
                       <FormattedMessage id="PLACEHOLDER_PROJECT_STATUS">
@@ -160,7 +160,7 @@ const ProjectForm = props => {
                       name="country"
                       component={PdsFormSelect}
                       validate={required}
-                      placeholder="PLACEHOLDER_COUNTRY"
+                      placeholderKey="PLACEHOLDER_COUNTRY"
                       message="MESSAGE_COUNTRY"
                     >
                       <FormattedMessage id="PLACEHOLDER_COUNTRY">
@@ -181,7 +181,7 @@ const ProjectForm = props => {
                       name="currency"
                       component={PdsFormSelect}
                       validate={required}
-                      placeholder="PLACEHOLDER_CURRENCY"
+                      placeholderKey="PLACEHOLDER_CURRENCY"
                       message="MESSAGE_CURRENCY"
                     >
                       <FormattedMessage id="PLACEHOLDER_CURRENCY">
@@ -197,8 +197,8 @@ const ProjectForm = props => {
                   name="winProbabilty"
                   type="text"
                   component={PdsFormInput}
-                  labelKey="LABEL_PROBABILITY_OF_WINING*"
-                  placeholder="PLACEHOLDER_WIN_PROBABILITY"
+                  labelKey="LABEL_PROBABILITY_OF_WINING"
+                  placeholderKey="PLACEHOLDER_WIN_PROBABILITY"
                   className="width-100"
                   validate={[required, maxLength1000]}
                   warn={alphaNumeric}
@@ -210,7 +210,7 @@ const ProjectForm = props => {
                   type="text"
                   component={PdsFormInput}
                   labelKey="LABEL_APPROXIMATE_VALUE"
-                  placeholder=""
+                  placeholderKey=""
                   className="width-120"
                   validate={[required, maxLength1000]}
                   warn={alphaNumeric}
@@ -226,7 +226,7 @@ const ProjectForm = props => {
                       name="contractType"
                       component={PdsFormSelect}
                       validate={required}
-                      placeholder="PLACEHOLDER_CONTRACT_TYPE"
+                      placeholderKey="PLACEHOLDER_CONTRACT_TYPE"
                       message="MESSAGE_CONTRACT_TYPE"
                     >
                       <FormattedMessage id="PLACEHOLDER_CONTRACT_TYPE">
@@ -245,14 +245,14 @@ const ProjectForm = props => {
                 />
                 <div className={'form-group'}>
                   <label>
-                    <FormattedMessage id="LABEL_ASSETS_WORKED_ON*" />
+                    <FormattedMessage id="LABEL_ASSETS_WORKED_ON" />
                   </label>
                   <div className="select-wrapper">
                     <Field
                       name="assetworkedonprimary"
                       component={PdsFormSelect}
                       validate={required}
-                      placeholder="PLACEHOLDER_FIRST_ASSET"
+                      placeholderKey="PLACEHOLDER_FIRST_ASSET"
                       message="MESSAGE_FIRST_ASSET"
                     >
                       <FormattedMessage id="PLACEHOLDER_FIRST_ASSET">
@@ -266,7 +266,7 @@ const ProjectForm = props => {
                     <Field
                       name="assetworkedonsecond"
                       component={PdsFormSelect}
-                      placeholder="PLACEHOLDER_SECOND_ASSET"
+                      placeholderKey="PLACEHOLDER_SECOND_ASSET"
                     >
                       <FormattedMessage id="PLACEHOLDER_SECOND_ASSET">
                         {message => <option value="">{message}</option>}
@@ -279,7 +279,7 @@ const ProjectForm = props => {
                     <Field
                       name="assetworkedonthird"
                       component={PdsFormSelect}
-                      placeholder="PLACEHOLDER_THIRD_ASSET"
+                      placeholderKey="PLACEHOLDER_THIRD_ASSET"
                     >
                       <FormattedMessage id="PLACEHOLDER_THIRD_ASSET">
                         {message => <option value="">{message}</option>}
@@ -294,7 +294,7 @@ const ProjectForm = props => {
                   name="comments"
                   rows="7"
                   component={PdsFormTextArea}
-                  placeholder="PLACEHOLDER_ADDITIONAL_COMMENTS"
+                  placeholderKey="PLACEHOLDER_ADDITIONAL_COMMENTS"
                 />
               </div>
             </div>

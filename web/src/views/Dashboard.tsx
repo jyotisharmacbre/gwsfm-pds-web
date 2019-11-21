@@ -100,7 +100,9 @@ class Dashboard extends React.Component<IReactIntl> {
           Title={Translate.getLabel(this.props, 'TITLE_OVERVIEW')}
           ActionList={this.GetButtons()}
         />
-        <CardContainer Title={Translate.getLabel(this.props, 'TITLE_YOUR_PROJECT')}>
+        <CardContainer
+          Title={Translate.getLabel(this.props, 'TITLE_YOUR_PROJECT')}
+        >
           <Table
             columns={this.createTableColumns()}
             data={this.getTableData()}
@@ -117,7 +119,9 @@ class Dashboard extends React.Component<IReactIntl> {
               </CardContainer>
             </Grid>
             <Grid item xs={12} sm={12} lg={6} md={6}>
-              <CardContainer Title={Translate.getLabel(this.props, 'TITLE_RUNRATE')}>
+              <CardContainer
+                Title={Translate.getLabel(this.props, 'TITLE_RUNRATE')}
+              >
                 <RunRateChart
                   ICE={56}
                   JandA={12}

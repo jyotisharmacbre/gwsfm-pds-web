@@ -2,9 +2,9 @@ import React from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
 
 const PdsFormTextArea: React.FC = (field: any) => {
-  const _placeholder = field.placeHolder
-    ? field.intl.formatMessage({ id: field.placeHolder })
-    : field.placeHolder;
+  const _placeholder = field.placeholderKey
+    ? field.intl.formatMessage({ id: field.placeholderKey })
+    : field.placeholderKey;
 
   const errorClass = `${field.meta.error && field.meta.touched ? 'error' : ''}`;
   return (

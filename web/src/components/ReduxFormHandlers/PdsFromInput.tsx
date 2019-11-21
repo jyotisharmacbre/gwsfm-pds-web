@@ -4,9 +4,9 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 const PdsFormInput: React.FC = (field: any) => {
   const errorClass = `${field.meta.error && field.meta.touched ? 'error' : ''}`;
 
-  const _placeholder = field.placeHolder
-    ? field.intl.formatMessage({ id: field.placeHolder })
-    : field.placeHolder;
+  const _placeholder = field.placeholderKey
+    ? field.intl.formatMessage({ id: field.placeholderKey })
+    : field.placeholderKey;
 
   return (
     <div className={'form-group'}>

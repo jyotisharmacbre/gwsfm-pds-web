@@ -6,16 +6,16 @@ export function PdsFormInput({
   labelKey,
   type,
   name,
-  placeholder,
+  placeholderKey,
   message,
   meta: { touched, error, warning },
   className,
   intl
 }) {
   const errorClass = `${(error && touched) || warning ? 'error' : ''}`;
-  const _placeHolder = placeholder
-    ? intl.formatMessage({ id: placeholder })
-    : placeholder;
+  const _placeholder = placeholderKey
+    ? intl.formatMessage({ id: placeholderKey })
+    : placeholderKey;
   const _message = message ? intl.formatMessage({ id: message }) : message;
   const _error = error ? intl.formatMessage({ id: error }) : error;
   return (
@@ -25,7 +25,7 @@ export function PdsFormInput({
       )}
       <input
         {...input}
-        placeholder={_placeHolder}
+        placeholder={_placeholder}
         type={type}
         className={'form-control ' + className + ' ' + errorClass}
       />
