@@ -44,7 +44,7 @@ const ProjectForm = props => {
                   component={PdsFormInput}
                   validate={[required, maxLength1000]}
                   warn={alphaNumeric}
-                  message="MESSAGE_PROJECT_NAME"
+                  messageKey="MESSAGE_PROJECT_NAME"
                   labelKey="LABEL_PROJECT"
                   placeholderKey="PLACEHOLDER_PROJECT_NAME"
                 />
@@ -54,7 +54,7 @@ const ProjectForm = props => {
                   component={PdsFormInput}
                   validate={[required, maxLength1000]}
                   warn={alphaNumeric}
-                  message="MESSAGE_COMPANY_NAME"
+                  messageKey="MESSAGE_COMPANY_NAME"
                   labelKey="LABEL_COMPANY"
                   placeholderKey="PLACEHOLDER_COMPANY_NAME"
                 />
@@ -64,7 +64,7 @@ const ProjectForm = props => {
                   component={PdsFormInput}
                   validate={[required, maxLength1000]}
                   warn={alphaNumeric}
-                  message="MESSAGE_CONTRACT_NAME"
+                  messageKey="MESSAGE_CONTRACT_NAME"
                   labelKey="LABEL_CONTRACT"
                   placeholderKey="PLACEHOLDER_CONTRACT"
                 />
@@ -74,7 +74,7 @@ const ProjectForm = props => {
                   component={PdsFormInput}
                   validate={[required, maxLength1000]}
                   warn={alphaNumeric}
-                  message="MESSAGE_HEAD_OF_PROJECT"
+                  messageKey="MESSAGE_HEAD_OF_PROJECT"
                   labelKey="LABEL_HEAD_OF_PROJECT"
                   placeholderKey="PLACEHOLDER_HEAD_OF_PROJECT_NAME"
                 />
@@ -84,7 +84,7 @@ const ProjectForm = props => {
                   component={PdsFormInput}
                   validate={[required, maxLength1000]}
                   warn={alphaNumeric}
-                  message="MESSAGE_PROJECT_OWNER"
+                  messageKey="MESSAGE_PROJECT_OWNER"
                   labelKey="LABEL_PROJECT_OWNER"
                   placeholderKey="PLACEHOLDER_PROJECT_OWNER_NAME"
                 />
@@ -94,7 +94,7 @@ const ProjectForm = props => {
                   component={PdsFormInput}
                   validate={[required, maxLength1000]}
                   warn={alphaNumeric}
-                  message="MESSAGE_PROJECT_MANAGER"
+                  messageKey="MESSAGE_PROJECT_MANAGER"
                   labelKey="LABEL_PROJECT_MANAGER"
                   placeholderKey="PLACEHOLDER_PROJECT_MANAGER"
                 />
@@ -114,7 +114,7 @@ const ProjectForm = props => {
                   placeholderKey="PACEHODER_PROJECT_SCOPE"
                   validate={[required, maxLength1000]}
                   warn={alphaNumeric}
-                  message="MESSAGE_PROJECT_SCOPE"
+                  messageKey="MESSAGE_PROJECT_SCOPE"
                 />
                 <Field
                   name="cnNumber"
@@ -133,7 +133,7 @@ const ProjectForm = props => {
                       component={PdsFormSelect}
                       validate={required}
                       placeholderKey="PLACEHOLDER_PROJECT_STATUS"
-                      message="MESSAGE_PROJECT_STATUS"
+                      messageKey="MESSAGE_PROJECT_STATUS"
                     >
                       <FormattedMessage id="PLACEHOLDER_PROJECT_STATUS">
                         {message => <option value="">{message}</option>}
@@ -161,7 +161,7 @@ const ProjectForm = props => {
                       component={PdsFormSelect}
                       validate={required}
                       placeholderKey="PLACEHOLDER_COUNTRY"
-                      message="MESSAGE_COUNTRY"
+                      messageKey="MESSAGE_COUNTRY"
                     >
                       <FormattedMessage id="PLACEHOLDER_COUNTRY">
                         {message => <option value="">{message}</option>}
@@ -182,7 +182,7 @@ const ProjectForm = props => {
                       component={PdsFormSelect}
                       validate={required}
                       placeholderKey="PLACEHOLDER_CURRENCY"
-                      message="MESSAGE_CURRENCY"
+                      messageKey="MESSAGE_CURRENCY"
                     >
                       <FormattedMessage id="PLACEHOLDER_CURRENCY">
                         {message => <option value="">{message}</option>}
@@ -202,7 +202,7 @@ const ProjectForm = props => {
                   className="width-100"
                   validate={[required, maxLength1000]}
                   warn={alphaNumeric}
-                  message="MESSAGE_PROBABILITYOFWINING"
+                  messageKey="MESSAGE_PROBABILITYOFWINING"
                 />
 
                 <Field
@@ -214,7 +214,7 @@ const ProjectForm = props => {
                   className="width-120"
                   validate={[required, maxLength1000]}
                   warn={alphaNumeric}
-                  message="MESSAGE_APPROXIMATE_VALUE"
+                  messageKey="MESSAGE_APPROXIMATE_VALUE"
                 />
 
                 <div className={'form-group'}>
@@ -227,7 +227,7 @@ const ProjectForm = props => {
                       component={PdsFormSelect}
                       validate={required}
                       placeholderKey="PLACEHOLDER_CONTRACT_TYPE"
-                      message="MESSAGE_CONTRACT_TYPE"
+                      messageKey="MESSAGE_CONTRACT_TYPE"
                     >
                       <FormattedMessage id="PLACEHOLDER_CONTRACT_TYPE">
                         {message => <option value="">{message}</option>}
@@ -253,7 +253,7 @@ const ProjectForm = props => {
                       component={PdsFormSelect}
                       validate={required}
                       placeholderKey="PLACEHOLDER_FIRST_ASSET"
-                      message="MESSAGE_FIRST_ASSET"
+                      messageKey="MESSAGE_FIRST_ASSET"
                     >
                       <FormattedMessage id="PLACEHOLDER_FIRST_ASSET">
                         {message => <option value="">{message}</option>}

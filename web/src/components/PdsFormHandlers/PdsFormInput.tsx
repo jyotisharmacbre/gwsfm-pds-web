@@ -7,7 +7,7 @@ export function PdsFormInput({
   type,
   name,
   placeholderKey,
-  message,
+  messageKey,
   meta: { touched, error, warning },
   className,
   intl
@@ -16,7 +16,9 @@ export function PdsFormInput({
   const _placeholder = placeholderKey
     ? intl.formatMessage({ id: placeholderKey })
     : placeholderKey;
-  const _message = message ? intl.formatMessage({ id: message }) : message;
+  const _message = messageKey
+    ? intl.formatMessage({ id: messageKey })
+    : messageKey;
   const _error = error ? intl.formatMessage({ id: error }) : error;
   return (
     <div className="form-group">

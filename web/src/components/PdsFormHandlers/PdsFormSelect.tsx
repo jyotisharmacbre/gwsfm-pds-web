@@ -3,7 +3,7 @@ import React from 'react';
 export function PdsFormSelect({
   input,
   meta: { touched, error },
-  message,
+  messageKey,
   children
 }) {
   const errorClass = `${error && touched ? 'error' : ''}`;
@@ -15,7 +15,7 @@ export function PdsFormSelect({
 
       {touched &&
         (error && (
-          <span className="text-danger">{message + ' is ' + error}</span>
+          <span className="text-danger">{messageKey + ' is ' + error}</span>
         ))}
     </React.Fragment>
   );
