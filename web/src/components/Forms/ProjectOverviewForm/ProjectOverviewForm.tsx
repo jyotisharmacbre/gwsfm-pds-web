@@ -17,13 +17,8 @@ import {
   projectStatusData,
   engagementData
 } from '../../../helpers/dropDownFormValues';
-
+import { required } from '../../../helpers/fieldValidations';
 interface Props {}
-
-let dates = {
-  dateOneLabel: '',
-  dateTwoLabel: ''
-};
 
 let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
   props: any
@@ -51,6 +46,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   component={PdsFormInput}
                   label="Main Contractor*"
                   placeHolder="Contractor's name"
+                  validate={[required]}
                 />
                 <Field
                   name={getPropertyName(

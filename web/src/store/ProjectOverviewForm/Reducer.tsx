@@ -2,11 +2,12 @@ import { ActionType } from './Types/ActionType';
 import { updateObject } from '../../helpers/utility-helper';
 import { IProjectOverviewState } from './Types/IProjectOverviewState';
 import moment from 'moment';
+import Notify from '../../enums/Notify';
 
 const initialState: IProjectOverviewState = {
   form: {
     projectAddDetailId: '',
-    projectId: '',
+    projectId: '40624d8c-e95d-4df8-9790-08d76e3ae812',
     mainContractor: '',
     enquiryReceivedFrom: '',
     potentialCustomer: '',
@@ -35,14 +36,15 @@ const initialState: IProjectOverviewState = {
     authorizedByThird: ''
   },
   error: null,
-  loading: false
+  loading: false,
+  notify: Notify.none
 };
 
 const projectOverviewFormAddSuccess = (oldState, action) => {
   return updateObject(oldState, {
     error: null,
     loading: false,
-    form: action.payload
+    notify: Notify.success
   });
 };
 
@@ -57,7 +59,8 @@ const projectOverviewFormEditSuccess = (oldState, action) => {
 const projectOverviewFormError = (oldState, action) => {
   return updateObject(oldState, {
     error: action.error,
-    loading: false
+    loading: false,
+    notify: Notify.error
   });
 };
 

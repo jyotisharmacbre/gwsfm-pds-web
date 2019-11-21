@@ -2,6 +2,7 @@ import * as axios from '../../client';
 import { ActionType } from './Types/ActionType';
 import { Dispatch } from 'redux';
 import { IProjectAdditionalDetail } from './Types/IProjectAdditionalDetail';
+import moment from 'moment';
 
 const projectOverviewFormAddSuccess = (response: any) => {
   return {
@@ -23,11 +24,19 @@ const projectOverviewFormError = (error: string) => {
     payload: error
   };
 };
-
-export const projectOverviewFormAdd = (data: IProjectAdditionalDetail) => {
+let config = {
+  headers: {
+    'Content-Type': 'application/json'
+  }
+};
+export const projectOverviewFormAdd = (
+  projectId: string,
+  data: IProjectAdditionalDetail
+) => {
+  data.projectId = projectId;
   return (dispatch: Dispatch) => {
     axios.baseAPI
-      .post('/projectoverview/add')
+      .post('api/Projects/additionalDetails', data, config)
       .then(response => {
         dispatch(projectOverviewFormAddSuccess(response.data));
       })
