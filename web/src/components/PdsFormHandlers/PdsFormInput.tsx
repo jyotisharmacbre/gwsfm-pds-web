@@ -18,7 +18,6 @@ export function PdsFormInput({
     : placeholder;
   const _message = message ? intl.formatMessage({ id: message }) : message;
   const _error = error ? intl.formatMessage({ id: error }) : error;
-  debugger;
   return (
     <div className="form-group">
       {label && <label htmlFor={name}>{<FormattedMessage id={label} />}</label>}
