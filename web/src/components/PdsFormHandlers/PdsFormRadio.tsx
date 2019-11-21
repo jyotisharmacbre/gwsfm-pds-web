@@ -8,7 +8,7 @@ const PdsFormRadio: React.FC = (field: any) => {
   return (
     <div className="form-group">
       <label>
-        <FormattedMessage id={field.label} />
+        <FormattedMessage id={field.labelKey} />
       </label>
       {field.datas.map(data => {
         return (

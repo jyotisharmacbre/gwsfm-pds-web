@@ -8,9 +8,9 @@ const PdsFormSelect: React.FC = (field: any) => {
     : field.placeHolder;
   return (
     <div className={'form-group ' + field.className}>
-      {field.label && (
+      {field.labelKey && (
         <label>
-          <FormattedMessage id={field.label} />
+          <FormattedMessage id={field.labelKey} />
         </label>
       )}
       <div className="select-wrapper">

@@ -36,7 +36,7 @@ const ProjectForm = props => {
             <div className="row">
               <div className="col-lg-8">
                 <MainTitle>
-                  <FormattedMessage id="customerEnquiry" />
+                  <FormattedMessage id="HEADING_CUSTOMER_ENQUIRY" />
                 </MainTitle>
                 <Field
                   name="projectName"
@@ -44,9 +44,9 @@ const ProjectForm = props => {
                   component={PdsFormInput}
                   validate={[required, maxLength1000]}
                   warn={alphaNumeric}
-                  message="projectName"
-                  label="project*"
-                  placeholder="enterProjectName"
+                  message="MESSAGE_PROJECT_NAME"
+                  labelKey="LABEL_PROJECT"
+                  placeholder="PLACEHOLDER_PROJECT_NAME"
                 />
                 <Field
                   name="companyName"
@@ -54,9 +54,9 @@ const ProjectForm = props => {
                   component={PdsFormInput}
                   validate={[required, maxLength1000]}
                   warn={alphaNumeric}
-                  message="companyName"
-                  label="company*"
-                  placeholder="enterCompanyName"
+                  message="MESSAGE_COMPANY_NAME"
+                  labelKey="LABEL_COMPANY"
+                  placeholder="PLACEHOLDER_COMPANY_NAME"
                 />
                 <Field
                   name="contractName"
@@ -64,9 +64,9 @@ const ProjectForm = props => {
                   component={PdsFormInput}
                   validate={[required, maxLength1000]}
                   warn={alphaNumeric}
-                  message="contractName"
-                  label="contract*"
-                  placeholder="enterContract"
+                  message="MESSAGE_CONTRACT_NAME"
+                  labelKey="LABEL_CONTRACT"
+                  placeholder="PLACEHOLDER_CONTRACT"
                 />
                 <Field
                   name="projectHead"
@@ -74,9 +74,9 @@ const ProjectForm = props => {
                   component={PdsFormInput}
                   validate={[required, maxLength1000]}
                   warn={alphaNumeric}
-                  message="headOfProject"
-                  label="headOfProject*"
-                  placeholder="enterHeadOfProjectName"
+                  message="MESSAGE_HEAD_OF_PROJECT"
+                  labelKey="LABEL_HEAD_OF_PROJECT"
+                  placeholder="PLACEHOLDER_HEAD_OF_PROJECT_NAME"
                 />
                 <Field
                   name="projectOwner"
@@ -84,9 +84,9 @@ const ProjectForm = props => {
                   component={PdsFormInput}
                   validate={[required, maxLength1000]}
                   warn={alphaNumeric}
-                  message="projectOwner"
-                  label="projectOwner*"
-                  placeholder="projectOwnerName"
+                  message="MESSAGE_PROJECT_OWNER"
+                  labelKey="LABEL_PROJECT_OWNER*"
+                  placeholder="PLACEHOLDER_PROJECT_OWNER_NAME"
                 />
                 <Field
                   name="projectManager"
@@ -94,48 +94,48 @@ const ProjectForm = props => {
                   component={PdsFormInput}
                   validate={[required, maxLength1000]}
                   warn={alphaNumeric}
-                  message="projectManager"
-                  label="projectManager*"
-                  placeholder="enterProjectManagerName"
+                  message="MESSAGE_PROJECT_MANAGER"
+                  labelKey="LABEL_PROJECT_MANAGER*"
+                  placeholder="PLACEHOLDER_PROJECT_MANAGER"
                 />
 
                 <Field
                   name="mngExperience"
                   component={PdsFormButton}
                   buttons={selectionButtons}
-                  label="projectManagerHasExperiencen"
+                  labelKey="LABEL_PROJECT_MANAGER_EXPERIENCEN"
                 />
 
                 <Field
-                  label="projectScope*"
+                  labelKey="LABEL_PROJECT_SCOPE"
                   name="projectScope"
                   rows="7"
                   component={PdsFormTextArea}
-                  placeholder="typeInTheDetailsInvolved"
+                  placeholder="PACEHODER_PROJECT_SCOPE"
                   validate={[required, maxLength1000]}
                   warn={alphaNumeric}
-                  message="projectScope"
+                  message="MESSAGE_PROJECT_SCOPE"
                 />
                 <Field
                   name="cnNumber"
                   type="text"
                   component={PdsFormInput}
-                  label="cNNumber"
-                  placeholder="enterCNNumber"
+                  labelKey="LABEL_CN_NUMBER"
+                  placeholder="PLACEHOLDER_CN_NUMBER"
                 />
                 <div className={'form-group'}>
                   <label>
-                    <FormattedMessage id="projectStatus*" />
+                    <FormattedMessage id="LABEL_PROJECT_STATUS" />
                   </label>
                   <div className="select-wrapper">
                     <Field
                       name="projectStatus"
                       component={PdsFormSelect}
                       validate={required}
-                      placeholder="selectProjectStatus"
-                      message="projectStatus"
+                      placeholder="PLACEHOLDER_PROJECT_STATUS"
+                      message="MESSAGE_PROJECT_STATUS"
                     >
-                      <FormattedMessage id="selectProjectStatus">
+                      <FormattedMessage id="PLACEHOLDER_PROJECT_STATUS">
                         {message => <option value="">{message}</option>}
                       </FormattedMessage>
                       {DropdownOptions}
@@ -148,22 +148,22 @@ const ProjectForm = props => {
                   type="radio"
                   datas={engagementData}
                   component={PdsFormRadio}
-                  label="typeOfEngagement"
+                  labelKey="LABEL_TYPE_OF_ENGAGEMENT"
                 />
 
                 <div className={'form-group'}>
                   <label>
-                    <FormattedMessage id="country*" />
+                    <FormattedMessage id="LABEL_COUNTRY" />
                   </label>
                   <div className="select-wrapper">
                     <Field
                       name="country"
                       component={PdsFormSelect}
                       validate={required}
-                      placeholder="selectCountry"
-                      message="country"
+                      placeholder="PLACEHOLDER_COUNTRY"
+                      message="MESSAGE_COUNTRY"
                     >
-                      <FormattedMessage id="selectCountry">
+                      <FormattedMessage id="PLACEHOLDER_COUNTRY">
                         {message => <option value="">{message}</option>}
                       </FormattedMessage>
 
@@ -174,17 +174,17 @@ const ProjectForm = props => {
 
                 <div className={'form-group'}>
                   <label>
-                    <FormattedMessage id="currency*" />
+                    <FormattedMessage id="LABEL_CURRENCY" />
                   </label>
                   <div className="select-wrapper">
                     <Field
                       name="currency"
                       component={PdsFormSelect}
                       validate={required}
-                      placeholder="selectCurrency"
-                      message="currency"
+                      placeholder="PLACEHOLDER_CURRENCY"
+                      message="MESSAGE_CURRENCY"
                     >
-                      <FormattedMessage id="selectCurrency">
+                      <FormattedMessage id="PLACEHOLDER_CURRENCY">
                         {message => <option value="">{message}</option>}
                       </FormattedMessage>
 
@@ -197,39 +197,39 @@ const ProjectForm = props => {
                   name="winProbabilty"
                   type="text"
                   component={PdsFormInput}
-                  label="probabilityOfWining*"
-                  placeholder="00%"
+                  labelKey="LABEL_PROBABILITY_OF_WINING*"
+                  placeholder="PLACEHOLDER_WIN_PROBABILITY"
                   className="width-100"
                   validate={[required, maxLength1000]}
                   warn={alphaNumeric}
-                  message="probabilityOfWining"
+                  message="MESSAGE_PROBABILITYOFWINING"
                 />
 
                 <Field
                   name="approxValue"
                   type="text"
                   component={PdsFormInput}
-                  label="approximateValue*"
+                  labelKey="LABEL_APPROXIMATE_VALUE"
                   placeholder=""
                   className="width-120"
                   validate={[required, maxLength1000]}
                   warn={alphaNumeric}
-                  message="approximateValue"
+                  message="MESSAGE_APPROXIMATE_VALUE"
                 />
 
                 <div className={'form-group'}>
                   <label>
-                    <FormattedMessage id="contractType*" />
+                    <FormattedMessage id="LABEL_CONTRACT_TYPE" />
                   </label>
                   <div className="select-wrapper">
                     <Field
                       name="contractType"
                       component={PdsFormSelect}
                       validate={required}
-                      placeholder="selectContractType"
-                      message="contractType"
+                      placeholder="PLACEHOLDER_CONTRACT_TYPE"
+                      message="MESSAGE_CONTRACT_TYPE"
                     >
-                      <FormattedMessage id="selectContractType">
+                      <FormattedMessage id="PLACEHOLDER_CONTRACT_TYPE">
                         {message => <option value="">{message}</option>}
                       </FormattedMessage>
                       {DropdownOptions}
@@ -241,21 +241,21 @@ const ProjectForm = props => {
                   name="cdmNotifiable"
                   component={PdsFormButton}
                   buttons={selectionButtons}
-                  label="cDMNotifiable"
+                  labelKey="LABEL_CDMNOTIFIABLE"
                 />
                 <div className={'form-group'}>
                   <label>
-                    <FormattedMessage id="assetsWorkedOn*" />
+                    <FormattedMessage id="LABEL_ASSETS_WORKED_ON*" />
                   </label>
                   <div className="select-wrapper">
                     <Field
                       name="assetworkedonprimary"
                       component={PdsFormSelect}
                       validate={required}
-                      placeholder="selectFirstAsset"
-                      message="firstAsset"
+                      placeholder="PLACEHOLDER_FIRST_ASSET"
+                      message="MESSAGE_FIRST_ASSET"
                     >
-                      <FormattedMessage id="selectFirstAsset">
+                      <FormattedMessage id="PLACEHOLDER_FIRST_ASSET">
                         {message => <option value="">{message}</option>}
                       </FormattedMessage>
                       {DropdownOptions}
@@ -266,9 +266,9 @@ const ProjectForm = props => {
                     <Field
                       name="assetworkedonsecond"
                       component={PdsFormSelect}
-                      placeholder="selectSecondAsset"
+                      placeholder="PLACEHOLDER_SECOND_ASSET"
                     >
-                      <FormattedMessage id="selectSecondAsset">
+                      <FormattedMessage id="PLACEHOLDER_SECOND_ASSET">
                         {message => <option value="">{message}</option>}
                       </FormattedMessage>
                       {DropdownOptions}
@@ -279,9 +279,9 @@ const ProjectForm = props => {
                     <Field
                       name="assetworkedonthird"
                       component={PdsFormSelect}
-                      placeholder="selectThirdAsset"
+                      placeholder="PLACEHOLDER_THIRD_ASSET"
                     >
-                      <FormattedMessage id="selectThirdAsset">
+                      <FormattedMessage id="PLACEHOLDER_THIRD_ASSET">
                         {message => <option value="">{message}</option>}
                       </FormattedMessage>
                       {DropdownOptions}
@@ -290,20 +290,20 @@ const ProjectForm = props => {
                 </div>
 
                 <Field
-                  label="comments"
+                  labelKey="LABEL_COMMENTS"
                   name="comments"
                   rows="7"
                   component={PdsFormTextArea}
-                  placeholder="typeInAdditionalComments"
+                  placeholder="PLACEHOLDER_ADDITIONAL_COMMENTS"
                 />
               </div>
             </div>
             <div className="mr-35 d-flex justify-content-between mb-4">
               <button className="active mb-4 mt-5" type="submit">
-                <FormattedMessage id="saveAndClose" />
+                <FormattedMessage id="BUTTON_SAVE_AND_CLOSE" />
               </button>
               <button type="submit" className="mb-4 mt-5 text-right mr-0">
-                <FormattedMessage id="next" />
+                <FormattedMessage id="BUTTON_NEXT" />
               </button>
             </div>
           </form>

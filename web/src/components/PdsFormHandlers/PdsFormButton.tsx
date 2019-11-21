@@ -9,7 +9,7 @@ interface CustomButton {
 interface Props {
   buttons: Array<CustomButton>;
   input: any;
-  label: string;
+  labelKey: string;
 }
 
 class PdsFormButton extends React.Component<Props> {
@@ -19,12 +19,12 @@ class PdsFormButton extends React.Component<Props> {
   }
 
   render() {
-    const { buttons, input, label } = this.props;
+    const { buttons, input, labelKey } = this.props;
     return (
       <div className="form-group">
-        {label && (
+        {labelKey && (
           <label>
-            <FormattedMessage id={label} />
+            <FormattedMessage id={labelKey} />
           </label>
         )}
         <div>

@@ -3,7 +3,7 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 
 export function PdsFormInput({
   input,
-  label,
+  labelKey,
   type,
   name,
   placeholder,
@@ -20,7 +20,9 @@ export function PdsFormInput({
   const _error = error ? intl.formatMessage({ id: error }) : error;
   return (
     <div className="form-group">
-      {label && <label htmlFor={name}>{<FormattedMessage id={label} />}</label>}
+      {labelKey && (
+        <label htmlFor={name}>{<FormattedMessage id={labelKey} />}</label>
+      )}
       <input
         {...input}
         placeholder={_placeHolder}

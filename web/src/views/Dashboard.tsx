@@ -97,10 +97,10 @@ class Dashboard extends React.Component<IReactIntl> {
     return (
       <React.Fragment>
         <HeaderPage
-          Title={Translate.getLabel(this.props, 'overview')}
+          Title={Translate.getLabel(this.props, 'TITLE_OVERVIEW')}
           ActionList={this.GetButtons()}
         />
-        <CardContainer Title={Translate.getLabel(this.props, 'yourProject')}>
+        <CardContainer Title={Translate.getLabel(this.props, 'TITLE_YOUR_PROJECT')}>
           <Table
             columns={this.createTableColumns()}
             data={this.getTableData()}
@@ -111,13 +111,13 @@ class Dashboard extends React.Component<IReactIntl> {
           <Grid item container spacing={2}>
             <Grid item xs={12} sm={12} lg={6} md={6}>
               <CardContainer
-                Title={Translate.getLabel(this.props, 'preferred')}
+                Title={Translate.getLabel(this.props, 'TITLE_PREFERRED')}
               >
                 <PreferredChart Preferred={4} NotPreferred={6} />
               </CardContainer>
             </Grid>
             <Grid item xs={12} sm={12} lg={6} md={6}>
-              <CardContainer Title={Translate.getLabel(this.props, 'runRate')}>
+              <CardContainer Title={Translate.getLabel(this.props, 'TITLE_RUNRATE')}>
                 <RunRateChart
                   ICE={56}
                   JandA={12}
@@ -132,7 +132,7 @@ class Dashboard extends React.Component<IReactIntl> {
           <Grid item container spacing={2}>
             <Grid item xs={12} sm={12} lg={12} md={12}>
               <CardContainer
-                Title={Translate.getLabel(this.props, 'analytics')}
+                Title={Translate.getLabel(this.props, 'TITLE_ANALYTICS')}
               >
                 <MultipleChart
                   ProjectTotal={200}

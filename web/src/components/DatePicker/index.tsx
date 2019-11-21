@@ -11,7 +11,11 @@ const normalizeDates = value => (value ? value.format('YYYY-MM-DD') : null);
 const DatePicker = props => {
   return (
     <div className={'form-group'}>
-      {props.label && <label><FormattedMessage id={props.label} /></label>}
+      {props.label && (
+        <label>
+          <FormattedMessage id={props.label} />
+        </label>
+      )}
       <Field
         normalize={normalizeDates}
         format={formatDates}

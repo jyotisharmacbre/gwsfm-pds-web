@@ -9,9 +9,9 @@ const PdsFormTextArea: React.FC = (field: any) => {
   const errorClass = `${field.meta.error && field.meta.touched ? 'error' : ''}`;
   return (
     <div className="form-group">
-      {field.label && (
+      {field.labelKey && (
         <label>
-          <FormattedMessage id={field.label} />
+          <FormattedMessage id={field.labelKey} />
         </label>
       )}
       <textarea

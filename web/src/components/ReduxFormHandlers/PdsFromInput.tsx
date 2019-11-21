@@ -10,10 +10,10 @@ const PdsFormInput: React.FC = (field: any) => {
 
   return (
     <div className={'form-group'}>
-      {field.label && (
+      {field.labelKey && (
         <label>
           {' '}
-          <FormattedMessage id={field.label} />
+          <FormattedMessage id={field.labelKey} />
         </label>
       )}
       <input

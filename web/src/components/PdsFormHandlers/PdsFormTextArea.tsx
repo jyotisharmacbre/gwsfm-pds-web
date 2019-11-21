@@ -3,7 +3,7 @@ import { injectIntl, FormattedMessage } from 'react-intl';
 
 export function PdsFormTextArea({
   input,
-  label,
+  labelKey,
   type,
   name,
   placeholder,
@@ -21,7 +21,9 @@ export function PdsFormTextArea({
   const _error = error ? intl.formatMessage({ id: error }) : error;
   return (
     <div className="form-group">
-      {label && <label htmlFor={name}>{<FormattedMessage id={label} />}</label>}
+      {labelKey && (
+        <label htmlFor={name}>{<FormattedMessage id={labelKey} />}</label>
+      )}
       <textarea
         {...input}
         placeholder={_placeHolder}
