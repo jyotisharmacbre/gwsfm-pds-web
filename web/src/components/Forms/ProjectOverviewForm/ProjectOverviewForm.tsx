@@ -17,6 +17,7 @@ import {
   projectStatusData,
   engagementData
 } from '../../../helpers/dropDownFormValues';
+import { FormattedMessage } from 'react-intl';
 
 interface Props {}
 
@@ -49,8 +50,8 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   data-test="mainContractor"
                   type="text"
                   component={PdsFormInput}
-                  label="Main Contractor*"
-                  placeHolder="Contractor's name"
+                  label="mainContractor*"
+                  placeholder="contractorsName"
                 />
                 <Field
                   name={getPropertyName(
@@ -60,8 +61,8 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   data-test="enquiryReceivedFrom"
                   type="text"
                   component={PdsFormInput}
-                  label="Enquiry Received From*"
-                  placeHolder="Enquiry Sender Name"
+                  label="enquiryReceivedFrom*"
+                  placeholder="enquirySenderName"
                 />
                 <Field
                   name={getPropertyName(
@@ -71,8 +72,8 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   data-test="potentialCustomer"
                   type="text"
                   component={PdsFormInput}
-                  label="Potential Customer*"
-                  placeHolder="Potential Customer's name"
+                  label="potentialCustomer*"
+                  placeholder="Potential Customer's name"
                 />
                 <Field
                   name={getPropertyName(
@@ -83,7 +84,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   type="radio"
                   datas={enquiryTypeData}
                   component={PdsFormRadio}
-                  label="Type of Enquiry*"
+                  label="typeOfEnquiry*"
                 />
                 <Field
                   name={getPropertyName(
@@ -93,8 +94,8 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   data-test="creditCheckResult"
                   type="text"
                   component={PdsFormInput}
-                  label="Credit Check Result*"
-                  placeHolder="Credit Check Result details"
+                  label="creditCheckResult*"
+                  placeholder="creditCheckDetails"
                 />
                 <Field
                   name={getPropertyName(
@@ -104,8 +105,8 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   data-test="siteAddress"
                   type="text"
                   component={PdsFormInput}
-                  label="Site Address*"
-                  placeHolder="Add Site address"
+                  label="siteAddress*"
+                  placeholder="addSiteAddress"
                 />
                 <Field
                   name={getPropertyName(
@@ -115,7 +116,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   data-test="cdmNotifiable"
                   component={PdsFormButton}
                   buttons={selectionButtons}
-                  label="CDM notifiable"
+                  label="cDMNotifiable"
                 />
                 <Field
                   name={getPropertyName(
@@ -125,16 +126,16 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   data-test="formOfContract"
                   type="text"
                   component={PdsFormInput}
-                  label="Form of Contract*"
-                  placeHolder="Add form of contract"
+                  label="formOfContract*"
+                  placeholder="addFormOfContract"
                 />
                 <Field
                   name={getPropertyName(initialValues, prop => prop.retention)}
                   data-test="retention"
                   type="text"
                   component={PdsFormInput}
-                  label="Retention*"
-                  placeHolder="Add retention"
+                  label="retention*"
+                  placeholder="addRetention"
                 />
                 <Field
                   name={getPropertyName(
@@ -144,16 +145,16 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   data-test="liquidatedDamages"
                   type="text"
                   component={PdsFormInput}
-                  label="Liquidated Damages*"
-                  placeHolder="Add Liquidated Damages"
+                  label="liquidatedDamages*"
+                  placeholder="addLiquidatedDamages"
                 />
                 <Field
                   name={getPropertyName(initialValues, prop => prop.insurance)}
                   data-test="insurance"
                   type="text"
                   component={PdsFormInput}
-                  label="Insurance*"
-                  placeHolder="Add Insurance"
+                  label="insurance*"
+                  placeholder="addInsurance"
                 />
                 <Field
                   name={getPropertyName(initialValues, prop => prop.workTypeId)}
@@ -161,25 +162,25 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   type="text"
                   datas={projectStatusData}
                   component={PdsFormSelect}
-                  label="Work Type"
-                  placeHolder="Select work types"
+                  label="workType"
+                  placeholder="selectWorkTypes"
                 />
                 <Form.Group>
-                  <Form.Label>Project Plan</Form.Label>
+                  <Form.Label><FormattedMessage id="projectPlan" /></Form.Label>
                   <Col className="calender-wrap">
                     <Row>
                       <Col>
                         <DatePicker
                           name="commenceDate"
                           data-test="commenceDate"
-                          label="Commence Date"
+                          label="commenceDate"
                         />
                       </Col>
                       <Col>
                         <DatePicker
                           name="completionDate"
                           data-test="completionDate"
-                          label="Completion Date"
+                          label="completionDate"
                         />
                       </Col>
                     </Row>
@@ -191,31 +192,31 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                             prop => prop.milestones
                           )}
                           data-test="milestones"
-                          label="Project Milestones"
+                          label="projectMilestones"
                           rows="7"
                           component={PdsFormTextArea}
-                          placeHolder="Add project milestones"
+                          placeholder="addProjectMilestones"
                         />
                       </Col>
                     </Row>
                   </Col>
                 </Form.Group>
                 <Form.Group>
-                  <Form.Label>Project Plan</Form.Label>
+                  <Form.Label>projectPlan</Form.Label>
                   <Col className="calender-wrap">
                     <Row>
                       <Col>
                         <DatePicker
                           name="firstValuationDate"
                           data-test="firstValuationDate"
-                          label="First Valuation Date"
+                          label="firstValuationDate"
                         />
                       </Col>
                       <Col>
                         <DatePicker
                           name="finalAccountDate"
                           data-test="finalAccountDate"
-                          label="First Account Date"
+                          label="firstAccountDate"
                         />
                       </Col>
                     </Row>
@@ -229,8 +230,8 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                           data-test="valuationIntervals"
                           type="text"
                           component={PdsFormInput}
-                          label="Valuation Intervals"
-                          placeHolder="Add valuation intervals"
+                          label="valuationIntervals"
+                          placeholder="addValuationIntervals"
                         />
                       </Col>
                     </Row>
@@ -244,8 +245,8 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                           data-test="paymentTerms"
                           type="text"
                           component={PdsFormInput}
-                          label="Payment Terms"
-                          placeHolder="Add payment terms"
+                          label="paymentTerms"
+                          placeholder="addPaymentTerms"
                         />
                       </Col>
                     </Row>
@@ -259,7 +260,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   data-test="authorizedByHop"
                   type="text"
                   component={PdsFormInput}
-                  label="Authorized by HOP"
+                  label="authorizedByHOP"
                 />
                 <Field
                   name={getPropertyName(initialValues, prop => prop.budget)}
@@ -267,8 +268,8 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   type="text"
                   datas={projectStatusData}
                   component={PdsFormSelect}
-                  label="Project Budget"
-                  placeHolder="Select budget"
+                  label="projectBudget"
+                  placeholder="selectBudget"
                 />
                 <Field
                   name={getPropertyName(
@@ -278,8 +279,8 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   data-test="authorizedBy"
                   type="text"
                   component={PdsFormInput}
-                  label="Authorized by"
-                  placeHolder="Label"
+                  label="authorizedBy"
+                  placeholder="label"
                 />
                 <Field
                   name={getPropertyName(
@@ -289,7 +290,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   data-test="authorizedBySecond"
                   type="text"
                   component={PdsFormInput}
-                  placeHolder="Label"
+                  placeholder="label"
                 />
                 <Field
                   name={getPropertyName(
@@ -299,7 +300,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   data-test="authorizedByThird"
                   type="text"
                   component={PdsFormInput}
-                  placeHolder="Label"
+                  placeholder="label"
                 />
                 <Field
                   name={getPropertyName(
@@ -309,24 +310,24 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   data-test="isProjectLive"
                   component={PdsFormButton}
                   buttons={selectionButtons}
-                  label="Project is Live"
+                  label="projectIsLive"
                 />
                 <Field
                   name={getPropertyName(initialValues, prop => prop.comments)}
                   data-test="comments"
-                  label="Comments"
+                  label="comments"
                   rows="7"
                   component={PdsFormTextArea}
-                  placeHolder="Type in any additional comments"
+                  placeholder="typeInAdditionalComments"
                 />
               </Col>
             </Row>
             <div className="mr-35 d-flex justify-content-between mb-4">
-              <button className="active mb-4 mt-5" type="submit">
-                PREVIOUS
+              <button className="active mb-4 mt-5" type="submit">                
+                <FormattedMessage id="previous" />
               </button>
               <button type="submit" className="mb-4 mt-5 text-right mr-0">
-                NEXT
+              <FormattedMessage id="next" />
               </button>
             </div>
           </Form>
