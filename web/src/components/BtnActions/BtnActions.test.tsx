@@ -14,14 +14,14 @@ it('PageBtnActions should render', () => {
   expect(tree).toMatchSnapshot();
 });
 
-it('PageBtnActions should render buttons', () => {
-  let btn1: IBtnActionProps = {
-    Title: 'Test',
-    Icon: 'create',
-    HandleClick: () => {}
-  };
+// it('PageBtnActions should render buttons', () => {
+//   let btn1: IBtnActionProps = {
+//     Title: 'Test',
+//     Icon: 'create',
+//     HandleClick: () => {}
+//   };
 
-  const component = mount(<PageBtnActions Actions={[btn1]} />);
+//   const component = mount(<PageBtnActions Actions={[btn1]} />);
 
-  expect(component.find('button').text()).toEqual('Test');
-});
+//   expect(component.find('button').text()).toEqual('Test');
+// });

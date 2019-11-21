@@ -9,7 +9,7 @@ const validate = (values: Project): FormErrors<Project> => {
   }
 
   if (!values.companyName) {
-    errors.companyName = 'Company name is required';
+    errors.companyName = ' name is required';
   }
 
   if (!values.contractName) {
