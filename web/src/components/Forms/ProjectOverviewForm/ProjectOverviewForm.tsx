@@ -49,7 +49,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
             data-test="projectOverviewForm"
           >
             <Row>
-              <Col lg={8}>
+              <Col xl={8}>
                 <Field
                   name={getPropertyName(
                     initialValues,
@@ -214,120 +214,125 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   labelKey="LABEL_INSURANCE"
                   placeholderKey="PLACEHOLDER_ADD_INSURANCE"
                 />
-                <div className={'form-group'}>
-                  <label>
-                    <FormattedMessage id="LABEL_WORK_TYPE" />
-                  </label>
-                  <div className="select-wrapper">
-                    <Field
-                      name={getPropertyName(
-                        initialValues,
-                        prop => prop.workTypeId
-                      )}
-                      component={PdsFormSelect}
-                      validate={[Validate.required('VALIDATION_REQUIRED')]}
-                      placeholderKey="PLACEHOLDER_WORK_TYPES"
-                      messageKey="MESSAGE_PROJECT_STATUS"
-                    >
-                      <FormattedMessage id="PLACEHOLDER_WORK_TYPES">
-                        {message => <option value="">{message}</option>}
-                      </FormattedMessage>
-                      {getDropdown(
-                        props.projectstatus,
-                        LookupType.Project_Status
-                      )}
-                    </Field>
-                  </div>
-                </div>
-                <Form.Group>
-                  <Form.Label>
-                    <FormattedMessage id="LABEL_PROJECT_PLAN" />
-                  </Form.Label>
-                  <Col className="calender-wrap">
-                    <Row>
-                      <Col>
-                        <DatePicker
-                          name="commenceDate"
-                          data-test="commenceDate"
-                          labelKey="LABEL_COMMENCE_DATE"
-                        />
+                <Field
+                  name={getPropertyName(initialValues, prop => prop.workTypeId)}
+                  data-test="workTypeId"
+                  type="text"
+                  datas={projectStatusData}
+                  component={PdsFormSelect}
+                  label="Work Type"
+                  placeHolder="Select work types"
+                />
+
+                <Row>
+                  <Col xl={12}>
+                    <Form.Group>
+                      <Form.Label>Project Plan</Form.Label>
+                      <Col className="calender-wrap">
+                        <Row>
+                          <Col
+                            lg={6}
+                            className="mt-2 position-relative manipulate-calendar"
+                          >
+                            <DatePicker
+                              name="commenceDate"
+                              data-test="commenceDate"
+                              label="Commence Date"
+                            />
+                          </Col>
+                          <Col
+                            lg={6}
+                            className="mt-2 position-relative manipulate-calendar"
+                          >
+                            <DatePicker
+                              name="completionDate"
+                              data-test="completionDate"
+                              label="Completion Date"
+                            />
+                          </Col>
+                        </Row>
+                        <Row>
+                          <Col>
+                            <Field
+                              name={getPropertyName(
+                                initialValues,
+                                prop => prop.milestones
+                              )}
+                              data-test="milestones"
+                              label="Project Milestones"
+                              rows="7"
+                              component={PdsFormTextArea}
+                              placeHolder="Add project milestones"
+                            />
+                          </Col>
+                        </Row>
                       </Col>
-                      <Col>
-                        <DatePicker
-                          name="completionDate"
-                          data-test="completionDate"
-                          labelKey="LABEL_COMPLETION_DATE"
-                        />
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col>
-                        <Field
-                          name={getPropertyName(
-                            initialValues,
-                            prop => prop.milestones
-                          )}
-                          data-test="milestones"
-                          labelKey="LABEL_PROJECTMILE_STONES"
-                          rows="7"
-                          component={PdsFormTextArea}
-                          placeholderKey="PLACEHOLDER_PROJECT_MILESTONES"
-                        />
-                      </Col>
-                    </Row>
+                    </Form.Group>
                   </Col>
-                </Form.Group>
-                <Form.Group>
-                  <Form.Label>projectPlan</Form.Label>
-                  <Col className="calender-wrap">
-                    <Row>
-                      <Col>
-                        <DatePicker
-                          name="firstValuationDate"
-                          data-test="firstValuationDate"
-                          labelKey="LABEL_FIRST_VALUATION_DATE"
-                        />
+                </Row>
+
+                <Row>
+                  <Col xl={12}>
+                    <Form.Group>
+                      <Form.Label>Project Plan</Form.Label>
+                      <Col className="calender-wrap">
+                        <Row>
+                          <Col
+                            lg={6}
+                            className="mt-2 position-relative manipulate-calendar"
+                          >
+                            <DatePicker
+                              name="firstValuationDate"
+                              data-test="firstValuationDate"
+                              label="First Valuation Date"
+                            />
+                          </Col>
+                          <Col
+                            lg={6}
+                            className="mt-2 position-relative manipulate-calendar"
+                          >
+                            <DatePicker
+                              name="finalAccountDate"
+                              data-test="finalAccountDate"
+                              label="First Account Date"
+                            />
+                          </Col>
+                        </Row>
+                        <Row>
+                          <Col>
+                            <Field
+                              name={getPropertyName(
+                                initialValues,
+                                prop => prop.valuationIntervals
+                              )}
+                              data-test="valuationIntervals"
+                              type="text"
+                              component={PdsFormInput}
+                              label="Valuation Intervals"
+                              placeHolder="Add valuation intervals"
+                            />
+                          </Col>
+                        </Row>
+                        <Row>
+                          <Col>
+                            <Field
+                              name={getPropertyName(
+                                initialValues,
+                                prop => prop.paymentTerms
+                              )}
+                              data-test="paymentTerms"
+                              type="text"
+                              component={PdsFormInput}
+                              label="Payment Terms"
+                              placeHolder="Add payment terms"
+                            />
+                          </Col>
+                        </Row>
                       </Col>
-                      <Col>
-                        <DatePicker
-                          name="finalAccountDate"
-                          data-test="finalAccountDate"
-                          labelKey="LABEL_FIRST_ACCOUNT_DATE"
-                        />
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col>
-                        <Field
-                          name={getPropertyName(
-                            initialValues,
-                            prop => prop.valuationIntervals
-                          )}
-                          data-test="valuationIntervals"
-                          type="text"
-                          component={PdsFormInput}
-                          labelKey="LABEL_VALUATION_INTERVALS"
-                          placeholderKey="PLACEHOLDER_VALUATION_INTERVALS"
-                        />
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col>
-                        <Field
-                          name={getPropertyName(
-                            initialValues,
-                            prop => prop.paymentTerms
-                          )}
-                          data-test="paymentTerms"
-                          type="text"
-                          component={PdsFormInput}
-                          labelKey="LABEL_PAYMENT_TERMS"
-                          placeholderKey="PLACEHOLDER_PAYMENT_TERMS"
-                        />
-                      </Col>
-                    </Row>
+                    </Form.Group>
                   </Col>
-                </Form.Group>
+                </Row>
+
                 <Field
                   name={getPropertyName(
                     initialValues,
