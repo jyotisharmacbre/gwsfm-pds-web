@@ -1,11 +1,8 @@
 import React from 'react';
-import { mount, shallow } from 'enzyme';
-import { shallowToJson } from 'enzyme-to-json';
+import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
 import { store } from '../../../../store';
 import ProjectOverviewForm from '../ProjectOverviewForm';
-import { findByTestAtrr, checkProps } from '../../../../helpers/test-helper';
-import { required, email } from '../../../../helpers/fieldValidations';
 describe('ProjectOverviewForm Fields', () => {
   let wrapper: any;
 
