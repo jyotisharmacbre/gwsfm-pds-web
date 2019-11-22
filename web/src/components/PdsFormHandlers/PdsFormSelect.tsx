@@ -2,7 +2,7 @@ import React from 'react';
 
 export function PdsFormSelect({
   input,
-  meta: { touched, error,warning },
+  meta: { touched, error, warning },
   messages,
   children
 }) {
@@ -13,9 +13,11 @@ export function PdsFormSelect({
         {children}
       </select>
 
-        {touched &&
+      {touched &&
         ((error && (
-          <span className="text-danger">{messages && messages[error](input.value)}</span>
+          <span className="text-danger">
+            {messages && messages[error](input.value)}
+          </span>
         )) ||
           (warning && <span className="text-danger">{warning}</span>))}
     </React.Fragment>

@@ -44,7 +44,7 @@ const ProjectForm = props => {
                   validate={[required, maxLength1000]}
                   warn={alphaNumeric}
                   messages={{
-                  required: () => 'Required.',
+                    required: () => 'Required.'
                   }}
                 />
                 <Field
@@ -56,7 +56,7 @@ const ProjectForm = props => {
                   validate={[required, maxLength1000]}
                   warn={alphaNumeric}
                   messages={{
-                  required: () => 'Required.',
+                    required: () => 'Required.'
                   }}
                 />
                 <Field
@@ -68,7 +68,7 @@ const ProjectForm = props => {
                   validate={[required, maxLength1000]}
                   warn={alphaNumeric}
                   messages={{
-                  required: () => 'Required.',
+                    required: () => 'Required.'
                   }}
                 />
                 <Field
@@ -80,7 +80,7 @@ const ProjectForm = props => {
                   validate={[required, maxLength1000]}
                   warn={alphaNumeric}
                   messages={{
-                  required: () => 'Required.',
+                    required: () => 'Required.'
                   }}
                 />
                 <Field
@@ -92,7 +92,7 @@ const ProjectForm = props => {
                   validate={[required, maxLength1000]}
                   warn={alphaNumeric}
                   messages={{
-                  required: () => 'Required.',
+                    required: () => 'Required.'
                   }}
                 />
                 <Field
@@ -104,7 +104,7 @@ const ProjectForm = props => {
                   validate={[required, maxLength1000]}
                   warn={alphaNumeric}
                   messages={{
-                  required: () => 'Required.',
+                    required: () => 'Required.'
                   }}
                 />
 
@@ -124,7 +124,7 @@ const ProjectForm = props => {
                   validate={[required, maxLength1000]}
                   warn={alphaNumeric}
                   messages={{
-                  required: () => 'Required.',
+                    required: () => 'Required.'
                   }}
                 />
                 <Field
@@ -143,8 +143,8 @@ const ProjectForm = props => {
                       validate={required}
                       placeHolder="Select status"
                       messages={{
-                  required: () => 'Required.',
-                  }}
+                        required: () => 'Required.'
+                      }}
                     >
                       <option value="">Select project status</option>
                       {DropdownOptions}
@@ -169,8 +169,8 @@ const ProjectForm = props => {
                       validate={required}
                       placeHolder="Select country"
                       messages={{
-                  required: () => 'Required.',
-                  }}
+                        required: () => 'Required.'
+                      }}
                     >
                       <option value="">Select country</option>
                       {DropdownOptions}
@@ -187,8 +187,8 @@ const ProjectForm = props => {
                       validate={required}
                       placeHolder="Select currency"
                       messages={{
-                  required: () => 'Required.',
-                  }}
+                        required: () => 'Required.'
+                      }}
                     >
                       <option value="">Select country</option>
                       {DropdownOptions}
@@ -206,7 +206,7 @@ const ProjectForm = props => {
                   validate={[required, maxLength1000]}
                   warn={alphaNumeric}
                   messages={{
-                  required: () => 'Required.',
+                    required: () => 'Required.'
                   }}
                 />
 
@@ -220,7 +220,7 @@ const ProjectForm = props => {
                   validate={[required, maxLength1000]}
                   warn={alphaNumeric}
                   messages={{
-                  required: () => 'Required.',
+                    required: () => 'Required.'
                   }}
                 />
 
@@ -233,8 +233,8 @@ const ProjectForm = props => {
                       validate={required}
                       placeHolder="Select contract type"
                       messages={{
-                  required: () => 'Required.',
-                  }}
+                        required: () => 'Required.'
+                      }}
                     >
                       <option value="">Select contract type</option>
                       {DropdownOptions}
@@ -257,8 +257,8 @@ const ProjectForm = props => {
                       validate={required}
                       placeHolder="Select First Asset"
                       messages={{
-                  required: () => 'Required.',
-                  }}
+                        required: () => 'Required.'
+                      }}
                     >
                       <option value="">Select First Asset</option>
                       {DropdownOptions}

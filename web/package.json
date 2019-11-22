@@ -86,6 +86,7 @@
         "@types/redux-form": "^8.1.9",
         "check-prop-types": "^1.1.2",
         "cross-env": "^5.2.0",
+        "enzyme-to-json": "^3.4.3",
         "extract-react-intl-messages": "^1.1.0",
         "node-sass": "^4.13.0",
         "nodemon": "^1.19.4",

@@ -17,14 +17,13 @@ import {
   projectStatusData,
   engagementData
 } from '../../../helpers/dropDownFormValues';
-import { required,email } from '../../../helpers/fieldValidations';
+import { required, email } from '../../../helpers/fieldValidations';
 interface Props {}
 
 let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
   props: any
 ) => {
-  const { handleSubmit, pristine, reset, submitting, initialValues } = props;
-  let ddd = initialValues.mainContractor;
+  const { handleSubmit, initialValues } = props;
   return (
     <Container>
       <Row>
@@ -33,6 +32,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
             className="project-overview-form"
             onSubmit={handleSubmit}
             noValidate={true}
+            data-test="projectOverviewForm"
           >
             <Row>
               <Col lg={8}>
@@ -48,7 +48,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   placeHolder="Contractor's name"
                   validate={[required]}
                   messages={{
-                  required: () => 'Main Contractor is required.',
+                    required: () => 'Main Contractor is required.'
                   }}
                 />
                 <Field
@@ -63,7 +63,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   placeHolder="Enquiry Sender Name"
                   validate={[required]}
                   messages={{
-                  required: () => 'Required.',
+                    required: () => 'Required.'
                   }}
                 />
                 <Field
@@ -78,7 +78,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   placeHolder="Potential Customer's name"
                   validate={[required]}
                   messages={{
-                  required: () => 'Required.',
+                    required: () => 'Required.'
                   }}
                 />
                 <Field
@@ -104,7 +104,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   placeHolder="Credit Check Result details"
                   validate={[required]}
                   messages={{
-                  required: () => 'Required.',
+                    required: () => 'Required.'
                   }}
                 />
                 <Field
@@ -119,7 +119,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   placeHolder="Add Site address"
                   validate={[required]}
                   messages={{
-                  required: () => 'Required.',
+                    required: () => 'Required.'
                   }}
                 />
                 <Field
@@ -144,7 +144,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   placeHolder="Add form of contract"
                   validate={[required]}
                   messages={{
-                  required: () => 'Required.',
+                    required: () => 'Required.'
                   }}
                 />
                 <Field
@@ -156,7 +156,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   placeHolder="Add retention"
                   validate={[required]}
                   messages={{
-                  required: () => 'Required.',
+                    required: () => 'Required.'
                   }}
                 />
                 <Field
@@ -171,7 +171,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   placeHolder="Add Liquidated Damages"
                   validate={[required]}
                   messages={{
-                  required: () => 'Required.',
+                    required: () => 'Required.'
                   }}
                 />
                 <Field
@@ -183,7 +183,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   placeHolder="Add Insurance"
                   validate={[required]}
                   messages={{
-                  required: () => 'Required.',
+                    required: () => 'Required.'
                   }}
                 />
                 <Field

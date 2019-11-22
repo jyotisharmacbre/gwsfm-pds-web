@@ -7,7 +7,7 @@ import Notify from '../../enums/Notify';
 const initialState: IProjectOverviewState = {
   form: {
     projectAddDetailId: '',
-    projectId: '40624d8c-e95d-4df8-9790-08d76e3ae812',
+    projectId: '',
     mainContractor: '',
     enquiryReceivedFrom: '',
     potentialCustomer: '',
