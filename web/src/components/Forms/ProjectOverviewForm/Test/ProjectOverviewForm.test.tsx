@@ -3,13 +3,13 @@ import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
 import { store } from '../../../../store';
 import ProjectOverviewForm from '../ProjectOverviewForm';
-import {formdata} from './ProjectOverviewFormTestData';
+import { formdata } from './ProjectOverviewFormTestData';
 
 describe('ProjectOverviewForm Fields', () => {
   let wrapper: any;
   const props: any = {
     handleSubmit: jest.fn(),
-    initialValues:formdata
+    initialValues: formdata
   };
   beforeEach(() => {
     wrapper = mount(
@@ -22,16 +22,16 @@ describe('ProjectOverviewForm Fields', () => {
   it('Defines the component', () => {
     expect(wrapper).toBeDefined();
   });
-  
-describe('Dfines the Form', () => {
-      let form: ShallowWrapper;
-      beforeEach(() => {
-        form = wrapper.find('[form="projectOverviewForm"]').first();
-      });
-      it('Renders form component', () => {
-        expect(form).toHaveLength(1);
-      });
+
+  describe('Dfines the Form', () => {
+    let form: ShallowWrapper;
+    beforeEach(() => {
+      form = wrapper.find('[form="projectOverviewForm"]').first();
     });
+    it('Renders form component', () => {
+      expect(form).toHaveLength(1);
+    });
+  });
 
   describe('Defines form fields', () => {
     let field: ShallowWrapper;
