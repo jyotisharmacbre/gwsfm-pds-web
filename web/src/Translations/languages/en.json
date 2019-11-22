@@ -7,6 +7,8 @@
   "HEADING_CUSTOMER_ENQUIRY": "Customer Enquiry",
   "BUTTON_NEXT": "NEXT",
   "BUTTON_PREVIOUS": "PREVIOUS",
+  "BUTTON_YES":"yes",
+  "BUTTON_NO":"no",
   "BUTTON_SAVE_AND_CLOSE": "SAVE AND CLOSE",
   "LABEL_COMMENTS": "Comments",
   "LABEL_CURRENCY": "Currency",
@@ -64,6 +66,10 @@
   "MESSAGE_PROJECT_OWNER": "Project Owner",
   "MESSAGE_PROJECT_SCOPE": "Project scope",
   "MESSAGE_PROJECT_STATUS": "Project status",
+  "MESSAGE_WRITTEN": "Written",
+  "MESSAGE_VERBAL": "Verbal",
+  "MESSAGE_TENDER_ENQUIRY": "Full tender enquiry with specifications & orgs",
+  "MESSAGE_Other": "Other",
   "PACEHODER_PROJECT_SCOPE": "Type in the details involved in this project",
   "PLACEHOLDER_ADD_INSURANCE": "Add Insurance",
   "PLACEHOLDER_ADD_LIQUIDATED_DAMAGES": "Add Liquidated Damages",
@@ -110,5 +116,6 @@
   "VALIDATION_MESSAGE_PROJECT_NAME_REQUIRED": "Project name is required",
   "VALIDATION_MESSAGE_PROJECT_OWNER_REQUIRED": "Project owner is required",
   "VALIDATION_MESSAGE_PROJECT_SCOPE_REQUIRED": "Project scope is required",
-  "VALIDATION_MESSAGE_PROJECT_STATUS_REQUIRED": "Project status is required"
+  "VALIDATION_MESSAGE_PROJECT_STATUS_REQUIRED": "Project status is required",
+  "VALIDATION_REQUIRED":"Required"
 }

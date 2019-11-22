@@ -134,8 +134,8 @@ export const assetsWorkedOn: object[] = [
 ];
 
 export const enquiryTypeData: object[] = [
-  { label: 'Written', value: '1' },
-  { label: 'Verbal', value: '2' },
-  { label: 'Full tender enquiry with specifications & orgs', value: '3' },
-  { label: 'Other', value: '4' }
+  { label: 'MESSAGE_WRITTEN', value: '1' },
+  { label: 'MESSAGE_VERBAL', value: '2' },
+  { label: 'MESSAGE_TENDER_ENQUIRY', value: '3' },
+  { label: 'MESSAGE_Other', value: '4' }
 ];

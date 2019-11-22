@@ -1,10 +1,10 @@
 export const selectionButtons = [
   {
-    title: 'yes',
+    title: 'BUTTON_YES',
     value: true
   },
   {
-    title: 'no',
+    title: 'BUTTON_NO',
     value: false
   }
 ];

@@ -48,7 +48,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   component={PdsFormInput}
                   validate={[required]}
                   messages={{
-                    required: () => 'Main Contractor is required.'
+                    required: () => 'VALIDATION_REQUIRED'
                   }}
                   labelKey="LABEL_MAIN_CONTRACTOR"
                   placeholderKey="PLACEHOLDER_CONTRACTORS_NAME"
@@ -63,7 +63,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   component={PdsFormInput}
                   validate={[required]}
                   messages={{
-                    required: () => 'Required.'
+                    required: () => 'VALIDATION_REQUIRED'
                   }}
                   labelKey="LABEL_ENQUIRY_RECEIVED_FROM"
                   placeholderKey="PLACEHOLDER_ENQUIRY_SENDER_NAME"
@@ -78,7 +78,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   component={PdsFormInput}
                   validate={[required]}
                   messages={{
-                    required: () => 'Required.'
+                    required: () => 'VALIDATION_REQUIRED'
                   }}
                   labelKey="LABEL_POTENTIAL_CUSTOMER"
                   placeholderKey="PLACEHOLDER_POTENTIAL_CUSTOMERS_NAME"
@@ -104,7 +104,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   component={PdsFormInput}
                   validate={[required]}
                   messages={{
-                    required: () => 'Required.'
+                    required: () => 'VALIDATION_REQUIRED'
                   }}
                   labelKey="LABEL_CREDIT_CHECK_RESULT"
                   placeholderKey="PLACEHOLDER_CREDIT_CHECK_DETAILS"
@@ -119,7 +119,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   component={PdsFormInput}
                   validate={[required]}
                   messages={{
-                    required: () => 'Required.'
+                    required: () => 'VALIDATION_REQUIRED'
                   }}
                   labelKey="LABEL_SITE_ADDRESS"
                   placeholderKey="PLACEHOLDER_ADD_SITE_ADDRESS"
@@ -144,7 +144,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   component={PdsFormInput}
                   validate={[required]}
                   messages={{
-                    required: () => 'Required.'
+                    required: () => 'VALIDATION_REQUIRED'
                   }}
                   labelKey="LABEL_FORM_OF_CONTRACT"
                   placeholderKey="PLACEHOLDER_FORM_OF_CONTRACT"
@@ -156,7 +156,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   component={PdsFormInput}
                   validate={[required]}
                   messages={{
-                    required: () => 'Required.'
+                    required: () => 'VALIDATION_REQUIRED'
                   }}
                   labelKey="LABEL_RETENTION"
                   placeholderKey="PLACEHOLDER_ADD_RETENTION"
@@ -171,7 +171,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   component={PdsFormInput}
                   validate={[required]}
                   messages={{
-                    required: () => 'Required.'
+                    required: () => 'VALIDATION_REQUIRED'
                   }}
                   labelKey="LABEL_LIQUIDATED_DAMAGES"
                   placeholderKey="PLACEHOLDER_ADD_LIQUIDATED_DAMAGES"
@@ -183,7 +183,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   component={PdsFormInput}
                   validate={[required]}
                   messages={{
-                    required: () => 'Required.'
+                    required: () => 'VALIDATION_REQUIRED'
                   }}
                   labelKey="LABEL_INSURANCE"
                   placeholderKey="PLACEHOLDER_ADD_INSURANCE"

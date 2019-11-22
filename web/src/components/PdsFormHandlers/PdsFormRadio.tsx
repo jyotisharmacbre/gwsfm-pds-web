@@ -10,9 +10,9 @@ const PdsFormRadio: React.FC = (field: any) => {
       <label>
         <FormattedMessage id={field.labelKey} />
       </label>
-      {field.datas.map(data => {
+      {field.datas.map((data, index) => {
         return (
-          <div className="form-check">
+          <div className="form-check" key={index}>
             <Field
               name="enquiryTypeId"
               component="input"
