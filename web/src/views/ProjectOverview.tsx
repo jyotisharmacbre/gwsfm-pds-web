@@ -52,7 +52,6 @@ const ProjectOverview: React.FC<
   }, [props.notify]);
 
   const handleSubmit = (values: any) => {
-    debugger;
     props.handleProjectOverviewFormSubmit(
       '69e02934-e33e-488b-c744-08d76e51923c',
       values
