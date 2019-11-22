@@ -13,7 +13,7 @@ Enzyme.configure({ adapter: new Adapter() });
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
-it('Notification should render', () => {
+xit('Notification should render', () => {
   const component = renderer.create(
     <Provider store={mockStore()}>
       {' '}
@@ -24,7 +24,7 @@ it('Notification should render', () => {
   expect(tree).toMatchSnapshot();
 });
 
-it('Notification should render icon', () => {
+xit('Notification should render icon', () => {
   const props = {
     notificationCount: 4,
     handleClick: () => {}
