@@ -1,12 +1,29 @@
-export const required = value =>
-  value || typeof value === 'number' ? undefined : 'required';
+import { memoize } from "lodash";
 
-const maxLength = max => value =>
-  value && value.length > max ? `Must be ${max} characters or less` : undefined;
+export  const onlyNumber = value => value && isNaN(Number(value)) ? 'Must be a number' : undefined
 
-export const maxLength1000 = maxLength(1000);
+export function fieldValidationLength(value, maxLength) {
+    if (value && maxLength && value.length > maxLength) {
+      return `Must have a maximum of ${maxLength} characters`;
+    }
+  }
+  
+export function fieldValidationRequired(value, message) {
+    if (
+      !value ||
+      (typeof value.trim === "function" && value.trim() === "") ||
+      (Array.isArray(value) && !value.length)
+    ) {
+      return `${message} is required`;
+    }
+  }  
 
 export const alphaNumeric = value =>
   value && /[^a-zA-Z0-9 ]/i.test(value)
     ? 'Only alphanumeric characters'
-    : undefined;
+    : undefined;    
+
+    export const Validate = {
+        required: memoize(message => value => fieldValidationRequired(value, message)),
+        maxLength: memoize(length => value => fieldValidationLength(value, length))
+      };

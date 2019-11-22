@@ -20,13 +20,13 @@ const headers = {
   'Content-Type': 'application/json'
 };
 export const getProjectStatus = () => {
-  debugger;
   var data = [
     'Project_Status',
     'Engagement_Type',
-    'Enquiry_Type',
+    'Contract_Type',
     'Country',
-    'Currency'
+    'Currency',
+    'Asset'
   ];
   return (dispatch: Dispatch) => {
     axios.baseAPI

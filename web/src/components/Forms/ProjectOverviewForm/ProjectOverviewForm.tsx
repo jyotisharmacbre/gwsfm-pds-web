@@ -14,8 +14,7 @@ import { IState } from '../../../store/state';
 import { IProjectAdditionalDetail } from '../../../store/ProjectOverviewForm/Types/IProjectAdditionalDetail';
 import { getPropertyName } from '../../../helpers/utility-helper';
 import {
-  projectStatusData,
-  engagementData
+  projectStatusData
 } from '../../../helpers/dropDownFormValues';
 
 interface Props {}

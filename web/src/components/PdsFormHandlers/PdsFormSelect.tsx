@@ -15,7 +15,7 @@ export function PdsFormSelect({
 
       {touched &&
         (error && (
-          <span className="text-danger">{message + ' is ' + error}</span>
+          <span className="text-danger">{error}</span>
         ))}
     </React.Fragment>
   );

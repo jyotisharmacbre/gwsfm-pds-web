@@ -9,7 +9,6 @@ const initialState: ILookupState = {
 };
 
 const getProjectStatusSuccess = (oldState, action) => {
-  debugger;
   return updateObject(oldState, {
     error: null,
     projectstatus: action.payload
