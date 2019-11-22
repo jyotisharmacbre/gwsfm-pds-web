@@ -4,6 +4,7 @@ export function PdsFormSelect({
   input,
   meta: { touched, error, warning },
   messages,
+  messageKey,
   children
 }) {
   const errorClass = `${error && touched ? 'error' : ''}`;

@@ -5,69 +5,69 @@ const validate = (values: Project): FormErrors<Project> => {
   const errors: FormErrors<Project> = {};
 
   if (!values.projectName) {
-    errors.projectName = 'Project name is required';
+    errors.projectName = 'VALIDATION_MESSAGE_PROJECT_NAME_REQUIRED';
   }
 
   if (!values.companyName) {
-    errors.companyName = ' name is required';
+    errors.companyName = 'VALIDATION_MESSAGE_NAME_REQUIRED';
   }
 
   if (!values.contractName) {
-    errors.contractName = 'Contract name is required';
+    errors.contractName = 'VALIDATION_MESSAGE_CONTRACT_NAME_REQUIRED';
   }
 
   if (!values.projectHead) {
-    errors.projectHead = 'Head of project name is required';
+    errors.projectHead = 'VALIDATION_MESSAGE_HOP_NAME_REQUIRED';
   }
 
   if (!values.projectOwner) {
-    errors.projectOwner = 'Project owner is required';
+    errors.projectOwner = 'VALIDATION_MESSAGE_PROJECT_OWNER_REQUIRED';
   }
 
   if (!values.projectManager) {
-    errors.projectManager = 'Project manager name is required';
+    errors.projectManager = 'VALIDATION_MESSAGE_PM_NAME_REQUIRED';
   }
 
   if (!values.projectScope) {
-    errors.projectScope = 'Project scope is required';
+    errors.projectScope = 'VALIDATION_MESSAGE_PROJECT_SCOPE_REQUIRED';
   }
 
   if (!values.projectStatus) {
-    errors.projectStatus = 'Project status is required';
+    errors.projectStatus = 'VALIDATION_MESSAGE_PROJECT_STATUS_REQUIRED';
   }
 
   if (!values.country) {
-    errors.country = 'Country name is required';
+    errors.country = 'VALIDATION_MESSAGE_COUNTRY_NAME_REQUIRED';
   }
 
   if (!values.winProbabilty) {
-    errors.winProbabilty = 'Probability of winning is required';
+    errors.winProbabilty = 'VALIDATION_MESSAGE_PROBABILITY_OF_WINNING_REQUIRED';
   }
 
   if (!values.currency) {
-    errors.currency = 'Currency is required';
+    errors.currency = 'VALIDATION_MESSAGE_CURRENCY_REQUIRED';
   }
 
   if (!values.approxValue) {
-    errors.approxValue = 'Approximate value is required';
+    errors.approxValue = 'VALIDATION_MESSAGE_APPROXIMATE_VALUE_REQUIRED';
   }
   if (!values.contractType) {
-    errors.contractType = 'Contract type is required';
+    errors.contractType = 'VALIDATION_MESSAGE_CONTRACT_TYPE_REQUIRED';
   }
 
   if (!values.cdmNotifiable) {
-    errors.cdmNotifiable = 'CDM notifiable is required';
+    errors.cdmNotifiable = 'VALIDATION_MESSAGE_CDMNOTIFIABLE_REQUIRED';
   }
 
   if (!values.assetworkedonprimary) {
-    errors.assetworkedonprimary = 'Asset is required';
+    errors.assetworkedonprimary = 'VALIDATION_MESSAGE_ASSET_REQUIRED';
   }
 
   if (!values.assetworkedonsecond) {
-    errors.assetworkedonsecond = 'Asset is required';
+    errors.assetworkedonsecond = 'VALIDATION_MESSAGE_ASSET_REQUIRED';
   }
   if (!values.assetworkedonthird) {
-    errors.assetworkedonthird = 'Asset is required';
+    errors.assetworkedonthird = 'VALIDATION_MESSAGE_ASSET_REQUIRED';
   }
   return errors;
 };

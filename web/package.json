@@ -2,6 +2,20 @@
     "name": "cbre-pds-web",
     "version": "0.1.0",
     "private": true,
+    "jest": {
+        "coverageReporters": [
+            "cobertura",
+            "html"
+        ]
+    },
+    "jest-junit": {
+        "suiteName": "jest tests",
+        "output": "test/junit.xml",
+        "classNameTemplate": "{classname} - {title}",
+        "titleTemplate": "{classname} - {title}",
+        "ancestorSeparator": " > ",
+        "usePathForSuiteName": "true"
+    },
     "dependencies": {
         "@kdpw/msal-b2c-react": "0.0.3",
         "@material-ui/core": "^4.3.2",
@@ -31,6 +45,7 @@
         "config": "^3.2.2",
         "enzyme": "^3.10.0",
         "enzyme-adapter-react-16": "^1.14.0",
+        "jest-junit": "^9.0.0",
         "jwt-decode": "^2.2.0",
         "lodash": "^4.17.15",
         "material-table": "^1.50.0",
@@ -69,7 +84,8 @@
         "eject": "react-scripts eject",
         "test": "react-scripts test",
         "intl": "cross-env NODE_ENV=development extract-messages --locales=en --output src/Translations/extracted 'src/Translations/messages.ts'",
-        "test:watch": "npm run test -- --watch"
+        "test:watch": "npm run test -- --watch",
+        "test:ci": "react-scripts test --env=jsdom --testResultsProcessor=\"jest-junit\" --coverage --watchAll=false"
     },
     "eslintConfig": {
         "extends": "react-app"
@@ -84,6 +100,7 @@
         "@types/jwt-decode": "^2.2.1",
         "@types/lodash": "^4.14.145",
         "@types/redux-form": "^8.1.9",
+        "canvas": "^2.6.0",
         "check-prop-types": "^1.1.2",
         "cross-env": "^5.2.0",
         "enzyme-to-json": "^3.4.3",

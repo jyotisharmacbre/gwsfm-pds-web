@@ -1,23 +1,34 @@
 import React from 'react';
+import { FormattedMessage, injectIntl } from 'react-intl';
 
 export function PdsFormInput({
   input,
-  label,
+  labelKey,
   type,
   name,
-  placeholder,
-  message,
+  placeholderKey,
+  messageKey,
   meta: { touched, error, warning },
   className,
-  messages
+  messages,
+  intl
 }) {
   const errorClass = `${(error && touched) || warning ? 'error' : ''}`;
+  const _placeholder = placeholderKey
+    ? intl.formatMessage({ id: placeholderKey })
+    : placeholderKey;
+  const _message = messageKey
+    ? intl.formatMessage({ id: messageKey })
+    : messageKey;
+  const _error = error ? intl.formatMessage({ id: error }) : error;
   return (
     <div className="form-group">
-      {label && <label htmlFor={name}>{label}</label>}
+      {labelKey && (
+        <label htmlFor={name}>{<FormattedMessage id={labelKey} />}</label>
+      )}
       <input
         {...input}
-        placeholder={placeholder}
+        placeholder={_placeholder}
         type={type}
         className={'form-control ' + className + ' ' + errorClass}
       />
@@ -32,4 +43,4 @@ export function PdsFormInput({
   );
 }
 
-export default PdsFormInput;
+export default injectIntl(PdsFormInput);
