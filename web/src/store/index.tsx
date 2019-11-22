@@ -9,9 +9,5 @@ if (process.env.NODE_ENV === `development`) {
   middlewares.push(logger);
 }
 
-const store = createStore(
-  rootReducer,
-  undefined,
-  applyMiddleware(...middlewares)
-);
+const store = applyMiddleware(...middlewares)(createStore)(rootReducer);
 export { store };
