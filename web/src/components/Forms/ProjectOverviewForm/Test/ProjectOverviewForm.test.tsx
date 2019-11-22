@@ -3,11 +3,13 @@ import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
 import { store } from '../../../../store';
 import ProjectOverviewForm from '../ProjectOverviewForm';
+import {formdata} from './ProjectOverviewFormTestData';
+
 describe('ProjectOverviewForm Fields', () => {
   let wrapper: any;
-
   const props: any = {
-    handleSubmit: jest.fn()
+    handleSubmit: jest.fn(),
+    initialValues:formdata
   };
   beforeEach(() => {
     wrapper = mount(
@@ -17,14 +19,19 @@ describe('ProjectOverviewForm Fields', () => {
     );
   });
 
-  it('defines the component', () => {
+  it('Defines the component', () => {
     expect(wrapper).toBeDefined();
   });
-  it('renders form component', () => {
-    expect(wrapper.find('[form="projectOverviewForm"]').first()).toHaveLength(
-      1
-    );
-  });
+  
+describe('Dfines the Form', () => {
+      let form: ShallowWrapper;
+      beforeEach(() => {
+        form = wrapper.find('[form="projectOverviewForm"]').first();
+      });
+      it('Renders form component', () => {
+        expect(form).toHaveLength(1);
+      });
+    });
 
   describe('Defines form fields', () => {
     let field: ShallowWrapper;
@@ -151,6 +158,14 @@ describe('ProjectOverviewForm Fields', () => {
         field.simulate('blur');
         const errorBlock = wrapper.find('.text-danger');
         expect(errorBlock).toHaveLength(9);
+      });
+    });
+    describe('Next button', () => {
+      beforeEach(() => {
+        field = wrapper.find('button[name="next"]').first();
+      });
+      it('Should renders next button', () => {
+        expect(field.prop('type')).toBe('submit');
       });
     });
   });

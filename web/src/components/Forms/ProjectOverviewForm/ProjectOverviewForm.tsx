@@ -353,10 +353,10 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
               </Col>
             </Row>
             <div className="mr-35 d-flex justify-content-between mb-4">
-              <button className="active mb-4 mt-5" type="submit">
+              <button className="active mb-4 mt-5" name="previous" type="submit">
                 PREVIOUS
               </button>
-              <button type="submit" className="mb-4 mt-5 text-right mr-0">
+              <button type="submit" name="next" className="mb-4 mt-5 text-right mr-0">
                 NEXT
               </button>
             </div>
