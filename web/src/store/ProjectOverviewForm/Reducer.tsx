@@ -6,31 +6,33 @@ import Notify from '../../enums/Notify';
 
 const initialState: IProjectOverviewState = {
   form: {
-    projectAddDetailId: '',
+    projectAddDetailId: 'b921c1b6-2d14-4809-a513-08d770448925',
     projectId: '',
     mainContractor: '',
+    otherMainContractor: '',
     enquiryReceivedFrom: '',
     potentialCustomer: '',
-    enquiryTypeId: '1',
+    otherPotentialCustomer: '',
+    enquiryTypeId: 1,
     creditCheckResult: '',
     siteAddress: '',
-    cdmNotifiable: true,
+    cdmNotifiable: false,
     formOfContract: '',
     retention: '',
     liquidatedDamages: '',
     insurance: '',
-    workTypeId: '1',
-    commenceDate: moment().toString(),
-    completionDate: moment().toString(),
+    workTypeId: -1,
+    commenceDate: new Date(),
+    completionDate: new Date(),
     milestones: '',
-    firstValuationDate: moment().toString(),
-    finalAccountDate: moment().toString(),
+    firstValuationDate: new Date(),
+    finalAccountDate: new Date(),
     valuationIntervals: '',
     paymentTerms: '',
     isProjectLive: false,
     comments: '',
     authorizedByHop: '',
-    budget: '',
+    budget: 1,
     authorizedBy: '',
     authorizedBySecond: '',
     authorizedByThird: ''
@@ -41,6 +43,8 @@ const initialState: IProjectOverviewState = {
 };
 
 const projectOverviewFormAddSuccess = (oldState, action) => {
+
+  debugger;
   return updateObject(oldState, {
     error: null,
     loading: false,
@@ -64,6 +68,22 @@ const projectOverviewFormError = (oldState, action) => {
   });
 };
 
+
+const getAdditionalDetailsSuccess = (oldState, action) => {
+  debugger;
+    return updateObject(oldState, {
+    form: updateObject(oldState.form, action.payload),
+  });
+};
+
+const getAdditionalDetailsError = (oldState, action) => {
+  return updateObject(oldState, {
+    error: action.error,
+    loading: false,
+    notify: Notify.error
+  });
+};
+
 const projectOverviewFormReducer = (oldState = initialState, action) => {
   switch (action.type) {
     case ActionType.PROJECT_OVERVIEW_FORM_ADD_SUCCESS:
@@ -72,6 +92,10 @@ const projectOverviewFormReducer = (oldState = initialState, action) => {
       return projectOverviewFormEditSuccess(oldState, action);
     case ActionType.PROJECT_OVERVIEW_FORM_ERROR:
       return projectOverviewFormError(oldState, action);
+    case ActionType.GET_ADDITIONALS_DETAILS_SUCCESS:
+      return getAdditionalDetailsSuccess(oldState, action);
+    case ActionType.GET_ADDITIONALS_DETAILS_ERROR:
+      return getAdditionalDetailsError(oldState, action);
     default:
       return oldState;
   }

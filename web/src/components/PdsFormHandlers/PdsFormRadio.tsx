@@ -3,6 +3,8 @@ import React from 'react';
 import { Field } from 'redux-form';
 import { FormattedMessage } from 'react-intl';
 
+const normalize = value => (value ? parseInt(value) : null);
+
 const PdsFormRadio: React.FC = (field: any) => {
   const errorClass = `${field.meta.error && field.meta.touched ? 'error' : ''}`;
   return (
@@ -14,10 +16,11 @@ const PdsFormRadio: React.FC = (field: any) => {
         return (
           <div className="form-check" key={index}>
             <Field
-              name="enquiryTypeId"
+              name={field.input.name}
               component="input"
               type="radio"
               value={data.value}
+              normalize={normalize}
             />
             <label className="form-check-label">
               <FormattedMessage id={data.label} />
@@ -27,7 +30,11 @@ const PdsFormRadio: React.FC = (field: any) => {
       })}
       {field.meta.touched && (
         <p className="text-danger">
-          {<FormattedMessage id={field.meta.error} />}
+          {field.meta.error && field.messages && (
+            <FormattedMessage
+              id={field.messages[field.meta.error](field.input.value)}
+            />
+          )}
         </p>
       )}
     </div>

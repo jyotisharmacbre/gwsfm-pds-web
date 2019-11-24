@@ -1,8 +1,12 @@
-import { required } from './fieldValidations';
+import {
+  alphaNumeric,
+  onlyNumber,
+  Validate
+} from './fieldValidations';
 
 describe('Validation', () => {
-  it('Test- isRequired', () => {
-    let result = required('Test');
-    expect(result).toBeUndefined();
+  it('Required', () => {
+    let result = Validate.required('Test');
+    expect(result()).toBeDefined();
   });
 });

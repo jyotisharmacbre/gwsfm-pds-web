@@ -5,7 +5,7 @@ import {
 } from '../../../helpers/dropDownFormValues';
 import { MainTitle } from '../../Title/Title';
 
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, InjectedFormProps } from 'redux-form';
 import PdsFormInput from '../../PdsFormHandlers/PdsFormInput';
 import PdsFormSelect from '../../PdsFormHandlers/PdsFormSelect';
 import PdsFormRadio from '../../PdsFormHandlers/PdsFormRadio';
@@ -13,20 +13,39 @@ import PdsFormTextArea from '../../PdsFormHandlers/PdsFormTextArea';
 import PdsFormButton from '../../PdsFormHandlers/PdsFormButton';
 import { selectionButtons } from '../../../helpers/constants';
 import {
-  required,
-  maxLength1000,
-  alphaNumeric
+  alphaNumeric,
+  onlyNumber,
+  Validate
 } from '../../../helpers/fieldValidations';
 import { FormattedMessage } from 'react-intl';
+import { connect } from 'react-redux';
+import { IState } from '../../../store/state';
 
-const ProjectForm = props => {
-  const { handleSubmit } = props;
+interface Props {
+  projectstatus: any;
+}
 
-  const DropdownOptions = projectStatusData.map((status: any, i: number) => (
-    <option key={i} value={status.value}>
-      {status.label}
-    </option>
-  ));
+const ProjectForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
+  props: any
+) => {
+  const { handleSubmit, projectstatus } = props;
+
+  const getDropdown = value => {
+    console.log(projectstatus);
+
+    let data = projectstatus.map((status: any, i: number) => {
+      if (status.lookupItem == value) {
+        console.log(parseInt(status.lookupId));
+        console.log(parseInt(status.lookupId));
+        return (
+          <option key={status.lookupId} value={+status.lookupKey}>
+            {status.description}
+          </option>
+        );
+      }
+    });
+    return data;
+  };
 
   return (
     <div className="container-fluid">
@@ -42,7 +61,10 @@ const ProjectForm = props => {
                   name="projectName"
                   type="text"
                   component={PdsFormInput}
-                  validate={[required, maxLength1000]}
+                  validate={[
+                    Validate.required('Project name'),
+                    Validate.maxLength(1000)
+                  ]}
                   warn={alphaNumeric}
                   messageKey="MESSAGE_PROJECT_NAME"
                   labelKey="LABEL_PROJECT"
@@ -52,7 +74,10 @@ const ProjectForm = props => {
                   name="companyName"
                   type="text"
                   component={PdsFormInput}
-                  validate={[required, maxLength1000]}
+                  validate={[
+                    Validate.required('Project name'),
+                    Validate.maxLength(1000)
+                  ]}
                   warn={alphaNumeric}
                   messageKey="MESSAGE_COMPANY_NAME"
                   labelKey="LABEL_COMPANY"
@@ -62,7 +87,10 @@ const ProjectForm = props => {
                   name="contractName"
                   type="text"
                   component={PdsFormInput}
-                  validate={[required, maxLength1000]}
+                  validate={[
+                    Validate.required('Project name'),
+                    Validate.maxLength(1000)
+                  ]}
                   warn={alphaNumeric}
                   messageKey="MESSAGE_CONTRACT_NAME"
                   labelKey="LABEL_CONTRACT"
@@ -72,7 +100,10 @@ const ProjectForm = props => {
                   name="projectHead"
                   type="text"
                   component={PdsFormInput}
-                  validate={[required, maxLength1000]}
+                  validate={[
+                    Validate.required('Project name'),
+                    Validate.maxLength(1000)
+                  ]}
                   warn={alphaNumeric}
                   messageKey="MESSAGE_HEAD_OF_PROJECT"
                   labelKey="LABEL_HEAD_OF_PROJECT"
@@ -82,7 +113,10 @@ const ProjectForm = props => {
                   name="projectOwner"
                   type="text"
                   component={PdsFormInput}
-                  validate={[required, maxLength1000]}
+                  validate={[
+                    Validate.required('Project name'),
+                    Validate.maxLength(1000)
+                  ]}
                   warn={alphaNumeric}
                   messageKey="MESSAGE_PROJECT_OWNER"
                   labelKey="LABEL_PROJECT_OWNER"
@@ -92,7 +126,10 @@ const ProjectForm = props => {
                   name="projectManager"
                   type="text"
                   component={PdsFormInput}
-                  validate={[required, maxLength1000]}
+                  validate={[
+                    Validate.required('Project name'),
+                    Validate.maxLength(1000)
+                  ]}
                   warn={alphaNumeric}
                   messageKey="MESSAGE_PROJECT_MANAGER"
                   labelKey="LABEL_PROJECT_MANAGER"
@@ -112,7 +149,10 @@ const ProjectForm = props => {
                   rows="7"
                   component={PdsFormTextArea}
                   placeholderKey="PACEHODER_PROJECT_SCOPE"
-                  validate={[required, maxLength1000]}
+                  validate={[
+                    Validate.required('Project name'),
+                    Validate.maxLength(1000)
+                  ]}
                   warn={alphaNumeric}
                   messageKey="MESSAGE_PROJECT_SCOPE"
                 />
@@ -129,27 +169,29 @@ const ProjectForm = props => {
                   </label>
                   <div className="select-wrapper">
                     <Field
-                      name="projectStatus"
+                      name="status"
                       component={PdsFormSelect}
-                      validate={required}
+                      validate={[Validate.required('Project name')]}
                       placeholderKey="PLACEHOLDER_PROJECT_STATUS"
                       messageKey="MESSAGE_PROJECT_STATUS"
                     >
                       <FormattedMessage id="PLACEHOLDER_PROJECT_STATUS">
                         {message => <option value="">{message}</option>}
                       </FormattedMessage>
-                      {DropdownOptions}
+                      {getDropdown('Project_Status')}
                     </Field>
                   </div>
                 </div>
 
-                <Field
-                  name="engagementType"
-                  type="radio"
-                  datas={engagementData}
-                  component={PdsFormRadio}
-                  labelKey="LABEL_TYPE_OF_ENGAGEMENT"
-                />
+                <div className={'form-group'}>
+                  <label>Type of engagement</label>
+                  <div className="select-wrapper">
+                    <Field name="engagementId" component={PdsFormSelect}>
+                      <option value="">Select type of engagement</option>
+                      {getDropdown('Engagement_Type')}
+                    </Field>
+                  </div>
+                </div>
 
                 <div className={'form-group'}>
                   <label>
@@ -159,7 +201,7 @@ const ProjectForm = props => {
                     <Field
                       name="country"
                       component={PdsFormSelect}
-                      validate={required}
+                      validate={[Validate.required('Project name')]}
                       placeholderKey="PLACEHOLDER_COUNTRY"
                       messageKey="MESSAGE_COUNTRY"
                     >
@@ -167,7 +209,7 @@ const ProjectForm = props => {
                         {message => <option value="">{message}</option>}
                       </FormattedMessage>
 
-                      {DropdownOptions}
+                      {getDropdown('Country')}
                     </Field>
                   </div>
                 </div>
@@ -180,7 +222,7 @@ const ProjectForm = props => {
                     <Field
                       name="currency"
                       component={PdsFormSelect}
-                      validate={required}
+                      validate={[Validate.required('Project name')]}
                       placeholderKey="PLACEHOLDER_CURRENCY"
                       messageKey="MESSAGE_CURRENCY"
                     >
@@ -188,7 +230,7 @@ const ProjectForm = props => {
                         {message => <option value="">{message}</option>}
                       </FormattedMessage>
 
-                      {DropdownOptions}
+                      {getDropdown('Currency')}
                     </Field>
                   </div>
                 </div>
@@ -200,7 +242,10 @@ const ProjectForm = props => {
                   labelKey="LABEL_PROBABILITY_OF_WINING"
                   placeholderKey="PLACEHOLDER_WIN_PROBABILITY"
                   className="width-100"
-                  validate={[required, maxLength1000]}
+                  validate={[
+                    Validate.required('Project name'),
+                    Validate.maxLength(1000)
+                  ]}
                   warn={alphaNumeric}
                   messageKey="MESSAGE_PROBABILITYOFWINING"
                 />
@@ -212,7 +257,10 @@ const ProjectForm = props => {
                   labelKey="LABEL_APPROXIMATE_VALUE"
                   placeholderKey=""
                   className="width-120"
-                  validate={[required, maxLength1000]}
+                  validate={[
+                    Validate.required('Project name'),
+                    Validate.maxLength(1000)
+                  ]}
                   warn={alphaNumeric}
                   messageKey="MESSAGE_APPROXIMATE_VALUE"
                 />
@@ -225,14 +273,14 @@ const ProjectForm = props => {
                     <Field
                       name="contractType"
                       component={PdsFormSelect}
-                      validate={required}
+                      validate={[Validate.required('Project name')]}
                       placeholderKey="PLACEHOLDER_CONTRACT_TYPE"
                       messageKey="MESSAGE_CONTRACT_TYPE"
                     >
                       <FormattedMessage id="PLACEHOLDER_CONTRACT_TYPE">
                         {message => <option value="">{message}</option>}
                       </FormattedMessage>
-                      {DropdownOptions}
+                      {getDropdown('Currency')}
                     </Field>
                   </div>
                 </div>
@@ -251,14 +299,14 @@ const ProjectForm = props => {
                     <Field
                       name="assetworkedonprimary"
                       component={PdsFormSelect}
-                      validate={required}
+                      validate={[Validate.required('Project name')]}
                       placeholderKey="PLACEHOLDER_FIRST_ASSET"
                       messageKey="MESSAGE_FIRST_ASSET"
                     >
                       <FormattedMessage id="PLACEHOLDER_FIRST_ASSET">
                         {message => <option value="">{message}</option>}
                       </FormattedMessage>
-                      {DropdownOptions}
+                      {getDropdown('Currency')}
                     </Field>
                   </div>
 
@@ -271,7 +319,7 @@ const ProjectForm = props => {
                       <FormattedMessage id="PLACEHOLDER_SECOND_ASSET">
                         {message => <option value="">{message}</option>}
                       </FormattedMessage>
-                      {DropdownOptions}
+                      {getDropdown('Currency')}
                     </Field>
                   </div>
 
@@ -284,7 +332,7 @@ const ProjectForm = props => {
                       <FormattedMessage id="PLACEHOLDER_THIRD_ASSET">
                         {message => <option value="">{message}</option>}
                       </FormattedMessage>
-                      {DropdownOptions}
+                      {getDropdown('Currency')}
                     </Field>
                   </div>
                 </div>
@@ -313,8 +361,14 @@ const ProjectForm = props => {
   );
 };
 
-const ProjectAddForm = reduxForm({
+const mapStateToProps = (state: IState) => ({
+  initialValues: state.project.form
+});
+
+const form = reduxForm<{}, Props>({
+  destroyOnUnmount: false,
+  forceUnregisterOnUnmount: false,
   form: 'ProjectForm'
 })(ProjectForm);
 
-export default ProjectAddForm;
+export default connect(mapStateToProps)(form);

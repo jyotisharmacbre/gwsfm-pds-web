@@ -8,3 +8,9 @@ export const selectionButtons = [
     value: false
   }
 ];
+
+export enum Notify {
+  none,
+  success,
+  error
+}

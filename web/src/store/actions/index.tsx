@@ -1,3 +1,3 @@
 export * from './projectFrom/project';
 
-export { projectOverviewFormAdd } from '../ProjectOverviewForm/Actions';
+export { projectOverviewFormAdd ,getAdditionalDetails} from '../ProjectOverviewForm/Actions';

@@ -10,7 +10,6 @@ export function PdsFormInput({
   messageKey,
   meta: { touched, error, warning },
   className,
-  messages,
   intl
 }) {
   const errorClass = `${(error && touched) || warning ? 'error' : ''}`;
@@ -37,9 +36,7 @@ export function PdsFormInput({
       />
       {touched &&
         ((error && (
-          <span className="text-danger">
-            {messages && <FormattedMessage id={messages[error](input.value)} />}
-          </span>
+          <span className="text-danger">{<FormattedMessage id={error} />}</span>
         )) ||
           (warning && <span className="text-danger">{warning}</span>))}
     </div>

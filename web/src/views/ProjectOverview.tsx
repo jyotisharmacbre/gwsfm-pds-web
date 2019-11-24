@@ -31,12 +31,14 @@ const table: IGeneralTableProps = {
 interface IMapStateToProps {
   form: IProjectAdditionalDetail;
   notify: Notify;
+  projectId:string;
 }
 interface IMapDispatchToProps {
   handleProjectOverviewFormSubmit: (
     projectId: string,
     form: IProjectAdditionalDetail
   ) => void;
+  getAdditionalDetails:(projectId:string) => void;
 }
 interface IProps {
   projectId: string;
@@ -46,6 +48,12 @@ const ProjectOverview: React.FC<
   IProps & IMapStateToProps & IMapDispatchToProps
 > = props => {
   useEffect(() => {
+    if (props.form.projectAddDetailId != null && props.form.projectAddDetailId != '') {
+      props.getAdditionalDetails(props.form.projectAddDetailId);
+    }
+  }, []);
+
+  useEffect(() => {
     if (props.notify == Notify.success) {
       alert('data saved successfully');
     }
@@ -53,7 +61,7 @@ const ProjectOverview: React.FC<
 
   const handleSubmit = (values: any) => {
     props.handleProjectOverviewFormSubmit(
-      '69e02934-e33e-488b-c744-08d76e51923c',
+      'a2658808-2deb-4eba-bc4e-08d770a0b60e',
       values
     );
   };
@@ -77,13 +85,16 @@ const ProjectOverview: React.FC<
 
 const mapStateToProps = (state: IState) => ({
   form: state.projectOverview.form,
-  notify: state.projectOverview.notify
+  notify: state.projectOverview.notify,
+  projectId:state.project.projectId
 });
 
 const mapDispatchToProps = dispatch => {
   return {
     handleProjectOverviewFormSubmit: (projectId, form) =>
-      dispatch(actions.projectOverviewFormAdd(projectId, form))
+      dispatch(actions.projectOverviewFormAdd(projectId, form)),
+      getAdditionalDetails: (projectId) =>
+      dispatch(actions.getAdditionalDetails(projectId)),
   };
 };
 

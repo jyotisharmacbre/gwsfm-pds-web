@@ -8,14 +8,14 @@ import translations from '../../../../Translations/translation';
 describe('ProjectOverviewForm Fields', () => {
   let wrapper: any;
   const props: any = {
-    handleSubmit: jest.fn(),
+    handleSubmit: jest.fn()
   };
   beforeEach(() => {
     wrapper = mount(
       <Provider store={store}>
         <IntlProvider locale="en" messages={translations['en'].messages}>
           <ProjectOverviewForm {...props} />
-        </IntlProvider> 
+        </IntlProvider>
       </Provider>
     );
   });
