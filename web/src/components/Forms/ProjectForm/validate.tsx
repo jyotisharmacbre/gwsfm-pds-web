@@ -25,7 +25,7 @@ const validate = (values: Project): FormErrors<Project> => {
       values.secondAssetWorkedOn.toString().length > 0 &&
       values.secondAssetWorkedOn == values.thirdAssetWorkedOn
     ) {
-      errors.firstAssetWorkedOn = 'Third';
+      errors.firstAssetWorkedOn = 'Asset value cannot be same';
     }
   } else {
     errors.firstAssetWorkedOn = 'Atleast one asset is required';

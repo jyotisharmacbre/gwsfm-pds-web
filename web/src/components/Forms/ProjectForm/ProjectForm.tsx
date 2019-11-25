@@ -14,6 +14,7 @@ import {
 import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
 import validate from './validate';
+import { FormattedMessage } from 'react-intl';
 
 interface Props {
   projectstatus: any;
@@ -47,7 +48,9 @@ const ProjectForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
           <form className="customer-enquiry" onSubmit={handleSubmit}>
             <div className="row">
               <div className="col-lg-8">
-                <MainTitle>Customer Enquiry</MainTitle>
+                <MainTitle>
+                  <FormattedMessage id="HEADING_CUSTOMER_ENQUIRY" />
+                </MainTitle>
                 <Field
                   name="name"
                   type="text"
@@ -59,7 +62,9 @@ const ProjectForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                     Validate.maxLength(1000)
                   ]}
                   warn={alphaNumeric}
-                  message="Project name"
+                  messageKey="MESSAGE_PROJECT_NAME"
+                  labelKey="LABEL_PROJECT"
+                  placeholderKey="PLACEHOLDER_PROJECT_NAME"
                 />
                 <Field
                   name="companyId"
@@ -72,7 +77,8 @@ const ProjectForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                     Validate.maxLength(1000)
                   ]}
                   warn={alphaNumeric}
-                  message="Company name"
+                  labelKey="LABEL_COMPANY"
+                  placeholderKey="PLACEHOLDER_COMPANY_NAME"
                 />
                 <Field
                   name="contractorId"
@@ -85,7 +91,9 @@ const ProjectForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                     Validate.maxLength(1000)
                   ]}
                   warn={alphaNumeric}
-                  message="Contract name"
+                  messageKey="MESSAGE_CONTRACT_NAME"
+                  labelKey="LABEL_CONTRACT"
+                  placeholderKey="PLACEHOLDER_CONTRACT"
                 />
                 <Field
                   name="headOfProject"
@@ -98,65 +106,70 @@ const ProjectForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                     Validate.maxLength(1000)
                   ]}
                   warn={alphaNumeric}
-                  message="Head of project"
+                  messageKey="MESSAGE_HEAD_OF_PROJECT"
+                  labelKey="LABEL_HEAD_OF_PROJECT"
+                  placeholderKey="PLACEHOLDER_HEAD_OF_PROJECT_NAME"
                 />
                 <Field
                   name="projectOwner"
                   type="text"
                   component={PdsFormInput}
-                  label="Project Owner*"
                   placeHolder="Project Owner name"
                   validate={[
                     Validate.required('Project owner'),
                     Validate.maxLength(1000)
                   ]}
                   warn={alphaNumeric}
-                  message="Project Owner"
+                  messageKey="MESSAGE_PROJECT_OWNER"
+                  labelKey="LABEL_PROJECT_OWNER"
+                  placeholderKey="PLACEHOLDER_PROJECT_OWNER_NAME"
                 />
                 <Field
                   name="projectManager"
                   type="text"
                   component={PdsFormInput}
-                  label="Project Manager*"
                   placeHolder="Enter Project Manager name"
                   validate={[
                     Validate.required('Project manager'),
                     Validate.maxLength(1000)
                   ]}
                   warn={alphaNumeric}
-                  message="Project manager"
+                  messageKey="MESSAGE_PROJECT_MANAGER"
+                  labelKey="LABEL_PROJECT_MANAGER"
+                  placeholderKey="PLACEHOLDER_PROJECT_MANAGER"
                 />
 
                 <Field
                   name="pmHasExperience"
                   component={PdsFormButton}
                   buttons={selectionButtons}
-                  label="Project Manager has experience in this type of project"
+                  labelKey="LABEL_PROJECT_MANAGER_EXPERIENCEN"
                 />
 
                 <Field
-                  label="Project scope*"
                   name="scope"
                   rows="7"
                   component={PdsFormTextArea}
-                  placeHolder="Type in the details involved in this project"
                   validate={[
                     Validate.required('Project scope'),
                     Validate.maxLength(1040)
                   ]}
                   warn={alphaNumeric}
-                  message="Project scope"
+                  labelKey="LABEL_PROJECT_SCOPE"
+                  messageKey="MESSAGE_PROJECT_SCOPE"
                 />
                 <Field
                   name="cnNumber"
                   type="number"
                   component={PdsFormInput}
-                  label="CN Number"
-                  placeHolder="Enter CN Number"
                   validate={onlyNumber}
+                  labelKey="LABEL_CN_NUMBER"
+                  placeholderKey="PLACEHOLDER_CN_NUMBER"
                 />
                 <div className={'form-group'}>
-                  <label>Project status*</label>
+                  <label>
+                    <FormattedMessage id="LABEL_PROJECT_STATUS" />
+                  </label>
                   <div className="select-wrapper">
                     <Field
                       name="status"
@@ -165,7 +178,9 @@ const ProjectForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                       placeHolder="Select status"
                       message="Project status"
                     >
-                      <option value="">Select project status</option>
+                      <FormattedMessage id="PLACEHOLDER_PROJECT_STATUS">
+                        {message => <option value="">{message}</option>}
+                      </FormattedMessage>
                       {getDropdown('Project_Status')}
                     </Field>
                   </div>
@@ -182,7 +197,9 @@ const ProjectForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                 </div>
 
                 <div className={'form-group'}>
-                  <label>Country*</label>
+                  <label>
+                    <FormattedMessage id="LABEL_COUNTRY" />
+                  </label>
                   <div className="select-wrapper">
                     <Field
                       name="countryId"
@@ -191,24 +208,29 @@ const ProjectForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                       placeHolder="Select country"
                       message="Country"
                     >
-                      <option value="">Select country</option>
+                      <FormattedMessage id="PLACEHOLDER_COUNTRY">
+                        {message => <option value="">{message}</option>}
+                      </FormattedMessage>
                       {getDropdown('Country')}
                     </Field>
                   </div>
                 </div>
 
                 <div className={'form-group'}>
-                  <label>Currency*</label>
+                  <label>
+                    <FormattedMessage id="LABEL_CURRENCY" />
+                  </label>
                   <div className="select-wrapper">
                     <Field
                       name="currencyId"
                       component={PdsFormSelect}
                       validate={Validate.required('Currency')}
-                      placeHolder="Select currency"
-                      message="Currency"
+                      placeholderKey="PLACEHOLDER_CURRENCY"
+                      messageKey="MESSAGE_CURRENCY"
                     >
-                      <option value="">Select country</option>
-                      {getDropdown('Currency')}
+                      <FormattedMessage id="PLACEHOLDER_CURRENCY">
+                        {message => <option value="">{message}</option>}
+                      </FormattedMessage>
                     </Field>
                   </div>
                 </div>
@@ -217,35 +239,38 @@ const ProjectForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   name="probabilityOfWinning"
                   type="number"
                   component={PdsFormInput}
-                  label="Probability of wining (%)*"
-                  placeHolder="00%"
+                  labelKey="LABEL_PROBABILITY_OF_WINING"
+                  placeholderKey="PLACEHOLDER_WIN_PROBABILITY"
                   className="width-100"
                   validate={[
                     Validate.required('Probability of wining'),
                     Validate.maxLength(1000),
                     onlyNumber
                   ]}
-                  message="Probability of wining"
+                  messageKey="MESSAGE_PROBABILITYOFWINING"
                 />
 
                 <Field
                   name="approxValue"
                   type="number"
                   component={PdsFormInput}
-                  label="Approximate value*"
                   className="width-120 pl-20"
                   validate={[
                     Validate.required('Approximate value'),
                     Validate.maxLength(1000),
                     onlyNumber
                   ]}
-                  message="Approximate value"
                   currency="$"
                   divPosition="relative"
+                  labelKey="LABEL_APPROXIMATE_VALUE"
+                  placeholderKey=""
+                  messageKey="MESSAGE_APPROXIMATE_VALUE"
                 />
 
                 <div className={'form-group'}>
-                  <label>Contract type*</label>
+                  <label>
+                    <FormattedMessage id="LABEL_CONTRACT_TYPE" />
+                  </label>
                   <div className="select-wrapper">
                     <Field
                       name="contractTypeId"
@@ -253,8 +278,12 @@ const ProjectForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                       validate={Validate.required('Contract type')}
                       placeHolder="Select contract type"
                       message="Contract type"
+                      placeholderKey="PLACEHOLDER_CONTRACT_TYPE"
+                      messageKey="MESSAGE_CONTRACT_TYPE"
                     >
-                      <option value="">Select contract type</option>
+                      <FormattedMessage id="PLACEHOLDER_CONTRACT_TYPE">
+                        {message => <option value="">{message}</option>}
+                      </FormattedMessage>
                       {getDropdown('Contract_Type')}
                     </Field>
                   </div>
@@ -264,19 +293,24 @@ const ProjectForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   name="cdmNotifiable"
                   component={PdsFormButton}
                   buttons={selectionButtons}
-                  label="CDM notifiable"
+                  labelKey="LABEL_CDMNOTIFIABLE"
                 />
                 <div className={'form-group'}>
-                  <label>Assets worked on*</label>
+                  <label>
+                    <FormattedMessage id="LABEL_ASSETS_WORKED_ON" />
+                  </label>
                   <div className="select-wrapper">
                     <Field
                       name="firstAssetWorkedOn"
                       component={PdsFormSelect}
-                      placeHolder="Select First Asset"
                       DropdownCheck="selectRound"
+                      placeholderKey="PLACEHOLDER_FIRST_ASSET"
+                      messageKey="MESSAGE_FIRST_ASSET"
                     >
-                      <option value="">Select First Asset</option>
-                      {getDropdown('Asset')}
+                      <FormattedMessage id="PLACEHOLDER_FIRST_ASSET">
+                        {message => <option value="">{message}</option>}
+                      </FormattedMessage>
+                      >{getDropdown('Asset')}
                     </Field>
                   </div>
 
@@ -284,10 +318,12 @@ const ProjectForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                     <Field
                       name="secondAssetWorkedOn"
                       component={PdsFormSelect}
-                      placeHolder="Select Second Asset"
                       DropdownCheck="selectRound"
+                      placeholderKey="PLACEHOLDER_SECOND_ASSET"
                     >
-                      <option value="">Select Second Asset</option>
+                      <FormattedMessage id="PLACEHOLDER_SECOND_ASSET">
+                        {message => <option value="">{message}</option>}
+                      </FormattedMessage>
                       {getDropdown('Asset')}
                     </Field>
                   </div>
@@ -296,30 +332,32 @@ const ProjectForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                     <Field
                       name="thirdAssetWorkedOn"
                       component={PdsFormSelect}
-                      placeHolder="Select Third Asset"
                       DropdownCheck="selectRound"
+                      placeholderKey="PLACEHOLDER_THIRD_ASSET"
                     >
-                      <option value="">Select Third Asset</option>
+                      <FormattedMessage id="PLACEHOLDER_THIRD_ASSET">
+                        {message => <option value="">{message}</option>}
+                      </FormattedMessage>
                       {getDropdown('Asset')}
                     </Field>
                   </div>
                 </div>
 
                 <Field
-                  label="Comments"
+                  labelKey="LABEL_COMMENTS"
                   name="comment"
                   rows="7"
                   component={PdsFormTextArea}
-                  placeHolder="Type in additional comments"
+                  placeholderKey="PLACEHOLDER_ADDITIONAL_COMMENTS"
                 />
               </div>
             </div>
             <div className="mr-35 d-flex justify-content-between mb-4">
               <button className="active mb-4 mt-5" type="submit">
-                SAVE AND CLOSE
+                <FormattedMessage id="BUTTON_SAVE_AND_CLOSE" />
               </button>
               <button type="submit" className="mb-4 mt-5 text-right mr-0">
-                NEXT
+                <FormattedMessage id="BUTTON_NEXT" />
               </button>
             </div>
           </form>

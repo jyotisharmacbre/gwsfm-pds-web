@@ -37,6 +37,24 @@ steps:
     verbose: false
     customCommand: 'run build'
 
+- task: Npm@1
+  displayName: 'Test Run'
+  inputs:
+    command: 'custom'
+    workingDir: 'web'
+    customCommand: 'run test:ci'
+
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: '**/junit.xml'
+
+- task: PublishCodeCoverageResults@1
+  inputs:
+    codeCoverageTool: 'Cobertura'
+    summaryFileLocation: '$(System.DefaultWorkingDirectory)/web/coverage/cobertura-coverage.xml'
+    reportDirectory: '$(System.DefaultWorkingDirectory)/coverage/'
+
 - task: ArchiveFiles@2
   inputs:
     rootFolderOrFile: 'web/build'

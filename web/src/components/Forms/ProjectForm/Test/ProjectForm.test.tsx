@@ -21,9 +21,7 @@ describe('ProjectForm Fields', () => {
     expect(wrapper).toBeDefined();
   });
   it('renders form component', () => {
-    expect(wrapper.find('[form="ProjectForm"]').first()).toHaveLength(
-      1
-    );
+    expect(wrapper.find('[form="ProjectForm"]').first()).toHaveLength(1);
   });
 
   describe('Defines form fields', () => {
@@ -154,18 +152,18 @@ describe('ProjectForm Fields', () => {
       });
     });
     describe('Approximate value field', () => {
-        let field: ShallowWrapper;
-        beforeEach(() => {
-          field = wrapper.find('input[name="approxValue"]').first();
-        });
-        it('Should renders Approximate value field', () => {
-          expect(field.prop('type')).toBe('text');
-        });
-        it('Shows error when Approximate value is set to blank', () => {
-          field.simulate('blur');
-          const errorBlock = wrapper.find('.text-danger');
-          expect(errorBlock).toHaveLength(9);
-        });
+      let field: ShallowWrapper;
+      beforeEach(() => {
+        field = wrapper.find('input[name="approxValue"]').first();
       });
+      it('Should renders Approximate value field', () => {
+        expect(field.prop('type')).toBe('text');
+      });
+      it('Shows error when Approximate value is set to blank', () => {
+        field.simulate('blur');
+        const errorBlock = wrapper.find('.text-danger');
+        expect(errorBlock).toHaveLength(9);
+      });
+    });
   });
 });

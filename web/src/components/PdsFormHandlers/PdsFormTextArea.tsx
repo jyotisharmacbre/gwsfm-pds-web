@@ -1,32 +1,45 @@
 import React from 'react';
+import { injectIntl, FormattedMessage } from 'react-intl';
 
 export function PdsFormTextArea({
   input,
-  label,
+  labelKey,
   type,
   name,
-  placeholder,
+  placeholderKey,
   rows,
   meta: { touched, error, warning },
   className,
-  message
+  messageKey,
+  intl
 }) {
   const errorClass = `${(error && touched) || warning ? 'error' : ''}`;
+  const _placeholder = placeholderKey
+    ? intl.formatMessage({ id: placeholderKey })
+    : placeholderKey;
+  const _message = messageKey
+    ? intl.formatMessage({ id: messageKey })
+    : messageKey;
+  const _error = error ? intl.formatMessage({ id: error }) : error;
   return (
     <div className="form-group">
-      {label && <label htmlFor={name}>{label}</label>}
+      {labelKey && (
+        <label htmlFor={name}>{<FormattedMessage id={labelKey} />}</label>
+      )}
       <textarea
         {...input}
-        placeholder={placeholder}
+        placeholder={_placeholder}
         rows={rows}
         type={type}
         className={'form-control ' + className + ' ' + errorClass}
       />
       {touched &&
-        ((error && <span className="text-danger">{error}</span>) ||
+        ((error && (
+          <span className="text-danger">{_message + ' is ' + _error}</span>
+        )) ||
           (warning && <span className="text-danger">{warning}</span>))}
     </div>
   );
 }
 
-export default PdsFormTextArea;
+export default injectIntl(PdsFormTextArea);

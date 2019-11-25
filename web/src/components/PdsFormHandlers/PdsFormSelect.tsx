@@ -1,10 +1,10 @@
 import React from 'react';
-import { Dropdown } from 'react-bootstrap';
+import { FormattedMessage } from 'react-intl';
 
 export function PdsFormSelect({
   input,
   meta: { touched, error },
-  message,
+  messageKey,
   children,
   DropdownCheck
 }) {
@@ -18,7 +18,10 @@ export function PdsFormSelect({
         {children}
       </select>
 
-      {touched && (error && <span className="text-danger">{error}</span>)}
+      {touched &&
+        (error && (
+          <span className="text-danger">{<FormattedMessage id={error} />}</span>
+        ))}
     </React.Fragment>
   );
 }
