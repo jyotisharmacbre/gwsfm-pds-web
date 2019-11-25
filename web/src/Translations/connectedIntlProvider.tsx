@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
 import { IntlProvider } from 'react-intl';
 import translations from './translation';
-import { IApplicationState } from '../session/rootReducer';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
 import { getLocaleActionCreator } from './Actions';
+import { IState } from '../store/state';
 
 // This function will map the current redux state to the props for the component that it is "connected" to.
 // When the state of the redux store changes, this function will be called, if the props that come out of
@@ -15,8 +15,8 @@ import { getLocaleActionCreator } from './Actions';
 //   language = navigator.language.split(/[-_]/)[0];
 // }
 
-const mapStateToProps = (state: IApplicationState) => {
-  let locale = state.localeState.locale;
+const mapStateToProps = (state: IState) => {
+  let { locale } = state.locale;
   let messages = translations[locale].messages;
   return { locale, messages };
 };

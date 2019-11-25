@@ -20,7 +20,7 @@ import {
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
-import {LookupType} from '../../../store/Lookups/Types/LookupType';
+import { LookupType } from '../../../store/Lookups/Types/LookupType';
 interface Props {
   projectstatus: any;
 }
@@ -31,12 +31,8 @@ const ProjectForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
   const { handleSubmit, projectstatus } = props;
 
   const getDropdown = value => {
-    console.log(projectstatus);
-
     let data = projectstatus.map((status: any, i: number) => {
       if (status.lookupItem == value) {
-        console.log(parseInt(status.lookupId));
-        console.log(parseInt(status.lookupId));
         return (
           <option key={status.lookupId} value={+status.lookupKey}>
             {status.description}
