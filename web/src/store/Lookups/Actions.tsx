@@ -30,7 +30,7 @@ export const getProjectStatus = () => {
   ];
   return (dispatch: Dispatch) => {
     axios.baseAPI
-      .post('LookupData/GetLookupsByIds', data, { headers: headers })
+      .post('api/LookupData/GetLookupsByIds', data, { headers: headers })
       .then(response => {
         dispatch(getProjectStatusSuccess(response.data));
       })

@@ -10,6 +10,7 @@ export function PdsFormTextArea({
   rows,
   meta: { touched, error, warning },
   className,
+  messages,
   messageKey,
   intl
 }) {

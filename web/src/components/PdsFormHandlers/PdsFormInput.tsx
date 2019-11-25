@@ -40,7 +40,7 @@ export function PdsFormInput({
       >{currency}</span>}
       {touched &&
         ((error && (
-          <span className="text-danger">{<FormattedMessage id={error} />}</span>
+          <span className="text-danger">{error}}</span>
         )) ||
           (warning && <span className="text-danger">{warning}</span>))}
     </div>

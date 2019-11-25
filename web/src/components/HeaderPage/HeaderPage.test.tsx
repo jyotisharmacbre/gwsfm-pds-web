@@ -21,19 +21,3 @@ xit('HeaderPage should render title', () => {
 
   expect(component.find('h1').text()).toEqual('Overview');
 });
-
-xit('HeaderPage should render buttons', () => {
-  let btn: IBtnActionProps = {
-    Title: 'Test',
-    Icon: 'create',
-    HandleClick: () => {}
-  };
-
-  const props = {
-    Title: 'Overview',
-    ActionList: [btn] || []
-  };
-  const component = mount(<HeaderPage {...props} />);
-
-  expect(component.find('button').text()).toEqual('Test');
-});

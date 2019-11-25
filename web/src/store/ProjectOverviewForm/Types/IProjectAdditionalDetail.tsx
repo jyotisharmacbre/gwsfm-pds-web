@@ -2,9 +2,11 @@ export interface IProjectAdditionalDetail {
   projectAddDetailId: string;
   projectId: string;
   mainContractor: string;
+  otherMainContractor: string;
   enquiryReceivedFrom: string;
   potentialCustomer: string;
-  enquiryTypeId: string;
+  otherPotentialCustomer: string;
+  enquiryTypeId: number;
   creditCheckResult: string;
   siteAddress: string;
   cdmNotifiable: boolean;
@@ -12,7 +14,7 @@ export interface IProjectAdditionalDetail {
   retention: string;
   liquidatedDamages: string;
   insurance: string;
-  workTypeId: string;
+  workTypeId: number;
   commenceDate: string;
   completionDate: string;
   milestones: string;
@@ -23,7 +25,7 @@ export interface IProjectAdditionalDetail {
   isProjectLive: boolean;
   comments: string;
   authorizedByHop: string;
-  budget: string;
+  budget: number;
   authorizedBy: string;
   authorizedBySecond: string;
   authorizedByThird: string;

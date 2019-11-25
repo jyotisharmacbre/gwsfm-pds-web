@@ -23,10 +23,11 @@ const initialState: IProjectDetailState = {
     contractTypeId: 'string',
     cdmNotifiable: true,
     firstAssetWorkedOn: 0,
-    secondAssetWorkedOn: 0,
+    secondAssetWorkedOn:0,
     thirdAssetWorkedOn: 0,
     comment: 'string'
   },
+  projectId: '',
   error: null,
   loading: false,
   notify: Notify.none

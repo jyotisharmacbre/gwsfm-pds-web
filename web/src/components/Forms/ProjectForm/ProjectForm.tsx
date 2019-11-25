@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { MainTitle } from '../../Title/Title';
-import { Field, reduxForm, InjectedFormProps, change } from 'redux-form';
+
+import { Field, reduxForm, InjectedFormProps } from 'redux-form';
 import PdsFormInput from '../../PdsFormHandlers/PdsFormInput';
 import PdsFormSelect from '../../PdsFormHandlers/PdsFormSelect';
 import PdsFormTextArea from '../../PdsFormHandlers/PdsFormTextArea';
@@ -14,10 +15,11 @@ import {
 import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
 import { FormattedMessage } from 'react-intl';
-
+import {LookupType} from '../../../store/Lookups/Types/LookupType';
 interface Props {
   projectstatus: any;
 }
+
 const ProjectForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
   props: any
 ) => {
@@ -65,8 +67,6 @@ const ProjectForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   name="companyId"
                   type="text"
                   component={PdsFormInput}
-                  label="Company*"
-                  placeHolder="Enter company name"
                   validate={[
                     Validate.required('Company name'),
                     Validate.maxLength(1000)
@@ -79,8 +79,6 @@ const ProjectForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   name="contractorId"
                   type="text"
                   component={PdsFormInput}
-                  label="Contract*"
-                  placeHolder="Enter contract"
                   validate={[
                     Validate.required('Contract name'),
                     Validate.maxLength(1000)
@@ -94,8 +92,6 @@ const ProjectForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   name="headOfProject"
                   type="text"
                   component={PdsFormInput}
-                  label="Head of project*"
-                  placeHolder="Enter head of project name"
                   validate={[
                     Validate.required('Head of project'),
                     Validate.maxLength(1000)
@@ -123,7 +119,6 @@ const ProjectForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   name="projectManager"
                   type="text"
                   component={PdsFormInput}
-                  placeHolder="Enter Project Manager name"
                   validate={[
                     Validate.required('Project manager'),
                     Validate.maxLength(1000)
@@ -168,9 +163,7 @@ const ProjectForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                     <Field
                       name="status"
                       component={PdsFormSelect}
-                      validate={Validate.required('Project Status')}
                       placeHolder="Select status"
-                      message="Project status"
                     >
                       <FormattedMessage id="PLACEHOLDER_PROJECT_STATUS">
                         {message => <option value="">{message}</option>}
@@ -198,9 +191,9 @@ const ProjectForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                     <Field
                       name="countryId"
                       component={PdsFormSelect}
-                      validate={Validate.required('Country')}
-                      placeHolder="Select country"
-                      message="Country"
+                      validate={[Validate.required('Project name')]}
+                      placeholderKey="PLACEHOLDER_COUNTRY"
+                      messageKey="MESSAGE_COUNTRY"
                     >
                       <FormattedMessage id="PLACEHOLDER_COUNTRY">
                         {message => <option value="">{message}</option>}
@@ -271,8 +264,6 @@ const ProjectForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                       name="contractTypeId"
                       component={PdsFormSelect}
                       validate={Validate.required('Contract type')}
-                      placeHolder="Select contract type"
-                      message="Contract type"
                       placeholderKey="PLACEHOLDER_CONTRACT_TYPE"
                       messageKey="MESSAGE_CONTRACT_TYPE"
                     >
@@ -378,7 +369,8 @@ const mapStateToProps = (state: IState) => ({
 const form = reduxForm<{}, Props>({
   destroyOnUnmount: false,
   forceUnregisterOnUnmount: false,
-  form: 'ProjectForm'
+  form: 'ProjectForm',
+  enableReinitialize: true
 })(ProjectForm);
 
 export default connect(mapStateToProps)(form);

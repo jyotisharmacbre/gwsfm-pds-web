@@ -7,6 +7,8 @@
   "HEADING_CUSTOMER_ENQUIRY": "Enquête client",
   "BUTTON_NEXT": "SUIVANT",
   "BUTTON_PREVIOUS": "PRÉCÉDENT",
+  "BUTTON_YES":"yes",
+  "BUTTON_NO":"no",
   "BUTTON_SAVE_AND_CLOSE": "SAUVEGARDER ET FERMER",
   "LABEL_COMMENTS": "Commentaires",
   "LABEL_CURRENCY": "Devise",
@@ -64,6 +66,10 @@
   "MESSAGE_PROJECT_OWNER": "Propriétaire du projet",
   "MESSAGE_PROJECT_SCOPE": "Portée du projet",
   "MESSAGE_PROJECT_STATUS": "Statut du projet",
+  "MESSAGE_WRITTEN": "Written",
+  "MESSAGE_VERBAL": "Verbal",
+  "MESSAGE_TENDER_ENQUIRY": "Full tender enquiry with specifications & orgs",
+  "MESSAGE_OTHER": "Other",
   "PACEHODER_PROJECT_SCOPE": "Tapez les détails impliqués dans ce projet",
   "PLACEHOLDER_ADD_INSURANCE": "Ajouter une assurance",
   "PLACEHOLDER_ADD_LIQUIDATED_DAMAGES": "Ajouter des dommages-intérêts liquidés",
@@ -110,5 +116,6 @@
   "VALIDATION_MESSAGE_PROJECT_NAME_REQUIRED": "nom du projet requis",
   "VALIDATION_MESSAGE_PROJECT_OWNER_REQUIRED": "propriétaire du projet requis",
   "VALIDATION_MESSAGE_PROJECT_SCOPE_REQUIRED": "portée du projet requise",
-  "VALIDATION_MESSAGE_PROJECT_STATUS_REQUIRED": "projet le statut est requis"
+  "VALIDATION_MESSAGE_PROJECT_STATUS_REQUIRED": "projet le statut est requis",
+  "VALIDATION_REQUIRED":"Required"
 }
