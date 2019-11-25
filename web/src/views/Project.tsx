@@ -13,42 +13,33 @@ interface IMapDispatchToProps {
 
 interface IMapStateToProps {
   form: IProjectDetail;
-  notify:Notify;
+  notify: Notify;
   projectStatus: Array<ILookup>;
 }
 
 interface IMapDispatchToProps {
-  handleProjectDetailsSubmit: (
-    form: IProjectDetail
-  ) => void;
+  handleProjectDetailsSubmit: (form: IProjectDetail) => void;
 }
 
-const Project: React.FC<
-  IMapStateToProps & IMapDispatchToProps
-> = props => {
-
-useEffect(() => {
+const Project: React.FC<IMapStateToProps & IMapDispatchToProps> = props => {
+  useEffect(() => {
     props.getProjectStatus();
-  }, []); 
+  }, []);
 
   useEffect(() => {
-    if(props.notify == Notify.success){
-      alert("data saved successfully");
+    if (props.notify == Notify.success) {
+      alert('data saved successfully');
     }
-  }, [props.notify]); 
+  }, [props.notify]);
 
   const handleSubmit = (values: any) => {
     props.handleProjectDetailsSubmit(values);
   };
 
-      return (
-      <ProjectForm 
-      onSubmit ={handleSubmit}
-      projectstatus={props.projectStatus}/>  
-        )  
-  };
-
-
+  return (
+    <ProjectForm onSubmit={handleSubmit} projectstatus={props.projectStatus} />
+  );
+};
 
 const mapStateToProps = (state: IState) => {
   return {
@@ -59,8 +50,7 @@ const mapStateToProps = (state: IState) => {
 const mapDispatchToProps = dispatch => {
   return {
     getProjectStatus: () => dispatch(getProjectStatus()),
-    handleProjectDetailsSubmit: (form) =>
-      dispatch(projectDetailAdd(form))
+    handleProjectDetailsSubmit: form => dispatch(projectDetailAdd(form))
   };
 };
 

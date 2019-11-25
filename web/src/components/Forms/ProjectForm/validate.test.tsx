@@ -14,9 +14,9 @@ describe('Project Form Validation', () => {
     });
 
     it('Project name is required', () => {
-      const expectedProps = { ...ProjectFormProps, ...{ projectName: '' } };
+      const expectedProps = { ...ProjectFormProps, ...{ name: '' } };
       error = validate(expectedProps);
-      expect(error.projectName).toBeDefined();
+      expect(error.name).toBeDefined();
     });
   });
 });

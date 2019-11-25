@@ -5,27 +5,27 @@ import { Notify } from '../../helpers/constants';
 
 const initialState: IProjectDetailState = {
   form: {
-    name: "string",
+    name: 'string',
     contractorId: 1,
     companyId: 1,
-    headOfProject: "string",
-    projectOwner: "string",
-    projectManager: "string",
+    headOfProject: 'string',
+    projectOwner: 'string',
+    projectManager: 'string',
     pmHasExperience: true,
-    scope: "string",
+    scope: 'string',
     cnNumber: 2,
     status: 1,
     engagementId: 2,
     countryId: 3,
     currencyId: 1,
-    probabilityOfWinning: "string",
-    approxValue: "string",
-    contractTypeId: "string",
+    probabilityOfWinning: 'string',
+    approxValue: 'string',
+    contractTypeId: 'string',
     cdmNotifiable: true,
-    firstAssetWorkedOn: 28,
-    secondAssetWorkedOn: 29,
-    thirdAssetWorkedOn: 28,
-    comment: "string"
+    firstAssetWorkedOn: 0,
+    secondAssetWorkedOn: 0,
+    thirdAssetWorkedOn: 0,
+    comment: 'string'
   },
   error: null,
   loading: false,
@@ -36,8 +36,7 @@ const projectDetailAddSuccess = (oldState, action) => {
   return updateObject(oldState, {
     error: null,
     loading: false,
-    form: action.payload,
-
+    form: action.payload
   });
 };
 

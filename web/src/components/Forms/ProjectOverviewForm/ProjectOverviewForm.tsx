@@ -13,9 +13,7 @@ import { enquiryTypeData } from '../../../helpers/dropDownFormValues';
 import { IState } from '../../../store/state';
 import { IProjectAdditionalDetail } from '../../../store/ProjectOverviewForm/Types/IProjectAdditionalDetail';
 import { getPropertyName } from '../../../helpers/utility-helper';
-import {
-  projectStatusData
-} from '../../../helpers/dropDownFormValues';
+import { projectStatusData } from '../../../helpers/dropDownFormValues';
 
 interface Props {}
 

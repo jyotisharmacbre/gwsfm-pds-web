@@ -13,6 +13,7 @@ import {
 } from '../../../helpers/fieldValidations';
 import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
+import validate from './validate';
 
 interface Props {
   projectstatus: any;
@@ -22,23 +23,22 @@ const ProjectForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
 ) => {
   const { handleSubmit, projectstatus } = props;
 
-  const getDropdown = value =>{
-    console.log(projectstatus)
-    
+  const getDropdown = value => {
+    console.log(projectstatus);
+
     let data = projectstatus.map((status: any, i: number) => {
-    
-      if(status.lookupItem == value){
-        console.log(parseInt(status.lookupId))
-        console.log(parseInt(status.lookupId))
+      if (status.lookupItem == value) {
+        console.log(parseInt(status.lookupId));
+        console.log(parseInt(status.lookupId));
         return (
-          <option key={status.lookupId} value={+(status.lookupKey)}>
+          <option key={status.lookupId} value={+status.lookupKey}>
             {status.description}
           </option>
-        )
+        );
       }
-    })
+    });
     return data;
-  }
+  };
 
   return (
     <div className="container-fluid">
@@ -54,7 +54,10 @@ const ProjectForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   component={PdsFormInput}
                   label="Project*"
                   placeHolder="Enter project name"
-                  validate={[Validate.required('Project name'), Validate.maxLength(1000)]}
+                  validate={[
+                    Validate.required('Project name'),
+                    Validate.maxLength(1000)
+                  ]}
                   warn={alphaNumeric}
                   message="Project name"
                 />
@@ -64,53 +67,68 @@ const ProjectForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   component={PdsFormInput}
                   label="Company*"
                   placeHolder="Enter company name"
-                  validate={[Validate.required('Company name'), Validate.maxLength(1000)]}
+                  validate={[
+                    Validate.required('Company name'),
+                    Validate.maxLength(1000)
+                  ]}
                   warn={alphaNumeric}
                   message="Company name"
                 />
                 <Field
-                  name='contractorId'
+                  name="contractorId"
                   type="text"
                   component={PdsFormInput}
                   label="Contract*"
                   placeHolder="Enter contract"
-                  validate={[Validate.required('Contract name'), Validate.maxLength(1000)]}
+                  validate={[
+                    Validate.required('Contract name'),
+                    Validate.maxLength(1000)
+                  ]}
                   warn={alphaNumeric}
                   message="Contract name"
                 />
                 <Field
-                  name='headOfProject'
+                  name="headOfProject"
                   type="text"
                   component={PdsFormInput}
                   label="Head of project*"
                   placeHolder="Enter head of project name"
-                  validate={[Validate.required('Head of project'), Validate.maxLength(1000)]}
+                  validate={[
+                    Validate.required('Head of project'),
+                    Validate.maxLength(1000)
+                  ]}
                   warn={alphaNumeric}
                   message="Head of project"
                 />
                 <Field
-                  name='projectOwner'
+                  name="projectOwner"
                   type="text"
                   component={PdsFormInput}
                   label="Project Owner*"
                   placeHolder="Project Owner name"
-                  validate={[Validate.required('Project owner'), Validate.maxLength(1000)]}
+                  validate={[
+                    Validate.required('Project owner'),
+                    Validate.maxLength(1000)
+                  ]}
                   warn={alphaNumeric}
                   message="Project Owner"
                 />
                 <Field
-                  name='projectManager'
+                  name="projectManager"
                   type="text"
                   component={PdsFormInput}
                   label="Project Manager*"
                   placeHolder="Enter Project Manager name"
-                  validate={[Validate.required('Project manager'), Validate.maxLength(1000)]}
+                  validate={[
+                    Validate.required('Project manager'),
+                    Validate.maxLength(1000)
+                  ]}
                   warn={alphaNumeric}
                   message="Project manager"
                 />
 
                 <Field
-                  name='pmHasExperience'
+                  name="pmHasExperience"
                   component={PdsFormButton}
                   buttons={selectionButtons}
                   label="Project Manager has experience in this type of project"
@@ -118,34 +136,37 @@ const ProjectForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
 
                 <Field
                   label="Project scope*"
-                  name='scope'
+                  name="scope"
                   rows="7"
                   component={PdsFormTextArea}
                   placeHolder="Type in the details involved in this project"
-                  validate={[Validate.required('Project scope'), Validate.maxLength(1040)]}
+                  validate={[
+                    Validate.required('Project scope'),
+                    Validate.maxLength(1040)
+                  ]}
                   warn={alphaNumeric}
                   message="Project scope"
                 />
                 <Field
-                  name='cnNumber'
+                  name="cnNumber"
                   type="number"
                   component={PdsFormInput}
                   label="CN Number"
                   placeHolder="Enter CN Number"
-                  validate = {onlyNumber}
+                  validate={onlyNumber}
                 />
                 <div className={'form-group'}>
                   <label>Project status*</label>
                   <div className="select-wrapper">
                     <Field
-                      name='status'
+                      name="status"
                       component={PdsFormSelect}
                       validate={Validate.required('Project Status')}
                       placeHolder="Select status"
                       message="Project status"
                     >
                       <option value="">Select project status</option>
-                      {getDropdown("Project_Status")}
+                      {getDropdown('Project_Status')}
                     </Field>
                   </div>
                 </div>
@@ -153,12 +174,9 @@ const ProjectForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                 <div className={'form-group'}>
                   <label>Type of engagement</label>
                   <div className="select-wrapper">
-                    <Field
-                      name='engagementId'
-                      component={PdsFormSelect}
-                    >
+                    <Field name="engagementId" component={PdsFormSelect}>
                       <option value="">Select type of engagement</option>
-                      {getDropdown("Engagement_Type")}
+                      {getDropdown('Engagement_Type')}
                     </Field>
                   </div>
                 </div>
@@ -167,14 +185,14 @@ const ProjectForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   <label>Country*</label>
                   <div className="select-wrapper">
                     <Field
-                      name='countryId'
+                      name="countryId"
                       component={PdsFormSelect}
                       validate={Validate.required('Country')}
                       placeHolder="Select country"
                       message="Country"
                     >
                       <option value="">Select country</option>
-                      {getDropdown("Country")}
+                      {getDropdown('Country')}
                     </Field>
                   </div>
                 </div>
@@ -183,59 +201,67 @@ const ProjectForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   <label>Currency*</label>
                   <div className="select-wrapper">
                     <Field
-                      name='currencyId'
+                      name="currencyId"
                       component={PdsFormSelect}
                       validate={Validate.required('Currency')}
                       placeHolder="Select currency"
                       message="Currency"
                     >
                       <option value="">Select country</option>
-                      {getDropdown("Currency")}
+                      {getDropdown('Currency')}
                     </Field>
                   </div>
                 </div>
 
                 <Field
-                  name='probabilityOfWinning'
+                  name="probabilityOfWinning"
                   type="number"
                   component={PdsFormInput}
                   label="Probability of wining (%)*"
                   placeHolder="00%"
                   className="width-100"
-                  validate={[Validate.required('Probability of wining'), Validate.maxLength(1000), onlyNumber]}
+                  validate={[
+                    Validate.required('Probability of wining'),
+                    Validate.maxLength(1000),
+                    onlyNumber
+                  ]}
                   message="Probability of wining"
                 />
 
                 <Field
-                  name='approxValue'
+                  name="approxValue"
                   type="number"
                   component={PdsFormInput}
                   label="Approximate value*"
                   className="width-120 pl-20"
-                  validate={[Validate.required('Approximate value'), Validate.maxLength(1000), onlyNumber]}
+                  validate={[
+                    Validate.required('Approximate value'),
+                    Validate.maxLength(1000),
+                    onlyNumber
+                  ]}
                   message="Approximate value"
-                  currency= "$"
-                  divPosition = "relative"
+                  currency="$"
+                  divPosition="relative"
                 />
 
                 <div className={'form-group'}>
                   <label>Contract type*</label>
                   <div className="select-wrapper">
                     <Field
-                      name='contractTypeId'
+                      name="contractTypeId"
                       component={PdsFormSelect}
                       validate={Validate.required('Contract type')}
                       placeHolder="Select contract type"
                       message="Contract type"
                     >
                       <option value="">Select contract type</option>
-                      {getDropdown("Currency")}
+                      {getDropdown('Contract_Type')}
                     </Field>
                   </div>
                 </div>
 
                 <Field
-                  name='cdmNotifiable'
+                  name="cdmNotifiable"
                   component={PdsFormButton}
                   buttons={selectionButtons}
                   label="CDM notifiable"
@@ -244,36 +270,37 @@ const ProjectForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   <label>Assets worked on*</label>
                   <div className="select-wrapper">
                     <Field
-                      name='firstAssetWorkedOn'
+                      name="firstAssetWorkedOn"
                       component={PdsFormSelect}
-                      validate={Validate.required('First Asset')}
                       placeHolder="Select First Asset"
-                      message="First Asset"
+                      DropdownCheck="selectRound"
                     >
                       <option value="">Select First Asset</option>
-                      {getDropdown("Currency")}
+                      {getDropdown('Asset')}
                     </Field>
                   </div>
 
                   <div className="select-wrapper">
                     <Field
-                      name='secondAssetWorkedOn'
+                      name="secondAssetWorkedOn"
                       component={PdsFormSelect}
                       placeHolder="Select Second Asset"
+                      DropdownCheck="selectRound"
                     >
                       <option value="">Select Second Asset</option>
-                      {getDropdown("Currency")}
+                      {getDropdown('Asset')}
                     </Field>
                   </div>
 
                   <div className="select-wrapper">
                     <Field
-                      name='thirdAssetWorkedOn'
+                      name="thirdAssetWorkedOn"
                       component={PdsFormSelect}
                       placeHolder="Select Third Asset"
+                      DropdownCheck="selectRound"
                     >
                       <option value="">Select Third Asset</option>
-                      {getDropdown("Currency")}
+                      {getDropdown('Asset')}
                     </Field>
                   </div>
                 </div>
@@ -309,7 +336,8 @@ const mapStateToProps = (state: IState) => ({
 const form = reduxForm<{}, Props>({
   destroyOnUnmount: false,
   forceUnregisterOnUnmount: false,
-  form: 'ProjectForm'
+  form: 'ProjectForm',
+  validate
 })(ProjectForm);
 
 export default connect(mapStateToProps)(form);
