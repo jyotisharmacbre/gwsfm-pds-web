@@ -22,11 +22,7 @@ describe('ProjectOverviewForm Fields', () => {
   it('Defines the component', () => {
     expect(wrapper).toBeDefined();
   });
-  /*
-  it('Defines the component', () => {
-    expect(wrapper).toBeDefined();
-  });
-
+  
   describe('Dfines the Form', () => {
     let form: ShallowWrapper;
     beforeEach(() => {
@@ -35,10 +31,8 @@ describe('ProjectOverviewForm Fields', () => {
     it('Renders form component', () => {
       expect(form).toHaveLength(1);
     });
-    /
+    
   });
-  */
-  /*
   describe('Defines form fields', () => {
     let field: ShallowWrapper;
     describe('Main Contractor field', () => {
@@ -65,7 +59,7 @@ describe('ProjectOverviewForm Fields', () => {
       it('Shows error when Enquiry Received From is set to blank', () => {
         field.simulate('blur');
         const errorBlock = wrapper.find('.text-danger');
-        expect(errorBlock).toHaveLength(2);
+        expect(errorBlock).toHaveLength(1);
       });
     });
     describe('Potential Customer field', () => {
@@ -79,7 +73,7 @@ describe('ProjectOverviewForm Fields', () => {
       it('Shows error when Potential Customer is set to blank', () => {
         field.simulate('blur');
         const errorBlock = wrapper.find('.text-danger');
-        expect(errorBlock).toHaveLength(3);
+        expect(errorBlock).toHaveLength(1);
       });
     });
     describe('Credit Check Result field', () => {
@@ -93,7 +87,7 @@ describe('ProjectOverviewForm Fields', () => {
       it('Shows error when Credit Check Result is set to blank', () => {
         field.simulate('blur');
         const errorBlock = wrapper.find('.text-danger');
-        expect(errorBlock).toHaveLength(4);
+        expect(errorBlock).toHaveLength(1);
       });
     });
     describe('Site Address field', () => {
@@ -107,7 +101,7 @@ describe('ProjectOverviewForm Fields', () => {
       it('Shows error when Site Address is set to blank', () => {
         field.simulate('blur');
         const errorBlock = wrapper.find('.text-danger');
-        expect(errorBlock).toHaveLength(5);
+        expect(errorBlock).toHaveLength(1);
       });
     });
     describe('Form Of Contract field', () => {
@@ -121,7 +115,7 @@ describe('ProjectOverviewForm Fields', () => {
       it('Shows error when Form Of Contract is set to blank', () => {
         field.simulate('blur');
         const errorBlock = wrapper.find('.text-danger');
-        expect(errorBlock).toHaveLength(6);
+        expect(errorBlock).toHaveLength(1);
       });
     });
     describe('Retention field', () => {
@@ -135,7 +129,7 @@ describe('ProjectOverviewForm Fields', () => {
       it('Shows error when Retention is set to blank', () => {
         field.simulate('blur');
         const errorBlock = wrapper.find('.text-danger');
-        expect(errorBlock).toHaveLength(7);
+        expect(errorBlock).toHaveLength(1);
       });
     });
     describe('Liquidated Damages field', () => {
@@ -149,7 +143,7 @@ describe('ProjectOverviewForm Fields', () => {
       it('Shows error when Liquidated Damages is set to blank', () => {
         field.simulate('blur');
         const errorBlock = wrapper.find('.text-danger');
-        expect(errorBlock).toHaveLength(8);
+        expect(errorBlock).toHaveLength(1);
       });
     });
     describe('Insurance field', () => {
@@ -163,7 +157,7 @@ describe('ProjectOverviewForm Fields', () => {
       it('Shows error when Insurance is set to blank', () => {
         field.simulate('blur');
         const errorBlock = wrapper.find('.text-danger');
-        expect(errorBlock).toHaveLength(9);
+        expect(errorBlock).toHaveLength(1);
       });
     });
     describe('Next button', () => {
@@ -175,5 +169,4 @@ describe('ProjectOverviewForm Fields', () => {
       });
     });
   });
-  */
 });

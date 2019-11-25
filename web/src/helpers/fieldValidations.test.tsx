@@ -1,8 +1,4 @@
-import {
-  alphaNumeric,
-  onlyNumber,
-  Validate
-} from './fieldValidations';
+import { alphaNumeric, onlyNumber, Validate } from './fieldValidations';
 
 describe('Validation', () => {
   it('Required', () => {

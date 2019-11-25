@@ -6,7 +6,7 @@ import Notify from '../../enums/Notify';
 
 const initialState: IProjectOverviewState = {
   form: {
-    projectAddDetailId: 'b921c1b6-2d14-4809-a513-08d770448925',
+    projectAddDetailId: '',
     projectId: '',
     mainContractor: '',
     otherMainContractor: '',
@@ -22,11 +22,11 @@ const initialState: IProjectOverviewState = {
     liquidatedDamages: '',
     insurance: '',
     workTypeId: -1,
-    commenceDate: new Date(),
-    completionDate: new Date(),
+    commenceDate: new Date().toJSON(),
+    completionDate: new Date().toJSON(),
     milestones: '',
-    firstValuationDate: new Date(),
-    finalAccountDate: new Date(),
+    firstValuationDate: new Date().toJSON(),
+    finalAccountDate: new Date().toJSON(),
     valuationIntervals: '',
     paymentTerms: '',
     isProjectLive: false,
@@ -43,8 +43,6 @@ const initialState: IProjectOverviewState = {
 };
 
 const projectOverviewFormAddSuccess = (oldState, action) => {
-
-  debugger;
   return updateObject(oldState, {
     error: null,
     loading: false,
@@ -68,11 +66,9 @@ const projectOverviewFormError = (oldState, action) => {
   });
 };
 
-
 const getAdditionalDetailsSuccess = (oldState, action) => {
-  debugger;
-    return updateObject(oldState, {
-    form: updateObject(oldState.form, action.payload),
+  return updateObject(oldState, {
+    form: updateObject(oldState.form, action.payload)
   });
 };
 

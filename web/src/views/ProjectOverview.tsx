@@ -12,6 +12,7 @@ import * as actions from '../store/actions';
 import { IProjectAdditionalDetail } from '../store/ProjectOverviewForm/Types/IProjectAdditionalDetail';
 import { IState } from '../store/state';
 import Notify from '../enums/Notify';
+import { ILookup } from '../store/Lookups/Types/ILookup';
 
 const tableHeaders: IGeneralTableHeaderProps[] = [
   { heading: 'End Client Name', subHeading: 'ING' },
@@ -31,14 +32,16 @@ const table: IGeneralTableProps = {
 interface IMapStateToProps {
   form: IProjectAdditionalDetail;
   notify: Notify;
-  projectId:string;
+  projectId: string;
+  projectStatus: Array<ILookup>;
 }
 interface IMapDispatchToProps {
+  getProjectStatus: () => void;
   handleProjectOverviewFormSubmit: (
     projectId: string,
     form: IProjectAdditionalDetail
   ) => void;
-  getAdditionalDetails:(projectId:string) => void;
+  getAdditionalDetails: (projectId: string) => void;
 }
 interface IProps {
   projectId: string;
@@ -48,7 +51,11 @@ const ProjectOverview: React.FC<
   IProps & IMapStateToProps & IMapDispatchToProps
 > = props => {
   useEffect(() => {
-    if (props.form.projectAddDetailId != null && props.form.projectAddDetailId != '') {
+    props.getProjectStatus();
+    if (
+      props.form.projectAddDetailId != null &&
+      props.form.projectAddDetailId != ''
+    ) {
       props.getAdditionalDetails(props.form.projectAddDetailId);
     }
   }, []);
@@ -61,7 +68,7 @@ const ProjectOverview: React.FC<
 
   const handleSubmit = (values: any) => {
     props.handleProjectOverviewFormSubmit(
-      'a2658808-2deb-4eba-bc4e-08d770a0b60e',
+      '',
       values
     );
   };
@@ -75,7 +82,10 @@ const ProjectOverview: React.FC<
             <GeneralTable {...table} />
           </Grid>
           <Grid item xs={12} sm={12}>
-            <ProjectOverviewForm onSubmit={handleSubmit} />
+            <ProjectOverviewForm
+              onSubmit={handleSubmit}
+              projectstatus={props.projectStatus}
+            />
           </Grid>
         </Grid>
       </Container>
@@ -86,15 +96,17 @@ const ProjectOverview: React.FC<
 const mapStateToProps = (state: IState) => ({
   form: state.projectOverview.form,
   notify: state.projectOverview.notify,
-  projectId:state.project.projectId
+  projectId: state.project.projectId,
+  projectStatus: state.lookup.projectstatus
 });
 
 const mapDispatchToProps = dispatch => {
   return {
+    getProjectStatus: () => dispatch(actions.getProjectStatus()),
     handleProjectOverviewFormSubmit: (projectId, form) =>
       dispatch(actions.projectOverviewFormAdd(projectId, form)),
-      getAdditionalDetails: (projectId) =>
-      dispatch(actions.getAdditionalDetails(projectId)),
+    getAdditionalDetails: projectId =>
+      dispatch(actions.getAdditionalDetails(projectId))
   };
 };
 

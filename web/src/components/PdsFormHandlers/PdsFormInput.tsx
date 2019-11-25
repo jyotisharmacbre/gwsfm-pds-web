@@ -16,15 +16,8 @@ export function PdsFormInput({
   const _placeholder = placeholderKey
     ? intl.formatMessage({ id: placeholderKey })
     : placeholderKey;
-  /*
-  const _message = messageKey
-    ? intl.formatMessage({ id: messageKey })
-    : messageKey;
-  */
-
-  //const _error = error ? intl.formatMessage({ id: error }) : error;
   return (
-    <div className="form-group">
+    <div data-test="pdsFormInput" className="form-group">
       {labelKey && (
         <label htmlFor={name}>{<FormattedMessage id={labelKey} />}</label>
       )}

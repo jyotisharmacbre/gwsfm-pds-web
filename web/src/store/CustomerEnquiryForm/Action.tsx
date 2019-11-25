@@ -29,12 +29,10 @@ const headers = {
 };
 
 export const projectDetailAdd = (data: IProjectDetail) => {
-  console.log(data, 'submitted data');
   return (dispatch: Dispatch) => {
     axios.baseAPI
       .post('Projects/customerEnquiry', data, { headers: headers })
       .then(response => {
-        debugger;
         dispatch(projectDetailAddSuccess(response.data));
       })
       .catch(error => {

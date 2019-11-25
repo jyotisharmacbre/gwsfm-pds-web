@@ -12,7 +12,8 @@ import { selectionButtons } from '../../../helpers/constants';
 import { enquiryTypeData } from '../../../helpers/dropDownFormValues';
 import { IState } from '../../../store/state';
 import { IProjectAdditionalDetail } from '../../../store/ProjectOverviewForm/Types/IProjectAdditionalDetail';
-import { getPropertyName } from '../../../helpers/utility-helper';
+import { getPropertyName, getDropdown } from '../../../helpers/utility-helper';
+import {LookupType} from '../../../store/Lookups/Types/LookupType';
 import {
   projectStatusData,
   engagementData
@@ -24,7 +25,9 @@ import {
 } from '../../../helpers/fieldValidations';
 import { FormattedMessage } from 'react-intl';
 
-interface Props {}
+interface Props {
+  projectstatus: any;
+}
 
 let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
   props: any
@@ -229,7 +232,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                       <FormattedMessage id="PLACEHOLDER_WORK_TYPES">
                         {message => <option value="">{message}</option>}
                       </FormattedMessage>
-                      {DropdownOptions}
+                      {getDropdown(props.projectstatus, LookupType.Project_Status)}
                     </Field>
                   </div>
                 </div>
@@ -406,7 +409,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
               <button className="active mb-4 mt-5" type="submit">
                 <FormattedMessage id="BUTTON_PREVIOUS" />
               </button>
-              <button type="submit" className="mb-4 mt-5 text-right mr-0">
+              <button type="submit" name="next" className="mb-4 mt-5 text-right mr-0">
                 <FormattedMessage id="BUTTON_NEXT" />
               </button>
             </div>

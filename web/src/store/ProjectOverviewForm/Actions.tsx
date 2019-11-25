@@ -47,7 +47,6 @@ export const projectOverviewFormAdd = (
   projectId: string,
   data: IProjectAdditionalDetail
 ) => {
-  debugger;
   data.projectId = projectId;
 
   let finalData = {
@@ -89,10 +88,7 @@ export const projectOverviewFormAdd = (
   };
 };
 
-export const getAdditionalDetails = (
-  projectId: string
-  ) => {
-  debugger;
+export const getAdditionalDetails = (projectId: string) => {
   return (dispatch: Dispatch) => {
     axios.baseAPI
       .get(`api/Projects/${projectId}/additionalDetails`, config)

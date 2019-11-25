@@ -15,11 +15,11 @@ export interface IProjectAdditionalDetail {
   liquidatedDamages: string;
   insurance: string;
   workTypeId: number;
-  commenceDate: Date;
-  completionDate: Date;
+  commenceDate: string;
+  completionDate: string;
   milestones: string;
-  firstValuationDate: Date;
-  finalAccountDate: Date;
+  firstValuationDate: string;
+  finalAccountDate: string;
   valuationIntervals: string;
   paymentTerms: string;
   isProjectLive: boolean;

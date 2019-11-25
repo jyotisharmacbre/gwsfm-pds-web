@@ -27,7 +27,7 @@ const initialState: IProjectDetailState = {
     thirdAssetWorkedOn: 28,
     comment: 'string'
   },
-  projectId:'a2658808-2deb-4eba-bc4e-08d770a0b60e',
+  projectId: '',
   error: null,
   loading: false,
   notify: Notify.none
