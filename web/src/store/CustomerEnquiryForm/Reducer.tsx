@@ -5,7 +5,7 @@ import { Notify } from '../../helpers/constants';
 
 const initialState: IProjectDetailState = {
   form: {
-    projectId: "",
+    projectId: '',
     name: 'string',
     contractorId: 1,
     companyId: 1,
@@ -24,7 +24,7 @@ const initialState: IProjectDetailState = {
     contractTypeId: '',
     cdmNotifiable: true,
     firstAssetWorkedOn: 0,
-    secondAssetWorkedOn:0,
+    secondAssetWorkedOn: 0,
     thirdAssetWorkedOn: 0,
     comment: ''
   },

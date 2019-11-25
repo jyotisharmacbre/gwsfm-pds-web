@@ -15,7 +15,8 @@ import {
 import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
 import { FormattedMessage } from 'react-intl';
-import {LookupType} from '../../../store/Lookups/Types/LookupType';
+import { LookupType } from '../../../store/Lookups/Types/LookupType';
+import { getDropdown } from '../../../helpers/utility-helper';
 interface Props {
   projectstatus: any;
 }
@@ -24,19 +25,6 @@ const ProjectForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
   props: any
 ) => {
   const { handleSubmit, projectstatus } = props;
-
-  const getDropdown = value => {
-    let data = projectstatus.map((status: any, i: number) => {
-      if (status.lookupItem == value) {
-        return (
-          <option key={status.lookupId} value={+status.lookupKey}>
-            {status.description}
-          </option>
-        );
-      }
-    });
-    return data;
-  };
 
   return (
     <div className="container-fluid">
@@ -166,7 +154,10 @@ const ProjectForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                       <FormattedMessage id="PLACEHOLDER_PROJECT_STATUS">
                         {message => <option value="">{message}</option>}
                       </FormattedMessage>
-                      {getDropdown('Project_Status')}
+                      {getDropdown(
+                        props.projectstatus,
+                        LookupType.Project_Status
+                      )}
                     </Field>
                   </div>
                 </div>
@@ -176,7 +167,10 @@ const ProjectForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   <div className="select-wrapper">
                     <Field name="engagementId" component={PdsFormSelect}>
                       <option value="">Select type of engagement</option>
-                      {getDropdown('Engagement_Type')}
+                      {getDropdown(
+                        props.projectstatus,
+                        LookupType.Engagement_Type
+                      )}
                     </Field>
                   </div>
                 </div>
@@ -196,7 +190,11 @@ const ProjectForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                       <FormattedMessage id="PLACEHOLDER_COUNTRY">
                         {message => <option value="">{message}</option>}
                       </FormattedMessage>
-                      {getDropdown('Country')}
+                      {getDropdown(
+                        props.projectstatus,
+                        LookupType.Engagement_Type
+                      )}
+                      {getDropdown(props.projectstatus, LookupType.Country)}
                     </Field>
                   </div>
                 </div>
@@ -216,7 +214,8 @@ const ProjectForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                       <FormattedMessage id="PLACEHOLDER_CURRENCY">
                         {message => <option value="">{message}</option>}
                       </FormattedMessage>
-                      {getDropdown('Currency')}
+
+                      {getDropdown(props.projectstatus, LookupType.Currency)}
                     </Field>
                   </div>
                 </div>
@@ -268,7 +267,10 @@ const ProjectForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                       <FormattedMessage id="PLACEHOLDER_CONTRACT_TYPE">
                         {message => <option value="">{message}</option>}
                       </FormattedMessage>
-                      {getDropdown('Contract_Type')}
+                      {getDropdown(
+                        props.projectstatus,
+                        LookupType.Contract_Type
+                      )}
                     </Field>
                   </div>
                 </div>
@@ -299,7 +301,7 @@ const ProjectForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                       <FormattedMessage id="PLACEHOLDER_FIRST_ASSET">
                         {message => <option value="">{message}</option>}
                       </FormattedMessage>
-                      >{getDropdown('Asset')}
+                      >{getDropdown(props.projectstatus, LookupType.Asset)}
                     </Field>
                   </div>
 
@@ -313,7 +315,7 @@ const ProjectForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                       <FormattedMessage id="PLACEHOLDER_SECOND_ASSET">
                         {message => <option value="">{message}</option>}
                       </FormattedMessage>
-                      {getDropdown('Asset')}
+                      {getDropdown(props.projectstatus, LookupType.Asset)}
                     </Field>
                   </div>
 
@@ -327,7 +329,7 @@ const ProjectForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                       <FormattedMessage id="PLACEHOLDER_THIRD_ASSET">
                         {message => <option value="">{message}</option>}
                       </FormattedMessage>
-                      {getDropdown('Asset')}
+                      {getDropdown(props.projectstatus, LookupType.Asset)}
                     </Field>
                   </div>
                 </div>

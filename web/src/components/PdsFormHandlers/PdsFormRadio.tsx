@@ -28,15 +28,10 @@ const PdsFormRadio: React.FC = (field: any) => {
           </div>
         );
       })}
-      {field.meta.touched && (
-        <p className="text-danger">
-          {field.meta.error && field.messages && (
-            <FormattedMessage
-              id={field.messages[field.meta.error](field.input.value)}
-            />
-          )}
-        </p>
-      )}
+      {field.meta.touched &&
+        (field.meta.error && (
+          <span className="text-danger">{field.meta.error}</span>
+        ))}
     </div>
   );
 };
