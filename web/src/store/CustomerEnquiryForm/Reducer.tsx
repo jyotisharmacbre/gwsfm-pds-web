@@ -5,6 +5,7 @@ import { Notify } from '../../helpers/constants';
 
 const initialState: IProjectDetailState = {
   form: {
+    projectId: "",
     name: 'string',
     contractorId: 1,
     companyId: 1,
