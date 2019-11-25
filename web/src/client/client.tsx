@@ -2,7 +2,7 @@ import axios from 'axios';
 import authentication from '@kdpw/msal-b2c-react';
 
 export const baseAPI = axios.create({
-  baseURL: 'https://localhost:44379'
+  baseURL: 'https://qat-pds-middletier.azurewebsites.net'
 });
 
 const isTokenHandlerEnabled = (config = {}) => {
