@@ -71,3 +71,7 @@ export interface IListItemState {
 export interface INotificationState {
   readonly notificationCount: number;
 }
+
+export interface ILocaleState {
+  locale: string;
+}

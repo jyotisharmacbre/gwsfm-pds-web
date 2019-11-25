@@ -67,10 +67,7 @@ const ProjectOverview: React.FC<
   }, [props.notify]);
 
   const handleSubmit = (values: any) => {
-    props.handleProjectOverviewFormSubmit(
-      '',
-      values
-    );
+    props.handleProjectOverviewFormSubmit('', values);
   };
 
   return (
