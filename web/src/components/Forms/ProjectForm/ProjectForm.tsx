@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { MainTitle } from '../../Title/Title';
-import { Field, reduxForm, InjectedFormProps } from 'redux-form';
+import { Field, reduxForm, InjectedFormProps, change } from 'redux-form';
 import PdsFormInput from '../../PdsFormHandlers/PdsFormInput';
 import PdsFormSelect from '../../PdsFormHandlers/PdsFormSelect';
 import PdsFormTextArea from '../../PdsFormHandlers/PdsFormTextArea';
@@ -13,7 +13,6 @@ import {
 } from '../../../helpers/fieldValidations';
 import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
-import validate from './validate';
 import { FormattedMessage } from 'react-intl';
 
 interface Props {
@@ -25,19 +24,17 @@ const ProjectForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
   const { handleSubmit, projectstatus } = props;
 
   const getDropdown = value => {
-    console.log(projectstatus);
-
-    let data = projectstatus.map((status: any, i: number) => {
-      if (status.lookupItem == value) {
-        console.log(parseInt(status.lookupId));
-        console.log(parseInt(status.lookupId));
-        return (
-          <option key={status.lookupId} value={+status.lookupKey}>
-            {status.description}
-          </option>
-        );
-      }
-    });
+    let data =
+      projectstatus &&
+      projectstatus.map((status: any, i: number) => {
+        if (status.lookupItem == value) {
+          return (
+            <option key={status.lookupId} value={+status.lookupKey}>
+              {status.description}
+            </option>
+          );
+        }
+      });
     return data;
   };
 
@@ -55,8 +52,6 @@ const ProjectForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   name="name"
                   type="text"
                   component={PdsFormInput}
-                  label="Project*"
-                  placeHolder="Enter project name"
                   validate={[
                     Validate.required('Project name'),
                     Validate.maxLength(1000)
@@ -156,7 +151,6 @@ const ProjectForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   ]}
                   warn={alphaNumeric}
                   labelKey="LABEL_PROJECT_SCOPE"
-                  messageKey="MESSAGE_PROJECT_SCOPE"
                 />
                 <Field
                   name="cnNumber"
@@ -231,6 +225,7 @@ const ProjectForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                       <FormattedMessage id="PLACEHOLDER_CURRENCY">
                         {message => <option value="">{message}</option>}
                       </FormattedMessage>
+                      {getDropdown('Currency')}
                     </Field>
                   </div>
                 </div>
@@ -306,6 +301,11 @@ const ProjectForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                       DropdownCheck="selectRound"
                       placeholderKey="PLACEHOLDER_FIRST_ASSET"
                       messageKey="MESSAGE_FIRST_ASSET"
+                      validate={[
+                        Validate.required('Asset'),
+                        Validate.maxLength(1000),
+                        onlyNumber
+                      ]}
                     >
                       <FormattedMessage id="PLACEHOLDER_FIRST_ASSET">
                         {message => <option value="">{message}</option>}
@@ -356,7 +356,11 @@ const ProjectForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
               <button className="active mb-4 mt-5" type="submit">
                 <FormattedMessage id="BUTTON_SAVE_AND_CLOSE" />
               </button>
-              <button type="submit" className="mb-4 mt-5 text-right mr-0">
+              <button
+                type="submit"
+                className="mb-4 mt-5 text-right mr-0"
+                name="next"
+              >
                 <FormattedMessage id="BUTTON_NEXT" />
               </button>
             </div>
@@ -374,8 +378,7 @@ const mapStateToProps = (state: IState) => ({
 const form = reduxForm<{}, Props>({
   destroyOnUnmount: false,
   forceUnregisterOnUnmount: false,
-  form: 'ProjectForm',
-  validate
+  form: 'ProjectForm'
 })(ProjectForm);
 
 export default connect(mapStateToProps)(form);

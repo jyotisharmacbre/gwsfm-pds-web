@@ -10,21 +10,16 @@ export function PdsFormInput({
   messageKey,
   meta: { touched, error, warning },
   className,
-  intl
+  intl,
+  currency,
+  divPosition
 }) {
   const errorClass = `${(error && touched) || warning ? 'error' : ''}`;
   const _placeholder = placeholderKey
     ? intl.formatMessage({ id: placeholderKey })
     : placeholderKey;
-  /*
-  const _message = messageKey
-    ? intl.formatMessage({ id: messageKey })
-    : messageKey;
-  */
-
-  //const _error = error ? intl.formatMessage({ id: error }) : error;
   return (
-    <div className="form-group">
+    <div className="form-group" style={{position: divPosition}}>
       {labelKey && (
         <label htmlFor={name}>{<FormattedMessage id={labelKey} />}</label>
       )}
@@ -34,6 +29,15 @@ export function PdsFormInput({
         type={type}
         className={'form-control ' + className + ' ' + errorClass}
       />
+            {currency && <span style = {{
+        position: "absolute",
+        top: '39px',
+        left: '8px',
+        marginRight: '10px',
+        fontSize: '14px',
+        color: '#a9b2b5'
+      }}
+      >{currency}</span>}
       {touched &&
         ((error && (
           <span className="text-danger">{<FormattedMessage id={error} />}</span>

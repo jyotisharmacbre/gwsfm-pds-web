@@ -3,6 +3,8 @@ import { mount, shallow, ShallowWrapper } from 'enzyme';
 import { Provider } from 'react-redux';
 import { store } from '../../../../store';
 import ProjectForm from '../ProjectForm';
+import { IntlProvider } from 'react-intl';
+import translations from '../../../../Translations/translation';
 describe('ProjectForm Fields', () => {
   let wrapper: any;
 
@@ -12,7 +14,9 @@ describe('ProjectForm Fields', () => {
   beforeEach(() => {
     wrapper = mount(
       <Provider store={store}>
-        <ProjectForm {...props} />
+        <IntlProvider locale="en" messages={translations['en'].messages}>
+          <ProjectForm {...props} />
+        </IntlProvider>
       </Provider>
     );
   });
@@ -39,15 +43,15 @@ describe('ProjectForm Fields', () => {
         expect(errorBlock).toHaveLength(1);
       });
     });
-    describe('Company From field', () => {
+    describe('Company field', () => {
       let field: ShallowWrapper;
       beforeEach(() => {
         field = wrapper.find('input[name="companyId"]').first();
       });
-      it('Should renders Company From field', () => {
+      it('Should renders Company field', () => {
         expect(field.prop('type')).toBe('text');
       });
-      it('Shows error when Company From is set to blank', () => {
+      it('Shows error when Company is set to blank', () => {
         field.simulate('blur');
         const errorBlock = wrapper.find('.text-danger');
         expect(errorBlock).toHaveLength(2);
@@ -123,32 +127,19 @@ describe('ProjectForm Fields', () => {
         expect(errorBlock).toHaveLength(7);
       });
     });
-    describe('CN Number field', () => {
-      let field: ShallowWrapper;
-      beforeEach(() => {
-        field = wrapper.find('input[name="cnNumber"]').first();
-      });
-      it('Should renders CN Number field', () => {
-        expect(field.prop('type')).toBe('text');
-      });
-      it('Shows error when CN Number is set to blank', () => {
-        field.simulate('blur');
-        const errorBlock = wrapper.find('.text-danger');
-        expect(errorBlock).toHaveLength(8);
-      });
-    });
+
     describe('Probability of wining field', () => {
       let field: ShallowWrapper;
       beforeEach(() => {
         field = wrapper.find('input[name="probabilityOfWinning"]').first();
       });
       it('Should renders Probability of wining field', () => {
-        expect(field.prop('type')).toBe('text');
+        expect(field.prop('type')).toBe('number');
       });
       it('Shows error when Probability of wining is set to blank', () => {
         field.simulate('blur');
         const errorBlock = wrapper.find('.text-danger');
-        expect(errorBlock).toHaveLength(9);
+        expect(errorBlock).toHaveLength(1);
       });
     });
     describe('Approximate value field', () => {
@@ -157,7 +148,7 @@ describe('ProjectForm Fields', () => {
         field = wrapper.find('input[name="approxValue"]').first();
       });
       it('Should renders Approximate value field', () => {
-        expect(field.prop('type')).toBe('text');
+        expect(field.prop('type')).toBe('number');
       });
       it('Shows error when Approximate value is set to blank', () => {
         field.simulate('blur');
@@ -165,5 +156,14 @@ describe('ProjectForm Fields', () => {
         expect(errorBlock).toHaveLength(9);
       });
     });
+    describe('Next button', () => {
+        beforeEach(() => {
+          field = wrapper.find('button[name="next"]').first();
+        });
+        it('Should renders next button', () => {
+          expect(field.prop('type')).toBe('submit');
+        });
+      });
   });
+
 });
