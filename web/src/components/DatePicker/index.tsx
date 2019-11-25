@@ -5,9 +5,7 @@ import ReactDates from './ReactDates';
 import { FormattedMessage } from 'react-intl';
 
 const formatDates = value => (value ? moment(value) : null);
-
 const normalizeDates = value => (value ? value.format('YYYY-MM-DD') : null);
-
 const DatePicker = props => {
   return (
     <div className={'form-group'}>

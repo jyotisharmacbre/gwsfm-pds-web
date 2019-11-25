@@ -16,12 +16,8 @@ export function PdsFormInput({
   const _placeholder = placeholderKey
     ? intl.formatMessage({ id: placeholderKey })
     : placeholderKey;
-  const _message = messageKey
-    ? intl.formatMessage({ id: messageKey })
-    : messageKey;
-  const _error = error ? intl.formatMessage({ id: error }) : error;
   return (
-    <div className="form-group">
+    <div data-test="pdsFormInput" className="form-group">
       {labelKey && (
         <label htmlFor={name}>{<FormattedMessage id={labelKey} />}</label>
       )}
@@ -33,7 +29,7 @@ export function PdsFormInput({
       />
       {touched &&
         ((error && (
-          <span className="text-danger">{_message + ' is ' + _error}</span>
+          <span className="text-danger">{<FormattedMessage id={error} />}</span>
         )) ||
           (warning && <span className="text-danger">{warning}</span>))}
     </div>

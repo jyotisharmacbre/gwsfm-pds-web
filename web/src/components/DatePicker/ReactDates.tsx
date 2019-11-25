@@ -19,16 +19,23 @@ const validDate = (year, month, day) =>
   moment(moment(year + '-' + month + '-' + day), 'YYYY-MM-DD', true).isValid();
 
 class ReactDates extends PureComponent<Props & InjectedFormProps<{}, Props>> {
-  constructor(props) {
-    super(props);
-  }
-
   state = {
     focused: false,
     day: this.props.input.value.date(),
     month: this.props.input.value.month() + 1,
     year: this.props.input.value.year()
   };
+  constructor(props) {
+    super(props);
+  }
+
+  componentWillReceiveProps(newProps) {
+    this.setState({
+      day: newProps.input.value.date(),
+      month: newProps.input.value.month() + 1,
+      year: newProps.input.value.year()
+    });
+  }
 
   onFocusChange = value => {
     this.setState({ focused: !this.state.focused });
