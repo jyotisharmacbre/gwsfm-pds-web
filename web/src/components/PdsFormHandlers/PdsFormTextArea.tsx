@@ -35,11 +35,7 @@ export function PdsFormTextArea({
         className={'form-control ' + className + ' ' + errorClass}
       />
       {touched &&
-        ((error && (
-          <span className="text-danger">
-            {messages && messages[error](input.value)}
-          </span>
-        )) ||
+        ((error && <span className="text-danger">{error}</span>) ||
           (warning && <span className="text-danger">{warning}</span>))}
     </div>
   );
