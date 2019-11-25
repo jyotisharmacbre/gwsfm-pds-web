@@ -1,5 +1,4 @@
 import { memoize } from 'lodash';
-import { FormattedMessage, injectIntl } from 'react-intl';
 
 export const onlyNumber = value =>
   value && isNaN(Number(value)) ? 'Must be a number' : undefined;
