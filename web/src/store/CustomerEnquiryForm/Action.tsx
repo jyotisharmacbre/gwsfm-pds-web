@@ -31,7 +31,7 @@ const headers = {
 export const projectDetailAdd = (data: IProjectDetail) => {
   return (dispatch: Dispatch) => {
     axios.baseAPI
-      .post('Projects/customerEnquiry', data, { headers: headers })
+      .post('/api/Projects/customerEnquiry', data, { headers: headers })
       .then(response => {
         dispatch(projectDetailAddSuccess(response.data));
       })
