@@ -29,6 +29,7 @@ const headers = {
 };
 
 export const projectDetailAdd = (data: IProjectDetail) => {
+  console.log(data)
   return (dispatch: Dispatch) => {
     axios.baseAPI
       .post('/api/Projects/customerEnquiry', data, { headers: headers })

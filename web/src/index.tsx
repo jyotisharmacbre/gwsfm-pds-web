@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
-
+import ConnectedIntlProvider from './Translations/connectedIntlProvider';
 // @ts-ignore
 import b2cauth from '@kdpw/msal-b2c-react';
 import appConfig from './helpers/config-helper';
@@ -27,9 +27,11 @@ b2cauth.initialize({
 b2cauth.run(() => {
   ReactDOM.render(
     <Provider store={store}>
-      <Router>
-        <App />
-      </Router>
+      <ConnectedIntlProvider>
+        <Router>
+          <App />
+        </Router>
+      </ConnectedIntlProvider>
     </Provider>,
     document.getElementById('root') as HTMLElement
   );

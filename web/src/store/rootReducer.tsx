@@ -4,10 +4,12 @@ import { IState } from './state';
 import projectDetailReducer from './CustomerEnquiryForm/Reducer';
 import projectOverviewFormReducer from './ProjectOverviewForm/Reducer';
 import lookupReducer from './Lookups/Reducer';
+import localeReducer from '../Translations/Reducer';
 
 export default combineReducers<IState>({
   form: reducerForm,
   project: projectDetailReducer,
   projectOverview: projectOverviewFormReducer,
-  lookup: lookupReducer
+  lookup: lookupReducer,
+  locale: localeReducer
 });

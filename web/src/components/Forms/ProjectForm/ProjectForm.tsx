@@ -26,17 +26,15 @@ const ProjectForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
   const { handleSubmit, projectstatus } = props;
 
   const getDropdown = value => {
-    let data =
-      projectstatus &&
-      projectstatus.map((status: any, i: number) => {
-        if (status.lookupItem == value) {
-          return (
-            <option key={status.lookupId} value={+status.lookupKey}>
-              {status.description}
-            </option>
-          );
-        }
-      });
+    let data = projectstatus.map((status: any, i: number) => {
+      if (status.lookupItem == value) {
+        return (
+          <option key={status.lookupId} value={+status.lookupKey}>
+            {status.description}
+          </option>
+        );
+      }
+    });
     return data;
   };
 

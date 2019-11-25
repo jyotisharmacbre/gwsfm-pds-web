@@ -24,11 +24,11 @@ describe('PdsFormButton Renders', () => {
     const props = {
       buttons: [
         {
-          title: 'YES',
+          title: 'BUTTON_YES',
           value: true
         },
         {
-          title: 'NO',
+          title: 'BTTON_NO',
           value: false
         }
       ],
