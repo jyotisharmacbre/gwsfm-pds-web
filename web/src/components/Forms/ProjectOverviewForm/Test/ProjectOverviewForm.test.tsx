@@ -164,7 +164,7 @@ describe('ProjectOverviewForm Fields', () => {
         field = wrapper.find('button[name="next"]').first();
       });
       it('Should renders next button', () => {
-        expect(field.prop('type')).toBe('submit');
+        expect(field.prop('type')).toBe('button');
       });
     });
   });
