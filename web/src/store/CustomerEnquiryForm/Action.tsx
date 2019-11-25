@@ -2,6 +2,7 @@ import * as axios from '../../client';
 import { ActionType } from './Types/ActionType';
 import { Dispatch } from 'redux';
 import { IProjectDetail } from './Types/IProjectDetail';
+import { IProject } from './Types/IProject';
 
 const projectDetailAddSuccess = (response: any) => {
   return {
@@ -37,6 +38,33 @@ export const projectDetailAdd = (data: IProjectDetail) => {
       })
       .catch(error => {
         dispatch(projectDetailError(error));
+      });
+  };
+};
+
+const getEnquiryOverviewSuccess = (response: IProject) => {
+  return {
+    type: ActionType.GET_ENQUIRY_OVERVIEW_SUCCESS,
+    payload: response
+  };
+};
+
+const getEnquiryOverviewError = (error: string) => {
+  return {
+    type: ActionType.GET_ENQUIRY_OVERVIEW_ERROR,
+    payload: error
+  };
+};
+
+export const getEnquiryOverview = (projectId: string) => {
+  return (dispatch: Dispatch) => {
+    axios.baseAPI
+      .get(`api/Projects/${projectId}/enquiryOverview`)
+      .then(response => {
+        dispatch(getEnquiryOverviewSuccess(response.data));
+      })
+      .catch(error => {
+        dispatch(getEnquiryOverviewError(error));
       });
   };
 };

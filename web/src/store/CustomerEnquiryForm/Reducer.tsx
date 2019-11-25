@@ -5,32 +5,41 @@ import { Notify } from '../../helpers/constants';
 
 const initialState: IProjectDetailState = {
   form: {
-    name: 'string',
+    projectId: '',
+    name: '',
     contractorId: 1,
     companyId: 1,
-    headOfProject: 'string',
-    projectOwner: 'string',
-    projectManager: 'string',
+    headOfProject: '',
+    projectOwner: '',
+    projectManager: '',
     pmHasExperience: true,
-    scope: 'string',
+    scope: '',
     cnNumber: 2,
     status: 1,
     engagementId: 2,
     countryId: 3,
     currencyId: 1,
-    probabilityOfWinning: 'string',
-    approxValue: 'string',
-    contractTypeId: 'string',
+    probabilityOfWinning: '',
+    approxValue: '',
+    contractTypeId: '',
     cdmNotifiable: true,
     firstAssetWorkedOn: 28,
     secondAssetWorkedOn: 29,
     thirdAssetWorkedOn: 28,
-    comment: 'string'
+    comment: ''
   },
-  projectId: '',
+  enquiryOverview: {
+    projectName: '',
+    companyId: -1,
+    headOfProject: '',
+    projectManager: '',
+    scope: '',
+    cnNumber: -1
+  },
   error: null,
   loading: false,
-  notify: Notify.none
+  notify: Notify.none,
+  enquiryOverviewError: null
 };
 
 const projectDetailAddSuccess = (oldState, action) => {
@@ -57,6 +66,19 @@ const projectDetailError = (oldState, action) => {
   });
 };
 
+const getEnquiryOverviewSuccess = (oldState, action) => {
+  return updateObject(oldState, {
+    enquiryOverviewError: null,
+    enquiryOverview: action.payload
+  });
+};
+
+const getEnquiryOverviewError = (oldState, action) => {
+  return updateObject(oldState, {
+    enquiryOverviewError: action.error
+  });
+};
+
 const projectDetailReducer = (oldState = initialState, action) => {
   switch (action.type) {
     case ActionType.PROJECT_ADD:
@@ -65,6 +87,10 @@ const projectDetailReducer = (oldState = initialState, action) => {
       return projectDetailEditSuccess(oldState, action);
     case ActionType.PROJECT_ADD_ERROR:
       return projectDetailError(oldState, action);
+    case ActionType.GET_ENQUIRY_OVERVIEW_SUCCESS:
+      return getEnquiryOverviewSuccess(oldState, action);
+    case ActionType.GET_ENQUIRY_OVERVIEW_ERROR:
+      return getEnquiryOverviewError(oldState, action);
     default:
       return oldState;
   }
