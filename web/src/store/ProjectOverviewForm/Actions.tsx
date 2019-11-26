@@ -92,3 +92,15 @@ export const getAdditionalDetails = (projectId: string) => {
       });
   };
 };
+
+const resetProjectOverviewStateDispatch = () => {
+  return {
+    type: ActionType.RESET_PROJECT_OVERVIEW_STATE
+  };
+};
+
+export const resetProjectOverviewState = () => {
+  return (dispatch: Dispatch) => {
+    dispatch(resetProjectOverviewStateDispatch());
+  }
+};

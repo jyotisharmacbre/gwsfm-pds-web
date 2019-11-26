@@ -16,6 +16,7 @@ import { IState } from '../store/state';
 import Notify from '../enums/Notify';
 import EventType from '../enums/EventType';
 import { ILookup } from '../store/Lookups/Types/ILookup';
+import { useHistory } from 'react-router-dom';
 
 const tableHeaders: IGeneralTableHeaderProps[] = [
   { heading: 'End Client Name', subHeading: 'ING' },
@@ -53,6 +54,7 @@ interface IMapDispatchToProps {
   ) => void;
   getAdditionalDetails: (projectId: string) => void;
   getEnquiryOverview: (projectId: string) => void;
+  resetProjectOverviewState:()=>void;
 }
 interface IProps {
   projectId: string;
@@ -61,6 +63,7 @@ interface IProps {
 const ProjectOverview: React.FC<
   IProps & IMapStateToProps & IMapDispatchToProps
 > = props => {
+  let history = useHistory();
   useEffect(() => {
     props.getProjectStatus();
     if (props.projectId != null && props.projectId != '') {
@@ -75,8 +78,9 @@ const ProjectOverview: React.FC<
         alert('data saved successfully next');
       } else if (props.event == EventType.previous) {
         alert('data saved successfully previous');
-        window.location.href = '/Project';
+        history.push('/Project');
       }
+      props.resetProjectOverviewState();
     }
   }, [props.notify, props.event]);
 
@@ -132,7 +136,8 @@ const mapDispatchToProps = dispatch => {
     getAdditionalDetails: projectId =>
       dispatch(actions.getAdditionalDetails(projectId)),
     getEnquiryOverview: projectId =>
-      dispatch(actions.getEnquiryOverview(projectId))
+      dispatch(actions.getEnquiryOverview(projectId)),
+    resetProjectOverviewState:()=>dispatch(actions.resetProjectOverviewState())
   };
 };
 

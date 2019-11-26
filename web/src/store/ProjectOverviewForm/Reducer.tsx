@@ -84,6 +84,13 @@ const getAdditionalDetailsError = (oldState, action) => {
   });
 };
 
+const resetProjectOverviewState = (oldState, action) => {
+  return updateObject(oldState, {
+   notify: Notify.none,
+  event: EventType.none
+  });
+};
+
 const projectOverviewFormReducer = (oldState = initialState, action) => {
   switch (action.type) {
     case ActionType.PROJECT_OVERVIEW_FORM_ADD_SUCCESS:
@@ -96,6 +103,8 @@ const projectOverviewFormReducer = (oldState = initialState, action) => {
       return getAdditionalDetailsSuccess(oldState, action);
     case ActionType.GET_ADDITIONALS_DETAILS_ERROR:
       return getAdditionalDetailsError(oldState, action);
+    case ActionType.RESET_PROJECT_OVERVIEW_STATE:
+      return resetProjectOverviewState(oldState, action);
     default:
       return oldState;
   }

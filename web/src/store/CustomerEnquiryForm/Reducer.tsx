@@ -2,6 +2,7 @@ import { ActionType } from './Types/ActionType';
 import { updateObject } from '../../helpers/utility-helper';
 import { IProjectDetailState } from './Types/IProjectDetailState';
 import { Notify } from '../../helpers/constants';
+import EventType from '../../enums/EventType';
 
 const initialState: IProjectDetailState = {
   form: {
@@ -39,6 +40,7 @@ const initialState: IProjectDetailState = {
   error: null,
   loading: false,
   notify: Notify.none,
+  event: EventType.none,
   enquiryOverviewError: null
 };
 
@@ -46,7 +48,9 @@ const projectDetailAddSuccess = (oldState, action) => {
   return updateObject(oldState, {
     error: null,
     loading: false,
-    form: action.payload
+    form: updateObject(oldState.form, { projectId: action.payload.projectId }),
+    notify: Notify.success,
+    event: action.event
   });
 };
 
@@ -54,7 +58,9 @@ const projectDetailEditSuccess = (oldState, action) => {
   return updateObject(oldState, {
     error: null,
     loading: false,
-    form: action.payload
+    form: updateObject(oldState.form, { projectId: action.payload.projectId }),
+    notify: Notify.success,
+    event: action.event
   });
 };
 
@@ -79,6 +85,32 @@ const getEnquiryOverviewError = (oldState, action) => {
   });
 };
 
+const getProjectDetailSuccess = (oldState, action) => {
+  return updateObject(oldState, {
+    form: action.payload
+  });
+};
+
+const getProjectDetailError = (oldState, action) => {
+  return updateObject(oldState, {
+    error: action.error
+  });
+};
+
+const resetProjectDetailState = (oldState, action) => {
+  return updateObject(oldState, {
+    notify: Notify.none,
+    event: EventType.none
+  });
+};
+
+const setProjectId = (oldState, action) => {
+  return updateObject(oldState, {
+    form:updateObject(oldState.form,{projectId:action.projectId})
+  });
+};
+
+
 const projectDetailReducer = (oldState = initialState, action) => {
   switch (action.type) {
     case ActionType.PROJECT_ADD:
@@ -91,6 +123,14 @@ const projectDetailReducer = (oldState = initialState, action) => {
       return getEnquiryOverviewSuccess(oldState, action);
     case ActionType.GET_ENQUIRY_OVERVIEW_ERROR:
       return getEnquiryOverviewError(oldState, action);
+    case ActionType.GET_PROJECT_DETAIL_SUCCESS:
+      return getProjectDetailSuccess(oldState, action);
+    case ActionType.GET_PROJECT_DETAIL_ERROR:
+      return getProjectDetailError(oldState, action);
+    case ActionType.RESET_PROJECT_DETAIL_STATE:
+      return resetProjectDetailState(oldState, action);
+    case ActionType.SET_PROJECT_ID_STATE:
+      return setProjectId(oldState, action);
     default:
       return oldState;
   }

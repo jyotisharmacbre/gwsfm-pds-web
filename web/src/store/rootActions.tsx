@@ -1,12 +1,16 @@
 export {
   projectOverviewFormAdd,
   projectOverviewFormEdit,
-  getAdditionalDetails
+  getAdditionalDetails,
+  resetProjectOverviewState
 } from './ProjectOverviewForm/Actions';
 
 export {
   projectDetailAdd,
-  getEnquiryOverview
+  getEnquiryOverview,
+  getProjectDetail,
+  resetProjectDetailState,
+  projectDetailEdit
 } from './CustomerEnquiryForm/Action';
 
 export { getProjectStatus } from './Lookups/Actions';
