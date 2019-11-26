@@ -39,6 +39,11 @@ const ProjectPipelineForm: React.FC<Props> = (props: any) => {
           ? new Date(rowProject.commenceDate).toLocaleDateString()
           : '';
       rowProject.cdmNotifiable = rowProject.cdmNotifiable ? 'Yes' : 'No';
+      rowProject.name = (
+        <a href={`/projectOverview?projectId=${rowProject.projectId}`}>
+          {rowProject.name}
+        </a>
+      );
       return rowProject;
     });
     return data;
