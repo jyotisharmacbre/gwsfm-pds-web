@@ -14,6 +14,7 @@ import { IState } from '../../../store/state';
 import { IProjectAdditionalDetail } from '../../../store/ProjectOverviewForm/Types/IProjectAdditionalDetail';
 import { getPropertyName, getDropdown } from '../../../helpers/utility-helper';
 import { LookupType } from '../../../store/Lookups/Types/LookupType';
+import EventType from '../../../enums/EventType';
 import {
   projectStatusData,
   engagementData
@@ -26,12 +27,14 @@ import {
 import { FormattedMessage } from 'react-intl';
 
 interface Props {
+  onNext: (data: IProjectAdditionalDetail) => void;
+  onPrevious: (data: IProjectAdditionalDetail) => void;
   projectstatus: any;
 }
 
-let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
-  props: any
-) => {
+let ProjectOverviewForm: React.FC<
+  Props & InjectedFormProps<IProjectAdditionalDetail, Props>
+> = (props: any) => {
   const { handleSubmit, initialValues } = props;
   const DropdownOptions = projectStatusData.map((status: any, i: number) => (
     <option key={i} value={status.value}>
@@ -44,7 +47,6 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
         <Col lg={12} sm={12}>
           <Form
             className="project-overview-form"
-            onSubmit={handleSubmit}
             noValidate={true}
             data-test="projectOverviewForm"
           >
@@ -61,7 +63,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   labelKey="LABEL_MAIN_CONTRACTOR"
                   placeholderKey="PLACEHOLDER_CONTRACTORS_NAME"
                   validate={[
-                    Validate.required('VALIDATION_REQUIRED'),
+                    Validate.required('LABEL_MAIN_CONTRACTOR'),
                     Validate.maxLength(1000)
                   ]}
                   warn={alphaNumeric}
@@ -75,7 +77,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   type="text"
                   component={PdsFormInput}
                   validate={[
-                    Validate.required('VALIDATION_REQUIRED'),
+                    Validate.required('LABEL_ENQUIRY_RECEIVED_FROM'),
                     Validate.maxLength(1000)
                   ]}
                   warn={alphaNumeric}
@@ -91,7 +93,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   type="text"
                   component={PdsFormInput}
                   validate={[
-                    Validate.required('VALIDATION_REQUIRED'),
+                    Validate.required('LABEL_POTENTIAL_CUSTOMER'),
                     Validate.maxLength(1000)
                   ]}
                   warn={alphaNumeric}
@@ -109,7 +111,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   component={PdsFormRadio}
                   labelKey="LABEL_TYPE_OF_ENQUIRY"
                   validate={[
-                    Validate.required('VALIDATION_REQUIRED'),
+                    Validate.required('LABEL_TYPE_OF_ENQUIRY'),
                     Validate.maxLength(1000)
                   ]}
                   warn={alphaNumeric}
@@ -123,7 +125,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   type="text"
                   component={PdsFormInput}
                   validate={[
-                    Validate.required('VALIDATION_REQUIRED'),
+                    Validate.required('LABEL_CREDIT_CHECK_RESULT'),
                     Validate.maxLength(1000)
                   ]}
                   warn={alphaNumeric}
@@ -139,7 +141,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   type="text"
                   component={PdsFormInput}
                   validate={[
-                    Validate.required('VALIDATION_REQUIRED'),
+                    Validate.required('LABEL_SITE_ADDRESS'),
                     Validate.maxLength(1000)
                   ]}
                   warn={alphaNumeric}
@@ -165,7 +167,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   type="text"
                   component={PdsFormInput}
                   validate={[
-                    Validate.required('VALIDATION_REQUIRED'),
+                    Validate.required('LABEL_FORM_OF_CONTRACT'),
                     Validate.maxLength(1000)
                   ]}
                   warn={alphaNumeric}
@@ -178,7 +180,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   type="text"
                   component={PdsFormInput}
                   validate={[
-                    Validate.required('VALIDATION_REQUIRED'),
+                    Validate.required('LABEL_RETENTION'),
                     Validate.maxLength(1000)
                   ]}
                   warn={alphaNumeric}
@@ -194,7 +196,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   type="text"
                   component={PdsFormInput}
                   validate={[
-                    Validate.required('VALIDATION_REQUIRED'),
+                    Validate.required('LABEL_LIQUIDATED_DAMAGES'),
                     Validate.maxLength(1000)
                   ]}
                   warn={alphaNumeric}
@@ -207,7 +209,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   type="text"
                   component={PdsFormInput}
                   validate={[
-                    Validate.required('VALIDATION_REQUIRED'),
+                    Validate.required('LABEL_INSURANCE'),
                     Validate.maxLength(1000)
                   ]}
                   warn={alphaNumeric}
@@ -421,12 +423,17 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
               </Col>
             </Row>
             <div className="mr-35 d-flex justify-content-between mb-4">
-              <button className="active mb-4 mt-5" type="submit">
+              <button
+                className="active mb-4 mt-5"
+                type="button"
+                onClick={handleSubmit(values => props.onPrevious(values))}
+              >
                 <FormattedMessage id="BUTTON_PREVIOUS" />
               </button>
               <button
-                type="submit"
+                type="button"
                 name="next"
+                onClick={handleSubmit(values => props.onNext(values))}
                 className="mb-4 mt-5 text-right mr-0"
               >
                 <FormattedMessage id="BUTTON_NEXT" />
@@ -443,7 +450,7 @@ const mapStateToProps = (state: IState) => ({
   initialValues: state.projectOverview.form
 });
 
-const form = reduxForm<{}, Props>({
+const form = reduxForm<IProjectAdditionalDetail, Props>({
   destroyOnUnmount: false,
   forceUnregisterOnUnmount: false,
   form: 'projectOverviewForm',

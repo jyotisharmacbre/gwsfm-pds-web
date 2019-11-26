@@ -17,13 +17,17 @@ import { IState } from '../../../store/state';
 import { FormattedMessage } from 'react-intl';
 import { LookupType } from '../../../store/Lookups/Types/LookupType';
 import { getDropdown } from '../../../helpers/utility-helper';
+import { IProjectDetail } from '../../../store/CustomerEnquiryForm/Types/IProjectDetail';
+
 interface Props {
   projectstatus: any;
+  onNext: (data: IProjectDetail) => void;
+  onSave: (data: IProjectDetail) => void;
 }
 
-const ProjectForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
-  props: any
-) => {
+const ProjectForm: React.FC<
+  Props & InjectedFormProps<IProjectDetail, Props>
+> = (props: any) => {
   const { handleSubmit, projectstatus } = props;
 
   return (
@@ -344,13 +348,19 @@ const ProjectForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
               </div>
             </div>
             <div className="mr-35 d-flex justify-content-between mb-4">
-              <button className="active mb-4 mt-5" type="submit">
+              <button
+                className="active mb-4 mt-5"
+                type="button"
+                onClick={handleSubmit(values => props.onSave(values))}
+              >
                 <FormattedMessage id="BUTTON_SAVE_AND_CLOSE" />
               </button>
+
               <button
-                type="submit"
-                className="mb-4 mt-5 text-right mr-0"
+                className="active mb-4 mt-5"
+                type="button"
                 name="next"
+                onClick={handleSubmit(values => props.onNext(values))}
               >
                 <FormattedMessage id="BUTTON_NEXT" />
               </button>
@@ -366,9 +376,7 @@ const mapStateToProps = (state: IState) => ({
   initialValues: state.project.form
 });
 
-const form = reduxForm<{}, Props>({
-  destroyOnUnmount: false,
-  forceUnregisterOnUnmount: false,
+const form = reduxForm<IProjectDetail, Props>({
   form: 'ProjectForm',
   enableReinitialize: true
 })(ProjectForm);
