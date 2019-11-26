@@ -6,9 +6,7 @@ import { IState } from '../../../store/state';
 import TableDateFilter from '../../Table/TableDateFilter/TableDateFilter';
 import CardContainer from '../../CardContainer/CardContainer';
 import { display } from '@material-ui/system';
-import { getLookupDescription } from '../../../helpers/utility-helper';
-import { LookupItems } from '../../../helpers/constants';
-import moment from 'moment';
+import { setProjectId } from '../../../store/CustomerEnquiryForm/Action';
 
 interface Props {
   pipelineValues: any;
@@ -16,36 +14,36 @@ interface Props {
 }
 const ProjectPipelineForm: React.FC<Props> = (props: any) => {
   const { pipelineValues, lookupValues } = props;
-
+  console.log(lookupValues);
   const getPipelineValues = allLookups => {
     let data = pipelineValues.map(function(rowProject) {
       var statusID = rowProject.status;
       if (!isNaN(statusID) && allLookups.length > 0)
-        rowProject.status = getLookupDescription(
-          allLookups,
-          rowProject.status,
-          LookupItems.Project_Status
-        );
+        rowProject.status = allLookups.find(
+          lkp =>
+            lkp.lookupItem === 'Project_Status' && lkp.lookupKey === statusID
+        ).description;
 
       var contractID = rowProject.contractTypeId;
       if (contractID > 0 && allLookups.length > 0)
-        rowProject.contractTypeId = getLookupDescription(
-          allLookups,
-          rowProject.contractTypeId,
-          LookupItems.ContractType
-        );
-      rowProject.lastModified = moment(rowProject.lastModified).format(
-        'MM/DD/YYYY'
-      );
+        rowProject.contractTypeId = allLookups.find(
+          lk =>
+            lk.lookupItem === 'Contract_Type' &&
+            lk.lookupKey === contractID.toString()
+        ).description;
+      rowProject.lastModified = new Date(
+        rowProject.lastModified
+      ).toLocaleDateString();
       rowProject.commenceDate =
-        rowProject.commenceDate != ''
-          ? moment(rowProject.commenceDate).format('MM/DD/YYYY')
+        rowProject.commenceDate != 'string' && rowProject.commenceDate != ''
+          ? new Date(rowProject.commenceDate).toLocaleDateString()
           : '';
-
       rowProject.cdmNotifiable = rowProject.cdmNotifiable ? 'Yes' : 'No';
-
       rowProject.name = (
-        <a href={`/projectOverview?projectId=${rowProject.projectId}`}>
+        <a
+          onClick={() => setProjectId(rowProject.projectId)}
+          href="/projectoverview"
+        >
           {rowProject.name}
         </a>
       );
