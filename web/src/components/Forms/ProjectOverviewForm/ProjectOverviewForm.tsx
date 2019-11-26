@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Row, Col, Button, Form } from 'react-bootstrap';
+// import { Col } from 'react-bootstrap';
 import { Field, reduxForm, InjectedFormProps } from 'redux-form';
 import { connect } from 'react-redux';
 import PdsFormInput from '../../PdsFormHandlers/PdsFormInput';
@@ -42,16 +42,16 @@ let ProjectOverviewForm: React.FC<
     </option>
   ));
   return (
-    <Container>
-      <Row>
-        <Col lg={12} sm={12}>
-          <Form
+    <div className="container">
+      <div className="row">
+        <div className="col-lg-12 col-sm-12">
+          <form
             className="project-overview-form"
             noValidate={true}
             data-test="projectOverviewForm"
           >
-            <Row>
-              <Col lg={8}>
+            <div className="row">
+              <div className="col-lg-8">
                 <Field
                   name={getPropertyName(
                     initialValues,
@@ -242,31 +242,31 @@ let ProjectOverviewForm: React.FC<
                   </div>
                 </div>
 
-                <Row>
-                  <Col xl={12}>
-                    <Form.Group>
-                      <Form.Label>
+                <div className="row">
+                  <div className="col-xl-12">
+                    <div className="form-group">
+                      <label>
                         <FormattedMessage id="LABEL_PROJECT_PLAN" />
-                      </Form.Label>
-                      <Col className="calender-wrap">
-                        <Row>
-                          <Col xl={6} className="mt-2 position-relative manipulate-calendar">
+                      </label>
+                      <div className="calender-wrap">
+                        <div className="row">
+                          <div className="col-xl-6 mt-2 position-relative manipulate-calendar">
                             <DatePicker
                               name="commenceDate"
                               data-test="commenceDate"
                               labelKey="LABEL_COMMENCE_DATE"
                             />
-                          </Col>
-                          <Col xl={6} className="mt-2 position-relative manipulate-calendar">
+                          </div>
+                          <div className="col-xl-6 mt-2 position-relative manipulate-calendar">
                             <DatePicker
                               name="completionDate"
                               data-test="completionDate"
                               labelKey="LABEL_COMPLETION_DATE"
                             />
-                          </Col>
-                        </Row>
-                        <Row>
-                          <Col>
+                          </div>
+                        </div>
+                        <div className="row">
+                          <div className="col-xl-12">
                             <Field
                               name={getPropertyName(
                                 initialValues,
@@ -278,37 +278,36 @@ let ProjectOverviewForm: React.FC<
                               component={PdsFormTextArea}
                               placeholderKey="PLACEHOLDER_PROJECT_MILESTONES"
                             />
-                          </Col>
-                        </Row>
-                      </Col>
-                    </Form.Group>
-                  </Col>
-                </Row>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
-
-                <Row>
-                  <Col xl={12}>
-                    <Form.Group>
-                      <Form.Label>Project Plan</Form.Label>
-                      <Col className="calender-wrap">
-                        <Row>
-                          <Col xl={6} className="mt-2 position-relative manipulate-calendar">
+                <div className="row">
+                  <div className="col-xl-12">
+                    <div className="form-group">
+                      <label>Project Plan</label>
+                      <div className="calender-wrap">
+                        <div className="row">
+                          <div className="col-xl-6 mt-2 position-relative manipulate-calendar">
                             <DatePicker
                               name="firstValuationDate"
                               data-test="firstValuationDate"
                               labelKey="LABEL_FIRST_VALUATION_DATE"
                             />
-                          </Col>
-                          <Col xl={6} className="mt-2 position-relative manipulate-calendar">
+                          </div>
+                          <div className="col-xl-6 mt-2 position-relative manipulate-calendar">
                             <DatePicker
                               name="finalAccountDate"
                               data-test="finalAccountDate"
                               labelKey="LABEL_FIRST_ACCOUNT_DATE"
                             />
-                          </Col>
-                        </Row>
-                        <Row>
-                          <Col>
+                          </div>
+                        </div>
+                        <div className="row">
+                          <div className="col-xl-12">
                             <Field
                               name={getPropertyName(
                                 initialValues,
@@ -320,10 +319,10 @@ let ProjectOverviewForm: React.FC<
                               labelKey="LABEL_VALUATION_INTERVALS"
                               placeholderKey="PLACEHOLDER_VALUATION_INTERVALS"
                             />
-                          </Col>
-                        </Row>
-                        <Row>
-                          <Col>
+                          </div>
+                        </div>
+                        <div className="row">
+                          <div className="col-xl-12">
                             <Field
                               name={getPropertyName(
                                 initialValues,
@@ -335,12 +334,12 @@ let ProjectOverviewForm: React.FC<
                               labelKey="LABEL_PAYMENT_TERMS"
                               placeholderKey="PLACEHOLDER_PAYMENT_TERMS"
                             />
-                          </Col>
-                        </Row>
-                      </Col>
-                    </Form.Group>
-                  </Col>
-                </Row>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
                 <Field
                   name={getPropertyName(
@@ -420,8 +419,8 @@ let ProjectOverviewForm: React.FC<
                   component={PdsFormTextArea}
                   placeholderKey="PLACEHOLDER_ADDITIONAL_COMMENTS"
                 />
-              </Col>
-            </Row>
+              </div>
+            </div>
             <div className="mr-35 d-flex justify-content-between mb-4">
               <button
                 className="active mb-4 mt-5"
@@ -439,10 +438,10 @@ let ProjectOverviewForm: React.FC<
                 <FormattedMessage id="BUTTON_NEXT" />
               </button>
             </div>
-          </Form>
-        </Col>
-      </Row>
-    </Container>
+          </form>
+        </div>
+      </div>
+    </div>
   );
 };
 

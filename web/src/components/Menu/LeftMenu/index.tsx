@@ -48,7 +48,7 @@ const LeftMenu: React.FC = (props: any) => {
         </li>
         <li className="">
           <Link
-            to="/"
+            to="/JustificationAuthorisation"
             data-target="#homeSubmenu"
             data-toggle="collapse"
             aria-expanded="false"
