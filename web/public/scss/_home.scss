@@ -296,7 +296,8 @@
 
 /*customer enquiry*/
 
-.customer-enquiry {
+.customer-enquiry,
+.custom-wrap {
     padding: 23px 0 0 35px;
     @include smScreen {
         padding: 23px 0 0 0px;

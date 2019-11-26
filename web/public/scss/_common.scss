@@ -1,6 +1,6 @@
 body {
     background-color: map-get($colors, grey04);
-    font-family: 'Hind', sans-serif;
+    font-family: 'Hind', sans-serif !important;;
 }
 
 #content {
