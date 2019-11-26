@@ -21,7 +21,6 @@ const headers = {
 };
 
 export const projectPipelineDetail = () => {
-  console.log('fetching pipeline data');
   return (dispatch: Dispatch) => {
     axios.baseAPI
       .get('api/Projects/GetAll', { headers: headers })

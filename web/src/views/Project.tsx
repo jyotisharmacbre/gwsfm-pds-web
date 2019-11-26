@@ -7,10 +7,10 @@ import { ILookup } from '../store/Lookups/Types/ILookup';
 import { getProjectStatus } from '../store/Lookups/Actions';
 import { IProjectDetail } from '../store/CustomerEnquiryForm/Types/IProjectDetail';
 import { projectDetailAdd } from '../store/CustomerEnquiryForm/Action';
-import { Notify } from '../helpers/constants';
 import EventType from '../enums/EventType';
 import { useHistory } from 'react-router-dom';
 import * as actions from '../store/rootActions';
+import Notify from '../enums/Notify';
 
 interface IMapStateToProps {
   notify: Notify;
@@ -30,7 +30,6 @@ interface IMapDispatchToProps {
 const Project: React.FC<IMapStateToProps & IMapDispatchToProps> = props => {
   let history = useHistory();
   useEffect(() => {
-    
     props.getProjectStatus();
     if (props.projectId != null && props.projectId != '') {
       props.getProjectDetail(props.projectId);

@@ -54,7 +54,7 @@ interface IMapDispatchToProps {
   ) => void;
   getAdditionalDetails: (projectId: string) => void;
   getEnquiryOverview: (projectId: string) => void;
-  resetProjectOverviewState:()=>void;
+  resetProjectOverviewState: () => void;
 }
 interface IProps {
   projectId: string;
@@ -137,7 +137,8 @@ const mapDispatchToProps = dispatch => {
       dispatch(actions.getAdditionalDetails(projectId)),
     getEnquiryOverview: projectId =>
       dispatch(actions.getEnquiryOverview(projectId)),
-    resetProjectOverviewState:()=>dispatch(actions.resetProjectOverviewState())
+    resetProjectOverviewState: () =>
+      dispatch(actions.resetProjectOverviewState())
   };
 };
 

@@ -1,7 +1,7 @@
 import { IProjectDetail } from './IProjectDetail';
 import { IProject } from './IProject';
-import { Notify } from '../../../helpers/constants';
 import EventType from '../../../enums/EventType';
+import Notify from '../../../enums/Notify';
 
 export interface IProjectDetailState {
   form: IProjectDetail;

@@ -1,8 +1,8 @@
 import { ActionType } from './Types/ActionType';
 import { updateObject } from '../../helpers/utility-helper';
 import { IProjectPipelineGridState } from './Types/IProjectPipelineGridState';
-import { Notify } from '../../helpers/constants';
 import moment from 'moment';
+import Notify from '../../enums/Notify';
 
 const initialState: IProjectPipelineGridState = {
   pipelineDetails: [

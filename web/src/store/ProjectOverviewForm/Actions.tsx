@@ -102,5 +102,5 @@ const resetProjectOverviewStateDispatch = () => {
 export const resetProjectOverviewState = () => {
   return (dispatch: Dispatch) => {
     dispatch(resetProjectOverviewStateDispatch());
-  }
+  };
 };

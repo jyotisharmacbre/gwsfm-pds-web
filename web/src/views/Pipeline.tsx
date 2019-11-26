@@ -2,12 +2,12 @@ import React, { useEffect, Props } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import ProjectPipelineForm from '../components/Forms/Pipeline/ProjectPipelineForm';
-import { Notify } from '../helpers/constants';
 import { IState } from '../store/state';
 import { projectPipelineDetail } from '../store/pipeline/Action';
 import { IProjectPipelineGrid } from '../store/pipeline/Types/IProjectPipelineGrid';
 import { ILookup } from '../store/Lookups/Types/ILookup';
 import { getProjectStatus } from '../store/Lookups/Actions';
+import Notify from '../enums/Notify';
 interface IMapDispatchToProps {
   projectPipelineGridDetail: () => void;
   getLookups: () => void;
