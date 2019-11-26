@@ -12,6 +12,14 @@
     transition: $transVal;
 }
 
+@mixin transform($transVal...) {
+    -webkit-transform: $transVal;
+    -moz-transform: $transVal;
+    -ms-transform: $transVal;
+    -o-transform: $transVal;
+    transform: $transVal;
+}
+
 @mixin boxShadow($shadowVal...) {
     box-shadow: $shadowVal;
     -moz-box-shadow: $shadowVal;

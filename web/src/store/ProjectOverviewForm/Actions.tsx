@@ -3,18 +3,21 @@ import { ActionType } from './Types/ActionType';
 import { Dispatch } from 'redux';
 import { IProjectAdditionalDetail } from './Types/IProjectAdditionalDetail';
 import moment from 'moment';
+import EventType from '../../enums/EventType';
 
-const projectOverviewFormAddSuccess = (response: any) => {
+const projectOverviewFormAddSuccess = (response: any, event: EventType) => {
   return {
     type: ActionType.PROJECT_OVERVIEW_FORM_ADD_SUCCESS,
-    payload: response
+    payload: response,
+    event: event
   };
 };
 
-const projectOverviewFormEditSuccess = (response: number) => {
+const projectOverviewFormEditSuccess = (response: any, event: EventType) => {
   return {
     type: ActionType.PROJECT_OVERVIEW_FORM_EDIT_SUCCESS,
-    payload: response
+    payload: response,
+    event: event
   };
 };
 
@@ -45,42 +48,31 @@ let config = {
 };
 export const projectOverviewFormAdd = (
   projectId: string,
-  data: IProjectAdditionalDetail
+  data: IProjectAdditionalDetail,
+  event: EventType
 ) => {
   data.projectId = projectId;
-
-  let finalData = {
-    projectAddDetailId: data.projectAddDetailId,
-    projectId: data.projectId,
-    mainContractor: data.mainContractor,
-    otherMainContractor: data.otherMainContractor,
-    enquiryReceivedFrom: data.enquiryReceivedFrom,
-    potentialCustomer: data.potentialCustomer,
-    otherPotentialCustomer: data.otherPotentialCustomer,
-    enquiryTypeId: data.enquiryTypeId,
-    creditCheckResult: data.creditCheckResult,
-    siteAddress: data.siteAddress,
-    formOfContract: data.formOfContract,
-    otherFormOfContract: 'string',
-    retention: data.retention,
-    liquidatedDamages: data.liquidatedDamages,
-    insurance: data.insurance,
-    workTypeId: data.workTypeId,
-    commenceDate: data.commenceDate,
-    completionDate: data.completionDate,
-    milestones: data.milestones,
-    firstValuationDate: data.firstValuationDate,
-    finalAccountDate: data.finalAccountDate,
-    valuationIntervals: data.valuationIntervals,
-    paymentTerms: data.paymentTerms,
-    isProjectLive: data.isProjectLive,
-    comments: data.comments
-  };
   return (dispatch: Dispatch) => {
     axios.baseAPI
-      .post('api/Projects/additionalDetails', finalData, config)
+      .post('api/Projects/additionalDetails', data, config)
       .then(response => {
-        dispatch(projectOverviewFormAddSuccess(response.data));
+        dispatch(projectOverviewFormAddSuccess(response.data, event));
+      })
+      .catch(error => {
+        dispatch(projectOverviewFormError(error));
+      });
+  };
+};
+
+export const projectOverviewFormEdit = (
+  data: IProjectAdditionalDetail,
+  event: EventType
+) => {
+  return (dispatch: Dispatch) => {
+    axios.baseAPI
+      .put('api/Projects/additionalDetails', data, config)
+      .then(response => {
+        dispatch(projectOverviewFormEditSuccess(response.data, event));
       })
       .catch(error => {
         dispatch(projectOverviewFormError(error));
@@ -99,4 +91,16 @@ export const getAdditionalDetails = (projectId: string) => {
         dispatch(getAdditionalDetailsError(error));
       });
   };
+};
+
+const resetProjectOverviewStateDispatch = () => {
+  return {
+    type: ActionType.RESET_PROJECT_OVERVIEW_STATE
+  };
+};
+
+export const resetProjectOverviewState = () => {
+  return (dispatch: Dispatch) => {
+    dispatch(resetProjectOverviewStateDispatch());
+  }
 };

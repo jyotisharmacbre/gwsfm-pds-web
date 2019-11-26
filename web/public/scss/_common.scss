@@ -1,6 +1,6 @@
 body {
     background-color: map-get($colors, grey04);
-    font-family: 'Hind', sans-serif;
+    font-family: 'Hind', sans-serif !important;;
 }
 
 #content {
@@ -198,6 +198,9 @@ button[type="submit"] {
 
 .width-120 {
     max-width: 120px;
+}
+.pl-20{
+    padding-left: 20px !important;
 }
 
 .mx-35 {
