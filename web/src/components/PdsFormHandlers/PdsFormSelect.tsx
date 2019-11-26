@@ -1,26 +1,25 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 
 export function PdsFormSelect({
   input,
   meta: { touched, error, warning },
   messages,
   messageKey,
-  children
+  children,
+  DropdownCheck
 }) {
   const errorClass = `${error && touched ? 'error' : ''}`;
   return (
     <React.Fragment>
-      <select className={'form-control' + ' ' + errorClass} {...input}>
+      <select
+        className={'form-control' + ' ' + errorClass + ' ' + DropdownCheck}
+        {...input}
+      >
         {children}
       </select>
 
-      {touched &&
-        ((error && (
-          <span className="text-danger">
-            {messages && messages[error](input.value)}
-          </span>
-        )) ||
-          (warning && <span className="text-danger">{warning}</span>))}
+      {touched && (error && <span className="text-danger">{error}</span>)}
     </React.Fragment>
   );
 }

@@ -29,3 +29,6 @@ yarn-error.log*
 package-lock.json
 /web/coverage
 /web/junit.xml
+web/public/css/style.css
+web/package-lock.json
+web/package-lock.json

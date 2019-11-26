@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { mount, ShallowWrapper } from 'enzyme';
 import { Provider } from 'react-redux';
 import { store } from '../../../../store';
 import ProjectOverviewForm from '../ProjectOverviewForm';
@@ -22,7 +22,7 @@ describe('ProjectOverviewForm Fields', () => {
   it('Defines the component', () => {
     expect(wrapper).toBeDefined();
   });
-  
+
   describe('Dfines the Form', () => {
     let form: ShallowWrapper;
     beforeEach(() => {
@@ -31,7 +31,6 @@ describe('ProjectOverviewForm Fields', () => {
     it('Renders form component', () => {
       expect(form).toHaveLength(1);
     });
-    
   });
   describe('Defines form fields', () => {
     let field: ShallowWrapper;
