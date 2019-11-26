@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 import ProjectForm from '../components/Forms/ProjectForm/ProjectForm';
 import { connect } from 'react-redux';
 import { IState } from '../store/state';
@@ -7,50 +8,87 @@ import { getProjectStatus } from '../store/Lookups/Actions';
 import { IProjectDetail } from '../store/CustomerEnquiryForm/Types/IProjectDetail';
 import { projectDetailAdd } from '../store/CustomerEnquiryForm/Action';
 import { Notify } from '../helpers/constants';
-interface IMapDispatchToProps {
-  getProjectStatus: () => void;
-}
+import EventType from '../enums/EventType';
+import { useHistory } from 'react-router-dom';
+import * as actions from '../store/rootActions';
 
 interface IMapStateToProps {
-  form: IProjectDetail;
   notify: Notify;
+  event: EventType;
   projectStatus: Array<ILookup>;
+  projectId: string;
 }
 
 interface IMapDispatchToProps {
-  handleProjectDetailsSubmit: (form: IProjectDetail) => void;
+  getProjectStatus: () => void;
+  handleProjectDetailsSubmit: (form: IProjectDetail, event: EventType) => void;
+  handleProjectDetailsEdit: (form: IProjectDetail, event: EventType) => void;
+  getProjectDetail: (projectId: string) => void;
+  resetProjectDetailState: () => void;
 }
 
 const Project: React.FC<IMapStateToProps & IMapDispatchToProps> = props => {
+  let history = useHistory();
   useEffect(() => {
+    
     props.getProjectStatus();
+    if (props.projectId != null && props.projectId != '') {
+      props.getProjectDetail(props.projectId);
+    }
   }, []);
 
   useEffect(() => {
     if (props.notify == Notify.success) {
-      alert('data saved successfully');
+      if (props.event == EventType.next) {
+        alert('data saved successfully next');
+        history.push('/ProjectOverview');
+      } else if (props.event == EventType.save) {
+        alert('data saved successfully save');
+      }
+      props.resetProjectDetailState();
     }
-  }, [props.notify]);
+  }, [props.notify, props.event]);
 
-  const handleSubmit = (values: any) => {
-    props.handleProjectDetailsSubmit(values);
+  const handleSave = (data: IProjectDetail) => {
+    data.projectId == ''
+      ? props.handleProjectDetailsSubmit(data, EventType.save)
+      : props.handleProjectDetailsEdit(data, EventType.save);
+  };
+
+  const handleNext = (data: IProjectDetail) => {
+    data.projectId == ''
+      ? props.handleProjectDetailsSubmit(data, EventType.next)
+      : props.handleProjectDetailsEdit(data, EventType.next);
   };
 
   return (
-    <ProjectForm onSubmit={handleSubmit} projectstatus={props.projectStatus} />
+    <ProjectForm
+      onSave={handleSave}
+      onNext={handleNext}
+      projectstatus={props.projectStatus}
+    />
   );
 };
 
-const mapStateToProps = (state: IState) => {
+const mapStateToProps = (state: IState): IMapStateToProps => {
   return {
-    projectStatus: state.lookup.projectstatus
+    projectStatus: state.lookup.projectstatus,
+    notify: state.project.notify,
+    event: state.project.event,
+    projectId: state.project.form.projectId
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch): IMapDispatchToProps => {
   return {
     getProjectStatus: () => dispatch(getProjectStatus()),
-    handleProjectDetailsSubmit: form => dispatch(projectDetailAdd(form))
+    handleProjectDetailsSubmit: (form, event) =>
+      dispatch(projectDetailAdd(form, event)),
+    handleProjectDetailsEdit: (form, event) =>
+      dispatch(actions.projectDetailEdit(form, event)),
+    getProjectDetail: (projectId: string) =>
+      dispatch(actions.getProjectDetail(projectId)),
+    resetProjectDetailState: () => dispatch(actions.resetProjectDetailState())
   };
 };
 

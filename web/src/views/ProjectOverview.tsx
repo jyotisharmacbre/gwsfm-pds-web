@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import HeaderPage from '../components/HeaderPage/HeaderPage';
 import GeneralTable from '../components/Table/General';
 import { Grid, Container } from '@material-ui/core';
@@ -8,11 +9,14 @@ import {
   IGeneralTableHeaderProps,
   IGeneralTableProps
 } from '../components/Table/General/props';
-import * as actions from '../store/actions';
+import * as actions from '../store/rootActions';
 import { IProjectAdditionalDetail } from '../store/ProjectOverviewForm/Types/IProjectAdditionalDetail';
+import { IProject } from '../store/CustomerEnquiryForm/Types/IProject';
 import { IState } from '../store/state';
 import Notify from '../enums/Notify';
+import EventType from '../enums/EventType';
 import { ILookup } from '../store/Lookups/Types/ILookup';
+import { useHistory } from 'react-router-dom';
 
 const tableHeaders: IGeneralTableHeaderProps[] = [
   { heading: 'End Client Name', subHeading: 'ING' },
@@ -34,14 +38,23 @@ interface IMapStateToProps {
   notify: Notify;
   projectId: string;
   projectStatus: Array<ILookup>;
+  enquiryOverview: IProject;
+  event: EventType;
 }
 interface IMapDispatchToProps {
   getProjectStatus: () => void;
-  handleProjectOverviewFormSubmit: (
+  projectOverviewFormAdd: (
     projectId: string,
-    form: IProjectAdditionalDetail
+    form: IProjectAdditionalDetail,
+    event: EventType
+  ) => void;
+  projectOverviewFormEdit: (
+    form: IProjectAdditionalDetail,
+    event: EventType
   ) => void;
   getAdditionalDetails: (projectId: string) => void;
+  getEnquiryOverview: (projectId: string) => void;
+  resetProjectOverviewState:()=>void;
 }
 interface IProps {
   projectId: string;
@@ -50,24 +63,37 @@ interface IProps {
 const ProjectOverview: React.FC<
   IProps & IMapStateToProps & IMapDispatchToProps
 > = props => {
+  let history = useHistory();
   useEffect(() => {
     props.getProjectStatus();
-    if (
-      props.form.projectAddDetailId != null &&
-      props.form.projectAddDetailId != ''
-    ) {
-      props.getAdditionalDetails(props.form.projectAddDetailId);
+    if (props.projectId != null && props.projectId != '') {
+      props.getAdditionalDetails(props.projectId);
+      props.getEnquiryOverview(props.projectId);
     }
   }, []);
 
   useEffect(() => {
     if (props.notify == Notify.success) {
-      alert('data saved successfully');
+      if (props.event == EventType.next) {
+        alert('data saved successfully next');
+      } else if (props.event == EventType.previous) {
+        alert('data saved successfully previous');
+        history.push('/Project');
+      }
+      props.resetProjectOverviewState();
     }
-  }, [props.notify]);
+  }, [props.notify, props.event]);
 
-  const handleSubmit = (values: any) => {
-    props.handleProjectOverviewFormSubmit('', values);
+  const handlePrevious = (data: IProjectAdditionalDetail) => {
+    data.projectAddDetailId == ''
+      ? props.projectOverviewFormAdd(props.projectId, data, EventType.previous)
+      : props.projectOverviewFormEdit(data, EventType.previous);
+  };
+
+  const handleNext = (data: IProjectAdditionalDetail) => {
+    data.projectAddDetailId == ''
+      ? props.projectOverviewFormAdd(props.projectId, data, EventType.next)
+      : props.projectOverviewFormEdit(data, EventType.next);
   };
 
   return (
@@ -80,7 +106,8 @@ const ProjectOverview: React.FC<
           </Grid>
           <Grid item xs={12} sm={12}>
             <ProjectOverviewForm
-              onSubmit={handleSubmit}
+              onNext={handleNext}
+              onPrevious={handlePrevious}
               projectstatus={props.projectStatus}
             />
           </Grid>
@@ -93,17 +120,24 @@ const ProjectOverview: React.FC<
 const mapStateToProps = (state: IState) => ({
   form: state.projectOverview.form,
   notify: state.projectOverview.notify,
-  projectId: state.project.projectId,
-  projectStatus: state.lookup.projectstatus
+  projectId: state.project.form.projectId,
+  projectStatus: state.lookup.projectstatus,
+  enquiryOverview: state.project.enquiryOverview,
+  event: state.projectOverview.event
 });
 
 const mapDispatchToProps = dispatch => {
   return {
     getProjectStatus: () => dispatch(actions.getProjectStatus()),
-    handleProjectOverviewFormSubmit: (projectId, form) =>
-      dispatch(actions.projectOverviewFormAdd(projectId, form)),
+    projectOverviewFormAdd: (projectId, form, event) =>
+      dispatch(actions.projectOverviewFormAdd(projectId, form, event)),
+    projectOverviewFormEdit: (form, event) =>
+      dispatch(actions.projectOverviewFormEdit(form, event)),
     getAdditionalDetails: projectId =>
-      dispatch(actions.getAdditionalDetails(projectId))
+      dispatch(actions.getAdditionalDetails(projectId)),
+    getEnquiryOverview: projectId =>
+      dispatch(actions.getEnquiryOverview(projectId)),
+    resetProjectOverviewState:()=>dispatch(actions.resetProjectOverviewState())
   };
 };
 
