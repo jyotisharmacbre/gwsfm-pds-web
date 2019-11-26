@@ -49,7 +49,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
             data-test="projectOverviewForm"
           >
             <Row>
-              <Col xl={8}>
+              <Col lg={8}>
                 <Field
                   name={getPropertyName(
                     initialValues,
@@ -214,40 +214,52 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   labelKey="LABEL_INSURANCE"
                   placeholderKey="PLACEHOLDER_ADD_INSURANCE"
                 />
-                <Field
-                  name={getPropertyName(initialValues, prop => prop.workTypeId)}
-                  data-test="workTypeId"
-                  type="text"
-                  datas={projectStatusData}
-                  component={PdsFormSelect}
-                  label="Work Type"
-                  placeHolder="Select work types"
-                />
+                <div className={'form-group'}>
+                  <label>
+                    <FormattedMessage id="LABEL_WORK_TYPE" />
+                  </label>
+                  <div className="select-wrapper">
+                    <Field
+                      name={getPropertyName(
+                        initialValues,
+                        prop => prop.workTypeId
+                      )}
+                      component={PdsFormSelect}
+                      validate={[Validate.required('VALIDATION_REQUIRED')]}
+                      placeholderKey="PLACEHOLDER_WORK_TYPES"
+                      messageKey="MESSAGE_PROJECT_STATUS"
+                    >
+                      <FormattedMessage id="PLACEHOLDER_WORK_TYPES">
+                        {message => <option value="">{message}</option>}
+                      </FormattedMessage>
+                      {getDropdown(
+                        props.projectstatus,
+                        LookupType.Project_Status
+                      )}
+                    </Field>
+                  </div>
+                </div>
 
                 <Row>
                   <Col xl={12}>
                     <Form.Group>
-                      <Form.Label>Project Plan</Form.Label>
+                      <Form.Label>
+                        <FormattedMessage id="LABEL_PROJECT_PLAN" />
+                      </Form.Label>
                       <Col className="calender-wrap">
                         <Row>
-                          <Col
-                            lg={6}
-                            className="mt-2 position-relative manipulate-calendar"
-                          >
+                          <Col xl={6} className="mt-2 position-relative manipulate-calendar">
                             <DatePicker
                               name="commenceDate"
                               data-test="commenceDate"
-                              label="Commence Date"
+                              labelKey="LABEL_COMMENCE_DATE"
                             />
                           </Col>
-                          <Col
-                            lg={6}
-                            className="mt-2 position-relative manipulate-calendar"
-                          >
+                          <Col xl={6} className="mt-2 position-relative manipulate-calendar">
                             <DatePicker
                               name="completionDate"
                               data-test="completionDate"
-                              label="Completion Date"
+                              labelKey="LABEL_COMPLETION_DATE"
                             />
                           </Col>
                         </Row>
@@ -259,10 +271,10 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                                 prop => prop.milestones
                               )}
                               data-test="milestones"
-                              label="Project Milestones"
+                              labelKey="LABEL_PROJECTMILE_STONES"
                               rows="7"
                               component={PdsFormTextArea}
-                              placeHolder="Add project milestones"
+                              placeholderKey="PLACEHOLDER_PROJECT_MILESTONES"
                             />
                           </Col>
                         </Row>
@@ -271,30 +283,25 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                   </Col>
                 </Row>
 
+
                 <Row>
                   <Col xl={12}>
                     <Form.Group>
                       <Form.Label>Project Plan</Form.Label>
                       <Col className="calender-wrap">
                         <Row>
-                          <Col
-                            lg={6}
-                            className="mt-2 position-relative manipulate-calendar"
-                          >
+                          <Col xl={6} className="mt-2 position-relative manipulate-calendar">
                             <DatePicker
                               name="firstValuationDate"
                               data-test="firstValuationDate"
-                              label="First Valuation Date"
+                              labelKey="LABEL_FIRST_VALUATION_DATE"
                             />
                           </Col>
-                          <Col
-                            lg={6}
-                            className="mt-2 position-relative manipulate-calendar"
-                          >
+                          <Col xl={6} className="mt-2 position-relative manipulate-calendar">
                             <DatePicker
                               name="finalAccountDate"
                               data-test="finalAccountDate"
-                              label="First Account Date"
+                              labelKey="LABEL_FIRST_ACCOUNT_DATE"
                             />
                           </Col>
                         </Row>
@@ -308,8 +315,8 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                               data-test="valuationIntervals"
                               type="text"
                               component={PdsFormInput}
-                              label="Valuation Intervals"
-                              placeHolder="Add valuation intervals"
+                              labelKey="LABEL_VALUATION_INTERVALS"
+                              placeholderKey="PLACEHOLDER_VALUATION_INTERVALS"
                             />
                           </Col>
                         </Row>
@@ -323,8 +330,8 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<{}, Props>> = (
                               data-test="paymentTerms"
                               type="text"
                               component={PdsFormInput}
-                              label="Payment Terms"
-                              placeHolder="Add payment terms"
+                              labelKey="LABEL_PAYMENT_TERMS"
+                              placeholderKey="PLACEHOLDER_PAYMENT_TERMS"
                             />
                           </Col>
                         </Row>
