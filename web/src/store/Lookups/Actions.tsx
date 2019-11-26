@@ -1,6 +1,7 @@
 import * as axios from '../../client';
 import { ActionType } from './Types/ActionType';
 import { Dispatch } from 'redux';
+import { ICurrency } from './Types/ICurrency';
 
 const getProjectStatusSuccess = (response: any) => {
   return {
@@ -36,6 +37,32 @@ export const getProjectStatus = () => {
       })
       .catch(error => {
         dispatch(getProjectStatusError(error));
+      });
+  };
+};
+
+const getAllCurrenciesSuccess = (response: Array<ICurrency>) => {
+  return {
+    type: ActionType.GET_ALL_CURRENCIES_SUCCESS,
+    payload: response
+  };
+};
+
+const getAllCurrenciesError = (error: any) => {
+  return {
+    type: ActionType.GET_ALL_CURRENCIES_ERROR,
+    payload: error
+  };
+};
+export const getAllCurrencies = () => {
+  return (dispatch: Dispatch) => {
+    axios.baseAPI
+      .get('api/LookupData/GetAllCurrencies')
+      .then(response => {
+        dispatch(getAllCurrenciesSuccess(response.data));
+      })
+      .catch(error => {
+        dispatch(getAllCurrenciesError(error));
       });
   };
 };

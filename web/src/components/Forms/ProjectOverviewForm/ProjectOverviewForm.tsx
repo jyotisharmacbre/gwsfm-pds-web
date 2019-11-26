@@ -67,6 +67,7 @@ let ProjectOverviewForm: React.FC<
                     Validate.maxLength(1000)
                   ]}
                   warn={alphaNumeric}
+              
                 />
                 <Field
                   name={getPropertyName(
@@ -250,14 +251,20 @@ let ProjectOverviewForm: React.FC<
                       </Form.Label>
                       <Col className="calender-wrap">
                         <Row>
-                          <Col xl={6} className="mt-2 position-relative manipulate-calendar">
+                          <Col
+                            xl={6}
+                            className="mt-2 position-relative manipulate-calendar"
+                          >
                             <DatePicker
                               name="commenceDate"
                               data-test="commenceDate"
                               labelKey="LABEL_COMMENCE_DATE"
                             />
                           </Col>
-                          <Col xl={6} className="mt-2 position-relative manipulate-calendar">
+                          <Col
+                            xl={6}
+                            className="mt-2 position-relative manipulate-calendar"
+                          >
                             <DatePicker
                               name="completionDate"
                               data-test="completionDate"
@@ -285,21 +292,26 @@ let ProjectOverviewForm: React.FC<
                   </Col>
                 </Row>
 
-
                 <Row>
                   <Col xl={12}>
                     <Form.Group>
                       <Form.Label>Project Plan</Form.Label>
                       <Col className="calender-wrap">
                         <Row>
-                          <Col xl={6} className="mt-2 position-relative manipulate-calendar">
+                          <Col
+                            xl={6}
+                            className="mt-2 position-relative manipulate-calendar"
+                          >
                             <DatePicker
                               name="firstValuationDate"
                               data-test="firstValuationDate"
                               labelKey="LABEL_FIRST_VALUATION_DATE"
                             />
                           </Col>
-                          <Col xl={6} className="mt-2 position-relative manipulate-calendar">
+                          <Col
+                            xl={6}
+                            className="mt-2 position-relative manipulate-calendar"
+                          >
                             <DatePicker
                               name="finalAccountDate"
                               data-test="finalAccountDate"

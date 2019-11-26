@@ -13,4 +13,4 @@ export {
   projectDetailEdit
 } from './CustomerEnquiryForm/Action';
 
-export { getProjectStatus } from './Lookups/Actions';
+export { getProjectStatus, getAllCurrencies } from './Lookups/Actions';
