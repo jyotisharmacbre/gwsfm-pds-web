@@ -63,7 +63,7 @@ let ProjectOverviewForm: React.FC<
                   labelKey="LABEL_MAIN_CONTRACTOR"
                   placeholderKey="PLACEHOLDER_CONTRACTORS_NAME"
                   validate={[
-                    Validate.required('VALIDATION_REQUIRED'),
+                    Validate.required('LABEL_MAIN_CONTRACTOR'),
                     Validate.maxLength(1000)
                   ]}
                   warn={alphaNumeric}
@@ -77,7 +77,7 @@ let ProjectOverviewForm: React.FC<
                   type="text"
                   component={PdsFormInput}
                   validate={[
-                    Validate.required('VALIDATION_REQUIRED'),
+                    Validate.required('LABEL_ENQUIRY_RECEIVED_FROM'),
                     Validate.maxLength(1000)
                   ]}
                   warn={alphaNumeric}
@@ -93,7 +93,7 @@ let ProjectOverviewForm: React.FC<
                   type="text"
                   component={PdsFormInput}
                   validate={[
-                    Validate.required('VALIDATION_REQUIRED'),
+                    Validate.required('LABEL_POTENTIAL_CUSTOMER'),
                     Validate.maxLength(1000)
                   ]}
                   warn={alphaNumeric}
@@ -111,7 +111,7 @@ let ProjectOverviewForm: React.FC<
                   component={PdsFormRadio}
                   labelKey="LABEL_TYPE_OF_ENQUIRY"
                   validate={[
-                    Validate.required('VALIDATION_REQUIRED'),
+                    Validate.required('LABEL_TYPE_OF_ENQUIRY'),
                     Validate.maxLength(1000)
                   ]}
                   warn={alphaNumeric}
@@ -125,7 +125,7 @@ let ProjectOverviewForm: React.FC<
                   type="text"
                   component={PdsFormInput}
                   validate={[
-                    Validate.required('VALIDATION_REQUIRED'),
+                    Validate.required('LABEL_CREDIT_CHECK_RESULT'),
                     Validate.maxLength(1000)
                   ]}
                   warn={alphaNumeric}
@@ -141,7 +141,7 @@ let ProjectOverviewForm: React.FC<
                   type="text"
                   component={PdsFormInput}
                   validate={[
-                    Validate.required('VALIDATION_REQUIRED'),
+                    Validate.required('LABEL_SITE_ADDRESS'),
                     Validate.maxLength(1000)
                   ]}
                   warn={alphaNumeric}
@@ -167,7 +167,7 @@ let ProjectOverviewForm: React.FC<
                   type="text"
                   component={PdsFormInput}
                   validate={[
-                    Validate.required('VALIDATION_REQUIRED'),
+                    Validate.required('LABEL_FORM_OF_CONTRACT'),
                     Validate.maxLength(1000)
                   ]}
                   warn={alphaNumeric}
@@ -180,7 +180,7 @@ let ProjectOverviewForm: React.FC<
                   type="text"
                   component={PdsFormInput}
                   validate={[
-                    Validate.required('VALIDATION_REQUIRED'),
+                    Validate.required('LABEL_RETENTION'),
                     Validate.maxLength(1000)
                   ]}
                   warn={alphaNumeric}
@@ -196,7 +196,7 @@ let ProjectOverviewForm: React.FC<
                   type="text"
                   component={PdsFormInput}
                   validate={[
-                    Validate.required('VALIDATION_REQUIRED'),
+                    Validate.required('LABEL_LIQUIDATED_DAMAGES'),
                     Validate.maxLength(1000)
                   ]}
                   warn={alphaNumeric}
@@ -209,7 +209,7 @@ let ProjectOverviewForm: React.FC<
                   type="text"
                   component={PdsFormInput}
                   validate={[
-                    Validate.required('VALIDATION_REQUIRED'),
+                    Validate.required('LABEL_INSURANCE'),
                     Validate.maxLength(1000)
                   ]}
                   warn={alphaNumeric}
