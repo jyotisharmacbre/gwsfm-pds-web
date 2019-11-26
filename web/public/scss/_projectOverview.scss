@@ -119,3 +119,19 @@
         }
     }
 }
+
+/*manipulating calendar style*/
+.manipulate-calendar{
+    .date-picker-wrap {
+        position: relative;
+        .SingleDatePicker_picker {
+            top: 41px !important;
+            right: -37px !important;
+            width: 300px!important;
+            left: auto !important;
+        }
+    }
+    .DayPicker_transitionContainer {
+        width: 300px !important;
+    }
+}
