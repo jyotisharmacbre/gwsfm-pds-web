@@ -5,12 +5,8 @@
   "TITLE_RUNRATE": "RunRate",
   "TITLE_ANALYTICS": "Analytics",
   "HEADING_CUSTOMER_ENQUIRY": "Customer Enquiry",
-  "BUTTON_YES": "YES",
-  "BUTTON_NO": "NO",
   "BUTTON_NEXT": "NEXT",
   "BUTTON_PREVIOUS": "PREVIOUS",
-  "BUTTON_YES":"yes",
-  "BUTTON_NO":"no",
   "BUTTON_SAVE_AND_CLOSE": "SAVE AND CLOSE",
   "LABEL_COMMENTS": "Comments",
   "LABEL_CURRENCY": "Currency",
@@ -119,5 +115,10 @@
   "VALIDATION_MESSAGE_PROJECT_OWNER_REQUIRED": "Project owner is required",
   "VALIDATION_MESSAGE_PROJECT_SCOPE_REQUIRED": "Project scope is required",
   "VALIDATION_MESSAGE_PROJECT_STATUS_REQUIRED": "Project status is required",
-  "VALIDATION_REQUIRED":"Required"
+  "VALIDATION_REQUIRED":"Required",
+  "VALIDATION_NUMBER":"Must be a number",
+  "VALIDATION_MAX": "Must have a maximum of",
+  "VALIDATION_CHAR": "characters",
+  "VALIDATION_IS_REQUIRED": "is required",
+  "VALIDATION_ONLY_ALPHA_NUM" : "Only alphanumeric characters"
 }
