@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { mount, ShallowWrapper } from 'enzyme';
 import { Provider } from 'react-redux';
 import { store } from '../../../../store';
 import ProjectOverviewForm from '../ProjectOverviewForm';

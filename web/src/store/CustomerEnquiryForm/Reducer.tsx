@@ -23,9 +23,9 @@ const initialState: IProjectDetailState = {
     approxValue: '',
     contractTypeId: '',
     cdmNotifiable: true,
-    firstAssetWorkedOn: 28,
-    secondAssetWorkedOn: 29,
-    thirdAssetWorkedOn: 28,
+    firstAssetWorkedOn: 0,
+    secondAssetWorkedOn: 0,
+    thirdAssetWorkedOn: 0,
     comment: ''
   },
   enquiryOverview: {

@@ -15,7 +15,7 @@ export function fieldValidationRequired(value, message) {
     (typeof value.trim === 'function' && value.trim() === '') ||
     (Array.isArray(value) && !value.length)
   ) {
-    return message;
+    return `${message} is required`;
   }
 }
 
