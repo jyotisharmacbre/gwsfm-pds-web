@@ -10,6 +10,8 @@ import { getLookupDescription } from '../../../helpers/utility-helper';
 import { LookupItems } from '../../../helpers/constants';
 import moment from 'moment';
 import { setProjectId } from '../../../store/CustomerEnquiryForm/Action';
+import { useHistory } from 'react-router-dom';
+import Notify from '../../../enums/Notify';
 
 interface Props {
   pipelineValues: any;
@@ -17,7 +19,12 @@ interface Props {
 }
 const ProjectPipelineForm: React.FC<Props> = (props: any) => {
   const { pipelineValues, lookupValues } = props;
-
+  let history = useHistory();
+  useEffect(() => {
+    debugger;
+    if (props.projectIdUpdated == Notify.success)
+      history.push('/ProjectOverview');
+  }, [props.projectIdUpdated]);
   const getPipelineValues = allLookups => {
     let data = pipelineValues.map(function(rowProject) {
       var statusID = rowProject.status;
@@ -46,12 +53,13 @@ const ProjectPipelineForm: React.FC<Props> = (props: any) => {
       rowProject.cdmNotifiable = rowProject.cdmNotifiable ? 'Yes' : 'No';
 
       rowProject.name = (
-        <a
-          onClick={() => setProjectId(rowProject.projectId)}
-          href="/projectoverview"
+        <button
+          onClick={() => {
+            setProjectId(rowProject.projectId);
+          }}
         >
           {rowProject.name}
-        </a>
+        </button>
       );
       return rowProject;
     });
@@ -124,6 +132,7 @@ const getTableColumns = () => {
 };
 
 const mapStateToProps = (state: IState) => ({
-  initialValues: state.pipelineGrid.pipelineDetails
+  initialValues: state.pipelineGrid.pipelineDetails,
+  projectIdUpdated: state.project.projectIdUpdated
 });
 export default connect(mapStateToProps)(ProjectPipelineForm);
