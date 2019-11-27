@@ -19,21 +19,6 @@ import { ILookup } from '../store/Lookups/Types/ILookup';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-const tableHeaders: IGeneralTableHeaderProps[] = [
-  { heading: 'End Client Name', subHeading: 'ING' },
-  { heading: 'Project Name', subHeading: 'Building Maintainance' },
-  { heading: 'Project ID', subHeading: 'ING65956' },
-  { heading: 'CN Number', subHeading: 'ING89855' }
-];
-
-const table: IGeneralTableProps = {
-  headers: tableHeaders,
-  content: 'Working on new structure of a building with lighting',
-  editActionClick: () => {
-    alert('You clicked me');
-  }
-};
-
 interface IMapStateToProps {
   form: IProjectAdditionalDetail;
   notify: Notify;
@@ -65,6 +50,22 @@ const ProjectOverview: React.FC<
   IProps & IMapStateToProps & IMapDispatchToProps
 > = props => {
   let history = useHistory();
+  
+const tableHeaders: IGeneralTableHeaderProps[] = [
+  { heading: 'End Client Name', subHeading: {props.enquiryOverview.projectName} },
+  { heading: 'Project Name', subHeading: 'Building Maintainance' },
+  { heading: 'Project ID', subHeading: 'ING65956' },
+  { heading: 'CN Number', subHeading: 'ING89855' }
+];
+
+const table: IGeneralTableProps = {
+  headers: tableHeaders,
+  content: 'Working on new structure of a building with lighting',
+  editActionClick: () => {
+    alert('You clicked me');
+  }
+};
+
   useEffect(() => {
     window.scrollTo(0, 0);
     props.getProjectStatus();
@@ -78,7 +79,7 @@ const ProjectOverview: React.FC<
     if (props.notify == Notify.success) {
       if (props.event == EventType.next) {
         toast.success('Data Saved Successfully');
-        history.push('/Project');
+        history.push('/JustificationAuthorisation');
       } else if (props.event == EventType.previous) {
         toast.success('Data Saved Successfully');
         history.push('/Project');

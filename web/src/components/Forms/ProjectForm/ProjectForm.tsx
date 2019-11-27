@@ -1,7 +1,12 @@
 import React, { useEffect } from 'react';
 import { MainTitle } from '../../Title/Title';
 
-import { Field, reduxForm, InjectedFormProps, formValueSelector } from 'redux-form';
+import {
+  Field,
+  reduxForm,
+  InjectedFormProps,
+  formValueSelector
+} from 'redux-form';
 import PdsFormInput from '../../PdsFormHandlers/PdsFormInput';
 import PdsFormSelect from '../../PdsFormHandlers/PdsFormSelect';
 import PdsFormTextArea from '../../PdsFormHandlers/PdsFormTextArea';
@@ -27,16 +32,15 @@ interface Props {
   currencies: Array<ICurrency> | null;
 }
 
-const getCurrencySymbol = (currencies,currencyId) => {
+const getCurrencySymbol = (currencies, currencyId) => {
   let symbol = '';
   let filter;
-if(currencies){
-  filter = currencies.find(element=>element.currencyId == currencyId);
-  if(filter != null && filter != undefined)
-    symbol = filter.currencySymbol;
-}
-return symbol;
-}
+  if (currencies) {
+    filter = currencies.find(element => element.currencyId == currencyId);
+    if (filter != null && filter != undefined) symbol = filter.currencySymbol;
+  }
+  return symbol;
+};
 
 const ProjectForm: React.FC<
   Props & InjectedFormProps<IProjectDetail, Props>
@@ -271,7 +275,10 @@ const ProjectForm: React.FC<
                     Validate.maxLength(1000),
                     onlyNumber
                   ]}
-                  currency={getCurrencySymbol(props.currencies,props.currencyId)}
+                  currency={getCurrencySymbol(
+                    props.currencies,
+                    props.currencyId
+                  )}
                   divPosition="relative"
                   labelKey="LABEL_APPROXIMATE_VALUE"
                   placeholderKey=""
@@ -394,7 +401,6 @@ const ProjectForm: React.FC<
   );
 };
 
-
 const form = reduxForm<IProjectDetail, Props>({
   form: 'ProjectForm',
   enableReinitialize: true
@@ -402,10 +408,9 @@ const form = reduxForm<IProjectDetail, Props>({
 
 const selector = formValueSelector('ProjectForm');
 
-
 const mapStateToProps = (state: IState) => ({
   initialValues: state.project.form,
-  currencyId:selector(state, 'currencyId')
+  currencyId: selector(state, 'currencyId')
 });
 
 export default connect(mapStateToProps)(form);

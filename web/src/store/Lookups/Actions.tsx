@@ -27,7 +27,8 @@ export const getProjectStatus = () => {
     'Contract_Type',
     'Country',
     'Currency',
-    'Asset'
+    'Asset',
+    'Work_Type'
   ];
   return (dispatch: Dispatch) => {
     axios.baseAPI

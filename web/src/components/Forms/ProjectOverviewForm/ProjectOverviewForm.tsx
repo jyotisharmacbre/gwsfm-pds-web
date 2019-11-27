@@ -67,7 +67,6 @@ let ProjectOverviewForm: React.FC<
                     Validate.maxLength(1000)
                   ]}
                   warn={alphaNumeric}
-              
                 />
                 <Field
                   name={getPropertyName(
@@ -235,10 +234,7 @@ let ProjectOverviewForm: React.FC<
                       <FormattedMessage id="PLACEHOLDER_WORK_TYPES">
                         {message => <option value="">{message}</option>}
                       </FormattedMessage>
-                      {getDropdown(
-                        props.projectstatus,
-                        LookupType.Project_Status
-                      )}
+                      {getDropdown(props.projectstatus, LookupType.Work_Type)}
                     </Field>
                   </div>
                 </div>
