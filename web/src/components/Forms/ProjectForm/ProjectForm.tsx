@@ -12,9 +12,7 @@ import PdsFormSelect from '../../PdsFormHandlers/PdsFormSelect';
 import PdsFormTextArea from '../../PdsFormHandlers/PdsFormTextArea';
 import PdsFormButton from '../../PdsFormHandlers/PdsFormButton';
 import { selectionButtons } from '../../../helpers/constants';
-import {
-  Validate
-} from '../../../helpers/fieldValidations';
+import { Validate } from '../../../helpers/fieldValidations';
 import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
 import { FormattedMessage, injectIntl } from 'react-intl';
@@ -399,7 +397,7 @@ const ProjectForm: React.FC<
       </div>
     </div>
   );
-};
+}; 
 
 const form = reduxForm<IProjectDetail, Props>({
   form: 'ProjectForm',

@@ -356,9 +356,7 @@ let ProjectOverviewForm: React.FC<
                     <Field
                       name={getPropertyName(initialValues, prop => prop.budget)}
                       component={PdsFormSelect}
-                      validate={[
-                        Validate.require(props, 'PLACEHOLDER_BUDGET')
-                      ]}
+                      validate={[Validate.require(props, 'PLACEHOLDER_BUDGET')]}
                       placeholderKey="PLACEHOLDER_BUDGET"
                       messageKey="MESSAGE_PROJECT_STATUS"
                     >

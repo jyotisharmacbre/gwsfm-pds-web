@@ -41,6 +41,7 @@ interface IMapStateToProps {
   projectStatus: Array<ILookup>;
   enquiryOverview: IProject;
   event: EventType;
+  projectScope:string;
 }
 interface IMapDispatchToProps {
   getProjectStatus: () => void;
@@ -98,14 +99,31 @@ const ProjectOverview: React.FC<
       ? props.projectOverviewFormAdd(props.projectId, data, EventType.next)
       : props.projectOverviewFormEdit(data, EventType.next);
   };
-
+const convertToString = (id)=>{
+  debugger;
+  let data = '';
+  if(id != null && id != undefined)
+    data = id.toString();
+  return data;
+}
   return (
     <React.Fragment>
       <Container component="main">
         <HeaderPage Title={'Project Overview'} ActionList={[]} />
         <Grid spacing={3} container>
           <Grid item xs={12} sm={12}>
-            <GeneralTable {...table} />
+            <GeneralTable {...
+    {          headers: [
+  { heading: 'End Client Name', subHeading:convertToString(props.enquiryOverview.companyId) },
+  { heading: 'Project Name', subHeading: props.enquiryOverview.projectName  },
+  { heading: 'Project ID', subHeading: props.projectId },
+  { heading: 'CN Number', subHeading: convertToString(props.enquiryOverview.cnNumber) }
+],
+  content: props.projectScope,
+  editActionClick: () => {
+    history.push('/Project');
+  }}
+            } />
           </Grid>
           <Grid item xs={12} sm={12}>
             <ProjectOverviewForm
@@ -126,7 +144,8 @@ const mapStateToProps = (state: IState) => ({
   projectId: state.project.form.projectId,
   projectStatus: state.lookup.projectstatus,
   enquiryOverview: state.project.enquiryOverview,
-  event: state.projectOverview.event
+  event: state.projectOverview.event,
+  projectScope: state.project.form.scope,
 });
 
 const mapDispatchToProps = dispatch => {
