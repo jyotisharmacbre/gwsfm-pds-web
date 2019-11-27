@@ -2,7 +2,7 @@ import axios from 'axios';
 import authentication from '@kdpw/msal-b2c-react';
 
 export const baseURL = 'https://qat-pds-middletier.azurewebsites.net';
-export const baseAPI = axios.create({baseURL});
+export const baseAPI = axios.create({ baseURL });
 
 const isTokenHandlerEnabled = (config = {}) => {
   return config.hasOwnProperty('tokenHandlerEnabled') &&

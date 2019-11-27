@@ -16,8 +16,10 @@ const projectDetailAddSuccess = (
   };
 };
 
-const projectDetailEditSuccess = (response: IProjectDetail,
-  event: EventType) => {
+const projectDetailEditSuccess = (
+  response: IProjectDetail,
+  event: EventType
+) => {
   return {
     type: ActionType.PROJECT_EDIT_SUCCESS,
     payload: response,
@@ -125,7 +127,7 @@ const resetProjectDetailStateDispatch = () => {
 export const resetProjectDetailState = () => {
   return (dispatch: Dispatch) => {
     dispatch(resetProjectDetailStateDispatch());
-  }
+  };
 };
 
 const setProjectIdDispatch = () => {
@@ -134,8 +136,8 @@ const setProjectIdDispatch = () => {
   };
 };
 
-export const setProjectId = (projectId:string) => {
+export const setProjectId = (projectId: string) => {
   return (dispatch: Dispatch) => {
     dispatch(setProjectIdDispatch());
-  }
+  };
 };

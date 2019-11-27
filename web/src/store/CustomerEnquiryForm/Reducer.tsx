@@ -48,7 +48,7 @@ const projectDetailAddSuccess = (oldState, action) => {
   return updateObject(oldState, {
     error: null,
     loading: false,
-    form: updateObject(oldState.form, { projectId: action.payload.projectId }),
+    form: updateObject(oldState.form, action.payload),
     notify: Notify.success,
     event: action.event
   });
@@ -106,10 +106,9 @@ const resetProjectDetailState = (oldState, action) => {
 
 const setProjectId = (oldState, action) => {
   return updateObject(oldState, {
-    form:updateObject(oldState.form,{projectId:action.projectId})
+    form: updateObject(oldState.form, { projectId: action.projectId })
   });
 };
-
 
 const projectDetailReducer = (oldState = initialState, action) => {
   switch (action.type) {

@@ -2,6 +2,8 @@ import React from 'react';
 import './App.css';
 import Layout from './components/Layouts/Layout';
 import { makeStyles, createMuiTheme } from '@material-ui/core/styles';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App: React.FC = () => {
   const drawerWidth = 250;
@@ -124,6 +126,7 @@ const App: React.FC = () => {
   return (
     <div>
       <Layout Theme={theme} UseStyles={useStyles()} />
+      <ToastContainer autoClose={2000} />
     </div>
   );
 };

@@ -167,7 +167,8 @@ form {
     //   }
 }
 
-button[type="submit"] {
+button[type="submit"],
+button[type="button"] {
     background-color: #006a4d;
     border: 0;
     font-weight: 600;

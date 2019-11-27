@@ -1,28 +1,43 @@
 import React, { useEffect } from 'react';
 import { MainTitle } from '../../Title/Title';
 
-import { Field, reduxForm, InjectedFormProps } from 'redux-form';
+import {
+  Field,
+  reduxForm,
+  InjectedFormProps,
+  formValueSelector
+} from 'redux-form';
 import PdsFormInput from '../../PdsFormHandlers/PdsFormInput';
 import PdsFormSelect from '../../PdsFormHandlers/PdsFormSelect';
 import PdsFormTextArea from '../../PdsFormHandlers/PdsFormTextArea';
 import PdsFormButton from '../../PdsFormHandlers/PdsFormButton';
 import { selectionButtons } from '../../../helpers/constants';
-import {
-  Validate
-} from '../../../helpers/fieldValidations';
+import { Validate } from '../../../helpers/fieldValidations';
 import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { LookupType } from '../../../store/Lookups/Types/LookupType';
 import { getDropdown } from '../../../helpers/utility-helper';
 import { IProjectDetail } from '../../../store/CustomerEnquiryForm/Types/IProjectDetail';
+import { ICurrency } from '../../../store/Lookups/Types/ICurrency';
 import IReactIntl from '../../../Translations/IReactIntl';
 
 interface Props {
   projectstatus: any;
   onNext: (data: IProjectDetail) => void;
   onSave: (data: IProjectDetail) => void;
+  currencies: Array<ICurrency> | null;
 }
+
+const getCurrencySymbol = (currencies, currencyId) => {
+  let symbol = '';
+  let filter;
+  if (currencies) {
+    filter = currencies.find(element => element.currencyId == currencyId);
+    if (filter != null && filter != undefined) symbol = filter.currencySymbol;
+  }
+  return symbol;
+};
 
 const ProjectForm: React.FC<
   Props & IReactIntl & InjectedFormProps<IProjectDetail, Props>
@@ -217,8 +232,17 @@ const ProjectForm: React.FC<
                       <FormattedMessage id="PLACEHOLDER_CURRENCY">
                         {message => <option value="">{message}</option>}
                       </FormattedMessage>
-
-                      {getDropdown(props.projectstatus, LookupType.Currency)}
+                      {props.currencies &&
+                        props.currencies.map((data: ICurrency, i: number) => {
+                          return (
+                            <option
+                              key={data.currencyId}
+                              value={data.currencyId}
+                            >
+                              {data.currencySymbol}
+                            </option>
+                          );
+                        })}
                     </Field>
                   </div>
                 </div>
@@ -248,7 +272,10 @@ const ProjectForm: React.FC<
                     Validate.maxLength(props, 1000),
                     Validate.onlyNumber(props)
                   ]}
-                  currency="$"
+                  currency={getCurrencySymbol(
+                    props.currencies,
+                    props.currencyId
+                  )}
                   divPosition="relative"
                   labelKey="LABEL_APPROXIMATE_VALUE"
                   placeholderKey=""
@@ -370,15 +397,18 @@ const ProjectForm: React.FC<
       </div>
     </div>
   );
-};
-
-const mapStateToProps = (state: IState) => ({
-  initialValues: state.project.form
-});
+}; 
 
 const form = reduxForm<IProjectDetail, Props>({
   form: 'ProjectForm',
   enableReinitialize: true
 })(injectIntl(ProjectForm));
+
+const selector = formValueSelector('ProjectForm');
+
+const mapStateToProps = (state: IState) => ({
+  initialValues: state.project.form,
+  currencyId: selector(state, 'currencyId')
+});
 
 export default connect(mapStateToProps)(form);

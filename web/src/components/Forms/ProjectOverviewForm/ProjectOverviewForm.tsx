@@ -234,10 +234,7 @@ let ProjectOverviewForm: React.FC<
                       <FormattedMessage id="PLACEHOLDER_WORK_TYPES">
                         {message => <option value="">{message}</option>}
                       </FormattedMessage>
-                      {getDropdown(
-                        props.projectstatus,
-                        LookupType.Project_Status
-                      )}
+                      {getDropdown(props.projectstatus, LookupType.Work_Type)}
                     </Field>
                   </div>
                 </div>
@@ -359,9 +356,7 @@ let ProjectOverviewForm: React.FC<
                     <Field
                       name={getPropertyName(initialValues, prop => prop.budget)}
                       component={PdsFormSelect}
-                      validate={[
-                        Validate.require(props, 'PLACEHOLDER_BUDGET')
-                      ]}
+                      validate={[Validate.require(props, 'PLACEHOLDER_BUDGET')]}
                       placeholderKey="PLACEHOLDER_BUDGET"
                       messageKey="MESSAGE_PROJECT_STATUS"
                     >
