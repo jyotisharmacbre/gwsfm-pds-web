@@ -9,8 +9,6 @@
   "BUTTON_NO": "NON",
   "BUTTON_NEXT": "SUIVANT",
   "BUTTON_PREVIOUS": "PRÉCÉDENT",
-  "BUTTON_YES":"yes",
-  "BUTTON_NO":"no",
   "BUTTON_SAVE_AND_CLOSE": "SAUVEGARDER ET FERMER",
   "LABEL_COMMENTS": "Commentaires",
   "LABEL_CURRENCY": "Devise",
@@ -119,5 +117,10 @@
   "VALIDATION_MESSAGE_PROJECT_OWNER_REQUIRED": "propriétaire du projet requis",
   "VALIDATION_MESSAGE_PROJECT_SCOPE_REQUIRED": "portée du projet requise",
   "VALIDATION_MESSAGE_PROJECT_STATUS_REQUIRED": "projet le statut est requis",
-  "VALIDATION_REQUIRED":"Required"
+  "VALIDATION_REQUIRED":"Required",
+  "VALIDATION_NUMBER":"Doit être un nombre",
+  "VALIDATION_MAX": "Doit avoir un maximum de",
+  "VALIDATION_CHAR": "personnages",
+  "VALIDATION_IS_REQUIRED": "est requis",
+  "VALIDATION_ONLY_ALPHA_NUM" : "Seulement des caractères alphanumériques"
 }
