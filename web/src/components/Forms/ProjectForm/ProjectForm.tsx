@@ -503,6 +503,7 @@ const ProjectForm: React.FC<
   );
 };
 
+
 const mapStateToProps = (state: IState) => ({
   initialValues: state.project.form,
   dynamicsOtherContract: state.dynamicData.dynamicsOtherContract,

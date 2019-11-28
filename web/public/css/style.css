@@ -261,7 +261,9 @@
 /*customer enquiry*/
 .customer-enquiry,
 .custom-wrap {
+
   padding: 23px 35px 0 35px; }
+
   @media only screen and (max-width: 767px) {
     .customer-enquiry,
     .custom-wrap {
@@ -568,6 +570,7 @@ button[type="button"] {
         .card_wrap .card .card-title {
           margin-top: 15px; } }
     .card_wrap .card .card-text {
+
       color: #fbfcff;
       font-size: 16px; }
 
