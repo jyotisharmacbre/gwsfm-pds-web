@@ -5,6 +5,7 @@ import { store } from '../../../../store';
 import ProjectForm from '../ProjectForm';
 import { IntlProvider } from 'react-intl';
 import translations from '../../../../Translations/translation';
+import App from '../../../../App';
 describe('ProjectOverviewForm Fields', () => {
   let wrapper: any;
   const props: any = {
@@ -14,7 +15,9 @@ describe('ProjectOverviewForm Fields', () => {
     wrapper = mount(
       <Provider store={store}>
         <IntlProvider locale="en" messages={translations['en'].messages}>
+        <App {...props}>
           <ProjectForm {...props} />
+          </App>
         </IntlProvider>
       </Provider>
     );
