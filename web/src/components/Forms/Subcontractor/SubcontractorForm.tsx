@@ -3,7 +3,6 @@ import DiscountTable from '../../Table/DiscountTable';
 import SubContractorActivityForm from './SubContractorActivityForm';
 
 class SubcontractorForm extends Component {
-
   render() {
     return (
       <form className="subcontractor_form">
@@ -19,7 +18,6 @@ class SubcontractorForm extends Component {
           <button type="button" name="next" className="mb-4 mt-5 text-right mr-0">NEXT</button>
           </div>
       </form>
-
     );
   }
 }

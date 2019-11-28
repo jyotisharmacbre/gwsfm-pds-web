@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { MainTitle } from '../../Title/Title';
 
 import {
@@ -12,21 +12,33 @@ import PdsFormSelect from '../../PdsFormHandlers/PdsFormSelect';
 import PdsFormTextArea from '../../PdsFormHandlers/PdsFormTextArea';
 import PdsFormButton from '../../PdsFormHandlers/PdsFormButton';
 import { selectionButtons } from '../../../helpers/constants';
-import { Validate } from '../../../helpers/fieldValidations';
+import {
+  Validate
+} from '../../../helpers/fieldValidations';
 import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { LookupType } from '../../../store/Lookups/Types/LookupType';
 import { getDropdown } from '../../../helpers/utility-helper';
+import PdsFormTypeAhead from '../../PdsFormHandlers/PdsFormTypeAhead';
 import { IProjectDetail } from '../../../store/CustomerEnquiryForm/Types/IProjectDetail';
 import { ICurrency } from '../../../store/Lookups/Types/ICurrency';
 import IReactIntl from '../../../Translations/IReactIntl';
-
 interface Props {
   projectstatus: any;
   onNext: (data: IProjectDetail) => void;
   onSave: (data: IProjectDetail) => void;
   currencies: Array<ICurrency> | null;
+  dynamicsContract: any;
+  dynamicsCompany: any;
+  onSearchContract: (value: any) => void;
+  onSearchCompany: (value: any) => void;
+  onSearchHOP: (value: any) => void;
+  onSearchPO: (value: any) => void;
+  onSearchPM: (value: any) => void;
+  adHOPData: any;
+  adPOData: any;
+  adPMData: any;
 }
 
 const getCurrencySymbol = (currencies, currencyId) => {
@@ -42,7 +54,59 @@ const getCurrencySymbol = (currencies, currencyId) => {
 const ProjectForm: React.FC<
   Props & IReactIntl & InjectedFormProps<IProjectDetail, Props>
 > = (props: any) => {
-  const { handleSubmit, projectstatus } = props;
+  const {
+    handleSubmit,
+    projectstatus,
+    dynamicsContract,
+    dynamicsCompany,
+    onSearchContract,
+    onSearchCompany,
+    onSearchHOP,
+    onSearchPO,
+    onSearchPM,
+    adHOPData,
+    adPMData,
+    adPOData
+  } = props;
+  const otherDynamicsContract =
+    props.dynamicsOtherContract.length > 0
+      ? props.dynamicsOtherContract[0].label
+      : '';
+
+  const otherDynamicsCompany =
+    props.dynamicsOtherCompany.length > 0
+      ? props.dynamicsOtherCompany[0].label
+      : '';
+
+  const getDynamicsContractDropdown =
+    dynamicsContract &&
+    dynamicsContract.map((ContractData: any) => {
+      return { label: ContractData.name, id: ContractData.id };
+    });
+
+  const getDynamicsCompanyDropdown =
+    dynamicsCompany &&
+    dynamicsCompany.map((CompanyData: any) => {
+      return { label: CompanyData.name, id: CompanyData.id };
+    });
+
+  const getADhopDropdown =
+    adHOPData &&
+    adHOPData.map((HOPData: any) => {
+      return { label: HOPData.name, id: HOPData.id };
+    });
+
+  const getADpoDropdown =
+    adPOData &&
+    adPOData.map((POData: any) => {
+      return { label: POData.name, id: POData.id };
+    });
+
+  const getADpmDropdown =
+    adPMData &&
+    adPMData.map((PMData: any) => {
+      return { label: PMData.name, id: PMData.id };
+    });
 
   return (
     <div className="container-fluid">
@@ -62,7 +126,6 @@ const ProjectForm: React.FC<
                     Validate.require(props, 'LABEL_PROJECT'),
                     Validate.maxLength(props, 1000)
                   ]}
-                  warn={Validate.alphaNumeric(props)}
                   messageKey="MESSAGE_PROJECT_NAME"
                   labelKey="LABEL_PROJECT"
                   placeholderKey="PLACEHOLDER_PROJECT_NAME"
@@ -70,67 +133,111 @@ const ProjectForm: React.FC<
                 <Field
                   name="companyId"
                   type="text"
-                  component={PdsFormInput}
+                  component={PdsFormTypeAhead}
                   validate={[
                     Validate.require(props, 'LABEL_COMPANY'),
                     Validate.maxLength(props, 1000)
                   ]}
-                  warn={Validate.alphaNumeric(props)}
+                  DynamicsType="Company"
                   labelKey="LABEL_COMPANY"
-                  placeholderKey="PLACEHOLDER_COMPANY_NAME"
+                  placeholder="PLACEHOLDER_COMPANY_NAME"
+                  onSearch={onSearchCompany}
+                  options={getDynamicsCompanyDropdown}
+                  searchText="Searching companies"
                 />
+                {otherDynamicsCompany === 'Other' && (
+                  <Field
+                    name="otherCompany"
+                    type="text"
+                    component={PdsFormInput}
+                    validate={[
+                      Validate.require(props, 'LABEL_COMPANY'),
+                      Validate.maxLength(props, 1000)
+                    ]}
+                    labelKey="LABEL_OTHER_COMPANY"
+                    placeholderKey="PLACEHOLDER_COMPANY_NAME"
+                  />
+                )}
+
                 <Field
                   name="contractorId"
                   type="text"
-                  component={PdsFormInput}
+                  component={PdsFormTypeAhead}
                   validate={[
                     Validate.require(props, 'LABEL_CONTRACT'),
                     Validate.maxLength(props, 1000)
                   ]}
-                  warn={Validate.alphaNumeric(props)}
                   messageKey="MESSAGE_CONTRACT_NAME"
                   labelKey="LABEL_CONTRACT"
-                  placeholderKey="PLACEHOLDER_CONTRACT"
+                  placeholder="PLACEHOLDER_CONTRACT"
+                  onSearch={onSearchContract}
+                  options={getDynamicsContractDropdown}
+                  searchText="Searching contracts"
+                  DynamicsType="Contract"
                 />
+
+                {otherDynamicsContract === 'Other' && (
+                  <Field
+                    name="otherContract"
+                    type="text"
+                    component={PdsFormInput}
+                    validate={[
+                      Validate.require(props, 'LABEL_CONTRACT'),
+                      Validate.maxLength(props, 1000)
+                    ]}
+                    labelKey="LABEL_OTHER_CONTRACT"
+                    placeholderKey="PLACEHOLDER_CONTRACT"
+                  />
+                )}
                 <Field
                   name="headOfProject"
                   type="text"
-                  component={PdsFormInput}
+                  component={PdsFormTypeAhead}
                   validate={[
                     Validate.require(props, 'LABEL_HEAD_OF_PROJECT'),
                     Validate.maxLength(props, 1000)
                   ]}
-                  warn={Validate.alphaNumeric(props)}
-                  messageKey="MESSAGE_HEAD_OF_PROJECT"
                   labelKey="LABEL_HEAD_OF_PROJECT"
-                  placeholderKey="PLACEHOLDER_HEAD_OF_PROJECT_NAME"
+                  placeholder="PLACEHOLDER_HEAD_OF_PROJECT_NAME"
+                  onSearch={onSearchHOP}
+                  options={getADhopDropdown}
+                  searchText="Searching head of project"
+                  DynamicsType="HOP"
+                  messageKey="MESSAGE_HEAD_OF_PROJECT"
                 />
+
                 <Field
                   name="projectOwner"
                   type="text"
-                  component={PdsFormInput}
-                  placeHolder="Project Owner name"
+                  component={PdsFormTypeAhead}
                   validate={[
                     Validate.require(props, 'LABEL_PROJECT_OWNER'),
                     Validate.maxLength(props, 1000)
                   ]}
-                  warn={Validate.alphaNumeric(props)}
+                  DynamicsType="PO"
                   messageKey="MESSAGE_PROJECT_OWNER"
                   labelKey="LABEL_PROJECT_OWNER"
-                  placeholderKey="PLACEHOLDER_PROJECT_OWNER_NAME"
+                  placeholder="PLACEHOLDER_PROJECT_OWNER_NAME"
+                  onSearch={onSearchPO}
+                  options={getADpoDropdown}
+                  searchText="Searching project owner"
                 />
+
                 <Field
                   name="projectManager"
                   type="text"
-                  component={PdsFormInput}
+                  component={PdsFormTypeAhead}
                   validate={[
                     Validate.require(props, 'LABEL_PROJECT_MANAGER'),
                     Validate.maxLength(props, 1000)
                   ]}
-                  warn={Validate.alphaNumeric(props)}
                   messageKey="MESSAGE_PROJECT_MANAGER"
                   labelKey="LABEL_PROJECT_MANAGER"
-                  placeholderKey="PLACEHOLDER_PROJECT_MANAGER"
+                  placeholder="PLACEHOLDER_PROJECT_MANAGER"
+                  onSearch={onSearchPM}
+                  options={getADpmDropdown}
+                  searchText="Searching project manager"
+                  DynamicsType="PM"
                 />
 
                 <Field
@@ -148,7 +255,6 @@ const ProjectForm: React.FC<
                     Validate.require(props, 'LABEL_PROJECT_SCOPE'),
                     Validate.maxLength(props, 1040)
                   ]}
-                  warn={Validate.alphaNumeric(props)}
                   labelKey="LABEL_PROJECT_SCOPE"
                 />
                 <Field
@@ -208,10 +314,6 @@ const ProjectForm: React.FC<
                       <FormattedMessage id="PLACEHOLDER_COUNTRY">
                         {message => <option value="">{message}</option>}
                       </FormattedMessage>
-                      {getDropdown(
-                        props.projectstatus,
-                        LookupType.Engagement_Type
-                      )}
                       {getDropdown(props.projectstatus, LookupType.Country)}
                     </Field>
                   </div>
@@ -290,8 +392,7 @@ const ProjectForm: React.FC<
                     <Field
                       name="contractTypeId"
                       component={PdsFormSelect}
-                      //Below validation breaking code when passing props, have to look into it
-                      validate={Validate.required('LABEL_CONTRACT_TYPE')}
+                      validate={Validate.required('Contract type')}
                       placeholderKey="PLACEHOLDER_CONTRACT_TYPE"
                       messageKey="MESSAGE_CONTRACT_TYPE"
                     >
@@ -382,7 +483,6 @@ const ProjectForm: React.FC<
               >
                 <FormattedMessage id="BUTTON_SAVE_AND_CLOSE" />
               </button>
-
               <button
                 className="active mb-4 mt-5"
                 type="button"
@@ -399,16 +499,19 @@ const ProjectForm: React.FC<
   );
 };
 
+
+const mapStateToProps = (state: IState) => ({
+  initialValues: state.project.form,
+  dynamicsOtherContract: state.dynamicData.dynamicsOtherContract,
+  dynamicsOtherCompany: state.dynamicData.dynamicsOtherCompany,
+  currencyId: selector(state, 'currencyId')
+});
+
 const form = reduxForm<IProjectDetail, Props>({
   form: 'ProjectForm',
   enableReinitialize: true
 })(injectIntl(ProjectForm));
 
 const selector = formValueSelector('ProjectForm');
-
-const mapStateToProps = (state: IState) => ({
-  initialValues: state.project.form,
-  currencyId: selector(state, 'currencyId')
-});
 
 export default connect(mapStateToProps)(form);
