@@ -12,7 +12,7 @@ interface IMapDispatchToProps {
   handleOtherFieldChange: (type: string, otherText: string) => void;
 }
 
-const PdsFormTHDropdown: React.FC<IMapDispatchToProps> = (props: any) => {
+const PdsFormTypeAhead: React.FC<IMapDispatchToProps> = (props: any) => {
   const {
     onSearch,
     name,
@@ -61,5 +61,5 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   null,
   mapDispatchToProps
-)(PdsFormTHDropdown);
-// export default injectIntl(PdsFormTHDropdown);
+)(PdsFormTypeAhead);
+// export default injectIntl(PdsFormTypeAhead);

@@ -22,7 +22,7 @@ import { IState } from '../../../store/state';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { LookupType } from '../../../store/Lookups/Types/LookupType';
 import { getDropdown } from '../../../helpers/utility-helper';
-import PdsFormTHDropdown from '../../PdsFormHandlers/PdsFormTHDropdown';
+import PdsFormTypeAhead from '../../PdsFormHandlers/PdsFormTypeAhead';
 import { IProjectDetail } from '../../../store/CustomerEnquiryForm/Types/IProjectDetail';
 import { ICurrency } from '../../../store/Lookups/Types/ICurrency';
 import IReactIntl from '../../../Translations/IReactIntl';
@@ -136,7 +136,7 @@ const ProjectForm: React.FC<
                 <Field
                   name="companyId"
                   type="text"
-                  component={PdsFormTHDropdown}
+                  component={PdsFormTypeAhead}
                   validate={[
                     Validate.require(props, 'LABEL_COMPANY'),
                     Validate.maxLength(props, 1000)
@@ -165,7 +165,7 @@ const ProjectForm: React.FC<
                 <Field
                   name="contractorId"
                   type="text"
-                  component={PdsFormTHDropdown}
+                  component={PdsFormTypeAhead}
                   validate={[
                     Validate.require(props, 'LABEL_CONTRACT'),
                     Validate.maxLength(props, 1000)
@@ -195,7 +195,7 @@ const ProjectForm: React.FC<
                 <Field
                   name="headOfProject"
                   type="text"
-                  component={PdsFormTHDropdown}
+                  component={PdsFormTypeAhead}
                   validate={[
                     Validate.require(props, 'LABEL_HEAD_OF_PROJECT'),
                     Validate.maxLength(props, 1000)
@@ -212,7 +212,7 @@ const ProjectForm: React.FC<
                 <Field
                   name="projectOwner"
                   type="text"
-                  component={PdsFormTHDropdown}
+                  component={PdsFormTypeAhead}
                   validate={[
                     Validate.require(props, 'LABEL_PROJECT_OWNER'),
                     Validate.maxLength(props, 1000)
@@ -229,7 +229,7 @@ const ProjectForm: React.FC<
                 <Field
                   name="projectManager"
                   type="text"
-                  component={PdsFormTHDropdown}
+                  component={PdsFormTypeAhead}
                   validate={[
                     Validate.require(props, 'LABEL_PROJECT_MANAGER'),
                     Validate.maxLength(props, 1000)
