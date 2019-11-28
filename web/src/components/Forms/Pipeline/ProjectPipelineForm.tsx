@@ -1,30 +1,17 @@
 import React, { useEffect } from 'react';
-import { Container, Row, Col, Button, Form } from 'react-bootstrap';
-import { Field, reduxForm, InjectedFormProps } from 'redux-form';
 import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
-import TableDateFilter from '../../Table/TableDateFilter/TableDateFilter';
-import CardContainer from '../../CardContainer/CardContainer';
-import { display } from '@material-ui/system';
 import { getLookupDescription } from '../../../helpers/utility-helper';
 import { LookupItems } from '../../../helpers/constants';
 import moment from 'moment';
-import { setProjectId } from '../../../store/CustomerEnquiryForm/Action';
-import { useHistory } from 'react-router-dom';
-import Notify from '../../../enums/Notify';
-
+import { Link } from 'react-router-dom';
+import GridTable from '../../Table/GridTable';
 interface Props {
   pipelineValues: any;
   lookupValues: any;
 }
 const ProjectPipelineForm: React.FC<Props> = (props: any) => {
   const { pipelineValues, lookupValues } = props;
-  let history = useHistory();
-  useEffect(() => {
-    debugger;
-    if (props.projectIdUpdated == Notify.success)
-      history.push('/ProjectOverview');
-  }, [props.projectIdUpdated]);
   const getPipelineValues = allLookups => {
     let data = pipelineValues.map(function(rowProject) {
       var statusID = rowProject.status;
@@ -53,13 +40,14 @@ const ProjectPipelineForm: React.FC<Props> = (props: any) => {
       rowProject.cdmNotifiable = rowProject.cdmNotifiable ? 'Yes' : 'No';
 
       rowProject.name = (
-        <button
-          onClick={() => {
-            setProjectId(rowProject.projectId);
+        <Link
+          to={{
+            pathname: `/projectoverview/${rowProject.projectId}`,
+            state: { fromPipeline: true }
           }}
         >
           {rowProject.name}
-        </button>
+        </Link>
       );
       return rowProject;
     });
@@ -67,13 +55,11 @@ const ProjectPipelineForm: React.FC<Props> = (props: any) => {
   };
   return (
     <React.Fragment>
-      <CardContainer Title="Current Pipeline">
-        <TableDateFilter
-          columns={getTableColumns()}
-          data={getPipelineValues(lookupValues)}
-          ActionList={[]}
-        />
-      </CardContainer>
+      <GridTable
+        columns={getTableColumns()}
+        data={getPipelineValues(lookupValues)}
+        ActionList={[]}
+      />
     </React.Fragment>
   );
 };
@@ -132,7 +118,6 @@ const getTableColumns = () => {
 };
 
 const mapStateToProps = (state: IState) => ({
-  initialValues: state.pipelineGrid.pipelineDetails,
-  projectIdUpdated: state.project.projectIdUpdated
+  initialValues: state.pipelineGrid.pipelineDetails
 });
 export default connect(mapStateToProps)(ProjectPipelineForm);
