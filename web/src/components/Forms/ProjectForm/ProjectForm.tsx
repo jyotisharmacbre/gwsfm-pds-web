@@ -13,8 +13,6 @@ import PdsFormTextArea from '../../PdsFormHandlers/PdsFormTextArea';
 import PdsFormButton from '../../PdsFormHandlers/PdsFormButton';
 import { selectionButtons } from '../../../helpers/constants';
 import {
-  alphaNumeric,
-  onlyNumber,
   Validate
 } from '../../../helpers/fieldValidations';
 import { connect } from 'react-redux';
@@ -128,7 +126,6 @@ const ProjectForm: React.FC<
                     Validate.require(props, 'LABEL_PROJECT'),
                     Validate.maxLength(props, 1000)
                   ]}
-                  warn={Validate.alphaNumeric(props)}
                   messageKey="MESSAGE_PROJECT_NAME"
                   labelKey="LABEL_PROJECT"
                   placeholderKey="PLACEHOLDER_PROJECT_NAME"
@@ -258,7 +255,6 @@ const ProjectForm: React.FC<
                     Validate.require(props, 'LABEL_PROJECT_SCOPE'),
                     Validate.maxLength(props, 1040)
                   ]}
-                  warn={alphaNumeric}
                   labelKey="LABEL_PROJECT_SCOPE"
                 />
                 <Field
