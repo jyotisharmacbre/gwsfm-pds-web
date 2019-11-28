@@ -1,6 +1,6 @@
-import { ActionType } from './Types/ActionType';
+import { ActionType } from '../ProjectOverviewForm/Types/ActionType';
 import { updateObject } from '../../helpers/utility-helper';
-import { IProjectOverviewState } from './Types/IProjectOverviewState';
+import { IProjectOverviewState } from '../ProjectOverviewForm/Types/IProjectOverviewState';
 import moment from 'moment';
 import Notify from '../../enums/Notify';
 import EventType from '../../enums/EventType';

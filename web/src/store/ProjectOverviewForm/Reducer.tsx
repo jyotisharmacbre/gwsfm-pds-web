@@ -14,7 +14,7 @@ const initialState: IProjectOverviewState = {
     enquiryReceivedFrom: '',
     potentialCustomer: '',
     otherPotentialCustomer: '',
-    enquiryTypeId: 1,
+    enquiryTypeId: 16,
     creditCheckResult: '',
     siteAddress: '',
     cdmNotifiable: false,

@@ -1,4 +1,4 @@
-import {IQuote} from './IQuote';
+import { IQuote } from './IQuote';
 
 export interface ISubContractorActivity {
   activityName: string;
@@ -9,7 +9,7 @@ export interface ISubContractorActivity {
   grossMargin: number;
   totalSell: number;
   comments: string;
-  quote1:IQuote;
-  quote2:IQuote;
-  quote3:IQuote;
+  quote1: IQuote;
+  quote2: IQuote;
+  quote3: IQuote;
 }

@@ -1,7 +1,7 @@
 import * as axios from '../../client';
-import { ActionType } from './Types/ActionType';
+import { ActionType } from '../ProjectOverviewForm/Types/ActionType';
 import { Dispatch } from 'redux';
-import { IProjectAdditionalDetail } from './Types/IProjectAdditionalDetail';
+import { IProjectAdditionalDetail } from '../ProjectOverviewForm/Types/IProjectAdditionalDetail';
 import moment from 'moment';
 import EventType from '../../enums/EventType';
 
