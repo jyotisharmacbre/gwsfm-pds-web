@@ -397,7 +397,7 @@ const ProjectForm: React.FC<
       </div>
     </div>
   );
-}; 
+};
 
 const form = reduxForm<IProjectDetail, Props>({
   form: 'ProjectForm',
