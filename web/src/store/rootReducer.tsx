@@ -14,7 +14,7 @@ export default combineReducers<IState>({
   project: projectDetailReducer,
   projectOverview: projectOverviewFormReducer,
   lookup: lookupReducer,
-  pipelineGrid: projectPipelineDetailReducer
+  pipelineGrid: projectPipelineDetailReducer,
   locale: localeReducer,
   UserService: userServiceReducer,
   dynamicData: dynamicDataReducer,
