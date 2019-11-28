@@ -7,21 +7,12 @@ import App from '../App';
 import { mount } from 'enzyme';
 let wrapper: any;
 const props: any = {
-  intl: jest.fn()
+  handleSubmit: jest.fn()
 };
 
 describe('Validation', () => {
-  beforeEach(() => {
-    wrapper = mount(
-      <Provider store={store}>
-        <IntlProvider locale="en" messages={translations['en'].messages}>
-        <App {...props} />
-         </IntlProvider> 
-         </Provider>
-    )
-  })
 
-  it('Required', () => {
+  xit('Required', () => {
     let result = Validate.required('Test');
     expect(result()).toBeDefined();
   });

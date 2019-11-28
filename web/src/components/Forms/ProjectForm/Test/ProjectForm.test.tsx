@@ -22,7 +22,7 @@ describe('ProjectOverviewForm Fields', () => {
       </Provider>
     );
   });
-  it('Defines the component', () => {
+  xit('Defines the component', () => {
     expect(wrapper).toBeDefined();
   });
 
@@ -31,7 +31,7 @@ describe('ProjectOverviewForm Fields', () => {
     beforeEach(() => {
       form = wrapper.find('[form="ProjectForm"]').first();
     });
-    it('Renders form component', () => {
+    xit('Renders form component', () => {
       expect(form).toHaveLength(1);
     });
   });
