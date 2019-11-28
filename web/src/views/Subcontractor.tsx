@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import DiscountTable from '../components/Table/DiscountTable';
 import SubcontractorForm from '../components/Forms/Subcontractor/SubcontractorForm';
 
 class Subcontractor extends Component {
@@ -18,7 +17,7 @@ class Subcontractor extends Component {
                 </h1>
                 <p>SUBCONTRACTORS</p>
               </div>
-              <DiscountTable></DiscountTable>
+              
               <SubcontractorForm></SubcontractorForm>
             </div>
           </div>
