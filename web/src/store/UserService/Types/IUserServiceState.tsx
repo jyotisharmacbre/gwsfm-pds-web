@@ -1,6 +1,6 @@
-import { IAdHOPData, IAdPMData, IAdPOData } from './IActiveDirectory';
+import { IAdHOPData, IAdPMData, IAdPOData } from './IUserService';
 
-export interface IActiveDirectoryState {
+export interface IUserServiceState {
   ADhopData: Array<IAdHOPData>;
   ADpmData: Array<IAdPMData>;
   ADpoData: Array<IAdPOData>;

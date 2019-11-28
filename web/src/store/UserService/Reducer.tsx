@@ -1,8 +1,8 @@
 import { ActionType } from './Types/ActionType';
 import { updateObject } from '../../helpers/utility-helper';
-import { IActiveDirectoryState } from './Types/IActiveDirectoryState';
+import { IUserServiceState } from './Types/IUserServiceState';
 
-const initialState: IActiveDirectoryState = {
+const initialState: IUserServiceState = {
   ADhopData: [],
   ADpmData: [],
   ADpoData: [],
@@ -48,7 +48,7 @@ const getADPOError = (oldState, action) => {
   });
 };
 
-const activeDirectoryReducer = (oldState = initialState, action) => {
+const userServiceReducer = (oldState = initialState, action) => {
   switch (action.type) {
     case ActionType.AD_HOP_GET_SUCCESS:
       return getADHOPSuccess(oldState, action);
@@ -67,4 +67,4 @@ const activeDirectoryReducer = (oldState = initialState, action) => {
   }
 };
 
-export default activeDirectoryReducer;
+export default userServiceReducer;

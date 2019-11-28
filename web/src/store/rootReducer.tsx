@@ -5,7 +5,7 @@ import projectDetailReducer from './CustomerEnquiryForm/Reducer';
 import projectOverviewFormReducer from './ProjectOverviewForm/Reducer';
 import lookupReducer from './Lookups/Reducer';
 import localeReducer from '../Translations/Reducer';
-import activeDirectoryReducer from './ActiveDirectory/Reducer';
+import userServiceReducer from './UserService/Reducer';
 import dynamicDataReducer from './DynamicsData/Reducer';
 
 export default combineReducers<IState>({
@@ -14,7 +14,7 @@ export default combineReducers<IState>({
   projectOverview: projectOverviewFormReducer,
   lookup: lookupReducer,
   locale: localeReducer,
-  activeDirectory: activeDirectoryReducer,
+  UserService: userServiceReducer,
   dynamicData: dynamicDataReducer,
-  adData: activeDirectoryReducer
+  adData: userServiceReducer
 });

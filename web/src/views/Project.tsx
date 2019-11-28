@@ -26,12 +26,12 @@ import {
   IAdPOData,
   IAdHOPData,
   IAdPMData
-} from '../store/ActiveDirectory/Types/IActiveDirectory';
+} from '../store/UserService/Types/IUserService';
 import {
-  getActiveDirectoryHOP,
-  getActiveDirectoryPO,
-  getActiveDirectoryPM
-} from '../store/ActiveDirectory/Action';
+  getUserServiceHOP,
+  getUserServicePO,
+  getUserServicePM
+} from '../store/UserService/Action';
 
 interface IMapStateToProps {
   notify: Notify;
@@ -166,9 +166,9 @@ const mapDispatchToProps = dispatch => {
       dispatch(getDynamicContractData(searchContract)),
     handleGetDynamicCompanyData: searchCompany =>
       dispatch(getDynamicCompanyData(searchCompany)),
-    handleGetADHOPData: searchHOP => dispatch(getActiveDirectoryHOP(searchHOP)),
-    handleGetADPOData: searchPO => dispatch(getActiveDirectoryPO(searchPO)),
-    handleGetADPMData: searchPM => dispatch(getActiveDirectoryPM(searchPM))
+    handleGetADHOPData: searchHOP => dispatch(getUserServiceHOP(searchHOP)),
+    handleGetADPOData: searchPO => dispatch(getUserServicePO(searchPO)),
+    handleGetADPMData: searchPM => dispatch(getUserServicePM(searchPM))
   };
 };
 

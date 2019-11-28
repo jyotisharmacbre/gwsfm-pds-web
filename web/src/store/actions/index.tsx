@@ -6,10 +6,10 @@ export {
 export { getProjectStatus } from '../Lookups/Actions';
 
 export {
-  getActiveDirectoryHOP,
-  getActiveDirectoryPO,
-  getActiveDirectoryPM
-} from '../ActiveDirectory/Action';
+  getUserServiceHOP,
+  getUserServicePO,
+  getUserServicePM
+} from '../UserService/Action';
 
 export {
   getDynamicContractData,

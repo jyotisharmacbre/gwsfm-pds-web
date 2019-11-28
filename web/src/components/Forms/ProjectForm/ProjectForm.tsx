@@ -331,7 +331,7 @@ const ProjectForm: React.FC<
                     <Field
                       name="currencyId"
                       component={PdsFormSelect}
-                      validate={Validate.required('Currency')}
+                      validate={Validate.require(props, 'LABEL_CURRENCY')}
                       placeholderKey="PLACEHOLDER_CURRENCY"
                       messageKey="MESSAGE_CURRENCY"
                     >

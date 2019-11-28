@@ -5,7 +5,7 @@ import {
   getADhopOther,
   getADpoOther,
   getADpmOther
-} from '../ActiveDirectory/Action';
+} from '../UserService/Action';
 
 const getDynamicContractSuccess = (response: any) => {
   return {

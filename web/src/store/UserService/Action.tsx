@@ -73,7 +73,7 @@ let config = {
     'Content-Type': 'application/json'
   }
 };
-export const getActiveDirectoryHOP = (searchHOP: string) => {
+export const getUserServiceHOP = (searchHOP: string) => {
   return (dispatch: Dispatch) => {
     axios.baseAPI
       .get(
@@ -90,7 +90,7 @@ export const getActiveDirectoryHOP = (searchHOP: string) => {
   };
 };
 
-export const getActiveDirectoryPM = (searchPM: string) => {
+export const getUserServicePM = (searchPM: string) => {
   return (dispatch: Dispatch) => {
     axios.baseAPI
       .get(
@@ -107,7 +107,7 @@ export const getActiveDirectoryPM = (searchPM: string) => {
   };
 };
 
-export const getActiveDirectoryPO = (searchPO: string) => {
+export const getUserServicePO = (searchPO: string) => {
   return (dispatch: Dispatch) => {
     axios.baseAPI
       .get(

@@ -81,8 +81,8 @@
     "scripts": {
         "build-css": "node-sass --include -path scss public/scss/style.scss public/css/style.css",
         "watch-css": "nodemon -e scss -x \"npm run build-css\"",
-        "prettify": "prettier -l \"src/**/*.tsx\" \"src/**/*.ts\" --write",
-        "start": "npm-run-all -p prettify watch-css start-js",
+        "pretty": "prettier -l \"src/**/*.tsx\" \"src/**/*.ts\" --write",
+        "start": "npm-run-all -p watch-css start-js",
         "build": "npm run build-css && react-scripts build",
         "start-js": "react-scripts start",
         "eject": "react-scripts eject",
