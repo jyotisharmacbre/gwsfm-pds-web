@@ -5,6 +5,7 @@ import { store } from '../../../../store';
 import ProjectOverviewForm from '../ProjectOverviewForm';
 import { IntlProvider } from 'react-intl';
 import translations from '../../../../Translations/translation';
+import {globalIntl} from '../../../../App';
 import App from '../../../../App';
 describe('ProjectOverviewForm Fields', () => {
   let wrapper: any;
@@ -12,17 +13,19 @@ describe('ProjectOverviewForm Fields', () => {
     handleSubmit: jest.fn()
   };
   beforeEach(() => {
+    jest.mock('../../../../App');   
+    globalIntl.formatMessage = jest.fn().mockImplementation(() => {
+      return 'intlmessage';
+    });
     wrapper = mount(
       <Provider store={store}>
-        <IntlProvider locale="en" messages={translations['en'].messages}>
-        <App {...props}>
-          <ProjectOverviewForm {...props} />
-        </App>
+        <IntlProvider locale="en" messages={translations['en'].messages}>       
+          <ProjectOverviewForm {...props} />        
         </IntlProvider>
       </Provider>
     );
   });
-  xit('Defines the component', () => {
+  it('Defines the component', () => {
     expect(wrapper).toBeDefined();
   });
 
@@ -31,7 +34,7 @@ describe('ProjectOverviewForm Fields', () => {
     beforeEach(() => {
       form = wrapper.find('[form="projectOverviewForm"]').first();
     });
-    xit('Renders form component', () => {
+    it('Renders form component', () => {
       expect(form).toHaveLength(1);
     });
   });
@@ -41,10 +44,10 @@ describe('ProjectOverviewForm Fields', () => {
       beforeEach(() => {
         field = wrapper.find('input[name="mainContractor"]').first();
       });
-      xit('Should renders Main Contractor field', () => {
+      it('Should renders Main Contractor field', () => {
         expect(field.prop('type')).toBe('text');
       });
-      xit('Shows error when Main Contractor is set to blank', () => {
+      it('Shows error when Main Contractor is set to blank', () => {
         field.simulate('blur');
         const errorBlock = wrapper.find('.text-danger');
         expect(errorBlock).toHaveLength(1);
@@ -55,10 +58,10 @@ describe('ProjectOverviewForm Fields', () => {
       beforeEach(() => {
         field = wrapper.find('input[name="enquiryReceivedFrom"]').first();
       });
-      xit('Should renders Enquiry Received From field', () => {
+      it('Should renders Enquiry Received From field', () => {
         expect(field.prop('type')).toBe('text');
       });
-      xit('Shows error when Enquiry Received From is set to blank', () => {
+      it('Shows error when Enquiry Received From is set to blank', () => {
         field.simulate('blur');
         const errorBlock = wrapper.find('.text-danger');
         expect(errorBlock).toHaveLength(1);
@@ -69,10 +72,10 @@ describe('ProjectOverviewForm Fields', () => {
       beforeEach(() => {
         field = wrapper.find('input[name="potentialCustomer"]').first();
       });
-      xit('Should renders Potential Customer field', () => {
+      it('Should renders Potential Customer field', () => {
         expect(field.prop('type')).toBe('text');
       });
-      xit('Shows error when Potential Customer is set to blank', () => {
+      it('Shows error when Potential Customer is set to blank', () => {
         field.simulate('blur');
         const errorBlock = wrapper.find('.text-danger');
         expect(errorBlock).toHaveLength(1);
@@ -83,10 +86,10 @@ describe('ProjectOverviewForm Fields', () => {
       beforeEach(() => {
         field = wrapper.find('input[name="creditCheckResult"]').first();
       });
-      xit('Should renders Credit Check Result field', () => {
+      it('Should renders Credit Check Result field', () => {
         expect(field.prop('type')).toBe('text');
       });
-      xit('Shows error when Credit Check Result is set to blank', () => {
+      it('Shows error when Credit Check Result is set to blank', () => {
         field.simulate('blur');
         const errorBlock = wrapper.find('.text-danger');
         expect(errorBlock).toHaveLength(1);
@@ -97,10 +100,10 @@ describe('ProjectOverviewForm Fields', () => {
       beforeEach(() => {
         field = wrapper.find('input[name="siteAddress"]').first();
       });
-      xit('Should renders Site Address field', () => {
+      it('Should renders Site Address field', () => {
         expect(field.prop('type')).toBe('text');
       });
-      xit('Shows error when Site Address is set to blank', () => {
+      it('Shows error when Site Address is set to blank', () => {
         field.simulate('blur');
         const errorBlock = wrapper.find('.text-danger');
         expect(errorBlock).toHaveLength(1);
@@ -111,10 +114,10 @@ describe('ProjectOverviewForm Fields', () => {
       beforeEach(() => {
         field = wrapper.find('input[name="formOfContract"]').first();
       });
-      xit('Should renders Form Of Contract field', () => {
+      it('Should renders Form Of Contract field', () => {
         expect(field.prop('type')).toBe('text');
       });
-      xit('Shows error when Form Of Contract is set to blank', () => {
+      it('Shows error when Form Of Contract is set to blank', () => {
         field.simulate('blur');
         const errorBlock = wrapper.find('.text-danger');
         expect(errorBlock).toHaveLength(1);
@@ -125,10 +128,10 @@ describe('ProjectOverviewForm Fields', () => {
       beforeEach(() => {
         field = wrapper.find('input[name="retention"]').first();
       });
-      xit('Should renders Retention field', () => {
+      it('Should renders Retention field', () => {
         expect(field.prop('type')).toBe('text');
       });
-      xit('Shows error when Retention is set to blank', () => {
+      it('Shows error when Retention is set to blank', () => {
         field.simulate('blur');
         const errorBlock = wrapper.find('.text-danger');
         expect(errorBlock).toHaveLength(1);
@@ -139,10 +142,10 @@ describe('ProjectOverviewForm Fields', () => {
       beforeEach(() => {
         field = wrapper.find('input[name="liquidatedDamages"]').first();
       });
-      xit('Should renders Liquidated Damages field', () => {
+      it('Should renders Liquidated Damages field', () => {
         expect(field.prop('type')).toBe('text');
       });
-      xit('Shows error when Liquidated Damages is set to blank', () => {
+      it('Shows error when Liquidated Damages is set to blank', () => {
         field.simulate('blur');
         const errorBlock = wrapper.find('.text-danger');
         expect(errorBlock).toHaveLength(1);
@@ -153,10 +156,10 @@ describe('ProjectOverviewForm Fields', () => {
       beforeEach(() => {
         field = wrapper.find('input[name="insurance"]').first();
       });
-      xit('Should renders Insurance field', () => {
+      it('Should renders Insurance field', () => {
         expect(field.prop('type')).toBe('text');
       });
-      xit('Shows error when Insurance is set to blank', () => {
+      it('Shows error when Insurance is set to blank', () => {
         field.simulate('blur');
         const errorBlock = wrapper.find('.text-danger');
         expect(errorBlock).toHaveLength(1);
@@ -166,7 +169,7 @@ describe('ProjectOverviewForm Fields', () => {
       beforeEach(() => {
         field = wrapper.find('button[name="next"]').first();
       });
-      xit('Should renders next button', () => {
+      it('Should renders next button', () => {
         expect(field.prop('type')).toBe('button');
       });
     });
