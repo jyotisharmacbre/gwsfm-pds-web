@@ -2,6 +2,8 @@ import { IProjectOverviewState } from './ProjectOverviewForm/Types/IProjectOverv
 import { ILookupState } from './Lookups/Types/ILookupState';
 import { IProjectDetailState } from './CustomerEnquiryForm/Types/IProjectDetailState';
 import { ILocaleState } from '../session/state';
+import { IUserServiceState } from './UserService/Types/IUserServiceState';
+import { IDynamicDataState } from './DynamicsData/Types/IDynamicDataState';
 import { IProjectPipelineGridState } from './pipeline/Types/IProjectPipelineGridState';
 
 export type IState = {
@@ -11,4 +13,7 @@ export type IState = {
   project: IProjectDetailState;
   locale: ILocaleState;
   pipelineGrid: IProjectPipelineGridState;
+  UserService: IUserServiceState;
+  dynamicData: IDynamicDataState;
+  adData: IUserServiceState;
 };

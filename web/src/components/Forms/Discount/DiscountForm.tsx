@@ -10,16 +10,24 @@ class DiscountForm extends Component {
               <h2>SubContractor Discount</h2>
               <div className="form-group">
                 <label>Supplier</label>
-                <input type="text" placeholder="Enter supplier name" />
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Enter supplier name"
+                />
               </div>
               <div className="form-group">
                 <label>State Details</label>
-                <input type="text" placeholder="Enter state details" />
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Enter state details"
+                />
               </div>
               <div className="form-group">
                 <label>Total Discount</label>
                 <input
-                  className="symbol_fix width-120"
+                  className="symbol_fix width-120 form-control"
                   type="text"
                   placeholder="Enter state details"
                 />
@@ -41,11 +49,19 @@ class DiscountForm extends Component {
               <h2>Client Discount</h2>
               <div className="form-group">
                 <label>Client</label>
-                <input type="text" placeholder="Enter client name" />
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Enter client name"
+                />
               </div>
               <div className="form-group">
                 <label>State Details</label>
-                <input type="text" placeholder="Enter state details" />
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Enter state details"
+                />
               </div>
               <div className="form-group">
                 <label>Discount Type</label>
@@ -75,7 +91,7 @@ class DiscountForm extends Component {
               <div className="form-group">
                 <label>Discount</label>
                 <input
-                  className="symbol_fix width-120"
+                  className="symbol_fix width-120 form-control"
                   type="text"
                   placeholder="Enter value"
                 />
