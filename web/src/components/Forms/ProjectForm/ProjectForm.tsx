@@ -1,32 +1,46 @@
 import React, { useEffect } from 'react';
 import { MainTitle } from '../../Title/Title';
 
-import { Field, reduxForm, InjectedFormProps } from 'redux-form';
+import {
+  Field,
+  reduxForm,
+  InjectedFormProps,
+  formValueSelector
+} from 'redux-form';
 import PdsFormInput from '../../PdsFormHandlers/PdsFormInput';
 import PdsFormSelect from '../../PdsFormHandlers/PdsFormSelect';
 import PdsFormTextArea from '../../PdsFormHandlers/PdsFormTextArea';
 import PdsFormButton from '../../PdsFormHandlers/PdsFormButton';
 import { selectionButtons } from '../../../helpers/constants';
-import {
-  alphaNumeric,
-  onlyNumber,
-  Validate
-} from '../../../helpers/fieldValidations';
+import { Validate } from '../../../helpers/fieldValidations';
 import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import { LookupType } from '../../../store/Lookups/Types/LookupType';
 import { getDropdown } from '../../../helpers/utility-helper';
 import { IProjectDetail } from '../../../store/CustomerEnquiryForm/Types/IProjectDetail';
+import { ICurrency } from '../../../store/Lookups/Types/ICurrency';
+import IReactIntl from '../../../Translations/IReactIntl';
 
 interface Props {
   projectstatus: any;
   onNext: (data: IProjectDetail) => void;
   onSave: (data: IProjectDetail) => void;
+  currencies: Array<ICurrency> | null;
 }
 
+const getCurrencySymbol = (currencies, currencyId) => {
+  let symbol = '';
+  let filter;
+  if (currencies) {
+    filter = currencies.find(element => element.currencyId == currencyId);
+    if (filter != null && filter != undefined) symbol = filter.currencySymbol;
+  }
+  return symbol;
+};
+
 const ProjectForm: React.FC<
-  Props & InjectedFormProps<IProjectDetail, Props>
+  Props & IReactIntl & InjectedFormProps<IProjectDetail, Props>
 > = (props: any) => {
   const { handleSubmit, projectstatus } = props;
 
@@ -45,10 +59,10 @@ const ProjectForm: React.FC<
                   type="text"
                   component={PdsFormInput}
                   validate={[
-                    Validate.required('Project name'),
-                    Validate.maxLength(1000)
+                    Validate.require(props, 'LABEL_PROJECT'),
+                    Validate.maxLength(props, 1000)
                   ]}
-                  warn={alphaNumeric}
+                  warn={Validate.alphaNumeric(props)}
                   messageKey="MESSAGE_PROJECT_NAME"
                   labelKey="LABEL_PROJECT"
                   placeholderKey="PLACEHOLDER_PROJECT_NAME"
@@ -58,10 +72,10 @@ const ProjectForm: React.FC<
                   type="text"
                   component={PdsFormInput}
                   validate={[
-                    Validate.required('Company name'),
-                    Validate.maxLength(1000)
+                    Validate.require(props, 'LABEL_COMPANY'),
+                    Validate.maxLength(props, 1000)
                   ]}
-                  warn={alphaNumeric}
+                  warn={Validate.alphaNumeric(props)}
                   labelKey="LABEL_COMPANY"
                   placeholderKey="PLACEHOLDER_COMPANY_NAME"
                 />
@@ -70,10 +84,10 @@ const ProjectForm: React.FC<
                   type="text"
                   component={PdsFormInput}
                   validate={[
-                    Validate.required('Contract name'),
-                    Validate.maxLength(1000)
+                    Validate.require(props, 'LABEL_CONTRACT'),
+                    Validate.maxLength(props, 1000)
                   ]}
-                  warn={alphaNumeric}
+                  warn={Validate.alphaNumeric(props)}
                   messageKey="MESSAGE_CONTRACT_NAME"
                   labelKey="LABEL_CONTRACT"
                   placeholderKey="PLACEHOLDER_CONTRACT"
@@ -83,10 +97,10 @@ const ProjectForm: React.FC<
                   type="text"
                   component={PdsFormInput}
                   validate={[
-                    Validate.required('Head of project'),
-                    Validate.maxLength(1000)
+                    Validate.require(props, 'LABEL_HEAD_OF_PROJECT'),
+                    Validate.maxLength(props, 1000)
                   ]}
-                  warn={alphaNumeric}
+                  warn={Validate.alphaNumeric(props)}
                   messageKey="MESSAGE_HEAD_OF_PROJECT"
                   labelKey="LABEL_HEAD_OF_PROJECT"
                   placeholderKey="PLACEHOLDER_HEAD_OF_PROJECT_NAME"
@@ -97,10 +111,10 @@ const ProjectForm: React.FC<
                   component={PdsFormInput}
                   placeHolder="Project Owner name"
                   validate={[
-                    Validate.required('Project owner'),
-                    Validate.maxLength(1000)
+                    Validate.require(props, 'LABEL_PROJECT_OWNER'),
+                    Validate.maxLength(props, 1000)
                   ]}
-                  warn={alphaNumeric}
+                  warn={Validate.alphaNumeric(props)}
                   messageKey="MESSAGE_PROJECT_OWNER"
                   labelKey="LABEL_PROJECT_OWNER"
                   placeholderKey="PLACEHOLDER_PROJECT_OWNER_NAME"
@@ -110,10 +124,10 @@ const ProjectForm: React.FC<
                   type="text"
                   component={PdsFormInput}
                   validate={[
-                    Validate.required('Project manager'),
-                    Validate.maxLength(1000)
+                    Validate.require(props, 'LABEL_PROJECT_MANAGER'),
+                    Validate.maxLength(props, 1000)
                   ]}
-                  warn={alphaNumeric}
+                  warn={Validate.alphaNumeric(props)}
                   messageKey="MESSAGE_PROJECT_MANAGER"
                   labelKey="LABEL_PROJECT_MANAGER"
                   placeholderKey="PLACEHOLDER_PROJECT_MANAGER"
@@ -131,17 +145,17 @@ const ProjectForm: React.FC<
                   rows="7"
                   component={PdsFormTextArea}
                   validate={[
-                    Validate.required('Project scope'),
-                    Validate.maxLength(1040)
+                    Validate.require(props, 'LABEL_PROJECT_SCOPE'),
+                    Validate.maxLength(props, 1040)
                   ]}
-                  warn={alphaNumeric}
+                  warn={Validate.alphaNumeric(props)}
                   labelKey="LABEL_PROJECT_SCOPE"
                 />
                 <Field
                   name="cnNumber"
                   type="number"
                   component={PdsFormInput}
-                  validate={onlyNumber}
+                  validate={Validate.onlyNumber(props)}
                   labelKey="LABEL_CN_NUMBER"
                   placeholderKey="PLACEHOLDER_CN_NUMBER"
                 />
@@ -187,7 +201,7 @@ const ProjectForm: React.FC<
                     <Field
                       name="countryId"
                       component={PdsFormSelect}
-                      validate={[Validate.required('Project name')]}
+                      validate={Validate.require(props, 'LABEL_COUNTRY')}
                       placeholderKey="PLACEHOLDER_COUNTRY"
                       messageKey="MESSAGE_COUNTRY"
                     >
@@ -211,15 +225,24 @@ const ProjectForm: React.FC<
                     <Field
                       name="currencyId"
                       component={PdsFormSelect}
-                      validate={Validate.required('Currency')}
+                      validate={Validate.require(props, 'LABEL_CURRENCY')}
                       placeholderKey="PLACEHOLDER_CURRENCY"
                       messageKey="MESSAGE_CURRENCY"
                     >
                       <FormattedMessage id="PLACEHOLDER_CURRENCY">
                         {message => <option value="">{message}</option>}
                       </FormattedMessage>
-
-                      {getDropdown(props.projectstatus, LookupType.Currency)}
+                      {props.currencies &&
+                        props.currencies.map((data: ICurrency, i: number) => {
+                          return (
+                            <option
+                              key={data.currencyId}
+                              value={data.currencyId}
+                            >
+                              {data.currencySymbol}
+                            </option>
+                          );
+                        })}
                     </Field>
                   </div>
                 </div>
@@ -232,9 +255,9 @@ const ProjectForm: React.FC<
                   placeholderKey="PLACEHOLDER_WIN_PROBABILITY"
                   className="width-100"
                   validate={[
-                    Validate.required('Probability of wining'),
-                    Validate.maxLength(1000),
-                    onlyNumber
+                    Validate.require(props, 'LABEL_PROBABILITY_OF_WINING'),
+                    Validate.maxLength(props, 1000),
+                    Validate.onlyNumber(props)
                   ]}
                   messageKey="MESSAGE_PROBABILITYOFWINING"
                 />
@@ -245,11 +268,14 @@ const ProjectForm: React.FC<
                   component={PdsFormInput}
                   className="width-120 pl-20"
                   validate={[
-                    Validate.required('Approximate value'),
-                    Validate.maxLength(1000),
-                    onlyNumber
+                    Validate.require(props, 'LABEL_APPROXIMATE_VALUE'),
+                    Validate.maxLength(props, 1000),
+                    Validate.onlyNumber(props)
                   ]}
-                  currency="$"
+                  currency={getCurrencySymbol(
+                    props.currencies,
+                    props.currencyId
+                  )}
                   divPosition="relative"
                   labelKey="LABEL_APPROXIMATE_VALUE"
                   placeholderKey=""
@@ -264,7 +290,8 @@ const ProjectForm: React.FC<
                     <Field
                       name="contractTypeId"
                       component={PdsFormSelect}
-                      validate={Validate.required('Contract type')}
+                      //Below validation breaking code when passing props, have to look into it
+                      validate={Validate.required('LABEL_CONTRACT_TYPE')}
                       placeholderKey="PLACEHOLDER_CONTRACT_TYPE"
                       messageKey="MESSAGE_CONTRACT_TYPE"
                     >
@@ -297,9 +324,9 @@ const ProjectForm: React.FC<
                       placeholderKey="PLACEHOLDER_FIRST_ASSET"
                       messageKey="MESSAGE_FIRST_ASSET"
                       validate={[
-                        Validate.required('Asset'),
-                        Validate.maxLength(1000),
-                        onlyNumber
+                        Validate.require(props, 'LABEL_ASSETS_WORKED_ON'),
+                        Validate.maxLength(props, 1000),
+                        Validate.onlyNumber(props)
                       ]}
                     >
                       <FormattedMessage id="PLACEHOLDER_FIRST_ASSET">
@@ -372,13 +399,16 @@ const ProjectForm: React.FC<
   );
 };
 
-const mapStateToProps = (state: IState) => ({
-  initialValues: state.project.form
-});
-
 const form = reduxForm<IProjectDetail, Props>({
   form: 'ProjectForm',
   enableReinitialize: true
-})(ProjectForm);
+})(injectIntl(ProjectForm));
+
+const selector = formValueSelector('ProjectForm');
+
+const mapStateToProps = (state: IState) => ({
+  initialValues: state.project.form,
+  currencyId: selector(state, 'currencyId')
+});
 
 export default connect(mapStateToProps)(form);

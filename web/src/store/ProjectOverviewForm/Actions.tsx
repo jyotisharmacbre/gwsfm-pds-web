@@ -5,7 +5,10 @@ import { IProjectAdditionalDetail } from './Types/IProjectAdditionalDetail';
 import moment from 'moment';
 import EventType from '../../enums/EventType';
 
-const projectOverviewFormAddSuccess = (response: any, event: EventType) => {
+const projectOverviewFormAddSuccess = (
+  response: IProjectAdditionalDetail,
+  event: EventType
+) => {
   return {
     type: ActionType.PROJECT_OVERVIEW_FORM_ADD_SUCCESS,
     payload: response,

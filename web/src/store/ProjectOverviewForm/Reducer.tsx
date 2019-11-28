@@ -49,7 +49,8 @@ const projectOverviewFormAddSuccess = (oldState, action) => {
     error: null,
     loading: false,
     notify: Notify.success,
-    event: action.event
+    event: action.event,
+    form: updateObject(oldState.form, action.payload)
   });
 };
 
@@ -86,8 +87,8 @@ const getAdditionalDetailsError = (oldState, action) => {
 
 const resetProjectOverviewState = (oldState, action) => {
   return updateObject(oldState, {
-   notify: Notify.none,
-  event: EventType.none
+    notify: Notify.none,
+    event: EventType.none
   });
 };
 

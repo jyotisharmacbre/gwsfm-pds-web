@@ -11,12 +11,15 @@ import EventType from '../enums/EventType';
 import { useHistory } from 'react-router-dom';
 import * as actions from '../store/rootActions';
 import Notify from '../enums/Notify';
+import { toast } from 'react-toastify';
+import { ICurrency } from '../store/Lookups/Types/ICurrency';
 
 interface IMapStateToProps {
   notify: Notify;
   event: EventType;
   projectStatus: Array<ILookup>;
   projectId: string;
+  currencies: Array<ICurrency> | null;
 }
 
 interface IMapDispatchToProps {
@@ -25,12 +28,15 @@ interface IMapDispatchToProps {
   handleProjectDetailsEdit: (form: IProjectDetail, event: EventType) => void;
   getProjectDetail: (projectId: string) => void;
   resetProjectDetailState: () => void;
+  getAllCurrencies: () => void;
 }
 
 const Project: React.FC<IMapStateToProps & IMapDispatchToProps> = props => {
   let history = useHistory();
   useEffect(() => {
+    window.scrollTo(0, 0);
     props.getProjectStatus();
+    props.getAllCurrencies();
     if (props.projectId != null && props.projectId != '') {
       props.getProjectDetail(props.projectId);
     }
@@ -39,10 +45,10 @@ const Project: React.FC<IMapStateToProps & IMapDispatchToProps> = props => {
   useEffect(() => {
     if (props.notify == Notify.success) {
       if (props.event == EventType.next) {
-        alert('data saved successfully next');
+        toast.success('Data Saved Successfully');
         history.push('/ProjectOverview');
       } else if (props.event == EventType.save) {
-        alert('data saved successfully save');
+        toast.success('Data Saved Successfully');
       }
       props.resetProjectDetailState();
     }
@@ -65,6 +71,7 @@ const Project: React.FC<IMapStateToProps & IMapDispatchToProps> = props => {
       onSave={handleSave}
       onNext={handleNext}
       projectstatus={props.projectStatus}
+      currencies={props.currencies}
     />
   );
 };
@@ -74,7 +81,8 @@ const mapStateToProps = (state: IState): IMapStateToProps => {
     projectStatus: state.lookup.projectstatus,
     notify: state.project.notify,
     event: state.project.event,
-    projectId: state.project.form.projectId
+    projectId: state.project.form.projectId,
+    currencies: state.lookup.currencies
   };
 };
 
@@ -87,7 +95,8 @@ const mapDispatchToProps = (dispatch): IMapDispatchToProps => {
       dispatch(actions.projectDetailEdit(form, event)),
     getProjectDetail: (projectId: string) =>
       dispatch(actions.getProjectDetail(projectId)),
-    resetProjectDetailState: () => dispatch(actions.resetProjectDetailState())
+    resetProjectDetailState: () => dispatch(actions.resetProjectDetailState()),
+    getAllCurrencies: () => dispatch(actions.getAllCurrencies())
   };
 };
 
