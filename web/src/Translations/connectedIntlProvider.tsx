@@ -23,7 +23,6 @@ const mapStateToProps = (state: IState) => {
   let messages = translations[locale].messages;
   let intlProvider = new IntlProvider({ locale, messages });
   intl = intlProvider.state.intl;
-  debugger;
   return { locale, messages };
 };
 
@@ -33,7 +32,6 @@ function mapDispatchToProps(dispatch: ThunkDispatch<any, any, AnyAction>) {
 }
 
 export function formatMessage(key: string, value?: object): string {
-  debugger;
   try {
     let label: {
       [key: string]: any;
