@@ -15,15 +15,34 @@ import { IState } from '../store/state';
 //   language = navigator.language.split(/[-_]/)[0];
 // }
 
+
+let intl;
 const mapStateToProps = (state: IState) => {
   let { locale } = state.locale;
+
   let messages = translations[locale].messages;
+  let intlProvider = new IntlProvider({ locale, messages });
+  intl = intlProvider.state.intl;
   return { locale, messages };
 };
 
 function mapDispatchToProps(dispatch: ThunkDispatch<any, any, AnyAction>) {
   dispatch(getLocaleActionCreator());
   return {};
+}
+
+export function formatMessage(key: string, value?: object): string {
+  try {
+    let label: {
+      [key: string]: any;
+    } = {};
+    label[key] = intl.formatMessage({
+      id: key
+    }, value);
+    return label[key];
+  } catch{
+    return key;
+  }
 }
 
 export default connect(
