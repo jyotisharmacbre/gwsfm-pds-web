@@ -22,6 +22,7 @@ const PdsFormTypeAhead: React.FC<IMapDispatchToProps> = (props: any) => {
     options,
     placeholder,
     labelKey,
+    className,
     DynamicsType
   } = props;
 
@@ -32,7 +33,7 @@ const PdsFormTypeAhead: React.FC<IMapDispatchToProps> = (props: any) => {
   return (
     <div className={'form-group'}>
       <label>
-        <FormattedMessage id={labelKey} />
+        <FormattedMessage id={labelKey} />{className && className.split(' ').includes('required') ? '*' : ''}
       </label>
       <AsyncTypeahead
         filterBy={() => true}
