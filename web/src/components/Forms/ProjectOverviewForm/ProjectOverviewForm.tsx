@@ -20,7 +20,7 @@ import {
   projectStatusData,
   engagementData
 } from '../../../helpers/dropDownFormValues';
-import { Validate } from '../../../helpers/fieldValidations';
+import { Validate, alphaNumeric } from '../../../helpers/fieldValidations';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import IReactIntl from '../../../Translations/IReactIntl';
 
@@ -60,11 +60,12 @@ let ProjectOverviewForm: React.FC<
                   component={PdsFormInput}
                   labelKey="LABEL_MAIN_CONTRACTOR"
                   placeholderKey="PLACEHOLDER_CONTRACTORS_NAME"
+                  className="required"
                   validate={[
-                    Validate.require(props, 'LABEL_MAIN_CONTRACTOR'),
-                    Validate.maxLength(props, 1000)
+                    Validate.required('LABEL_MAIN_CONTRACTOR'),
+                    Validate.maxLength(1000)
                   ]}
-                  warn={Validate.alphaNumeric(props)}
+                  warn={alphaNumeric}
                 />
                 <Field
                   name={getPropertyName(
@@ -74,11 +75,12 @@ let ProjectOverviewForm: React.FC<
                   data-test="enquiryReceivedFrom"
                   type="text"
                   component={PdsFormInput}
+                  className="required"
                   validate={[
-                    Validate.require(props, 'labelKey'),
-                    Validate.maxLength(props, 1000)
+                    Validate.required('labelKey'),
+                    Validate.maxLength(1000)
                   ]}
-                  warn={Validate.alphaNumeric(props)}
+                  warn={alphaNumeric}
                   labelKey="LABEL_ENQUIRY_RECEIVED_FROM"
                   placeholderKey="PLACEHOLDER_ENQUIRY_SENDER_NAME"
                 />
@@ -90,11 +92,12 @@ let ProjectOverviewForm: React.FC<
                   data-test="potentialCustomer"
                   type="text"
                   component={PdsFormInput}
+                  className="required"
                   validate={[
-                    Validate.require(props, 'LABEL_POTENTIAL_CUSTOMER'),
-                    Validate.maxLength(props, 1000)
+                    Validate.required('LABEL_POTENTIAL_CUSTOMER'),
+                    Validate.maxLength(1000)
                   ]}
-                  warn={Validate.alphaNumeric(props)}
+                  warn={alphaNumeric}
                   labelKey="LABEL_POTENTIAL_CUSTOMER"
                   placeholderKey="PLACEHOLDER_POTENTIAL_CUSTOMERS_NAME"
                 />
@@ -108,11 +111,12 @@ let ProjectOverviewForm: React.FC<
                   datas={enquiryTypeData}
                   component={PdsFormRadio}
                   labelKey="LABEL_TYPE_OF_ENQUIRY"
+                  className="required"
                   validate={[
-                    Validate.require(props, 'LABEL_TYPE_OF_ENQUIRY'),
-                    Validate.maxLength(props, 1000)
+                    Validate.required('LABEL_TYPE_OF_ENQUIRY'),
+                    Validate.maxLength(1000)
                   ]}
-                  warn={Validate.alphaNumeric(props)}
+                  warn={alphaNumeric}
                 />
                 <Field
                   name={getPropertyName(
@@ -122,11 +126,12 @@ let ProjectOverviewForm: React.FC<
                   data-test="creditCheckResult"
                   type="text"
                   component={PdsFormInput}
+                  className="required"
                   validate={[
-                    Validate.require(props, 'LABEL_CREDIT_CHECK_RESULT'),
-                    Validate.maxLength(props, 1000)
+                    Validate.required('LABEL_CREDIT_CHECK_RESULT'),
+                    Validate.maxLength(1000)
                   ]}
-                  warn={Validate.alphaNumeric(props)}
+                  warn={alphaNumeric}
                   labelKey="LABEL_CREDIT_CHECK_RESULT"
                   placeholderKey="PLACEHOLDER_CREDIT_CHECK_DETAILS"
                 />
@@ -138,11 +143,12 @@ let ProjectOverviewForm: React.FC<
                   data-test="siteAddress"
                   type="text"
                   component={PdsFormInput}
+                  className="required"
                   validate={[
-                    Validate.require(props, 'LABEL_SITE_ADDRESS'),
-                    Validate.maxLength(props, 1000)
+                    Validate.required('LABEL_SITE_ADDRESS'),
+                    Validate.maxLength(1000)
                   ]}
-                  warn={Validate.alphaNumeric(props)}
+                  warn={alphaNumeric}
                   labelKey="LABEL_SITE_ADDRESS"
                   placeholderKey="PLACEHOLDER_ADD_SITE_ADDRESS"
                 />
@@ -164,11 +170,12 @@ let ProjectOverviewForm: React.FC<
                   data-test="formOfContract"
                   type="text"
                   component={PdsFormInput}
+                  className="required"
                   validate={[
-                    Validate.require(props, 'LABEL_FORM_OF_CONTRACT'),
-                    Validate.maxLength(props, 1000)
+                    Validate.required('LABEL_FORM_OF_CONTRACT'),
+                    Validate.maxLength(1000)
                   ]}
-                  warn={Validate.alphaNumeric(props)}
+                  warn={alphaNumeric}
                   labelKey="LABEL_FORM_OF_CONTRACT"
                   placeholderKey="PLACEHOLDER_FORM_OF_CONTRACT"
                 />
@@ -177,11 +184,12 @@ let ProjectOverviewForm: React.FC<
                   data-test="retention"
                   type="text"
                   component={PdsFormInput}
+                  className="required"
                   validate={[
-                    Validate.require(props, 'LABEL_RETENTION'),
-                    Validate.maxLength(props, 1000)
+                    Validate.required('LABEL_RETENTION'),
+                    Validate.maxLength(1000)
                   ]}
-                  warn={Validate.alphaNumeric(props)}
+                  warn={alphaNumeric}
                   labelKey="LABEL_RETENTION"
                   placeholderKey="PLACEHOLDER_ADD_RETENTION"
                 />
@@ -193,11 +201,12 @@ let ProjectOverviewForm: React.FC<
                   data-test="liquidatedDamages"
                   type="text"
                   component={PdsFormInput}
+                  className="required"
                   validate={[
-                    Validate.require(props, 'LABEL_LIQUIDATED_DAMAGES'),
-                    Validate.maxLength(props, 1000)
+                    Validate.required('LABEL_LIQUIDATED_DAMAGES'),
+                    Validate.maxLength(1000)
                   ]}
-                  warn={Validate.alphaNumeric(props)}
+                  warn={alphaNumeric}
                   labelKey="LABEL_LIQUIDATED_DAMAGES"
                   placeholderKey="PLACEHOLDER_ADD_LIQUIDATED_DAMAGES"
                 />
@@ -206,17 +215,18 @@ let ProjectOverviewForm: React.FC<
                   data-test="insurance"
                   type="text"
                   component={PdsFormInput}
+                  className="required"
                   validate={[
-                    Validate.require(props, 'LABEL_INSURANCE'),
-                    Validate.maxLength(props, 1000)
+                    Validate.required('LABEL_INSURANCE'),
+                    Validate.maxLength(1000)
                   ]}
-                  warn={Validate.alphaNumeric(props)}
+                  warn={alphaNumeric}
                   labelKey="LABEL_INSURANCE"
                   placeholderKey="PLACEHOLDER_ADD_INSURANCE"
                 />
                 <div className={'form-group'}>
                   <label>
-                    <FormattedMessage id="LABEL_WORK_TYPE" />
+                    <FormattedMessage id="LABEL_WORK_TYPE" />*
                   </label>
                   <div className="select-wrapper">
                     <Field
@@ -225,8 +235,9 @@ let ProjectOverviewForm: React.FC<
                         prop => prop.workTypeId
                       )}
                       component={PdsFormSelect}
+                      className="required"
                       validate={[
-                        Validate.require(props, 'MESSAGE_PROJECT_STATUS')
+                        Validate.required('MESSAGE_PROJECT_STATUS')
                       ]}
                       placeholderKey="PLACEHOLDER_WORK_TYPES"
                       messageKey="MESSAGE_PROJECT_STATUS"
@@ -350,13 +361,13 @@ let ProjectOverviewForm: React.FC<
                 />
                 <div className={'form-group'}>
                   <label>
-                    <FormattedMessage id="LABEL_PROJECT_BUDGET" />
+                    <FormattedMessage id="LABEL_PROJECT_BUDGET" />*
                   </label>
                   <div className="select-wrapper">
                     <Field
                       name={getPropertyName(initialValues, prop => prop.budget)}
                       component={PdsFormSelect}
-                      validate={[Validate.require(props, 'PLACEHOLDER_BUDGET')]}
+                      validate={[Validate.required('PLACEHOLDER_BUDGET')]}
                       placeholderKey="PLACEHOLDER_BUDGET"
                       messageKey="MESSAGE_PROJECT_STATUS"
                     >

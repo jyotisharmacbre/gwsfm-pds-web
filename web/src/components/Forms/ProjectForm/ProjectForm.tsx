@@ -12,9 +12,7 @@ import PdsFormSelect from '../../PdsFormHandlers/PdsFormSelect';
 import PdsFormTextArea from '../../PdsFormHandlers/PdsFormTextArea';
 import PdsFormButton from '../../PdsFormHandlers/PdsFormButton';
 import { selectionButtons } from '../../../helpers/constants';
-import {
-  Validate
-} from '../../../helpers/fieldValidations';
+import { Validate, alphaNumeric, onlyNumber } from '../../../helpers/fieldValidations';
 import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
 import { FormattedMessage, injectIntl } from 'react-intl';
@@ -122,9 +120,10 @@ const ProjectForm: React.FC<
                   name="name"
                   type="text"
                   component={PdsFormInput}
+                  className="required"
                   validate={[
-                    Validate.require(props, 'LABEL_PROJECT'),
-                    Validate.maxLength(props, 1000)
+                    Validate.required('LABEL_PROJECT'),
+                    Validate.maxLength(1000)
                   ]}
                   messageKey="MESSAGE_PROJECT_NAME"
                   labelKey="LABEL_PROJECT"
@@ -133,10 +132,11 @@ const ProjectForm: React.FC<
                 <Field
                   name="companyId"
                   type="text"
-                  component={PdsFormTypeAhead}
+                  component={PdsFormTypeAhead}                 
+                  className="required"
                   validate={[
-                    Validate.require(props, 'LABEL_COMPANY'),
-                    Validate.maxLength(props, 1000)
+                    Validate.required('LABEL_COMPANY'),
+                    Validate.maxLength(1000)
                   ]}
                   DynamicsType="Company"
                   labelKey="LABEL_COMPANY"
@@ -151,8 +151,8 @@ const ProjectForm: React.FC<
                     type="text"
                     component={PdsFormInput}
                     validate={[
-                      Validate.require(props, 'LABEL_COMPANY'),
-                      Validate.maxLength(props, 1000)
+                      Validate.required('LABEL_COMPANY'),
+                      Validate.maxLength(1000)
                     ]}
                     labelKey="LABEL_OTHER_COMPANY"
                     placeholderKey="PLACEHOLDER_COMPANY_NAME"
@@ -162,10 +162,11 @@ const ProjectForm: React.FC<
                 <Field
                   name="contractorId"
                   type="text"
-                  component={PdsFormTypeAhead}
+                  component={PdsFormTypeAhead}                 
+                  className="required"
                   validate={[
-                    Validate.require(props, 'LABEL_CONTRACT'),
-                    Validate.maxLength(props, 1000)
+                    Validate.required('LABEL_CONTRACT'),
+                    Validate.maxLength(1000)
                   ]}
                   messageKey="MESSAGE_CONTRACT_NAME"
                   labelKey="LABEL_CONTRACT"
@@ -182,8 +183,8 @@ const ProjectForm: React.FC<
                     type="text"
                     component={PdsFormInput}
                     validate={[
-                      Validate.require(props, 'LABEL_CONTRACT'),
-                      Validate.maxLength(props, 1000)
+                      Validate.required('LABEL_CONTRACT'),
+                      Validate.maxLength(1000)
                     ]}
                     labelKey="LABEL_OTHER_CONTRACT"
                     placeholderKey="PLACEHOLDER_CONTRACT"
@@ -192,10 +193,11 @@ const ProjectForm: React.FC<
                 <Field
                   name="headOfProject"
                   type="text"
-                  component={PdsFormTypeAhead}
+                  component={PdsFormTypeAhead}                  
+                  className="required"
                   validate={[
-                    Validate.require(props, 'LABEL_HEAD_OF_PROJECT'),
-                    Validate.maxLength(props, 1000)
+                    Validate.required('LABEL_HEAD_OF_PROJECT'),
+                    Validate.maxLength(1000)
                   ]}
                   labelKey="LABEL_HEAD_OF_PROJECT"
                   placeholder="PLACEHOLDER_HEAD_OF_PROJECT_NAME"
@@ -209,10 +211,12 @@ const ProjectForm: React.FC<
                 <Field
                   name="projectOwner"
                   type="text"
-                  component={PdsFormTypeAhead}
+                  component={PdsFormTypeAhead}                 
+                  placeHolder="Project Owner name"
+                  className="required"
                   validate={[
-                    Validate.require(props, 'LABEL_PROJECT_OWNER'),
-                    Validate.maxLength(props, 1000)
+                    Validate.required('LABEL_PROJECT_OWNER'),
+                    Validate.maxLength(1000)
                   ]}
                   DynamicsType="PO"
                   messageKey="MESSAGE_PROJECT_OWNER"
@@ -226,10 +230,11 @@ const ProjectForm: React.FC<
                 <Field
                   name="projectManager"
                   type="text"
-                  component={PdsFormTypeAhead}
+                  component={PdsFormTypeAhead}                  
+                  className="required"
                   validate={[
-                    Validate.require(props, 'LABEL_PROJECT_MANAGER'),
-                    Validate.maxLength(props, 1000)
+                    Validate.required('LABEL_PROJECT_MANAGER'),
+                    Validate.maxLength(1000)
                   ]}
                   messageKey="MESSAGE_PROJECT_MANAGER"
                   labelKey="LABEL_PROJECT_MANAGER"
@@ -251,17 +256,18 @@ const ProjectForm: React.FC<
                   name="scope"
                   rows="7"
                   component={PdsFormTextArea}
+                  className="required"
                   validate={[
-                    Validate.require(props, 'LABEL_PROJECT_SCOPE'),
-                    Validate.maxLength(props, 1040)
-                  ]}
+                    Validate.required('LABEL_PROJECT_SCOPE'),
+                    Validate.maxLength(1040)
+                  ]}             
                   labelKey="LABEL_PROJECT_SCOPE"
                 />
                 <Field
                   name="cnNumber"
                   type="number"
                   component={PdsFormInput}
-                  validate={Validate.onlyNumber(props)}
+                  validate={onlyNumber}
                   labelKey="LABEL_CN_NUMBER"
                   placeholderKey="PLACEHOLDER_CN_NUMBER"
                 />
@@ -301,13 +307,13 @@ const ProjectForm: React.FC<
 
                 <div className={'form-group'}>
                   <label>
-                    <FormattedMessage id="LABEL_COUNTRY" />
+                    <FormattedMessage id="LABEL_COUNTRY" />*
                   </label>
                   <div className="select-wrapper">
                     <Field
                       name="countryId"
                       component={PdsFormSelect}
-                      validate={Validate.require(props, 'LABEL_COUNTRY')}
+                      validate={Validate.required('LABEL_COUNTRY')}
                       placeholderKey="PLACEHOLDER_COUNTRY"
                       messageKey="MESSAGE_COUNTRY"
                     >
@@ -321,13 +327,13 @@ const ProjectForm: React.FC<
 
                 <div className={'form-group'}>
                   <label>
-                    <FormattedMessage id="LABEL_CURRENCY" />
+                    <FormattedMessage id="LABEL_CURRENCY" />*
                   </label>
                   <div className="select-wrapper">
                     <Field
                       name="currencyId"
                       component={PdsFormSelect}
-                      validate={Validate.require(props, 'LABEL_CURRENCY')}
+                      validate={Validate.required('LABEL_CURRENCY')}
                       placeholderKey="PLACEHOLDER_CURRENCY"
                       messageKey="MESSAGE_CURRENCY"
                     >
@@ -355,11 +361,11 @@ const ProjectForm: React.FC<
                   component={PdsFormInput}
                   labelKey="LABEL_PROBABILITY_OF_WINING"
                   placeholderKey="PLACEHOLDER_WIN_PROBABILITY"
-                  className="width-100"
+                  className="width-100 required"
                   validate={[
-                    Validate.require(props, 'LABEL_PROBABILITY_OF_WINING'),
-                    Validate.maxLength(props, 1000),
-                    Validate.onlyNumber(props)
+                    Validate.required('LABEL_PROBABILITY_OF_WINING'),
+                    Validate.maxLength(1000),
+                    onlyNumber
                   ]}
                   messageKey="MESSAGE_PROBABILITYOFWINING"
                 />
@@ -368,11 +374,11 @@ const ProjectForm: React.FC<
                   name="approxValue"
                   type="number"
                   component={PdsFormInput}
-                  className="width-120 pl-20"
+                  className="width-120 pl-20 required"
                   validate={[
-                    Validate.require(props, 'LABEL_APPROXIMATE_VALUE'),
-                    Validate.maxLength(props, 1000),
-                    Validate.onlyNumber(props)
+                    Validate.required('LABEL_APPROXIMATE_VALUE'),
+                    Validate.maxLength(1000),
+                    onlyNumber
                   ]}
                   currency={getCurrencySymbol(
                     props.currencies,
@@ -386,7 +392,7 @@ const ProjectForm: React.FC<
 
                 <div className={'form-group'}>
                   <label>
-                    <FormattedMessage id="LABEL_CONTRACT_TYPE" />
+                    <FormattedMessage id="LABEL_CONTRACT_TYPE" />*
                   </label>
                   <div className="select-wrapper">
                     <Field
@@ -415,7 +421,7 @@ const ProjectForm: React.FC<
                 />
                 <div className={'form-group'}>
                   <label>
-                    <FormattedMessage id="LABEL_ASSETS_WORKED_ON" />
+                    <FormattedMessage id="LABEL_ASSETS_WORKED_ON" />*
                   </label>
                   <div className="select-wrapper">
                     <Field
@@ -425,9 +431,9 @@ const ProjectForm: React.FC<
                       placeholderKey="PLACEHOLDER_FIRST_ASSET"
                       messageKey="MESSAGE_FIRST_ASSET"
                       validate={[
-                        Validate.require(props, 'LABEL_ASSETS_WORKED_ON'),
-                        Validate.maxLength(props, 1000),
-                        Validate.onlyNumber(props)
+                        Validate.required('LABEL_ASSETS_WORKED_ON'),
+                        Validate.maxLength(1000),
+                        onlyNumber
                       ]}
                     >
                       <FormattedMessage id="PLACEHOLDER_FIRST_ASSET">

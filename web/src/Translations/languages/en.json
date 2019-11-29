@@ -1,6 +1,9 @@
 {
   "TITLE_OVERVIEW": "Overview",
+  "TITLE_PROJECT_OVERVIEW": "Project Overview",
   "TITLE_YOUR_PROJECT": "Your Project",
+  "TITLE_PROJECT_ID": "Project ID",
+  "TITLE_END_CLIENT": "End Client Name",
   "TITLE_PREFERRED": "Preferred",
   "TITLE_RUNRATE": "RunRate",
   "TITLE_ANALYTICS": "Analytics",
@@ -122,5 +125,11 @@
   "VALIDATION_MESSAGE_PROJECT_OWNER_REQUIRED": "Project owner is required",
   "VALIDATION_MESSAGE_PROJECT_SCOPE_REQUIRED": "Project scope is required",
   "VALIDATION_MESSAGE_PROJECT_STATUS_REQUIRED": "Project status is required",
-  "VALIDATION_REQUIRED":"Required"
+  "VALIDATION_REQUIRED":"Required",
+  "VALIDATION_NUMBER":"Must be a number",
+  "VALIDATION_MAX": "Must have a maximum of",
+  "VALIDATION_CHAR": "characters",
+  "VALIDATION_IS_REQUIRED": "{0} is required",
+  "VALIDATION_ONLY_ALPHA_NUM" : "Only alphanumeric characters",
+  "FIELD_VALIDATION_KEY": "Must have a maximum of {0} characters"
 }
