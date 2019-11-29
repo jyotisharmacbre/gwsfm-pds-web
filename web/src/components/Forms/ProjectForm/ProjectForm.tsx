@@ -150,6 +150,7 @@ const ProjectForm: React.FC<
                     name="otherCompany"
                     type="text"
                     component={PdsFormInput}
+                    className="required"
                     validate={[
                       Validate.required('LABEL_COMPANY'),
                       Validate.maxLength(1000)
@@ -182,6 +183,7 @@ const ProjectForm: React.FC<
                     name="otherContract"
                     type="text"
                     component={PdsFormInput}
+                    className="required"
                     validate={[
                       Validate.required('LABEL_CONTRACT'),
                       Validate.maxLength(1000)
