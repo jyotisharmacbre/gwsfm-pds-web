@@ -5,11 +5,12 @@ import projectDetailReducer from './CustomerEnquiryForm/Reducer';
 import projectOverviewFormReducer from './ProjectOverviewForm/Reducer';
 import lookupReducer from './Lookups/Reducer';
 import localeReducer from '../Translations/Reducer';
-
+import preliminaryReducer from './Preliminaries/Reducer';
 export default combineReducers<IState>({
   form: reducerForm,
   project: projectDetailReducer,
   projectOverview: projectOverviewFormReducer,
   lookup: lookupReducer,
-  locale: localeReducer
+  locale: localeReducer,
+  preliminary: preliminaryReducer
 });

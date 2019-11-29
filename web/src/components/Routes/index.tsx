@@ -6,7 +6,7 @@ import Project from '../../views/Project';
 import Notifications from '../../views/Notifications';
 import ProjectOverview from '../../views/ProjectOverview';
 import JustificationAuthorisation from '../../views/JustificationAuthorisation';
-
+import Preliminaries from '../../views/Preliminaries';
 const Routes: React.FC = props => {
   return (
     <Switch>
@@ -19,6 +19,7 @@ const Routes: React.FC = props => {
         path="/JustificationAuthorisation"
         component={JustificationAuthorisation}
       />
+      <Route path="/Preliminaries" component={Preliminaries} />
     </Switch>
   );
 };
