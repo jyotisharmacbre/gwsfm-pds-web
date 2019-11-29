@@ -1,0 +1,22 @@
+.price-sumry {
+    &.discount_table {
+        table {
+            &.price-table {
+                th {
+                    color: map-get($colors , darkGreen );
+                }
+                td {
+                    padding: 10px 5px 8px 15px;
+                    background: map-get($colors , Green03 );
+                    font-weight: 500;
+                    font-size: 16px;
+                    color: map-get($colors , darkGreen );
+                    &:first-child {
+                        font-weight: 500;
+                    }
+                }
+            }
+        }
+    }
+}
+

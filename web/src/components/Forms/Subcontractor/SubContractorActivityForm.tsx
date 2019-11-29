@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
 import Quotes from '../../Tile/Quotes';
+import FontawsomeSvg from '@fortawesome/fontawesome-svg-core';
+import FontawsomeFree from '@fortawesome/free-solid-svg-icons';
+import FontawsomeReact, {
+  FontAwesomeIcon
+} from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 class SubContractorActivityForm extends Component {
   render() {
@@ -7,10 +13,13 @@ class SubContractorActivityForm extends Component {
       <div className="row">
         <div className="col-lg-12">
           <div className="forms_wrap">
-              <span className="delete_text">DELETE</span>
+            <span className="delete_text">
+              DELETE
+              <FontAwesomeIcon className="" icon={faTrash} />
+            </span>
             <div className="row">
-              <div className="col-lg-8">
-                <form className="custom-wrap">
+              <div className="col-lg-7">
+                <form className="custom-wrap p-0">
                   <div className="form-group">
                     <label>ACtivity Name</label>
                     <input
@@ -49,28 +58,28 @@ class SubContractorActivityForm extends Component {
                     <label>Total Cost</label>
                     <input
                       type="text"
-                      className="symbol_fix form-control"
+                      className="form-control width-250"
                       placeholder=""
                     />
-                    <span>&#163;</span>
+                    <span className="symbol_fix">&#163;</span>
                   </div>
                   <div className="form-group">
                     <label>Gross Margin</label>
                     <input
                       type="text"
-                      className="symbol_fix form-control"
+                      className="form-control width-250"
                       placeholder=""
                     />
-                    <span>%</span>
+                    <span className="symbol_fix">%</span>
                   </div>
                   <div className="form-group">
                     <label>Total Sell</label>
                     <input
                       type="text"
-                      className="symbol_fix form-control"
+                      className="form-control width-250"
                       placeholder=""
                     />
-                    <span>&#163;</span>
+                    <span className="symbol_fix">&#163;</span>
                   </div>
                   <div className="form-group">
                     <label>Comments</label>
@@ -85,7 +94,6 @@ class SubContractorActivityForm extends Component {
             </div>
             <Quotes></Quotes>
           </div>
-          
         </div>
       </div>
     );
