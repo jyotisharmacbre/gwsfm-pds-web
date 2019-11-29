@@ -1,25 +1,38 @@
 import React, { Component } from 'react';
 import DiscountTable from '../../Table/DiscountTable';
 import SubContractorActivityForm from './SubContractorActivityForm';
+import FontawsomeSvg from '@fortawesome/fontawesome-svg-core';
+import FontawsomeFree from '@fortawesome/free-solid-svg-icons';
+import FontawsomeReact, {
+  FontAwesomeIcon
+} from '@fortawesome/react-fontawesome';
+import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 
 class SubcontractorForm extends Component {
-
   render() {
     return (
       <form className="subcontractor_form">
         <DiscountTable></DiscountTable>
         <SubContractorActivityForm></SubContractorActivityForm>
         <div className="newActiv_btn">
-              <button>New Activity</button>
-          </div>
-          <div className="hr_line"></div>
-          <div className="mr-35 d-flex justify-content-between mb-4">
-            <button className="active mb-4 mt-5" type="button">PREVIOUS</button>
-            <button type="button" name="next" className="mb-4 mt-5 text-right mr-0">SAVE</button>
-          <button type="button" name="next" className="mb-4 mt-5 text-right mr-0">NEXT</button>
-          </div>
-      </form>
+          <button type="button" className="active">
+            <FontAwesomeIcon className="" icon={faPlusCircle} />
+            NEW ACTIVITY
+          </button>
+        </div>
 
+        <div className="mr-35 three-btn">
+          <button className="active" type="button">
+            PREVIOUS
+          </button>
+          <button type="button" name="next" className="active ml-auto">
+            SAVE
+          </button>
+          <button type="button" name="next" className="">
+            NEXT
+          </button>
+        </div>
+      </form>
     );
   }
 }
