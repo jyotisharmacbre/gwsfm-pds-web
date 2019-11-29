@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { IState } from '../store/state';
 import { IPreliminariesComponentDetails } from '../store/Preliminaries/Types/IPreliminariesComponentDetails';
 import { projectDetailAdd } from '../store/CustomerEnquiryForm/Action';
-import { Notify } from '../helpers/constants';
+import Notify from '../enums/Notify';
 import EventType from '../enums/EventType';
 import { useHistory } from 'react-router-dom';
 import * as actions from '../store/rootActions';
