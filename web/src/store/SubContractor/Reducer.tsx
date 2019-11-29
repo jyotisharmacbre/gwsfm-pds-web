@@ -1,42 +1,35 @@
 import { ActionType } from '../ProjectOverviewForm/Types/ActionType';
 import { updateObject } from '../../helpers/utility-helper';
-import { IProjectOverviewState } from '../ProjectOverviewForm/Types/IProjectOverviewState';
-import moment from 'moment';
+import { ISubContractorState } from './Types/ISubContractorState';
 import Notify from '../../enums/Notify';
 import EventType from '../../enums/EventType';
 
-const initialState: IProjectOverviewState = {
+const initialState: ISubContractorState = {
   form: {
-    projectAddDetailId: '',
-    projectId: '',
-    mainContractor: '',
-    otherMainContractor: '',
-    enquiryReceivedFrom: '',
-    potentialCustomer: '',
-    otherPotentialCustomer: '',
-    enquiryTypeId: 1,
-    creditCheckResult: '',
-    siteAddress: '',
-    cdmNotifiable: false,
-    formOfContract: '',
-    retention: '',
-    liquidatedDamages: '',
-    insurance: '',
-    workTypeId: -1,
-    commenceDate: new Date().toJSON(),
-    completionDate: new Date().toJSON(),
-    milestones: '',
-    firstValuationDate: new Date().toJSON(),
-    finalAccountDate: new Date().toJSON(),
-    valuationIntervals: '',
-    paymentTerms: '',
-    isProjectLive: false,
-    comments: '',
-    authorizedByHop: '',
-    budget: 1,
-    authorizedBy: '',
-    authorizedBySecond: '',
-    authorizedByThird: ''
+    activities: [
+      {
+        activityName: 'Avneet',
+        existingSubcontractor: true,
+        subcontractor: 'Test',
+        preferredSupplier: true,
+        totalCost: 10,
+        grossMargin: 10,
+        totalSell: 10,
+        comments: 'string',
+        quote1: {
+          supplierName: 'string',
+          quoteValue: 10
+        },
+        quote2: {
+          supplierName: 'string',
+          quoteValue: 10
+        },
+        quote3: {
+          supplierName: 'string',
+          quoteValue: 10
+        }
+      }
+    ]
   },
   error: null,
   loading: false,
@@ -92,7 +85,7 @@ const resetProjectOverviewState = (oldState, action) => {
   });
 };
 
-const projectOverviewFormReducer = (oldState = initialState, action) => {
+const subContractorReducer = (oldState = initialState, action) => {
   switch (action.type) {
     case ActionType.PROJECT_OVERVIEW_FORM_ADD_SUCCESS:
       return projectOverviewFormAddSuccess(oldState, action);
@@ -111,4 +104,4 @@ const projectOverviewFormReducer = (oldState = initialState, action) => {
   }
 };
 
-export default projectOverviewFormReducer;
+export default subContractorReducer;

@@ -14,11 +14,19 @@ class Quotes extends Component {
                     <form>
                       <div className="form-group">
                         <label>Supplier's Name</label>
-                        <input className="form-control" type="text" placeholder="Enter Name" />
+                        <input
+                          className="form-control"
+                          type="text"
+                          placeholder="Enter Name"
+                        />
                       </div>
                       <div className="form-group">
                         <label>Quote Value (&#163;)</label>
-                        <input className="form-control" type="text" placeholder="&#163;" />
+                        <input
+                          className="form-control"
+                          type="text"
+                          placeholder="&#163;"
+                        />
                       </div>
                     </form>
                   </div>
@@ -31,11 +39,19 @@ class Quotes extends Component {
                     <form>
                       <div className="form-group">
                         <label>Supplier's Name</label>
-                        <input className="form-control" type="text" placeholder="Enter Name" />
+                        <input
+                          className="form-control"
+                          type="text"
+                          placeholder="Enter Name"
+                        />
                       </div>
                       <div className="form-group">
                         <label>Quote Value (&#163;)</label>
-                        <input className="form-control" type="text" placeholder="&#163;" />
+                        <input
+                          className="form-control"
+                          type="text"
+                          placeholder="&#163;"
+                        />
                       </div>
                     </form>
                   </div>
@@ -48,11 +64,19 @@ class Quotes extends Component {
                     <form>
                       <div className="form-group">
                         <label>Supplier's Name</label>
-                        <input className="form-control" type="text" placeholder="Enter Name" />
+                        <input
+                          className="form-control"
+                          type="text"
+                          placeholder="Enter Name"
+                        />
                       </div>
                       <div className="form-group">
                         <label>Quote Value (&#163;)</label>
-                        <input className="form-control" type="text" placeholder="&#163;" />
+                        <input
+                          className="form-control"
+                          type="text"
+                          placeholder="&#163;"
+                        />
                       </div>
                     </form>
                   </div>

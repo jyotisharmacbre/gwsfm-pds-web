@@ -1,5 +1,4 @@
 import React from 'react';
-// import { Col } from 'react-bootstrap';
 import { Field, reduxForm, InjectedFormProps } from 'redux-form';
 import { connect } from 'react-redux';
 import PdsFormInput from '../../PdsFormHandlers/PdsFormInput';
@@ -126,8 +125,7 @@ let ProjectOverviewForm: React.FC<
                             </label>
                           </div>
                         );
-                      })
-                  }
+                      })}
                 </div>
                 <Field
                   name={getPropertyName(

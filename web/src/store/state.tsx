@@ -2,6 +2,7 @@ import { IProjectOverviewState } from './ProjectOverviewForm/Types/IProjectOverv
 import { ILookupState } from './Lookups/Types/ILookupState';
 import { IProjectDetailState } from './CustomerEnquiryForm/Types/IProjectDetailState';
 import { ILocaleState } from '../session/state';
+import { ISubContractorState } from './SubContractor/Types/ISubContractorState';
 
 export type IState = {
   form: any;
@@ -9,4 +10,5 @@ export type IState = {
   lookup: ILookupState;
   project: IProjectDetailState;
   locale: ILocaleState;
+  subContractor: ISubContractorState;
 };
