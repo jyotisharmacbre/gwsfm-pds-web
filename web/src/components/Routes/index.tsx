@@ -6,6 +6,9 @@ import Project from '../../views/Project';
 import Notifications from '../../views/Notifications';
 import ProjectOverview from '../../views/ProjectOverview';
 import JustificationAuthorisation from '../../views/JustificationAuthorisation';
+import Discounts from '../../views/Discounts';
+import Subcontractor from '../../views/Subcontractor';
+
 import Preliminaries from '../../views/Preliminaries';
 const Routes: React.FC = props => {
   return (
@@ -14,7 +17,9 @@ const Routes: React.FC = props => {
       <Route path="/Pipeline" component={Pipeline} />
       <Route path="/Project" component={Project} />
       <Route path="/Notifications" component={Notifications} />
-      <Route path="/ProjectOverview" component={ProjectOverview} />
+      <Route path="/ProjectOverview/:projectId" component={ProjectOverview} />
+      <Route path="/Discounts" component={Discounts} />
+      <Route path="/Subcontractor" component={Subcontractor} />
       <Route
         path="/JustificationAuthorisation"
         component={JustificationAuthorisation}

@@ -5,21 +5,27 @@ import { store } from '../../../../store';
 import ProjectForm from '../ProjectForm';
 import { IntlProvider } from 'react-intl';
 import translations from '../../../../Translations/translation';
-describe('ProjectOverviewForm Fields', () => {
+import {globalIntl} from '../../../../App';
+describe('ProjectForm Fields', () => {
   let wrapper: any;
   const props: any = {
     handleSubmit: jest.fn()
   };
   beforeEach(() => {
+    jest.mock('../../../../App');   
+    globalIntl.formatMessage = jest.fn().mockImplementation(() => {
+      return 'intlmessage';
+    });
     wrapper = mount(
       <Provider store={store}>
-        <IntlProvider locale="en" messages={translations['en'].messages}>
-          <ProjectForm {...props} />
+        <IntlProvider locale="en" messages={translations['en'].messages}>        
+          <ProjectForm {...props} />        
         </IntlProvider>
       </Provider>
     );
   });
   it('Defines the component', () => {
+   
     expect(wrapper).toBeDefined();
   });
 
@@ -29,6 +35,7 @@ describe('ProjectOverviewForm Fields', () => {
       form = wrapper.find('[form="ProjectForm"]').first();
     });
     it('Renders form component', () => {
+     
       expect(form).toHaveLength(1);
     });
   });

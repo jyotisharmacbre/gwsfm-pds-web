@@ -1,0 +1,77 @@
+/*pipeline page*/
+.top_Title {
+    background: #fff;
+    padding: 20px 20px 15px 30px;
+    border: 1px solid #ccc;
+    border-radius: 5px 5px 0 0;
+    position: relative;
+    margin-top: 30px;
+    h2 {
+        color: #006a4d;
+        font-size: 26px;
+        &:before {
+            content: '';
+            position: absolute;
+            height: 30px;
+            width: 5px;
+            background: #006a4d;
+            left: 0px;
+        }
+    }
+}
+
+
+.table-grid-wrap {
+    overflow-x: auto;
+    th {
+        border: solid 1px #cad0d8;
+        background: map-get($colors , whiteColor );
+        position: relative;
+        svg {
+            @include transition(all ease 0.3s);
+            font-size: 18px;
+            position: absolute;
+            padding-left: 5px;
+            display: inline-block;
+            right: 4px;
+            height: 100%;
+            top: 0;
+            &:before {
+                top: 38%;
+                position: relative;
+            }
+            &.active {
+                color: map-get($colors , darkGreen );
+                @include transform(rotate(-180deg));
+            }
+        }
+    }
+    tbody {
+        tr {
+            cursor: pointer;
+            &:nth-of-type(odd){
+                background-color: map-get($colors , grey11 );
+            }
+            &:nth-of-type(even){
+                background-color: map-get($colors , whiteColor );
+            }
+        }
+    }
+    &.price-sumry {
+        margin-top: 0;
+        .price-table {
+            td {
+                background-color: transparent;
+                &:first-child {
+                    font-weight: 400;
+                }
+            }
+        }
+        table {
+            th {
+                padding: 5px 18px 5px 15px;
+                border-top: 0;
+            }
+        }
+    }
+}

@@ -4,5 +4,6 @@ export enum LookupType {
   Engagement_Type = 'Engagement_Type',
   Country = 'Country',
   Contract_Type = 'Contract_Type',
-  Asset = 'Asset'
+  Asset = 'Asset',
+  Work_Type = 'Work_Type'
 }

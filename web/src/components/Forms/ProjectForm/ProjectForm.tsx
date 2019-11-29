@@ -1,34 +1,110 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { MainTitle } from '../../Title/Title';
 
-import { Field, reduxForm, InjectedFormProps } from 'redux-form';
+import {
+  Field,
+  reduxForm,
+  InjectedFormProps,
+  formValueSelector
+} from 'redux-form';
 import PdsFormInput from '../../PdsFormHandlers/PdsFormInput';
 import PdsFormSelect from '../../PdsFormHandlers/PdsFormSelect';
 import PdsFormTextArea from '../../PdsFormHandlers/PdsFormTextArea';
 import PdsFormButton from '../../PdsFormHandlers/PdsFormButton';
 import { selectionButtons } from '../../../helpers/constants';
-import {
-  alphaNumeric,
-  onlyNumber,
-  Validate
-} from '../../../helpers/fieldValidations';
+import { Validate, alphaNumeric, onlyNumber } from '../../../helpers/fieldValidations';
 import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import { LookupType } from '../../../store/Lookups/Types/LookupType';
 import { getDropdown } from '../../../helpers/utility-helper';
+import PdsFormTypeAhead from '../../PdsFormHandlers/PdsFormTypeAhead';
 import { IProjectDetail } from '../../../store/CustomerEnquiryForm/Types/IProjectDetail';
-
+import { ICurrency } from '../../../store/Lookups/Types/ICurrency';
+import IReactIntl from '../../../Translations/IReactIntl';
 interface Props {
   projectstatus: any;
   onNext: (data: IProjectDetail) => void;
   onSave: (data: IProjectDetail) => void;
+  currencies: Array<ICurrency> | null;
+  dynamicsContract: any;
+  dynamicsCompany: any;
+  onSearchContract: (value: any) => void;
+  onSearchCompany: (value: any) => void;
+  onSearchHOP: (value: any) => void;
+  onSearchPO: (value: any) => void;
+  onSearchPM: (value: any) => void;
+  adHOPData: any;
+  adPOData: any;
+  adPMData: any;
 }
 
+const getCurrencySymbol = (currencies, currencyId) => {
+  let symbol = '';
+  let filter;
+  if (currencies) {
+    filter = currencies.find(element => element.currencyId == currencyId);
+    if (filter != null && filter != undefined) symbol = filter.currencySymbol;
+  }
+  return symbol;
+};
+
 const ProjectForm: React.FC<
-  Props & InjectedFormProps<IProjectDetail, Props>
+  Props & IReactIntl & InjectedFormProps<IProjectDetail, Props>
 > = (props: any) => {
-  const { handleSubmit, projectstatus } = props;
+  const {
+    handleSubmit,
+    projectstatus,
+    dynamicsContract,
+    dynamicsCompany,
+    onSearchContract,
+    onSearchCompany,
+    onSearchHOP,
+    onSearchPO,
+    onSearchPM,
+    adHOPData,
+    adPMData,
+    adPOData
+  } = props;
+  const otherDynamicsContract =
+    props.dynamicsOtherContract.length > 0
+      ? props.dynamicsOtherContract[0].label
+      : '';
+
+  const otherDynamicsCompany =
+    props.dynamicsOtherCompany.length > 0
+      ? props.dynamicsOtherCompany[0].label
+      : '';
+
+  const getDynamicsContractDropdown =
+    dynamicsContract &&
+    dynamicsContract.map((ContractData: any) => {
+      return { label: ContractData.name, id: ContractData.id };
+    });
+
+  const getDynamicsCompanyDropdown =
+    dynamicsCompany &&
+    dynamicsCompany.map((CompanyData: any) => {
+      return { label: CompanyData.name, id: CompanyData.id };
+    });
+
+  const getADhopDropdown =
+    adHOPData &&
+    adHOPData.map((HOPData: any) => {
+      return { label: HOPData.name, id: HOPData.id };
+    });
+
+  const getADpoDropdown =
+    adPOData &&
+    adPOData.map((POData: any) => {
+      return { label: POData.name, id: POData.id };
+    });
+
+  const getADpmDropdown =
+    adPMData &&
+    adPMData.map((PMData: any) => {
+      return { label: PMData.name, id: PMData.id };
+    });
 
   return (
     <div className="container-fluid">
@@ -44,11 +120,11 @@ const ProjectForm: React.FC<
                   name="name"
                   type="text"
                   component={PdsFormInput}
+                  className="required"
                   validate={[
-                    Validate.required('Project name'),
+                    Validate.required('LABEL_PROJECT'),
                     Validate.maxLength(1000)
                   ]}
-                  warn={alphaNumeric}
                   messageKey="MESSAGE_PROJECT_NAME"
                   labelKey="LABEL_PROJECT"
                   placeholderKey="PLACEHOLDER_PROJECT_NAME"
@@ -56,67 +132,117 @@ const ProjectForm: React.FC<
                 <Field
                   name="companyId"
                   type="text"
-                  component={PdsFormInput}
+                  component={PdsFormTypeAhead}                 
+                  className="required"
                   validate={[
-                    Validate.required('Company name'),
+                    Validate.required('LABEL_COMPANY'),
                     Validate.maxLength(1000)
                   ]}
-                  warn={alphaNumeric}
+                  DynamicsType="Company"
                   labelKey="LABEL_COMPANY"
-                  placeholderKey="PLACEHOLDER_COMPANY_NAME"
+                  placeholder="PLACEHOLDER_COMPANY_NAME"
+                  onSearch={onSearchCompany}
+                  options={getDynamicsCompanyDropdown}
+                  searchText="Searching companies"
                 />
+                {otherDynamicsCompany === 'Other' && (
+                  <Field
+                    name="otherCompany"
+                    type="text"
+                    component={PdsFormInput}
+                    validate={[
+                      Validate.required('LABEL_COMPANY'),
+                      Validate.maxLength(1000)
+                    ]}
+                    labelKey="LABEL_OTHER_COMPANY"
+                    placeholderKey="PLACEHOLDER_COMPANY_NAME"
+                  />
+                )}
+
                 <Field
                   name="contractorId"
                   type="text"
-                  component={PdsFormInput}
+                  component={PdsFormTypeAhead}                 
+                  className="required"
                   validate={[
-                    Validate.required('Contract name'),
+                    Validate.required('LABEL_CONTRACT'),
                     Validate.maxLength(1000)
                   ]}
-                  warn={alphaNumeric}
                   messageKey="MESSAGE_CONTRACT_NAME"
                   labelKey="LABEL_CONTRACT"
-                  placeholderKey="PLACEHOLDER_CONTRACT"
+                  placeholder="PLACEHOLDER_CONTRACT"
+                  onSearch={onSearchContract}
+                  options={getDynamicsContractDropdown}
+                  searchText="Searching contracts"
+                  DynamicsType="Contract"
                 />
+
+                {otherDynamicsContract === 'Other' && (
+                  <Field
+                    name="otherContract"
+                    type="text"
+                    component={PdsFormInput}
+                    validate={[
+                      Validate.required('LABEL_CONTRACT'),
+                      Validate.maxLength(1000)
+                    ]}
+                    labelKey="LABEL_OTHER_CONTRACT"
+                    placeholderKey="PLACEHOLDER_CONTRACT"
+                  />
+                )}
                 <Field
                   name="headOfProject"
                   type="text"
-                  component={PdsFormInput}
+                  component={PdsFormTypeAhead}                  
+                  className="required"
                   validate={[
-                    Validate.required('Head of project'),
+                    Validate.required('LABEL_HEAD_OF_PROJECT'),
                     Validate.maxLength(1000)
                   ]}
-                  warn={alphaNumeric}
-                  messageKey="MESSAGE_HEAD_OF_PROJECT"
                   labelKey="LABEL_HEAD_OF_PROJECT"
-                  placeholderKey="PLACEHOLDER_HEAD_OF_PROJECT_NAME"
+                  placeholder="PLACEHOLDER_HEAD_OF_PROJECT_NAME"
+                  onSearch={onSearchHOP}
+                  options={getADhopDropdown}
+                  searchText="Searching head of project"
+                  DynamicsType="HOP"
+                  messageKey="MESSAGE_HEAD_OF_PROJECT"
                 />
+
                 <Field
                   name="projectOwner"
                   type="text"
-                  component={PdsFormInput}
+                  component={PdsFormTypeAhead}                 
                   placeHolder="Project Owner name"
+                  className="required"
                   validate={[
-                    Validate.required('Project owner'),
+                    Validate.required('LABEL_PROJECT_OWNER'),
                     Validate.maxLength(1000)
                   ]}
-                  warn={alphaNumeric}
+                  DynamicsType="PO"
                   messageKey="MESSAGE_PROJECT_OWNER"
                   labelKey="LABEL_PROJECT_OWNER"
-                  placeholderKey="PLACEHOLDER_PROJECT_OWNER_NAME"
+                  placeholder="PLACEHOLDER_PROJECT_OWNER_NAME"
+                  onSearch={onSearchPO}
+                  options={getADpoDropdown}
+                  searchText="Searching project owner"
                 />
+
                 <Field
                   name="projectManager"
                   type="text"
-                  component={PdsFormInput}
+                  component={PdsFormTypeAhead}                  
+                  className="required"
                   validate={[
-                    Validate.required('Project manager'),
+                    Validate.required('LABEL_PROJECT_MANAGER'),
                     Validate.maxLength(1000)
                   ]}
-                  warn={alphaNumeric}
                   messageKey="MESSAGE_PROJECT_MANAGER"
                   labelKey="LABEL_PROJECT_MANAGER"
-                  placeholderKey="PLACEHOLDER_PROJECT_MANAGER"
+                  placeholder="PLACEHOLDER_PROJECT_MANAGER"
+                  onSearch={onSearchPM}
+                  options={getADpmDropdown}
+                  searchText="Searching project manager"
+                  DynamicsType="PM"
                 />
 
                 <Field
@@ -130,11 +256,11 @@ const ProjectForm: React.FC<
                   name="scope"
                   rows="7"
                   component={PdsFormTextArea}
+                  className="required"
                   validate={[
-                    Validate.required('Project scope'),
+                    Validate.required('LABEL_PROJECT_SCOPE'),
                     Validate.maxLength(1040)
-                  ]}
-                  warn={alphaNumeric}
+                  ]}             
                   labelKey="LABEL_PROJECT_SCOPE"
                 />
                 <Field
@@ -181,23 +307,19 @@ const ProjectForm: React.FC<
 
                 <div className={'form-group'}>
                   <label>
-                    <FormattedMessage id="LABEL_COUNTRY" />
+                    <FormattedMessage id="LABEL_COUNTRY" />*
                   </label>
                   <div className="select-wrapper">
                     <Field
                       name="countryId"
                       component={PdsFormSelect}
-                      validate={[Validate.required('Project name')]}
+                      validate={Validate.required('LABEL_COUNTRY')}
                       placeholderKey="PLACEHOLDER_COUNTRY"
                       messageKey="MESSAGE_COUNTRY"
                     >
                       <FormattedMessage id="PLACEHOLDER_COUNTRY">
                         {message => <option value="">{message}</option>}
                       </FormattedMessage>
-                      {getDropdown(
-                        props.projectstatus,
-                        LookupType.Engagement_Type
-                      )}
                       {getDropdown(props.projectstatus, LookupType.Country)}
                     </Field>
                   </div>
@@ -205,21 +327,30 @@ const ProjectForm: React.FC<
 
                 <div className={'form-group'}>
                   <label>
-                    <FormattedMessage id="LABEL_CURRENCY" />
+                    <FormattedMessage id="LABEL_CURRENCY" />*
                   </label>
                   <div className="select-wrapper">
                     <Field
                       name="currencyId"
                       component={PdsFormSelect}
-                      validate={Validate.required('Currency')}
+                      validate={Validate.required('LABEL_CURRENCY')}
                       placeholderKey="PLACEHOLDER_CURRENCY"
                       messageKey="MESSAGE_CURRENCY"
                     >
                       <FormattedMessage id="PLACEHOLDER_CURRENCY">
                         {message => <option value="">{message}</option>}
                       </FormattedMessage>
-
-                      {getDropdown(props.projectstatus, LookupType.Currency)}
+                      {props.currencies &&
+                        props.currencies.map((data: ICurrency, i: number) => {
+                          return (
+                            <option
+                              key={data.currencyId}
+                              value={data.currencyId}
+                            >
+                              {data.currencySymbol}
+                            </option>
+                          );
+                        })}
                     </Field>
                   </div>
                 </div>
@@ -230,9 +361,9 @@ const ProjectForm: React.FC<
                   component={PdsFormInput}
                   labelKey="LABEL_PROBABILITY_OF_WINING"
                   placeholderKey="PLACEHOLDER_WIN_PROBABILITY"
-                  className="width-100"
+                  className="width-100 required"
                   validate={[
-                    Validate.required('Probability of wining'),
+                    Validate.required('LABEL_PROBABILITY_OF_WINING'),
                     Validate.maxLength(1000),
                     onlyNumber
                   ]}
@@ -243,13 +374,16 @@ const ProjectForm: React.FC<
                   name="approxValue"
                   type="number"
                   component={PdsFormInput}
-                  className="width-120 pl-20"
+                  className="width-120 pl-20 required"
                   validate={[
-                    Validate.required('Approximate value'),
+                    Validate.required('LABEL_APPROXIMATE_VALUE'),
                     Validate.maxLength(1000),
                     onlyNumber
                   ]}
-                  currency="$"
+                  currency={getCurrencySymbol(
+                    props.currencies,
+                    props.currencyId
+                  )}
                   divPosition="relative"
                   labelKey="LABEL_APPROXIMATE_VALUE"
                   placeholderKey=""
@@ -258,7 +392,7 @@ const ProjectForm: React.FC<
 
                 <div className={'form-group'}>
                   <label>
-                    <FormattedMessage id="LABEL_CONTRACT_TYPE" />
+                    <FormattedMessage id="LABEL_CONTRACT_TYPE" />*
                   </label>
                   <div className="select-wrapper">
                     <Field
@@ -287,7 +421,7 @@ const ProjectForm: React.FC<
                 />
                 <div className={'form-group'}>
                   <label>
-                    <FormattedMessage id="LABEL_ASSETS_WORKED_ON" />
+                    <FormattedMessage id="LABEL_ASSETS_WORKED_ON" />*
                   </label>
                   <div className="select-wrapper">
                     <Field
@@ -297,7 +431,7 @@ const ProjectForm: React.FC<
                       placeholderKey="PLACEHOLDER_FIRST_ASSET"
                       messageKey="MESSAGE_FIRST_ASSET"
                       validate={[
-                        Validate.required('Asset'),
+                        Validate.required('LABEL_ASSETS_WORKED_ON'),
                         Validate.maxLength(1000),
                         onlyNumber
                       ]}
@@ -355,7 +489,6 @@ const ProjectForm: React.FC<
               >
                 <FormattedMessage id="BUTTON_SAVE_AND_CLOSE" />
               </button>
-
               <button
                 className="active mb-4 mt-5"
                 type="button"
@@ -372,13 +505,19 @@ const ProjectForm: React.FC<
   );
 };
 
+
 const mapStateToProps = (state: IState) => ({
-  initialValues: state.project.form
+  initialValues: state.project.form,
+  dynamicsOtherContract: state.dynamicData.dynamicsOtherContract,
+  dynamicsOtherCompany: state.dynamicData.dynamicsOtherCompany,
+  currencyId: selector(state, 'currencyId')
 });
 
 const form = reduxForm<IProjectDetail, Props>({
   form: 'ProjectForm',
   enableReinitialize: true
-})(ProjectForm);
+})(injectIntl(ProjectForm));
+
+const selector = formValueSelector('ProjectForm');
 
 export default connect(mapStateToProps)(form);

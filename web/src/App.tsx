@@ -2,8 +2,15 @@ import React from 'react';
 import './App.css';
 import Layout from './components/Layouts/Layout';
 import { makeStyles, createMuiTheme } from '@material-ui/core/styles';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { injectIntl } from 'react-intl';
 
-const App: React.FC = () => {
+var INTL;
+const App: React.FC = (props: any) => {
+
+INTL = props.intl
+
   const drawerWidth = 250;
 
   const theme = createMuiTheme({
@@ -124,8 +131,45 @@ const App: React.FC = () => {
   return (
     <div>
       <Layout Theme={theme} UseStyles={useStyles()} />
+      <ToastContainer autoClose={2000} />
     </div>
   );
 };
 
-export default App;
+
+
+
+// ======================================================
+// Following is the code that exposes translations globally
+// ======================================================
+
+var instance
+class IntlTranslator {
+  // Singleton
+  constructor() {
+    if (!instance) {
+      instance = this;
+    }
+    return instance;
+  }
+
+  // ------------------------------------
+  // Formatting Functions
+  // ------------------------------------
+  formatMessage(key: string, value?: object): string {
+    let label: { [key: string]: any } = {};
+    label[key] = INTL.formatMessage(
+      {
+        id: key
+      },
+      value
+    );
+    return label[key];
+  }
+}
+
+
+export const globalIntl = new IntlTranslator()
+//export default IntlGlobalProvider
+
+export default injectIntl(App);

@@ -48,23 +48,23 @@ const LeftMenu: React.FC = (props: any) => {
         </li>
         <li className="">
           <Link
-            data-target="#homeSubmenu"
             to="/JustificationAuthorisation"
+            data-target="#homeSubmenu"
             data-toggle="collapse"
-            aria-expanded="false"
+            aria-expanded="true"
             className="dropdown-toggle collapsed"
           >
             justification &amp; authorisation
           </Link>
-          <ul className=" list-unstyled" id="homeSubmenu">
+          <ul className="collapse list-unstyled show" id="homeSubmenu">
             <li className="subactive">
               <Link to="/preliminaries">preliminaries</Link>
             </li>
             <li>
-              <Link to="/">subcontractors</Link>
+              <Link to="/Subcontractor">subcontractors</Link>
             </li>
             <li>
-              <Link to="/">discounts </Link>
+              <Link to="/Discounts">discounts </Link>
             </li>
           </ul>
         </li>

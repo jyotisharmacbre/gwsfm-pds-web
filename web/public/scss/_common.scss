@@ -4,9 +4,28 @@ body {
 }
 
 #content {
-    width: 100%;
+    width: calc(100% - 300px);
     min-height: 100vh;
     @include transition(all 0.3s);
+    @include smScreen {
+        width: 100%;
+    }
+}
+.hr_line {
+    border: 1px solid map-get($colors, grey001);
+    margin-bottom: 25px;
+    margin-top: 10px;
+}
+
+.width-250{
+    max-width: 250px;
+}
+
+.text-green {
+    color: map-get($colors , darkGreen ) !important;
+}
+.bg-green {
+    background: map-get($colors, Green03 );
 }
 
 ::placeholder {
@@ -27,12 +46,24 @@ body {
 form {
     label {
         color: map-get($colors, grey03);
-        margin-bottom: 5px;
+        margin-bottom: 8px;
         font-size: 14px;
         font-weight: 600;
     }
+    .form-group {
+        margin-bottom: 25px;
+        position: relative;
+        .symbol_fix {
+            position: absolute;
+            left: 15px;
+            top: 43px;
+            color: map-get($colors , grey06 );
+            font-size: 14px;
+            margin-right: 10px;
+        }
+    }
     .form-control {
-        @include borderRadius(6px);
+        @include borderRadius(3px);
         border: 1px solid map-get($colors, grey05);
         height: auto;
         padding: 10px;
@@ -47,12 +78,11 @@ form {
         resize: none;
     }
     button {
-        background: map-get($colors, grey04);
-        ;
+        background: map-get($colors, whiteColor);
         border: 1px solid map-get($colors, grey06);
         @include borderRadius(2px);
         color: map-get($colors, grey06);
-        padding: 4px 25px;
+        padding: 8px 25px;
         font-size: 13px;
         line-height: normal;
         margin-right: 8px;
@@ -167,12 +197,16 @@ form {
     //   }
 }
 
-button[type="submit"] {
+button[type="submit"],
+button[type="button"] {
     background-color: #006a4d;
     border: 0;
     font-weight: 600;
-    padding: 10px 25px;
+    padding: 12px 20px 10px;
     font-size: 16px;
+    min-width: 160px;
+    border: 2px solid map-get($colors , darkGreen );
+    text-align: center;
     letter-spacing: 2px;
     @include borderRadius(5px);
     color: map-get($colors, whiteColor);
@@ -216,4 +250,23 @@ button[type="submit"] {
 .btn-secondary:not(:disabled):not(.disabled):active:focus,
 .show>.btn-secondary.dropdown-toggle:focus {
     @include boxShadow(none);
+}
+
+.three-btn {
+    padding: 40px 0;
+    display: flex;
+    justify-content: space-between;
+    @include mdScreen {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    button {
+        margin-right: 20px;
+        @include mdScreen {
+            margin-bottom: 15px;
+        }
+        &:last-child {
+            margin-right: 0;
+        }
+    }
 }

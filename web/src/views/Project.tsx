@@ -7,31 +7,66 @@ import { ILookup } from '../store/Lookups/Types/ILookup';
 import { getProjectStatus } from '../store/Lookups/Actions';
 import { IProjectDetail } from '../store/CustomerEnquiryForm/Types/IProjectDetail';
 import { projectDetailAdd } from '../store/CustomerEnquiryForm/Action';
-import { Notify } from '../helpers/constants';
 import EventType from '../enums/EventType';
 import { useHistory } from 'react-router-dom';
 import * as actions from '../store/rootActions';
+import Notify from '../enums/Notify';
+import { toast } from 'react-toastify';
+import { ICurrency } from '../store/Lookups/Types/ICurrency';
+import {
+  getDynamicContractData,
+  getDynamicCompanyData
+} from '../store/DynamicsData/Action';
+import {
+  IDynamicContractData,
+  IDynamicCompanyData
+} from '../store/DynamicsData/Types/IDynamicData';
+import {
+  IAdPOData,
+  IAdHOPData,
+  IAdPMData
+} from '../store/UserService/Types/IUserService';
+import {
+  getUserServiceHOP,
+  getUserServicePO,
+  getUserServicePM
+} from '../store/UserService/Action';
 
 interface IMapStateToProps {
   notify: Notify;
   event: EventType;
-  projectStatus: Array<ILookup>;
   projectId: string;
+  currencies: Array<ICurrency> | null;
+  projectStatus: Array<ILookup>;
+  dynamicsContract: Array<IDynamicContractData>;
+  dynamicsCompany: Array<IDynamicCompanyData>;
+  adHOPData: Array<IAdHOPData>;
+  adPOData: Array<IAdPOData>;
+  adPMData: Array<IAdPMData>;
 }
 
 interface IMapDispatchToProps {
+  handleGetDynamicContractData: (searchContract: string) => void;
+  handleGetDynamicCompanyData: (searchCompany: string) => void;
+  handleGetADHOPData: (searchHOP: string) => void;
+  handleGetADPOData: (searchPO: string) => void;
+  handleGetADPMData: (searchPM: string) => void;
   getProjectStatus: () => void;
-  handleProjectDetailsSubmit: (form: IProjectDetail, event: EventType) => void;
-  handleProjectDetailsEdit: (form: IProjectDetail, event: EventType) => void;
   getProjectDetail: (projectId: string) => void;
   resetProjectDetailState: () => void;
+  getAllCurrencies: () => void;
+  getDynamicContractData: () => void;
+  getDynamicCompanyData: () => void;
+  handleProjectDetailsSubmit: (form: IProjectDetail, event: EventType) => void;
+  handleProjectDetailsEdit: (form: IProjectDetail, event: EventType) => void;
 }
 
 const Project: React.FC<IMapStateToProps & IMapDispatchToProps> = props => {
   let history = useHistory();
   useEffect(() => {
-    
+    window.scrollTo(0, 0);
     props.getProjectStatus();
+    props.getAllCurrencies();
     if (props.projectId != null && props.projectId != '') {
       props.getProjectDetail(props.projectId);
     }
@@ -40,10 +75,10 @@ const Project: React.FC<IMapStateToProps & IMapDispatchToProps> = props => {
   useEffect(() => {
     if (props.notify == Notify.success) {
       if (props.event == EventType.next) {
-        alert('data saved successfully next');
+        toast.success('Data Saved Successfully');
         history.push('/ProjectOverview');
       } else if (props.event == EventType.save) {
-        alert('data saved successfully save');
+        toast.success('Data Saved Successfully');
       }
       props.resetProjectDetailState();
     }
@@ -54,32 +89,68 @@ const Project: React.FC<IMapStateToProps & IMapDispatchToProps> = props => {
       ? props.handleProjectDetailsSubmit(data, EventType.save)
       : props.handleProjectDetailsEdit(data, EventType.save);
   };
-
   const handleNext = (data: IProjectDetail) => {
     data.projectId == ''
       ? props.handleProjectDetailsSubmit(data, EventType.next)
       : props.handleProjectDetailsEdit(data, EventType.next);
   };
 
+  const onSearchContract = (values: any) => {
+    props.handleGetDynamicContractData(values);
+  };
+
+  const onSearchCompany = (values: any) => {
+    props.handleGetDynamicCompanyData(values);
+  };
+
+  const onSearchHOP = (values: any) => {
+    props.handleGetADHOPData(values);
+  };
+
+  const onSearchPO = (values: any) => {
+    props.handleGetADPOData(values);
+  };
+
+  const onSearchPM = (values: any) => {
+    props.handleGetADPMData(values);
+  };
+
   return (
     <ProjectForm
       onSave={handleSave}
       onNext={handleNext}
+      currencies={props.currencies}
+      onSearchContract={onSearchContract}
+      onSearchCompany={onSearchCompany}
       projectstatus={props.projectStatus}
+      dynamicsContract={props.dynamicsContract}
+      dynamicsCompany={props.dynamicsCompany}
+      onSearchHOP={onSearchHOP}
+      onSearchPO={onSearchPO}
+      onSearchPM={onSearchPM}
+      adHOPData={props.adHOPData}
+      adPOData={props.adPOData}
+      adPMData={props.adPMData}
     />
   );
 };
 
-const mapStateToProps = (state: IState): IMapStateToProps => {
+const mapStateToProps = (state: IState) => {
   return {
     projectStatus: state.lookup.projectstatus,
+    dynamicsContract: state.dynamicData.dynamicsContract,
+    dynamicsCompany: state.dynamicData.dynamicsCompany,
+    adHOPData: state.adData.ADhopData,
+    adPOData: state.adData.ADpoData,
+    adPMData: state.adData.ADpmData,
     notify: state.project.notify,
     event: state.project.event,
-    projectId: state.project.form.projectId
+    projectId: state.project.form.projectId,
+    currencies: state.lookup.currencies
   };
 };
 
-const mapDispatchToProps = (dispatch): IMapDispatchToProps => {
+const mapDispatchToProps = dispatch => {
   return {
     getProjectStatus: () => dispatch(getProjectStatus()),
     handleProjectDetailsSubmit: (form, event) =>
@@ -88,7 +159,15 @@ const mapDispatchToProps = (dispatch): IMapDispatchToProps => {
       dispatch(actions.projectDetailEdit(form, event)),
     getProjectDetail: (projectId: string) =>
       dispatch(actions.getProjectDetail(projectId)),
-    resetProjectDetailState: () => dispatch(actions.resetProjectDetailState())
+    resetProjectDetailState: () => dispatch(actions.resetProjectDetailState()),
+    getAllCurrencies: () => dispatch(actions.getAllCurrencies()),
+    handleGetDynamicContractData: searchContract =>
+      dispatch(getDynamicContractData(searchContract)),
+    handleGetDynamicCompanyData: searchCompany =>
+      dispatch(getDynamicCompanyData(searchCompany)),
+    handleGetADHOPData: searchHOP => dispatch(getUserServiceHOP(searchHOP)),
+    handleGetADPOData: searchPO => dispatch(getUserServicePO(searchPO)),
+    handleGetADPMData: searchPM => dispatch(getUserServicePM(searchPM))
   };
 };
 

@@ -8,9 +8,14 @@ export const selectionButtons = [
     value: false
   }
 ];
-
-export enum Notify {
-  none,
-  success,
-  error
-}
+export const LookupItems = {
+  Asset: 'Asset',
+  ContractType: 'Contract_Type',
+  Country: 'Country',
+  Currency: 'Currency',
+  Engagement_Type: 'Engagement_Type',
+  Enquiry_Type: 'Enquiry_Type',
+  JAndA_Status: 'JAndA_Status',
+  Project_Status: 'Project_Status',
+  Work_Type: 'Work_Type'
+};

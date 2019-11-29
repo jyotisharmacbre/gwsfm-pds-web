@@ -15,16 +15,14 @@ import { IProjectAdditionalDetail } from '../../../store/ProjectOverviewForm/Typ
 import { getPropertyName, getDropdown } from '../../../helpers/utility-helper';
 import { LookupType } from '../../../store/Lookups/Types/LookupType';
 import EventType from '../../../enums/EventType';
+
 import {
   projectStatusData,
   engagementData
 } from '../../../helpers/dropDownFormValues';
-import {
-  alphaNumeric,
-  onlyNumber,
-  Validate
-} from '../../../helpers/fieldValidations';
-import { FormattedMessage } from 'react-intl';
+import { Validate, alphaNumeric } from '../../../helpers/fieldValidations';
+import { FormattedMessage, injectIntl } from 'react-intl';
+import IReactIntl from '../../../Translations/IReactIntl';
 
 interface Props {
   onNext: (data: IProjectAdditionalDetail) => void;
@@ -33,7 +31,7 @@ interface Props {
 }
 
 let ProjectOverviewForm: React.FC<
-  Props & InjectedFormProps<IProjectAdditionalDetail, Props>
+  Props & IReactIntl & InjectedFormProps<IProjectAdditionalDetail, Props>
 > = (props: any) => {
   const { handleSubmit, initialValues } = props;
   const DropdownOptions = projectStatusData.map((status: any, i: number) => (
@@ -62,6 +60,7 @@ let ProjectOverviewForm: React.FC<
                   component={PdsFormInput}
                   labelKey="LABEL_MAIN_CONTRACTOR"
                   placeholderKey="PLACEHOLDER_CONTRACTORS_NAME"
+                  className="required"
                   validate={[
                     Validate.required('LABEL_MAIN_CONTRACTOR'),
                     Validate.maxLength(1000)
@@ -76,8 +75,9 @@ let ProjectOverviewForm: React.FC<
                   data-test="enquiryReceivedFrom"
                   type="text"
                   component={PdsFormInput}
+                  className="required"
                   validate={[
-                    Validate.required('LABEL_ENQUIRY_RECEIVED_FROM'),
+                    Validate.required('labelKey'),
                     Validate.maxLength(1000)
                   ]}
                   warn={alphaNumeric}
@@ -92,6 +92,7 @@ let ProjectOverviewForm: React.FC<
                   data-test="potentialCustomer"
                   type="text"
                   component={PdsFormInput}
+                  className="required"
                   validate={[
                     Validate.required('LABEL_POTENTIAL_CUSTOMER'),
                     Validate.maxLength(1000)
@@ -110,6 +111,7 @@ let ProjectOverviewForm: React.FC<
                   datas={enquiryTypeData}
                   component={PdsFormRadio}
                   labelKey="LABEL_TYPE_OF_ENQUIRY"
+                  className="required"
                   validate={[
                     Validate.required('LABEL_TYPE_OF_ENQUIRY'),
                     Validate.maxLength(1000)
@@ -124,6 +126,7 @@ let ProjectOverviewForm: React.FC<
                   data-test="creditCheckResult"
                   type="text"
                   component={PdsFormInput}
+                  className="required"
                   validate={[
                     Validate.required('LABEL_CREDIT_CHECK_RESULT'),
                     Validate.maxLength(1000)
@@ -140,6 +143,7 @@ let ProjectOverviewForm: React.FC<
                   data-test="siteAddress"
                   type="text"
                   component={PdsFormInput}
+                  className="required"
                   validate={[
                     Validate.required('LABEL_SITE_ADDRESS'),
                     Validate.maxLength(1000)
@@ -166,6 +170,7 @@ let ProjectOverviewForm: React.FC<
                   data-test="formOfContract"
                   type="text"
                   component={PdsFormInput}
+                  className="required"
                   validate={[
                     Validate.required('LABEL_FORM_OF_CONTRACT'),
                     Validate.maxLength(1000)
@@ -179,6 +184,7 @@ let ProjectOverviewForm: React.FC<
                   data-test="retention"
                   type="text"
                   component={PdsFormInput}
+                  className="required"
                   validate={[
                     Validate.required('LABEL_RETENTION'),
                     Validate.maxLength(1000)
@@ -195,6 +201,7 @@ let ProjectOverviewForm: React.FC<
                   data-test="liquidatedDamages"
                   type="text"
                   component={PdsFormInput}
+                  className="required"
                   validate={[
                     Validate.required('LABEL_LIQUIDATED_DAMAGES'),
                     Validate.maxLength(1000)
@@ -208,6 +215,7 @@ let ProjectOverviewForm: React.FC<
                   data-test="insurance"
                   type="text"
                   component={PdsFormInput}
+                  className="required"
                   validate={[
                     Validate.required('LABEL_INSURANCE'),
                     Validate.maxLength(1000)
@@ -218,7 +226,7 @@ let ProjectOverviewForm: React.FC<
                 />
                 <div className={'form-group'}>
                   <label>
-                    <FormattedMessage id="LABEL_WORK_TYPE" />
+                    <FormattedMessage id="LABEL_WORK_TYPE" />*
                   </label>
                   <div className="select-wrapper">
                     <Field
@@ -227,17 +235,17 @@ let ProjectOverviewForm: React.FC<
                         prop => prop.workTypeId
                       )}
                       component={PdsFormSelect}
-                      validate={[Validate.required('VALIDATION_REQUIRED')]}
+                      className="required"
+                      validate={[
+                        Validate.required('MESSAGE_PROJECT_STATUS')
+                      ]}
                       placeholderKey="PLACEHOLDER_WORK_TYPES"
                       messageKey="MESSAGE_PROJECT_STATUS"
                     >
                       <FormattedMessage id="PLACEHOLDER_WORK_TYPES">
                         {message => <option value="">{message}</option>}
                       </FormattedMessage>
-                      {getDropdown(
-                        props.projectstatus,
-                        LookupType.Project_Status
-                      )}
+                      {getDropdown(props.projectstatus, LookupType.Work_Type)}
                     </Field>
                   </div>
                 </div>
@@ -353,13 +361,13 @@ let ProjectOverviewForm: React.FC<
                 />
                 <div className={'form-group'}>
                   <label>
-                    <FormattedMessage id="LABEL_PROJECT_BUDGET" />
+                    <FormattedMessage id="LABEL_PROJECT_BUDGET" />*
                   </label>
                   <div className="select-wrapper">
                     <Field
                       name={getPropertyName(initialValues, prop => prop.budget)}
                       component={PdsFormSelect}
-                      validate={[Validate.required('VALIDATION_REQUIRED')]}
+                      validate={[Validate.required('PLACEHOLDER_BUDGET')]}
                       placeholderKey="PLACEHOLDER_BUDGET"
                       messageKey="MESSAGE_PROJECT_STATUS"
                     >
@@ -454,6 +462,6 @@ const form = reduxForm<IProjectAdditionalDetail, Props>({
   forceUnregisterOnUnmount: false,
   form: 'projectOverviewForm',
   enableReinitialize: true
-})(ProjectOverviewForm);
+})(injectIntl(ProjectOverviewForm));
 
 export default connect(mapStateToProps)(form);
