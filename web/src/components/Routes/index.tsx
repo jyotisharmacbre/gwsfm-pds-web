@@ -16,7 +16,7 @@ const Routes: React.FC = props => {
       <Route path="/Pipeline" component={Pipeline} />
       <Route path="/Project" component={Project} />
       <Route path="/Notifications" component={Notifications} />
-      <Route path="/ProjectOverview" component={ProjectOverview} />
+      <Route path="/ProjectOverview/:projectId" component={ProjectOverview} />
       <Route path="/Discounts" component={Discounts} />
       <Route path="/Subcontractor" component={Subcontractor} />
       <Route

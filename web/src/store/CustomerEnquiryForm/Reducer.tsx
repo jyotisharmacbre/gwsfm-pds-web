@@ -1,8 +1,8 @@
 import { ActionType } from './Types/ActionType';
 import { updateObject } from '../../helpers/utility-helper';
 import { IProjectDetailState } from './Types/IProjectDetailState';
-import { Notify } from '../../helpers/constants';
 import EventType from '../../enums/EventType';
+import Notify from '../../enums/Notify';
 
 const initialState: IProjectDetailState = {
   form: {

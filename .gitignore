@@ -22,6 +22,7 @@
 .env.development.local
 .env.test.local
 .env.production.local
+.vs/
 
 npm-debug.log*
 yarn-debug.log*
@@ -30,5 +31,3 @@ package-lock.json
 /web/coverage
 /web/junit.xml
 web/public/css/style.css
-web/package-lock.json
-web/package-lock.json

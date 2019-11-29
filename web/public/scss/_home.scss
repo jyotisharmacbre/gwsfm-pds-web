@@ -276,6 +276,7 @@
 #sidebarCollapse {
     width: 30px;
     height: 30px;
+    min-width: auto;
     background: map-get($colors, darkGreen02);
     border: none;
     display: none;
@@ -301,6 +302,11 @@
     padding: 23px 35px 0 35px;
     @include smScreen {
         padding: 23px 0 0 0px;
+    }
+    h2 {
+        font-size: 26px;
+        font-weight: 500;
+        color: map-get($colors , darkBlack );
     }
     h1 {
         margin-bottom: 50px;

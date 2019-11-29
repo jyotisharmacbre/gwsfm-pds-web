@@ -1,59 +1,41 @@
 import { memoize } from 'lodash';
-import Translate from '../Translations/translate';
+import {formatMessage} from './../Translations/connectedIntlProvider';
 
-export const onlyNumber = (value, props) =>
+export const onlyNumber = (value) =>
   value && isNaN(Number(value))
-    ? Translate.getLabel(props, 'VALIDATION_NUMBER')
+    ? formatMessage('VALIDATION_NUMBER')
     : undefined;
 
-export function fieldValidationLength(value, maxLength, props) {
+export function fieldValidationLength(value, maxLength) {
   if (value && maxLength && value.length > maxLength) {
-    return `${Translate.getLabel(props, 'VALIDATION_MAX')} ${Translate.getLabel(
-      props,
-      maxLength
-    )} ${Translate.getLabel(props, 'characters')}`;
+    return `${formatMessage('FIELD_VALIDATION_KEY', {
+      0: formatMessage(maxLength)
+    })}`;
   }
 }
 
-export function fieldValidationRequired(value, message, props) {
+export function fieldValidationRequired(value, message) {
   if (
     !value ||
     (typeof value.trim === 'function' && value.trim() === '') ||
     (Array.isArray(value) && !value.length)
   ) {
-    return `${Translate.getLabel(props, message)} ${Translate.getLabel(
-      props,
-      'VALIDATION_IS_REQUIRED'
-    )}`;
+    return `${formatMessage('VALIDATION_IS_REQUIRED', {
+      0: formatMessage(message)
+    })}`;
   }
 }
 
-export const alphaNumeric = (value, props) =>
+export const alphaNumeric = (value) =>
   value && /[^a-zA-Z0-9 ]/i.test(value)
-    ? Translate.getLabel(props, 'VALIDATION_ONLY_ALPHA_NUM')
+    ? formatMessage('VALIDATION_ONLY_ALPHA_NUM')
     : undefined;
-
-export function fieldValidationNoLocale(value, message) {
-  if (
-    !value ||
-    (typeof value.trim === 'function' && value.trim() === '') ||
-    (Array.isArray(value) && !value.length)
-  ) {
-    return `${message} is required`; //No Locale
-  }
-}
 
 export const Validate = {
   required: memoize(message => value =>
-    fieldValidationNoLocale(value, message)
+    fieldValidationRequired(value, message)
   ),
-
-  require: memoize((props, message) => value =>
-    fieldValidationRequired(value, message, props)
-  ),
-  maxLength: memoize((props, length) => value =>
-    fieldValidationLength(value, length, props)
-  ),
-  onlyNumber: memoize(props => value => onlyNumber(value, props)),
-  alphaNumeric: memoize(props => value => alphaNumeric(value, props))
+  maxLength: memoize(length => value =>
+    fieldValidationLength(value, length)
+  )
 };

@@ -1,6 +1,9 @@
 {
   "TITLE_OVERVIEW": "Aperçu",
   "TITLE_YOUR_PROJECT": "Votre projet",
+  "TITLE_PROJECT_OVERVIEW": "Aperçu du projet",
+  "TITLE_END_CLIENT": "Nom du client final",
+  "TITLE_PROJECT_ID": "ID du projet",
   "TITLE_PREFERRED": "Préféré",
   "TITLE_RUNRATE": "RunRate",
   "TITLE_ANALYTICS": "Analytics",
@@ -22,6 +25,11 @@
   "LABEL_COMPANY": "Société",
   "LABEL_COMPLETION_DATE": "Date d'achèvement",
   "LABEL_CONTRACT": "Contrat",
+  "LABEL_OTHER_CONTRACT": "Enquête Contrat",
+  "LABEL_OTHER_HEAD_OF_PROJECT": "Enquête Chef de projet",
+  "LABEL_OTHER_PROJECT_OWNER": "Enquête Propriétaire du projet",
+  "LABEL_OTHER_PROJECT_MANAGER": "Enquête Project Manager",
+  "LABEL_OTHER_COMPANY": "Enquête Société",
   "LABEL_CONTRACT_TYPE": "Contrat type",
   "LABEL_COUNTRY": "Pays",
   "LABEL_CREDIT_CHECK_RESULT": "Résultat de la vérification de crédit",
@@ -121,6 +129,7 @@
   "VALIDATION_NUMBER":"Doit être un nombre",
   "VALIDATION_MAX": "Doit avoir un maximum de",
   "VALIDATION_CHAR": "personnages",
-  "VALIDATION_IS_REQUIRED": "est requis",
-  "VALIDATION_ONLY_ALPHA_NUM" : "Seulement des caractères alphanumériques"
+  "VALIDATION_IS_REQUIRED": "{0} est requis",
+  "VALIDATION_ONLY_ALPHA_NUM" : "Seulement des caractères alphanumériques",
+  "FIELD_VALIDATION_KEY": "Doit comporter au maximum {0} caractères"
 }

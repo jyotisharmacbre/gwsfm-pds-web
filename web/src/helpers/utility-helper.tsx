@@ -14,7 +14,11 @@ export const getPropertyName = (obj, expression) => {
   });
   return expression(res)();
 };
-
+export const getLookupDescription = (allLookups, lookupKey, lookupItem) => {
+  return allLookups.find(
+    lk => lk.lookupItem === lookupItem && lk.lookupKey === lookupKey.toString()
+  ).description;
+};
 export const getDropdown = (data, value) => {
   let result =
     data &&

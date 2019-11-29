@@ -4,8 +4,10 @@ import Layout from './components/Layouts/Layout';
 import { makeStyles, createMuiTheme } from '@material-ui/core/styles';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { injectIntl } from 'react-intl';
 
-const App: React.FC = () => {
+const App: React.FC = (props: any) => {
+
   const drawerWidth = 250;
 
   const theme = createMuiTheme({
@@ -131,4 +133,4 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
+export default injectIntl(App);

@@ -100,7 +100,6 @@ const ProjectOverview: React.FC<
       : props.projectOverviewFormEdit(data, EventType.next);
   };
   const convertToString = id => {
-    debugger;
     let data = '';
     if (id != null && id != undefined) data = id.toString();
     return data;
