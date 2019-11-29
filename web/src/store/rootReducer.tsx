@@ -5,6 +5,7 @@ import projectDetailReducer from './CustomerEnquiryForm/Reducer';
 import projectOverviewFormReducer from './ProjectOverviewForm/Reducer';
 import lookupReducer from './Lookups/Reducer';
 import localeReducer from '../Translations/Reducer';
+import projectPipelineDetailReducer from './pipeline/Reducer';
 import userServiceReducer from './UserService/Reducer';
 import dynamicDataReducer from './DynamicsData/Reducer';
 
@@ -13,6 +14,7 @@ export default combineReducers<IState>({
   project: projectDetailReducer,
   projectOverview: projectOverviewFormReducer,
   lookup: lookupReducer,
+  pipelineGrid: projectPipelineDetailReducer,
   locale: localeReducer,
   UserService: userServiceReducer,
   dynamicData: dynamicDataReducer,
