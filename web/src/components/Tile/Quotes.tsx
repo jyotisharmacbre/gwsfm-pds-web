@@ -6,53 +6,77 @@ class Quotes extends Component {
       <div className="row">
         <div className="col-lg-12">
           <div className="card_outer_wrap quote_wrap">
-            <div className="row pt-lg-4">
-              <div className="col-lg-4 pl-md-2 pr-md-2">
+            <div className="row">
+              <div className="col-lg-4 pl-md-2">
                 <div className="card_wrap">
                   <div className="card">
-                    <h6 className="title">Quote 01</h6>
+                    <h6 className="title">TITLE_QUOTE1</h6>
                     <form>
                       <div className="form-group">
-                        <label>Supplier's Name</label>
-                        <input className="form-control" type="text" placeholder="Enter Name" />
+                        <label>LABEL_SUPPLIER1</label>
+                        <input
+                          className="form-control"
+                          type="text"
+                          placeholder="PLACEHOLDER_QUOTE_SUPPLIER1"
+                        />
                       </div>
                       <div className="form-group">
-                        <label>Quote Value (&#163;)</label>
-                        <input className="form-control" type="text" placeholder="&#163;" />
+                        <label>LABEL_QUOTE1</label>
+                        <input
+                          className="form-control"
+                          type="text"
+                          placeholder="&#163;"
+                        />
                       </div>
                     </form>
                   </div>
                 </div>
               </div>
-              <div className="col-lg-4 pl-md-2 pr-md-2">
+              <div className="col-lg-4 pl-md-2">
                 <div className="card_wrap">
                   <div className="card">
-                    <h6 className="title">Quote 02</h6>
+                    <h6 className="title">TITLE_QUOTE2</h6>
                     <form>
                       <div className="form-group">
-                        <label>Supplier's Name</label>
-                        <input className="form-control" type="text" placeholder="Enter Name" />
+                        <label>LABEL_SUPPLIER2</label>
+                        <input
+                          className="form-control"
+                          type="text"
+                          placeholder="PLACEHOLDER_QUOTE_SUPPLIER2"
+                        />
                       </div>
                       <div className="form-group">
-                        <label>Quote Value (&#163;)</label>
-                        <input className="form-control" type="text" placeholder="&#163;" />
+                        <label>LABEL_QUOTE2</label>
+                        <input
+                          className="form-control"
+                          type="text"
+                          placeholder="&#163;"
+                        />
                       </div>
                     </form>
                   </div>
                 </div>
               </div>
-              <div className="col-lg-4 pl-md-2 pr-md-2">
+              <div className="col-lg-4 pl-md-2 pr-lg-2">
                 <div className="card_wrap">
                   <div className="card">
-                    <h6 className="title">Quote 03</h6>
+                    <h6 className="title">TITLE_QUOTE3</h6>
                     <form>
                       <div className="form-group">
-                        <label>Supplier's Name</label>
-                        <input className="form-control" type="text" placeholder="Enter Name" />
+                        <label>LABEL_SUPPLIER3</label>
+                        <input
+                          className="form-control"
+                          type="text"
+                          placeholder=""
+                        />
                       </div>
                       <div className="form-group">
-                        <label>Quote Value (&#163;)</label>
-                        <input className="form-control" type="text" placeholder="&#163;" />
+                        <label>LABEL_QUOTE3</label>
+                        <input
+                          className="form-control"
+                          type="text"
+                          placeholder="&#163;"
+                        />
                       </div>
                     </form>
                   </div>

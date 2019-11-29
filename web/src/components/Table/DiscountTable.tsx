@@ -4,7 +4,7 @@ class DiscountTable extends Component {
   render() {
     return (
       <div className="col-lg-8 px-0">
-        <div className="price-sumry">
+        <div className="price-sumry discount_table">
           <div className="inner-block">
             <table className="price-table">
               <thead>

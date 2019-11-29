@@ -15,9 +15,9 @@ class Subcontractor extends Component {
                   </span>
                   <span className="d-md-none">J&amp;A</span>
                 </h1>
-                <p>SUBCONTRACTORS</p>
+                <p className="text-green">SUBCONTRACTORS</p>
               </div>
-              
+
               <SubcontractorForm></SubcontractorForm>
             </div>
           </div>
