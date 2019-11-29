@@ -6,10 +6,10 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { injectIntl } from 'react-intl';
 
-var INTL;
+//var INTL;
 const App: React.FC = (props: any) => {
 
-INTL = props.intl
+//INTL = props.intl
 
   const drawerWidth = 250;
 
@@ -139,37 +139,37 @@ INTL = props.intl
 
 
 
-// ======================================================
-// Following is the code that exposes translations globally
-// ======================================================
+// // ======================================================
+// // Following is the code that exposes translations globally
+// // ======================================================
 
-var instance
-class IntlTranslator {
-  // Singleton
-  constructor() {
-    if (!instance) {
-      instance = this;
-    }
-    return instance;
-  }
+// var instance
+// class IntlTranslator {
+//   // Singleton
+//   constructor() {
+//     if (!instance) {
+//       instance = this;
+//     }
+//     return instance;
+//   }
 
-  // ------------------------------------
-  // Formatting Functions
-  // ------------------------------------
-  formatMessage(key: string, value?: object): string {
-    let label: { [key: string]: any } = {};
-    label[key] = INTL.formatMessage(
-      {
-        id: key
-      },
-      value
-    );
-    return label[key];
-  }
-}
+//   // ------------------------------------
+//   // Formatting Functions
+//   // ------------------------------------
+//   formatMessage(key: string, value?: object): string {
+//     let label: { [key: string]: any } = {};
+//     label[key] = INTL.formatMessage(
+//       {
+//         id: key
+//       },
+//       value
+//     );
+//     return label[key];
+//   }
+// }
 
 
-export const globalIntl = new IntlTranslator()
-//export default IntlGlobalProvider
+// export const globalIntl = new IntlTranslator()
+// //export default IntlGlobalProvider
 
 export default injectIntl(App);
