@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Field, reduxForm, InjectedFormProps, FormSection } from 'redux-form';
 import PdsFormInput from '../../PdsFormHandlers/PdsFormInput';
 import Quotes from '../../Tile/Quotes';
-import { Validate } from '../../../helpers/fieldValidations';
 import { ISubContractorActivity } from '../../../store/SubContractor/Types/ISubContractorActivity';
 import IReactIntl from '../../../Translations/IReactIntl';
 import { FormattedMessage, injectIntl } from 'react-intl';
@@ -12,10 +11,14 @@ import FontawsomeReact, {
   FontAwesomeIcon
 } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { Validate, alphaNumeric, onlyNumber } from '../../../helpers/fieldValidations';
 
 interface Props {
-  initialValues: any;
-}
+  index:number;
+  initialValues: ISubContractorActivity;
+  totalCount:number;
+  deleteActivity: (index:number) => void;
+}  
 
 let SubContractorActivityForm: React.FC<
   Props & IReactIntl & InjectedFormProps<ISubContractorActivity, Props>
@@ -25,21 +28,28 @@ return (
   <div className="row">
       <div className="col-lg-12">
         <div className="forms_wrap">
-          <span className="delete_text">
+        {props.totalCount > 1? 
+          <span className="delete_text" onClick={()=>props.deleteActivity(props.index)}>
               DELETE
               <FontAwesomeIcon className="" icon={faTrash} />
-            </span>
+            </span> : null 
+        }
             <div className="row">
               <div className="col-lg-7">
                 <form className="custom-wrap p-0">
-                  <div className="form-group">
-                    <label>ACtivity Name</label>
-                    <input
-                      className="form-control"
-                      type="text"
-                      placeholder="Eg. Lorem Ipsum"
-                    />
-                  </div>
+                <Field
+                name="activityName"
+                data-test="mainContractor"
+                type="text"
+                component={PdsFormInput}
+                validate={[
+                    Validate.required('LABEL_PROJECT'),
+                    Validate.maxLength(1000)
+                  ]}
+                messageKey="MESSAGE_PROJECT_NAME"
+                labelKey="LABEL_ACTIVITY_NAME"
+                placeholderKey="PLACEHOLDER_CONTRACTORS_NAME"
+              />
                   <div className="form-group">
                     <label htmlFor="exampleInputEmail1">
                       Existing Subcontractor
@@ -115,7 +125,6 @@ return (
 const form = reduxForm<ISubContractorActivity, Props>({
   destroyOnUnmount: false,
   forceUnregisterOnUnmount: false,
-  form: 'subContractorActivityForm',
   enableReinitialize: true
 })(injectIntl(SubContractorActivityForm));
 

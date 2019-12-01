@@ -1,14 +1,18 @@
-import { ActionType } from '../ProjectOverviewForm/Types/ActionType';
+import { ActionType } from './Types/ActionType';
 import { updateObject } from '../../helpers/utility-helper';
+import {ISubContractorActivity} from './Types/ISubContractorActivity';
 import { ISubContractorState } from './Types/ISubContractorState';
+import {IQuote} from './Types/IQuote';
 import Notify from '../../enums/Notify';
 import EventType from '../../enums/EventType';
 
-const initialState: ISubContractorState = {
-  form: {
-    activities: [
-      {
-        activityName: 'Avneet',
+const newQuote : IQuote = {
+    supplierName: '',
+    quoteValue: 10
+}
+
+const newActivity : ISubContractorActivity ={
+        activityName: '',
         existingSubcontractor: true,
         subcontractor: 'Test',
         preferredSupplier: true,
@@ -16,20 +20,13 @@ const initialState: ISubContractorState = {
         grossMargin: 10,
         totalSell: 10,
         comments: 'string',
-        quote1: {
-          supplierName: 'string',
-          quoteValue: 10
-        },
-        quote2: {
-          supplierName: 'string',
-          quoteValue: 10
-        },
-        quote3: {
-          supplierName: 'string',
-          quoteValue: 10
-        }
-      }
-    ]
+        quote1: {...newQuote},
+        quote2: {...newQuote},
+        quote3: {...newQuote}
+}
+const initialState: ISubContractorState = {
+  form: {
+    activities: [{...newActivity}]
   },
   error: null,
   loading: false,
@@ -37,68 +34,32 @@ const initialState: ISubContractorState = {
   event: EventType.none
 };
 
-const projectOverviewFormAddSuccess = (oldState, action) => {
+const addNewActivity = (oldState, action) => {
   return updateObject(oldState, {
-    error: null,
-    loading: false,
-    notify: Notify.success,
-    event: action.event,
-    form: updateObject(oldState.form, action.payload)
+    form:updateObject(oldState.form,{
+      activities:oldState.form.activities.concat(newActivity)
+    })
   });
 };
 
-const projectOverviewFormEditSuccess = (oldState, action) => {
+const deleteActivity = (oldState, action) => {
   return updateObject(oldState, {
-    error: null,
-    loading: false,
-    notify: Notify.success,
-    event: action.event
-  });
-};
-
-const projectOverviewFormError = (oldState, action) => {
-  return updateObject(oldState, {
-    error: action.error,
-    loading: false,
-    notify: Notify.error
-  });
-};
-
-const getAdditionalDetailsSuccess = (oldState, action) => {
-  return updateObject(oldState, {
-    form: updateObject(oldState.form, action.payload)
-  });
-};
-
-const getAdditionalDetailsError = (oldState, action) => {
-  return updateObject(oldState, {
-    error: action.error,
-    loading: false,
-    notify: Notify.error
-  });
-};
-
-const resetProjectOverviewState = (oldState, action) => {
-  return updateObject(oldState, {
-    notify: Notify.none,
-    event: EventType.none
+    form:updateObject(oldState.form,{
+      activities:
+      [
+  ...oldState.form.activities.slice(0, action.payload),
+  ...oldState.form.activities.slice(action.payload + 1)
+]
+    })
   });
 };
 
 const subContractorReducer = (oldState = initialState, action) => {
   switch (action.type) {
-    case ActionType.PROJECT_OVERVIEW_FORM_ADD_SUCCESS:
-      return projectOverviewFormAddSuccess(oldState, action);
-    case ActionType.PROJECT_OVERVIEW_FORM_EDIT_SUCCESS:
-      return projectOverviewFormEditSuccess(oldState, action);
-    case ActionType.PROJECT_OVERVIEW_FORM_ERROR:
-      return projectOverviewFormError(oldState, action);
-    case ActionType.GET_ADDITIONALS_DETAILS_SUCCESS:
-      return getAdditionalDetailsSuccess(oldState, action);
-    case ActionType.GET_ADDITIONALS_DETAILS_ERROR:
-      return getAdditionalDetailsError(oldState, action);
-    case ActionType.RESET_PROJECT_OVERVIEW_STATE:
-      return resetProjectOverviewState(oldState, action);
+    case ActionType.SUB_CONTRACTOR_ADD_NEW_ACTIVITY:
+      return addNewActivity(oldState, action);
+    case ActionType.SUB_CONTRACTOR_DELETE_ACTIVITY:
+      return deleteActivity(oldState, action);  
     default:
       return oldState;
   }

@@ -1,12 +1,30 @@
-import React, { Component } from 'react';
+import React,{useEffect} from 'react';
+import { connect } from 'react-redux';
 import SubcontractorForm from '../components/Forms/Subcontractor/SubcontractorForm';
 import { ISubContractor } from '../store/SubContractor/Types/ISubContractor';
+import * as actions from '../store/rootActions';
+import { IState } from '../store/state';
 
-interface IProps {}
-const Subcontractor: React.FC<IProps> = props => {
+
+interface IProps {} 
+
+interface IMapStateToProps {
+  form:ISubContractor;
+}
+
+interface IMapDispatchToProps {
+  addNewActivity: () => void;
+  deleteActivity:(index:number) => void;
+}
+
+const Subcontractor: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = props => {
   const handlePrevious = (data: ISubContractor) => {
     console.log('Data');
   };
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+ 
   return (
     <div className="container-fluid">
         <div className="row">
@@ -25,6 +43,8 @@ const Subcontractor: React.FC<IProps> = props => {
               onSave={handlePrevious}
               onNext={handlePrevious}
               onPrevious={handlePrevious}
+              addNewActivity={props.addNewActivity}
+              deleteActivity={props.deleteActivity}
             />
           </div>
         </div>
@@ -33,4 +53,18 @@ const Subcontractor: React.FC<IProps> = props => {
   );
 };
 
-export default Subcontractor;
+const mapStateToProps = (state: IState) => ({
+  form: state.subContractor.form
+});
+
+const mapDispatchToProps = dispatch => {
+  return {
+    addNewActivity: () => dispatch(actions.addNewActivity()),
+    deleteActivity:(index:number) => dispatch(actions.deleteActivity(index))
+    };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Subcontractor);

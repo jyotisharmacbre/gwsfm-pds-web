@@ -19,19 +19,32 @@ interface Props {
   onNext: (data: ISubContractor) => void;
   onPrevious: (data: ISubContractor) => void;
   onSave: (data: ISubContractor) => void;
+  addNewActivity: () => void;
+  deleteActivity: (index:number) => void;
 }
 
 let SubcontractorForm: React.FC<
   Props & IReactIntl & InjectedFormProps<ISubContractor, Props>
 > = (props: any) => {
+
   return (
     <form className="subcontractor_form">
       <DiscountTable></DiscountTable>
-      <SubContractorActivityForm 
-        initialValues={props.initialValues.activities[0]}
-      />
+      {props.initialValues.activities && 
+      props.initialValues.activities.map((data,index)=>{
+        return (
+          <SubContractorActivityForm 
+          key={`subContractorActivityForm${index}`}
+          index={index}
+          form={`subContractorActivityForm${index}`}
+          initialValues={data}
+          totalCount={props.initialValues.activities.length}
+          deleteActivity={props.deleteActivity}
+          />
+        )
+      })}
       <div className="newActiv_btn">
-          <button type="button" className="active">
+          <button type="button" className="active" onClick={props.addNewActivity}>
             <FontAwesomeIcon className="" icon={faPlusCircle} />
             NEW ACTIVITY
           </button>
