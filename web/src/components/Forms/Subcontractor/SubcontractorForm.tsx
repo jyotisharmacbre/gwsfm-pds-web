@@ -44,7 +44,7 @@ let SubcontractorForm: React.FC<
         )
       })}
       <div className="newActiv_btn">
-          <button type="button" className="active" onClick={props.addNewActivity}>
+          <button type="button" disabled={props.initialValues.activities.length>4} className="active" onClick={props.addNewActivity}>
             <FontAwesomeIcon className="" icon={faPlusCircle} />
             NEW ACTIVITY
           </button>
