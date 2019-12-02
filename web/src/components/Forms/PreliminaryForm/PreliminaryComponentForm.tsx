@@ -27,7 +27,6 @@ import {
 } from '../../../helpers/fieldValidations';
 import { FormattedMessage } from 'react-intl';
 import { IPreliminariesItemDetails } from '../../../store/Preliminaries/Types/IPreliminariesItemDetails';
-import { IPreliminaryForm } from '../../../store/Preliminaries/Types/IPreliminaryState';
 import PreliminaryItemsForm from "./PreliminaryItemsForm"
 interface Props {
     initialValues:IPreliminariesComponentDetails;
