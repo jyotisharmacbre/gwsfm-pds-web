@@ -12,11 +12,11 @@ class Discounts extends Component {
               <div className="heading-subtitle">
                 <h1>
                   <span className="d-md-block d-none">
-                    Justification &amp; Authorisation
+                  TITLE_JUSTIFICATION
                   </span>
-                  <span className="d-md-none">J&amp;A</span>
+                  <span className="d-md-none">TITLE_JUSTIFICATION_SHORT</span>
                 </h1>
-                <p className="text-green">DISCOUNTS</p>
+                <p className="text-green">SUB_TITLE_DISCOUNTS</p>
               </div>
               <DiscountTable></DiscountTable>
               <DiscountForm></DiscountForm>

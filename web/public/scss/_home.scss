@@ -9,11 +9,16 @@
 .logo {
     padding: 14px 0;
     cursor: pointer;
+    img {
+        max-width: 140px;
+    }
 }
 
 .topbar {
     background: map-get($colors, darkgreen);
-    height: 50px;
+    height: 60px;
+    display: flex;
+    align-items: center;
     .logo {
         display: none;
         max-width: 133px;
@@ -51,8 +56,8 @@
                     @include borderRadius(50%);
                     padding: 0;
                     position: absolute;
-                    top: 2px;
-                    right: -7px;
+                    top: -2px;
+                    right: -2px;
                     display: block;
                 }
             }
@@ -74,7 +79,7 @@
                     @include boxShadow(none);
                 }
                 .down-arrow {
-                    img {
+                    svg {
                         margin-left: 10px;
                         @include transition(all ease 0.2s);
                         @include smScreen {
@@ -86,7 +91,7 @@
                     }
                 }
                 #sm_none {
-                    padding-left: 5px;
+                    padding-left: 10px;
                 }
                 .fa-home {
                     font-size: 15px;
@@ -99,42 +104,73 @@
 
 .dropdown-menu {
     &.user-dropdown {
-        top: 12px !important;
-        width: 275px;
-        border-top: 5px solid map-get($colors, darkgreen);
-        @include borderRadius(0 0 5px 0);
-        padding: 12px;
+        top: 24px !important;
+        padding: 0;
+        width: 265px;
+        right: -20px;
+        left: auto;
+        @include borderRadius(5px);
         @include boxShadow(0px 7px 11px rgba(204, 204, 204, 0.86));
         border-right: 0;
         border-left: 0;
         border-bottom: 0;
-        button {
-            border: 1px solid #006a4d;
-            background: transparent;
-            color: #006a4d;
-            @include borderRadius(3px);
-            padding: 5px 15px;
-            float: right;
-            font-weight: 600;
+        &:after {
+            width: 0;
+            height: 0;
+            border-left: 9px solid transparent;
+            border-right: 9px solid transparent;
+            border-bottom: 11px solid #fff;
+            position: absolute;
+            top: -11px;
+            right: 20px;
+            content: '';
         }
-        form {
-            float: left;
-            color: #737f80;
-            width: 100%;
-            .form-control {
-                font-size: 13px;
-            }
-            h3 {
-                font-size: 16px;
-                font-weight: 600;
-                line-height: 24px;
-                padding-bottom: 10px;
-                margin: 0;
-                span {
+        .language_wrap {
+            ul {
+                padding: 25px 25px 5px 25px;
+                li {
+                    margin: 0 0 20px 0;
                     display: block;
+                    a {
+                        position: relative;
+                        color: map-get($colors , grey002 );
+                        padding-left: 30px;
+                        i {
+                            position: absolute;
+                            left: 0px;
+                            display: flex;
+                            align-items: center;
+                            height: 100%;
+                            font-size: 17px;
+                        }
+                        .title_name {
+                            color: map-get($colors , grey002 );
+                            font-weight: 500;
+                            font-size: 15px;
+                            margin: 0;
+                            line-height: 18px;
+                        }
+                        .dsc {
+                            color: map-get($colors , grey005 );
+                            font-size: 14px;
+                        }
+                    }
+                }
+            }
+            .link_group {
+                background: map-get($colors,  darkGreen );
+                display: flex;
+                justify-content: space-evenly;
+                padding: 14px 0;
+                @include borderRadius(0 0 5px 5px);
+                a {
+                    color: map-get($colors , whiteColor );
                     font-size: 14px;
-                    font-weight: 400;
-                    line-height: 20px;
+                    font-weight: 500;
+                }
+                span {
+                    color: map-get($colors , whiteColor );
+                    font-size: unset;
                 }
             }
         }
@@ -146,8 +182,8 @@
 
 #sidebar {
     position: relative;
-    min-width: 300px;
-    max-width: 300px;
+    min-width: 250px;
+    max-width: 250px;
     background: map-get($colors, grey01);
     color: #fff;
     @include transition(all 0.6s cubic-bezier(0, 0.4, 0.58, 1));
@@ -170,7 +206,7 @@
         }
     }
     .sidebar-header {
-        padding: 0px 0 30px 15px;
+        padding: 0px 0 0px 15px;
     }
     .upload {
         background: #006a4d;
@@ -237,7 +273,10 @@
         @include smScreen {
             display: block;
         }
-        padding-top: 10px;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        font-size: 18px;
+        font-weight: 500;
         display: none;
         .cross-sidebar {
             width: 35px;
@@ -247,9 +286,11 @@
             position: absolute;
             right: 15px;
             cursor: pointer;
+            min-width: initial;
+            padding: 0;
             span {
                 width: 100%;
-                height: 2px;
+                height: 4px;
                 margin: 0 auto;
                 display: block;
                 background: map-get($colors, whiteColor);
@@ -257,7 +298,7 @@
             }
             span {
                 &:first-of-type {
-                    transform: rotate(45deg) translate(0px, 2px);
+                    transform: rotate(45deg) translate(0px, -2px);
                 }
                 &:nth-of-type(2) {
                     opacity: 0;
@@ -266,7 +307,7 @@
                     }
                 }
                 &:last-of-type {
-                    transform: rotate(-45deg) translate(1px, -4px);
+                    transform: rotate(-45deg) translate(8px, -6px);
                 }
             }
         }
@@ -280,6 +321,8 @@
     background: map-get($colors, darkGreen02);
     border: none;
     display: none;
+    padding: 0 6px;
+    border-radius: 0;
     @include smScreen {
         display: block;
         cursor: pointer;
@@ -309,8 +352,8 @@
         color: map-get($colors , darkBlack );
     }
     h1 {
-        margin-bottom: 50px;
-        margin-top: 31px;
+        margin-bottom: 40px;
+        margin-top: 30px;
         font-size: 38px;
         font-weight: 300;
         font-stretch: normal;
