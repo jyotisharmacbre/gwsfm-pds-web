@@ -24,7 +24,7 @@ nock(baseURL)
   .reply(201, "Project updated successfully");
 
 nock(baseURL)
-  .put('/api/Projects/1/enquiryOverview')
+  .get('/api/Projects/1/enquiryOverview')
   .reply(200, getprojectDetailData);
 
 
@@ -232,7 +232,7 @@ describe('ProjectForm Fields', () => {
       it('should handle GET_PROJECT_DETAIL_ERROR with and return initialState', () => {
         const getProjectDetailError: any = {
           type: ActionType.GET_PROJECT_DETAIL_ERROR,
-          error: null
+          error: {success: false}
         };
         expect(
           projectDetailReducer(initialState, getProjectDetailError)

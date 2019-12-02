@@ -11,7 +11,9 @@ Object {
     "scope": "",
   },
   "enquiryOverviewError": null,
-  "error": null,
+  "error": Object {
+    "success": false,
+  },
   "event": 3,
   "form": Object {
     "approxValue": "",
