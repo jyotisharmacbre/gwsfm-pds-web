@@ -1,4 +1,4 @@
 export interface IQuote {
   supplierName: string;
-  quoteValue: number;
+  quoteValue: number | null;
 }

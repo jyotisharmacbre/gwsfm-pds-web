@@ -8,18 +8,18 @@ import EventType from '../../enums/EventType';
 
 const newQuote : IQuote = {
     supplierName: '',
-    quoteValue: 10
+    quoteValue: null
 }
 
 const newActivity : ISubContractorActivity ={
         activityName: '',
-        existingSubcontractor: true,
-        subcontractor: 'Test',
-        preferredSupplier: true,
-        totalCost: 10,
-        grossMargin: 10,
-        totalSell: 10,
-        comments: 'string',
+        existingSubcontractor: null,
+        subcontractor: '',
+        preferredSupplier: null,
+        totalCost: null,
+        grossMargin: null,
+        totalSell: null,
+        comments: '',
         quote1: {...newQuote},
         quote2: {...newQuote},
         quote3: {...newQuote}
