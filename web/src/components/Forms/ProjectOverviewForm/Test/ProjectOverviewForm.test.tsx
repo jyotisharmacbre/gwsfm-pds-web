@@ -5,22 +5,23 @@ import { store } from '../../../../store';
 import ProjectOverviewForm from '../ProjectOverviewForm';
 import { IntlProvider } from 'react-intl';
 import translations from '../../../../Translations/translation';
-import {globalIntl} from '../../../../App';
-import App from '../../../../App';
+import   * as connectedIntlProvider from './../../../../Translations/connectedIntlProvider';
 describe('ProjectOverviewForm Fields', () => {
   let wrapper: any;
   const props: any = {
     handleSubmit: jest.fn()
   };
   beforeEach(() => {
-    jest.mock('../../../../App');   
-    globalIntl.formatMessage = jest.fn().mockImplementation(() => {
+    const formatMessage = jest.mock('./../../../../Translations/connectedIntlProvider');  
+   
+    jest.spyOn(connectedIntlProvider, 'formatMessage').mockImplementationOnce(() => {
       return 'intlmessage';
     });
+
     wrapper = mount(
       <Provider store={store}>
-        <IntlProvider locale="en" messages={translations['en'].messages}>       
-          <ProjectOverviewForm {...props} />        
+        <IntlProvider locale="en" messages={translations['en'].messages}>
+          <ProjectOverviewForm {...props} />
         </IntlProvider>
       </Provider>
     );

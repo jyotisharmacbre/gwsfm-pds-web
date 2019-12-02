@@ -7,6 +7,7 @@ import { PdsFormInput } from './PdsFormInput';
 import { connect } from 'react-redux';
 import { placeholder } from '@babel/types';
 import { getDynamicOther } from '../../store/DynamicsData/Action';
+import { formatMessage } from '../../Translations/connectedIntlProvider';
 
 interface IMapDispatchToProps {
   handleOtherFieldChange: (type: string, otherText: string) => void;
@@ -22,6 +23,7 @@ const PdsFormTypeAhead: React.FC<IMapDispatchToProps> = (props: any) => {
     options,
     placeholder,
     labelKey,
+    className,
     DynamicsType
   } = props;
 
@@ -32,7 +34,7 @@ const PdsFormTypeAhead: React.FC<IMapDispatchToProps> = (props: any) => {
   return (
     <div className={'form-group'}>
       <label>
-        <FormattedMessage id={labelKey} />
+        <FormattedMessage id={labelKey} />{className && className.split(' ').includes('required') ? '*' : ''}
       </label>
       <AsyncTypeahead
         filterBy={() => true}
@@ -40,7 +42,7 @@ const PdsFormTypeAhead: React.FC<IMapDispatchToProps> = (props: any) => {
         onSearch={onSearch}
         labelKey={option => `${option.label}`}
         minLength={3}
-        placeholder={placeholder}
+        placeholder={formatMessage(placeholder)}
         options={options}
         searchText={searchText}
         maxResults={50}
