@@ -1,5 +1,12 @@
 import React from 'react';
-import close_icon from '../../images/logo.jpg';
+import close_icon from '../../images/logo-black.png';
+import FontawsomeSvg from '@fortawesome/fontawesome-svg-core';
+import FontawsomeFree from '@fortawesome/free-solid-svg-icons';
+import FontawsomeReact, {
+  FontAwesomeIcon
+} from '@fortawesome/react-fontawesome';
+import { faAngleDown, faUser, faBell, faHome } from '@fortawesome/free-solid-svg-icons';  
+
 
 // @ts-ignore
 import authentication from '@kdpw/msal-b2c-react';
@@ -16,12 +23,13 @@ export default function ProfileMenu(props: { Name?: string }) {
             <ul className="icons-blocks">
               <li id="sm_none">
                 <a href="#">
-                  <i className="fa fa-home" aria-hidden="true"></i>
+                <FontAwesomeIcon className="" icon={faHome} />
                 </a>
               </li>
               <li>
                 <a href="#">
-                  <i className="fa fa-bell" aria-hidden="true">
+                  <i>
+                  <FontAwesomeIcon className="" icon={faBell} />
                     <span className="badge badge-light"></span>
                   </i>
                 </a>
@@ -30,16 +38,16 @@ export default function ProfileMenu(props: { Name?: string }) {
                 <div className="dropdown show">
                   <a
                     className="btn btn-secondary dropdown-toggle p-0"
-                    href="https://example.com"
-                    id="dropdownMenuLink"
+                    href="#"
+                    id="js-usertext"
                     data-toggle="dropdown"
                     aria-haspopup="true"
                     aria-expanded="false"
                   >
-                    <i className="fa fa-user" aria-hidden="true"></i>
+                   <FontAwesomeIcon className="" icon={faUser} />
                     <span id="sm_none">{props.Name}</span>
                     <span className="down-arrow">
-                      <img src="images/down-arrow.jpg" alt="down arow" />
+                    <FontAwesomeIcon className="" icon={faAngleDown} />
                     </span>
                   </a>
 
@@ -47,38 +55,45 @@ export default function ProfileMenu(props: { Name?: string }) {
                     className="dropdown-menu dropdown-menu-right user-dropdown"
                     aria-labelledby="dropdownMenuLink"
                   >
-                    <button type="button">SAVE</button>
-                    <form>
-                      <h3>
-                        Username Surname <span>Access Type</span>
-                      </h3>
-                      <div className="form-group">
-                        <label htmlFor="exampleInputEmail1">Location</label>
-                        <input
-                          type="email"
-                          className="form-control"
-                          placeholder="Eg. New York"
-                        />
+                    <div className="language_wrap">
+                      <ul>
+                        <li>
+                          <a href="#">
+                            <i><FontAwesomeIcon className="" icon={faUser} /></i>
+                            <p className="title_name">First Name Last Name</p>
+                            <span className="dsc">access type</span>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#">
+                            <i><FontAwesomeIcon className="" icon={faUser} /></i>
+                            <p className="title_name">current location</p>
+                            <span className="dsc">london-UK</span>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#">
+                            <i><FontAwesomeIcon className="" icon={faUser} /></i>
+                            <p className="title_name">preferred currency</p>
+                            <span className="dsc">sterling pound</span>
+                          </a>
+                        </li>
+                      </ul>
+                      <div className="link_group">
+                        <a href="#">EDIT</a>
+                        <span>|</span>
+                        <a href="#">SIGN OUT</a>
                       </div>
-                      <div className="form-group">
-                        <label htmlFor="exampleInputEmail1">
-                          Preferred Currency
-                        </label>
-                        <input
-                          type="email"
-                          className="form-control"
-                          placeholder="Eg. American Dollars"
-                        />
-                      </div>
-                    </form>
+                    </div>
+                    
                   </div>
                 </div>
               </li>
-              <li id="sm_none">
+              {/* <li id="sm_none">
                 <a className="" onClick={() => authentication.signOut()}>
                   logout
                 </a>
-              </li>
+              </li> */}
               <li>
                 <button
                   type="button"

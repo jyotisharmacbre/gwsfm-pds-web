@@ -4,7 +4,7 @@ body {
 }
 
 #content {
-    width: calc(100% - 300px);
+    width: calc(100% - 250px);
     min-height: 100vh;
     @include transition(all 0.3s);
     @include smScreen {
@@ -115,20 +115,30 @@ form {
                 }
             }
         }
-        &:after {
+        &:before {
             content: '';
             position: absolute;
-            background: url(../images/select-arrow.jpg) #fff;
+            z-index: 9;
             background-repeat: no-repeat;
             background-position: center right;
-            width: 12px;
-            height: 8px;
+            width: 10px;
+            height: 10px;
             right: calc(100% - 272px);
-            top: 0;
-            bottom: 0;
+            top: 14px;
             margin: auto 0;
+            border: 2px solid #006a4d;
+            border-top: 0;
+            border-left: 0;
+            @include transform(rotate(45deg));
+            @include transition(all 0.3s);
             @include smScreen {
                 right: 10px;
+            }
+        }
+        &.active {
+            &:before {
+                @include transform(rotate(225deg));
+                top: 18px;
             }
         }
     }
@@ -267,6 +277,35 @@ button[type="button"] {
         }
         &:last-child {
             margin-right: 0;
+        }
+        &:nth-child(2) {
+            @include smsScreen {
+                margin-left: 0 !important;
+            }
+        }
+    }
+}
+
+.two-side-btn {
+    padding: 40px 0;
+    display: flex;
+    justify-content: space-between;
+    @include mdScreen {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    button {
+        margin-right: 20px;
+        @include mdScreen {
+            margin-bottom: 15px;
+        }
+        &:first-child {
+            margin-left: initial!important;
+        }
+        &:nth-child(2) {
+            @include smsScreen {
+                margin-left: 0 !important;
+            }
         }
     }
 }

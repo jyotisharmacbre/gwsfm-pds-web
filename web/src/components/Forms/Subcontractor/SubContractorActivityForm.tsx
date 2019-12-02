@@ -47,7 +47,7 @@ return (
                     Validate.maxLength(1000)
                   ]}
                 labelKey="LABEL_ACTIVITY_NAME"
-                placeholderKey="PLACEHOLDER_CONTRACTORS_NAME"
+                placeholderKey="PLACEHOLDER_ACTIVITY_NAME"
               />
                   <div className="form-group">
                     <label htmlFor="exampleInputEmail1">

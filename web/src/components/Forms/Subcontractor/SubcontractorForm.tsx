@@ -46,18 +46,18 @@ let SubcontractorForm: React.FC<
       <div className="newActiv_btn">
           <button type="button" disabled={props.initialValues.activities.length>4} className="active" onClick={props.addNewActivity}>
             <FontAwesomeIcon className="" icon={faPlusCircle} />
-            NEW ACTIVITY
+            BUTTON_NEW_ACTIVITY
           </button>
         </div>
       <div className="mr-35 three-btn">
           <button className="active" type="button">
-            PREVIOUS
+          BUTTON_PREVIOUS
           </button>
           <button type="button" name="next" className="active ml-auto">
-            SAVE
+          BUTTON_SAVE
           </button>
           <button type="button" name="next" className="">
-            NEXT
+          BUTTON_NEXT
           </button>
       </div>
     </form>

@@ -18,6 +18,6 @@ describe('Validation', () => {
   });
   xit('Required', () => {
     let result = Validate.required('Test');
-    expect(result()).toBeDefined();
+    expect(result(0)).toBeDefined();
   });
 });
