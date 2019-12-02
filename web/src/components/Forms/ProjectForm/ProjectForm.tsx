@@ -487,6 +487,7 @@ const ProjectForm: React.FC<
               <button
                 className="active mb-4 mt-5"
                 type="button"
+                name="saveAndClose"
                 onClick={handleSubmit(values => props.onSave(values))}
               >
                 <FormattedMessage id="BUTTON_SAVE_AND_CLOSE" />
