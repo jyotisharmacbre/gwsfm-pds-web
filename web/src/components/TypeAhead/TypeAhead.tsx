@@ -7,6 +7,7 @@ import { AsyncTypeahead } from "react-bootstrap-typeahead";
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { Validate } from "../../helpers/fieldValidations";
 import { getDynamicOther } from "../../store/DynamicsData/Action";
+import { formatMessage } from "../../Translations/connectedIntlProvider";
 
 const AdaptedTypeahead = ({ input, render, meta, labelName, className, ...rest }) => (
     <div className={'form-group'}>
@@ -29,11 +30,10 @@ const TypeAhead = ({ name, options, onSearch, DynamicsType, placeholderKey, intl
       }    
  
       const _placeholder = placeholderKey
-    ? intl.formatMessage({ id: placeholderKey })
+    ? formatMessage(placeholderKey)
     : placeholderKey;
 
-    const normalizing = value => (value[0].DynamicsType);
-    console.log(normalizing);
+    const normalizingValue = value => (value? value[0].DynamicsType : "" );
 
   return (
     <Field
@@ -53,7 +53,7 @@ const TypeAhead = ({ name, options, onSearch, DynamicsType, placeholderKey, intl
       placeholder={_placeholder}
       className= {className}
       labelName={labelName}
-      normalize = {normalizing}
+      normalize = {normalizingValue}
     />
   );
 };
@@ -68,5 +68,5 @@ const mapDispatchToProps = dispatch => {
   export default connect(
     null,
     mapDispatchToProps
-  )(injectIntl(TypeAhead));
+  )(TypeAhead);
 
