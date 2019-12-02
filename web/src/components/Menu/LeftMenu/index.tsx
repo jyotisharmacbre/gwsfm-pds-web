@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { injectIntl } from 'react-intl';
 import Translate from '../../../Translations/translate';
 import { Link } from 'react-router-dom';
-import cbre_icon from '../../images/logo-black.jpg';
+import cbre_icon from '../../images/logo-black.png';
 import upload_icon from '../../images/upload-icon.jpg';
 
 const LeftMenu: React.FC = (props: any) => {

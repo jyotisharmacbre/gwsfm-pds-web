@@ -425,7 +425,7 @@ const ProjectForm: React.FC<
                   <label>
                     <FormattedMessage id="LABEL_ASSETS_WORKED_ON" />*
                   </label>
-                  <div className="select-wrapper">
+                  <div className="select-wrapper mb-2">
                     <Field
                       name="firstAssetWorkedOn"
                       component={PdsFormSelect}
@@ -445,7 +445,7 @@ const ProjectForm: React.FC<
                     </Field>
                   </div>
 
-                  <div className="select-wrapper">
+                  <div className="select-wrapper mb-2">
                     <Field
                       name="secondAssetWorkedOn"
                       component={PdsFormSelect}
@@ -459,7 +459,7 @@ const ProjectForm: React.FC<
                     </Field>
                   </div>
 
-                  <div className="select-wrapper">
+                  <div className="select-wrapper mb-2">
                     <Field
                       name="thirdAssetWorkedOn"
                       component={PdsFormSelect}
@@ -483,16 +483,16 @@ const ProjectForm: React.FC<
                 />
               </div>
             </div>
-            <div className="mr-35 d-flex justify-content-between mb-4">
+            <div className="hr_line mb-0 mt-4"></div>
+            <div className="mr-35 two-side-btn">
               <button
-                className="active mb-4 mt-5"
+                className="active ml-auto"
                 type="button"
                 onClick={handleSubmit(values => props.onSave(values))}
               >
                 <FormattedMessage id="BUTTON_SAVE_AND_CLOSE" />
               </button>
               <button
-                className="active mb-4 mt-5"
                 type="button"
                 name="next"
                 onClick={handleSubmit(values => props.onNext(values))}

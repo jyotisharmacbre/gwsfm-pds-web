@@ -14,79 +14,79 @@ class SubContractorActivityForm extends Component {
         <div className="col-lg-12">
           <div className="forms_wrap">
             <span className="delete_text">
-              DELETE
+              BUTTON_DELETE 
               <FontAwesomeIcon className="" icon={faTrash} />
             </span>
             <div className="row">
               <div className="col-lg-7">
                 <form className="custom-wrap p-0">
                   <div className="form-group">
-                    <label>ACtivity Name</label>
+                    <label>LABEL_ACTIVITY_NAME </label>
                     <input
                       className="form-control"
                       type="text"
-                      placeholder="Eg. Lorem Ipsum"
+                      placeholder="PLACEHOLDER_EG_LOREM"
                     />
                   </div>
                   <div className="form-group">
                     <label htmlFor="exampleInputEmail1">
-                      Existing Subcontractor
+                      LABEL_EXISTING_SUBCONTRACTOR
                     </label>
                     <div className="js-btn2">
-                      <button>YES</button>
-                      <button className="active">NO</button>
+                      <button> BUTTON_YES</button>
+                      <button className="active">BUTTON_NO</button>
                     </div>
                   </div>
                   <div className="form-group">
-                    <label>Subcontractor</label>
+                    <label>LABEL_SUBCONTRACTOR</label>
                     <input
                       className="form-control"
                       type="text"
-                      placeholder="Enter Subcontractor's Name"
+                      placeholder="PLACEHOLDER_ENTER_SUBCONTRACTOR'S_NAME "
                     />
                   </div>
                   <div className="form-group">
                     <label htmlFor="exampleInputEmail1">
-                      Preferred Supplier
+                      LABEL_PREFERRED_SUPPLIER  Preferred Supplier
                     </label>
                     <div className="js-btn2">
-                      <button>YES</button>
-                      <button className="active">NO</button>
+                      <button>BUTTON_YES</button>
+                      <button className="active">BUTTON_NO</button>
                     </div>
                   </div>
                   <div className="form-group">
-                    <label>Total Cost</label>
+                    <label>T_HEADING_TOTAL_COST</label>
                     <input
                       type="text"
                       className="form-control width-250"
                       placeholder=""
                     />
-                    <span className="symbol_fix">&#163;</span>
+                    <span className="symbol_fix">PLACEHOLDER_QUOTE_SYMBOL</span>
                   </div>
                   <div className="form-group">
-                    <label>Gross Margin</label>
+                    <label>T-HEADING_GROSS_MARGIN</label>
                     <input
                       type="text"
                       className="form-control width-250"
                       placeholder=""
                     />
-                    <span className="symbol_fix">%</span>
+                    <span className="symbol_fix">SYMBOL_PERCENT</span>
                   </div>
                   <div className="form-group">
-                    <label>Total Sell</label>
+                    <label>T-HEADING_TOTAL_SELL</label>
                     <input
                       type="text"
                       className="form-control width-250"
                       placeholder=""
                     />
-                    <span className="symbol_fix">&#163;</span>
+                    <span className="symbol_fix">PLACEHOLDER_QUOTE_SYMBOL</span>
                   </div>
                   <div className="form-group">
-                    <label>Comments</label>
+                    <label>LABEL_COMMENTS</label>
                     <textarea
                       className="form-control"
                       style={{ height: 120 }}
-                      placeholder="Type in any additional comments"
+                      placeholder="PLACEHOLDER_TYPE_IN_ANY_ADDITIONAL_COMMENTS"
                     ></textarea>
                   </div>
                 </form>
