@@ -25,7 +25,7 @@ class Quotes extends Component {
                         <input
                           className="form-control"
                           type="text"
-                          placeholder="&#163;"
+                          placeholder="PLACEHOLDER_QUOTE_SYMBOL"
                         />
                       </div>
                     </form>
@@ -42,7 +42,7 @@ class Quotes extends Component {
                         <input
                           className="form-control"
                           type="text"
-                          placeholder="PLACEHOLDER_QUOTE_SUPPLIER2"
+                          placeholder="PLACEHOLDER_QUOTE_SUPPLIER1"
                         />
                       </div>
                       <div className="form-group">
@@ -50,7 +50,7 @@ class Quotes extends Component {
                         <input
                           className="form-control"
                           type="text"
-                          placeholder="&#163;"
+                          placeholder="PLACEHOLDER_QUOTE_SYMBOL"
                         />
                       </div>
                     </form>
@@ -67,7 +67,7 @@ class Quotes extends Component {
                         <input
                           className="form-control"
                           type="text"
-                          placeholder=""
+                          placeholder="PLACEHOLDER_QUOTE_SUPPLIER2"
                         />
                       </div>
                       <div className="form-group">
@@ -75,7 +75,7 @@ class Quotes extends Component {
                         <input
                           className="form-control"
                           type="text"
-                          placeholder="&#163;"
+                          placeholder="PLACEHOLDER_QUOTE_SYMBOL"
                         />
                       </div>
                     </form>
