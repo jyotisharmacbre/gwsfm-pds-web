@@ -33,3 +33,8 @@ export const getDropdown = (data, value) => {
     });
   return result;
 };
+
+    
+export const normalizeToNumber = value => (
+  value = +value
+)

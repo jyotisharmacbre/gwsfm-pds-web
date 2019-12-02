@@ -8,7 +8,7 @@ export interface IProjectDetail {
   projectManager: string;
   pmHasExperience: boolean;
   scope: string;
-  cnNumber: number;
+  cnNumber: string;
   status: number;
   engagementId: number;
   countryId: number;

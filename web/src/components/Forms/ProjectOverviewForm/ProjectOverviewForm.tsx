@@ -77,7 +77,7 @@ let ProjectOverviewForm: React.FC<
                   component={PdsFormInput}
                   className="required"
                   validate={[
-                    Validate.required('labelKey'),
+                    Validate.required('LABEL_ENQUIRY_RECEIVED_FROM'),
                     Validate.maxLength(1000)
                   ]}
                   warn={alphaNumeric}
