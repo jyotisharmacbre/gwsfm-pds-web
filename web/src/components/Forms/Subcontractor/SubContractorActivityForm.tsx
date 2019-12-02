@@ -1,103 +1,131 @@
 import React, { Component } from 'react';
+import { Field, reduxForm, InjectedFormProps, FormSection } from 'redux-form';
+import PdsFormInput from '../../PdsFormHandlers/PdsFormInput';
 import Quotes from '../../Tile/Quotes';
+import { ISubContractorActivity } from '../../../store/SubContractor/Types/ISubContractorActivity';
+import IReactIntl from '../../../Translations/IReactIntl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import FontawsomeSvg from '@fortawesome/fontawesome-svg-core';
 import FontawsomeFree from '@fortawesome/free-solid-svg-icons';
 import FontawsomeReact, {
   FontAwesomeIcon
 } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { Validate, alphaNumeric, onlyNumber } from '../../../helpers/fieldValidations';
 
-class SubContractorActivityForm extends Component {
-  render() {
-    return (
-      <div className="row">
-        <div className="col-lg-12">
-          <div className="forms_wrap">
-            <span className="delete_text">
-              BUTTON_DELETE 
+interface Props {
+  index:number;
+  initialValues: ISubContractorActivity;
+  totalCount:number;
+  deleteActivity: (index:number) => void;
+}  
+
+let SubContractorActivityForm: React.FC<
+  Props & IReactIntl & InjectedFormProps<ISubContractorActivity, Props>
+> = (props: Props) => {
+return (
+  <form>
+  <div className="row">
+      <div className="col-lg-12">
+        <div className="forms_wrap">
+        {props.totalCount > 1? 
+          <span className="delete_text" onClick={()=>props.deleteActivity(props.index)}>
+              DELETE
               <FontAwesomeIcon className="" icon={faTrash} />
-            </span>
+            </span> : null 
+        }
             <div className="row">
               <div className="col-lg-7">
                 <form className="custom-wrap p-0">
+                <Field
+                name="activityName"
+                data-test="activityName"
+                type="text"
+                component={PdsFormInput}
+                validate={[
+                    Validate.required('LABEL_PROJECT'),
+                    Validate.maxLength(1000)
+                  ]}
+                labelKey="LABEL_ACTIVITY_NAME"
+                placeholderKey="PLACEHOLDER_ACTIVITY_NAME"
+              />
                   <div className="form-group">
-                    <label>LABEL_ACTIVITY_NAME </label>
+                    <label htmlFor="exampleInputEmail1">
+                      Existing Subcontractor
+                    </label>
+                    <div className="js-btn2">
+                      <button>YES</button>
+                      <button className="active">NO</button>
+                    </div>
+                  </div>
+                  <div className="form-group">
+                    <label>Subcontractor</label>
                     <input
                       className="form-control"
                       type="text"
-                      placeholder="PLACEHOLDER_EG_LOREM"
+                      placeholder="Enter Subcontractor's Name"
                     />
                   </div>
                   <div className="form-group">
                     <label htmlFor="exampleInputEmail1">
-                      LABEL_EXISTING_SUBCONTRACTOR
+                      Preferred Supplier
                     </label>
                     <div className="js-btn2">
-                      <button> BUTTON_YES</button>
-                      <button className="active">BUTTON_NO</button>
+                      <button>YES</button>
+                      <button className="active">NO</button>
                     </div>
                   </div>
                   <div className="form-group">
-                    <label>LABEL_SUBCONTRACTOR</label>
-                    <input
-                      className="form-control"
-                      type="text"
-                      placeholder="PLACEHOLDER_ENTER_SUBCONTRACTOR'S_NAME "
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="exampleInputEmail1">
-                      LABEL_PREFERRED_SUPPLIER  Preferred Supplier
-                    </label>
-                    <div className="js-btn2">
-                      <button>BUTTON_YES</button>
-                      <button className="active">BUTTON_NO</button>
-                    </div>
-                  </div>
-                  <div className="form-group">
-                    <label>T_HEADING_TOTAL_COST</label>
+                    <label>Total Cost</label>
                     <input
                       type="text"
                       className="form-control width-250"
                       placeholder=""
                     />
-                    <span className="symbol_fix">PLACEHOLDER_QUOTE_SYMBOL</span>
+                    <span className="symbol_fix">&#163;</span>
                   </div>
                   <div className="form-group">
-                    <label>T-HEADING_GROSS_MARGIN</label>
+                    <label>Gross Margin</label>
                     <input
                       type="text"
                       className="form-control width-250"
                       placeholder=""
                     />
-                    <span className="symbol_fix">SYMBOL_PERCENT</span>
+                    <span className="symbol_fix">%</span>
                   </div>
                   <div className="form-group">
-                    <label>T-HEADING_TOTAL_SELL</label>
+                    <label>Total Sell</label>
                     <input
                       type="text"
                       className="form-control width-250"
                       placeholder=""
                     />
-                    <span className="symbol_fix">PLACEHOLDER_QUOTE_SYMBOL</span>
+                    <span className="symbol_fix">&#163;</span>
                   </div>
                   <div className="form-group">
-                    <label>LABEL_COMMENTS</label>
+                    <label>Comments</label>
                     <textarea
                       className="form-control"
                       style={{ height: 120 }}
-                      placeholder="PLACEHOLDER_TYPE_IN_ANY_ADDITIONAL_COMMENTS"
+                      placeholder="Type in any additional comments"
                     ></textarea>
                   </div>
                 </form>
               </div>
             </div>
-            <Quotes></Quotes>
           </div>
+          <Quotes></Quotes>
         </div>
       </div>
-    );
-  }
-}
+  </form>
+  );
+};
 
-export default SubContractorActivityForm;
+const form = reduxForm<ISubContractorActivity, Props>({
+  destroyOnUnmount: false,
+  forceUnregisterOnUnmount: false,
+  enableReinitialize: true
+})(injectIntl(SubContractorActivityForm));
+
+export default form;
+

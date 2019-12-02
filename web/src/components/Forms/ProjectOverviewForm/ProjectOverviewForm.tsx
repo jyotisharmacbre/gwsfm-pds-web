@@ -1,5 +1,4 @@
 import React from 'react';
-// import { Col } from 'react-bootstrap';
 import { Field, reduxForm, InjectedFormProps } from 'redux-form';
 import { connect } from 'react-redux';
 import PdsFormInput from '../../PdsFormHandlers/PdsFormInput';
@@ -39,6 +38,7 @@ let ProjectOverviewForm: React.FC<
       {status.label}
     </option>
   ));
+  const normalize = value => (value ? parseInt(value) : null);
   return (
     <div className="container">
       <div className="row">
@@ -101,23 +101,35 @@ let ProjectOverviewForm: React.FC<
                   labelKey="LABEL_POTENTIAL_CUSTOMER"
                   placeholderKey="PLACEHOLDER_POTENTIAL_CUSTOMERS_NAME"
                 />
-                <Field
-                  name={getPropertyName(
-                    initialValues,
-                    prop => prop.enquiryTypeId
-                  )}
-                  data-test="enquiryTypeId"
-                  type="radio"
-                  datas={enquiryTypeData}
-                  component={PdsFormRadio}
-                  labelKey="LABEL_TYPE_OF_ENQUIRY"
-                  className="required"
-                  validate={[
-                    Validate.required('LABEL_TYPE_OF_ENQUIRY'),
-                    Validate.maxLength(1000)
-                  ]}
-                  warn={alphaNumeric}
-                />
+                <div className="form-group">
+                  <label>
+                    <FormattedMessage id="LABEL_TYPE_OF_ENQUIRY" />*
+                  </label>
+                  {props.projectstatus &&
+                    props.projectstatus
+                      .filter(
+                        element => element.lookupItem == LookupType.Enquiry_Type
+                      )
+                      .map((data, index) => {
+                        return (
+                          <div className="form-check" key={index}>
+                            <Field
+                              name={getPropertyName(
+                                initialValues,
+                                prop => prop.enquiryTypeId
+                              )}
+                              component="input"
+                              type="radio"
+                              value={data.lookupId}
+                              normalize={normalize}
+                            />
+                            <label className="form-check-label">
+                              <FormattedMessage id={data.description} />
+                            </label>
+                          </div>
+                        );
+                      })}
+                </div>
                 <Field
                   name={getPropertyName(
                     initialValues,
