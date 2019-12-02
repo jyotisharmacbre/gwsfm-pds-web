@@ -3,12 +3,38 @@ var win_width = $(window).width();
 $(document).ready(function() {
     sideNav();
     side_menu();
+    dropBtn();
+    selectClass();
+    
+
 });
 
 $(window).resize(function() {
     win_width = $(window).width();
     sideNav();
 });
+
+$(document).on('click', function () {
+    $('#js-usertext').find('.down-arrow svg').removeClass('active');
+    $('.select-wrapper select').parent('.select-wrapper').removeClass('active');
+
+});
+
+function selectClass() {
+
+    $('.select-wrapper select').click(function (a) {
+        a.stopPropagation();
+        $(this).parent('.select-wrapper').toggleClass('active');
+    });
+};
+
+//topbar dropdown arrow rotation
+function dropBtn() {
+    $('#js-usertext').click(function () {
+        $(this).find('.down-arrow svg').toggleClass('active');
+    });
+};
+
 
 //function using sidebar nav open and close
 function sideNav() {

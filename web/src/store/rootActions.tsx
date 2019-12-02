@@ -19,3 +19,5 @@ export {
   preliminaryEdit,
   getPreliminaryDetails
 } from './Preliminaries/Actions';
+
+export { addNewActivity,deleteActivity } from './SubContractor/Actions';

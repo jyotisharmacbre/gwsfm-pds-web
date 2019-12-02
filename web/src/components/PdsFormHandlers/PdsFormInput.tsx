@@ -21,7 +21,10 @@ export function PdsFormInput({
   return (
     <div className="form-group" style={{ position: divPosition }}>
       {labelKey && (
-        <label htmlFor={name}>{<FormattedMessage id={labelKey} />}</label>
+        <label htmlFor={name}>
+          {<FormattedMessage id={labelKey} />}
+          {className && className.split(' ').includes('required') ? '*' : ''}
+        </label>
       )}
       <input
         {...input}
