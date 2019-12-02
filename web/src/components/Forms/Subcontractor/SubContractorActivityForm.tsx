@@ -39,14 +39,13 @@ return (
                 <form className="custom-wrap p-0">
                 <Field
                 name="activityName"
-                data-test="mainContractor"
+                data-test="activityName"
                 type="text"
                 component={PdsFormInput}
                 validate={[
                     Validate.required('LABEL_PROJECT'),
                     Validate.maxLength(1000)
                   ]}
-                messageKey="MESSAGE_PROJECT_NAME"
                 labelKey="LABEL_ACTIVITY_NAME"
                 placeholderKey="PLACEHOLDER_CONTRACTORS_NAME"
               />

@@ -7,22 +7,28 @@ import Notify from '../../enums/Notify';
 import EventType from '../../enums/EventType';
 
 const newQuote : IQuote = {
-    supplierName: '',
-    quoteValue: null
+     activityQuoteId: '',
+        subContrActivityId: '',
+        supplierName: '',
+        quoteValue: 0
 }
 
 const newActivity : ISubContractorActivity ={
-        activityName: '',
-        existingSubcontractor: null,
-        subcontractor: '',
-        preferredSupplier: null,
-        totalCost: null,
-        grossMargin: null,
-        totalSell: null,
-        comments: '',
-        quote1: {...newQuote},
-        quote2: {...newQuote},
-        quote3: {...newQuote}
+    subContrActivityId: '',
+    projectId: '',
+    activityName: '',
+    isExistingSubcontractor: true,
+    subcontractorId: '',
+    isPreferredSupplier: true,
+    totalCost: 0,
+    grossMargin: 0,
+    totalSell: 0,
+    comments: '',
+    quotes:[
+      {...newQuote},
+      {...newQuote},
+      {...newQuote}
+      ]
 }
 const initialState: ISubContractorState = {
   form: {
