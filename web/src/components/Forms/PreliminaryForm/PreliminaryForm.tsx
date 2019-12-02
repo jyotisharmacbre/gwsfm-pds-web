@@ -26,114 +26,51 @@ import {
   Validate
 } from '../../../helpers/fieldValidations';
 import { FormattedMessage } from 'react-intl';
-
+import { IPreliminariesItemDetails } from '../../../store/Preliminaries/Types/IPreliminariesItemDetails';
+import { IPreliminaryForm } from '../../../store/Preliminaries/Types/IPreliminaryState';
+import PreliminaryComponentForm from './PreliminaryComponentForm';
 interface Props {
   onSave: (
     projectId: string,
-    preliminaryDetails: IPreliminariesComponentDetails
+    componentId: IPreliminariesComponentDetails,
+    saveAll:boolean
   ) => void;
   preliminariesDetails: any;
 }
 
 let PreliminaryForm: React.FC<
-  Props & InjectedFormProps<Array<IPreliminariesComponentDetails>, Props>
+  Props & InjectedFormProps<IPreliminaryForm, Props>
 > = (props: any) => {
-  const { handleSubmit, initialValues } = props;
-  const handleCollapseEvent = (id: string) => {
-    var element: any = document.getElementById('collapse_' + id);
-    var isClassExists = element.classList.contains('show');
-    if (isClassExists) {
-      element.classList.add('hide');
-      element.classList.remove('show');
-    } else {
-      element.classList.remove('hide');
-      element.classList.add('show');
-    }
-  };
+  const {initialValues } = props;
   return (
+    <form
+            className="project-overview-form"
+            noValidate={true}
+            data-test="projectOverviewForm"
+          >
     <div id="accordion">
-      {props.initialValues.map(function(componentData, componentkey) {
+      {props.initialValues.preliminaryDetails.map(function(componentData:IPreliminariesComponentDetails, componentkey) {
         return (
-          <div key={componentkey} className="card">
-            <div
-              className="card-header"
-              data-toggle="collapse"
-              onClick={() => handleCollapseEvent(componentData.componentId)}
-            >
-              <a className="card-link">{componentData.componentName}</a>
-              <span className="fas fa-angle-up" aria-hidden="true"></span>
-            </div>
-            <div
-              id={'collapse_' + componentData.componentId}
-              className="hide"
-              data-parent="#accordion"
-            >
-              <div className="card-body">
-                <div className="table-responsive">
-                  <table className="table table-bordered">
-                    <thead>
-                      <tr>
-                        <th>Item</th>
-                        <th>Name of Supplier</th>
-                        <th>No of Hours</th>
-                        <th>Hour Rate</th>
-                        <th>Total Cost</th>
-                        <th>Gross Margin</th>
-                        <th>Total Sell</th>
-                        <th>Comments</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {componentData.items.map(function(itemData, itemKey) {
-                        return (
-                          <tr>
-                            <td>{itemData.itemName}</td>
-                            <td>
-                              <input type="text" />
-                            </td>
-                            <td>
-                              <input type="text" />
-                            </td>
-                            <td>
-                              <input type="text" />
-                            </td>
-                            <td>
-                              <input type="text" />
-                            </td>
-                            <td>
-                              <input type="text" />
-                            </td>
-                            <td>
-                              <input type="text" />
-                            </td>
-                            <td>
-                              <input type="text" />
-                            </td>
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </table>
-                </div>
-                <div className="text-right">
-                  <button type="submit" className="text-right btn-sm">
-                    SAVE
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
+          <PreliminaryComponentForm 
+          key={componentkey}
+          form={`preliminaryComp_${componentkey}`}
+          initialValues={componentData}
+          componentName={componentData.componentName}
+          componentId={componentData.componentId}
+          isVisible={props.isVisible}>
+          </PreliminaryComponentForm>
         );
       })}
     </div>
+    </form>
   );
 };
 
 const mapStateToProps = (state: IState) => ({
-  initialValues: state.preliminary.preliminaryDetails
+  initialValues: state.preliminary,
 });
 
-const form = reduxForm<Array<IPreliminariesComponentDetails>, Props>({
+const form = reduxForm<IPreliminaryForm, Props>({
   destroyOnUnmount: false,
   forceUnregisterOnUnmount: false,
   form: 'PreliminaryForm',

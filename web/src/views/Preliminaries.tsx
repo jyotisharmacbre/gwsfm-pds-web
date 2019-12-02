@@ -1,14 +1,11 @@
 import React, { useEffect } from 'react';
-import { withRouter, RouteComponentProps } from 'react-router-dom';
 import '../components/Forms/PreliminaryForm/all.css';
 import '../components/Forms/PreliminaryForm/customSelect.css';
 import '../components/Forms/PreliminaryForm/style.css';
 import { connect } from 'react-redux';
 import { IState } from '../store/state';
 import { IPreliminariesComponentDetails } from '../store/Preliminaries/Types/IPreliminariesComponentDetails';
-import { projectDetailAdd } from '../store/CustomerEnquiryForm/Action';
 import Notify from '../enums/Notify';
-import EventType from '../enums/EventType';
 import { useHistory } from 'react-router-dom';
 import * as actions from '../store/rootActions';
 import PreliminaryForm from '../components/Forms/PreliminaryForm/PreliminaryForm';
@@ -29,8 +26,7 @@ interface IMapDispatchToProps {
     preliminaryDetails: Array<IPreliminariesComponentDetails>
   ) => void;
   getPreliminaryDetails: (projectId: string) => void;
-  expandPreliminaryComponentByComponentId: (componentId: string) => void;
-  expandAllPreliminaryComponents: () => void;
+  updateInputField:(inputData:any)=>void;
 }
 
 const Preliminaries: React.FC<
@@ -46,27 +42,33 @@ const Preliminaries: React.FC<
       props.getPreliminaryDetails(props.projectId);
     }
   }, []);
-  const handleExpandAllComponent = () => {
-    props.expandAllPreliminaryComponents();
-  };
-  const handleExpand = (componentId: string) => {
-    props.expandPreliminaryComponentByComponentId(componentId);
+  const handleExpandAllEvent = () => {
+    var element: any = document.getElementsByClassName('expandAll');
+    for(let i=0;i<element.length;i++)
+    {
+      element[i].classList.remove('hide');
+      element[i].classList.add('show');
+    }
   };
   const handleSaveData = (
     projectId: string,
-    preliminaryDetails: IPreliminariesComponentDetails
+    preliminaryDetails: IPreliminariesComponentDetails,
+    saveAll:boolean
   ) => {
-    var tempData: IPreliminariesComponentDetails[] = [];
-    tempData.push(preliminaryDetails);
-    props.preliminaryAdd(projectId, tempData);
+    var filterData: IPreliminariesComponentDetails[] = [];
+    
+    if(saveAll)
+    {
+      filterData=  props.preliminaryDetails.filter((data)=>{
+return data.items.map((itemData)=>itemData.totalCost>0);
+      })
+    }
+    else
+    {
+      filterData.push(preliminaryDetails);
+    }
+    props.preliminaryAdd(projectId, filterData);
   };
-  const handleEditData = (
-    projectId: string,
-    preliminaryDetails: Array<IPreliminariesComponentDetails>
-  ) => {
-    props.preliminaryEdit(projectId, preliminaryDetails);
-  };
-
   useEffect(() => {
     if (props.notify == Notify.success) {
     }
@@ -82,7 +84,7 @@ const Preliminaries: React.FC<
               <p className="sub_head">preliminaries</p>
             </h1>
             <div className="table-responsive">
-              <table className="table table-bordered cost">
+              <table className="table table-bordered cost fltLeft">
                 <thead>
                   <tr>
                     <th>Total Cost</th>
@@ -100,6 +102,8 @@ const Preliminaries: React.FC<
                   </tr>
                 </tbody>
               </table>
+              <div onClick={() => handleExpandAllEvent()} className="fltRght"><button type="button" className="active">EXPAND ALL</button></div>
+
             </div>
             <div>
               <PreliminaryForm
@@ -148,11 +152,7 @@ const mapDispatchToProps = dispatch => {
     preliminaryEdit: (projectId, preliminaryDetails) =>
       dispatch(actions.preliminaryEdit(projectId, preliminaryDetails)),
     getPreliminaryDetails: (projectId: string) =>
-      dispatch(actions.getPreliminaryDetails(projectId)),
-    expandPreliminaryComponentByComponentId: (projectId: string) =>
-      dispatch(actions.expandPreliminaryComponentByComponentId(projectId)),
-    expandAllPreliminaryComponents: () =>
-      dispatch(actions.expandAllPreliminaryComponents())
+      dispatch(actions.getPreliminaryDetails(projectId))
   };
 };
 

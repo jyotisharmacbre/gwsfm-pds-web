@@ -17,7 +17,5 @@ export { getProjectStatus, getAllCurrencies } from './Lookups/Actions';
 export {
   preliminaryAdd,
   preliminaryEdit,
-  getPreliminaryDetails,
-  expandAllPreliminaryComponents,
-  expandPreliminaryComponentByComponentId
+  getPreliminaryDetails
 } from './Preliminaries/Actions';

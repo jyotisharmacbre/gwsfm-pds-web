@@ -862,3 +862,12 @@ button.btn-sm[type="submit"] {
 {
   display:block!important;
 }
+.fltLeft
+{
+  float:left;
+}
+.fltRght
+{
+  float:right;
+}
+

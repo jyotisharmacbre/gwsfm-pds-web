@@ -41,17 +41,7 @@ const preliminaryGetDataError = (error: string) => {
     payload: error
   };
 };
-const expandPreliminaryComponentBy = (componentId: string) => {
-  return {
-    type: ActionType.EXPAND_PRELIMINARY_COMPONENT,
-    payload: componentId
-  };
-};
-const expandAllPreliminaryComponent = () => {
-  return {
-    type: ActionType.EXPAND_ALL_PRELIMINARY_COMPONENTS
-  };
-};
+
 let config = {
   headers: {
     'Content-Type': 'application/json'
@@ -69,7 +59,7 @@ export const preliminaryAdd = (
         config
       )
       .then(response => {
-        dispatch(preliminaryAddSuccess(response.data));
+        dispatch(preliminaryAddSuccess(response));
       })
       .catch(error => {
         dispatch(preliminaryAddError(error));
@@ -89,7 +79,7 @@ export const preliminaryEdit = (
         config
       )
       .then(response => {
-        dispatch(preliminaryEditSuccess(response.data));
+        dispatch(preliminaryEditSuccess(response));
       })
       .catch(error => {
         dispatch(preliminaryEditError(error));
@@ -102,22 +92,10 @@ export const getPreliminaryDetails = (projectId: string) => {
     axios.baseAPI
       .get(`api/Preliminary/${projectId}/getPreliminaryDetails`, config)
       .then(response => {
-        dispatch(preliminaryGetDataSuccess(response.data));
+        dispatch(preliminaryGetDataSuccess(response));
       })
       .catch(error => {
         dispatch(preliminaryGetDataError(error));
       });
-  };
-};
-export const expandPreliminaryComponentByComponentId = (
-  componentId: string
-) => {
-  return (dispatch: Dispatch) => {
-    dispatch(expandPreliminaryComponentBy(componentId));
-  };
-};
-export const expandAllPreliminaryComponents = () => {
-  return (dispatch: Dispatch) => {
-    dispatch(expandAllPreliminaryComponent());
   };
 };
