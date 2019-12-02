@@ -9,7 +9,7 @@ import Notify from '../enums/Notify';
 import { useHistory } from 'react-router-dom';
 import * as actions from '../store/rootActions';
 import PreliminaryForm from '../components/Forms/PreliminaryForm/PreliminaryForm';
-
+import PreliminarySummaryView from "./PreliminarySummaryView";
 interface IMapStateToProps {
   preliminaryDetails: Array<IPreliminariesComponentDetails>;
   projectId: string;
@@ -83,28 +83,7 @@ return data.items.map((itemData)=>itemData.totalCost>0);
               Justification &amp; Authorisation
               <p className="sub_head">preliminaries</p>
             </h1>
-            <div className="table-responsive">
-              <table className="table table-bordered cost fltLeft">
-                <thead>
-                  <tr>
-                    <th>Total Cost</th>
-                    <th>Total Margin</th>
-                    <th>Gross Margin</th>
-                    <th>Total Sell</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>&pound;36,00.00</td>
-                    <td>25%</td>
-                    <td>&pound;40,00.00</td>
-                    <td>&pound;40,00.00</td>
-                  </tr>
-                </tbody>
-              </table>
-              <div onClick={() => handleExpandAllEvent()} className="fltRght"><button type="button" className="active">EXPAND ALL</button></div>
-
-            </div>
+            <PreliminarySummaryView/>
             <div>
               <PreliminaryForm
                 onSave={handleSaveData}
