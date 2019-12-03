@@ -66,8 +66,8 @@ const DiscountForm: React.FC<
                   <div className="form-group">
                     <label><FormattedMessage id="LABEL_TOTAL_DISCOUNT"></FormattedMessage></label>
                     <input
-                      className="width-120 form-control"
-                      type="text"
+                      className="width-120 form-control custom-space"
+                      type="number"
                       placeholder=""
                     />
                     <span className="symbol_fix">&#163;</span>

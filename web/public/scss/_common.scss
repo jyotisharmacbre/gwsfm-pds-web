@@ -73,6 +73,9 @@ form {
             @include boxShadow(1px 0px 7px rgba(170, 169, 169, 0.2));
             border: 1px solid transparent;
         }
+        &.custom-space {
+            padding: 12px 10px 8px 30px;
+        }
     }
     textarea {
         resize: none;
@@ -300,7 +303,9 @@ button[type="button"] {
             margin-bottom: 15px;
         }
         &:first-child {
+            @include mdScreen {
             margin-left: initial!important;
+            }
         }
         &:nth-child(2) {
             @include smsScreen {

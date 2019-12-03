@@ -114,6 +114,10 @@ class JustificationAuthorisation extends React.Component<IReactIntl> {
                 </p>
               </div>
               <Tile></Tile>
+              <div className="mr-35 three-btn mt-4">
+                <button className="active" type="button">BUTTON_PREVIOUS</button>
+                <button type="button" name="next" className="ml-auto">BUTTON_SAVE</button>
+              <button type="button" name="next" className="">BUTTON_NEXT</button></div>
             </div>
           </Col>
         </Row>
