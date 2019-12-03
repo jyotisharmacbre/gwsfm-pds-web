@@ -39,7 +39,6 @@ const headers = {
 };
 
 export const projectDetailAdd = (data: IProjectDetail, event: EventType) => {
-  console.log(data, "submitted")
   return (dispatch: Dispatch) => {
     axios.baseAPI
       .post('/api/Projects/customerEnquiry', data, { headers: headers })
