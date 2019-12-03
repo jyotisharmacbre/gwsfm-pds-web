@@ -8,16 +8,16 @@ import EventType from '../../enums/EventType';
 export const addNewActivity = () => {
   return (dispatch: Dispatch) => {
     dispatch({
-      type:ActionType.SUB_CONTRACTOR_ADD_NEW_ACTIVITY
+      type: ActionType.SUB_CONTRACTOR_ADD_NEW_ACTIVITY
     });
   };
 };
 
-export const deleteActivity = (index:number) => {
+export const deleteActivity = (index: number) => {
   return (dispatch: Dispatch) => {
     dispatch({
-      type:ActionType.SUB_CONTRACTOR_DELETE_ACTIVITY,
-      payload:index
+      type: ActionType.SUB_CONTRACTOR_DELETE_ACTIVITY,
+      payload: index
     });
   };
 };

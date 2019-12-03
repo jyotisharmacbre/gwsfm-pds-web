@@ -17,16 +17,15 @@ import { initialState, getprojectDetailData } from '../ProjectTestData';
 
 nock(baseURL)
   .post('/api/Projects/customerEnquiry')
-  .reply(200, "Project added successfully");
+  .reply(200, 'Project added successfully');
 
 nock(baseURL)
   .put('/api/Projects/updatecustomerEnquiry')
-  .reply(201, "Project updated successfully");
+  .reply(201, 'Project updated successfully');
 
 nock(baseURL)
   .get('/api/Projects/1/enquiryOverview')
   .reply(200, getprojectDetailData);
-
 
 describe('ProjectForm Fields', () => {
   let wrapper: any;
@@ -34,11 +33,15 @@ describe('ProjectForm Fields', () => {
     handleSubmit: jest.fn()
   };
   beforeEach(() => {
-    const formatMessage = jest.mock('./../../../../Translations/connectedIntlProvider');
+    const formatMessage = jest.mock(
+      './../../../../Translations/connectedIntlProvider'
+    );
 
-    jest.spyOn(connectedIntlProvider, 'formatMessage').mockImplementationOnce(() => {
-      return 'intlmessage';
-    });
+    jest
+      .spyOn(connectedIntlProvider, 'formatMessage')
+      .mockImplementationOnce(() => {
+        return 'intlmessage';
+      });
 
     wrapper = mount(
       <Provider store={store}>
@@ -49,7 +52,6 @@ describe('ProjectForm Fields', () => {
     );
   });
   it('Defines the component', () => {
-
     expect(wrapper).toBeDefined();
   });
 
@@ -59,7 +61,6 @@ describe('ProjectForm Fields', () => {
       form = wrapper.find('[form="ProjectForm"]').first();
     });
     it('Renders form component', () => {
-
       expect(form).toHaveLength(1);
     });
   });
@@ -126,7 +127,9 @@ describe('ProjectForm Fields', () => {
       beforeEach(() => {
         field = wrapper.find('select[name="currencyId"]').first();
         wrapper.setProps({
-          currencies: [{currencyId: 1, currencySymbol: '$', currencyName: 'dollar'}],
+          currencies: [
+            { currencyId: 1, currencySymbol: '$', currencyName: 'dollar' }
+          ],
           currencyId: 1
         });
       });
@@ -203,7 +206,7 @@ describe('ProjectForm Fields', () => {
       it('should handle get projectEnquiryOverview successfully', () => {
         const getProjectEnquiryOverviewAction: any = {
           type: ActionType.GET_ENQUIRY_OVERVIEW_SUCCESS,
-          payload: { projectId: "1" }
+          payload: { projectId: '1' }
         };
         expect(
           projectDetailReducer(initialState, getProjectEnquiryOverviewAction)
@@ -213,7 +216,7 @@ describe('ProjectForm Fields', () => {
       it('should handle edit project successfully', () => {
         const editProjectAction: any = {
           type: ActionType.PROJECT_EDIT_SUCCESS,
-          payload: { projectId: "TestProjectId" }
+          payload: { projectId: 'TestProjectId' }
         };
         expect(
           projectDetailReducer(initialState, editProjectAction)
@@ -232,7 +235,7 @@ describe('ProjectForm Fields', () => {
       it('should handle GET_PROJECT_DETAIL_ERROR with and return initialState', () => {
         const getProjectDetailError: any = {
           type: ActionType.GET_PROJECT_DETAIL_ERROR,
-          error: {success: false}
+          error: { success: false }
         };
         expect(
           projectDetailReducer(initialState, getProjectDetailError)

@@ -62,9 +62,9 @@ interface IProps {
   projectId: string;
 }
 
-const ProjectOverview: React.FC<
-  IProps & IMapStateToProps & IMapDispatchToProps
-> = props => {
+const ProjectOverview: React.FC<IProps &
+  IMapStateToProps &
+  IMapDispatchToProps> = props => {
   let history = useHistory();
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -173,7 +173,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ProjectOverview);
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectOverview);

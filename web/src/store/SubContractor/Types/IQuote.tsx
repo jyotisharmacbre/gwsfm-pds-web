@@ -1,6 +1,6 @@
 export interface IQuote {
-   activityQuoteId: string;
-        subContrActivityId: string;
-        supplierName: string;
-        quoteValue: 0;
+  activityQuoteId: string;
+  subContrActivityId: string;
+  supplierName: string;
+  quoteValue: 0;
 }

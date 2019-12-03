@@ -12,7 +12,11 @@ import PdsFormSelect from '../../PdsFormHandlers/PdsFormSelect';
 import PdsFormTextArea from '../../PdsFormHandlers/PdsFormTextArea';
 import PdsFormButton from '../../PdsFormHandlers/PdsFormButton';
 import { selectionButtons } from '../../../helpers/constants';
-import { Validate, alphaNumeric, onlyNumber } from '../../../helpers/fieldValidations';
+import {
+  Validate,
+  alphaNumeric,
+  onlyNumber
+} from '../../../helpers/fieldValidations';
 import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
 import { FormattedMessage, injectIntl } from 'react-intl';
@@ -49,9 +53,9 @@ const getCurrencySymbol = (currencies, currencyId) => {
   return symbol;
 };
 
-const ProjectForm: React.FC<
-  Props & IReactIntl & InjectedFormProps<IProjectDetail, Props>
-> = (props: any) => {
+const ProjectForm: React.FC<Props &
+  IReactIntl &
+  InjectedFormProps<IProjectDetail, Props>> = (props: any) => {
   const {
     handleSubmit,
     projectstatus,
@@ -132,7 +136,7 @@ const ProjectForm: React.FC<
                 <Field
                   name="companyId"
                   type="text"
-                  component={PdsFormTypeAhead}                 
+                  component={PdsFormTypeAhead}
                   className="required"
                   validate={[
                     Validate.required('LABEL_COMPANY'),
@@ -163,7 +167,7 @@ const ProjectForm: React.FC<
                 <Field
                   name="contractorId"
                   type="text"
-                  component={PdsFormTypeAhead}                 
+                  component={PdsFormTypeAhead}
                   className="required"
                   validate={[
                     Validate.required('LABEL_CONTRACT'),
@@ -195,7 +199,7 @@ const ProjectForm: React.FC<
                 <Field
                   name="headOfProject"
                   type="text"
-                  component={PdsFormTypeAhead}                  
+                  component={PdsFormTypeAhead}
                   className="required"
                   validate={[
                     Validate.required('LABEL_HEAD_OF_PROJECT'),
@@ -213,7 +217,7 @@ const ProjectForm: React.FC<
                 <Field
                   name="projectOwner"
                   type="text"
-                  component={PdsFormTypeAhead}                 
+                  component={PdsFormTypeAhead}
                   placeHolder="Project Owner name"
                   className="required"
                   validate={[
@@ -232,7 +236,7 @@ const ProjectForm: React.FC<
                 <Field
                   name="projectManager"
                   type="text"
-                  component={PdsFormTypeAhead}                  
+                  component={PdsFormTypeAhead}
                   className="required"
                   validate={[
                     Validate.required('LABEL_PROJECT_MANAGER'),
@@ -262,7 +266,7 @@ const ProjectForm: React.FC<
                   validate={[
                     Validate.required('LABEL_PROJECT_SCOPE'),
                     Validate.maxLength(1040)
-                  ]}             
+                  ]}
                   labelKey="LABEL_PROJECT_SCOPE"
                 />
                 <Field
@@ -507,7 +511,6 @@ const ProjectForm: React.FC<
     </div>
   );
 };
-
 
 const mapStateToProps = (state: IState) => ({
   initialValues: state.project.form,

@@ -9,6 +9,7 @@ import subContractorReducer from './SubContractor/Reducer';
 import projectPipelineDetailReducer from './pipeline/Reducer';
 import userServiceReducer from './UserService/Reducer';
 import dynamicDataReducer from './DynamicsData/Reducer';
+import discountFormReducer from './DiscountForm/Reducer';
 
 export default combineReducers<IState>({
   form: reducerForm,
@@ -20,5 +21,6 @@ export default combineReducers<IState>({
   locale: localeReducer,
   UserService: userServiceReducer,
   dynamicData: dynamicDataReducer,
-  adData: userServiceReducer
+  adData: userServiceReducer,
+  discount: discountFormReducer
 });

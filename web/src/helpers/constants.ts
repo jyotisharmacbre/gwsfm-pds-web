@@ -19,3 +19,8 @@ export const LookupItems = {
   Project_Status: 'Project_Status',
   Work_Type: 'Work_Type'
 };
+
+export const discountType =[
+  { id: 1, value: 'Percent (%)' },
+  { id: 2, value: 'Value(#)' }
+]

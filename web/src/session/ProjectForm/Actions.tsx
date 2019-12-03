@@ -6,14 +6,12 @@ import {
   IGetProjectFormAction
 } from './Type';
 
-export const addFormActionCreator: ActionCreator<
-  ThunkAction<
-    Promise<IProjectFormAddAction>,
-    IProjectForm,
-    null,
-    IProjectFormAddAction
-  >
-> = (data: IProjectForm) => {
+export const addFormActionCreator: ActionCreator<ThunkAction<
+  Promise<IProjectFormAddAction>,
+  IProjectForm,
+  null,
+  IProjectFormAddAction
+>> = (data: IProjectForm) => {
   return async (dispatch: Dispatch) => {
     const getProjectFormAction: IGetProjectFormAction = {
       type: 'GetProjectFormAction'

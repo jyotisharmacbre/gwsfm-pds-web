@@ -12,7 +12,8 @@ export function PdsFormInput({
   className,
   intl,
   currency,
-  divPosition
+  divPosition,
+  readOnly
 }) {
   const errorClass = `${(error && touched) || warning ? 'error' : ''}`;
   const _placeholder = placeholderKey
@@ -30,6 +31,7 @@ export function PdsFormInput({
         {...input}
         placeholder={_placeholder}
         type={type}
+        readOnly={readOnly}
         className={'form-control ' + className + ' ' + errorClass}
       />
       {currency && (

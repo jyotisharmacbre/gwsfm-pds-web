@@ -7,7 +7,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import { injectIntl } from 'react-intl';
 
 const App: React.FC = (props: any) => {
-
   const drawerWidth = 250;
 
   const theme = createMuiTheme({

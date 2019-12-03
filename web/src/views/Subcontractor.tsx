@@ -1,44 +1,43 @@
-import React,{useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import SubcontractorForm from '../components/Forms/Subcontractor/SubcontractorForm';
 import { ISubContractor } from '../store/SubContractor/Types/ISubContractor';
 import * as actions from '../store/rootActions';
 import { IState } from '../store/state';
 
-
-interface IProps {} 
+interface IProps {}
 
 interface IMapStateToProps {
-  form:ISubContractor;
+  form: ISubContractor;
 }
 
 interface IMapDispatchToProps {
   addNewActivity: () => void;
-  deleteActivity:(index:number) => void;
+  deleteActivity: (index: number) => void;
 }
 
-const Subcontractor: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = props => {
+const Subcontractor: React.FC<IProps &
+  IMapStateToProps &
+  IMapDispatchToProps> = props => {
   const handlePrevious = (data: ISubContractor) => {
     console.log('Data');
   };
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
- 
+
   return (
     <div className="container-fluid">
-        <div className="row">
-          <div className="col-lg-12">
-            <div className="custom-wrap">
-              <div className="heading-subtitle">
-                <h1>
-                  <span className="d-md-block d-none">
-                    TITLE_JUSTIFICATION
-                  </span>
-                  <span className="d-md-none">TITLE_JUSTIFICATION_SHORT</span>
-                </h1>
-                <p className="text-green">PAGE_SUB_TITLE</p>
-              </div>
+      <div className="row">
+        <div className="col-lg-12">
+          <div className="custom-wrap">
+            <div className="heading-subtitle">
+              <h1>
+                <span className="d-md-block d-none">TITLE_JUSTIFICATION</span>
+                <span className="d-md-none">TITLE_JUSTIFICATION_SHORT</span>
+              </h1>
+              <p className="text-green">PAGE_SUB_TITLE</p>
+            </div>
             <SubcontractorForm
               onSave={handlePrevious}
               onNext={handlePrevious}
@@ -60,11 +59,8 @@ const mapStateToProps = (state: IState) => ({
 const mapDispatchToProps = dispatch => {
   return {
     addNewActivity: () => dispatch(actions.addNewActivity()),
-    deleteActivity:(index:number) => dispatch(actions.deleteActivity(index))
-    };
+    deleteActivity: (index: number) => dispatch(actions.deleteActivity(index))
+  };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Subcontractor);
+export default connect(mapStateToProps, mapDispatchToProps)(Subcontractor);

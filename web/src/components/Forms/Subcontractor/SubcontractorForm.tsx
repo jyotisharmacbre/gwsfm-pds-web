@@ -20,45 +20,49 @@ interface Props {
   onPrevious: (data: ISubContractor) => void;
   onSave: (data: ISubContractor) => void;
   addNewActivity: () => void;
-  deleteActivity: (index:number) => void;
+  deleteActivity: (index: number) => void;
 }
 
-let SubcontractorForm: React.FC<
-  Props & IReactIntl & InjectedFormProps<ISubContractor, Props>
-> = (props: any) => {
-
+let SubcontractorForm: React.FC<Props &
+  IReactIntl &
+  InjectedFormProps<ISubContractor, Props>> = (props: any) => {
   return (
     <form className="subcontractor_form">
       <DiscountTable></DiscountTable>
-      {props.initialValues.activities && 
-      props.initialValues.activities.map((data,index)=>{
-        return (
-          <SubContractorActivityForm 
-          key={`subContractorActivityForm${index}`}
-          index={index}
-          form={`subContractorActivityForm${index}`}
-          initialValues={data}
-          totalCount={props.initialValues.activities.length}
-          deleteActivity={props.deleteActivity}
-          />
-        )
-      })}
+      {props.initialValues.activities &&
+        props.initialValues.activities.map((data, index) => {
+          return (
+            <SubContractorActivityForm
+              key={`subContractorActivityForm${index}`}
+              index={index}
+              form={`subContractorActivityForm${index}`}
+              initialValues={data}
+              totalCount={props.initialValues.activities.length}
+              deleteActivity={props.deleteActivity}
+            />
+          );
+        })}
       <div className="newActiv_btn">
-          <button type="button" disabled={props.initialValues.activities.length>4} className="active" onClick={props.addNewActivity}>
-            <FontAwesomeIcon className="" icon={faPlusCircle} />
-            BUTTON_NEW_ACTIVITY
-          </button>
-        </div>
+        <button
+          type="button"
+          disabled={props.initialValues.activities.length > 4}
+          className="active"
+          onClick={props.addNewActivity}
+        >
+          <FontAwesomeIcon className="" icon={faPlusCircle} />
+          BUTTON_NEW_ACTIVITY
+        </button>
+      </div>
       <div className="mr-35 three-btn">
-          <button className="active" type="button">
+        <button className="active" type="button">
           BUTTON_PREVIOUS
-          </button>
-          <button type="button" name="next" className="active ml-auto">
+        </button>
+        <button type="button" name="next" className="active ml-auto">
           BUTTON_SAVE
-          </button>
-          <button type="button" name="next" className="">
+        </button>
+        <button type="button" name="next" className="">
           BUTTON_NEXT
-          </button>
+        </button>
       </div>
     </form>
   );

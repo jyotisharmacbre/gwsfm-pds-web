@@ -573,8 +573,5 @@ const Filters: React.FC<IFilterProps> = props => {
   );
   // }
 };
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Filters);
+export default connect(mapStateToProps, mapDispatchToProps)(Filters);
 // export default (Filters);
