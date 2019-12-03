@@ -4,9 +4,9 @@ export interface ISubContractorActivity {
   subContrActivityId: string;
     projectId: string;
     activityName: string;
-    isExistingSubcontractor: boolean;
+    isExistingSubcontractor: boolean | null;
     subcontractorId: string;
-    isPreferredSupplier: boolean;
+    isPreferredSupplier: boolean | null;
     totalCost: number;
     grossMargin: number;
     totalSell: number;
