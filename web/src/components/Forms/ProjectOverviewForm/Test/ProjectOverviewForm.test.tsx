@@ -6,6 +6,26 @@ import ProjectOverviewForm from '../ProjectOverviewForm';
 import { IntlProvider } from 'react-intl';
 import translations from '../../../../Translations/translation';
 import   * as connectedIntlProvider from './../../../../Translations/connectedIntlProvider';
+import { ActionType } from '../../../../store/ProjectOverviewForm/Types/ActionType';
+import projectOverviewFormReducer from '../../../../store/ProjectOverviewForm/Reducer';
+import { initialState , getProjectOverviewData} from './ProjectOverviewFormTestData';
+import nock from 'nock';
+import { baseURL } from '../../../../client/client';
+
+
+nock(baseURL)
+  .get('/api/Projects/1/additionalDetails')
+  .reply(200, getProjectOverviewData);
+
+  nock(baseURL)
+  .put('/api/Projects/additionalDetails')
+  .reply(201, getProjectOverviewData);
+
+  nock(baseURL)
+  .post('/api/Projects/additionalDetails')
+  .reply(200, "Project addition details created successfully");
+
+
 describe('ProjectOverviewForm Fields', () => {
   let wrapper: any;
   const props: any = {
@@ -172,6 +192,47 @@ describe('ProjectOverviewForm Fields', () => {
       });
       it('Should renders next button', () => {
         expect(field.prop('type')).toBe('button');
+      });
+    });
+
+    describe('Project form reducer', () => {
+      it('should handle get get additional details successfully', () => {
+        const getAdditionalDetailsAction: any = {
+          type: ActionType.GET_ADDITIONALS_DETAILS_SUCCESS,
+          payload: { projectId: "1" }
+        };
+        expect(
+          projectOverviewFormReducer(initialState, getAdditionalDetailsAction)
+        ).toMatchSnapshot();
+      });
+
+      it('should handle edit project overview successfully', () => {
+        const editProjectOverviewAction: any = {
+          type: ActionType.PROJECT_OVERVIEW_FORM_EDIT_SUCCESS,
+          payload: { projectId: 1 }
+        };
+        expect(
+          projectOverviewFormReducer(initialState, editProjectOverviewAction)
+        ).toMatchSnapshot();
+      });
+
+      it('should handle add project overview successfully', () => {
+        const addProjectOverviewAction: any = {
+          type: ActionType.PROJECT_OVERVIEW_FORM_ADD_SUCCESS
+        };
+        expect(
+          projectOverviewFormReducer(initialState, addProjectOverviewAction)
+        ).toMatchSnapshot();
+      });
+
+      it('should handle GET_PROJECT_DETAIL_ERROR with and return initialState', () => {
+        const getProjectDetailError: any = {
+          type: ActionType.PROJECT_OVERVIEW_FORM_ERROR,
+          error: {success: false}
+        };
+        expect(
+          projectOverviewFormReducer(initialState, getProjectDetailError)
+        ).toMatchSnapshot();
       });
     });
   });
