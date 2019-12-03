@@ -38,8 +38,6 @@ const headers = {
 };
 
 export const discountFormAdd = ( projectId: string, data: IDiscountActivity, event: EventType) => {
-  console.log(data, 'submitted discount');
-  console.log(projectId, "projectId")
   return (dispatch: Dispatch) => {
     data.projectId = 'f8b5abfd-0f8a-47bc-03be-08d777a100bc';
     axios.baseAPI

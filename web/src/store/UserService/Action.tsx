@@ -45,7 +45,6 @@ const getADpoError = (error: any) => {
 };
 
 export const getADhopOther = (response: any) => {
-  console.log(response);
   return {
     type: ActionType.AD_HOP_GET_OTHER,
     payload: response
@@ -53,7 +52,6 @@ export const getADhopOther = (response: any) => {
 };
 
 export const getADpmOther = (response: any) => {
-  console.log(response);
   return {
     type: ActionType.AD_PM_GET_OTHER,
     payload: response
@@ -61,7 +59,6 @@ export const getADpmOther = (response: any) => {
 };
 
 export const getADpoOther = (response: any) => {
-  console.log(response);
   return {
     type: ActionType.AD_PO_GET_OTHER,
     payload: response
