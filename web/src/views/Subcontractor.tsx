@@ -8,7 +8,8 @@ import { IState } from '../store/state';
 import EventType from '../enums/EventType';
 import { toast } from 'react-toastify';
 import Notify from '../enums/Notify';
-
+import {getFilterElementFromArray} from '../helpers/utility-helper';
+import { ICurrency } from '../store/Lookups/Types/ICurrency';
 interface IProps {
   match: any;
 } 
@@ -17,6 +18,8 @@ interface IMapStateToProps {
   form:ISubContractor;
   notify: Notify;
   event: EventType;
+  currencyId:number,
+  currencies: Array<ICurrency> | null;
 }
 
 interface IMapDispatchToProps {
@@ -34,14 +37,29 @@ interface IMapDispatchToProps {
   getSubContractor: (projectId: string) => void;
   getProjectDetail: (projectId: string) => void;
   resetSubContractorState: () => void;
+  getAllCurrencies:() => void;
 }
 
 const Subcontractor: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = props => {
   let history = useHistory();
   let paramProjectId:string = '';
+  let currencySymbol = '';
+  
+  const getCurrencySymbol = (currencies, currencyId) => {
+  let symbol = '';
+  let filter;
+  if (currencies) {
+    filter = currencies.find(element => element.currencyId == currencyId);
+    if (filter != null && filter != undefined) symbol = filter.currencySymbol;
+  }
+  return symbol;
+  };
   
   useEffect(() => {
     window.scrollTo(0, 0);
+    debugger;
+    let allc = props.currencies;
+    props.getAllCurrencies();
     paramProjectId = props.match.params.projectId;
     if (paramProjectId != null && paramProjectId != '') {
       props.getProjectDetail(paramProjectId);
@@ -49,7 +67,7 @@ const Subcontractor: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> =
     }
   }, []);
  
-   useEffect(() => {
+  useEffect(() => {
     if (props.notify == Notify.success) {
       if (props.event == EventType.next) {
         toast.success('Data Saved Successfully');
@@ -103,6 +121,8 @@ const mapStateToProps = (state: IState) => ({
   form: state.subContractor.form,
   notify: state.subContractor.notify,
   event: state.subContractor.event,
+  currencyId:state.project.form.currencyId,
+  currencies: state.lookup.currencies
 });
 
 const mapDispatchToProps = dispatch => {
@@ -118,7 +138,8 @@ const mapDispatchToProps = dispatch => {
     getSubContractor: projectId =>
       dispatch(actions.getSubContractor(projectId)),
     resetSubContractorState: () =>
-      dispatch(actions.resetSubContractorState())
+      dispatch(actions.resetSubContractorState()),
+    getAllCurrencies: () => dispatch(actions.getAllCurrencies())
     };
 };
 
