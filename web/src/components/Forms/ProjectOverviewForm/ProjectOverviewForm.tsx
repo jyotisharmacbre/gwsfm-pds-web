@@ -15,6 +15,13 @@ import { IProjectAdditionalDetail } from '../../../store/ProjectOverviewForm/Typ
 import { getPropertyName, getDropdown } from '../../../helpers/utility-helper';
 import { LookupType } from '../../../store/Lookups/Types/LookupType';
 import EventType from '../../../enums/EventType';
+import FontawsomeSvg from '@fortawesome/fontawesome-svg-core';
+import FontawsomeFree from '@fortawesome/free-solid-svg-icons';
+import FontawsomeReact, {
+  FontAwesomeIcon
+} from '@fortawesome/react-fontawesome';
+import {faCheckCircle, faClock, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';  
+
 
 import {
   projectStatusData,
@@ -40,7 +47,7 @@ let ProjectOverviewForm: React.FC<
     </option>
   ));
   return (
-    <div className="container">
+    <div className="container-fluid">
       <div className="row">
         <div className="col-lg-12 col-sm-12">
           <form
@@ -429,6 +436,182 @@ let ProjectOverviewForm: React.FC<
                 />
               </div>
             </div>
+            <div className="row">
+              <div className="col-xl-6">
+                <div className="authorised_form_wrap">
+                  <h6>Project Authorised</h6>
+                  <div className="authorised_form_inner">
+                    <div className="row">
+                      <div className="col-lg-9">
+                        <div className="form-group">
+                          <label>Authorised by</label>
+                          <input className="form-control" type="number" placeholder="" />
+                          <span className="right_fix_txt">HOP(HOP)</span>
+                        </div>
+                      </div>
+                      <div className="col-lg-3">
+                        <h6 className="mb-0">Sign-off Status</h6>
+                        <div className="approve_state">
+                          <span className="icon"><FontAwesomeIcon className="green" icon={faCheckCircle} /></span>
+                          <label className='approv_label'>approved</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="row align-items-center">
+                      <div className="col-lg-9">
+                        <div className="form-group">
+                          <label>Authorised by</label>
+                          <input className="form-control" type="number" placeholder="" />
+                          <span className="right_fix_txt">HOP(HOP)</span>
+                        </div>
+                      </div>
+                      <div className="col-lg-3">
+                        <div className="approve_state">
+                          <span className="icon"><FontAwesomeIcon className="green" icon={faCheckCircle} /></span>
+                          <label className='approv_label'>approved</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="row align-items-center">
+                      <div className="col-lg-9">
+                        <div className="form-group">
+                          <label>Authorised By Up To &#163; 250k</label>
+                          <input className="form-control" type="number" placeholder="" />
+                          <span className="right_fix_txt">ComM</span>
+                        </div>
+                      </div>
+                      <div className="col-lg-3">
+                        <div className="approve_state">
+                          <span className="icon"><FontAwesomeIcon className="orange" icon={faClock} /></span>
+                          <label className='approv_label'>pending</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="row align-items-center">
+                      <div className="col-lg-9">
+                        <div className="form-group">
+                          <input className="form-control" type="number" placeholder="" />
+                          <span className="right_fix_txt">BUL</span>
+                        </div>
+                      </div>
+                      <div className="col-lg-3">
+                        <div className="approve_state">
+                          <span className="icon"><FontAwesomeIcon className="orange" icon={faClock} /></span>
+                          <label className='approv_label'>pending</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="row align-items-center">
+                      <div className="col-lg-9">
+                        <div className="form-group">
+                          <label>Authorised By Up To &#163; 1 Million</label>
+                          <input className="form-control" type="number" placeholder="" />
+                          <span className="right_fix_txt">DPD</span>
+                        </div>
+                      </div>
+                      <div className="col-lg-3">
+                        <div className="approve_state">
+                          <span className="icon"><FontAwesomeIcon className="orange" icon={faExclamationTriangle} /></span>
+                          <label className='approv_label'>response awaited</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="row align-items-center">
+                      <div className="col-lg-9">
+                        <div className="form-group">
+                          <input className="form-control" type="number" placeholder="" />
+                          <span className="right_fix_txt">DMD</span>
+                        </div>
+                      </div>
+                      <div className="col-lg-3">
+                        <div className="approve_state">
+                          <span className="icon"><FontAwesomeIcon className="orange" icon={faExclamationTriangle} /></span>
+                          <label className='approv_label'>response awaited</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="row align-items-center">
+                      <div className="col-lg-9">
+                        <div className="form-group">
+                          <label>Authorised By Up To &#163; 3 Million</label>
+                          <label className="right_label">DELEGATE</label>
+                          <input className="form-control" type="number" placeholder="" />
+                          <span className="right_fix_txt">DofP</span>
+                        </div>
+                      </div>
+                      <div className="col-lg-3">
+                        <div className="approve_state">
+                          <span className="icon"><FontAwesomeIcon className="orange" icon={faExclamationTriangle} /></span>
+                          <label className='approv_label'>response awaited</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="row align-items-center">
+                      <div className="col-lg-9">
+                        <div className="form-group">
+                        <label className="right_label">DELEGATE</label>
+                          <input className="form-control" type="number" placeholder="" />
+                          <span className="right_fix_txt">PComM</span>
+                        </div>
+                      </div>
+                      <div className="col-lg-3">
+                        <div className="approve_state">
+                          <span className="icon"><FontAwesomeIcon className="orange" icon={faExclamationTriangle} /></span>
+                          <label className='approv_label'>response awaited</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="row align-items-center">
+                      <div className="col-lg-9">
+                        <div className="form-group">
+                          <label className="right_label">DELEGATE</label>
+                          <input className="form-control" type="number" placeholder="" />
+                          <span className="right_fix_txt">COO/UK FD</span>
+                        </div>
+                      </div>
+                      <div className="col-lg-3">
+                        <div className="approve_state">
+                          <span className="icon"><FontAwesomeIcon className="orange" icon={faExclamationTriangle} /></span>
+                          <label className='approv_label'>response awaited</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="row align-items-center">
+                      <div className="col-lg-9">
+                        <div className="form-group">
+                          <label>Over &#163; 3 Million Authority</label>
+                          <input className="form-control" type="number" placeholder="" />
+                          <span className="right_fix_txt">CEO / GroupFD</span>
+                        </div>
+                      </div>
+                      <div className="col-lg-3">
+                        <div className="approve_state">
+                          <span className="icon"><FontAwesomeIcon className="green" icon={faCheckCircle} /></span>
+                          <label className='approv_label'>approved</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="row align-items-center">
+                      <div className="col-lg-9">
+                        <div className="form-group">
+                          <label>Over &#163; 4.5 Million</label>
+                          <input className="form-control" type="number" placeholder="" />
+                          <span className="right_fix_txt">CBRE Regulations</span>
+                        </div>
+                      </div>
+                      <div className="col-lg-3">
+                        <div className="approve_state">
+                          <span className="icon"><FontAwesomeIcon className="green" icon={faCheckCircle} /></span>
+                          <label className='approv_label'>approved</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="col-xl-6"></div>
+            </div>
+
             <div className="mr-35 d-flex justify-content-between mb-4">
               <button
                 className="active mb-4 mt-5"

@@ -135,3 +135,41 @@
         width: 300px !important;
     }
 }
+
+/*authorised form */
+.authorised_form_wrap {
+    h6 {
+        font-size: 14px;
+        font-weight: 700;
+        color: map-get($colors , grey004 );
+    }
+    .authorised_form_inner {
+        background: map-get($colors , grey05 );
+        padding: 30px;
+        .row {
+            &:first-child {
+                align-items: inherit;
+                .approve_state {
+                    margin-top: 20px;
+                }
+            }
+        }
+        label {
+            color: map-get($colors , grey004 );
+            line-height: 16px;
+        }
+        .form-group {
+            .right_fix_txt {
+                font-size: 11px;
+                position: absolute;
+                right: 10px;
+                top: 41px;
+                color: map-get($colors , grey001 );
+            }
+            .form-control {
+                border: 1px solid map-get($colors , grey001 );
+                padding-right: 65px;
+            }
+        }
+    }
+}

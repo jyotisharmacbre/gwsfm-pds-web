@@ -7,6 +7,7 @@ import FontawsomeReact, {
   FontAwesomeIcon
 } from '@fortawesome/react-fontawesome';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { FormattedMessage } from 'react-intl';
 
 class SubcontractorForm extends Component {
   render() {
@@ -17,19 +18,19 @@ class SubcontractorForm extends Component {
         <div className="newActiv_btn">
           <button type="button" className="active">
             <FontAwesomeIcon className="" icon={faPlusCircle} />
-            BUTTON_NEW_ACTIVITY
+            <FormattedMessage id="BUTTON_NEW_ACTIVITY" />
           </button>
         </div>
 
         <div className="mr-35 three-btn">
           <button className="active" type="button">
-          BUTTON_PREVIOUS
+          <FormattedMessage id="BUTTON_PREVIOUS" />
           </button>
           <button type="button" name="next" className="active ml-auto">
-          BUTTON_SAVE
+          <FormattedMessage id="BUTTON_SAVE" />
           </button>
           <button type="button" name="next" className="">
-          BUTTON_NEXT
+          <FormattedMessage id="BUTTON_NEXT" />
           </button>
         </div>
       </form>

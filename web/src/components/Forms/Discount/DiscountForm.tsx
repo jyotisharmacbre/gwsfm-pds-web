@@ -20,6 +20,7 @@ import PdsFormTypeAhead from '../../PdsFormHandlers/PdsFormTypeAhead';
 import { IProjectDetail } from '../../../store/CustomerEnquiryForm/Types/IProjectDetail';
 import { ICurrency } from '../../../store/Lookups/Types/ICurrency';
 import IReactIntl from '../../../Translations/IReactIntl';
+import { formatMessage } from '../../../Translations/connectedIntlProvider';
 
 interface Props{
 
@@ -74,7 +75,7 @@ const DiscountForm: React.FC<
                     <label className="w-100 mb-0 mt-3">
                     <FormattedMessage id="LABEL_SUB_TOTAL_DISCOUNTS"></FormattedMessage> 
                     </label>
-                    <label className="m-0"><FormattedMessage id="LABEL_200000"></FormattedMessage></label>
+                    <label className="m-0">&#163; 200000</label>
                     </div>
                   <Field
                   name="scope"
@@ -145,22 +146,21 @@ const DiscountForm: React.FC<
                         id="2"
                       />
                       <label className="form-check-label" htmlFor="2">
-                        LABEL_VALUE
+                      <FormattedMessage id="LABEL_VALUE" /> 
                       </label>
                     </div>
                   </div>
                   <div className="form-group">
-                    <label>LABEL_DISCOUNT</label>
+                    <label><FormattedMessage id="LABEL_DISCOUNT" /></label>
                     <input
                       className="width-250 form-control"
                       type="text"
-                      placeholder=""
+                      placeholder={formatMessage('PLACEHOLDER_ENTER_VALUE')}
                     />
-                    <span className="symbol_fix">PLACEHOLDER_QUOTE_SUPPLIER2</span>
                     <label className="w-100 mb-0 mt-3">
-                      LABEL_SUB_TOTAL_DISCOUNTS
+                    <FormattedMessage id="LABEL_SUB_TOTAL_DISCOUNTS" />
                     </label>
-                    <label className="m-0">LABEL_&#163;2,000.00</label>
+                    <label className="m-0">&#163;2,000.00</label>
                   </div>
                   <Field
                   name="scope"
@@ -182,13 +182,13 @@ const DiscountForm: React.FC<
 
             <div className="mr-35 three-btn">
               <button className="active" type="button">
-                BUTTON_PREVIOUS
+                <FormattedMessage id="BUTTON_PREVIOUS" /> 
               </button>
               <button type="button" name="next" className="active ml-auto">
-                BUTTON_SAVE
+              <FormattedMessage id="BUTTON_SAVE" /> 
               </button>
               <button type="button" name="next">
-                BUTTON_NEXT
+              <FormattedMessage id="BUTTON_NEXT" /> 
               </button>
             </div>
           </div>

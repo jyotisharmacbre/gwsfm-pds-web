@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { FormattedMessage } from 'react-intl';
+import { formatMessage } from '../../Translations/connectedIntlProvider';
 
 class Quotes extends Component {
   render() {
@@ -10,22 +12,22 @@ class Quotes extends Component {
               <div className="col-lg-4 pl-md-2">
                 <div className="card_wrap">
                   <div className="card">
-                    <h6 className="title">TITLE_QUOTE1</h6>
+                    <h6 className="title"><FormattedMessage id="TITLE_QUOTE1" /> </h6>
                     <form>
                       <div className="form-group">
-                        <label>LABEL_SUPPLIER1</label>
+                        <label><FormattedMessage id="LABEL_SUPPLIER1" /></label>
                         <input
                           className="form-control"
                           type="text"
-                          placeholder="PLACEHOLDER_QUOTE_SUPPLIER1"
+                          placeholder={formatMessage('PLACEHOLDER_QUOTE_SUPPLIER1')}
                         />
                       </div>
                       <div className="form-group">
-                        <label>LABEL_QUOTE1</label>
+                        <label><FormattedMessage id="LABEL_QUOTE1" /> (&#163;)</label>
                         <input
                           className="form-control"
                           type="text"
-                          placeholder="PLACEHOLDER_QUOTE_SYMBOL"
+                          placeholder="$"
                         />
                       </div>
                     </form>
@@ -35,22 +37,22 @@ class Quotes extends Component {
               <div className="col-lg-4 pl-md-2">
                 <div className="card_wrap">
                   <div className="card">
-                    <h6 className="title">TITLE_QUOTE2</h6>
+                    <h6 className="title"><FormattedMessage id="TITLE_QUOTE2" /></h6>
                     <form>
                       <div className="form-group">
-                        <label>LABEL_SUPPLIER2</label>
+                        <label><FormattedMessage id="LABEL_SUPPLIER2" /></label>
                         <input
                           className="form-control"
                           type="text"
-                          placeholder="PLACEHOLDER_QUOTE_SUPPLIER1"
+                          placeholder={formatMessage('PLACEHOLDER_QUOTE_SUPPLIER1')}
                         />
                       </div>
                       <div className="form-group">
-                        <label>LABEL_QUOTE2</label>
+                        <label><FormattedMessage id="LABEL_QUOTE2" /> (&#163;)</label>
                         <input
                           className="form-control"
                           type="text"
-                          placeholder="PLACEHOLDER_QUOTE_SYMBOL"
+                          placeholder="$"
                         />
                       </div>
                     </form>
@@ -60,22 +62,22 @@ class Quotes extends Component {
               <div className="col-lg-4 pl-md-2 pr-lg-2">
                 <div className="card_wrap">
                   <div className="card">
-                    <h6 className="title">TITLE_QUOTE3</h6>
+                    <h6 className="title"><FormattedMessage id="TITLE_QUOTE3" /></h6>
                     <form>
                       <div className="form-group">
-                        <label>LABEL_SUPPLIER3</label>
+                        <label><FormattedMessage id="LABEL_SUPPLIER3" /></label>
                         <input
                           className="form-control"
                           type="text"
-                          placeholder="PLACEHOLDER_QUOTE_SUPPLIER2"
+                          placeholder="&#163;"
                         />
                       </div>
                       <div className="form-group">
-                        <label>LABEL_QUOTE3</label>
+                        <label><FormattedMessage id="LABEL_QUOTE3" /> (&#163;)</label>
                         <input
                           className="form-control"
                           type="text"
-                          placeholder="PLACEHOLDER_QUOTE_SYMBOL"
+                          placeholder="$"
                         />
                       </div>
                     </form>

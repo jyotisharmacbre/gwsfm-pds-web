@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import DiscountTable from '../components/Table/DiscountTable';
 import DiscountForm from '../components/Forms/Discount/DiscountForm';
+import { FormattedMessage } from 'react-intl';
 
 class Discounts extends Component {
   render() {
@@ -12,11 +13,11 @@ class Discounts extends Component {
               <div className="heading-subtitle">
                 <h1>
                   <span className="d-md-block d-none">
-                  TITLE_JUSTIFICATION
+                 <FormattedMessage id="TITLE_JUSTIFICATION" /> 
                   </span>
-                  <span className="d-md-none">TITLE_JUSTIFICATION_SHORT</span>
+                  <span className="d-md-none"><FormattedMessage id="TITLE_JUSTIFICATION_SHORT" /> </span>
                 </h1>
-                <p className="text-green">SUB_TITLE_DISCOUNTS</p>
+                <p className="text-green"><FormattedMessage id="SUB_TITLE_DISCOUNTS" /> </p>
               </div>
               <DiscountTable></DiscountTable>
               <DiscountForm></DiscountForm>

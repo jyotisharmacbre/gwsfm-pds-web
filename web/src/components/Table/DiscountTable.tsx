@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { FormattedMessage } from 'react-intl';
 
 class DiscountTable extends Component {
   render() {
@@ -9,18 +10,18 @@ class DiscountTable extends Component {
             <table className="price-table">
               <thead>
                 <tr>
-                  <th>T_HEADING_TOTAL_COST </th>
-                  <th>T-HEADING_TOTAL_MARGIN </th>
-                  <th>T-HEADING_GROSS_MARGIN </th>
-                  <th>T-HEADING_TOTAL_SELL </th>
+                  <th><FormattedMessage id="T_HEADING_TOTAL_COST" /></th>
+                  <th><FormattedMessage id="T_HEADING_TOTAL_MARGIN" /> </th>
+                  <th><FormattedMessage id="T_HEADING_GROSS_MARGIN" /> </th>
+                  <th><FormattedMessage id="T_HEADING_TOTAL_SELL" /> </th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td>T_DATA_CALCULATION1  </td>
-                  <td>T_DATA_CALCULATION2  </td>
-                  <td>T_DATA_CALCULATION3  </td>
-                  <td>T_DATA_CALCULATION4  </td>
+                  <td>&#163;36,000,00 </td>
+                  <td>25 % </td>
+                  <td>&#163;40,000,00 </td>
+                  <td>&#163;40,000,00 </td>
                 </tr>
               </tbody>
             </table>
