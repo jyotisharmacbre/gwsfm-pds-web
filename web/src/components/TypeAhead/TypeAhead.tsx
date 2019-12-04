@@ -7,34 +7,43 @@ import { AsyncTypeahead } from "react-bootstrap-typeahead";
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { Validate } from "../../helpers/fieldValidations";
 import { getDynamicOther } from "../../store/DynamicsData/Action";
-import { formatMessage } from "../../Translations/connectedIntlProvider";
 
-const AdaptedTypeahead = ({ input, render, meta, labelName, className, ...rest }) => (
+const AdaptedTypeahead = ({ input, render, meta, labelName, className, ...rest }) =>{ 
+  debugger;
+
+const formatValue = () => {
+  let result = '';
+  result = input.value != '' ? (rest.options.filter(option => option[rest.submitParam] == input.value)).slice() : '';
+ return result;
+}
+
+  return(
     <div className={'form-group'}>
       <label>
         <FormattedMessage id={labelName} />{className && className.split(' ').includes('required') ? '*' : ''}
       </label>
   <AsyncTypeahead {...input} {...rest} 
   minLength={3} 
+  defaultSelected = {formatValue()}
   />
-  {meta.touched &&
-        ((meta.error && <span className="text-danger">{meta.error}</span>))}   
+      {meta.error && meta.touched && <span className="text-danger">{meta.error}</span>}  
   </div>
-);
+)};
 
 
 const TypeAhead = ({ name, options, onSearch, DynamicsType, placeholderKey, intl,className, 
-    searchText, labelName,validationKey, ...props }) => {
+    searchText, labelName,validationKey, submitParam,selected, ...props }) => {
     function handleChange(value: any) {
         props.handleOtherFieldChange(value, DynamicsType);
       }    
  
       const _placeholder = placeholderKey
-    ? formatMessage(placeholderKey)
+    ? intl.formatMessage({id:placeholderKey})
     : placeholderKey;
 
-    const normalizingValue = value => (value? value[0].DynamicsType : "" );
+ const normalizingValue = value => (value.length>0 ? value[0][submitParam] : "" );
 
+   
   return (
     <Field
       filterBy={() => true}
@@ -45,15 +54,15 @@ const TypeAhead = ({ name, options, onSearch, DynamicsType, placeholderKey, intl
       onSearch={onSearch}
       id={DynamicsType}
       onChange={handleChange}
-      validate={[
-        Validate.required(validationKey),
-        Validate.maxLength(1000)
-      ]}
       searchText={searchText}
       placeholder={_placeholder}
       className= {className}
       labelName={labelName}
       normalize = {normalizingValue}
+      submitParam={submitParam}
+      validate={[
+        Validate.required(validationKey)
+      ]}
     />
   );
 };
@@ -68,5 +77,5 @@ const mapDispatchToProps = dispatch => {
   export default connect(
     null,
     mapDispatchToProps
-  )(TypeAhead);
+  )(injectIntl(TypeAhead));
 

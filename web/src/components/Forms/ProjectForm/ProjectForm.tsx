@@ -23,14 +23,17 @@ import { IProjectDetail } from '../../../store/CustomerEnquiryForm/Types/IProjec
 import { ICurrency } from '../../../store/Lookups/Types/ICurrency';
 import IReactIntl from '../../../Translations/IReactIntl';
 import TypeAhead from '../../TypeAhead/TypeAhead';
-import { getADhopOther } from '../../../store/UserService/Action';
+import { dynamicsContract } from '../../TypeAhead/TypeAheadConstantData/dynamicContractData';
+import { dynamicsCompany } from '../../TypeAhead/TypeAheadConstantData/dynamicCompanyData';
+import { dynamicUserServiceData } from '../../TypeAhead/TypeAheadConstantData/dynamicUserServiceData';
+
 interface Props {
   projectstatus: any;
   onNext: (data: IProjectDetail) => void;
   onSave: (data: IProjectDetail) => void;
   currencies: Array<ICurrency> | null;
-  dynamicsContract: any;
-  dynamicsCompany: any;
+  // dynamicsContract: any;
+  // dynamicsCompany: any;
   onSearchContract: (value: any) => void;
   onSearchCompany: (value: any) => void;
   onSearchHOP: (value: any) => void;
@@ -57,8 +60,8 @@ const ProjectForm: React.FC<
   const {
     handleSubmit,
     projectstatus,
-    dynamicsContract,
-    dynamicsCompany,
+    // dynamicsContract,
+    // dynamicsCompany,
     onSearchContract,
     onSearchCompany,
     onSearchHOP,
@@ -81,38 +84,22 @@ const ProjectForm: React.FC<
   const getDynamicsContractDropdown =
     dynamicsContract &&
     dynamicsContract.map((ContractData: any) => {
-      return { label: ContractData.name, id: ContractData.id };
+      return { label: ContractData.ContractName, id: ContractData.ContractId };
     });
 
   const getDynamicsCompanyDropdown =
-    dynamicsCompany &&
-    dynamicsCompany.map((CompanyData: any) => {
-      return { label: CompanyData.name, id: CompanyData.id };
-    });
+  dynamicsCompany &&
+  dynamicsCompany.map((CompanyData: any) => {
+    return { label: CompanyData.Name, id: CompanyData.CompanyId };
+  });
 
-  const getADhopDropdown =
-    adHOPData &&
-    adHOPData.map((HOPData: any) => {
-      return { label: HOPData.name, id: HOPData.id };
-    });
-
-  const getADpoDropdown =
-    adPOData &&
-    adPOData.map((POData: any) => {
-      return { label: POData.name, id: POData.id };
-    });
-
-  const getADpmDropdown =
-    adPMData &&
-    adPMData.map((PMData: any) => {
-      return { label: PMData.name, id: PMData.id };
-    });
- 
-    const normalizing = value =>{
-      debugger;
-      console.log(value, "typeahead")
-    }
-
+  const getUserServiceDropdown =
+  dynamicUserServiceData &&
+  dynamicUserServiceData.map((UserServiceData: any) => {
+    return { label: UserServiceData.firstname + " " + UserServiceData.lastName, id: UserServiceData.id,
+      email: UserServiceData.email
+    };
+  });
 
   return (
     <div className="container-fluid">
@@ -144,10 +131,11 @@ const ProjectForm: React.FC<
                 placeholderKey="PLACEHOLDER_COMPANY_NAME"
                 className="required"
                 labelName="LABEL_COMPANY"
-                validationKey="LABEL_COMPANY"/>
+                validationKey="LABEL_COMPANY"
+                submitParam = "id"/>
                 {otherDynamicsCompany === 'Other' && (
                   <Field
-                    name="otherCompany"
+                    name="otherCompanyName"
                     type="text"
                     component={PdsFormInput}
                     className="required"
@@ -166,11 +154,12 @@ const ProjectForm: React.FC<
                 placeholderKey="PLACEHOLDER_CONTRACT"
                 className="required"
                 labelName="LABEL_CONTRACT"
-                validationKey="LABEL_CONTRACT"/>
+                validationKey="LABEL_CONTRACT"
+                submitParam = "id"/>
 
                 {otherDynamicsContract === 'Other' && (
                   <Field
-                    name="otherContract"
+                    name="otherContractName"
                     type="text"
                     component={PdsFormInput}
                     className="required"
@@ -184,32 +173,35 @@ const ProjectForm: React.FC<
                 )}
 
 <TypeAhead name="headOfProject"
-                options={getADhopDropdown}
+                options={getUserServiceDropdown}
                 DynamicsType="headOfProject"
                 onSearch={onSearchHOP}
                 placeholderKey="PLACEHOLDER_HEAD_OF_PROJECT_NAME"
                 className="required"
                 labelName="LABEL_HEAD_OF_PROJECT"
-                validationKey="LABEL_HEAD_OF_PROJECT"/>
+                validationKey="LABEL_HEAD_OF_PROJECT"
+                submitParam = "email"/>
 
 <TypeAhead name="projectOwner"
-                options={getADpoDropdown}
+                options={getUserServiceDropdown}
                 DynamicsType="projectOwner"
                 onSearch={onSearchPO}
                 placeholderKey="PLACEHOLDER_PROJECT_OWNER_NAME"
                 className="required"
                 labelName="LABEL_PROJECT_OWNER"
-                validationKey="LABEL_PROJECT_OWNER"/>
+                validationKey="LABEL_PROJECT_OWNER"
+                submitParam = "email"/>
 
 
 <TypeAhead name="projectManager"
-                options={getADpmDropdown}
+                options={getUserServiceDropdown}
                 DynamicsType="projectManager"
                 onSearch={onSearchPM}
                 placeholderKey="PLACEHOLDER_PROJECT_MANAGER"
                 className="required"
                 labelName="LABEL_PROJECT_MANAGER"
-                validationKey="LABEL_PROJECT_MANAGER"/>
+                validationKey="LABEL_PROJECT_MANAGER"
+                submitParam = "email"/>
 
                 <Field
                   name="pmHasExperience"

@@ -113,17 +113,3 @@ export const getDynamicOther = (data: any, type: string) => {
       };
   }
 };
-
-// export const getDynamicContractOther = (data: string) => {
-//   console.log(data);
-//   return (dispatch: Dispatch) => {
-//     dispatch(getDynamicContractOtherSuccess(data));
-//   };
-// };
-
-// export const getDynamicCompanyOther = (data: string) => {
-//   console.log(data);
-//   return (dispatch: Dispatch) => {
-//     dispatch(getDynamicCompanyOtherSuccess(data));
-//   };
-// };

@@ -1,8 +1,8 @@
 export interface IProjectDetail {
   projectId: string;
   name: string;
-  contractorId: number;
-  companyId: number;
+  contractorId: string;
+  companyId: string;
   headOfProject: string;
   projectOwner: string;
   projectManager: string;
@@ -21,4 +21,6 @@ export interface IProjectDetail {
   secondAssetWorkedOn: number;
   thirdAssetWorkedOn: number;
   comment: string;
+  otherCompanyName: string;
+  otherContractName: string;
 }

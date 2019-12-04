@@ -8,8 +8,8 @@ const initialState: IProjectDetailState = {
   form: {
     projectId: '',
     name: '',
-    contractorId: 1,
-    companyId: 1,
+    contractorId: '',
+    companyId: '',
     headOfProject: '',
     projectOwner: '',
     projectManager: '',
@@ -27,15 +27,17 @@ const initialState: IProjectDetailState = {
     firstAssetWorkedOn: 0,
     secondAssetWorkedOn: 0,
     thirdAssetWorkedOn: 0,
-    comment: ''
+    comment: '',
+    otherCompanyName: '',
+    otherContractName:''
   },
   enquiryOverview: {
     projectName: '',
-    companyId: -1,
+    companyId: '',
     headOfProject: '',
     projectManager: '',
     scope: '',
-    cnNumber: -1
+    cnNumber: ''
   },
   error: null,
   loading: false,
