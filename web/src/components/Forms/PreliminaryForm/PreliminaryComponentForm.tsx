@@ -29,10 +29,13 @@ import { FormattedMessage } from 'react-intl';
 import { IPreliminariesItemDetails } from '../../../store/Preliminaries/Types/IPreliminariesItemDetails';
 import PreliminaryItemsForm from "./PreliminaryItemsForm"
 interface Props {
+  onSubmit: (
+    prelimComponentDetails: IPreliminariesComponentDetails,
+    saveAll:boolean
+  ) => void;
     initialValues:IPreliminariesComponentDetails;
     componentName:string,
-    componentId:string,
-    isVisible:boolean
+    componentId:string
  }
 
 let PreliminaryComponentForm: React.FC<
@@ -48,6 +51,10 @@ let PreliminaryComponentForm: React.FC<
       element.classList.remove('hide');
       element.classList.add('show');
     }
+  };
+  const handleSubmit = ( prelimComponentDetails: IPreliminariesComponentDetails,
+    saveAll:boolean) => {
+   debugger;
   };
   return (
     <form>
@@ -73,13 +80,15 @@ let PreliminaryComponentForm: React.FC<
           <PreliminaryItemsForm 
           key={itemKey}
           form={`preliminaryItem_${itemKey}`}
-          initialValues={itemData}>
-
+          initialValues={itemData}
+          componentId={props.componentId}
+          >
+          
           </PreliminaryItemsForm>
         );
       })}
         <div className="text-right" >
-                  <button type="submit" className="text-right btn-sm">
+                  <button type="submit" className="text-right btn-sm" onClick={()=>props.onSubmit(props.initialValues,false)}>
                     SAVE
                   </button>
                 </div>

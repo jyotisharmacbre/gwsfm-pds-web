@@ -31,13 +31,15 @@ import { IPreliminaryForm } from '../../../store/Preliminaries/Types/IPreliminar
 import PreliminaryComponentForm from './PreliminaryComponentForm';
 interface Props {
   onSave: (
-    projectId: string,
-    componentId: IPreliminariesComponentDetails,
+    prelimComponentDetails: IPreliminariesComponentDetails,
     saveAll:boolean
   ) => void;
   preliminariesDetails: any;
 }
-
+const handleSave = ( 
+  prelimComponentDetails: IPreliminariesComponentDetails,
+  saveAll:boolean) => {
+};
 let PreliminaryForm: React.FC<
   Props & InjectedFormProps<IPreliminaryForm, Props>
 > = (props: any) => {
@@ -57,7 +59,8 @@ let PreliminaryForm: React.FC<
           initialValues={componentData}
           componentName={componentData.componentName}
           componentId={componentData.componentId}
-          isVisible={props.isVisible}>
+          onSubmit={props.onSave}
+          >
           </PreliminaryComponentForm>
         );
       })}

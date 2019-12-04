@@ -31,11 +31,18 @@ import { IPreliminariesItems } from '../../../store/Preliminaries/Types/IPrelimi
 
 interface Props {
     initialValues:IPreliminariesItemDetails;
+    componentId:string;
  }
 
 let PreliminaryItemsForm: React.FC<
   Props & InjectedFormProps<IPreliminariesItemDetails, Props>
 > = (props: any) => {
+  const getTotalCostAndMarginCalculation = (totalCost:number, grossMargin:number,componentId:string,itemId:string) => {
+  debugger;
+    var id="totalSell_"+componentId+"_"+itemId;
+  var element:any= document.getElementsByClassName(id);
+  if(element!=null){(element.value=totalCost+grossMargin)}
+  };
   return (
     <form>
            <div className="card-body">
@@ -63,6 +70,11 @@ let PreliminaryItemsForm: React.FC<
                   type="text"
                   component={PdsFormInput}
                   className="required"
+                  validate={[
+                    Validate.maxLength(1000),
+                    alphaNumeric
+                  ]}
+                  warn={alphaNumeric}
                 />
                             </td>
                             <td>
@@ -70,6 +82,7 @@ let PreliminaryItemsForm: React.FC<
                   name="noOfHours"
                   data-test="noOfHours"
                   type="text"
+                  disabled={true} 
                   component={PdsFormInput}
                   className="required"
                 />
@@ -81,6 +94,7 @@ let PreliminaryItemsForm: React.FC<
                   type="text"
                   component={PdsFormInput}
                   className="required"
+                  disabled={true} 
                 />
                             </td>
                             <td>
@@ -90,6 +104,11 @@ let PreliminaryItemsForm: React.FC<
                   type="text"
                   component={PdsFormInput}
                   className="required"
+                  validate={[
+                    Validate.maxLength(15),
+                    onlyNumber
+                  ]}
+                  warn={onlyNumber}
                 />
                             </td>
                             <td>
@@ -99,11 +118,22 @@ let PreliminaryItemsForm: React.FC<
                   type="text"
                   component={PdsFormInput}
                   className="required"
+                  validate={[
+                    Validate.maxLength(15),
+                    onlyNumber
+                  ]}
+                  warn={onlyNumber}
                 />
                             </td>
                             <td>
-                              <input type="text"  readOnly={true} />
-                            </td>
+                            <Field
+                  name="totalSell"
+                  data-test="totalSell"
+                  type="text"
+                  disabled={true} 
+                  component={PdsFormInput}
+                  className={"totalSell_"+props.componentId+"_"+props.initialValues.itemId}
+                />                            </td>
                             <td>
                             <Field
                   name="comments"
@@ -111,6 +141,11 @@ let PreliminaryItemsForm: React.FC<
                   type="text"
                   component={PdsFormInput}
                   className="required"
+                  validate={[
+                    Validate.maxLength(1000),
+                    alphaNumeric
+                  ]}
+                  warn={alphaNumeric}
                 />
                             </td>
                           </tr>
@@ -123,8 +158,6 @@ let PreliminaryItemsForm: React.FC<
     </form>
   );
 };
-
-
 const form = reduxForm<IPreliminariesItemDetails, Props>({
   destroyOnUnmount: false,
   forceUnregisterOnUnmount: false,
