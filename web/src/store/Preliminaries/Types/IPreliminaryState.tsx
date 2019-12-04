@@ -7,9 +7,6 @@ export interface IPreliminaryForm {
 }
 
 export interface IPreliminaryState {
-  preliminaryDetails:Array<IPreliminariesComponentDetails>;
   projectId: string;
-  isVisible: boolean;
-  notify: Notify;
- 
+  preliminaryDetails:Array<IPreliminariesComponentDetails>;
 }

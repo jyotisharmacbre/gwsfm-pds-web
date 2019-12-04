@@ -25,7 +25,7 @@ const PreliminarySummaryView: React.FC<
 
   return (
     
-            <div className="table-responsive">
+            
               <table className="table table-bordered cost fltLeft">
                 <thead>
                   <tr>
@@ -44,7 +44,6 @@ const PreliminarySummaryView: React.FC<
                   </tr>
                 </tbody>
               </table>
-            </div>
   );
 };
 

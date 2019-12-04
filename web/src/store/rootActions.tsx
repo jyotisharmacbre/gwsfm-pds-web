@@ -17,7 +17,8 @@ export { getProjectStatus, getAllCurrencies } from './Lookups/Actions';
 export {
   preliminaryAdd,
   preliminaryEdit,
-  getPreliminaryDetails
+  getPreliminaryDetails,
+  getLookUpDetails
 } from './Preliminaries/Actions';
 
 export { addNewActivity,deleteActivity } from './SubContractor/Actions';

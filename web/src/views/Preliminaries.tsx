@@ -10,6 +10,7 @@ import { useHistory } from 'react-router-dom';
 import * as actions from '../store/rootActions';
 import PreliminaryForm from '../components/Forms/PreliminaryForm/PreliminaryForm';
 import PreliminarySummaryView from "./PreliminarySummaryView";
+import { IPreliminaryState } from '../store/Preliminaries/Types/IPreliminaryState';
 interface IMapStateToProps {
   preliminaryDetails: Array<IPreliminariesComponentDetails>;
   projectId: string;
@@ -18,12 +19,10 @@ interface IMapStateToProps {
 }
 interface IMapDispatchToProps {
   preliminaryAdd: (
-    projectId: string,
-    preliminaryDetails: Array<IPreliminariesComponentDetails>
+    preliminaryDetails: IPreliminaryState
   ) => void;
   preliminaryEdit: (
-    projectId: string,
-    preliminaryDetails: Array<IPreliminariesComponentDetails>
+    preliminaryDetails: IPreliminaryState
   ) => void;
   getPreliminaryDetails: (projectId: string) => void;
   updateInputField:(inputData:any)=>void;
@@ -51,23 +50,39 @@ const Preliminaries: React.FC<
     }
   };
   const handleSaveData = (
-    projectId: string,
     preliminaryDetails: IPreliminariesComponentDetails,
     saveAll:boolean
   ) => {
-    var filterData: IPreliminariesComponentDetails[] = [];
-    
+    var saveFlag:boolean=false;
+    var saveData: IPreliminaryState={projectId:"",preliminaryDetails:[]} ;
+    var editData: IPreliminaryState={projectId:"",preliminaryDetails:[]} ;
     if(saveAll)
     {
-      filterData=  props.preliminaryDetails.filter((data)=>{
-return data.items.map((itemData)=>itemData.totalCost>0);
-      })
+      editData.preliminaryDetails=  props.preliminaryDetails.filter((data)=>{
+        
+          return data.items.map((itemData)=>itemData.totalCost>0&&itemData.preliminaryId!='');
+        })
+      saveData.preliminaryDetails= props.preliminaryDetails.filter((data)=>{
+              return data.items.map((itemData)=>itemData.totalCost>0);
+         })
     }
     else
     {
-      filterData.push(preliminaryDetails);
+      preliminaryDetails.items.map((data)=>data.preliminaryId!=''?saveFlag=false:saveFlag=true);
+      saveFlag?saveData.preliminaryDetails.push(preliminaryDetails):editData.preliminaryDetails.push(preliminaryDetails);
+      
     }
-    props.preliminaryAdd(projectId, filterData);
+    if(editData.preliminaryDetails.length>0&&saveData.preliminaryDetails.length>0)
+    {
+      props.preliminaryAdd(saveData);
+      props.preliminaryEdit(editData);
+    }
+    else
+    {
+      editData.preliminaryDetails.length>0?props.preliminaryEdit(editData):props.preliminaryAdd(saveData)
+
+    }
+    
   };
   useEffect(() => {
     if (props.notify == Notify.success) {
@@ -83,7 +98,10 @@ return data.items.map((itemData)=>itemData.totalCost>0);
               Justification &amp; Authorisation
               <p className="sub_head">preliminaries</p>
             </h1>
+            <div className="table-responsive">
             <PreliminarySummaryView/>
+            <div><button type="button" className="active fltRght" onClick={()=>handleExpandAllEvent()}>EXPAND ALL</button></div>
+            </div>
             <div>
               <PreliminaryForm
                 onSave={handleSaveData}
@@ -97,15 +115,15 @@ return data.items.map((itemData)=>itemData.totalCost>0);
         <div className="row">
           <div className="col-4">
             {' '}
-            <button type="submit" className="active mb-4 mt-5">
+            <button type="button" className="active mb-4 mt-5" onClick={()=>handleSaveData(props.preliminaryDetails[0],true)}>
               PREVIOUS
             </button>
           </div>
           <div className="col-8 text-right">
-            <button type="submit" className="active mb-4 mt-5  text-right">
+            <button type="button" className="active mb-4 mt-5  text-right" onClick={()=>handleSaveData(props.preliminaryDetails[0],true)}>>
               SAVE
             </button>
-            <button type="submit" className="mb-4 mt-5 text-right">
+            <button type="button" className="mb-4 mt-5 text-right" onClick={()=>handleSaveData(props.preliminaryDetails[0],true)}>>
               NEXT
             </button>
           </div>
@@ -118,18 +136,16 @@ return data.items.map((itemData)=>itemData.totalCost>0);
 const mapStateToProps = (state: IState) => {
   return {
     preliminaryDetails: state.preliminary.preliminaryDetails,
-    notify: state.preliminary.notify,
-    projectId: state.preliminary.projectId,
-    isVisible: state.preliminary.isVisible
+    projectId: state.preliminary.projectId
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    preliminaryAdd: (projectId, preliminaryDetails) =>
-      dispatch(actions.preliminaryAdd(projectId, preliminaryDetails)),
-    preliminaryEdit: (projectId, preliminaryDetails) =>
-      dispatch(actions.preliminaryEdit(projectId, preliminaryDetails)),
+    preliminaryAdd: (preliminaryDetails) =>
+      dispatch(actions.preliminaryAdd(preliminaryDetails)),
+    preliminaryEdit: (preliminaryDetails) =>
+      dispatch(actions.preliminaryEdit(preliminaryDetails)),
     getPreliminaryDetails: (projectId: string) =>
       dispatch(actions.getPreliminaryDetails(projectId))
   };
