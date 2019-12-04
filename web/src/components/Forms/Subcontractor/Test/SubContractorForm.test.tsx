@@ -11,7 +11,7 @@ import   * as connectedIntlProvider from './../../../../Translations/connectedIn
 describe('Sub Contractor Form', () => {
   let wrapper: any;
   const props: any = {
-    onSubmitForm: : jest.fn(),
+    onSubmitForm : jest.fn(),
     addNewActivity: jest.fn(),
     deleteActivity: jest.fn()
   }; 
