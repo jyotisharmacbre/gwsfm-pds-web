@@ -6,7 +6,7 @@ import SubContractorActivityForm from '../SubContractorActivityForm';
 import { IntlProvider } from 'react-intl';
 import translations from '../../../../Translations/translation';
 import   * as connectedIntlProvider from './../../../../Translations/connectedIntlProvider';
-
+ 
 
 describe('Sub Contractor - Activity Form', () => {
   let wrapper: any;

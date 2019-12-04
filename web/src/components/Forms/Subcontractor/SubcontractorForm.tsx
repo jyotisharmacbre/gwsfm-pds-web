@@ -16,7 +16,7 @@ import FontawsomeReact, {
 } from '@fortawesome/react-fontawesome';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import EventType from '../../../enums/EventType';
-
+ 
 interface Props {
   onSubmitForm: (data: ISubContractor,event:EventType) => void;
   addNewActivity: () => void;

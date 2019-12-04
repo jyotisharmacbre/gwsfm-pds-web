@@ -7,7 +7,7 @@ import { IntlProvider } from 'react-intl';
 import translations from '../../../../Translations/translation';
 import   * as connectedIntlProvider from './../../../../Translations/connectedIntlProvider';
 
-
+  
 describe('Sub Contractor Form', () => {
   let wrapper: any;
   const props: any = {
