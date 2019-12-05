@@ -11,7 +11,7 @@ import { findByTestAtrr } from '../../../helpers/test-helper';
 import { getTypeAheadDropdown } from './TypeAheadTestData';
 
 export function getMenuItems(wrapper) {
-    return wrapper.find('a.dropdown-item');
+    return wrapper.find('a.dropdown-item span>span');
 }
 
 describe('TypeAhead Field', () => {
@@ -46,6 +46,7 @@ describe('TypeAhead Field', () => {
         wrapper.simulate('focus');
         let menuItems = getMenuItems(wrapper);
         expect(menuItems).toHaveLength;
+        expect(menuItems[0] ,getTypeAheadDropdown[0].Name).toEqual;
     });
 
 });
