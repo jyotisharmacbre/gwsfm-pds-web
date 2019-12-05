@@ -12,6 +12,7 @@ const AdaptedTypeahead = ({ input, render, meta, labelName, className, ...rest }
   debugger;
 
 const formatValue = () => {
+  console.log("formatvalue called");
   let result = '';
   result = input.value != '' ? (rest.options.filter(option => option[rest.submitParam] == input.value)).slice() : '';
  return result;
@@ -33,6 +34,7 @@ const formatValue = () => {
 
 const TypeAhead = ({ name, options, onSearch, DynamicsType, placeholderKey, intl,className, 
     searchText, labelName,validationKey, submitParam,selected, ...props }) => {
+      console.log("TypeAhead called");
     function handleChange(value: any) {
         props.handleOtherFieldChange(value, DynamicsType);
       }    
