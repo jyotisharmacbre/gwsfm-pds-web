@@ -5,16 +5,18 @@ import '../components/Forms/PreliminaryForm/style.css';
 import { connect } from 'react-redux';
 import { IState } from '../store/state';
 import { IPreliminariesComponentDetails } from '../store/Preliminaries/Types/IPreliminariesComponentDetails';
-import Notify from '../enums/Notify';
 import { useHistory } from 'react-router-dom';
 import * as actions from '../store/rootActions';
 import PreliminaryForm from '../components/Forms/PreliminaryForm/PreliminaryForm';
 import PreliminarySummaryView from "./PreliminarySummaryView";
 import { IPreliminaries } from '../store/Preliminaries/Types/IPreliminaries';
 import {convertIntoDatabaseModel} from "../store/Preliminaries/DataWrapper";
+import { toast } from 'react-toastify';
+import Notify from '../enums/Notify';
 interface IMapStateToProps {
   preliminaryDetails: Array<IPreliminariesComponentDetails>;
   match:any;
+  notify: Notify;
 }
 interface IMapDispatchToProps {
   preliminaryAdd: (
@@ -40,9 +42,26 @@ const Preliminaries: React.FC<
       paramProjectId != '' &&
       paramProjectId != undefined
     ) {
-      props.getLookupDetails(paramProjectId);
+      if(sessionStorage.getItem("lookupData")!=null&&(sessionStorage.getItem("lookupData")!=undefined))
+      {
+        props.getPreliminaryDetails(paramProjectId);
+      }
+      else
+      {
+        props.getLookupDetails(paramProjectId);
+      }
+   
     }
   }, []);
+  useEffect(() => {
+    if (props.notify == Notify.success) {
+        toast.success('Data Saved Successfully');
+      }
+      else
+      {
+        toast.error('Error occured.Please contact to administrator.');
+      }
+  }, [props.notify]);
   const handleExpandAllEvent = () => {
     var element: any = document.getElementsByClassName('expandAll');
     for(let i=0;i<element.length;i++)
@@ -70,7 +89,6 @@ const Preliminaries: React.FC<
     preliminaryDetails: any,
     index:number
   ) => {
-    var saveData: Array<IPreliminaries>=[];
     var editData: Array<IPreliminaries>=[];
     let preData:Array<IPreliminariesComponentDetails>=[];
     preData.push(preliminaryDetails.preliminaryDetails[index]);
@@ -78,21 +96,16 @@ const Preliminaries: React.FC<
     convertIntoDatabaseModel(preliminaryDetails.preliminaryDetails,paramProjectId):
     convertIntoDatabaseModel(preData,paramProjectId)
     editData=  preliminariesData.filter((data)=>{
-      return (data.TotalCost>0&&data.PreliminaryId!='');
+      return (data.TotalCost>0&&data.PreliminaryId!=''&&data.GrossMargin&&data.NameOfSupplier&&data.NoOfHours);
     })
-    saveData= preliminariesData.filter((data)=>{
-        return (data.TotalCost>0&&data.PreliminaryId=='');
-     })
-    if(editData.length>0&&saveData.length>0)
+    if( editData.length>0)
     {
-      props.preliminaryAdd(saveData);
       props.preliminaryEdit(editData);
     }
     else
     {
-      editData.length>0?props.preliminaryEdit(editData):props.preliminaryAdd(saveData)
+      toast.error('No data changed to save.');
     }
-    
   };
 
   return (

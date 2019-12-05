@@ -2,6 +2,8 @@ import { ActionType } from './Types/ActionType';
 import { updateObject } from '../../helpers/utility-helper';
 import { IPreliminaryState } from './Types/IPreliminaryState';
 import {bindUserData} from "./DataWrapper";
+import Notify from '../../enums/Notify';
+
 
 const initialState: IPreliminaryState = {
     preliminaryDetails: [
@@ -107,32 +109,41 @@ const initialState: IPreliminaryState = {
         ]
       }
     ],
-  lookupData:[]
+    notify:Notify.none
 };
 const preliminaryAddSuccess = (oldState, action) => {
- 
+  return updateObject(oldState,{
+    notify: Notify.success,
+    preliminaryDetails:updateObject(oldState.preliminaryDetails, bindUserData(action.payload))
+  })
 };
 const preliminaryAddError = (oldState, action) => {
-  return updateObject(oldState, { });
-};
+  return updateObject(oldState, {
+    notify: Notify.error
+  });
+}
 const preliminaryEditSuccess = (oldState, action) => {
-  return updateObject(oldState ,{ });
-};
+  return updateObject(oldState,{
+    notify: Notify.success,
+    preliminaryDetails:updateObject(oldState.preliminaryDetails, bindUserData(action.payload))
+  })};
 const preliminaryEditError = (oldState, action) => {
-  return updateObject(oldState, {});
+  return updateObject(oldState, {
+    notify: Notify.error
+  });
 };
 const preliminaryGetSuccess = (oldState, action) => {
   return updateObject(oldState,{
-    preliminaryDetails:updateObject(oldState.preliminaryDetails, bindUserData(oldState.lookupData,action.payload))
+    preliminaryDetails:updateObject(oldState.preliminaryDetails, bindUserData(action.payload))
   })
 };
 const preliminaryGetError = (oldState, action) => {
-  return updateObject(oldState,{});
+  return updateObject(oldState, {
+    notify: Notify.error
+  });
 };
 const lookUpDetails = (oldState, action) => {
-  return updateObject(oldState, {
-    lookupData: updateObject(oldState.lookupData, action.payload)
-  });
+  sessionStorage.setItem("lookupData",action.payload);
 };
 const preliminaryReducer = (oldState = initialState, action) => {
   switch (action.type) {

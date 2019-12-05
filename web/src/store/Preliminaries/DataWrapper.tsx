@@ -1,24 +1,27 @@
 import { IPreliminariesComponentDetails } from './Types/IPreliminariesComponentDetails';
 import { IPreliminariesItems } from './Types/IPreliminariesItems';
 import { IPreliminaries } from './Types/IPreliminaries';
-
-export const bindUserData = (lookupData, preliminaryData) => {
+import {uuid } from "react-uuid";
+export const bindUserData = (preliminaryData) => {
     var preliminaryDetails:Array<IPreliminariesComponentDetails>=[];
     var componentDetails:IPreliminariesComponentDetails={componentId:'',componentName:'',items:[]}
     var items:IPreliminariesItems ={itemId: '',itemName: '',preliminaryId:'',nameOfSupplier: '',
-                                   noOfHours: 0,hourRate: 0,totalCost: 0,grossMargin: 0,comments: ''}
-
-   var pre_components=lookupData.filter((data)=>{return data.LookupItem=='Pre_Components'});
-   var pre_component_items=lookupData.payload.filter((data)=>{return data.LookupItem=='Pre_Component_Items'});
+                                   noOfHours: 0,hourRate: 0,totalCost: 0,grossMargin: 0,comments: ''};
+    var lookupData:any=[];
+    lookupData=(sessionStorage.getItem("lookupData"));
+    if(lookupData!=null&&lookupData!=undefined)
+    {
+        var pre_components=lookupData.filter((data)=>{return data.LookupItem=='Pre_Components'});
+   var pre_component_items=lookupData.filter((data)=>{return data.LookupItem=='Pre_Component_Items'});
    pre_components.map((components)=>{
-    componentDetails.componentId=components.LookupKey;
+    componentDetails.componentId=components.LookupKey.toString();
     componentDetails.componentName=components.Description;
     var preData=preliminaryData.filter((x)=>{return x.PreliminariesComponentId==components.LookupKey});
     pre_component_items.map((item)=>{
-        let itemData=preData.filter((itemData)=>{return (itemData.PreliminariesItemId==item.LookupKey)});
-        items.itemId=item.LookupKey;
+        let itemData=preData.filter((itemData)=>{return (itemData.PreliminariesItemId==item.LookupKey.toString())});
+        items.itemId=item.LookupKey.toString();
         items.itemName=item.Description;
-        items.preliminaryId=itemData.length>0?(itemData.PreliminaryId==null?'':itemData.PreliminaryId):'';
+        items.preliminaryId=itemData.length>0?(itemData.PreliminaryId==null?uuid():itemData.PreliminaryId):'';
         items.nameOfSupplier=itemData.length>0?(itemData.NameOfSupplier==null?'':itemData.NameOfSupplier):'';
         items.noOfHours=itemData.length>0?itemData.NoOfHours:'';
         items.hourRate=itemData.length>0?itemData.HourRate:'';
@@ -26,10 +29,11 @@ export const bindUserData = (lookupData, preliminaryData) => {
         items.grossMargin=itemData.length>0?itemData.GrossMargin:'';
         items.comments=itemData.length>0?(itemData.Comments==null?'':itemData.Comments):'';
         componentDetails.items.push(items);
-
     })
     preliminaryDetails.push(componentDetails);
    })
+    }
+   
    return preliminaryDetails;
 };
 
