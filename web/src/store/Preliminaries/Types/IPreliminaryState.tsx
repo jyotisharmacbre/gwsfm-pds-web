@@ -1,5 +1,6 @@
 import { IPreliminariesComponentDetails } from './IPreliminariesComponentDetails';
 import Notify from '../../../enums/Notify';
+import { ILookup } from '../../Lookups/Types/ILookup';
 
 export interface IPreliminaryForm {
   preliminaryDetails: Array<IPreliminariesComponentDetails>;
@@ -7,6 +8,6 @@ export interface IPreliminaryForm {
 }
 
 export interface IPreliminaryState {
-  projectId: string;
+  lookupData:Array<ILookup>;
   preliminaryDetails:Array<IPreliminariesComponentDetails>;
 }

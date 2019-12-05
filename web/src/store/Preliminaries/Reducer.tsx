@@ -1,10 +1,8 @@
 import { ActionType } from './Types/ActionType';
 import { updateObject } from '../../helpers/utility-helper';
 import { IPreliminaryState } from './Types/IPreliminaryState';
-import Notify from '../../enums/Notify';
-import { IPreliminariesComponentDetails } from './Types/IPreliminariesComponentDetails';
-import { IPreliminariesItemDetails } from './Types/IPreliminariesItemDetails';
-import { IPreliminariesItems } from './Types/IPreliminariesItems';
+import {bindUserData} from "./DataWrapper";
+
 const initialState: IPreliminaryState = {
     preliminaryDetails: [
       {
@@ -109,7 +107,7 @@ const initialState: IPreliminaryState = {
         ]
       }
     ],
-  projectId: ''
+  lookupData:[]
 };
 const preliminaryAddSuccess = (oldState, action) => {
  
@@ -124,46 +122,17 @@ const preliminaryEditError = (oldState, action) => {
   return updateObject(oldState, {});
 };
 const preliminaryGetSuccess = (oldState, action) => {
-  var preData=action.payload;
-  for(let i=0;i<preData.length;i++)
-  {
-    
-  }
+  return updateObject(oldState,{
+    preliminaryDetails:updateObject(oldState.preliminaryDetails, bindUserData(oldState.lookupData,action.payload))
+  })
 };
 const preliminaryGetError = (oldState, action) => {
   return updateObject(oldState,{});
 };
 const lookUpDetails = (oldState, action) => {
- var preliminaryDetails:Array<IPreliminariesComponentDetails>=[];
- var componentDetails:IPreliminariesComponentDetails={componentId:'',componentName:'',items:[]}
- var items:IPreliminariesItems ={
-  itemId: '',
-  itemName: '',
-  preliminaryId:'',
-  nameOfSupplier: '',
-  noOfHours: 0,
-  hourRate: 0,
-  totalCost: 0,
-  grossMargin: 0,
-  comments: ''
-}
-var pre_components=action.payload.filter((data)=>{return data.LookupItem=='Pre_Components'});
-var pre_component_items=action.payload.filter((data)=>{return data.LookupItem=='Pre_Component_Items'});
-for(let i=0;i<pre_components.length;i++)
-{
-  componentDetails.componentId=pre_components[i].LookupKey;
-  componentDetails.componentName=pre_components[i].Description;
-for(let j=0;j<pre_component_items.length;j++)
-{
-  items.itemId=pre_component_items[j].LookupKey;
-  items.itemName=pre_component_items[j].Description;
-  componentDetails.items.push(items);
-}
-preliminaryDetails.push(componentDetails);
-}
-return updateObject(oldState, {
-  preliminaryDetails: preliminaryDetails
-});
+  return updateObject(oldState, {
+    lookupData: updateObject(oldState.lookupData, action.payload)
+  });
 };
 const preliminaryReducer = (oldState = initialState, action) => {
   switch (action.type) {

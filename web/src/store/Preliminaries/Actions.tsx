@@ -1,8 +1,7 @@
 import * as axios from '../../client';
 import { ActionType } from './Types/ActionType';
 import { Dispatch } from 'redux';
-import { IPreliminariesComponentDetails } from './Types/IPreliminariesComponentDetails';
-import {IPreliminaryState} from './Types/IPreliminaryState';
+import { IPreliminaries } from './Types/IPreliminaries';
 const preliminaryAddSuccess = (response: any) => {
   return {
     type: ActionType.PRELIMINARY_ADD_SUCCESS,
@@ -55,7 +54,7 @@ let config = {
   }
 };
 export const preliminaryAdd = (
-  preliminaryDetails: IPreliminaryState
+  preliminaryDetails:  Array<IPreliminaries>
 ) => {
   return (dispatch: Dispatch) => {
     axios.baseAPI
@@ -74,7 +73,7 @@ export const preliminaryAdd = (
 };
 
 export const preliminaryEdit = (
-  preliminaryDetails: IPreliminaryState
+  preliminaryDetails:  Array<IPreliminaries>
 ) => {
   return (dispatch: Dispatch) => {
     axios.baseAPI
@@ -104,7 +103,7 @@ export const getPreliminaryDetails = (projectId: string) => {
       });
   };
 };
-export const getLookUpDetails = (projectId: string) => {
+export const getLookUpDetails = (projectId:string) => {
   var data = [
     'Pre_Components',
     'Pre_Component_Items'
@@ -114,6 +113,7 @@ export const getLookUpDetails = (projectId: string) => {
       .post('api/LookupData/GetLookupsByIds', data, config)
       .then(response => {
         dispatch(getLookUpDetail(response.data));
+        getPreliminaryDetails(projectId);
       })
       .catch(error => {
         dispatch(getLookUpDetail(error));

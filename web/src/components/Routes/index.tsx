@@ -24,7 +24,7 @@ const Routes: React.FC = props => {
         path="/JustificationAuthorisation"
         component={JustificationAuthorisation}
       />
-      <Route path="/Preliminaries" component={Preliminaries} />
+      <Route path="/Preliminaries:projectId?" component={Preliminaries} />
     </Switch>
   );
 };

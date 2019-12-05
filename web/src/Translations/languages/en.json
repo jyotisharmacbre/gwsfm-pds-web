@@ -182,5 +182,14 @@
   "T_DATA_CALCULATION2":  "25 %",
   "T_DATA_CALCULATION3":  "&#163;40,000,00",
   "T_DATA_CALCULATION4":    "&#163;40,000,00",
- " SYMBOL_PERCENT": " %"
+ " SYMBOL_PERCENT": " %",
+ "ITEM":"Item",
+ "NAME_OF_SUPPLIER":"Name of Supplier",
+ "NO_OF_HOURS":"No Of Hours",
+ "HOUR_RATE":"Hour Rate",
+ "TOTAL_COST":"Total Cost",
+ "GROSS_MARGIN":"Gross Margin",
+ "TOTAL_SELL":"Total Sell",
+ "COMMENTS":"Comments"
+
 }

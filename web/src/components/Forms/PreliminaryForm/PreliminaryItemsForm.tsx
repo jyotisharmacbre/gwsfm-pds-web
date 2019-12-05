@@ -1,167 +1,117 @@
 import React from 'react';
-// import { Col } from 'react-bootstrap';
-import { Field, reduxForm, InjectedFormProps } from 'redux-form';
-import { connect } from 'react-redux';
+import { Field } from 'redux-form';
 import PdsFormInput from '../../PdsFormHandlers/PdsFormInput';
-import PdsFormSelect from '../../PdsFormHandlers/PdsFormSelect';
-import PdsFormRadio from '../../PdsFormHandlers/PdsFormRadio';
-import PdsFormTextArea from '../../PdsFormHandlers/PdsFormTextArea';
-import PdsFormButton from '../../PdsFormHandlers/PdsFormButton';
-import DatePicker from '../../DatePicker';
-import { selectionButtons } from '../../../helpers/constants';
-import { enquiryTypeData } from '../../../helpers/dropDownFormValues';
-import { IState } from '../../../store/state';
-import { IProjectAdditionalDetail } from '../../../store/ProjectOverviewForm/Types/IProjectAdditionalDetail';
+import { Validate, alphaNumeric, onlyNumber } from '../../../helpers/fieldValidations';
 import { IPreliminariesComponentDetails } from '../../../store/Preliminaries/Types/IPreliminariesComponentDetails';
-import { getPropertyName, getDropdown } from '../../../helpers/utility-helper';
-import { LookupType } from '../../../store/Lookups/Types/LookupType';
-import EventType from '../../../enums/EventType';
-import {
-  projectStatusData,
-  engagementData
-} from '../../../helpers/dropDownFormValues';
-import {
-  alphaNumeric,
-  onlyNumber,
-  Validate
-} from '../../../helpers/fieldValidations';
-import { FormattedMessage } from 'react-intl';
-import { IPreliminariesItemDetails } from '../../../store/Preliminaries/Types/IPreliminariesItemDetails';
-import { IPreliminariesItems } from '../../../store/Preliminaries/Types/IPreliminariesItems';
-
 interface Props {
-    initialValues:IPreliminariesItemDetails;
-    componentId:string;
- }
+      itemDetail:any;
+}  
 
-let PreliminaryItemsForm: React.FC<
-  Props & InjectedFormProps<IPreliminariesItemDetails, Props>
-> = (props: any) => {
-  const getTotalCostAndMarginCalculation = (totalCost:number, grossMargin:number,componentId:string,itemId:string) => {
-  debugger;
-    var id="totalSell_"+componentId+"_"+itemId;
-  var element:any= document.getElementsByClassName(id);
-  if(element!=null){(element.value=totalCost+grossMargin)}
-  };
-  return (
-    <form>
-           <div className="card-body">
-                <div className="table-responsive">
-                  <table className="table table-bordered">
-                    <thead>
-                      <tr>
-                        <th>Item</th>
-                        <th>Name of Supplier</th>
-                        <th>No of Hours</th>
-                        <th>Hour Rate</th>
-                        <th>Total Cost</th>
-                        <th>Gross Margin</th>
-                        <th>Total Sell</th>
-                        <th>Comments</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                          <tr>
-                            <td>{props.initialValues.itemName}</td>
-                            <td>
-                              <Field
-                  name="nameOfSupplier"
-                  data-test="noOfHours"
-                  type="text"
+const PreliminaryItemsForm = ({ fields,itemDetail}) => (
+  <tbody>
+  {fields.map((member, index) => (
+   <tr>
+     <td>{itemDetail.items[index].itemName}</td>
+     <td>
+                       <Field
+                        name={`${member}.nameOfSupplier`}
+                        data-test="nameOfSupplier"
+                        type="text"
+                        component={PdsFormInput}
+                        validate={[
+                            Validate.maxLength(1000),
+                            alphaNumeric
+                          ]}
+                      />
+    </td>
+    <td>
+    <Field
+                  name={`${member}.noOfHours`}
+                  type="number"
                   component={PdsFormInput}
-                  className="required"
-                  validate={[
-                    Validate.maxLength(1000),
-                    alphaNumeric
-                  ]}
-                  warn={alphaNumeric}
-                />
-                            </td>
-                            <td>
-                            <Field
-                  name="noOfHours"
-                  data-test="noOfHours"
-                  type="text"
-                  disabled={true} 
-                  component={PdsFormInput}
-                  className="required"
-                />
-                            </td>
-                            <td>
-                            <Field
-                  name="hourRate"
-                  data-test="hourRate"
-                  type="text"
-                  component={PdsFormInput}
-                  className="required"
-                  disabled={true} 
-                />
-                            </td>
-                            <td>
-                            <Field
-                  name="totalCost"
-                  data-test="totalCost"
-                  type="text"
-                  component={PdsFormInput}
-                  className="required"
+                  className="width-120 pl-20 required"
                   validate={[
                     Validate.maxLength(15),
                     onlyNumber
                   ]}
-                  warn={onlyNumber}
+                  divPosition="relative"
                 />
-                            </td>
-                            <td>
-                            <Field
-                  name="grossMargin"
-                  data-test="grossMargin"
-                  type="text"
+    </td>
+     <td>
+                <Field
+                  name={`${member}.hourRate`}
+                  type="number"
                   component={PdsFormInput}
-                  className="required"
+                  className="width-120 pl-20 required"
                   validate={[
                     Validate.maxLength(15),
                     onlyNumber
                   ]}
-                  warn={onlyNumber}
+                  currency="$"
+                  divPosition="relative"
+                  placeholderKey=""
                 />
-                            </td>
-                            <td>
-                            <Field
-                  name="totalSell"
-                  data-test="totalSell"
-                  type="text"
-                  disabled={true} 
+    </td>
+  <td>
+    <Field
+                  name={`${member}.totalCost`}
+                  type="number"
                   component={PdsFormInput}
-                  className={"totalSell_"+props.componentId+"_"+props.initialValues.itemId}
-                />                            </td>
-                            <td>
-                            <Field
-                  name="comments"
-                  data-test="comments"
-                  type="text"
-                  component={PdsFormInput}
-                  className="required"
+                  className="width-120 pl-20 required"
                   validate={[
-                    Validate.maxLength(1000),
-                    alphaNumeric
+                    Validate.maxLength(15),
+                    onlyNumber
                   ]}
-                  warn={alphaNumeric}
+                  currency="$"
+                  divPosition="relative"
                 />
-                            </td>
-                          </tr>
-                     
-                    </tbody>
-                  </table>
-                </div>
-              
-              </div>
-    </form>
+    </td>
+    <td>
+    <Field
+                  name={`${member}.grossMargin`}
+                  type="number"
+                  component={PdsFormInput}
+                  className="width-120 pl-20 required"
+                  validate={[
+                    Validate.maxLength(15),
+                    onlyNumber
+                  ]}
+                  currency="%"
+                  divPosition="relative"
+                />
+    </td>
+    <td>
+    <Field
+                  name={'totalSell'}
+                  type="number"
+                  component={PdsFormInput}
+                  className="width-120 pl-20 required"
+                  validate={[
+                    Validate.maxLength(15),
+                    onlyNumber
+                  ]}
+                  currency="$"
+                  divPosition="relative"
+                />
+    </td>
+    <td>
+    <Field
+                        name={`${member}.comments`}
+                        data-test="comments"
+                        type="text"
+                        component={PdsFormInput}
+                        validate={[
+                            Validate.maxLength(1000),
+                            alphaNumeric
+                          ]}
+                      />
+    </td>
+
+     </tr>
+    ))}
+    </tbody>
   );
-};
-const form = reduxForm<IPreliminariesItemDetails, Props>({
-  destroyOnUnmount: false,
-  forceUnregisterOnUnmount: false,
-  enableReinitialize: true
-})(PreliminaryItemsForm);
 
-export default form;
+ 
+export default PreliminaryItemsForm;
+

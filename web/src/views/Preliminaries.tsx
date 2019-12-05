@@ -10,21 +10,21 @@ import { useHistory } from 'react-router-dom';
 import * as actions from '../store/rootActions';
 import PreliminaryForm from '../components/Forms/PreliminaryForm/PreliminaryForm';
 import PreliminarySummaryView from "./PreliminarySummaryView";
-import { IPreliminaryState } from '../store/Preliminaries/Types/IPreliminaryState';
+import { IPreliminaries } from '../store/Preliminaries/Types/IPreliminaries';
+import {convertIntoDatabaseModel} from "../store/Preliminaries/DataWrapper";
 interface IMapStateToProps {
   preliminaryDetails: Array<IPreliminariesComponentDetails>;
-  projectId: string;
-  isVisible: boolean;
-  notify: Notify;
+  match:any;
 }
 interface IMapDispatchToProps {
   preliminaryAdd: (
-    preliminaryDetails: IPreliminaryState
-  ) => void;
+    preliminaryDetails: Array<IPreliminaries>
+      ) => void;
   preliminaryEdit: (
-    preliminaryDetails: IPreliminaryState
+    preliminaryDetails:  Array<IPreliminaries>
   ) => void;
   getPreliminaryDetails: (projectId: string) => void;
+  getLookupDetails: (projectId: string) => void;
   updateInputField:(inputData:any)=>void;
 }
 
@@ -32,13 +32,15 @@ const Preliminaries: React.FC<
   IMapStateToProps & IMapDispatchToProps
 > = props => {
   let history = useHistory();
+  let paramProjectId:string= props.match.params.projectId;
+
   useEffect(() => {
     if (
-      props.projectId != null &&
-      props.projectId != '' &&
-      props.projectId != undefined
+      paramProjectId!= null &&
+      paramProjectId != '' &&
+      paramProjectId != undefined
     ) {
-      props.getPreliminaryDetails(props.projectId);
+      props.getLookupDetails(paramProjectId);
     }
   }, []);
   const handleExpandAllEvent = () => {
@@ -49,45 +51,49 @@ const Preliminaries: React.FC<
       element[i].classList.add('show');
     }
   };
+  const handleToggle = (id: string) => {
+    var element: any = document.getElementById('collapse_' + id);
+    if(element!=null)
+    {
+    var isClassExists = element.classList.contains('show');
+    if (isClassExists) {
+      element.classList.add('hide');
+      element.classList.remove('show');
+    } else {
+      element.classList.remove('hide');
+      element.classList.add('show');
+    }
+  }
+  };
   const handleSaveData = (
-    preliminaryDetails: IPreliminariesComponentDetails,
-    saveAll:boolean
+    saveAll:boolean,
+    preliminaryDetails: any,
+    index:number
   ) => {
-    var saveFlag:boolean=false;
-    var saveData: IPreliminaryState={projectId:"",preliminaryDetails:[]} ;
-    var editData: IPreliminaryState={projectId:"",preliminaryDetails:[]} ;
-    if(saveAll)
-    {
-      editData.preliminaryDetails=  props.preliminaryDetails.filter((data)=>{
-        
-          return data.items.map((itemData)=>itemData.totalCost>0&&itemData.preliminaryId!='');
-        })
-      saveData.preliminaryDetails= props.preliminaryDetails.filter((data)=>{
-              return data.items.map((itemData)=>itemData.totalCost>0);
-         })
-    }
-    else
-    {
-      preliminaryDetails.items.map((data)=>data.preliminaryId!=''?saveFlag=false:saveFlag=true);
-      saveFlag?saveData.preliminaryDetails.push(preliminaryDetails):editData.preliminaryDetails.push(preliminaryDetails);
-      
-    }
-    if(editData.preliminaryDetails.length>0&&saveData.preliminaryDetails.length>0)
+    var saveData: Array<IPreliminaries>=[];
+    var editData: Array<IPreliminaries>=[];
+    let preData:Array<IPreliminariesComponentDetails>=[];
+    preData.push(preliminaryDetails.preliminaryDetails[index]);
+    var preliminariesData:Array<IPreliminaries>=saveAll?
+    convertIntoDatabaseModel(preliminaryDetails.preliminaryDetails,paramProjectId):
+    convertIntoDatabaseModel(preData,paramProjectId)
+    editData=  preliminariesData.filter((data)=>{
+      return (data.TotalCost>0&&data.PreliminaryId!='');
+    })
+    saveData= preliminariesData.filter((data)=>{
+        return (data.TotalCost>0&&data.PreliminaryId=='');
+     })
+    if(editData.length>0&&saveData.length>0)
     {
       props.preliminaryAdd(saveData);
       props.preliminaryEdit(editData);
     }
     else
     {
-      editData.preliminaryDetails.length>0?props.preliminaryEdit(editData):props.preliminaryAdd(saveData)
-
+      editData.length>0?props.preliminaryEdit(editData):props.preliminaryAdd(saveData)
     }
     
   };
-  useEffect(() => {
-    if (props.notify == Notify.success) {
-    }
-  }, [props.notify]);
 
   return (
     <div className="container-fluid">
@@ -105,28 +111,11 @@ const Preliminaries: React.FC<
             <div>
               <PreliminaryForm
                 onSave={handleSaveData}
+                onToggle={handleToggle}
                 preliminariesDetails={props.preliminaryDetails}
               />
             </div>
           </form>
-        </div>
-      </div>
-      <div className="ml-35 mb-4 js-btn3">
-        <div className="row">
-          <div className="col-4">
-            {' '}
-            <button type="button" className="active mb-4 mt-5" onClick={()=>handleSaveData(props.preliminaryDetails[0],true)}>
-              PREVIOUS
-            </button>
-          </div>
-          <div className="col-8 text-right">
-            <button type="button" className="active mb-4 mt-5  text-right" onClick={()=>handleSaveData(props.preliminaryDetails[0],true)}>>
-              SAVE
-            </button>
-            <button type="button" className="mb-4 mt-5 text-right" onClick={()=>handleSaveData(props.preliminaryDetails[0],true)}>>
-              NEXT
-            </button>
-          </div>
         </div>
       </div>
     </div>
@@ -135,8 +124,7 @@ const Preliminaries: React.FC<
 
 const mapStateToProps = (state: IState) => {
   return {
-    preliminaryDetails: state.preliminary.preliminaryDetails,
-    projectId: state.preliminary.projectId
+    preliminaryDetails: state.preliminary.preliminaryDetails
   };
 };
 
@@ -147,7 +135,10 @@ const mapDispatchToProps = dispatch => {
     preliminaryEdit: (preliminaryDetails) =>
       dispatch(actions.preliminaryEdit(preliminaryDetails)),
     getPreliminaryDetails: (projectId: string) =>
-      dispatch(actions.getPreliminaryDetails(projectId))
+      dispatch(actions.getPreliminaryDetails(projectId)),
+    getLookupDetails:(projectId)=>
+      dispatch(actions.getLookUpDetails(projectId))
+
   };
 };
 
