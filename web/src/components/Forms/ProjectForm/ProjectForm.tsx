@@ -452,6 +452,7 @@ const ProjectForm: React.FC<
               <button
                 className="active ml-auto"
                 type="button"
+                name="saveAndClose"
                 onClick={handleSubmit(values => props.onSave(values))}
               >
                 <FormattedMessage id="BUTTON_SAVE_AND_CLOSE" />
