@@ -6,7 +6,7 @@ export interface IDiscountActivity {
   supplierTotalDiscount: number | undefined;
   supplierComments: string;
   clientState: string;
-  discountType: number | undefined;
+  discountType: number;
   clientDiscount: number  | undefined;
   clientComments: string;
 }

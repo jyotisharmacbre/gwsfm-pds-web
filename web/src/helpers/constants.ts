@@ -17,10 +17,6 @@ export const LookupItems = {
   Enquiry_Type: 'Enquiry_Type',
   JAndA_Status: 'JAndA_Status',
   Project_Status: 'Project_Status',
-  Work_Type: 'Work_Type'
+  Work_Type: 'Work_Type',
+  Discount_Type: 'Discount_Type'
 };
-
-export const discountType =[
-  { lookupKey: 1, description: 'Percent (%)'},
-  { lookupKey: 2, description: 'Value (#)'}
-]

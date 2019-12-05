@@ -34,6 +34,20 @@ export const getDropdown = (data, value) => {
   return result;
 };
 
+export const getRadioOptions = (data, value) => {
+  let result =
+    data &&
+    data.map((status: any, i: number) => {
+      
+      if (status.lookupItem == value) {
+        console.log(status, "Items")
+        return status;
+      }
+    });
+  return result;
+};
+
+
 
 export const getCurrencySymbol = (currencies, currencyId) => {
   let symbol = '';

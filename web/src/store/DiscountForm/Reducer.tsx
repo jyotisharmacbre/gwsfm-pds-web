@@ -1,7 +1,6 @@
 import { ActionType } from './Types/ActionType';
 import { updateObject } from '../../helpers/utility-helper';
 import { IDiscountState } from './Types/IDiscountState';
-import moment from 'moment';
 import Notify from '../../enums/Notify';
 import EventType from '../../enums/EventType';
 
@@ -51,6 +50,13 @@ const discountFormError = (oldState, action) => {
   });
 };
 
+const resetDiscountState = (oldState, action) => {
+  return updateObject(oldState, {
+    notify: Notify.none,
+    event: EventType.none
+  });
+};
+
 const discountFormReducer = (oldState = initialState, action) => {
   switch (action.type) {
     case ActionType.DISCOUNT_FORM_DATA_ADD:
@@ -59,6 +65,8 @@ const discountFormReducer = (oldState = initialState, action) => {
       return discountFormEditSuccess(oldState, action);
     case ActionType.DISCOUNT_FORM_DATA_ERROR:
       return discountFormError(oldState, action);
+      case ActionType.RESET_DISCOUNT_FORM_STATE:
+      return resetDiscountState(oldState, action);
     default:
       return oldState;
   }

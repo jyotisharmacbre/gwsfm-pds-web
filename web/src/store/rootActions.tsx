@@ -17,4 +17,4 @@ export { getProjectStatus, getAllCurrencies } from './Lookups/Actions';
 
 export { addNewActivity, deleteActivity } from './SubContractor/Actions';
 
-export { discountFormAdd, discountFormEdit} from './DiscountForm/Actions'
+export { discountFormAdd, discountFormEdit, resetDiscountState} from './DiscountForm/Actions'

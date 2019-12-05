@@ -7,8 +7,6 @@ import {
 } from 'redux-form';
 import PdsFormInput from '../../PdsFormHandlers/PdsFormInput';
 import PdsFormTextArea from '../../PdsFormHandlers/PdsFormTextArea';
-import PdsFormButton from '../../PdsFormHandlers/PdsFormButton';
-import { selectionButtons, discountType } from '../../../helpers/constants';
 import {
   Validate,
   alphaNumeric,
@@ -18,7 +16,7 @@ import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { LookupType } from '../../../store/Lookups/Types/LookupType';
-import { getDropdown, getPropertyName, getDiscountTypeValue, getCurrencySymbol } from '../../../helpers/utility-helper';
+import { getDropdown, getPropertyName, getDiscountTypeValue, getCurrencySymbol, getRadioOptions } from '../../../helpers/utility-helper';
 import PdsFormTypeAhead from '../../PdsFormHandlers/PdsFormTypeAhead';
 import { IProjectDetail } from '../../../store/CustomerEnquiryForm/Types/IProjectDetail';
 import { ICurrency } from '../../../store/Lookups/Types/ICurrency';
@@ -32,6 +30,9 @@ interface Props {
   onNext: (data: IDiscountActivity) => void;
   onPrevious: (data: IDiscountActivity) => void;
   onSave: (data: IDiscountActivity) => void;
+  projectstatus: any;
+  currencies: Array<ICurrency> | null;
+  currencyId: any;
 }
 
   let DiscountForm: React.FC<Props &
@@ -40,7 +41,6 @@ interface Props {
   const { handleSubmit, initialValues, discountTypeValue } = props;
   const normalize = value => (value ? parseInt(value) : null);
 
-  console.log(props.currencies, 'currencies')
 
   return (
     <div className="container-fluid">
@@ -122,14 +122,32 @@ interface Props {
                     labelKey="LABEL_STATE_DETAILS"
                     placeholderKey="PLACEHOLDER_ENTER_STATE_DETAILS"
                   />
-                 
-                  <Field
-                  name="discountType"
-                    type="radio"
-                    component={PdsFormRadio}
-                    labelKey="LABEL_DISCOUNT_TYPE"
-                    data={discountType}
-                  />
+                  <div className="form-group">
+                  <label>
+                    <FormattedMessage id="LABEL_DISCOUNT_TYPE" />*
+                  </label>
+                 {props.projectstatus &&
+                    props.projectstatus
+                      .filter(
+                        element => element.lookupItem == LookupType.Discount_Type
+                      )
+                      .map((data, index) => {
+                        return (
+                          <div className="form-check" key={index}>
+                            <Field
+                              name= "discountType"
+                              component="input"
+                              type="radio"
+                              value={+data.lookupKey}
+                              normalize={normalize}
+                            />
+                            <label className="form-check-label">
+                              <FormattedMessage id={data.description} />
+                            </label>
+                          </div>
+                        );
+                      })}
+                      </div>
                   <Field
                   name="clientDiscount"
                     type="text"
@@ -140,7 +158,10 @@ interface Props {
                     labelKey="LABEL_DISCOUNT"
                     placeholderKey="PLACEHOLDER_DISCOUNT"
                     normalize={normalize}
-                    discountBind = {getDiscountTypeValue(discountType, discountTypeValue,
+                    discountBind = {getDiscountTypeValue([
+                      { lookupKey: 1, description: 'Percent (%)'},
+                      { lookupKey: 2, description: 'Value (#)'}
+                    ], discountTypeValue,
                       getCurrencySymbol(
                       props.currencies,
                       props.currencyId
@@ -194,8 +215,6 @@ interface Props {
 const mapStateToProps = (state: IState) => ({
   initialValues: state.discount.form,
   discountTypeValue: discountSelector(state, 'discountType'),
-  currencyId: ProjectFormSelector(state, 'currencyId'),
-  currencies: state.lookup.currencies
 });
 
 const form = reduxForm<IDiscountActivity, Props>({
@@ -204,6 +223,5 @@ const form = reduxForm<IDiscountActivity, Props>({
 })(injectIntl(DiscountForm));
 
 const discountSelector = formValueSelector('DiscountForm');
-const ProjectFormSelector = formValueSelector('ProjectForm');
 
 export default connect(mapStateToProps)(form);

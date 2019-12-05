@@ -120,7 +120,7 @@ let ProjectOverviewForm: React.FC<Props &
                               )}
                               component="input"
                               type="radio"
-                              value={data.lookupId}
+                              value={+data.lookupKey}
                               normalize={normalize}
                             />
                             <label className="form-check-label">

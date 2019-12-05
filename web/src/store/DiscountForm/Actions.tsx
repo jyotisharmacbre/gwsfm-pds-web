@@ -39,7 +39,8 @@ const headers = {
 
 export const discountFormAdd = ( projectId: string, data: IDiscountActivity, event: EventType) => {
   return (dispatch: Dispatch) => {
-    data.projectId = 'f8b5abfd-0f8a-47bc-03be-08d777a100bc'; // will be removed when subcontractor form will submit projectId
+    data.projectId = projectId;
+    console.log(data, "submitted")
     axios.baseAPI
       .post('/api/Discounts/adddiscount', data, { headers: headers })
       .then(response => {
@@ -64,5 +65,19 @@ export const discountFormEdit = (
       .catch(error => {
         dispatch(discountFormError(error));
       });
+  };
+};
+
+
+const resetDiscountStateDispatch = () => {
+  return {
+    type: ActionType.RESET_DISCOUNT_FORM_STATE
+  };
+};
+
+
+export const resetDiscountState = () => {
+  return (dispatch: Dispatch) => {
+    dispatch(resetDiscountStateDispatch());
   };
 };
