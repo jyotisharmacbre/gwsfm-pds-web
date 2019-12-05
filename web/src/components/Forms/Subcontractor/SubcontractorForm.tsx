@@ -45,6 +45,7 @@ let SubcontractorForm: React.FC<
       <div className="mr-35 three-btn">
          <button
           className="active" 
+          data-test="previous-click"
                 type="button"
                 name="previous"
                 onClick={handleSubmit(values => props.onSubmitForm(values,EventType.previous))}
@@ -52,13 +53,15 @@ let SubcontractorForm: React.FC<
                 <FormattedMessage id="BUTTON_PREVIOUS" />
               </button>
               <button
-              name="save" className="active ml-auto"
+              name="save" 
+              data-test="save-click" className="active ml-auto"
                 type="button"
                 onClick={handleSubmit(values => props.onSubmitForm(values,EventType.save))}
               >
                 <FormattedMessage id="BUTTON_SAVE" />
               </button>
               <button
+              data-test="next-click"
                 type="button"
                 name="next"
                 onClick={handleSubmit(values => props.onSubmitForm(values,EventType.next))}

@@ -11,12 +11,12 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 import { Validate, alphaNumeric, onlyNumber } from '../../../helpers/fieldValidations';
 
 const Quote = ({ fields }) => (
-  <div className="row">
+  <div className="row" data-test="sub-contractor-quote-form">
         <div className="col-lg-12">
           <div className="card_outer_wrap quote_wrap">
             <div className="row">
 {fields.map((member, index) => (
-              <div className="col-lg-4 pl-md-2">
+              <div key={index} className="col-lg-4 pl-md-2" data-test="sub-contractor-quote-member">
                 <div className="card_wrap">
                   <div className="card">
                     <h6 className="title">TITLE_QUOTE {index + 1}</h6>

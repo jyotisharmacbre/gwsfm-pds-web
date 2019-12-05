@@ -1,59 +1,29 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
-import { Provider } from 'react-redux';
-import { store } from '../../../../store';
 import SubContractorActivityForm from '../SubContractorActivityForm';
-import { IntlProvider } from 'react-intl';
-import translations from '../../../../Translations/translation';
-import * as connectedIntlProvider from './../../../../Translations/connectedIntlProvider';
-import {initialState,addActivity} from '../../../../store/SubContractor/InitialState';
+import {initialState} from '../../../../store/SubContractor/InitialState';
 import {ActionType} from '../../../../store/SubContractor/Types/ActionType';
 import subContractorReducer from '../../../../store/SubContractor/Reducer';
 import {findByTestAtrr} from '../../../../helpers/test-helper';
 
-describe('Sub Contractor - Activity Form', () => {
-  let wrapper: any;
-  const props: any = {
-    fields: [],
-    mockHandleDelete: jest.fn()
-  };
-  beforeEach(() => {
-    const formatMessage = jest.mock(
-      './../../../../Translations/connectedIntlProvider'
-    );
 
-    jest
-      .spyOn(connectedIntlProvider, 'formatMessage')
-      .mockImplementationOnce(() => {
-        return 'intlmessage';
-      });
-
-    wrapper = mount(
-      <Provider store={store}>
-        <IntlProvider locale="en" messages={translations['en'].messages}>
-          <SubContractorActivityForm {...props} />
-        </IntlProvider>
-      </Provider>
-    );
-  });
-  it('Defines the component', () => {
-    expect(wrapper).toBeDefined();
-  });
-  it('should call mock function when delete button is clicked', () => {
-    const tree = shallow(
-      <button className="delete_text" onClick={props.mockHandleDelete} />
-    );
-    tree.simulate('click');
-    expect(props.mockHandleDelete).toHaveBeenCalled();
-  });
-});
-
-
-describe('SubContractorActivityForm component tests', () => {
-const subContractorFormAddAction: any = {
+describe('Sub Contractor Activity Form tests', () => {
+  const subContractorFormAddAction: any = {
           type: ActionType.SUB_CONTRACTOR_ADD_NEW_ACTIVITY
   };
+  let wrapper: any;
+  beforeEach(() => {
+    wrapper = shallow(
+      <SubContractorActivityForm fields={initialState.form.activities}/>
+    );
+  });
   
+  it('Defines the component', () => {
+    expect(wrapper).toBeDefined();
+  }); 
+  it('should match the snapshot', () => {
+    expect(wrapper).toMatchSnapshot();
+  });
   it('renders the SubContractorActivityForm component with no errors', () => {
     const wrapper = shallow(
       <SubContractorActivityForm fields={initialState.form.activities}/>
@@ -84,6 +54,20 @@ const subContractorFormAddAction: any = {
       <SubContractorActivityForm fields={state} totalCount={state.length}/>
     );
     expect(findByTestAtrr(wrapper,'deleteactivity').length).toEqual(3);
+  });
+
+  it('test delete activity click event', () => {
+    const mockCallBack = jest.fn();
+    let state = (subContractorReducer(initialState,subContractorFormAddAction)).form.activities;
+    const wrapper = shallow(
+      <SubContractorActivityForm 
+      fields={state}
+      totalCount={state.length}
+      deleteActivity={mockCallBack}/>
+    );
+    const deletebutton = findByTestAtrr(wrapper,'deleteactivity').first();
+    deletebutton.simulate('click');
+    expect(mockCallBack.mock.calls.length).toEqual(1);
   });
 
 });
