@@ -14,7 +14,7 @@ const initialState: IDiscountState = {
     supplierTotalDiscount: undefined,
     supplierComments: '',
     clientState: '',
-    discountType: undefined,
+    discountType: 1,
     clientDiscount: undefined,
     clientComments: ''
   },

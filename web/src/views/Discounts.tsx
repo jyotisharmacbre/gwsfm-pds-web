@@ -8,6 +8,7 @@ import Notify from '../enums/Notify';
 import { IDiscountState } from '../store/DiscountForm/Types/IDiscountState';
 import * as actions from '../store/rootActions';
 import { connect } from 'react-redux';
+import { IState } from '../store/state';
 interface IMapDispatchToProps {
   discountFormAdd: (
     projectId: string,
@@ -71,7 +72,7 @@ interface IMapStateToProps {
               <DiscountTable></DiscountTable>
               <DiscountForm onNext={handleNext}
               onPrevious={handlePrevious}
-              onSave={handleSave} />
+              onSave={handleSave}/>
             </div>
           </div>
         </div>
@@ -80,11 +81,11 @@ interface IMapStateToProps {
   }
 
 
-  const mapStateToProps = (state: IDiscountState) => ({
-    form: state.form,
-    notify: state.notify,
+  const mapStateToProps = (state: IState) => ({
+    form: state.discount.form,
+    notify: state.discount.notify,
     projectId: state.form.projectId,
-    event: state.event
+    event: state.discount.event
   });
   
   const mapDispatchToProps = dispatch => {

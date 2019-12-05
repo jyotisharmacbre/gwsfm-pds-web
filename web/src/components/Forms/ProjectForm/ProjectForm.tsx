@@ -21,7 +21,7 @@ import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { LookupType } from '../../../store/Lookups/Types/LookupType';
-import { getDropdown } from '../../../helpers/utility-helper';
+import { getDropdown, getCurrencySymbol } from '../../../helpers/utility-helper';
 import PdsFormTypeAhead from '../../PdsFormHandlers/PdsFormTypeAhead';
 import { IProjectDetail } from '../../../store/CustomerEnquiryForm/Types/IProjectDetail';
 import { ICurrency } from '../../../store/Lookups/Types/ICurrency';
@@ -42,16 +42,6 @@ interface Props {
   adPOData: any;
   adPMData: any;
 }
-
-const getCurrencySymbol = (currencies, currencyId) => {
-  let symbol = '';
-  let filter;
-  if (currencies) {
-    filter = currencies.find(element => element.currencyId == currencyId);
-    if (filter != null && filter != undefined) symbol = filter.currencySymbol;
-  }
-  return symbol;
-};
 
 const ProjectForm: React.FC<Props &
   IReactIntl &
@@ -353,7 +343,7 @@ const ProjectForm: React.FC<Props &
                               key={data.currencyId}
                               value={data.currencyId}
                             >
-                              {data.currencySymbol}
+                              {data.currencyName}
                             </option>
                           );
                         })}

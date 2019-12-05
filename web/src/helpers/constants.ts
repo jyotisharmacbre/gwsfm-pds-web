@@ -21,6 +21,6 @@ export const LookupItems = {
 };
 
 export const discountType =[
-  { id: 1, value: 'Percent (%)' },
-  { id: 2, value: 'Value(#)' }
+  { lookupKey: 1, description: 'Percent (%)'},
+  { lookupKey: 2, description: 'Value (#)'}
 ]

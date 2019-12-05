@@ -21,11 +21,11 @@ const PdsFormRadio: React.FC = (field: any) => {
               name={field.input.name}
               component="input"
               type="radio"
-              value={data.id}     
+              value={data.lookupKey}     
               normalize ={normalize}         
             />
             <label className="form-check-label">
-              <FormattedMessage id={data.value} />
+              <FormattedMessage id={data.description} />
             </label>
           </div>
         );
