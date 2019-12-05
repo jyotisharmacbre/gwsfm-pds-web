@@ -9,7 +9,6 @@ import { Validate } from "../../helpers/fieldValidations";
 import { getDynamicOther } from "../../store/DynamicsData/Action";
 
 const AdaptedTypeahead = ({ input, render, meta, labelName, className, ...rest }) =>{ 
-  debugger;
 
 const formatValue = () => {
   console.log("formatvalue called");
