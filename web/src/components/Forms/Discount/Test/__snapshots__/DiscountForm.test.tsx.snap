@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DiscountForm Fields Defines form fields should handle add discount successfully 1`] = `
+Object {
+  "error": null,
+  "event": undefined,
+  "form": Object {
+    "clientComments": "",
+    "clientDiscount": undefined,
+    "clientState": "",
+    "discountId": "",
+    "discountType": 1,
+    "projectId": "",
+    "supplierComments": "",
+    "supplierName": "",
+    "supplierState": "",
+    "supplierTotalDiscount": undefined,
+  },
+  "loading": false,
+  "notify": 1,
+}
+`;

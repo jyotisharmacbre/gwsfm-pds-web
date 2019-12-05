@@ -39,7 +39,7 @@ const headers = {
 
 export const discountFormAdd = ( projectId: string, data: IDiscountActivity, event: EventType) => {
   return (dispatch: Dispatch) => {
-    data.projectId = 'f8b5abfd-0f8a-47bc-03be-08d777a100bc';
+    data.projectId = 'f8b5abfd-0f8a-47bc-03be-08d777a100bc'; // will be removed when subcontractor form will submit projectId
     axios.baseAPI
       .post('/api/Discounts/adddiscount', data, { headers: headers })
       .then(response => {

@@ -6,22 +6,17 @@ import DiscountForm from '../DiscountForm';
 import { IntlProvider } from 'react-intl';
 import translations from '../../../../Translations/translation';
 import * as connectedIntlProvider from './../../../../Translations/connectedIntlProvider';
+import discountFormReducer from '../../../../store/DiscountForm/Reducer';
+import { ActionType } from '../../../../store/DiscountForm/Types/ActionType';
 import nock from 'nock';
 import { baseURL } from '../../../../client/client';
+import { initialState, getdiscountFormData } from './DiscountFormTestData';
 
 nock(baseURL)
   .post('/api/Discounts/adddiscount')
-  .reply(200, 'Project added successfully');
+  .reply(200, 'Discount added successfully');
 
-// nock(baseURL)
-//   .put('/api/Projects/updatecustomerEnquiry')
-//   .reply(201, 'Project updated successfully');
-
-// nock(baseURL)
-//   .get('/api/Projects/1/enquiryOverview')
-//   .reply(200, getprojectDetailData);
-
-describe('Discount form Fields', () => {
+describe('DiscountForm Fields', () => {
   let wrapper: any;
   const props: any = {
     handleSubmit: jest.fn()
@@ -61,6 +56,60 @@ describe('Discount form Fields', () => {
 
   describe('Defines form fields', () => {
     let field: ShallowWrapper;
+    describe('Supplier name field', () => {
+      beforeEach(() => {
+        field = wrapper.find('input[name="supplierName"]').first();
+      });
+      it('Should renders supplier name field', () => {
+        expect(field.prop('type')).toBe('text');
+      });
+    });
+
+    describe('State field', () => {
+      beforeEach(() => {
+        field = wrapper.find('input[name="supplierState"]').first();
+      });
+      it('Should renders supplierState field', () => {
+        expect(field.prop('type')).toBe('text');
+      });
+    });
+
+    describe('supplierTotalDiscount field', () => {
+      beforeEach(() => {
+        field = wrapper.find('input[name="supplierTotalDiscount"]').first();
+      });
+      it('Should renders supplierTotalDiscount field', () => {
+        expect(field.prop('type')).toBe('text');
+      });
+    });
+
+    describe('supplierComments field', () => {
+      beforeEach(() => {
+        field = wrapper.find('textarea[name="supplierComments"]').first();
+      });
+      it('Should renders supplierComments field', () => {
+        expect(field.prop('type')).toBe('textarea');
+      });
+    });
+
+    describe('clientName field', () => {
+      beforeEach(() => {
+        field = wrapper.find('input[name="clientName"]').first();
+      });
+      it('Should renders clientName field', () => {
+        expect(field.prop('type')).toBe('text');
+      });
+    });
+
+    describe('clientState field', () => {
+      beforeEach(() => {
+        field = wrapper.find('input[name="clientState"]').first();
+      });
+      it('Should renders clientState field', () => {
+        expect(field.prop('type')).toBe('text');
+      });
+    });
+
     describe('Next button', () => {
       beforeEach(() => {
         field = wrapper.find('button[name="next"]').first();
@@ -70,16 +119,16 @@ describe('Discount form Fields', () => {
       });
     });
 
-    describe('Previous button', () => {
-        beforeEach(() => {
-          field = wrapper.find('button[name="previous"]').first();
-        });
-        it('Should renders previous button', () => {
-          expect(field.prop('type')).toBe('button');
-        });
+    describe('previous button', () => {
+      beforeEach(() => {
+        field = wrapper.find('button[name="previous"]').first();
       });
+      it('Should renders previous button', () => {
+        expect(field.prop('type')).toBe('button');
+      });
+    });
 
-    describe('Save button', () => {
+    describe('save button', () => {
       beforeEach(() => {
         field = wrapper.find('button[name="save"]').first();
       });
@@ -88,5 +137,13 @@ describe('Discount form Fields', () => {
       });
     });
 
+      it('should handle add discount successfully', () => {
+        const addDiscountData: any = {
+          type: ActionType.DISCOUNT_FORM_DATA_ADD
+        };
+        expect(
+          discountFormReducer(initialState, addDiscountData)
+        ).toMatchSnapshot();
+      });
+    });
   });
-});
