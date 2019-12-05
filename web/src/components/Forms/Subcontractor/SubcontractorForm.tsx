@@ -36,8 +36,8 @@ let SubcontractorForm: React.FC<
       totalCount={props.initialValues.activities.length}
       deleteActivity={props.deleteActivity}
        />
-      <div className="newActiv_btn">
-          <button type="button" disabled={props.initialValues.activities.length>4} className="active" onClick={props.addNewActivity}>
+      <div className="newActiv_btn"> 
+          <button data-test="addActivity" name="addActivity" type="button" disabled={props.initialValues.activities.length>4} className="active" onClick={props.addNewActivity}>
             <FontAwesomeIcon className="" icon={faPlusCircle} />
             BUTTON_NEW_ACTIVITY
           </button>

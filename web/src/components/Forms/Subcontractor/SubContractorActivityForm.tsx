@@ -35,15 +35,16 @@ interface Props {
   totalCount: number;
   deleteActivity: (index: number) => void;
 }
-
+ 
 const SubContractorActivityForm = ({ fields, totalCount, deleteActivity }) => (
   <div>
     {fields.map((member, index) => (
-      <div className="row" key={index}>
+      <div className="row" key={index} data-test="sub-contractor-form">
         <div className="col-lg-12">
           <div className="forms_wrap">
             {totalCount > 1 ? (
               <button
+                data-test="deleteactivity"
                 className="delete_text"
                 onClick={() => deleteActivity(index)}
               >

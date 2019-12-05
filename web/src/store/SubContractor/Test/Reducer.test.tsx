@@ -17,5 +17,33 @@ import { baseURL } from '../../../client/client';
         expect(
           subContractorReducer(initialState, subContractorFormAddAction)
         ).toMatchSnapshot();
+      });  
+
+      it('should handle add new activity', () => {
+        const subContractorFormAddAction: any = {
+          type: ActionType.SUB_CONTRACTOR_ADD_NEW_ACTIVITY
+        };
+        expect(
+          subContractorReducer(initialState, subContractorFormAddAction)
+        ).toMatchSnapshot();
+      });   
+
+      it('should increment the activity by one', () => {
+        const subContractorFormAddAction: any = {
+          type: ActionType.SUB_CONTRACTOR_ADD_NEW_ACTIVITY
+        };
+        expect(
+          subContractorReducer(initialState, subContractorFormAddAction).form.activities.length
+        ).toBe(2);
+      });  
+
+      it('should delete the activity', () => {
+        const action: any = {
+          type: ActionType.SUB_CONTRACTOR_DELETE_ACTIVITY,
+          payload: 0
+        };
+        expect(
+          subContractorReducer(initialState, action).form.activities.length
+        ).toBe(0);
       });   
 });
