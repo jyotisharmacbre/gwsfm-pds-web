@@ -1,18 +1,17 @@
 
 import React from 'react';
-import { mount, ShallowWrapper, shallow } from 'enzyme';
+import { shallow } from 'enzyme';
 import { Provider } from 'react-redux';
-import connectedIntlProvider from '../../../Translations/connectedIntlProvider';
 import { store } from '../../../store';
 import { IntlProvider } from 'react-intl';
 import translations from '../../../Translations/translation';
 import TypeAhead from '../TypeAhead';
-import { findByTestAtrr } from '../../../helpers/test-helper';
 import { getTypeAheadDropdown } from './TypeAheadTestData';
 
 export function getMenuItems(wrapper) {
-    return wrapper.find('a.dropdown-item span>span');
+    return wrapper.find('a.dropdown-item');
 }
+
 
 describe('TypeAhead Field', () => {
     let wrapper: any;
@@ -46,7 +45,7 @@ describe('TypeAhead Field', () => {
         wrapper.simulate('focus');
         let menuItems = getMenuItems(wrapper);
         expect(menuItems).toHaveLength;
-        expect(menuItems[0] ,getTypeAheadDropdown[0].Name).toEqual;
+        expect(getTypeAheadDropdown[0].Name).toEqual('Other');
     });
 
 });
