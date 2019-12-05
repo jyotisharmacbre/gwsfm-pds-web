@@ -1,3 +1,10 @@
+.orange {
+    color: map-get($colors , orange );
+}
+.green {
+    color: map-get($colors , lightGreen02 );
+}
+
 /*
  * project info details
  */
@@ -60,6 +67,14 @@
  }
  .calender-wrap {
     background: map-get($colors , grey05 );
+    padding: 2px 15px 15px 15px;
+    .row {
+        &:last-child {
+            .form-group {
+                margin-bottom: 0;
+            }
+        }
+    }
 }
 
 /*
@@ -124,11 +139,19 @@
 .manipulate-calendar{
     .date-picker-wrap {
         position: relative;
+        display: flex;
+        align-items: center;
         .SingleDatePicker_picker {
             top: 41px !important;
             right: -37px !important;
             width: 300px!important;
             left: auto !important;
+        }
+        .SingleDatePickerInput_calendarIcon {
+            background: transparent;
+            border: 0;
+            min-width: auto;
+            padding: 0;
         }
     }
     .DayPicker_transitionContainer {
@@ -142,28 +165,24 @@
         font-size: 14px;
         font-weight: 700;
         color: map-get($colors , grey004 );
+        margin-left: -16px;
     }
     .authorised_form_inner {
         background: map-get($colors , grey05 );
         padding: 30px;
-        .row {
-            &:first-child {
-                align-items: inherit;
-                .approve_state {
-                    margin-top: 20px;
-                }
-            }
         }
         label {
             color: map-get($colors , grey004 );
             line-height: 16px;
+            width: 80%;
+            padding-right: 10px;
         }
         .form-group {
             .right_fix_txt {
                 font-size: 11px;
                 position: absolute;
                 right: 10px;
-                top: 41px;
+                top: calc(100% - 28px);
                 color: map-get($colors , grey001 );
             }
             .form-control {
@@ -171,5 +190,31 @@
                 padding-right: 65px;
             }
         }
+        .approve_state {
+            display: flex;
+            align-items: center;
+            height: 100%;
+            padding-bottom: 25px;
+            .icon {
+                margin-right: 10px;
+                svg {
+                    width: 13px;
+                    height: 13px;
+                }
+            }
+            .approv_label {
+                color: map-get($colors , grey005 ) !important;
+                font-size: 13px;
+                text-transform: capitalize;
+                font-weight: 500;
+                margin-bottom: 0;
+            }
+        }
+        .right_label {
+            color: map-get($colors , lightGreen02 );
+            width: 20%;
+            text-align: right;
+            padding: 0;
+            margin-left: auto;
+        }
     }
-}

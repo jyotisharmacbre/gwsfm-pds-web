@@ -129,10 +129,52 @@ const ProjectForm: React.FC<
                   labelKey="LABEL_PROJECT"
                   placeholderKey="PLACEHOLDER_PROJECT_NAME"
                 />
+                <div className={'form-group'}>
+                  <label>
+                    <FormattedMessage id="LABEL_DIVISION" />
+                  </label>
+                  <div className="select-wrapper">
+                    <Field
+                      name=""
+                      component={PdsFormSelect}
+                      placeHolder="Select status"
+                    >
+                      <FormattedMessage id="PLACEHOLDER_PROJECT_STATUS">
+                        {message => <option value="">{message}</option>}
+                      </FormattedMessage>
+                      {getDropdown(
+                        props.projectstatus,
+                        LookupType.Project_Status
+                      )}
+                    </Field>
+                  </div>
+                </div>
+
+                <div className={'form-group'}>
+                  <label>
+                    <FormattedMessage id="LABEL_BUSINESS_UNIT" />
+                  </label>
+                  <div className="select-wrapper">
+                    <Field
+                      name=""
+                      component={PdsFormSelect}
+                      placeHolder="Select status"
+                    >
+                      <FormattedMessage id="PLACEHOLDER_PROJECT_STATUS">
+                        {message => <option value="">{message}</option>}
+                      </FormattedMessage>
+                      {getDropdown(
+                        props.projectstatus,
+                        LookupType.Project_Status
+                      )}
+                    </Field>
+                  </div>
+                </div>
+
                 <Field
                   name="companyId"
                   type="text"
-                  component={PdsFormTypeAhead}                 
+                  component={PdsFormTypeAhead}
                   className="required"
                   validate={[
                     Validate.required('LABEL_COMPANY'),
@@ -163,7 +205,7 @@ const ProjectForm: React.FC<
                 <Field
                   name="contractorId"
                   type="text"
-                  component={PdsFormTypeAhead}                 
+                  component={PdsFormTypeAhead}
                   className="required"
                   validate={[
                     Validate.required('LABEL_CONTRACT'),
@@ -195,7 +237,7 @@ const ProjectForm: React.FC<
                 <Field
                   name="headOfProject"
                   type="text"
-                  component={PdsFormTypeAhead}                  
+                  component={PdsFormTypeAhead}
                   className="required"
                   validate={[
                     Validate.required('LABEL_HEAD_OF_PROJECT'),
@@ -213,7 +255,7 @@ const ProjectForm: React.FC<
                 <Field
                   name="projectOwner"
                   type="text"
-                  component={PdsFormTypeAhead}                 
+                  component={PdsFormTypeAhead}
                   placeHolder="Project Owner name"
                   className="required"
                   validate={[
@@ -232,7 +274,7 @@ const ProjectForm: React.FC<
                 <Field
                   name="projectManager"
                   type="text"
-                  component={PdsFormTypeAhead}                  
+                  component={PdsFormTypeAhead}
                   className="required"
                   validate={[
                     Validate.required('LABEL_PROJECT_MANAGER'),
@@ -262,7 +304,7 @@ const ProjectForm: React.FC<
                   validate={[
                     Validate.required('LABEL_PROJECT_SCOPE'),
                     Validate.maxLength(1040)
-                  ]}             
+                  ]}
                   labelKey="LABEL_PROJECT_SCOPE"
                 />
                 <Field
@@ -475,6 +517,55 @@ const ProjectForm: React.FC<
                 </div>
 
                 <Field
+                  name=""
+                  type="text"
+                  component={PdsFormInput}
+                  className="required width-285"
+                  validate={[
+                    Validate.required('LABEL_PROJECT'),
+                    Validate.maxLength(1000)
+                  ]}
+                  messageKey="MESSAGE_PROJECT_NAME"
+                  labelKey="LABEL_SOLID_MARGIN"
+                  placeholderKey="PLACEHOLDER_PROJECT_NAME"
+                />
+
+                <Field
+                  name=""
+                  type="text"
+                  component={PdsFormInput}
+                  className="required width-285"
+                  validate={[
+                    Validate.required('LABEL_PROJECT'),
+                    Validate.maxLength(1000)
+                  ]}
+                  messageKey="MESSAGE_PROJECT_NAME"
+                  labelKey="LABEL_WEIGHTED_TCV"
+                  placeholderKey="PLACEHOLDER_PROJECT_NAME"
+                />
+
+                <div className={'form-group'}>
+                  <label>
+                    <FormattedMessage id="LABEL_RANK" />
+                  </label>
+                  <div className="select-wrapper">
+                    <Field
+                      name=""
+                      component={PdsFormSelect}
+                      placeHolder="Select status"
+                    >
+                      <FormattedMessage id="PLACEHOLDER_PROJECT_STATUS">
+                        {message => <option value="">{message}</option>}
+                      </FormattedMessage>
+                      {getDropdown(
+                        props.projectstatus,
+                        LookupType.Project_Status
+                      )}
+                    </Field>
+                  </div>
+                </div>
+
+                <Field
                   labelKey="LABEL_COMMENTS"
                   name="comment"
                   rows="7"
@@ -490,7 +581,7 @@ const ProjectForm: React.FC<
                 type="button"
                 onClick={handleSubmit(values => props.onSave(values))}
               >
-                <FormattedMessage id="BUTTON_SAVE_AND_CLOSE" />
+                <FormattedMessage id="BUTTON_SAVE" />
               </button>
               <button
                 type="button"

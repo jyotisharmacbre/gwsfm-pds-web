@@ -210,6 +210,12 @@ form {
     //   }
 }
 
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none !important; 
+  margin: 0 !important; 
+}
+
 button[type="submit"],
 button[type="button"] {
     background-color: #006a4d;
@@ -245,6 +251,9 @@ button[type="button"] {
 
 .width-120 {
     max-width: 120px;
+}
+.width-285 {
+    max-width: 285px;
 }
 .pl-20{
     padding-left: 20px !important;
