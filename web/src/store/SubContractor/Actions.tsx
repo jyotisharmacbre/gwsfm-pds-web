@@ -4,21 +4,21 @@ import { Dispatch } from 'redux';
 import { IProjectAdditionalDetail } from '../ProjectOverviewForm/Types/IProjectAdditionalDetail';
 import moment from 'moment';
 import EventType from '../../enums/EventType';
-import {ISubContractor} from './Types/ISubContractor';
+import { ISubContractor } from './Types/ISubContractor';
 
 export const addNewActivity = () => {
   return (dispatch: Dispatch) => {
     dispatch({
-      type:ActionType.SUB_CONTRACTOR_ADD_NEW_ACTIVITY
+      type: ActionType.SUB_CONTRACTOR_ADD_NEW_ACTIVITY
     });
   };
 };
 
-export const deleteActivity = (index:number) => {
+export const deleteActivity = (index: number) => {
   return (dispatch: Dispatch) => {
     dispatch({
-      type:ActionType.SUB_CONTRACTOR_DELETE_ACTIVITY,
-      payload:index
+      type: ActionType.SUB_CONTRACTOR_DELETE_ACTIVITY,
+      payload: index
     });
   };
 };
@@ -34,7 +34,10 @@ const subContractorFormAddSuccess = (
   };
 };
 
-const subContractorFormEditSuccess = (response: ISubContractor, event: EventType) => {
+const subContractorFormEditSuccess = (
+  response: ISubContractor,
+  event: EventType
+) => {
   return {
     type: ActionType.SUB_CONTRACTOR_FORM_EDIT_SUCCESS,
     payload: response,
@@ -72,9 +75,9 @@ export const subContractorFormAdd = (
   data: ISubContractor,
   event: EventType
 ) => {
-  data.activities.map((element) => {
-    element.projectId = projectId
-  })
+  data.activities.map(element => {
+    element.projectId = projectId;
+  });
   return (dispatch: Dispatch) => {
     axios.baseAPI
       .post('api/SubContractor/activities', data.activities, config)
@@ -106,7 +109,7 @@ export const subContractorFormEdit = (
 export const getSubContractor = (projectId: string) => {
   return (dispatch: Dispatch) => {
     axios.baseAPI
-      .get(`api/Projects/${projectId}/additionalDetails`, config)
+      .get(`api/SubContractor/${projectId}/activities`, config)
       .then(response => {
         dispatch(getSubContractorSuccess(response.data));
       })

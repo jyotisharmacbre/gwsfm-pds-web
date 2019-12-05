@@ -1,5 +1,11 @@
 import React from 'react';
-import { Field,FieldArray, reduxForm, InjectedFormProps, FormSection } from 'redux-form';
+import {
+  Field,
+  FieldArray,
+  reduxForm,
+  InjectedFormProps,
+  FormSection
+} from 'redux-form';
 import PdsFormInput from '../../PdsFormHandlers/PdsFormInput';
 import PdsFormSelect from '../../PdsFormHandlers/PdsFormSelect';
 import PdsFormTextArea from '../../PdsFormHandlers/PdsFormTextArea';
@@ -15,64 +21,71 @@ import FontawsomeReact, {
   FontAwesomeIcon
 } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import { Validate, alphaNumeric, onlyNumber } from '../../../helpers/fieldValidations';
+import {
+  Validate,
+  alphaNumeric,
+  onlyNumber
+} from '../../../helpers/fieldValidations';
 import { selectionButtons } from '../../../helpers/constants';
 
 interface Props {
-  index:number;
-  name:string;
+  index: number;
+  name: string;
   initialValues: ISubContractorActivity;
-  totalCount:number;
-  deleteActivity: (index:number) => void;
-}  
+  totalCount: number;
+  deleteActivity: (index: number) => void;
+}
 
-const SubContractorActivityForm = ({ fields,totalCount,deleteActivity }) => (
+const SubContractorActivityForm = ({ fields, totalCount, deleteActivity }) => (
   <div>
-  {fields.map((member, index) => (
-    <div className="row" key={index}>
-      <div className="col-lg-12">
-        <div className="forms_wrap">
-        {totalCount > 1? 
-          <span className="delete_text" onClick={()=>deleteActivity(index)}>
-              DELETE
-              <FontAwesomeIcon className="" icon={faTrash} />
-            </span> : null 
-        }
+    {fields.map((member, index) => (
+      <div className="row" key={index}>
+        <div className="col-lg-12">
+          <div className="forms_wrap">
+            {totalCount > 1 ? (
+              <button
+                className="delete_text"
+                onClick={() => deleteActivity(index)}
+              >
+                DELETE
+                <FontAwesomeIcon className="" icon={faTrash} />
+              </button>
+            ) : null}
             <div className="row">
               <div className="col-lg-7">
                 <Field
-                name={`${member}.activityName`}
-                data-test="activityName"
-                type="text"
-                component={PdsFormInput}
-                validate={[
+                  name={`${member}.activityName`}
+                  data-test="activityName"
+                  type="text"
+                  component={PdsFormInput}
+                  validate={[
                     Validate.required('LABEL_ACTIVITY_NAME'),
                     Validate.maxLength(1000)
                   ]}
-                labelKey="LABEL_ACTIVITY_NAME"
-                placeholderKey="PLACEHOLDER_ACTIVITY_NAME"
-              />
-              <Field
+                  labelKey="LABEL_ACTIVITY_NAME"
+                  placeholderKey="PLACEHOLDER_ACTIVITY_NAME"
+                />
+                <Field
                   name={`${member}.isExistingSubcontractor`}
                   component={PdsFormButton}
                   buttons={selectionButtons}
                   labelKey="LABEL_EXISTING_SUBCONTRACTOR"
                 />
                 <Field
-                name={`${member}.subcontractorId`}
-                data-test="subcontractorId"
-                type="text"
-                component={PdsFormInput}
-                labelKey="LABEL_SUBCONTRACTOR"
-                placeholderKey="PLACEHOLDER_SUBCONTRACTOR"
-              />
-              <Field
+                  name={`${member}.subcontractorId`}
+                  data-test="subcontractorId"
+                  type="text"
+                  component={PdsFormInput}
+                  labelKey="LABEL_SUBCONTRACTOR"
+                  placeholderKey="PLACEHOLDER_SUBCONTRACTOR"
+                />
+                <Field
                   name={`${member}.isPreferredSupplier`}
                   component={PdsFormButton}
                   buttons={selectionButtons}
                   labelKey="LABEL_PREFERRED_SUPPLIER"
                 />
-               <Field
+                <Field
                   name={`${member}.totalCost`}
                   type="number"
                   component={PdsFormInput}
@@ -126,8 +139,8 @@ const SubContractorActivityForm = ({ fields,totalCount,deleteActivity }) => (
                 />
               </div>
             </div>
-            <FieldArray 
-              name={`${member}.quotes`} 
+            <FieldArray
+              name={`${member}.quotes`}
               component={Quote}
               key={index}
             />
@@ -135,9 +148,8 @@ const SubContractorActivityForm = ({ fields,totalCount,deleteActivity }) => (
         </div>
       </div>
     ))}
-    </div>
-  );
+  </div>
+);
 //};
- 
-export default SubContractorActivityForm;
 
+export default SubContractorActivityForm;
