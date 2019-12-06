@@ -39,7 +39,7 @@ let SubcontractorForm: React.FC<
       <div className="newActiv_btn"> 
           <button data-test="addActivity" name="addActivity" type="button" disabled={props.initialValues.activities.length>4} className="active" onClick={props.addNewActivity}>
             <FontAwesomeIcon className="" icon={faPlusCircle} />
-            BUTTON_NEW_ACTIVITY
+           <FormattedMessage id='BUTTON_NEW_ACTIVITY'></FormattedMessage>
           </button>
         </div>
       <div className="mr-35 three-btn">
