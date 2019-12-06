@@ -1,4 +1,3 @@
-export namespace AppTypes {
   export type Color =
     | 'cbregreen'
     | 'primary'
@@ -6,4 +5,3 @@ export namespace AppTypes {
     | 'save'
     | 'back'
     | undefined;
-}
