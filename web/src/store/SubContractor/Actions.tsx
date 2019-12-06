@@ -96,7 +96,7 @@ export const subContractorFormEdit = (
 ) => {
   return (dispatch: Dispatch) => {
     axios.baseAPI
-      .put('api/SubContractor/activities', data, config)
+      .put('api/SubContractor/activities', data.activities, config)
       .then(response => {
         dispatch(subContractorFormEditSuccess(response.data, event));
       })

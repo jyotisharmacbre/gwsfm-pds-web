@@ -56,7 +56,9 @@ const subContractorFormError = (oldState, action) => {
 
 const getSubContractorSuccess = (oldState, action) => {
   return updateObject(oldState, {
-    form: updateObject(oldState.form, action.payload)
+    form: updateObject(oldState.form,
+     {activities: action.payload
+     })
   });
 };
 
