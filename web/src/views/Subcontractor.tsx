@@ -23,8 +23,6 @@ interface IMapStateToProps {
 }
 
 interface IMapDispatchToProps {
-  addNewActivity: () => void;
-  deleteActivity:(index:number) => void;
   subContractorFormAdd: (
     projectId: string,
     form: ISubContractor,
@@ -107,8 +105,6 @@ const Subcontractor: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> =
               </div>
             <SubcontractorForm
               onSubmitForm={handleEvent}
-              addNewActivity={props.addNewActivity}
-              deleteActivity={props.deleteActivity}
             />
           </div>
         </div>
@@ -127,8 +123,6 @@ const mapStateToProps = (state: IState) => ({
 
 const mapDispatchToProps = dispatch => {
   return {
-    addNewActivity: () => dispatch(actions.addNewActivity()),
-    deleteActivity:(index:number) => dispatch(actions.deleteActivity(index)),
     subContractorFormAdd: (projectId, form, event) =>
       dispatch(actions.subContractorFormAdd(projectId, form, event)),
     subContractorFormEdit: (form, event) =>

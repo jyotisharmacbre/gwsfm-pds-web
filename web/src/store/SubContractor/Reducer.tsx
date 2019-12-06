@@ -7,26 +7,6 @@ import Notify from '../../enums/Notify';
 import EventType from '../../enums/EventType';
 import {initialState,newActivity} from './InitialState';
 
-const addNewActivity = (oldState, action) => {
-  return updateObject(oldState, {
-    form:updateObject(oldState.form,{
-      activities:oldState.form.activities.concat(newActivity)
-    })
-  });
-};
-
-const deleteActivity = (oldState, action) => {
-  return updateObject(oldState, {
-    form:updateObject(oldState.form,{
-      activities:
-      [
-  ...oldState.form.activities.slice(0, action.payload),
-  ...oldState.form.activities.slice(action.payload + 1)
-]
-    })
-  });
-};
-
 const subContractorFormAddSuccess = (oldState, action) => {
   return updateObject(oldState, {
     error: null,
@@ -79,10 +59,6 @@ const resetSubContractorState = (oldState, action) => {
 
 const subContractorReducer = (oldState = initialState, action) => {
   switch (action.type) {
-    case ActionType.SUB_CONTRACTOR_ADD_NEW_ACTIVITY:
-      return addNewActivity(oldState, action);
-    case ActionType.SUB_CONTRACTOR_DELETE_ACTIVITY:
-      return deleteActivity(oldState, action);  
     case ActionType.SUB_CONTRACTOR_FORM_ADD_SUCCESS:
       return subContractorFormAddSuccess(oldState, action);
     case ActionType.SUB_CONTRACTOR_FORM_EDIT_SUCCESS:

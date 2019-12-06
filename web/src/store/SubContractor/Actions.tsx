@@ -6,23 +6,6 @@ import moment from 'moment';
 import EventType from '../../enums/EventType';
 import { ISubContractor } from './Types/ISubContractor';
 
-export const addNewActivity = () => {
-  return (dispatch: Dispatch) => {
-    dispatch({
-      type: ActionType.SUB_CONTRACTOR_ADD_NEW_ACTIVITY
-    });
-  };
-};
-
-export const deleteActivity = (index: number) => {
-  return (dispatch: Dispatch) => {
-    dispatch({
-      type: ActionType.SUB_CONTRACTOR_DELETE_ACTIVITY,
-      payload: index
-    });
-  };
-};
-
 const subContractorFormAddSuccess = (
   response: ISubContractor,
   event: EventType

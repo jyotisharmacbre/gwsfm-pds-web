@@ -1,9 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class DiscountTable extends Component {
-  render() {
+
+interface Props {
+    
+}
+
+const DiscountTable:React.FC<Props> = (props:Props) => {
     return (
-      <div className="col-lg-8 px-0">
+    <div className="col-lg-8 px-0">
         <div className="price-sumry discount_table">
           <div className="inner-block">
             <table className="price-table">
@@ -28,7 +32,7 @@ class DiscountTable extends Component {
         </div>
       </div>
     );
-  }
 }
+
 
 export default DiscountTable;
