@@ -48,7 +48,7 @@ const SubContractorActivityForm = ({ fields, totalCount, deleteActivity }) => (
                 className="delete_text"
                 onClick={() => deleteActivity(index)}
               >
-                DELETE
+                <FormattedMessage id='BUTTON_DELETE' />
                 <FontAwesomeIcon className="" icon={faTrash} />
               </button>
             ) : null}
