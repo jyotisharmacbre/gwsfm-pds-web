@@ -1,4 +1,4 @@
-import { AppTypes } from './PropTypes';
+import { Color } from './PropTypes';
 import {
   IProjectForm,
   IProjectFormAddAction
@@ -31,7 +31,7 @@ export interface IHeaderPageProps {
 export interface IBtnActionProps {
   Title: string;
   Icon?: any;
-  Color?: AppTypes.Color;
+  Color?: Color;
   LinkTo?: string;
   HandleClick?: () => void;
   isSubmit?: boolean;
