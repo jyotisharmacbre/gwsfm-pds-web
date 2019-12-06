@@ -1,7 +1,6 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
 import { Provider } from 'react-redux';
-import SubContractorForm from '../SubContractorForm';
 import {initialState} from '../../../../store/SubContractor/InitialState';
 import {ActionType} from '../../../../store/SubContractor/Types/ActionType';
 import subContractorReducer from '../../../../store/SubContractor/Reducer';
@@ -11,6 +10,8 @@ import translations from '../../../../Translations/translation';
 import configureStore from 'redux-mock-store';
 import { reducer as formReducer } from 'redux-form';
 import * as actions from '../../../../store/rootActions';
+import SubContractorForm from '../SubContractorForm';
+
 describe('Sub Contractor Activity Form tests', () => {
   const subContractorFormAddAction: any = {
           type: ActionType.SUB_CONTRACTOR_ADD_NEW_ACTIVITY
