@@ -20,4 +20,11 @@ export {
   getPreliminaryDetails
 } from './Preliminaries/Actions';
 
-export { addNewActivity,deleteActivity } from './SubContractor/Actions';
+export { 
+  addNewActivity,
+  deleteActivity,
+  subContractorFormAdd,
+  subContractorFormEdit,
+  getSubContractor,
+  resetSubContractorState 
+} from './SubContractor/Actions';
