@@ -29,7 +29,9 @@ export const getProjectStatus = () => {
     'Currency',
     'Asset',
     'Work_Type',
-    'Enquiry_Type'
+    'Enquiry_Type',
+    'Pre_Components',
+    'Pre_Component_Items'
   ];
   return (dispatch: Dispatch) => {
     axios.baseAPI

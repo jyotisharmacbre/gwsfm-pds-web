@@ -13,21 +13,35 @@ import { IPreliminaries } from '../store/Preliminaries/Types/IPreliminaries';
 import {convertIntoDatabaseModel} from "../store/Preliminaries/DataWrapper";
 import { toast } from 'react-toastify';
 import Notify from '../enums/Notify';
+import { ILookup } from '../store/Lookups/Types/ILookup';
+import { ICurrency } from '../store/Lookups/Types/ICurrency';
+import { FormattedMessage } from 'react-intl';
+import EventType from '../enums/EventType';
+import { generateUUID } from '../helpers/utility-helper';
+
 interface IMapStateToProps {
   preliminaryDetails: Array<IPreliminariesComponentDetails>;
+  lookupData:Array<ILookup>;
+  currencies:Array<ICurrency> | null;
   match:any;
   notify: Notify;
+  event: EventType;
+  currencyId:number;
 }
 interface IMapDispatchToProps {
   preliminaryAdd: (
-    preliminaryDetails: Array<IPreliminaries>
+    preliminaryDetails: Array<IPreliminaries>,
+    event: EventType
       ) => void;
   preliminaryEdit: (
-    preliminaryDetails:  Array<IPreliminaries>
+    preliminaryDetails:  Array<IPreliminaries>,
+    event: EventType
   ) => void;
   getPreliminaryDetails: (projectId: string) => void;
-  getLookupDetails: (projectId: string) => void;
   updateInputField:(inputData:any)=>void;
+  getAllCurrencies:()=>void;
+  getProjectStatus: () => void;
+  getProjectDetail: (projectId: string) => void;
 }
 
 const Preliminaries: React.FC<
@@ -35,33 +49,39 @@ const Preliminaries: React.FC<
 > = props => {
   let history = useHistory();
   let paramProjectId:string= props.match.params.projectId;
-
+  paramProjectId="4D27E2E1-843D-435A-B27C-03DCA70CE232";
+let isLookupSessionExists:boolean=(sessionStorage.getItem("lookupData")!=null&&sessionStorage.getItem("lookupData")!=undefined&&sessionStorage.getItem("lookupData")!="")
   useEffect(() => {
-    if (
-      paramProjectId!= null &&
-      paramProjectId != '' &&
-      paramProjectId != undefined
-    ) {
-      if(sessionStorage.getItem("lookupData")!=null&&(sessionStorage.getItem("lookupData")!=undefined))
-      {
-        props.getPreliminaryDetails(paramProjectId);
-      }
-      else
-      {
-        props.getLookupDetails(paramProjectId);
-      }
-   
+    window.scrollTo(0, 0);
+    props.getProjectDetail(paramProjectId);
+    props.getProjectStatus();
+    props.getAllCurrencies();
+    debugger;
+    if (paramProjectId!= null &&paramProjectId != '' &&paramProjectId != undefined&&isLookupSessionExists) 
+    {
+      props.getPreliminaryDetails(paramProjectId);
     }
   }, []);
   useEffect(() => {
+    window.scrollTo(0, 0);
     if (props.notify == Notify.success) {
-        toast.success('Data Saved Successfully');
+      toast.success('Data Saved Successfully');
+      if (props.event == EventType.next) {
+        history.push('/Subcontractor/'+paramProjectId);
+      } 
       }
-      else
+      else if(props.notify == Notify.error)
       {
         toast.error('Error occured.Please contact to administrator.');
       }
-  }, [props.notify]);
+       
+  }, [props.notify,props.event]);
+  useEffect(() => {
+    if(isLookupSessionExists)
+      {
+        props.getPreliminaryDetails(paramProjectId);
+      }
+  }, [props.lookupData]);
   const handleExpandAllEvent = () => {
     var element: any = document.getElementsByClassName('expandAll');
     for(let i=0;i<element.length;i++)
@@ -86,26 +106,35 @@ const Preliminaries: React.FC<
   };
   const handleSaveData = (
     saveAll:boolean,
+    event:EventType,
     preliminaryDetails: any,
     index:number
+    
   ) => {
     var editData: Array<IPreliminaries>=[];
+    var saveData: Array<IPreliminaries>=[];
     let preData:Array<IPreliminariesComponentDetails>=[];
     preData.push(preliminaryDetails.preliminaryDetails[index]);
     var preliminariesData:Array<IPreliminaries>=saveAll?
     convertIntoDatabaseModel(preliminaryDetails.preliminaryDetails,paramProjectId):
     convertIntoDatabaseModel(preData,paramProjectId)
     editData=  preliminariesData.filter((data)=>{
-      return (data.TotalCost>0&&data.PreliminaryId!=''&&data.GrossMargin&&data.NameOfSupplier&&data.NoOfHours);
+      return (data.TotalCost>0&&data.PreliminaryId!='');
     })
-    if( editData.length>0)
-    {
-      props.preliminaryEdit(editData);
-    }
-    else
-    {
-      toast.error('No data changed to save.');
-    }
+    saveData=  preliminariesData.filter((data)=>{
+      if(data.TotalCost>0&&data.PreliminaryId=='')
+      {
+        data.PreliminaryId=generateUUID();
+        return data;
+      }
+    })
+    if(editData.length>0&&saveData.length>0){props.preliminaryEdit(editData,event);props.preliminaryAdd(saveData,event);}
+    else if(editData.length>0){props.preliminaryEdit(editData,event);}
+    else if(saveData.length>0){props.preliminaryAdd(saveData,event)}
+    else{toast.error('No data changed to save.');}
+  };
+  const handlePrevious = ( ) => {
+    history.push('/Project');
   };
 
   return (
@@ -114,7 +143,8 @@ const Preliminaries: React.FC<
         <div className="col-lg-12">
           <form className="customer-enquiry">
             <h1>
-              Justification &amp; Authorisation
+            <FormattedMessage id="JUSTIFICATION" />
+ &amp;  <FormattedMessage id="AUTHORISATION" />
               <p className="sub_head">preliminaries</p>
             </h1>
             <div className="table-responsive">
@@ -124,6 +154,7 @@ const Preliminaries: React.FC<
             <div>
               <PreliminaryForm
                 onSave={handleSaveData}
+                onPrevious={handlePrevious}
                 onToggle={handleToggle}
                 preliminariesDetails={props.preliminaryDetails}
               />
@@ -137,21 +168,27 @@ const Preliminaries: React.FC<
 
 const mapStateToProps = (state: IState) => {
   return {
-    preliminaryDetails: state.preliminary.preliminaryDetails
+    preliminaryDetails: state.preliminary.preliminaryDetails,
+    lookupData:state.lookup.projectstatus,
+    currencies:state.lookup.currencies,
+    notify: state.preliminary.notify,
+    currencyId:state.project.form.currencyId,
+    event:state.preliminary.event
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    preliminaryAdd: (preliminaryDetails) =>
-      dispatch(actions.preliminaryAdd(preliminaryDetails)),
-    preliminaryEdit: (preliminaryDetails) =>
-      dispatch(actions.preliminaryEdit(preliminaryDetails)),
+    preliminaryAdd: (preliminaryDetails,event) =>
+      dispatch(actions.preliminaryAdd(preliminaryDetails,event)),
+    preliminaryEdit: (preliminaryDetails,event) =>
+      dispatch(actions.preliminaryEdit(preliminaryDetails,event)),
+      getProjectDetail: (projectId: string) =>
+      dispatch(actions.getProjectDetail(projectId)),
     getPreliminaryDetails: (projectId: string) =>
       dispatch(actions.getPreliminaryDetails(projectId)),
-    getLookupDetails:(projectId)=>
-      dispatch(actions.getLookUpDetails(projectId))
-
+    getAllCurrencies: () => dispatch(actions.getAllCurrencies()),
+    getProjectStatus: () => dispatch(actions.getProjectStatus())
   };
 };
 

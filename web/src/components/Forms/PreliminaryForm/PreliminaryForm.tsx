@@ -2,24 +2,26 @@ import React from 'react';
 import { reduxForm,FieldArray, InjectedFormProps } from 'redux-form';
 import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
-import { IPreliminariesComponentDetails } from '../../../store/Preliminaries/Types/IPreliminariesComponentDetails';
 import { FormattedMessage,injectIntl } from 'react-intl';
 import { IPreliminaryForm } from '../../../store/Preliminaries/Types/IPreliminaryState';
 import PreliminaryComponentsForm from './PreliminaryComponentsForm';
 import IReactIntl from '../../../Translations/IReactIntl';
+import EventType from '../../../enums/EventType';
 
 interface Props {
-  onSave: (saveAll:boolean,prelimComponentDetails: any,index:number) => void;
+  onSave: (saveAll:boolean,event:EventType,prelimComponentDetails: any,index:number) => void;
+  onPrevious:()=>void;
   onToggle:(id:string)=>void;
   preliminariesDetails: any;
 }
 let PreliminaryForm: React.FC<
   Props &IReactIntl& InjectedFormProps<IPreliminaryForm, Props>
 > = (props: any) => {
-  const {handleSubmit } = props;
+  const {handleSubmit} = props;
   return (
     <form
             className="preliminary-form"
+            data-test="preliminary-form"
             onSubmit={handleSubmit}
             noValidate={true}
           >
@@ -34,23 +36,25 @@ let PreliminaryForm: React.FC<
      <div className="mr-35 three-btn">
          <button
           className="active" 
+          data-test="previous"
                 type="button"
                 name="previous"
-                onClick={handleSubmit(values => props.onSave(true,values))}
+                onClick={handleSubmit(values => props.onPrevious())}
               >
                 <FormattedMessage id="BUTTON_PREVIOUS" />
               </button>
               <button
-              name="save" className="active ml-auto"
+              name="save" className="active ml-auto" data-test="save"
                 type="button"
-                onClick={handleSubmit(values => props.onSave(true,values))}
+                onClick={handleSubmit(values => props.onSave(true,EventType.none,values))}
               >
                 <FormattedMessage id="BUTTON_SAVE" />
               </button>
               <button
                 type="button"
                 name="next"
-                onClick={handleSubmit(values => props.onSave(true,values))}
+                data-test="next"
+                onClick={handleSubmit(values => props.onSave(true,EventType.next,values))}
               >
                 <FormattedMessage id="BUTTON_NEXT" />
               </button>

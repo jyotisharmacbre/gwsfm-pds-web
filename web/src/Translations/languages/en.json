@@ -190,6 +190,8 @@
  "TOTAL_COST":"Total Cost",
  "GROSS_MARGIN":"Gross Margin",
  "TOTAL_SELL":"Total Sell",
- "COMMENTS":"Comments"
+ "COMMENTS":"Comments",
+ "JUSTIFICATION":"Justification",
+ "AUTHORISATION":"Authorisation"
 
 }

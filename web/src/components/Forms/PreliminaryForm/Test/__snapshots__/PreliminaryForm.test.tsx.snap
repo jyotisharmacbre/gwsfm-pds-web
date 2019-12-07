@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Preliminary Form testCases should match the snapshot 1`] = `ReactWrapper {}`;
+
+exports[`Sub Contractor Activity Form tests should match the snapshot 1`] = `ReactWrapper {}`;

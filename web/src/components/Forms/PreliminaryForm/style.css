@@ -870,4 +870,11 @@ button.btn-sm[type="submit"] {
 {
   float:right;
 }
+.form-control:disabled, .form-control[readonly] {
+  background-color: #a5aaaf42!important;
+  opacity: 1;
+}
+.form-group> span {
+  top:12px!important;
+}
 

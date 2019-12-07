@@ -1,36 +1,40 @@
 import { IPreliminariesComponentDetails } from './Types/IPreliminariesComponentDetails';
 import { IPreliminariesItems } from './Types/IPreliminariesItems';
 import { IPreliminaries } from './Types/IPreliminaries';
-import {uuid } from "react-uuid";
+
 export const bindUserData = (preliminaryData) => {
     var preliminaryDetails:Array<IPreliminariesComponentDetails>=[];
-    var componentDetails:IPreliminariesComponentDetails={componentId:'',componentName:'',items:[]}
-    var items:IPreliminariesItems ={itemId: '',itemName: '',preliminaryId:'',nameOfSupplier: '',
-                                   noOfHours: 0,hourRate: 0,totalCost: 0,grossMargin: 0,comments: ''};
-    var lookupData:any=[];
-    lookupData=(sessionStorage.getItem("lookupData"));
-    if(lookupData!=null&&lookupData!=undefined)
+    var componentDetails:IPreliminariesComponentDetails={componentId:'',componentName:'',items:[]};
+   
+    var lookupData:any=((sessionStorage.getItem("lookupData")));
+    lookupData=(lookupData!=null&&lookupData!=undefined&&lookupData!="")?JSON.parse(lookupData):[];
+    if(lookupData!=null&&lookupData!=undefined&&lookupData.length>0)
     {
-        var pre_components=lookupData.filter((data)=>{return data.LookupItem=='Pre_Components'});
-   var pre_component_items=lookupData.filter((data)=>{return data.LookupItem=='Pre_Component_Items'});
+        var pre_components=lookupData.filter((data)=>{return data.lookupItem=='Pre_Components'});
+   var pre_component_items=lookupData.filter((data)=>{return data.lookupItem=='Pre_Component_Items'});
    pre_components.map((components)=>{
-    componentDetails.componentId=components.LookupKey.toString();
-    componentDetails.componentName=components.Description;
-    var preData=preliminaryData.filter((x)=>{return x.PreliminariesComponentId==components.LookupKey});
+    componentDetails.componentId=components.lookupKey.toString();
+    componentDetails.componentName=components.description;
+    var itemDetails: Array<IPreliminariesItems>=[];
+    var preData=preliminaryData!=''?preliminaryData.filter((x)=>{return x.preliminariesComponentId==components.lookupKey}):[];
     pre_component_items.map((item)=>{
-        let itemData=preData.filter((itemData)=>{return (itemData.PreliminariesItemId==item.LookupKey.toString())});
-        items.itemId=item.LookupKey.toString();
-        items.itemName=item.Description;
-        items.preliminaryId=itemData.length>0?(itemData.PreliminaryId==null?uuid():itemData.PreliminaryId):'';
-        items.nameOfSupplier=itemData.length>0?(itemData.NameOfSupplier==null?'':itemData.NameOfSupplier):'';
-        items.noOfHours=itemData.length>0?itemData.NoOfHours:'';
-        items.hourRate=itemData.length>0?itemData.HourRate:'';
-        items.totalCost=itemData.length>0?itemData.TotalCost:'';
-        items.grossMargin=itemData.length>0?itemData.GrossMargin:'';
-        items.comments=itemData.length>0?(itemData.Comments==null?'':itemData.Comments):'';
-        componentDetails.items.push(items);
+        var items:IPreliminariesItems ={itemId: '',itemName: '',preliminaryId:'',nameOfSupplier: '',
+        noOfHours: 0,hourRate: 0,totalCost: 0,grossMargin: 0,comments: ''};
+        let itemData=preData.filter((itemData)=>{return (itemData.preliminariesItemId==item.lookupKey.toString())});
+        items.itemId=item.lookupKey.toString();
+        items.itemName=item.description;
+        items.preliminaryId=itemData.length>0?(itemData[0].preliminaryId):"";
+        items.nameOfSupplier=itemData.length>0?(itemData[0].nameOfSupplier==null?'':itemData[0].nameOfSupplier):'';
+        items.noOfHours=itemData.length>0?itemData[0].noOfHours:0;
+        items.hourRate=itemData.length>0?itemData[0].hourRate:0;
+        items.totalCost=itemData.length>0?itemData[0].totalCost:0;
+        items.grossMargin=itemData.length>0?itemData[0].grossMargin:0;
+        items.comments=itemData.length>0?(itemData[0].comments==null?'':itemData[0].comments):'';
+        itemDetails.push(items);
     })
-    preliminaryDetails.push(componentDetails);
+    componentDetails.items=itemDetails;
+    let componentData = Object.assign({},componentDetails);
+    preliminaryDetails.push(componentData);
    })
     }
    
@@ -39,10 +43,11 @@ export const bindUserData = (preliminaryData) => {
 
 export const convertIntoDatabaseModel=(userData,projectId)=>{
     let preliminariesList:Array<IPreliminaries>=[];
-    let preliminaries:IPreliminaries={PreliminaryId :'',ProjectId :'',PreliminariesItemId :'',PreliminariesComponentId :'',
-                                     NameOfSupplier :'',NoOfHours :0,HourRate :0,TotalCost :0,GrossMargin :0,Comments :''};
+    
     userData.map((components)=>{
         components.items.map((items)=>{
+            let preliminaries:IPreliminaries={PreliminaryId :'',ProjectId :'',PreliminariesItemId :'',PreliminariesComponentId :'',
+                                     NameOfSupplier :'',NoOfHours :0,HourRate :0,TotalCost :0,GrossMargin :0,Comments :''};
 preliminaries.PreliminaryId=items.preliminaryId;
 preliminaries.ProjectId=projectId;
 preliminaries.PreliminariesItemId=items.itemId;

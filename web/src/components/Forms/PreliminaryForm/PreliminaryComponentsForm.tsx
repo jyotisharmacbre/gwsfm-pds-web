@@ -2,9 +2,12 @@ import React from 'react';
 import { FieldArray} from 'redux-form';
 import { FormattedMessage } from 'react-intl';
 import PreliminaryItemsForm from './PreliminaryItemsForm';
+import EventType from '../../../enums/EventType';
+
 interface Props {
   submitHandler: (
         saveAll:boolean,
+        event:EventType,
         prelimComponentDetails: any,
         index:number
       ) => void;
@@ -25,6 +28,7 @@ const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleE
             <div
               className="card-header"
               data-toggle="collapse"
+              data-test="collapse"
               onClick={()=>onToggleEvent(prelimData[index].componentId)}
             >
               <a className="card-link" >{prelimData[index].componentName}</a>
@@ -34,6 +38,7 @@ const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleE
             <div
                id={"collapse_"+prelimData[index].componentId}
               className="hide expandAll"
+              data-test="toggle"
               data-parent="#accordion"
             > <form
             className="preliminary-form-1"
@@ -60,6 +65,10 @@ const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleE
               name={`${member}.items`} 
               component={PreliminaryItemsForm}
               itemDetail={prelimData[index]}
+              componentIndex={index}
+              currencies={[]}
+              currencyId={0}
+              currencySymbol={"$"}
               key={index}
             />
            
@@ -68,7 +77,7 @@ const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleE
                 </div>
                 </form>
         <div className="text-right" >
-                  <button type="button" className="text-right btn-sm" onClick={handleSubmit(values=>submitHandler(false,values,index))} >
+                  <button type="button" data-test="componentSave" className="text-right btn-sm" onClick={handleSubmit(values=>submitHandler(false,EventType.none,values,index))} >
                   <FormattedMessage id="BUTTON_SAVE" />
                   </button>
                 </div>

@@ -139,5 +139,7 @@
  "TOTAL_COST":"Coût total",
  "GROSS_MARGIN":"Marge brute",
  "TOTAL_SELL":"Vente totale",
- "COMMENTS":"commentaires"
+ "COMMENTS":"commentaires",
+ "JUSTIFICATION":"Justification",
+ "AUTHORISATION":"Autorisation"
 }

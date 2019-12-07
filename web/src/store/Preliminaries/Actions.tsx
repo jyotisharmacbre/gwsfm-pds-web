@@ -2,10 +2,12 @@ import * as axios from '../../client';
 import { ActionType } from './Types/ActionType';
 import { Dispatch } from 'redux';
 import { IPreliminaries } from './Types/IPreliminaries';
-const preliminaryAddSuccess = (response: any) => {
+import EventType from '../../enums/EventType';
+const preliminaryAddSuccess = (response: any, event: EventType) => {
   return {
     type: ActionType.PRELIMINARY_ADD_SUCCESS,
-    payload: response
+    payload: response,
+    event: event
   };
 };
 const preliminaryAddError = (error: string) => {
@@ -14,10 +16,11 @@ const preliminaryAddError = (error: string) => {
     payload: error
   };
 };
-const preliminaryEditSuccess = (response: any) => {
+const preliminaryEditSuccess = (response: any, event: EventType) => {
   return {
     type: ActionType.PRELIMINARY_EDIT_SUCCESS,
-    payload: response
+    payload: response,    
+    event: event
   };
 };
 const preliminaryEditError = (response: any) => {
@@ -33,13 +36,6 @@ const preliminaryGetDataSuccess = (response: any) => {
     payload: response
   };
 };
-const getLookUpDetail=(response:any)=>
-{
-  return {
-    type: ActionType.GET_LOOKUP_DETAILS,
-    payload: response
-  };
-}
 
 const preliminaryGetDataError = (error: string) => {
   return {
@@ -54,17 +50,18 @@ let config = {
   }
 };
 export const preliminaryAdd = (
-  preliminaryDetails:  Array<IPreliminaries>
+  preliminaryDetails:  Array<IPreliminaries>,
+  event: EventType
 ) => {
   return (dispatch: Dispatch) => {
     axios.baseAPI
       .post(
-        'api/Preliminary/preliminaryDataDetails',
+       'api/Preliminaries/preliminaryDetails',
         preliminaryDetails,
         config
       )
       .then(response => {
-        dispatch(preliminaryAddSuccess(response));
+        dispatch(preliminaryAddSuccess(response,event));
       })
       .catch(error => {
         dispatch(preliminaryAddError(error));
@@ -73,17 +70,18 @@ export const preliminaryAdd = (
 };
 
 export const preliminaryEdit = (
-  preliminaryDetails:  Array<IPreliminaries>
+  preliminaryDetails:  Array<IPreliminaries>,
+  event: EventType
 ) => {
   return (dispatch: Dispatch) => {
     axios.baseAPI
       .put(
-        'api/Preliminary/updatePreliminaryDetails',
+        'api/Preliminaries/preliminaryDetails',
         preliminaryDetails,
         config
       )
       .then(response => {
-        dispatch(preliminaryEditSuccess(response));
+        dispatch(preliminaryEditSuccess(response,event));
       })
       .catch(error => {
         dispatch(preliminaryEditError(error));
@@ -94,29 +92,12 @@ export const preliminaryEdit = (
 export const getPreliminaryDetails = (projectId: string) => {
   return (dispatch: Dispatch) => {
     axios.baseAPI
-      .get(`api/Preliminary/${projectId}/getPreliminaryDetails`, config)
+      .get(`api/Preliminaries/${projectId}/preliminaryDetails`, config)
       .then(response => {
-        dispatch(preliminaryGetDataSuccess(response));
+        dispatch(preliminaryGetDataSuccess(response.data));
       })
       .catch(error => {
         dispatch(preliminaryGetDataError(error));
-      });
-  };
-};
-export const getLookUpDetails = (projectId:string) => {
-  var data = [
-    'Pre_Components',
-    'Pre_Component_Items'
-  ];
-  return (dispatch: Dispatch) => {
-    axios.baseAPI
-      .post('api/LookupData/GetLookupsByIds', data, config)
-      .then(response => {
-        dispatch(getLookUpDetail(response.data));
-        getPreliminaryDetails(projectId);
-      })
-      .catch(error => {
-        dispatch(getLookUpDetail(error));
       });
   };
 };
