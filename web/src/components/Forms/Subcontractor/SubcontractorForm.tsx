@@ -14,7 +14,6 @@ import FontawsomeReact, {
   FontAwesomeIcon
 } from '@fortawesome/react-fontawesome';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
-import { FormattedMessage } from 'react-intl';
 
 interface Props {
   onNext: (data: ISubContractor) => void;

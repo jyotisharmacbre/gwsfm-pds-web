@@ -12,7 +12,8 @@ export function PdsFormInput({
   className,
   intl,
   currency,
-  divPosition
+  divPosition,
+  rightSideFixPlaceHolderKey
 }) {
   const errorClass = `${(error && touched) || warning ? 'error' : ''}`;
   const _placeholder = placeholderKey
@@ -49,6 +50,9 @@ export function PdsFormInput({
       {touched &&
         ((error && <span className="text-danger">{error}</span>) ||
           (warning && <span className="text-danger">{warning}</span>))}
+
+      {rightSideFixPlaceHolderKey && (<span className="right_fix_txt"><FormattedMessage id={rightSideFixPlaceHolderKey} /></span>)}
+
     </div>
   );
 }

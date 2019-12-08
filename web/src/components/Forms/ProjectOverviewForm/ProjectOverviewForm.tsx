@@ -19,7 +19,7 @@ import FontawsomeFree from '@fortawesome/free-solid-svg-icons';
 import FontawsomeReact, {
   FontAwesomeIcon
 } from '@fortawesome/react-fontawesome';
-import {faCheckCircle, faClock, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';  
+import { faCheckCircle, faClock, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 
 
 import {
@@ -454,21 +454,34 @@ let ProjectOverviewForm: React.FC<
                 <div className="authorised_form_wrap">
                   <h6 className="ml-0">
                     <FormattedMessage id="TITLE_PROJECT_AUTHORISED" />
-                     </h6>
+                  </h6>
                   <div className="authorised_form_inner">
                     <div className="row">
                       <div className="col-md-12 d-flex">
-                      <label><FormattedMessage id="LABEL_AUTHORISED_BY" /></label>
-                      <h6 className="mb-0 d-none d-lg-block"><FormattedMessage id="TITLE_SIGN_OFF_STATUS" /> </h6>
+                        <label><FormattedMessage id="LABEL_AUTHORISED_BY" /></label>
+                        <h6 className="mb-0 d-none d-lg-block"><FormattedMessage id="TITLE_SIGN_OFF_STATUS" /> </h6>
                       </div>
                       <div className="col-lg-9">
-                        <div className="form-group">
-                          <input className="form-control" type="text" placeholder="" />
-                          <span className="right_fix_txt"><FormattedMessage id="FIX_TEXT_HOP" /></span>
-                        </div>
+                          {/* <input className="form-control" type="text" placeholder="" /> */}
+                          <Field
+                            name={getPropertyName(
+                              initialValues,
+                              prop => prop.mainContractor
+                            )}
+                            data-test="mainContractor"
+                            type="text"
+                            component={PdsFormInput}                            
+                            rightSideFixPlaceHolderKey = "FIX_TEXT_HOP"
+                            className="required"
+                            validate={[
+                              Validate.required(''),
+                              Validate.maxLength(1000)
+                            ]}
+                            warn={alphaNumeric}
+                          />
                       </div>
                       <div className="col-lg-3">
-                        
+
                         <div className="approve_state">
                           <span className="icon"><FontAwesomeIcon className="green" icon={faCheckCircle} /></span>
                           <label className='approv_label'><FormattedMessage id="LABEL_APPROVED" /> </label>
@@ -478,7 +491,7 @@ let ProjectOverviewForm: React.FC<
                     <div className="row align-items-stretch">
                       <div className="col-lg-9 col-md-12 d-flex">
                         <label> Authorised By Up To &#163; 100k</label>
-                        </div>
+                      </div>
                       <div className="col-lg-9">
                         <div className="form-group">
                           <input className="form-control" type="number" placeholder="" />
@@ -493,8 +506,8 @@ let ProjectOverviewForm: React.FC<
                       </div>
                     </div>
                     <div className="row align-items-stretch">
-                    <div className="col-lg-9 col-md-12 d-flex">
-                      <label> Authorised By Up To &#163; 250k</label>
+                      <div className="col-lg-9 col-md-12 d-flex">
+                        <label> Authorised By Up To &#163; 250k</label>
                       </div>
                       <div className="col-lg-9">
                         <div className="form-group">
@@ -512,7 +525,7 @@ let ProjectOverviewForm: React.FC<
                     <div className="row align-items-stretch">
                       <div className="col-lg-9 col-md-12 d-flex">
                         <label> Authorised By Up To &#163; 250k</label>
-                        </div>
+                      </div>
                       <div className="col-lg-9">
                         <div className="form-group">
                           <input className="form-control" type="number" placeholder="" />
@@ -527,8 +540,8 @@ let ProjectOverviewForm: React.FC<
                       </div>
                     </div>
                     <div className="row align-items-stretch">
-                    <div className="col-lg-9 col-md-12 d-flex">
-                      <label> Authorised By Up To &#163; 1 Million</label>
+                      <div className="col-lg-9 col-md-12 d-flex">
+                        <label> Authorised By Up To &#163; 1 Million</label>
                       </div>
                       <div className="col-lg-9">
                         <div className="form-group">
@@ -558,9 +571,9 @@ let ProjectOverviewForm: React.FC<
                       </div>
                     </div>
                     <div className="row align-items-stretch">
-                    <div className="col-lg-9 col-md-12 d-flex">
-                      <label> Authorised By Up To &#163; 3 Million</label>
-                      <label className="right_label"><FormattedMessage id="LABEL_DELEGATE" /> </label>
+                      <div className="col-lg-9 col-md-12 d-flex">
+                        <label> Authorised By Up To &#163; 3 Million</label>
+                        <label className="right_label"><FormattedMessage id="LABEL_DELEGATE" /> </label>
                       </div>
                       <div className="col-lg-9">
                         <div className="form-group">
@@ -576,8 +589,8 @@ let ProjectOverviewForm: React.FC<
                       </div>
                     </div>
                     <div className="row align-items-stretch">
-                    <div className="col-lg-9 col-md-12 d-flex">
-                      <label className="right_label"><FormattedMessage id="LABEL_DELEGATE" /> </label>
+                      <div className="col-lg-9 col-md-12 d-flex">
+                        <label className="right_label"><FormattedMessage id="LABEL_DELEGATE" /> </label>
                       </div>
                       <div className="col-lg-9">
                         <div className="form-group">
@@ -595,9 +608,9 @@ let ProjectOverviewForm: React.FC<
                     <div className="row align-items-stretch">
                       <div className="col-lg-9 col-md-12 d-flex">
                         <label className="right_label"><FormattedMessage id="LABEL_DELEGATE" /></label>
-                        </div>
+                      </div>
                       <div className="col-lg-9">
-                        <div className="form-group">                          
+                        <div className="form-group">
                           <input className="form-control" type="number" placeholder="" />
                           <span className="right_fix_txt"><FormattedMessage id="FIX_TEXT_COO_UK_FD" /> </span>
                         </div>
@@ -610,8 +623,8 @@ let ProjectOverviewForm: React.FC<
                       </div>
                     </div>
                     <div className="row align-items-stretch">
-                    <div className="col-lg-9 col-md-12 d-flex">
-                      <label>Over &#163; 3 Million Authority</label></div>
+                      <div className="col-lg-9 col-md-12 d-flex">
+                        <label>Over &#163; 3 Million Authority</label></div>
                       <div className="col-lg-9">
                         <div className="form-group">
                           <input className="form-control" type="number" placeholder="" />
@@ -626,8 +639,8 @@ let ProjectOverviewForm: React.FC<
                       </div>
                     </div>
                     <div className="row align-items-stretch">
-                    <div className="col-lg-9 col-md-12 d-flex">
-                      <label>Over &#163; 4.5 Million</label>
+                      <div className="col-lg-9 col-md-12 d-flex">
+                        <label>Over &#163; 4.5 Million</label>
                       </div>
                       <div className="col-lg-9">
                         <div className="form-group">

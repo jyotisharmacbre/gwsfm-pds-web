@@ -5,13 +5,22 @@ import FontawsomeFree from '@fortawesome/free-solid-svg-icons';
 import FontawsomeReact, {
   FontAwesomeIcon
 } from '@fortawesome/react-fontawesome';
-import { faAngleDown, faUser, faBell, faHome } from '@fortawesome/free-solid-svg-icons';  
+import { faAngleDown, faUser, faBell, faHome } from '@fortawesome/free-solid-svg-icons';
 
 
 // @ts-ignore
 import authentication from '@kdpw/msal-b2c-react';
 
+
 export default function ProfileMenu(props: { Name?: string }) {
+
+  const [showDropdown, setDropdown] = React.useState(false);
+  const userDropdown = () => {
+    setDropdown(!showDropdown);
+    //showDropdown = !showDropdown;
+  }
+  document.addEventListener('click', userDropdown, false);
+
   return (
     <nav className="topbar">
       <div className="container-fluid">
@@ -23,13 +32,13 @@ export default function ProfileMenu(props: { Name?: string }) {
             <ul className="icons-blocks">
               <li id="sm_none">
                 <a href="#">
-                <FontAwesomeIcon className="" icon={faHome} />
+                  <FontAwesomeIcon className="" icon={faHome} />
                 </a>
               </li>
               <li>
                 <a href="#">
                   <i>
-                  <FontAwesomeIcon className="" icon={faBell} />
+                    <FontAwesomeIcon className="" icon={faBell} />
                     <span className="badge badge-light"></span>
                   </i>
                 </a>
@@ -37,56 +46,58 @@ export default function ProfileMenu(props: { Name?: string }) {
               <li>
                 <div className="dropdown show">
                   <a
+                    onClick={userDropdown}
                     className="btn btn-secondary dropdown-toggle p-0"
                     href="#"
                     id="js-usertext"
                     data-toggle="dropdown"
                     aria-haspopup="true"
-                    aria-expanded="false"
+                    aria-expanded="true"
                   >
-                   <FontAwesomeIcon className="" icon={faUser} />
+                    <FontAwesomeIcon className="" icon={faUser} />
                     <span id="sm_none">{props.Name}</span>
                     <span className="down-arrow">
-                    <FontAwesomeIcon className="" icon={faAngleDown} />
+                      <FontAwesomeIcon className="" icon={faAngleDown} />
                     </span>
                   </a>
-
-                  <div
-                    className="dropdown-menu dropdown-menu-right user-dropdown"
-                    aria-labelledby="dropdownMenuLink"
-                  >
-                    <div className="language_wrap">
-                      <ul>
-                        <li>
-                          <a href="#">
-                            <i><FontAwesomeIcon className="" icon={faUser} /></i>
-                            <p className="title_name">First Name Last Name</p>
-                            <span className="dsc">access type</span>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#">
-                            <i><FontAwesomeIcon className="" icon={faUser} /></i>
-                            <p className="title_name">current location</p>
-                            <span className="dsc">london-UK</span>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#">
-                            <i><FontAwesomeIcon className="" icon={faUser} /></i>
-                            <p className="title_name">preferred currency</p>
-                            <span className="dsc">sterling pound</span>
-                          </a>
-                        </li>
-                      </ul>
-                      <div className="link_group">
-                        <a href="#">EDIT</a>
-                        <span>|</span>
-                        <a href="#">SIGN OUT</a>
+                  {showDropdown &&
+                    <div
+                      className="dropdown-menu dropdown-menu-right user-dropdown"
+                      aria-labelledby="dropdownMenuLink"
+                    >
+                      <div className="language_wrap">
+                        <ul>
+                          <li>
+                            <a href="#">
+                              <i><FontAwesomeIcon className="" icon={faUser} /></i>
+                              <p className="title_name">First Name Last Name</p>
+                              <span className="dsc">access type</span>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="#">
+                              <i><FontAwesomeIcon className="" icon={faUser} /></i>
+                              <p className="title_name">current location</p>
+                              <span className="dsc">london-UK</span>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="#">
+                              <i><FontAwesomeIcon className="" icon={faUser} /></i>
+                              <p className="title_name">preferred currency</p>
+                              <span className="dsc">sterling pound</span>
+                            </a>
+                          </li>
+                        </ul>
+                        <div className="link_group">
+                          <a href="#">EDIT</a>
+                          <span>|</span>
+                          <a href="#">SIGN OUT</a>
+                        </div>
                       </div>
+
                     </div>
-                    
-                  </div>
+                  }
                 </div>
               </li>
               {/* <li id="sm_none">
