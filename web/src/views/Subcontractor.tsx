@@ -55,7 +55,6 @@ const Subcontractor: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> =
   
   useEffect(() => {
     window.scrollTo(0, 0);
-    debugger;
     let allc = props.currencies;
     props.getAllCurrencies();
     paramProjectId = props.match.params.projectId;
