@@ -1,50 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Sub Contractor Reducer should handle add new activity 1`] = `
-Object {
-  "error": null,
-  "event": 3,
-  "form": Object {
-    "activities": Array [
-      Object {
-        "activityName": "",
-        "comments": "",
-        "grossMargin": 0,
-        "isExistingSubcontractor": null,
-        "isPreferredSupplier": null,
-        "projectId": "",
-        "quotes": Array [
-          Object {
-            "activityQuoteId": "",
-            "quoteValue": 0,
-            "subContrActivityId": "",
-            "supplierName": "",
-          },
-          Object {
-            "activityQuoteId": "",
-            "quoteValue": 0,
-            "subContrActivityId": "",
-            "supplierName": "",
-          },
-          Object {
-            "activityQuoteId": "",
-            "quoteValue": 0,
-            "subContrActivityId": "",
-            "supplierName": "",
-          },
-        ],
-        "subContrActivityId": "",
-        "subcontractorId": "",
-        "totalCost": 0,
-        "totalSell": 0,
-      },
-    ],
-  },
-  "loading": false,
-  "notify": 0,
-}
-`;
-
 exports[`Sub Contractor Reducer should handle add sub contractor successfully 1`] = `
 Object {
   "error": null,
@@ -54,7 +9,7 @@ Object {
       Object {
         "activityName": "",
         "comments": "",
-        "grossMargin": 0,
+        "grossMargin": 20,
         "isExistingSubcontractor": null,
         "isPreferredSupplier": null,
         "projectId": "",
@@ -80,7 +35,7 @@ Object {
         ],
         "subContrActivityId": "",
         "subcontractorId": "",
-        "totalCost": 0,
+        "totalCost": 100,
         "totalSell": 0,
       },
     ],

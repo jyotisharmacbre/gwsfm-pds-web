@@ -1,4 +1,6 @@
 import React from 'react';
+import {ISubContractorActivity} from '../store/SubContractor/Types/ISubContractorActivity';
+import IDiscountCalculation from '../models/IDiscountCalculation';
 
 export const updateObject = (oldState, updatedProperties) => {
   return {
@@ -46,14 +48,24 @@ export const getFilterElementFromArray = (array:any, property:string,value:numbe
 
 export const calculateSell = (cost:number,margin:number) =>{
   let sell =0;
-  if(cost > 0 && margin > 0)
-  sell = cost / (1- margin/100);
+  let divide = (1- margin/100)
+  if(cost > 0 && margin > 0 && divide != 0)
+  sell = cost / divide;
   return sell.toFixed(2);
 }
 
-export const calculateAverageMargin = (totalSell:number,totalCost:number) =>{
+export const calculateAverageMargin = (totalCost:number,totalSell:number) =>{
   let averageMargin =0;
   if(totalSell > 0 && totalCost > 0)
   averageMargin = ((totalSell-totalCost) / totalSell)  * 100
   return averageMargin.toFixed(2);
+}
+
+export const getSubContractorDiscountValue = (data:Array<ISubContractorActivity>,state:IDiscountCalculation) => {
+        data.map((element:ISubContractorActivity)=>{
+            state.cost = state.cost + (+element.totalCost);
+            state.sell = state.sell + (+calculateSell(element.totalCost,element.grossMargin));
+            state.margin = state.margin + (+element.grossMargin);
+        })
+    return {cost:state.cost,sell:state.sell,margin:state.margin};
 }

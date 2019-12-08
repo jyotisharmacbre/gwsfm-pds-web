@@ -13,7 +13,7 @@ import FontawsomeFree from '@fortawesome/free-solid-svg-icons';
 import FontawsomeReact, {
   FontAwesomeIcon
 } from '@fortawesome/react-fontawesome';
-
+import DiscountTableType from '../../../enums/DiscountTableType'; 
 import EventType from '../../../enums/EventType';
  
 interface Props {
@@ -26,7 +26,7 @@ let SubcontractorForm: React.FC<
    const {handleSubmit} = props;
   return (
     <form className="subcontractor_form" onSubmit={handleSubmit} noValidate={true}>
-      <DiscountTable ></DiscountTable>
+      <DiscountTable name={DiscountTableType.subContractor} subContractor={props.subContractorForm}></DiscountTable>
       <FieldArray 
       name="activities" 
       component={SubContractorActivityForm}
@@ -67,7 +67,7 @@ const selector = formValueSelector('subContractorForm');
 
 const mapStateToProps = (state: IState) => ({
   initialValues: state.subContractor.form,
-  formActivities: selector(state, 'activities')
+  subContractorForm: selector(state, 'activities')
 });
 
 const form = reduxForm<ISubContractor, Props>({
