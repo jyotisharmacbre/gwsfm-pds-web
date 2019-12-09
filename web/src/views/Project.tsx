@@ -125,8 +125,6 @@ const Project: React.FC<IMapStateToProps & IMapDispatchToProps> = props => {
       onSearchContract={onSearchContract}
       onSearchCompany={onSearchCompany}
       projectstatus={props.projectStatus}
-      // dynamicsContract={props.dynamicsContract}
-      // dynamicsCompany={props.dynamicsCompany}
       onSearchHOP={onSearchHOP}
       onSearchPO={onSearchPO}
       onSearchPM={onSearchPM}
