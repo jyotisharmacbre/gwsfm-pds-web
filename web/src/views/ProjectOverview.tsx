@@ -60,6 +60,7 @@ interface IMapDispatchToProps {
 }
 interface IProps {
   projectId: string;
+  match: any;
 }
 
 const ProjectOverview: React.FC<IProps &
@@ -69,9 +70,10 @@ const ProjectOverview: React.FC<IProps &
   useEffect(() => {
     window.scrollTo(0, 0);
     props.getProjectStatus();
-    if (props.projectId != null && props.projectId != '') {
-      props.getAdditionalDetails(props.projectId);
-      props.getEnquiryOverview(props.projectId);
+    let paramProjectId = props.projectId == '' ? props.match.params.projectId : props.projectId;
+    if (paramProjectId != null && paramProjectId != '') {
+      props.getAdditionalDetails(paramProjectId);
+      props.getEnquiryOverview(paramProjectId);
     }
   }, []);
 

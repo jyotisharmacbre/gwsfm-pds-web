@@ -22,7 +22,10 @@ const Routes: React.FC = props => {
       <Route
         path="/JustificationAuthorisation"
         component={JustificationAuthorisation}
-      />
+      >
+     
+      </Route>
+         <Route path="/Subcontractor/:projectId?" component={Subcontractor} />
     </Switch>
   );
 };

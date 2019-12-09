@@ -77,3 +77,12 @@ let result = data && data.map((dataValue: any, i: number) => {
 return result;
 }
 
+export const getFilterElementFromArray = (array:any, property:string,value:number | string) => {
+  let element = '';
+  let filter;
+  if (array) {
+    filter = array.find(ele => ele[property] == value);
+    if (filter != null && filter != undefined) element = element[property];
+  }
+  return element;
+}; 
