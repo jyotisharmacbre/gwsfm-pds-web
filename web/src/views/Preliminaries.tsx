@@ -17,7 +17,6 @@ import { ILookup } from '../store/Lookups/Types/ILookup';
 import { ICurrency } from '../store/Lookups/Types/ICurrency';
 import { FormattedMessage } from 'react-intl';
 import EventType from '../enums/EventType';
-import { generateUUID } from '../helpers/utility-helper';
 
 interface IMapStateToProps {
   preliminaryDetails: Array<IPreliminariesComponentDetails>;
@@ -121,11 +120,7 @@ let isLookupSessionExists:boolean=(sessionStorage.getItem("lookupData")!=null&&s
       return (data.TotalCost>0&&data.PreliminaryId!='');
     })
     saveData=  preliminariesData.filter((data)=>{
-      if(data.TotalCost>0&&data.PreliminaryId=='')
-      {
-        data.PreliminaryId=generateUUID();
-        return data;
-      }
+        return (data.TotalCost>0&&data.PreliminaryId=='');
     })
     if(editData.length>0&&saveData.length>0){props.preliminaryEdit(editData,event);props.preliminaryAdd(saveData,event);}
     else if(editData.length>0){props.preliminaryEdit(editData,event);}

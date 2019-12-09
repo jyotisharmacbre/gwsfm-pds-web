@@ -48,3 +48,24 @@ export const preliminariuserData: Array<IPreliminariesComponentDetails>= [
     }
 
 ];
+export const newUserData: Array<IPreliminariesComponentDetails>= [
+  
+  {
+    componentId: '1',
+    componentName: 'H&S File Production',
+    items: [
+      {
+        itemId: '1',
+        itemName: 'Sub-Contractor',
+        preliminaryId:'',
+        nameOfSupplier: '',
+        noOfHours: 0,
+        hourRate: 0,
+        totalCost: 0,
+        grossMargin: 0,
+        comments: ''
+      }
+    ]
+  }
+
+];

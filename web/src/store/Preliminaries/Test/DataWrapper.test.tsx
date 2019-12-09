@@ -1,5 +1,5 @@
 import { bindUserData,convertIntoDatabaseModel } from '../DataWrapper';
-import {lookupData,preliminariesData,preliminariuserData} from "./ReducerTestData";
+import {lookupData,preliminariesData,preliminariuserData,newUserData} from "./ReducerTestData";
 describe('DataWrapper test cases', () => {
     it('should bind preliminaries database data into user format', () => {
      sessionStorage.setItem("lookupData",JSON.stringify(lookupData));
@@ -11,6 +11,11 @@ describe('DataWrapper test cases', () => {
         let projectId:string="4d27e2e1-843d-435a-b27c-03dca70ce232";
         expect(convertIntoDatabaseModel(preliminariuserData,projectId)).not.toBeNull();
         expect(convertIntoDatabaseModel(preliminariuserData,projectId)).toHaveLength(1);
+       });
+       it('should return correct data format,if no preliminary data found', () => {
+        sessionStorage.setItem("lookupData",JSON.stringify(lookupData));
+        expect(bindUserData([])).not.toBeNull();
+        expect(bindUserData([])).toMatchObject(newUserData);
        });
   });
       
