@@ -21,8 +21,6 @@ export {
 } from './Preliminaries/Actions';
 
 export { 
-  addNewActivity,
-  deleteActivity,
   subContractorFormAdd,
   subContractorFormEdit,
   getSubContractor,
