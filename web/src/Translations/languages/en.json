@@ -165,7 +165,7 @@
   "VALIDATION_ONLY_ALPHA_NUM" : "Only alphanumeric characters",
   "FIELD_VALIDATION_KEY": "Must have a maximum of {0} characters",
   "T_HEADING_TOTAL_COST": "Total Cost",
-  "T-HEADING_TOTAL_MARGIN": "Total Margin",
-  "T-HEADING_GROSS_MARGIN": "Gross Margin",
-  "T-HEADING_TOTAL_SELL": "Total Sell"
+  "T_HEADING_TOTAL_MARGIN": "Total Margin",
+  "T_HEADING_GROSS_MARGIN": "Gross Margin",
+  "T_HEADING_TOTAL_SELL": "Total Sell"
 }
