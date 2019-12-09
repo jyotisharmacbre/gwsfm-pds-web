@@ -2,30 +2,30 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
 import {ISubContractorActivity} from '../../../store/SubContractor/Types/ISubContractorActivity';
-import DiscountTableType from '../../../enums/DiscountTableType'; 
+import CalculationsSummaryType from '../../../enums/CalculationsSummaryType'; 
 import {calculateSell,calculateAverageMargin,getSubContractorDiscountValue} from '../../../helpers/utility-helper';
 import IDiscountCalculation from '../../../models/IDiscountCalculation';
  
 interface Props {
     subContractor?:Array<ISubContractorActivity>;
-    name:DiscountTableType;
+    name:CalculationsSummaryType;
 }
 
 interface IMapStateToProps {
     subContractorState:Array<ISubContractorActivity>;
 }
 
-const DiscountTable:React.FC<Props> = (props:any) => {
+const CalculationsSummaryTable:React.FC<Props> = (props:any) => {
     let initDiscount:IDiscountCalculation = {cost:0,sell:0,margin:0}
     const [reduxState,setReduxState] = React.useState<IDiscountCalculation>({...initDiscount});
     const [formState,setFormState] = React.useState<IDiscountCalculation>({...initDiscount});
     
     React.useEffect(()=>{
         let localReduxState:IDiscountCalculation = {...initDiscount}; 
-        if(props.name != DiscountTableType.subContractor && props.subContractorState){
+        if(props.name != CalculationsSummaryType.subContractor && props.subContractorState){
         getSubContractorDiscountValue(props.subContractorState,localReduxState);
         }
-        if(props.name != DiscountTableType.testing && props.testing){
+        if(props.name != CalculationsSummaryType.testing && props.testing){
         getSubContractorDiscountValue(props.testing,localReduxState);
         }
         setReduxState(localReduxState);
@@ -70,6 +70,4 @@ const mapStateToProps = (state: IState) => ({
   testing: state.subContractor.form.activities
 });
 
-export default connect(mapStateToProps,null)(DiscountTable);
-//export default DiscountTable;
- 
+export default connect(mapStateToProps,null)(CalculationsSummaryTable);

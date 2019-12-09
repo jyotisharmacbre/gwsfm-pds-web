@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import DiscountTable from '../components/Table/DiscountTable';
+import CalculationsSummaryTable from '../components/Table/CalculationsSummaryTable';
 import DiscountForm from '../components/Forms/Discount/DiscountForm';
-import DiscountTableType from '../enums/DiscountTableType'; 
+import CalculationsSummaryType from '../enums/CalculationsSummaryType'; 
 
 class Discounts extends Component {
   render() {
@@ -19,7 +19,7 @@ class Discounts extends Component {
                 </h1>
                 <p className="text-green">SUB_TITLE_DISCOUNTS</p>
               </div>
-              <DiscountTable name={DiscountTableType.subContractor}></DiscountTable>
+              <CalculationsSummaryTable name={CalculationsSummaryType.subContractor}></CalculationsSummaryTable>
               <DiscountForm></DiscountForm>
             </div>
           </div>
