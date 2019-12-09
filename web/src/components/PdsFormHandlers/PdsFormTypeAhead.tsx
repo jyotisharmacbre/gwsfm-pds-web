@@ -24,7 +24,8 @@ const PdsFormTypeAhead: React.FC<IMapDispatchToProps> = (props: any) => {
     placeholder,
     labelKey,
     className,
-    DynamicsType
+    DynamicsType,
+    normalize
   } = props;
 
   function handleChange(value: any) {
@@ -48,6 +49,7 @@ const PdsFormTypeAhead: React.FC<IMapDispatchToProps> = (props: any) => {
         maxResults={50}
         onChange={handleChange}
         valueKey={option => `${option.id}`}
+        id={DynamicsType}
       />
     </div>
   );

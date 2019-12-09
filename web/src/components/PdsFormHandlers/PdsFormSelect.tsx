@@ -10,10 +10,11 @@ export function PdsFormSelect({
   DropdownCheck
 }) {
   const errorClass = `${error && touched ? 'error' : ''}`;
+  
   return (
     <React.Fragment>
       <select
-        className={'form-control' + ' ' + errorClass + ' ' + DropdownCheck}
+        className={'form-control' + ' ' + errorClass + ' ' + DropdownCheck}   
         {...input}
       >
         {children}
