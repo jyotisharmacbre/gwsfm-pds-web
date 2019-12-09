@@ -54,7 +54,6 @@ let isLookupSessionExists:boolean=(sessionStorage.getItem("lookupData")!=null&&s
     props.getProjectDetail(paramProjectId);
     props.getProjectStatus();
     props.getAllCurrencies();
-    debugger;
     if (paramProjectId!= null &&paramProjectId != '' &&paramProjectId != undefined&&isLookupSessionExists) 
     {
       props.getPreliminaryDetails(paramProjectId);
