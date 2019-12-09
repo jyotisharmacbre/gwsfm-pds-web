@@ -1,40 +1,32 @@
 import { ActionType } from './Types/ActionType';
 import {initialState} from './InitialState';
+import { updateObject } from '../../helpers/utility-helper';
 import {bindUserData} from "./DataWrapper";
 import Notify from '../../enums/Notify';
 const preliminaryAddSuccess = (oldState, action) => {
-  oldState={
-    ...oldState,
-    notify:Notify.success,
+ return updateObject(oldState, {
+    notify: Notify.success,
     event:action.event
-  }
-  return oldState;
- 
+  });
 };
 const preliminaryAddError = (oldState, action) => {
-  oldState={
-    ...oldState,
-    notify:Notify.error
-  }
-  return oldState;
+  return updateObject(oldState, {
+    notify: Notify.error,
+    event:action.event
+  });
 }
 const preliminaryEditSuccess = (oldState, action) => {
- 
-  oldState={
-    ...oldState,
-    ...oldState.notify,
-    notify:Notify.success,
-    
-    event:action.event,
-  }
-  return oldState;
+
+  return updateObject(oldState, {
+    notify: Notify.success,
+    event:action.event
+  });
 }
 const preliminaryEditError = (oldState, action) => {
-  oldState={
-    ...oldState,
-    notify:Notify.error
-  }
-  return oldState;
+  return updateObject(oldState, {
+    notify: Notify.error,
+    event:action.event
+  });
 };
 const preliminaryGetSuccess = (oldState, action) => {
   oldState={
@@ -45,11 +37,10 @@ const preliminaryGetSuccess = (oldState, action) => {
   return oldState;
 };
 const preliminaryGetError = (oldState, action) => {
-  oldState={
-    ...oldState,
-    notify:Notify.error
-  }
-  return oldState;
+  return updateObject(oldState, {
+    notify: Notify.error,
+    event:action.event
+  });
 };
 const preliminaryReducer = (oldState = initialState, action) => {
   switch (action.type) {

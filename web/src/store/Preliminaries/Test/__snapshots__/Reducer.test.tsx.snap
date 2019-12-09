@@ -10,7 +10,7 @@ Object {
 
 exports[`preliminaryReducer Reducer should populate error.If get fails 1`] = `
 Object {
-  "event": 3,
+  "event": undefined,
   "notify": 2,
   "preliminaryDetails": Array [],
 }
@@ -18,7 +18,7 @@ Object {
 
 exports[`preliminaryReducer Reducer should populate error.If save fails 1`] = `
 Object {
-  "event": 3,
+  "event": undefined,
   "notify": 2,
   "preliminaryDetails": Array [],
 }
