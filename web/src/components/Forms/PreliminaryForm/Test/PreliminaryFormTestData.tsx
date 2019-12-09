@@ -46,14 +46,14 @@ export const projectDetail:IProjectDetailState={
   form: {
     projectId: '',
     name: '',
-    contractorId: 1,
-    companyId: 1,
+    contractorId: "1",
+    companyId: "1",
     headOfProject: '',
     projectOwner: '',
     projectManager: '',
     pmHasExperience: true,
     scope: '',
-    cnNumber: 2,
+    cnNumber: "2",
     status: 1,
     engagementId: 2,
     countryId: 3,
@@ -65,15 +65,18 @@ export const projectDetail:IProjectDetailState={
     firstAssetWorkedOn: 0,
     secondAssetWorkedOn: 0,
     thirdAssetWorkedOn: 0,
-    comment: ''
+    comment: '',
+    otherCompanyName: '',
+  otherContractName: ''
+    
   },
   enquiryOverview: {
     projectName: '',
-    companyId: -1,
+    companyId: '1',
     headOfProject: '',
     projectManager: '',
     scope: '',
-    cnNumber: -1
+    cnNumber: '1'
   },
   error: null,
   loading: false,
