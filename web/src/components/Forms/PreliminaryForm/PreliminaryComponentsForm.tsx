@@ -91,7 +91,6 @@ const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleE
     ))}
     </div>
   );
-//};
  
 export default PreliminaryComponentsForm;
 
