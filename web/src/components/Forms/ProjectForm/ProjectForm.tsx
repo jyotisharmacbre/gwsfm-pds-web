@@ -21,11 +21,7 @@ import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { LookupType } from '../../../store/Lookups/Types/LookupType';
-<<<<<<< HEAD
-import { getDropdown, getCurrencySymbol } from '../../../helpers/utility-helper';
-=======
-import { getDropdown, normalizeToNumber } from '../../../helpers/utility-helper';
->>>>>>> 597a1c26a5ff1da30dcb14ba6d3b6cba87888866
+import { getDropdown, getCurrencySymbol, normalizeToNumber } from '../../../helpers/utility-helper';
 import PdsFormTypeAhead from '../../PdsFormHandlers/PdsFormTypeAhead';
 import { IProjectDetail } from '../../../store/CustomerEnquiryForm/Types/IProjectDetail';
 import { ICurrency } from '../../../store/Lookups/Types/ICurrency';
@@ -58,8 +54,6 @@ const ProjectForm: React.FC<Props &
   const {
     handleSubmit,
     projectstatus,
-    // dynamicsContract,
-    // dynamicsCompany,
     onSearchContract,
     onSearchCompany,
     onSearchHOP,
