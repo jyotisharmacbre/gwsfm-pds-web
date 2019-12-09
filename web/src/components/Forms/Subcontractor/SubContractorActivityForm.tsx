@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  Field,
-  FieldArray,
-  reduxForm,
-  InjectedFormProps,
-  FormSection
-} from 'redux-form';
+import {Field, FieldArray, reduxForm, InjectedFormProps, FormSection, formValueSelector} from 'redux-form';
 import PdsFormInput from '../../PdsFormHandlers/PdsFormInput';
 import PdsFormSelect from '../../PdsFormHandlers/PdsFormSelect';
 import PdsFormTextArea from '../../PdsFormHandlers/PdsFormTextArea';
@@ -27,28 +21,32 @@ import {
   onlyNumber
 } from '../../../helpers/fieldValidations';
 import { selectionButtons } from '../../../helpers/constants';
+import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import {newActivity} from '../../../store/SubContractor/InitialState';
+import { connect } from 'react-redux';
+import { IState } from '../../../store/state';
+import {calculateSell} from '../../../helpers/utility-helper';
 
 interface Props {
-  index: number;
-  name: string;
-  initialValues: ISubContractorActivity;
-  totalCount: number;
-  deleteActivity: (index: number) => void;
+  fields:any,
+  activities:Array<ISubContractorActivity>
 }
  
-const SubContractorActivityForm = ({ fields, totalCount, deleteActivity }) => (
-  <div>
+const SubContractorActivityForm :React.FC<Props> = (props:Props) => {
+  const {fields} = props;
+  return(
+    <div>
     {fields.map((member, index) => (
       <div className="row" key={index} data-test="sub-contractor-form">
         <div className="col-lg-12">
           <div className="forms_wrap">
-            {totalCount > 1 ? (
+            {fields.length > 1 ? (
               <button
                 data-test="deleteactivity"
                 className="delete_text"
-                onClick={() => deleteActivity(index)}
+                onClick={() => fields.remove(index)}
               >
-                DELETE
+                <FormattedMessage id='BUTTON_DELETE' />
                 <FontAwesomeIcon className="" icon={faTrash} />
               </button>
             ) : null}
@@ -90,9 +88,8 @@ const SubContractorActivityForm = ({ fields, totalCount, deleteActivity }) => (
                   name={`${member}.totalCost`}
                   type="number"
                   component={PdsFormInput}
-                  className="width-120 pl-20 required"
+                  className="width-120 pl-20"
                   validate={[
-                    Validate.required('LABEL_TOTAL_COST'),
                     Validate.maxLength(1000),
                     onlyNumber
                   ]}
@@ -105,9 +102,8 @@ const SubContractorActivityForm = ({ fields, totalCount, deleteActivity }) => (
                   name={`${member}.grossMargin`}
                   type="number"
                   component={PdsFormInput}
-                  className="width-120 pl-20 required"
+                  className="width-120 pl-20"
                   validate={[
-                    Validate.required('LABEL_GROSS_MARGIN'),
                     Validate.maxLength(1000),
                     onlyNumber
                   ]}
@@ -119,13 +115,12 @@ const SubContractorActivityForm = ({ fields, totalCount, deleteActivity }) => (
                 <Field
                   name={`${member}.totalSell`}
                   type="number"
+                  input={{
+                    value:calculateSell(props.activities[index].totalCost,props.activities[index].grossMargin),
+                    disabled:true
+                    }}
                   component={PdsFormInput}
-                  className="width-120 pl-20 required"
-                  validate={[
-                    Validate.required('LABEL_TOTAL_SELL'),
-                    Validate.maxLength(1000),
-                    onlyNumber
-                  ]}
+                  className="width-120 pl-20"
                   currency="$"
                   divPosition="relative"
                   labelKey="LABEL_TOTAL_SELL"
@@ -149,8 +144,21 @@ const SubContractorActivityForm = ({ fields, totalCount, deleteActivity }) => (
         </div>
       </div>
     ))}
+    <div className="newActiv_btn"> 
+          <button data-test="addActivity" name="addActivity" type="button" disabled={fields.length>4} className="active" onClick={() => fields.push({...newActivity})}>
+            <FontAwesomeIcon className="" icon={faPlusCircle} />
+            <FormattedMessage id='BUTTON_NEW_ACTIVITY'></FormattedMessage>
+          </button>
+        </div>
   </div>
-);
-//};
+  )
+  
+}
 
-export default SubContractorActivityForm;
+const mapStateToProps = (state: IState) => ({
+    activities: selector(state, 'activities')
+});
+
+const selector = formValueSelector('subContractorForm');
+
+export default connect(mapStateToProps)(SubContractorActivityForm);

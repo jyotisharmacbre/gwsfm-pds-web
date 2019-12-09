@@ -19,8 +19,6 @@ export {
 } from './Lookups/Actions';
 
 export { 
-  addNewActivity,
-  deleteActivity,
   subContractorFormAdd,
   subContractorFormEdit,
   getSubContractor,

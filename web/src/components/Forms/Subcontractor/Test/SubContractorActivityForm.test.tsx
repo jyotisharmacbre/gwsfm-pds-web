@@ -1,20 +1,42 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
 import SubContractorActivityForm from '../SubContractorActivityForm';
-import {initialState} from '../../../../store/SubContractor/InitialState';
+import {initialState,newActivity} from '../../../../store/SubContractor/InitialState';
 import {ActionType} from '../../../../store/SubContractor/Types/ActionType';
 import subContractorReducer from '../../../../store/SubContractor/Reducer';
 import {findByTestAtrr} from '../../../../helpers/test-helper';
-
+import configureStore from 'redux-mock-store';
+import { reducer as formReducer,reduxForm } from 'redux-form';
+import { Provider } from 'react-redux';
+ import { IntlProvider } from 'react-intl';
+ import translations from '../../../../Translations/translation';
+import renderer from "react-test-renderer";
 
 describe('Sub Contractor Activity Form tests', () => {
   const subContractorFormAddAction: any = {
           type: ActionType.SUB_CONTRACTOR_ADD_NEW_ACTIVITY
   };
   let wrapper: any;
+  const mockStore = configureStore([]);
+  let store;
+  const Decorated = reduxForm({ form: "subContractorForm" })(SubContractorActivityForm);
   beforeEach(() => {
-    wrapper = shallow(
-      <SubContractorActivityForm fields={initialState.form.activities}/>
+    store = mockStore({
+      form: {
+        subContractorForm: {
+          values: {
+            activities: initialState.form.activities
+          }
+        }
+      }
+    }
+    );
+    wrapper = mount(
+      <Provider store={store}>
+        <IntlProvider locale="en" messages={translations['en'].messages}>
+          <Decorated fields={initialState.form.activities}/>
+        </IntlProvider>
+      </Provider>
     );
   });
   
@@ -23,51 +45,18 @@ describe('Sub Contractor Activity Form tests', () => {
   }); 
   it('should match the snapshot', () => {
     expect(wrapper).toMatchSnapshot();
-  });
+  }); 
   it('renders the SubContractorActivityForm component with no errors', () => {
-    const wrapper = shallow(
-      <SubContractorActivityForm fields={initialState.form.activities}/>
-    );
     expect(findByTestAtrr(wrapper,'sub-contractor-form').length).toEqual(1);
   });
 
   it('should not renders the delete button', () => {
-    const wrapper = shallow(
-      <SubContractorActivityForm fields={initialState.form.activities}/>
-    );
     expect(findByTestAtrr(wrapper,'deleteactivity').length).toEqual(0);
-    expect(findByTestAtrr(wrapper,'activityName').length).toEqual(1);
   });
 
-  it('should renders the delete button 2 times', () => {
-    let state = (subContractorReducer(initialState,subContractorFormAddAction)).form.activities;
-    const wrapper = shallow(
-      <SubContractorActivityForm fields={state} totalCount={state.length}/>
-    );
-    expect(findByTestAtrr(wrapper,'deleteactivity').length).toEqual(2);
-  });
-
-  
-  it('should renders the delete button 3 times', () => {
-    let state = (subContractorReducer(subContractorReducer(initialState,subContractorFormAddAction),subContractorFormAddAction)).form.activities;
-    const wrapper = shallow(
-      <SubContractorActivityForm fields={state} totalCount={state.length}/>
-    );
-    expect(findByTestAtrr(wrapper,'deleteactivity').length).toEqual(3);
-  });
-
-  it('test delete activity click event', () => {
-    const mockCallBack = jest.fn();
-    let state = (subContractorReducer(initialState,subContractorFormAddAction)).form.activities;
-    const wrapper = shallow(
-      <SubContractorActivityForm 
-      fields={state}
-      totalCount={state.length}
-      deleteActivity={mockCallBack}/>
-    );
-    const deletebutton = findByTestAtrr(wrapper,'deleteactivity').first();
-    deletebutton.simulate('click');
-    expect(mockCallBack.mock.calls.length).toEqual(1);
-  });
-
+  it('test the add activity click event', () => {
+    let addActivity = findByTestAtrr(wrapper,'addActivity');
+    addActivity.simulate('click');
+    wrapper.update();
+   });
 });
