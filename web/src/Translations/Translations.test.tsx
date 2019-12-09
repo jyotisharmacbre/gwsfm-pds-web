@@ -96,21 +96,21 @@ describe('actions', () => {
 });
 
 describe('Translation', () => {
-it('should return formatted message when passing key as FIELD_VALIDATION_KEY', () => {
- mount(<Provider store={store}>
+  it('should return formatted message when passing key as FIELD_VALIDATION_KEY', () => {
+    mount(<Provider store={store}>
       <ConnectedIntlProvider>
       </ConnectedIntlProvider>
     </Provider>);
-  expect(formatMessage('FIELD_VALIDATION_KEY', {0: 552})).toMatchSnapshot();
-});
+    expect(formatMessage('FIELD_VALIDATION_KEY', { 0: 552 })).toMatchSnapshot();
+  });
 
-it('should return formatted message when passing a key', ()=>{
+  it('should return formatted message when passing a key', () => {
 
-  const locale = 'en';
-  const messages = translations[locale].messages
-  const intlProvider = new IntlProvider({locale, messages });
+    const locale = 'en';
+    const messages = translations[locale].messages
+    const intlProvider = new IntlProvider({ locale, messages });
 
-  expect(Translate.getLabel( intlProvider.state.intl, 'VALIDATION_IS_REQUIRED', {0: 'Name'})).toMatchSnapshot();
-})
+    expect(Translate.getLabel({ intl: intlProvider.state.intl }, 'VALIDATION_IS_REQUIRED', { 0: 'Name' })).toMatchSnapshot();
+  })
 })
 
