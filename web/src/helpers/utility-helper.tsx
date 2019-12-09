@@ -75,3 +75,9 @@ export const generateUUID=()=>{
     return v.toString(16);
   });
 }
+export const calculateCost = (noOfHours:number,hourRate:number) =>{
+  let totalCost =0;
+  if(noOfHours > 0 && hourRate > 0)
+  totalCost=noOfHours*hourRate;
+  return totalCost.toFixed(2);
+}
