@@ -46,7 +46,7 @@ const SubContractorActivityForm :React.FC<Props> = (props:Props) => {
                 className="delete_text"
                 onClick={() => fields.remove(index)}
               >
-                DELETE
+                <FormattedMessage id='BUTTON_DELETE' />
                 <FontAwesomeIcon className="" icon={faTrash} />
               </button>
             ) : null}
