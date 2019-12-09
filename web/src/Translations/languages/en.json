@@ -28,6 +28,7 @@
   "LABEL_SUBCONTRACTOR" : "Subcontractor",
   "LABEL_EXISTING_SUBCONTRACTOR" : "Existing Subcontractor",
   "LABEL_ACTIVITY_NAME": "Activity Name",
+  "LABEL_SUPPLIER_NAME": "Supplier Name",
   "LABEL_COMMENTS": "Comments",
   "LABEL_CURRENCY": "Currency",
   "LABEL_APPROXIMATE_VALUE": "Approximate value",
