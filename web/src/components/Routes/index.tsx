@@ -23,7 +23,7 @@ const Routes: React.FC = props => {
         path="/JustificationAuthorisation"
         component={JustificationAuthorisation}
       />
-      <Route path="/Preliminaries:projectId?" component={Preliminaries} />
+      <Route path="/Preliminaries/:projectId?" component={Preliminaries} />
      
          <Route path="/Subcontractor/:projectId?" component={Subcontractor} />
     </Switch>

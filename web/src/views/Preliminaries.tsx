@@ -47,10 +47,11 @@ const Preliminaries: React.FC<
   IMapStateToProps & IMapDispatchToProps
 > = props => {
   let history = useHistory();
-  let paramProjectId:string= props.match.params.projectId;
+  let paramProjectId:string= '';
 let isLookupSessionExists:boolean=(sessionStorage.getItem("lookupData")!=null&&sessionStorage.getItem("lookupData")!=undefined&&sessionStorage.getItem("lookupData")!="")
   useEffect(() => {
     window.scrollTo(0, 0);
+    paramProjectId=props.match.params.projectId;
     props.getProjectDetail(paramProjectId);
     props.getProjectStatus();
     props.getAllCurrencies();
