@@ -46,7 +46,7 @@ const SubContractorActivityForm :React.FC<Props> = (props:Props) => {
                 className="delete_text"
                 onClick={() => fields.remove(index)}
               >
-                DELETE
+                <FormattedMessage id='BUTTON_DELETE' />
                 <FontAwesomeIcon className="" icon={faTrash} />
               </button>
             ) : null}
@@ -147,7 +147,7 @@ const SubContractorActivityForm :React.FC<Props> = (props:Props) => {
     <div className="newActiv_btn"> 
           <button data-test="addActivity" name="addActivity" type="button" disabled={fields.length>4} className="active" onClick={() => fields.push({...newActivity})}>
             <FontAwesomeIcon className="" icon={faPlusCircle} />
-            BUTTON_NEW_ACTIVITY
+            <FormattedMessage id='BUTTON_NEW_ACTIVITY'></FormattedMessage>
           </button>
         </div>
   </div>

@@ -19,7 +19,7 @@ const Quote = ({ fields }) => (
               <div key={index} className="col-lg-4 pl-md-2" data-test="sub-contractor-quote-member">
                 <div className="card_wrap">
                   <div className="card">
-                    <h6 className="title">TITLE_QUOTE {index + 1}</h6>
+                    <h6 className="title"><FormattedMessage id='TITLE_QUOTE'></FormattedMessage> {index + 1}</h6>
                       <Field
                         name={`${member}.supplierName`}
                         data-test="supplierName"

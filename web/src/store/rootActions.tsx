@@ -20,8 +20,6 @@ export {
 
 export { discountFormAdd, discountFormEdit, resetDiscountState} from './DiscountForm/Actions'
 export { 
-  addNewActivity,
-  deleteActivity,
   subContractorFormAdd,
   subContractorFormEdit,
   getSubContractor,

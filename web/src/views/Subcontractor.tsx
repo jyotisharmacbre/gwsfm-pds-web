@@ -10,6 +10,7 @@ import { toast } from 'react-toastify';
 import Notify from '../enums/Notify';
 import {getFilterElementFromArray} from '../helpers/utility-helper';
 import { ICurrency } from '../store/Lookups/Types/ICurrency';
+import { FormattedMessage } from 'react-intl';
 interface IProps {
   match: any;
 } 
@@ -96,11 +97,11 @@ const Subcontractor: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> =
               <div className="heading-subtitle">
                 <h1>
                   <span className="d-md-block d-none">
-                    TITLE_JUSTIFICATION
+                   <FormattedMessage id='TITLE_JUSTIFICATION'></FormattedMessage>
                   </span>
-                  <span className="d-md-none">TITLE_JUSTIFICATION_SHORT</span>
+                  <span className="d-md-none"> <FormattedMessage id='TITLE_JUSTIFICATION_SHORT'></FormattedMessage></span>
                 </h1>
-                <p className="text-green">PAGE_SUB_TITLE</p>
+                <p className="text-green"> <FormattedMessage id='PAGE_SUB_TITLE'></FormattedMessage></p>
               </div>
             <SubcontractorForm
               onSubmitForm={handleEvent}

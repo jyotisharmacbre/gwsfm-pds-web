@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Field, FieldArray, reduxForm, InjectedFormProps,FormSection,formValueSelector } from 'redux-form';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { connect } from 'react-redux';
-import DiscountTable from '../../Table/DiscountTable';
+import CalculationsSummaryTable from '../../Table/CalculationsSummaryTable';
 import SubContractorActivityForm from './SubContractorActivityForm';
 import IReactIntl from '../../../Translations/IReactIntl';
 import { ISubContractor } from '../../../store/SubContractor/Types/ISubContractor';
@@ -13,7 +13,7 @@ import FontawsomeFree from '@fortawesome/free-solid-svg-icons';
 import FontawsomeReact, {
   FontAwesomeIcon
 } from '@fortawesome/react-fontawesome';
-import DiscountTableType from '../../../enums/DiscountTableType'; 
+import CalculationsSummaryType from '../../../enums/CalculationsSummaryType'; 
 import EventType from '../../../enums/EventType';
  
 interface Props {
@@ -26,7 +26,9 @@ let SubcontractorForm: React.FC<
    const {handleSubmit} = props;
   return (
     <form className="subcontractor_form" onSubmit={handleSubmit} noValidate={true}>
-      <DiscountTable name={DiscountTableType.subContractor} subContractor={props.subContractorForm}></DiscountTable>
+      <CalculationsSummaryTable
+      name={CalculationsSummaryType.subContractor} 
+      subContractor={props.subContractorForm}/>
       <FieldArray 
       name="activities" 
       component={SubContractorActivityForm}
