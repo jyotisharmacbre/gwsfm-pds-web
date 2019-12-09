@@ -13,6 +13,16 @@ export {
   projectDetailEdit
 } from './CustomerEnquiryForm/Action';
 
-export { getProjectStatus, getAllCurrencies } from './Lookups/Actions';
+export {
+  getProjectStatus, 
+  getAllCurrencies 
+} from './Lookups/Actions';
 
-export { addNewActivity,deleteActivity } from './SubContractor/Actions';
+export { 
+  addNewActivity,
+  deleteActivity,
+  subContractorFormAdd,
+  subContractorFormEdit,
+  getSubContractor,
+  resetSubContractorState 
+} from './SubContractor/Actions';

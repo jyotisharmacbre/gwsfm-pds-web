@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, makeStyles, Theme, createStyles } from '@material-ui/core';
 import { IBtnActionProps } from '../../props/AppProps';
-import { AppTypes } from '../../props/PropTypes';
+import { Color } from '../../props/PropTypes';
 import {
   Backspace,
   AddCircleOutline,
@@ -74,7 +74,7 @@ const GetIcons = (icon: string) => {
   }
 };
 
-const GetButtonStyle = (type: AppTypes.Color) => {
+const GetButtonStyle = (type: Color) => {
   const styles = useStyles();
   switch (type) {
     case 'primary':
