@@ -91,39 +91,25 @@ export const getDynamicCompanyData = (searchCompany: string) => {
 
 export const getDynamicOther = (data: any, type: string) => {
   switch (type) {
-    case 'Contract':
+    case 'contractorId':
       return (dispatch: Dispatch) => {
         dispatch(getDynamicContractOtherSuccess(data));
       };
-    case 'Company':
+    case 'companyId':
       return (dispatch: Dispatch) => {
         dispatch(getDynamicCompanyOtherSuccess(data));
       };
-    case 'HOP':
+    case 'headOfProject':
       return (dispatch: Dispatch) => {
         dispatch(getADhopOther(data));
       };
-    case 'PO':
+    case 'projectOwner':
       return (dispatch: Dispatch) => {
         dispatch(getADpoOther(data));
       };
-    case 'PM':
+    case 'projectManager':
       return (dispatch: Dispatch) => {
         dispatch(getADpmOther(data));
       };
   }
 };
-
-// export const getDynamicContractOther = (data: string) => {
-//   console.log(data);
-//   return (dispatch: Dispatch) => {
-//     dispatch(getDynamicContractOtherSuccess(data));
-//   };
-// };
-
-// export const getDynamicCompanyOther = (data: string) => {
-//   console.log(data);
-//   return (dispatch: Dispatch) => {
-//     dispatch(getDynamicCompanyOtherSuccess(data));
-//   };
-// };

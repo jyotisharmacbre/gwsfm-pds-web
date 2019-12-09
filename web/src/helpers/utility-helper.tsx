@@ -78,6 +78,9 @@ let result = data && data.map((dataValue: any, i: number) => {
 })
 return result;
 }
+export const normalizeToNumber = value => (
+  value = +value
+)
 
 export const getFilterElementFromArray = (array:any, property:string,value:number | string,getproperty:string) => {
   let element = '';

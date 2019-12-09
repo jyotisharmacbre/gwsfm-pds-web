@@ -21,18 +21,27 @@ import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { LookupType } from '../../../store/Lookups/Types/LookupType';
+<<<<<<< HEAD
 import { getDropdown, getCurrencySymbol } from '../../../helpers/utility-helper';
+=======
+import { getDropdown, normalizeToNumber } from '../../../helpers/utility-helper';
+>>>>>>> 597a1c26a5ff1da30dcb14ba6d3b6cba87888866
 import PdsFormTypeAhead from '../../PdsFormHandlers/PdsFormTypeAhead';
 import { IProjectDetail } from '../../../store/CustomerEnquiryForm/Types/IProjectDetail';
 import { ICurrency } from '../../../store/Lookups/Types/ICurrency';
 import IReactIntl from '../../../Translations/IReactIntl';
+import TypeAhead from '../../TypeAhead/TypeAhead';
+import { dynamicsContract } from '../../TypeAhead/TypeAheadConstantData/dynamicContractData';
+import { dynamicsCompany } from '../../TypeAhead/TypeAheadConstantData/dynamicCompanyData';
+import { dynamicUserServiceData } from '../../TypeAhead/TypeAheadConstantData/dynamicUserServiceData';
+
 interface Props {
   projectstatus: any;
   onNext: (data: IProjectDetail) => void;
   onSave: (data: IProjectDetail) => void;
   currencies: Array<ICurrency> | null;
-  dynamicsContract: any;
-  dynamicsCompany: any;
+  // dynamicsContract: any;
+  // dynamicsCompany: any;
   onSearchContract: (value: any) => void;
   onSearchCompany: (value: any) => void;
   onSearchHOP: (value: any) => void;
@@ -49,8 +58,8 @@ const ProjectForm: React.FC<Props &
   const {
     handleSubmit,
     projectstatus,
-    dynamicsContract,
-    dynamicsCompany,
+    // dynamicsContract,
+    // dynamicsCompany,
     onSearchContract,
     onSearchCompany,
     onSearchHOP,
@@ -73,32 +82,22 @@ const ProjectForm: React.FC<Props &
   const getDynamicsContractDropdown =
     dynamicsContract &&
     dynamicsContract.map((ContractData: any) => {
-      return { label: ContractData.name, id: ContractData.id };
+      return { label: ContractData.ContractName, id: ContractData.ContractId };
     });
 
   const getDynamicsCompanyDropdown =
-    dynamicsCompany &&
-    dynamicsCompany.map((CompanyData: any) => {
-      return { label: CompanyData.name, id: CompanyData.id };
-    });
+  dynamicsCompany &&
+  dynamicsCompany.map((CompanyData: any) => {
+    return { label: CompanyData.Name, id: CompanyData.CompanyId };
+  });
 
-  const getADhopDropdown =
-    adHOPData &&
-    adHOPData.map((HOPData: any) => {
-      return { label: HOPData.name, id: HOPData.id };
-    });
-
-  const getADpoDropdown =
-    adPOData &&
-    adPOData.map((POData: any) => {
-      return { label: POData.name, id: POData.id };
-    });
-
-  const getADpmDropdown =
-    adPMData &&
-    adPMData.map((PMData: any) => {
-      return { label: PMData.name, id: PMData.id };
-    });
+  const getUserServiceDropdown =
+  dynamicUserServiceData &&
+  dynamicUserServiceData.map((UserServiceData: any) => {
+    return { label: UserServiceData.firstname + " " + UserServiceData.lastName, id: UserServiceData.id,
+      email: UserServiceData.email
+    };
+  });
 
   return (
     <div className="container-fluid">
@@ -123,25 +122,18 @@ const ProjectForm: React.FC<Props &
                   labelKey="LABEL_PROJECT"
                   placeholderKey="PLACEHOLDER_PROJECT_NAME"
                 />
-                <Field
-                  name="companyId"
-                  type="text"
-                  component={PdsFormTypeAhead}
-                  className="required"
-                  validate={[
-                    Validate.required('LABEL_COMPANY'),
-                    Validate.maxLength(1000)
-                  ]}
-                  DynamicsType="Company"
-                  labelKey="LABEL_COMPANY"
-                  placeholder="PLACEHOLDER_COMPANY_NAME"
-                  onSearch={onSearchCompany}
-                  options={getDynamicsCompanyDropdown}
-                  searchText="Searching companies"
-                />
+                <TypeAhead name="companyId"
+                options={getDynamicsCompanyDropdown}
+                DynamicsType="companyId"
+                onSearch={onSearchCompany}
+                placeholderKey="PLACEHOLDER_COMPANY_NAME"
+                className="required"
+                labelName="LABEL_COMPANY"
+                validationKey="LABEL_COMPANY"
+                submitParam = "id"/>
                 {otherDynamicsCompany === 'Other' && (
                   <Field
-                    name="otherCompany"
+                    name="otherCompanyName"
                     type="text"
                     component={PdsFormInput}
                     className="required"
@@ -153,28 +145,19 @@ const ProjectForm: React.FC<Props &
                     placeholderKey="PLACEHOLDER_COMPANY_NAME"
                   />
                 )}
-
-                <Field
-                  name="contractorId"
-                  type="text"
-                  component={PdsFormTypeAhead}
-                  className="required"
-                  validate={[
-                    Validate.required('LABEL_CONTRACT'),
-                    Validate.maxLength(1000)
-                  ]}
-                  messageKey="MESSAGE_CONTRACT_NAME"
-                  labelKey="LABEL_CONTRACT"
-                  placeholder="PLACEHOLDER_CONTRACT"
-                  onSearch={onSearchContract}
-                  options={getDynamicsContractDropdown}
-                  searchText="Searching contracts"
-                  DynamicsType="Contract"
-                />
+                <TypeAhead name="contractorId"
+                options={getDynamicsContractDropdown}
+                DynamicsType="contractorId"
+                onSearch={onSearchContract}
+                placeholderKey="PLACEHOLDER_CONTRACT"
+                className="required"
+                labelName="LABEL_CONTRACT"
+                validationKey="LABEL_CONTRACT"
+                submitParam = "id"/>
 
                 {otherDynamicsContract === 'Other' && (
                   <Field
-                    name="otherContract"
+                    name="otherContractName"
                     type="text"
                     component={PdsFormInput}
                     className="required"
@@ -186,60 +169,37 @@ const ProjectForm: React.FC<Props &
                     placeholderKey="PLACEHOLDER_CONTRACT"
                   />
                 )}
-                <Field
-                  name="headOfProject"
-                  type="text"
-                  component={PdsFormTypeAhead}
-                  className="required"
-                  validate={[
-                    Validate.required('LABEL_HEAD_OF_PROJECT'),
-                    Validate.maxLength(1000)
-                  ]}
-                  labelKey="LABEL_HEAD_OF_PROJECT"
-                  placeholder="PLACEHOLDER_HEAD_OF_PROJECT_NAME"
-                  onSearch={onSearchHOP}
-                  options={getADhopDropdown}
-                  searchText="Searching head of project"
-                  DynamicsType="HOP"
-                  messageKey="MESSAGE_HEAD_OF_PROJECT"
-                />
 
-                <Field
-                  name="projectOwner"
-                  type="text"
-                  component={PdsFormTypeAhead}
-                  placeHolder="Project Owner name"
-                  className="required"
-                  validate={[
-                    Validate.required('LABEL_PROJECT_OWNER'),
-                    Validate.maxLength(1000)
-                  ]}
-                  DynamicsType="PO"
-                  messageKey="MESSAGE_PROJECT_OWNER"
-                  labelKey="LABEL_PROJECT_OWNER"
-                  placeholder="PLACEHOLDER_PROJECT_OWNER_NAME"
-                  onSearch={onSearchPO}
-                  options={getADpoDropdown}
-                  searchText="Searching project owner"
-                />
+<TypeAhead name="headOfProject"
+                options={getUserServiceDropdown}
+                DynamicsType="headOfProject"
+                onSearch={onSearchHOP}
+                placeholderKey="PLACEHOLDER_HEAD_OF_PROJECT_NAME"
+                className="required"
+                labelName="LABEL_HEAD_OF_PROJECT"
+                validationKey="LABEL_HEAD_OF_PROJECT"
+                submitParam = "email"/>
 
-                <Field
-                  name="projectManager"
-                  type="text"
-                  component={PdsFormTypeAhead}
-                  className="required"
-                  validate={[
-                    Validate.required('LABEL_PROJECT_MANAGER'),
-                    Validate.maxLength(1000)
-                  ]}
-                  messageKey="MESSAGE_PROJECT_MANAGER"
-                  labelKey="LABEL_PROJECT_MANAGER"
-                  placeholder="PLACEHOLDER_PROJECT_MANAGER"
-                  onSearch={onSearchPM}
-                  options={getADpmDropdown}
-                  searchText="Searching project manager"
-                  DynamicsType="PM"
-                />
+<TypeAhead name="projectOwner"
+                options={getUserServiceDropdown}
+                DynamicsType="projectOwner"
+                onSearch={onSearchPO}
+                placeholderKey="PLACEHOLDER_PROJECT_OWNER_NAME"
+                className="required"
+                labelName="LABEL_PROJECT_OWNER"
+                validationKey="LABEL_PROJECT_OWNER"
+                submitParam = "email"/>
+
+
+<TypeAhead name="projectManager"
+                options={getUserServiceDropdown}
+                DynamicsType="projectManager"
+                onSearch={onSearchPM}
+                placeholderKey="PLACEHOLDER_PROJECT_MANAGER"
+                className="required"
+                labelName="LABEL_PROJECT_MANAGER"
+                validationKey="LABEL_PROJECT_MANAGER"
+                submitParam = "email"/>
 
                 <Field
                   name="pmHasExperience"
@@ -255,15 +215,17 @@ const ProjectForm: React.FC<Props &
                   className="required"
                   validate={[
                     Validate.required('LABEL_PROJECT_SCOPE'),
-                    Validate.maxLength(1040)
-                  ]}
+                    Validate.maxLength(5000)
+                  ]}             
                   labelKey="LABEL_PROJECT_SCOPE"
                 />
                 <Field
                   name="cnNumber"
-                  type="number"
+                  type="text"
                   component={PdsFormInput}
-                  validate={onlyNumber}
+                  validate={[
+                    Validate.maxLength(25)
+                  ]}  
                   labelKey="LABEL_CN_NUMBER"
                   placeholderKey="PLACEHOLDER_CN_NUMBER"
                 />
@@ -276,6 +238,7 @@ const ProjectForm: React.FC<Props &
                       name="status"
                       component={PdsFormSelect}
                       placeHolder="Select status"
+                      normalize={normalizeToNumber}
                     >
                       <FormattedMessage id="PLACEHOLDER_PROJECT_STATUS">
                         {message => <option value="">{message}</option>}
@@ -291,7 +254,7 @@ const ProjectForm: React.FC<Props &
                 <div className={'form-group'}>
                   <label>Type of engagement</label>
                   <div className="select-wrapper">
-                    <Field name="engagementId" component={PdsFormSelect}>
+                    <Field name="engagementId" component={PdsFormSelect} normalize={normalizeToNumber}>
                       <option value="">Select type of engagement</option>
                       {getDropdown(
                         props.projectstatus,
@@ -312,6 +275,7 @@ const ProjectForm: React.FC<Props &
                       validate={Validate.required('LABEL_COUNTRY')}
                       placeholderKey="PLACEHOLDER_COUNTRY"
                       messageKey="MESSAGE_COUNTRY"
+                      normalize={normalizeToNumber}
                     >
                       <FormattedMessage id="PLACEHOLDER_COUNTRY">
                         {message => <option value="">{message}</option>}
@@ -360,7 +324,7 @@ const ProjectForm: React.FC<Props &
                   className="width-100 required"
                   validate={[
                     Validate.required('LABEL_PROBABILITY_OF_WINING'),
-                    Validate.maxLength(1000),
+                    Validate.maxLength(3),
                     onlyNumber
                   ]}
                   messageKey="MESSAGE_PROBABILITYOFWINING"
@@ -397,6 +361,7 @@ const ProjectForm: React.FC<Props &
                       validate={Validate.required('Contract type')}
                       placeholderKey="PLACEHOLDER_CONTRACT_TYPE"
                       messageKey="MESSAGE_CONTRACT_TYPE"
+                      normalize={normalizeToNumber}
                     >
                       <FormattedMessage id="PLACEHOLDER_CONTRACT_TYPE">
                         {message => <option value="">{message}</option>}
@@ -431,6 +396,7 @@ const ProjectForm: React.FC<Props &
                         Validate.maxLength(1000),
                         onlyNumber
                       ]}
+                      normalize={normalizeToNumber}
                     >
                       <FormattedMessage id="PLACEHOLDER_FIRST_ASSET">
                         {message => <option value="">{message}</option>}
@@ -445,6 +411,7 @@ const ProjectForm: React.FC<Props &
                       component={PdsFormSelect}
                       DropdownCheck="selectRound"
                       placeholderKey="PLACEHOLDER_SECOND_ASSET"
+                      normalize={normalizeToNumber}
                     >
                       <FormattedMessage id="PLACEHOLDER_SECOND_ASSET">
                         {message => <option value="">{message}</option>}
@@ -459,6 +426,7 @@ const ProjectForm: React.FC<Props &
                       component={PdsFormSelect}
                       DropdownCheck="selectRound"
                       placeholderKey="PLACEHOLDER_THIRD_ASSET"
+                      normalize={normalizeToNumber}
                     >
                       <FormattedMessage id="PLACEHOLDER_THIRD_ASSET">
                         {message => <option value="">{message}</option>}
