@@ -49,7 +49,6 @@ const Preliminaries: React.FC<
 > = props => {
   let history = useHistory();
   let paramProjectId:string= props.match.params.projectId;
-  paramProjectId="4D27E2E1-843D-435A-B27C-03DCA70CE232";
 let isLookupSessionExists:boolean=(sessionStorage.getItem("lookupData")!=null&&sessionStorage.getItem("lookupData")!=undefined&&sessionStorage.getItem("lookupData")!="")
   useEffect(() => {
     window.scrollTo(0, 0);
