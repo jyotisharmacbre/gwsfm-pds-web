@@ -9,7 +9,7 @@ Object {
       Object {
         "activityName": "",
         "comments": "",
-        "grossMargin": 20,
+        "grossMargin": 0,
         "isExistingSubcontractor": null,
         "isPreferredSupplier": null,
         "projectId": "",
@@ -35,7 +35,7 @@ Object {
         ],
         "subContrActivityId": "",
         "subcontractorId": "",
-        "totalCost": 100,
+        "totalCost": 0,
         "totalSell": 0,
       },
     ],
