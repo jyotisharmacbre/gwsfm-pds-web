@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { Field, FieldArray, reduxForm, InjectedFormProps,FormSection } from 'redux-form';
+import { Field, FieldArray, reduxForm, InjectedFormProps,FormSection,formValueSelector } from 'redux-form';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { connect } from 'react-redux';
-
-import DiscountTable from '../../Table/DiscountTable';
+import CalculationsSummaryTable from '../../Table/CalculationsSummaryTable';
 import SubContractorActivityForm from './SubContractorActivityForm';
 import IReactIntl from '../../../Translations/IReactIntl';
 import { ISubContractor } from '../../../store/SubContractor/Types/ISubContractor';
@@ -14,13 +13,11 @@ import FontawsomeFree from '@fortawesome/free-solid-svg-icons';
 import FontawsomeReact, {
   FontAwesomeIcon
 } from '@fortawesome/react-fontawesome';
-import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import CalculationsSummaryType from '../../../enums/CalculationsSummaryType'; 
 import EventType from '../../../enums/EventType';
  
 interface Props {
   onSubmitForm: (data: ISubContractor,event:EventType) => void;
-  addNewActivity: () => void;
-  deleteActivity: (index:number) => void;
 }
 
 let SubcontractorForm: React.FC<
@@ -29,19 +26,14 @@ let SubcontractorForm: React.FC<
    const {handleSubmit} = props;
   return (
     <form className="subcontractor_form" onSubmit={handleSubmit} noValidate={true}>
-      <DiscountTable></DiscountTable>
+      <CalculationsSummaryTable
+      name={CalculationsSummaryType.subContractor} 
+      subContractor={props.subContractorForm}/>
       <FieldArray 
       name="activities" 
       component={SubContractorActivityForm}
-      totalCount={props.initialValues.activities.length}
-      deleteActivity={props.deleteActivity}
        />
-      <div className="newActiv_btn"> 
-          <button data-test="addActivity" name="addActivity" type="button" disabled={props.initialValues.activities.length>4} className="active" onClick={props.addNewActivity}>
-            <FontAwesomeIcon className="" icon={faPlusCircle} />
-           <FormattedMessage id='BUTTON_NEW_ACTIVITY'></FormattedMessage>
-          </button>
-        </div>
+      
       <div className="mr-35 three-btn">
          <button
           className="active" 
@@ -73,8 +65,11 @@ let SubcontractorForm: React.FC<
   );
 };
 
+const selector = formValueSelector('subContractorForm');
+
 const mapStateToProps = (state: IState) => ({
-  initialValues: state.subContractor.form
+  initialValues: state.subContractor.form,
+  subContractorForm: selector(state, 'activities')
 });
 
 const form = reduxForm<ISubContractor, Props>({
