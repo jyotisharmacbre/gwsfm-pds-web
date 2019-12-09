@@ -1,8 +1,8 @@
 export interface IProject {
   projectName: string;
-  companyId: number;
+  companyId: string;
   headOfProject: string;
   projectManager: string;
   scope: string;
-  cnNumber: number;
+  cnNumber: string;
 }

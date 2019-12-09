@@ -1,14 +1,14 @@
 export interface IProjectDetail {
   projectId: string;
   name: string;
-  contractorId: number;
-  companyId: number;
+  contractorId: string;
+  companyId: string;
   headOfProject: string;
   projectOwner: string;
   projectManager: string;
   pmHasExperience: boolean;
   scope: string;
-  cnNumber: number;
+  cnNumber: string;
   status: number;
   engagementId: number;
   countryId: number;
@@ -21,4 +21,6 @@ export interface IProjectDetail {
   secondAssetWorkedOn: number;
   thirdAssetWorkedOn: number;
   comment: string;
+  otherCompanyName: string;
+  otherContractName: string;
 }
