@@ -10,6 +10,7 @@ const initialState: ILookupState = {
 };
 
 const getProjectStatusSuccess = (oldState, action) => {
+  sessionStorage.setItem("lookupData",JSON.stringify(action.payload));
   return updateObject(oldState, {
     error: null,
     projectstatus: action.payload

@@ -167,5 +167,15 @@
   "T_HEADING_TOTAL_COST": "Total Cost",
   "T-HEADING_TOTAL_MARGIN": "Total Margin",
   "T-HEADING_GROSS_MARGIN": "Gross Margin",
-  "T-HEADING_TOTAL_SELL": "Total Sell"
+  "T-HEADING_TOTAL_SELL": "Total Sell",
+  "ITEM":"Item",
+ "NAME_OF_SUPPLIER":"Name of Supplier",
+ "NO_OF_HOURS":"No Of Hours",
+ "HOUR_RATE":"Hour Rate",
+ "TOTAL_COST":"Total Cost",
+ "GROSS_MARGIN":"Gross Margin",
+ "TOTAL_SELL":"Total Sell",
+ "COMMENTS":"Comments",
+ "JUSTIFICATION":"Justification",
+ "AUTHORISATION":"Authorisation"
 }
