@@ -31,6 +31,8 @@ export const getProjectStatus = () => {
     'Work_Type',
     'Enquiry_Type',
     'Discount_Type'
+    'Pre_Components',
+    'Pre_Component_Items'
   ];
   return (dispatch: Dispatch) => {
     axios.baseAPI

@@ -2,6 +2,7 @@ import { IProjectOverviewState } from './ProjectOverviewForm/Types/IProjectOverv
 import { ILookupState } from './Lookups/Types/ILookupState';
 import { IProjectDetailState } from './CustomerEnquiryForm/Types/IProjectDetailState';
 import { ILocaleState } from '../session/state';
+import { IPreliminaryState } from './Preliminaries/Types/IPreliminaryState';
 import { ISubContractorState } from './SubContractor/Types/ISubContractorState';
 import { IUserServiceState } from './UserService/Types/IUserServiceState';
 import { IDynamicDataState } from './DynamicsData/Types/IDynamicDataState';
@@ -20,4 +21,5 @@ export type IState = {
   dynamicData: IDynamicDataState;
   adData: IUserServiceState;
   discount: IDiscountState;
+  preliminary: IPreliminaryState;
 };

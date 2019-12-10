@@ -9,6 +9,7 @@ import JustificationAuthorisation from '../../views/JustificationAuthorisation';
 import Discounts from '../../views/Discounts';
 import Subcontractor from '../../views/Subcontractor';
 
+import Preliminaries from '../../views/Preliminaries';
 const Routes: React.FC = props => {
   return (
     <Switch>
@@ -22,9 +23,9 @@ const Routes: React.FC = props => {
       <Route
         path="/JustificationAuthorisation"
         component={JustificationAuthorisation}
-      >
+      />
+      <Route path="/Preliminaries/:projectId?" component={Preliminaries} />
      
-      </Route>
          <Route path="/Subcontractor/:projectId?" component={Subcontractor} />
     </Switch>
   );

@@ -25,6 +25,7 @@
     "LABEL_STATE_DETAILS ": "Détails sur l'état",
     "LABEL_SUPPLIER": "Fournisseur",
     "LABEL_PREFERRED_SUPPLIER": "Fournisseur préféré",
+    "LABEL_SUPPLIER_NAME": "Nom du fournisseur",
     "LABEL_SUBCONTRACTOR": "Sous-traitant",
     "LABEL_EXISTING_SUBCONTRACTOR": "Sous-traitant existant",
     "LABEL_ACTIVITY_NAME": "Nom de l'activité",
@@ -166,5 +167,15 @@
     "T_HEADING_TOTAL_COST": "Coût total",
     "T-HEADING_TOTAL_MARGIN": "Marge totale",
     "T-HEADING_GROSS_MARGIN": "Marge brute",
-    "T-HEADING_TOTAL_SELL": "Vente totale"
+    "T-HEADING_TOTAL_SELL": "Vente totale",
+    "ITEM": "Article",
+    "NAME_OF_SUPPLIER": "Nom du fournisseur",
+    "NO_OF_HOURS": "Pas d'heures",
+    "HOUR_RATE": "Taux horaire",
+    "TOTAL_COST": "Coût total",
+    "GROSS_MARGIN": "Marge brute",
+    "TOTAL_SELL": "Vente totale",
+    "COMMENTS": "commentaires",
+    "JUSTIFICATION": "Justification",
+    "AUTHORISATION": "Autorisation"
 }
