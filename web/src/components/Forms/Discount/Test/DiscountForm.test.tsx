@@ -92,15 +92,6 @@ describe('DiscountForm Fields', () => {
       });
     });
 
-    describe('clientName field', () => {
-      beforeEach(() => {
-        field = wrapper.find('input[name="clientName"]').first();
-      });
-      it('Should renders clientName field', () => {
-        expect(field.prop('type')).toBe('text');
-      });
-    });
-
     describe('clientState field', () => {
       beforeEach(() => {
         field = wrapper.find('input[name="clientState"]').first();
