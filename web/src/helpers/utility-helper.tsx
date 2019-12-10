@@ -57,14 +57,14 @@ export const calculateSell = (cost:number,margin:number) =>{
   let divide = (1- margin/100);
   if(divide != 0)
   sell = cost / divide;
-  return sell.toFixed(2);
+  return sell.toFixed(0);
 }
 
 export const calculateAverageMargin = (totalCost:number,totalSell:number) =>{
   let averageMargin =0;
   if(totalSell > 0 && totalCost > 0)
   averageMargin = ((totalSell-totalCost) / totalSell)  * 100
-  return averageMargin.toFixed(2);
+  return averageMargin.toFixed(0);
 }
 
 export const getSubContractorDiscountValue = (data:Array<ISubContractorActivity>,state:IDiscountCalculation) => {
