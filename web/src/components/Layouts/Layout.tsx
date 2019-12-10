@@ -7,25 +7,28 @@ import LeftMenu from '../Menu/LeftMenu';
 import ProfileMenu from '../Menu/ProfileMenu/ProfileMenu';
 import Translate from '../../Translations/translate';
 import { getDisplayName } from '../../helpers/auth-helper';
+import { useHistory } from 'react-router-dom';
 
-class Layout extends React.Component<IAppProps> {
-  helloAuthenticatedUser() {
+
+const Layout :React.FC<IAppProps> = (props:any) => {
+  debugger;
+  let history = useHistory();
+  const { Theme, UseStyles } = props;
+  
+  const helloAuthenticatedUser = () => {
     return 'Hello, ' + getDisplayName();
   }
-  render() {
-    const { Theme, UseStyles } = this.props;
-
-    return (
-      <div className="wrapper">
-        {/* <LeftMenu /> */}
-        <Nav Theme={Theme} UseStyles={UseStyles} />
-        <div id="content">
-          <ProfileMenu Name={this.helloAuthenticatedUser()} />
-          <Body Theme={Theme} UseStyles={UseStyles} />
-        </div>
+  return (
+    <div className="wrapper">
+      {history.location.pathname != '/' ?
+      <Nav Theme={Theme} UseStyles={UseStyles} />:
+      null}
+      <div id="content">
+        <ProfileMenu Name={helloAuthenticatedUser()} />
+        <Body Theme={Theme} UseStyles={UseStyles} />
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default Layout;
