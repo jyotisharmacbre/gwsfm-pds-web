@@ -37,6 +37,7 @@ const PreliminaryItemsForm:React.FC<Props>
                         input={{disabled: true} }
                         data-test="nameOfSupplier"
                         type="text"
+                        className="width-120 mb-0"
                         component={PdsFormInput}
                         validate={[
                             Validate.maxLength(1000),

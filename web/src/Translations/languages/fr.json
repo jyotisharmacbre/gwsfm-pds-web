@@ -7,6 +7,7 @@
   "SUB_TITLE_DISCOUNTS": "RABAIS",
   "TITLE_SUBCONTRACTOR_DISCOUNT": "Remise de sous-traitance",
   "PAGE_SUB_TITLE": "SOUS-TRAITANTS",
+  "PAGE_PRELIMINARY_TITLE":"PRÉLIMINAIRES",
   "HEADING_CUSTOMER_ENQUIRY": "Enquête client",
   "BUTTON_YES": "OUI",
   "BUTTON_NO": "NON",
@@ -167,14 +168,9 @@
   "T-HEADING_TOTAL_MARGIN": "Marge totale",
   "T-HEADING_GROSS_MARGIN": "Marge brute",
   "T-HEADING_TOTAL_SELL": "Vente totale",
-   "ITEM":"Article",
- "NAME_OF_SUPPLIER":"Nom du fournisseur",
- "NO_OF_HOURS":"Pas d'heures",
- "HOUR_RATE":"Taux horaire",
- "TOTAL_COST":"Coût total",
- "GROSS_MARGIN":"Marge brute",
- "TOTAL_SELL":"Vente totale",
- "COMMENTS":"commentaires",
- "JUSTIFICATION":"Justification",
- "AUTHORISATION":"Autorisation"
+  "T_HEADING_ITEM":"Article",
+ "T_HEADING_NAME_OF_SUPPLIER":"Nom du fournisseur",
+ "T_HEADING_NO_OF_HOURS":"Pas d'heures",
+ "T_HEADING_HOUR_RATE":"Taux horaire",
+ "T_HEADING_COMMENTS":"commentaires"
 }
