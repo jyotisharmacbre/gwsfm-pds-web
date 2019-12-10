@@ -92,15 +92,6 @@ describe('DiscountForm Fields', () => {
       });
     });
 
-    describe('clientName field', () => {
-      beforeEach(() => {
-        field = wrapper.find('input[name="clientName"]').first();
-      });
-      it('Should renders clientName field', () => {
-        expect(field.prop('type')).toBe('text');
-      });
-    });
-
     describe('clientState field', () => {
       beforeEach(() => {
         field = wrapper.find('input[name="clientState"]').first();
@@ -145,5 +136,16 @@ describe('DiscountForm Fields', () => {
           discountFormReducer(initialState, addDiscountData)
         ).toMatchSnapshot();
       });
+
+      it('should handle edit discount successfully', () => {
+        const editProjectAction: any = {
+          type: ActionType.DISCOUNT_FORM_DATA_EDIT
+        };
+        expect(
+          discountFormReducer(initialState, editProjectAction)
+        ).toMatchSnapshot();
+      });
+
     });
+
   });

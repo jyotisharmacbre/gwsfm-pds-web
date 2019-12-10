@@ -41,6 +41,8 @@ interface IMapStateToProps {
   projectStatus: Array<ILookup>;
   currencies: Array<ICurrency> | null;
   currencyId: number;
+  clientName: string;
+  otherClientName: string;
 }
 
 
@@ -63,7 +65,7 @@ interface IMapStateToProps {
       if (props.notify == Notify.success) {
         if (props.event == EventType.next) {
           toast.success('Data Saved Successfully');
-          history.push('/');
+          history.push(`/Preliminaries/${props.match.params.projectId}`);
         } else if (props.event == EventType.previous) {
           toast.success('Data Saved Successfully');
           history.push('/Subcontractor');
@@ -111,7 +113,9 @@ interface IMapStateToProps {
               onSave={handleSave}
               projectstatus={props.projectStatus}
               currencies={props.currencies}
-              currencyId={props.currencyId} />
+              currencyId={props.currencyId} 
+              clientName={props.clientName}
+              otherClientName= {props.otherClientName} />
             </div>
           </div>
         </div>
@@ -126,7 +130,9 @@ interface IMapStateToProps {
     event: state.discount.event,
     projectStatus: state.lookup.projectstatus,
     currencies: state.lookup.currencies,
-    currencyId: state.project.form.currencyId
+    currencyId: state.project.form.currencyId,
+    clientName: state.project.form.companyId,
+    otherClientName: state.project.form.otherCompanyName
   });
   
   const mapDispatchToProps = dispatch => {
