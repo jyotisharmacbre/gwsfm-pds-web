@@ -6,202 +6,227 @@ import {
   formValueSelector
 } from 'redux-form';
 import PdsFormInput from '../../PdsFormHandlers/PdsFormInput';
-import PdsFormSelect from '../../PdsFormHandlers/PdsFormSelect';
 import PdsFormTextArea from '../../PdsFormHandlers/PdsFormTextArea';
-import PdsFormButton from '../../PdsFormHandlers/PdsFormButton';
-import { selectionButtons } from '../../../helpers/constants';
-import { Validate, alphaNumeric, onlyNumber } from '../../../helpers/fieldValidations';
+import {
+  Validate,
+  alphaNumeric,
+  onlyNumber
+} from '../../../helpers/fieldValidations';
 import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { LookupType } from '../../../store/Lookups/Types/LookupType';
-import { getDropdown } from '../../../helpers/utility-helper';
+import { getDropdown, getPropertyName, getDiscountTypeValue, getCurrencySymbol, getRadioOptions, getFilterElementFromArray } from '../../../helpers/utility-helper';
 import PdsFormTypeAhead from '../../PdsFormHandlers/PdsFormTypeAhead';
 import { IProjectDetail } from '../../../store/CustomerEnquiryForm/Types/IProjectDetail';
 import { ICurrency } from '../../../store/Lookups/Types/ICurrency';
 import IReactIntl from '../../../Translations/IReactIntl';
-import { formatMessage } from '../../../Translations/connectedIntlProvider';
+import { MainTitle } from '../../Title/Title';
+import PdsFormRadio from '../../PdsFormHandlers/PdsFormRadio';
+import { IDiscountActivity } from '../../../store/DiscountForm/Types/IDiscountActivity';
+import { dynamicsCompany } from '../../TypeAhead/TypeAheadConstantData/dynamicCompanyData';
 
-interface Props{
 
+interface Props {
+  onNext: (data: IDiscountActivity) => void;
+  onPrevious: (data: IDiscountActivity) => void;
+  onSave: (data: IDiscountActivity) => void;
+  projectstatus: any;
+  currencies: Array<ICurrency> | null;
+  currencyId: any;
+  clientName: string;
+  otherClientName: string;
 }
 
-const DiscountForm: React.FC<
-  Props & IReactIntl & InjectedFormProps<any>
-> = (props: any) => {
-  
-    return (
-      <div className="row">
-        <div className="col-lg-12">
+  let DiscountForm: React.FC<Props &
+  IReactIntl &
+  InjectedFormProps<IDiscountActivity, Props>> = (props: any) => {
+  const { handleSubmit, initialValues, discountTypeValue } = props;
+  const normalize = value => (value ? parseInt(value) : null);
+
+  return (
+    <div className="container-fluid">
+      <div className=" row">
+        <div className="col-lg-12 col-sm-12">
           <div className="Discountforms_wrap">
-            <div className="row">
-              <div className="col-lg-7">
-                <form className="custom-wrap p-0">
-                  <h2><FormattedMessage id="TITLE_SUBCONTRACTOR_DISCOUNT"></FormattedMessage></h2>
-                    <Field
-                      name="name"
-                      type="text"
-                      component={PdsFormInput}
-                      className="required"
-                      validate={[
-                        Validate.required('LABEL_SUPPLIER'),
-                        Validate.maxLength(1000)
-                      ]}
-                      messageKey="MESSAGE_SUPPLIER_NAME"
-                      labelKey="LABEL_SUPPLIER"
-                      placeholderKey="PLACEHOLDER_ENTER_SUPPLIER_NAME"
-                    />
-                    <Field
-                      name="name"
-                      type="text"
-                      component={PdsFormInput}
-                      className="required"
-                      validate={[
-                        Validate.required('LABEL_STATE_DETAILS'),
-                        Validate.maxLength(1000)
-                      ]}
-                      messageKey="MESSAGE_STATE_DETAILS_NAME"
-                      labelKey="LABEL_STATE_DETAILS"
-                      placeholderKey="PLACEHOLDER_ENTER_STATE_DETAILS"
-                    /> 
-                  <div className="form-group">
-                    <label><FormattedMessage id="LABEL_TOTAL_DISCOUNT"></FormattedMessage></label>
-                    <input
-                      className="width-120 form-control custom-space"
-                      type="number"
-                      placeholder=""
-                    />
-                    <span className="symbol_fix">&#163;</span>
-                    <label className="w-100 mb-0 mt-3">
-                    <FormattedMessage id="LABEL_SUB_TOTAL_DISCOUNTS"></FormattedMessage> 
+            <form className="custom-wrap p-0" noValidate={true}>
+              <div className="row">
+                <div className="col-lg-8">
+                  <MainTitle>
+                    <FormattedMessage id="TITLE_SUBCONTRACTOR_DISCOUNT" />
+                  </MainTitle>
+                  <Field
+                    name="supplierName"
+                    type="text"
+                    component={PdsFormInput}
+                    validate={[Validate.maxLength(1000)]}
+                    messageKey="MESSAGE_SUPPLIER_NAME"
+                    labelKey="LABEL_SUPPLIER"
+                    placeholderKey="PLACEHOLDER_ENTER_SUPPLIER_NAME"
+                  />
+                  <Field
+                    name="supplierState"
+                    type="text"
+                    component={PdsFormInput}
+                    validate={[Validate.maxLength(1000)]}
+                    messageKey="MESSAGE_STATE_DETAILS_NAME"
+                    labelKey="LABEL_STATE_DETAILS"
+                    placeholderKey="PLACEHOLDER_ENTER_STATE_DETAILS"
+                  />
+                  <Field
+                  name="supplierTotalDiscount"
+                    type="text"
+                    className="width-120"
+                    component={PdsFormInput}
+                    validate={[Validate.maxLength(15)]}
+                    messageKey="MESSAGE_TOTAL_DISCOUNT"
+                    labelKey="LABEL_TOTAL_DISCOUNT"
+                    normalize={normalize}
+                  />
+                  <label className="w-100 mb-0">
+                      Sub-Total Discounts
                     </label>
-                    <label className="m-0">&#163; 200000</label>
-                    </div>
+                    <label className="m-0 mb-4">&#163;2,000.00</label>
                   <Field
-                  name="scope"
-                  rows="6"
-                  component={PdsFormTextArea}
-                  className="required"
-                  validate={[
-                    Validate.required('LABEL_COMMENTS'),
-                    Validate.maxLength(1040)
-                  ]}             
-                  labelKey="LABEL_COMMENTS"
-                  placeholderKey="PLACEHOLDER_TYPE_IN_ANY_ADDITIONAL_COMMENTS"
-                />
-                </form>
-              </div>
-            </div>
-
-            <div className="hr_line"></div>
-
-            <div className="row">
-              <div className="col-lg-7">
-                <form className="custom-wrap p-0">
-                  <h2><FormattedMessage id="TITAL_CLIENT_DISCOUNT"></FormattedMessage></h2>
+                  name="supplierComments"
+                    rows={7}
+                    type="textarea"
+                    component={PdsFormTextArea}
+                    validate={[Validate.maxLength(5000)]}
+                    labelKey="LABEL_COMMENTS"
+                    placeholderKey="PLACEHOLDER_ADDITIONAL_COMMENTS"
+                  />
+                  </div></div>
+                  <div className="row">
+                <div className="col-lg-12">
+                  <div className="hr_line"></div>
+                  </div></div>
+                  <div className="row">
+                <div className="col-lg-8">
+                  <MainTitle>
+                    <FormattedMessage id="TITLE_CLIENT_DISCOUNT" />
+                  </MainTitle>
                   <Field
-                      name="name"
-                      type="text"
-                      component={PdsFormInput}
-                      className="required"
-                      validate={[
-                        Validate.required('LABEL_CLIENT'),
-                        Validate.maxLength(1000)
-                      ]}
-                      messageKey="MESSAGE_CLIENT_NAME"
-                      labelKey="LABEL_CLIENT"
-                      placeholderKey="PLACEHOLDER_ENTER_CLIENT_NAME"
-                    />
+                  input={{
+                    value: (getFilterElementFromArray(dynamicsCompany,"CompanyId", props.clientName,"Name") || props.otherClientName),
+                    disabled: true
+                    }}
+                    type="text"
+                    component={PdsFormInput}
+                   
+                    labelKey="LABEL_CLIENT"
+                    messageKey="LABEL_CLIENT"
+                    placeholderKey="PLACEHOLDER_ENTER_CLIENT_NAME"
+                  />
                   <Field
-                      name="name"
-                      type="text"
-                      component={PdsFormInput}
-                      className="required"
-                      validate={[
-                        Validate.required('STATE_DETAILS'),
-                        Validate.maxLength(1000)
-                      ]}
-                      messageKey="MESSAGE_STATE_DETAILS"
-                      labelKey="LABEL_STATE_DETAILS"
-                      placeholderKey="PLACEHOLDER_ENTER_STATE_DETAILS"
-                    />
+                  name="clientState"
+                    type="text"
+                    component={PdsFormInput}
+                    validate={[Validate.maxLength(1000)]}
+                    messageKey="MESSAGE_STATE_DETAILS"
+                    labelKey="LABEL_STATE_DETAILS"
+                    placeholderKey="PLACEHOLDER_ENTER_STATE_DETAILS"
+                  />
                   <div className="form-group">
-                    <label><FormattedMessage id="LABEL_DISCOUNT_TYPE"></FormattedMessage></label>
-                    <div className="form-check">
-                      <input
-                        type="radio"
-                        className="form-check-input"
-                        name="Value"
-                        id="1"
-                      />
-                      <label className="form-check-label" htmlFor="1">
-                      <FormattedMessage id="LABEL_PERCENTAGE"></FormattedMessage>
-                      </label>
-                    </div>
-                    <div className="form-check">
-                      <input
-                        type="radio"
-                        className="form-check-input"
-                        name="Value"
-                        id="2"
-                      />
-                      <label className="form-check-label" htmlFor="2">
-                      <FormattedMessage id="LABEL_VALUE" /> 
-                      </label>
-                    </div>
-                  </div>
-                  <div className="form-group">
-                    <label><FormattedMessage id="LABEL_DISCOUNT" /></label>
-                    <input
-                      className="width-250 form-control"
-                      type="text"
-                      placeholder={formatMessage('PLACEHOLDER_ENTER_VALUE')}
-                    />
-                    <label className="w-100 mb-0 mt-3">
-                    <FormattedMessage id="LABEL_SUB_TOTAL_DISCOUNTS" />
+                  <label>
+                    <FormattedMessage id="LABEL_DISCOUNT_TYPE" />*
+                  </label>
+                 {props.projectstatus &&
+                    props.projectstatus
+                      .filter(
+                        element => element.lookupItem == LookupType.Discount_Type
+                      )
+                      .map((data, index) => {
+                        return (
+                          <div className="form-check" key={index}>
+                            <Field
+                              name= "discountType"
+                              component="input"
+                              type="radio"
+                              value={+data.lookupKey}
+                              normalize={normalize}
+                            />
+                            <label className="form-check-label">
+                              <FormattedMessage id={data.description} />
+                            </label>
+                          </div>
+                        );
+                      })}
+                      </div>
+                  <Field
+                  name="clientDiscount"
+                    type="text"
+                    className="width-250 pl-30"
+                    component={PdsFormInput}
+                    validate={[Validate.maxLength(15)]}
+                    messageKey="MESSAGE_DISCOUNT"
+                    labelKey="LABEL_DISCOUNT"
+                    placeholderKey="PLACEHOLDER_DISCOUNT"
+                    normalize={normalize}
+                    discountBind = {getDiscountTypeValue([
+                      { lookupKey: 1, description: 'Percent (%)'},
+                      { lookupKey: 2, description: 'Value (#)'}
+                    ], discountTypeValue,
+                      getCurrencySymbol(
+                      props.currencies,
+                      props.currencyId
+                    )
+                    )}
+                  />
+                  <label className="w-100 mb-0">
+                      Sub-Total Discounts
                     </label>
-                    <label className="m-0">&#163;2,000.00</label>
-                  </div>
+                    <label className="m-0 mb-4">&#163;2,000.00</label>
                   <Field
-                  name="scope"
-                  rows="6"
-                  component={PdsFormTextArea}
-                  className="required"
-                  validate={[
-                    Validate.required('LABEL_COMMENTS'),
-                    Validate.maxLength(1040)
-                  ]}             
-                  labelKey="LABEL_COMMENTS"
-                  placeholderKey="PLACEHOLDER_TYPE_IN_ANY_ADDITIONAL_COMMENTS"
-                />
-                </form>
+                  name="clientComments"
+                    rows={7}
+                    type="textarea"
+                    component={PdsFormTextArea}
+                    validate={[Validate.maxLength(5000)]}
+                    labelKey="LABEL_COMMENTS"
+                    placeholderKey="PLACEHOLDER_ADDITIONAL_COMMENTS"
+                  />
+                </div>
               </div>
-            </div> 
+              <div className="hr_line mb-0 mt-4"></div>
 
-            <div className="hr_line mb-0 mt-4"></div>
-
-            <div className="mr-35 three-btn">
-              <button className="active" type="button">
-                <FormattedMessage id="BUTTON_PREVIOUS" /> 
-              </button>
-              <button type="button" name="next" className="active ml-auto">
-              <FormattedMessage id="BUTTON_SAVE" /> 
-              </button>
-              <button type="button" name="next">
-              <FormattedMessage id="BUTTON_NEXT" /> 
-              </button>
-            </div>
+              <div className="mr-35 d-flex justify-content-between mb-4">
+                <button className="active mb-4 mt-5" type="button" name="previous"
+                onClick={handleSubmit(values => props.onPrevious(values))}>
+                  <FormattedMessage id="BUTTON_PREVIOUS" />
+                </button>
+                <button
+                  className="active mb-4 mt-5"
+                  type="button"
+                  name="save"
+                  style={{ marginLeft: '35%' }}
+                  onClick={handleSubmit(values => props.onSave(values))}
+                >
+                  <FormattedMessage id="BUTTON_SAVE" />
+                </button>
+                <button type="button" name="next" className="mb-4 mt-5 mr-0"
+                onClick={handleSubmit(values => props.onNext(values))}>
+                  <FormattedMessage id="BUTTON_NEXT" />
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
+};
 
-  const form = reduxForm<IProjectDetail, Props>({
-    form: 'DiscountForm',
-    enableReinitialize: true
-  })(injectIntl(DiscountForm));
-  
-  export default connect(null)(form);
+const mapStateToProps = (state: IState) => ({
+  initialValues: state.discount.form,
+  discountTypeValue: discountSelector(state, 'discountType'),
+});
 
+const form = reduxForm<IDiscountActivity, Props>({
+  form: 'DiscountForm',
+  enableReinitialize: true
+})(injectIntl(DiscountForm));
 
+const discountSelector = formValueSelector('DiscountForm');
+
+export default connect(mapStateToProps)(form);

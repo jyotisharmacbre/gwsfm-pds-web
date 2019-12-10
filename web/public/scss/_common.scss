@@ -1,6 +1,7 @@
 body {
     background-color: map-get($colors, grey04);
-    font-family: 'Hind', sans-serif !important;;
+    font-family: 'Hind', sans-serif !important;
+    ;
 }
 
 #content {
@@ -11,21 +12,23 @@ body {
         width: 100%;
     }
 }
+
 .hr_line {
     border: 1px solid map-get($colors, grey001);
     margin-bottom: 25px;
     margin-top: 10px;
 }
 
-.width-250{
+.width-250 {
     max-width: 250px;
 }
 
 .text-green {
-    color: map-get($colors , darkGreen ) !important;
+    color: map-get($colors, darkGreen) !important;
 }
+
 .bg-green {
-    background: map-get($colors, Green03 );
+    background: map-get($colors, Green03);
 }
 
 ::placeholder {
@@ -57,7 +60,7 @@ form {
             position: absolute;
             left: 15px;
             top: 43px;
-            color: map-get($colors , grey06 );
+            color: map-get($colors, grey06);
             font-size: 14px;
             margin-right: 10px;
         }
@@ -224,7 +227,7 @@ button[type="button"] {
     padding: 12px 20px 10px;
     font-size: 16px;
     min-width: 160px;
-    border: 2px solid map-get($colors , darkGreen );
+    border: 2px solid map-get($colors, darkGreen);
     text-align: center;
     letter-spacing: 2px;
     @include borderRadius(5px);
@@ -252,11 +255,17 @@ button[type="button"] {
 .width-120 {
     max-width: 120px;
 }
+
+.pl-20 {
 .width-285 {
     max-width: 285px;
 }
 .pl-20{
     padding-left: 20px !important;
+}
+
+.pl-30 {
+    padding-left: 30px !important;
 }
 
 .mx-35 {

@@ -13,7 +13,8 @@ export function PdsFormInput({
   intl,
   currency,
   divPosition,
-  rightSideFixPlaceHolderKey
+  readOnly,
+  discountBind
 }) {
   const errorClass = `${(error && touched) || warning ? 'error' : ''}`;
   const _placeholder = placeholderKey
@@ -31,7 +32,9 @@ export function PdsFormInput({
         {...input}
         placeholder={_placeholder}
         type={type}
+        readOnly={readOnly}
         className={'form-control ' + className + ' ' + errorClass}
+
       />
       {currency && (
         <span
@@ -47,12 +50,23 @@ export function PdsFormInput({
           {currency}
         </span>
       )}
+      {discountBind && (
+        <span
+          style={{
+            position: 'absolute',
+            top: '41px',
+            left: '12px',
+            marginRight: '10px',
+            fontSize: '14px',
+            color: '#a9b2b5'
+          }}
+        >
+          {discountBind}
+        </span>
+      )}
       {touched &&
         ((error && <span className="text-danger">{error}</span>) ||
           (warning && <span className="text-danger">{warning}</span>))}
-
-      {rightSideFixPlaceHolderKey && (<span className="right_fix_txt"><FormattedMessage id={rightSideFixPlaceHolderKey} /></span>)}
-
     </div>
   );
 }

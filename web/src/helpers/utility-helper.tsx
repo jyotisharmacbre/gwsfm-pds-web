@@ -1,6 +1,8 @@
 import React from 'react';
 import {ISubContractorActivity} from '../store/SubContractor/Types/ISubContractorActivity';
 import IDiscountCalculation from '../models/IDiscountCalculation';
+import {IPreliminariesComponentDetails} from '../store/Preliminaries/Types/IPreliminariesComponentDetails';
+import {IPreliminariesItems} from '../store/Preliminaries/Types/IPreliminariesItems';
 
 export const updateObject = (oldState, updatedProperties) => {
   return {
@@ -36,6 +38,48 @@ export const getDropdown = (data, value) => {
   return result;
 };
 
+export const getRadioOptions = (data, value) => {
+  let result =
+    data &&
+    data.map((status: any, i: number) => {
+      
+      if (status.lookupItem == value) {
+        console.log(status, "Items")
+        return status;
+      }
+    });
+  return result;
+};
+
+
+
+export const getCurrencySymbol = (currencies, currencyId) => {
+  let symbol = '';
+  let filter;
+  if (currencies) {
+    filter = currencies.find(element => element.currencyId == currencyId);
+    if (filter != null && filter != undefined) symbol = filter.currencySymbol;
+  }
+  return symbol;
+};
+
+
+
+export const getDiscountTypeValue = (data, value, currency) =>{
+let result = data && data.map((dataValue: any, i: number) => {
+  if(dataValue.lookupKey == value){
+    let arr= dataValue.description.split(' ');
+    let arrValue = arr[1][1];
+    if(arrValue == "#"){
+      return currency;
+    }
+    else{
+      return arrValue;
+    }
+  }
+})
+return result;
+}
 export const normalizeToNumber = value => (
   value = +value
 )
@@ -52,7 +96,7 @@ export const getFilterElementFromArray = (array:any, property:string,value:numbe
 
 export const calculateSell = (cost:number,margin:number) =>{
   let sell =0;
-  let divide = (1- margin/100)
+  let divide = (1- margin/100);
   if(divide != 0)
   sell = cost / divide;
   return sell.toFixed(2);
@@ -73,9 +117,24 @@ export const getSubContractorDiscountValue = (data:Array<ISubContractorActivity>
         })
     return {cost:state.cost,sell:state.sell,margin:state.margin};
 }
+
 export const calculateCost = (noOfHours:number,hourRate:number) =>{
   let totalCost =0;
   if(noOfHours > 0 && hourRate > 0)
   totalCost=noOfHours*hourRate;
   return totalCost.toFixed(2);
+}
+
+export const getPreliminarySummaryCalculation = (data:Array<IPreliminariesComponentDetails>,state:IDiscountCalculation) => {
+        if(data.length >0)
+        {
+          data.map((details:IPreliminariesComponentDetails)=>{
+            details.items.map((element:IPreliminariesItems)=>{
+            state.cost = state.cost + (+element.totalCost);
+            state.sell = state.sell + (+calculateSell(element.totalCost,element.grossMargin));
+            state.margin = state.margin + (+element.grossMargin);
+          })
+          })
+        }
+        return {cost:state.cost,sell:state.sell,margin:state.margin};  
 }

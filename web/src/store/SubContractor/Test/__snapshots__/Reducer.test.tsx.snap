@@ -5,6 +5,38 @@ Object {
   "error": null,
   "event": undefined,
   "form": Object {
+    "0": Object {
+      "activityName": "",
+      "comments": "",
+      "grossMargin": 0,
+      "isExistingSubcontractor": null,
+      "isPreferredSupplier": null,
+      "projectId": "",
+      "quotes": Array [
+        Object {
+          "activityQuoteId": "",
+          "quoteValue": 0,
+          "subContrActivityId": "",
+          "supplierName": "",
+        },
+        Object {
+          "activityQuoteId": "",
+          "quoteValue": 0,
+          "subContrActivityId": "",
+          "supplierName": "",
+        },
+        Object {
+          "activityQuoteId": "",
+          "quoteValue": 0,
+          "subContrActivityId": "",
+          "supplierName": "",
+        },
+      ],
+      "subContrActivityId": "",
+      "subcontractorId": "",
+      "totalCost": 0,
+      "totalSell": 0,
+    },
     "activities": Array [
       Object {
         "activityName": "",

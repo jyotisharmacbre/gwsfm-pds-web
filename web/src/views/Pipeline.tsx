@@ -16,9 +16,8 @@ interface IMapStateToProps {
   projectPipeline: Array<IProjectPipelineGrid>;
   lookupDetails: Array<ILookup>;
 }
-const ProjectPipeline: React.FC<
-  IMapStateToProps & IMapDispatchToProps
-> = props => {
+const ProjectPipeline: React.FC<IMapStateToProps &
+  IMapDispatchToProps> = props => {
   useEffect(() => {
     props.getLookups();
 
@@ -63,7 +62,4 @@ const mapDispatchToProps = dispatch => {
     projectPipelineGridDetail: () => dispatch(projectPipelineDetail())
   };
 };
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ProjectPipeline);
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectPipeline);

@@ -42,17 +42,7 @@ interface IMapDispatchToProps {
 const Subcontractor: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = props => {
   let history = useHistory();
   let paramProjectId:string = '';
-  let currencySymbol = '';
-  
-  const getCurrencySymbol = (currencies, currencyId) => {
-  let symbol = '';
-  let filter;
-  if (currencies) {
-    filter = currencies.find(element => element.currencyId == currencyId);
-    if (filter != null && filter != undefined) symbol = filter.currencySymbol;
-  }
-  return symbol;
-  };
+  const [currencySymbol,setCurrencySymbol] = React.useState('$');
   
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -64,12 +54,20 @@ const Subcontractor: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> =
       props.getSubContractor(paramProjectId);
     }
   }, []);
+
+  useEffect(() => {
+    if(props.currencyId>0 && props.currencies){
+      setCurrencySymbol(
+        getFilterElementFromArray(props.currencies,"currencyId",props.currencyId,"currencySymbol")
+      )
+    }
+  }, [props.currencyId,props.currencies]);
  
   useEffect(() => {
     if (props.notify == Notify.success) {
       if (props.event == EventType.next) {
         toast.success('Data Saved Successfully');
-        history.push('/Discounts');
+        history.push(`/Discounts/${props.match.params.projectId}`);
       } else if (props.event == EventType.previous) {
         toast.success('Data Saved Successfully');
         history.push('/');
@@ -87,7 +85,7 @@ const Subcontractor: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> =
     data.activities[0].subContrActivityId == ''
       ? props.subContractorFormAdd(paramProjectId, data, event)
       : props.subContractorFormEdit(data, event);
-  };
+  }; 
 
   return (
     <div className="container-fluid">
@@ -103,9 +101,11 @@ const Subcontractor: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> =
                 </h1>
                 <p className="text-green"> <FormattedMessage id='PAGE_SUB_TITLE'></FormattedMessage></p>
               </div>
-            <SubcontractorForm
+            {currencySymbol != '' ? <SubcontractorForm
+              projectId={paramProjectId}
               onSubmitForm={handleEvent}
-            />
+              currencySymbol={currencySymbol}
+            />:null}
           </div>
         </div>
       </div>

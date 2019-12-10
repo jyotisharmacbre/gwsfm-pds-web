@@ -6,6 +6,7 @@ import { IPreliminaryState } from './Preliminaries/Types/IPreliminaryState';
 import { ISubContractorState } from './SubContractor/Types/ISubContractorState';
 import { IUserServiceState } from './UserService/Types/IUserServiceState';
 import { IDynamicDataState } from './DynamicsData/Types/IDynamicDataState';
+import { IDiscountState } from './DiscountForm/Types/IDiscountState';
 import { IProjectPipelineGridState } from './pipeline/Types/IProjectPipelineGridState';
 
 export type IState = {
@@ -19,5 +20,6 @@ export type IState = {
   UserService: IUserServiceState;
   dynamicData: IDynamicDataState;
   adData: IUserServiceState;
+  discount: IDiscountState;
   preliminary: IPreliminaryState;
 };

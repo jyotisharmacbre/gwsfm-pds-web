@@ -17,7 +17,9 @@ import CalculationsSummaryType from '../../../enums/CalculationsSummaryType';
 import EventType from '../../../enums/EventType';
  
 interface Props {
+  projectId:string;
   onSubmitForm: (data: ISubContractor,event:EventType) => void;
+  currencySymbol:string;
 }
 
 let SubcontractorForm: React.FC<
@@ -27,11 +29,14 @@ let SubcontractorForm: React.FC<
   return (
     <form className="subcontractor_form" onSubmit={handleSubmit} noValidate={true}>
       <CalculationsSummaryTable
+      projectId={props.projectId}
       name={CalculationsSummaryType.subContractor} 
-      subContractor={props.subContractorForm}/>
+      subContractor={props.subContractorForm}
+      currencySymbol={props.currencySymbol}/>
       <FieldArray 
       name="activities" 
       component={SubContractorActivityForm}
+      currencySymbol={props.currencySymbol}
        />
       
       <div className="mr-35 three-btn">

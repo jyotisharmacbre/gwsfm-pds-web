@@ -12,12 +12,16 @@ import PdsFormSelect from '../../PdsFormHandlers/PdsFormSelect';
 import PdsFormTextArea from '../../PdsFormHandlers/PdsFormTextArea';
 import PdsFormButton from '../../PdsFormHandlers/PdsFormButton';
 import { selectionButtons } from '../../../helpers/constants';
-import { Validate, alphaNumeric, onlyNumber } from '../../../helpers/fieldValidations';
+import {
+  Validate,
+  alphaNumeric,
+  onlyNumber
+} from '../../../helpers/fieldValidations';
 import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { LookupType } from '../../../store/Lookups/Types/LookupType';
-import { getDropdown, normalizeToNumber } from '../../../helpers/utility-helper';
+import { getDropdown, getCurrencySymbol, normalizeToNumber } from '../../../helpers/utility-helper';
 import PdsFormTypeAhead from '../../PdsFormHandlers/PdsFormTypeAhead';
 import { IProjectDetail } from '../../../store/CustomerEnquiryForm/Types/IProjectDetail';
 import { ICurrency } from '../../../store/Lookups/Types/ICurrency';
@@ -44,24 +48,12 @@ interface Props {
   adPMData: any;
 }
 
-const getCurrencySymbol = (currencies, currencyId) => {
-  let symbol = '';
-  let filter;
-  if (currencies) {
-    filter = currencies.find(element => element.currencyId == currencyId);
-    if (filter != null && filter != undefined) symbol = filter.currencySymbol;
-  }
-  return symbol;
-};
-
-const ProjectForm: React.FC<
-  Props & IReactIntl & InjectedFormProps<IProjectDetail, Props>
-> = (props: any) => {
+const ProjectForm: React.FC<Props &
+  IReactIntl &
+  InjectedFormProps<IProjectDetail, Props>> = (props: any) => {
   const {
     handleSubmit,
     projectstatus,
-    // dynamicsContract,
-    // dynamicsCompany,
     onSearchContract,
     onSearchCompany,
     onSearchHOP,
@@ -309,7 +301,7 @@ const ProjectForm: React.FC<
                               key={data.currencyId}
                               value={data.currencyId}
                             >
-                              {data.currencySymbol}
+                              {data.currencyName}
                             </option>
                           );
                         })}
@@ -471,7 +463,6 @@ const ProjectForm: React.FC<
     </div>
   );
 };
-
 
 const mapStateToProps = (state: IState) => ({
   initialValues: state.project.form,
