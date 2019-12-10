@@ -13,9 +13,11 @@ const props: any = {
 describe('Validation', () => {
   const formatMessage = jest.mock('./../Translations/connectedIntlProvider');
 
-  jest.spyOn(connectedIntlProvider, 'formatMessage').mockImplementationOnce(() => {
-    return 'intlmessage';
-  });
+  jest
+    .spyOn(connectedIntlProvider, 'formatMessage')
+    .mockImplementationOnce(() => {
+      return 'intlmessage';
+    });
   xit('Required', () => {
     let result = Validate.required('Test');
     expect(result(0)).toBeDefined();

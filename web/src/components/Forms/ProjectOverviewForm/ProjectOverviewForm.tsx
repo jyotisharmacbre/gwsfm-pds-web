@@ -29,9 +29,9 @@ interface Props {
   projectstatus: any;
 }
 
-let ProjectOverviewForm: React.FC<
-  Props & IReactIntl & InjectedFormProps<IProjectAdditionalDetail, Props>
-> = (props: any) => {
+let ProjectOverviewForm: React.FC<Props &
+  IReactIntl &
+  InjectedFormProps<IProjectAdditionalDetail, Props>> = (props: any) => {
   const { handleSubmit, initialValues } = props;
   const DropdownOptions = projectStatusData.map((status: any, i: number) => (
     <option key={i} value={status.value}>
@@ -120,7 +120,7 @@ let ProjectOverviewForm: React.FC<
                               )}
                               component="input"
                               type="radio"
-                              value={data.lookupId}
+                              value={+data.lookupKey}
                               normalize={normalize}
                             />
                             <label className="form-check-label">
@@ -248,9 +248,7 @@ let ProjectOverviewForm: React.FC<
                       )}
                       component={PdsFormSelect}
                       className="required"
-                      validate={[
-                        Validate.required('MESSAGE_PROJECT_STATUS')
-                      ]}
+                      validate={[Validate.required('MESSAGE_PROJECT_STATUS')]}
                       placeholderKey="PLACEHOLDER_WORK_TYPES"
                       messageKey="MESSAGE_PROJECT_STATUS"
                     >

@@ -6,5 +6,6 @@ export enum LookupType {
   Contract_Type = 'Contract_Type',
   Asset = 'Asset',
   Work_Type = 'Work_Type',
-  Enquiry_Type = 'Enquiry_Type'
+  Enquiry_Type = 'Enquiry_Type',
+  Discount_Type = 'Discount_Type'
 }

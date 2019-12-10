@@ -1,7 +1,7 @@
 import { memoize } from 'lodash';
-import {formatMessage} from './../Translations/connectedIntlProvider';
+import { formatMessage } from './../Translations/connectedIntlProvider';
 
-export const onlyNumber = (value) =>
+export const onlyNumber = value =>
   value && isNaN(Number(value))
     ? formatMessage('VALIDATION_NUMBER')
     : undefined;
@@ -26,7 +26,7 @@ export function fieldValidationRequired(value, message) {
   }
 }
 
-export const alphaNumeric = (value) =>
+export const alphaNumeric = value =>
   value && /[^a-zA-Z0-9 ]/i.test(value)
     ? formatMessage('VALIDATION_ONLY_ALPHA_NUM')
     : undefined;
@@ -35,7 +35,5 @@ export const Validate = {
   required: memoize(message => value =>
     fieldValidationRequired(value, message)
   ),
-  maxLength: memoize(length => value =>
-    fieldValidationLength(value, length)
-  )
+  maxLength: memoize(length => value => fieldValidationLength(value, length))
 };

@@ -1,18 +1,35 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
+import * as actions from '../../../store/rootActions';
 import {ISubContractorActivity} from '../../../store/SubContractor/Types/ISubContractorActivity';
 import CalculationsSummaryType from '../../../enums/CalculationsSummaryType'; 
-import {calculateSell,calculateAverageMargin,getSubContractorDiscountValue} from '../../../helpers/utility-helper';
+import {
+  calculateSell,
+  calculateAverageMargin,
+  getSubContractorDiscountValue,
+  getPreliminarySummaryCalculation} 
+from '../../../helpers/utility-helper';
 import IDiscountCalculation from '../../../models/IDiscountCalculation';
+import {IPreliminariesComponentDetails} from '../../../store/Preliminaries/Types/IPreliminariesComponentDetails';
+import { FormattedMessage } from 'react-intl';
  
 interface Props {
+    projectId?:string;
     subContractor?:Array<ISubContractorActivity>;
+    preliminary?:Array<IPreliminariesComponentDetails>;
     name:CalculationsSummaryType;
+    currencySymbol?:string;
 }
 
 interface IMapStateToProps {
     subContractorState:Array<ISubContractorActivity>;
+    preliminaryState:Array<IPreliminariesComponentDetails>;
+}
+
+interface IMapDispatchToProps {
+    getSubContractor: (projectId:string) => void;
+    getPreliminaryDetails: (projectId: string) => void;
 }
 
 const CalculationsSummaryTable:React.FC<Props> = (props:any) => {
@@ -21,22 +38,35 @@ const CalculationsSummaryTable:React.FC<Props> = (props:any) => {
     const [formState,setFormState] = React.useState<IDiscountCalculation>({...initDiscount});
     
     React.useEffect(()=>{
+      if (props.projectId != '') {
+        props.getSubContractor(props.projectId);
+        props.getPreliminaryDetails(props.projectId);
+      }
+    },[]);
+
+    React.useEffect(()=>{
         let localReduxState:IDiscountCalculation = {...initDiscount}; 
         if(props.name != CalculationsSummaryType.subContractor && props.subContractorState){
         getSubContractorDiscountValue(props.subContractorState,localReduxState);
         }
-        if(props.name != CalculationsSummaryType.testing && props.testing){
-        getSubContractorDiscountValue(props.testing,localReduxState);
+        if(props.name != CalculationsSummaryType.preliminary && props.preliminaryState){
+        getPreliminarySummaryCalculation(props.preliminaryState,localReduxState);
         }
         setReduxState(localReduxState);
-    },[props.subContractorState,props.testing]);
+    },[props.subContractorState,props.preliminaryState]);
 
     React.useEffect(()=>{
-        if(props.subContractor){
+        if(props.name == CalculationsSummaryType.subContractor && props.subContractor){
         setFormState(getSubContractorDiscountValue(props.subContractor,{...reduxState}));
         }
     },[props.subContractor]);
-
+    
+    React.useEffect(()=>{
+        if(props.name == CalculationsSummaryType.preliminary && props.preliminary){
+        setFormState(getPreliminarySummaryCalculation(props.preliminary,{...reduxState}));
+        }
+    },[props.preliminary]);
+    
     return (
     <div className="col-lg-8 px-0">
         <div className="price-sumry discount_table">
@@ -44,18 +74,18 @@ const CalculationsSummaryTable:React.FC<Props> = (props:any) => {
             <table className="price-table">
               <thead>
                 <tr>
-                  <th>T_HEADING_TOTAL_COST </th>
-                  <th>T-HEADING_TOTAL_MARGIN </th>
-                  <th>T-HEADING_GROSS_MARGIN </th>
-                  <th>T-HEADING_TOTAL_SELL </th>
+                  <th><FormattedMessage id='T_HEADING_TOTAL_COST'></FormattedMessage> </th>
+                  <th><FormattedMessage id='T_HEADING_TOTAL_MARGIN'></FormattedMessage> </th>
+                  <th><FormattedMessage id='T_HEADING_GROSS_MARGIN'></FormattedMessage> </th>
+                  <th><FormattedMessage id='T_HEADING_TOTAL_SELL'></FormattedMessage> </th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td>${formState.cost}</td>
+                  <td>{props.currencySymbol}{formState.cost}</td>
                   <td>{calculateAverageMargin(formState.cost,formState.sell)}(%)</td>
-                  <td>${(formState.sell-formState.cost).toFixed(2)}</td>
-                  <td>${formState.sell.toFixed(2)}</td>
+                  <td>{props.currencySymbol}{(formState.sell-formState.cost).toFixed(2)}</td>
+                  <td>{props.currencySymbol}{formState.sell.toFixed(2)}</td>
                 </tr>
               </tbody>
             </table>
@@ -65,9 +95,18 @@ const CalculationsSummaryTable:React.FC<Props> = (props:any) => {
     );
 }
 
+const mapDispatchToProps = dispatch => {
+  return {
+    getSubContractor: (projectId:string) =>
+        dispatch(actions.getSubContractor(projectId)),
+    getPreliminaryDetails: (projectId: string) =>
+      dispatch(actions.getPreliminaryDetails(projectId)),
+  };
+};
+
 const mapStateToProps = (state: IState) => ({
   subContractorState: state.subContractor.form.activities,
-  testing: state.subContractor.form.activities
+  preliminaryState: state.preliminary.preliminaryDetails
 });
 
-export default connect(mapStateToProps,null)(CalculationsSummaryTable);
+export default connect(mapStateToProps,mapDispatchToProps)(CalculationsSummaryTable);

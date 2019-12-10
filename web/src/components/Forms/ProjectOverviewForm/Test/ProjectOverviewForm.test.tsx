@@ -5,26 +5,27 @@ import { store } from '../../../../store';
 import ProjectOverviewForm from '../ProjectOverviewForm';
 import { IntlProvider } from 'react-intl';
 import translations from '../../../../Translations/translation';
-import   * as connectedIntlProvider from './../../../../Translations/connectedIntlProvider';
+import * as connectedIntlProvider from './../../../../Translations/connectedIntlProvider';
 import { ActionType } from '../../../../store/ProjectOverviewForm/Types/ActionType';
 import projectOverviewFormReducer from '../../../../store/ProjectOverviewForm/Reducer';
-import { initialState , getProjectOverviewData} from './ProjectOverviewFormTestData';
+import {
+  initialState,
+  getProjectOverviewData
+} from './ProjectOverviewFormTestData';
 import nock from 'nock';
 import { baseURL } from '../../../../client/client';
-
 
 nock(baseURL)
   .get('/api/Projects/1/additionalDetails')
   .reply(200, getProjectOverviewData);
 
-  nock(baseURL)
+nock(baseURL)
   .put('/api/Projects/additionalDetails')
   .reply(201, getProjectOverviewData);
 
-  nock(baseURL)
+nock(baseURL)
   .post('/api/Projects/additionalDetails')
-  .reply(200, "Project addition details created successfully");
-
+  .reply(200, 'Project addition details created successfully');
 
 describe('ProjectOverviewForm Fields', () => {
   let wrapper: any;
@@ -32,11 +33,15 @@ describe('ProjectOverviewForm Fields', () => {
     handleSubmit: jest.fn()
   };
   beforeEach(() => {
-    const formatMessage = jest.mock('./../../../../Translations/connectedIntlProvider');  
-   
-    jest.spyOn(connectedIntlProvider, 'formatMessage').mockImplementationOnce(() => {
-      return 'intlmessage';
-    });
+    const formatMessage = jest.mock(
+      './../../../../Translations/connectedIntlProvider'
+    );
+
+    jest
+      .spyOn(connectedIntlProvider, 'formatMessage')
+      .mockImplementationOnce(() => {
+        return 'intlmessage';
+      });
 
     wrapper = mount(
       <Provider store={store}>
@@ -199,7 +204,7 @@ describe('ProjectOverviewForm Fields', () => {
       it('should handle get get additional details successfully', () => {
         const getAdditionalDetailsAction: any = {
           type: ActionType.GET_ADDITIONALS_DETAILS_SUCCESS,
-          payload: { projectId: "1" }
+          payload: { projectId: '1' }
         };
         expect(
           projectOverviewFormReducer(initialState, getAdditionalDetailsAction)
@@ -228,7 +233,7 @@ describe('ProjectOverviewForm Fields', () => {
       it('should handle GET_PROJECT_DETAIL_ERROR with and return initialState', () => {
         const getProjectDetailError: any = {
           type: ActionType.PROJECT_OVERVIEW_FORM_ERROR,
-          error: {success: false}
+          error: { success: false }
         };
         expect(
           projectOverviewFormReducer(initialState, getProjectDetailError)

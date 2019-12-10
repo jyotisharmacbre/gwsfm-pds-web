@@ -6,14 +6,12 @@ import {
   IGetNotificationBeginAction
 } from './Type';
 
-export const getNotificationActionCreator: ActionCreator<
-  ThunkAction<
-    Promise<IGetNotificationSuccessAction>,
-    INotification,
-    null,
-    IGetNotificationSuccessAction
-  >
-> = () => {
+export const getNotificationActionCreator: ActionCreator<ThunkAction<
+  Promise<IGetNotificationSuccessAction>,
+  INotification,
+  null,
+  IGetNotificationSuccessAction
+>> = () => {
   return async (dispatch: Dispatch) => {
     const beginAction: IGetNotificationBeginAction = {
       type: 'GetNotificationBeginAction'

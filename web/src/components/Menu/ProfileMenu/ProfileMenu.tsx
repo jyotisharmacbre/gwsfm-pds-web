@@ -5,8 +5,12 @@ import FontawsomeFree from '@fortawesome/free-solid-svg-icons';
 import FontawsomeReact, {
   FontAwesomeIcon
 } from '@fortawesome/react-fontawesome';
-import { faAngleDown, faUser, faBell, faHome } from '@fortawesome/free-solid-svg-icons';  
-
+import {
+  faAngleDown,
+  faUser,
+  faBell,
+  faHome
+} from '@fortawesome/free-solid-svg-icons';
 
 // @ts-ignore
 import authentication from '@kdpw/msal-b2c-react';
@@ -23,13 +27,13 @@ export default function ProfileMenu(props: { Name?: string }) {
             <ul className="icons-blocks">
               <li id="sm_none">
                 <a href="#">
-                <FontAwesomeIcon className="" icon={faHome} />
+                  <FontAwesomeIcon className="" icon={faHome} />
                 </a>
               </li>
               <li>
                 <a href="#">
                   <i>
-                  <FontAwesomeIcon className="" icon={faBell} />
+                    <FontAwesomeIcon className="" icon={faBell} />
                     <span className="badge badge-light"></span>
                   </i>
                 </a>
@@ -44,10 +48,10 @@ export default function ProfileMenu(props: { Name?: string }) {
                     aria-haspopup="true"
                     aria-expanded="false"
                   >
-                   <FontAwesomeIcon className="" icon={faUser} />
+                    <FontAwesomeIcon className="" icon={faUser} />
                     <span id="sm_none">{props.Name}</span>
                     <span className="down-arrow">
-                    <FontAwesomeIcon className="" icon={faAngleDown} />
+                      <FontAwesomeIcon className="" icon={faAngleDown} />
                     </span>
                   </a>
 
@@ -59,21 +63,27 @@ export default function ProfileMenu(props: { Name?: string }) {
                       <ul>
                         <li>
                           <a href="#">
-                            <i><FontAwesomeIcon className="" icon={faUser} /></i>
+                            <i>
+                              <FontAwesomeIcon className="" icon={faUser} />
+                            </i>
                             <p className="title_name">First Name Last Name</p>
                             <span className="dsc">access type</span>
                           </a>
                         </li>
                         <li>
                           <a href="#">
-                            <i><FontAwesomeIcon className="" icon={faUser} /></i>
+                            <i>
+                              <FontAwesomeIcon className="" icon={faUser} />
+                            </i>
                             <p className="title_name">current location</p>
                             <span className="dsc">london-UK</span>
                           </a>
                         </li>
                         <li>
                           <a href="#">
-                            <i><FontAwesomeIcon className="" icon={faUser} /></i>
+                            <i>
+                              <FontAwesomeIcon className="" icon={faUser} />
+                            </i>
                             <p className="title_name">preferred currency</p>
                             <span className="dsc">sterling pound</span>
                           </a>
@@ -85,7 +95,6 @@ export default function ProfileMenu(props: { Name?: string }) {
                         <a href="#">SIGN OUT</a>
                       </div>
                     </div>
-                    
                   </div>
                 </div>
               </li>
