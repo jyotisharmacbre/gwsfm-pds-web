@@ -73,7 +73,8 @@ const form = reduxForm<IPreliminaryForm, Props>({
   destroyOnUnmount: false,
   forceUnregisterOnUnmount: false,
   form: 'PreliminaryForm',
-  enableReinitialize: true
+  enableReinitialize: true,
+  keepDirtyOnReinitialize :true
 })(injectIntl(PreliminaryForm));
 
 export default connect(mapStateToProps)(form);
