@@ -18,6 +18,7 @@ import EventType from '../enums/EventType';
 import { ILookup } from '../store/Lookups/Types/ILookup';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { formatMessage } from '../Translations/connectedIntlProvider';
 
 const tableHeaders: IGeneralTableHeaderProps[] = [
   { heading: 'End Client Name', subHeading: 'ING' },
@@ -109,23 +110,23 @@ const ProjectOverview: React.FC<IProps &
   return (
     <React.Fragment>
       <Container component="main">
-        <HeaderPage Title={'Project Overview'} ActionList={[]} />
+        <HeaderPage Title={formatMessage('TITLE_PROJECT_OVERVIEW')} ActionList={[]} />
         <Grid spacing={3} container>
           <Grid item xs={12} sm={12}>
             <GeneralTable
               {...{
                 headers: [
                   {
-                    heading: 'End Client Name',
+                    heading: formatMessage('LABEL_END_CLIENT_NAME'),
                     subHeading: convertToString(props.enquiryOverview.companyId)
                   },
                   {
-                    heading: 'Project Name',
+                    heading: formatMessage('MESSAGE_PROJECT_NAME'),
                     subHeading: props.enquiryOverview.projectName
                   },
-                  { heading: 'Project ID', subHeading: props.projectId },
+                  { heading: formatMessage('LABEL_PROJECT_ID'), subHeading: props.projectId },
                   {
-                    heading: 'CN Number',
+                    heading: formatMessage('LABEL_CN_NUMBER'),
                     subHeading: convertToString(props.enquiryOverview.cnNumber)
                   }
                 ],

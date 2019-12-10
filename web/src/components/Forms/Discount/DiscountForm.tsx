@@ -82,7 +82,7 @@ interface Props {
                     normalize={normalize}
                   />
                   <label className="w-100 mb-0">
-                      Sub-Total Discounts
+                      <FormattedMessage id='LABEL_SUB_TOTAL_DISCOUNTS'></FormattedMessage>
                     </label>
                     <label className="m-0 mb-4">&#163;2,000.00</label>
                   <Field
@@ -124,7 +124,7 @@ interface Props {
                   />
                   <div className="form-group">
                   <label>
-                    <FormattedMessage id="LABEL_DISCOUNT_TYPE" />*
+                    <FormattedMessage id="LABEL_DISCOUNT_TYPE" />
                   </label>
                  {props.projectstatus &&
                     props.projectstatus
@@ -169,7 +169,7 @@ interface Props {
                     )}
                   />
                   <label className="w-100 mb-0">
-                      Sub-Total Discounts
+                     <FormattedMessage id='LABEL_SUB_TOTAL_DISCOUNTS'></FormattedMessage>
                     </label>
                     <label className="m-0 mb-4">&#163;2,000.00</label>
                   <Field
