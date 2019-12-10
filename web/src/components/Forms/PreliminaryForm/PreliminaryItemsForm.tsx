@@ -24,7 +24,6 @@ const PreliminaryItemsForm:React.FC<Props>
     props.preliminaryData[props.componentIndex].items[index].totalCost=(props.preliminaryData[props.componentIndex].items[index].noOfHours*props.preliminaryData[props.componentIndex].items[index].hourRate);
   }
   const{fields,itemDetail,componentIndex,currencies,currencyId,currencySymbol,preliminaryData}=props;
-  const currencySymbols:string=getFilterElementFromArray(props.currencies,"currencyId",props.currencyId,"currencySymbol");
 
   return (
   <tbody>
@@ -89,7 +88,7 @@ const PreliminaryItemsForm:React.FC<Props>
                     Validate.maxLength(15),
                     onlyNumber
                   ]}
-                  currency={currencySymbols}
+                  currency={currencySymbol}
                   divPosition="relative"
                   placeholderKey=""
                 />:<Field
@@ -101,7 +100,7 @@ const PreliminaryItemsForm:React.FC<Props>
                   Validate.maxLength(15),
                   onlyNumber
                 ]}
-                currency={currencySymbols}
+                currency={currencySymbol}
                 divPosition="relative"
                 placeholderKey=""
               />}
@@ -116,7 +115,7 @@ const PreliminaryItemsForm:React.FC<Props>
                     Validate.maxLength(15),
                     onlyNumber
                   ]}
-                  currency={currencySymbols}
+                  currency={currencySymbol}
                   divPosition="relative"
                 />:<Field
                 name={`${member}.totalCost`}
@@ -132,7 +131,7 @@ const PreliminaryItemsForm:React.FC<Props>
                   Validate.maxLength(15),
                   onlyNumber
                 ]}
-                currency={currencySymbols}
+                currency={currencySymbol}
                 divPosition="relative"
               />}
     </td>
@@ -164,7 +163,7 @@ const PreliminaryItemsForm:React.FC<Props>
                     Validate.maxLength(15),
                     onlyNumber
                   ]}
-                  currency={currencySymbols}
+                  currency={currencySymbol}
                   divPosition="relative"
                 />
     </td>

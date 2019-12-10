@@ -18,10 +18,11 @@ interface Props {
       ) => void;
       prelimData:any;
       handleSubmit:any;
+      currencySymbol:string;
       
 }  
 
-const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleEvent,prelimData}) => (
+const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleEvent,prelimData,currencySymbol}) => (
 
   <div>
   {fields.map((member, index) => (
@@ -72,7 +73,7 @@ const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleE
               componentIndex={index}
               currencies={[]}
               currencyId={0}
-              currencySymbol={"$"}
+              currencySymbol={currencySymbol}
               key={index}
             />
            

@@ -54,7 +54,7 @@ const Preliminaries: React.FC<
   let isLookupSessionExists: boolean = (sessionStorage.getItem("lookupData") != null && sessionStorage.getItem("lookupData") != undefined && sessionStorage.getItem("lookupData") != "")
   useEffect(() => {
     window.scrollTo(0, 0);
-    paramProjectId = props.match.params.projectId;
+    paramProjectId=props.match.params.projectId;
     props.getProjectDetail(paramProjectId);
     props.getProjectStatus();
     props.getAllCurrencies();
@@ -173,6 +173,7 @@ const Preliminaries: React.FC<
                 onPrevious={handlePrevious}
                 onToggle={handleToggle}
                 preliminariesDetails={props.preliminaryDetails}
+                currencySymbol={getFilterElementFromArray(props.currencies,"currencyId",props.currencyId,"currencySymbol")}
               />
             </div>
           </form>
