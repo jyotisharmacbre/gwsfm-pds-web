@@ -30,7 +30,7 @@ export const getProjectStatus = () => {
     'Asset',
     'Work_Type',
     'Enquiry_Type',
-    'Discount_Type'
+    'Discount_Type',
     'Pre_Components',
     'Pre_Component_Items'
   ];
