@@ -12,6 +12,8 @@ import {
 from '../../../helpers/utility-helper';
 import IDiscountCalculation from '../../../models/IDiscountCalculation';
 import {IPreliminariesComponentDetails} from '../../../store/Preliminaries/Types/IPreliminariesComponentDetails';
+import { FormattedMessage } from 'react-intl';
+ 
 interface Props {
     projectId?:string;
     subContractor?:Array<ISubContractorActivity>;
@@ -65,10 +67,10 @@ const CalculationsSummaryTable:React.FC<Props> = (props:any) => {
             <table className="price-table">
               <thead>
                 <tr>
-                  <th>T_HEADING_TOTAL_COST </th>
-                  <th>T-HEADING_TOTAL_MARGIN </th>
-                  <th>T-HEADING_GROSS_MARGIN </th>
-                  <th>T-HEADING_TOTAL_SELL </th>
+                  <th><FormattedMessage id='T_HEADING_TOTAL_COST'></FormattedMessage> </th>
+                  <th><FormattedMessage id='T_HEADING_TOTAL_MARGIN'></FormattedMessage> </th>
+                  <th><FormattedMessage id='T_HEADING_GROSS_MARGIN'></FormattedMessage> </th>
+                  <th><FormattedMessage id='T_HEADING_TOTAL_SELL'></FormattedMessage> </th>
                 </tr>
               </thead>
               <tbody>
