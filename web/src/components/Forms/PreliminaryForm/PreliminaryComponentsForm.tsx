@@ -59,8 +59,8 @@ const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleE
                     <th><FormattedMessage id="T_HEADING_NO_OF_HOURS" /></th>
                     <th><FormattedMessage id="T_HEADING_HOUR_RATE" /></th>
                     <th><FormattedMessage id="T_HEADING_TOTAL_COST" /></th>
-                    <th><FormattedMessage id="T-HEADING_GROSS_MARGIN" /></th>
-                    <th><FormattedMessage id="T-HEADING_TOTAL_SELL" /></th>
+                    <th><FormattedMessage id="T_HEADING_GROSS_MARGIN" /></th>
+                    <th><FormattedMessage id="T_HEADING_TOTAL_SELL" /></th>
                     <th><FormattedMessage id="T_HEADING_COMMENTS" /></th>
                   </tr>
                 </thead>

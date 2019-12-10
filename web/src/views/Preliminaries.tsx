@@ -15,6 +15,9 @@ import { ICurrency } from '../store/Lookups/Types/ICurrency';
 import { FormattedMessage } from 'react-intl';
 import EventType from '../enums/EventType';
 import { Prompt } from "react-router-dom"
+import CalculationsSummaryTable from '../components/Table/CalculationsSummaryTable';
+import CalculationsSummaryType from '../enums/CalculationsSummaryType';
+import { getFilterElementFromArray } from '../helpers/utility-helper';
 
 interface IMapStateToProps {
   preliminaryDetails: Array<IPreliminariesComponentDetails>;
@@ -146,7 +149,11 @@ const Preliminaries: React.FC<
                 <div className="row">
                   <div className="col-lg-8">
                     <div className="table-responsive">
-                      <PreliminarySummaryView />
+                      <CalculationsSummaryTable
+                      projectId={props.match.params.projectId}
+                      name={CalculationsSummaryType.preliminary} 
+                      preliminary={props.preliminaryDetails}
+                      currencySymbol={getFilterElementFromArray(props.currencies,"currencyId",props.currencyId,"currencySymbol")}/>
                     </div>
                   </div>
                   <div className="col-lg-4">
@@ -157,9 +164,6 @@ const Preliminaries: React.FC<
                 </div>
               </div>
             </div>
-
-
-
 
             <div>
               <PreliminaryForm
