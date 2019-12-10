@@ -70,7 +70,7 @@ const Subcontractor: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> =
         history.push(`/Discounts/${props.match.params.projectId}`);
       } else if (props.event == EventType.previous) {
         toast.success('Data Saved Successfully');
-        history.push('/');
+        history.push(`/preliminaries/${props.match.params.projectId}`);
       }
       else if (props.event == EventType.save) {
         toast.success('Data Saved Successfully');
