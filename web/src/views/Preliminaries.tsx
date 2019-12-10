@@ -18,6 +18,7 @@ import { Prompt } from "react-router-dom"
 import CalculationsSummaryTable from '../components/Table/CalculationsSummaryTable';
 import CalculationsSummaryType from '../enums/CalculationsSummaryType';
 import { getFilterElementFromArray } from '../helpers/utility-helper';
+import { formValueSelector } from 'redux-form';
 
 interface IMapStateToProps {
   preliminaryDetails: Array<IPreliminariesComponentDetails>;
@@ -27,6 +28,7 @@ interface IMapStateToProps {
   notify: Notify;
   event: EventType;
   currencyId: number;
+  preliminaryForm:Array<IPreliminariesComponentDetails>;
 }
 interface IMapDispatchToProps {
   preliminaryAdd: (
@@ -152,7 +154,7 @@ const Preliminaries: React.FC<
                       <CalculationsSummaryTable
                       projectId={props.match.params.projectId}
                       name={CalculationsSummaryType.preliminary} 
-                      preliminary={props.preliminaryDetails}
+                      preliminary={props.preliminaryForm}
                       currencySymbol={getFilterElementFromArray(props.currencies,"currencyId",props.currencyId,"currencySymbol")}/>
                     </div>
                   </div>
@@ -180,6 +182,9 @@ const Preliminaries: React.FC<
   );
 };
 
+const selector = formValueSelector('PreliminaryForm');
+
+
 const mapStateToProps = (state: IState) => {
   return {
     preliminaryDetails: state.preliminary.preliminaryDetails,
@@ -187,7 +192,8 @@ const mapStateToProps = (state: IState) => {
     currencies: state.lookup.currencies,
     notify: state.preliminary.notify,
     currencyId: state.project.form.currencyId,
-    event: state.preliminary.event
+    event: state.preliminary.event,
+    preliminaryForm: selector(state, 'preliminaryDetails')
   };
 };
 
