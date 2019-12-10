@@ -5,7 +5,6 @@ import { IPreliminariesComponentDetails } from '../store/Preliminaries/Types/IPr
 import { useHistory } from 'react-router-dom';
 import * as actions from '../store/rootActions';
 import PreliminaryForm from '../components/Forms/PreliminaryForm/PreliminaryForm';
-import PreliminarySummaryView from "./PreliminarySummaryView";
 import { IPreliminaries } from '../store/Preliminaries/Types/IPreliminaries';
 import { convertIntoDatabaseModel } from "../store/Preliminaries/DataWrapper";
 import { toast } from 'react-toastify';

@@ -83,7 +83,7 @@ const PreliminaryItemsForm:React.FC<Props>
                   type="number"
                  input={{ disabled: true}}
                   component={PdsFormInput}
-                  className="width-120 pl-20 required "
+                  className="width-120 pl-20 required currency"
                   validate={[
                     Validate.maxLength(15),
                     onlyNumber
@@ -95,7 +95,7 @@ const PreliminaryItemsForm:React.FC<Props>
                 name={`${member}.hourRate`}
                 type="number"
                 component={PdsFormInput}
-                className="width-120 pl-20 required "
+                className="width-120 pl-20 required currency"
                 validate={[
                   Validate.maxLength(15),
                   onlyNumber
@@ -110,7 +110,7 @@ const PreliminaryItemsForm:React.FC<Props>
                   name={`${member}.totalCost`}
                   type="number"
                   component={PdsFormInput}
-                  className="width-120 pl-20 required"
+                  className="width-120 pl-20 required currency"
                   validate={[
                     Validate.maxLength(15),
                     onlyNumber
@@ -126,7 +126,7 @@ const PreliminaryItemsForm:React.FC<Props>
                   onchange:updateCost(index)
                   }}
                 component={PdsFormInput}
-                className="width-120 pl-20 required"
+                className="width-120 pl-20 required currency"
                 validate={[
                   Validate.maxLength(15),
                   onlyNumber
@@ -140,7 +140,7 @@ const PreliminaryItemsForm:React.FC<Props>
                   name={`${member}.grossMargin`}
                   type="number"
                   component={PdsFormInput}
-                  className="width-120 pl-20 required"
+                  className="width-120 pl-20 required currency"
                   validate={[
                     Validate.maxLength(15),
                     onlyNumber
@@ -158,7 +158,7 @@ const PreliminaryItemsForm:React.FC<Props>
                      disabled: true 
                     }}
                    component={PdsFormInput}
-                  className="width-120 pl-20 required"
+                  className="width-120 pl-20 required currency"
                   validate={[
                     Validate.maxLength(15),
                     onlyNumber
