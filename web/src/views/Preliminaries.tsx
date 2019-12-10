@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import '../components/Forms/PreliminaryForm/all.css';
-import '../components/Forms/PreliminaryForm/customSelect.css';
-import '../components/Forms/PreliminaryForm/style.css';
+// import '../components/Forms/PreliminaryForm/all.css';
+// import '../components/Forms/PreliminaryForm/customSelect.css';
+// import '../components/Forms/PreliminaryForm/style.css';
 import { connect } from 'react-redux';
 import { IState } from '../store/state';
 import { IPreliminariesComponentDetails } from '../store/Preliminaries/Types/IPreliminariesComponentDetails';
