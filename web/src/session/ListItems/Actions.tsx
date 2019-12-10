@@ -8,14 +8,12 @@ import {
   IGetCustomerContractBeginAction
 } from './Type';
 
-export const getLocaleActionCreator: ActionCreator<
-  ThunkAction<
-    Promise<IGetLocalesSuccessAction>,
-    IListItem[],
-    null,
-    IGetLocalesSuccessAction
-  >
-> = () => {
+export const getLocaleActionCreator: ActionCreator<ThunkAction<
+  Promise<IGetLocalesSuccessAction>,
+  IListItem[],
+  null,
+  IGetLocalesSuccessAction
+>> = () => {
   return async (dispatch: Dispatch) => {
     const getLocalesBeginAction: IGetLocalesBeginAction = {
       type: 'GetLocalesBegin'
@@ -48,14 +46,12 @@ export const getLocaleActionCreator: ActionCreator<
   };
 };
 
-export const getCustomerContractActionCreator: ActionCreator<
-  ThunkAction<
-    Promise<IGetCustomerContractSuccessAction>,
-    IListItem[],
-    null,
-    IGetCustomerContractSuccessAction
-  >
-> = (companyName: string) => {
+export const getCustomerContractActionCreator: ActionCreator<ThunkAction<
+  Promise<IGetCustomerContractSuccessAction>,
+  IListItem[],
+  null,
+  IGetCustomerContractSuccessAction
+>> = (companyName: string) => {
   return async (dispatch: Dispatch) => {
     const getCustomerContractBeginAction: IGetCustomerContractBeginAction = {
       type: 'GetCustomerContractBegin'

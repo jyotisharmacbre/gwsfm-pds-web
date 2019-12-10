@@ -15,7 +15,6 @@ import { IState } from '../store/state';
 //   language = navigator.language.split(/[-_]/)[0];
 // }
 
-
 let intl;
 const mapStateToProps = (state: IState) => {
   let { locale } = state.locale;
@@ -36,16 +35,16 @@ export function formatMessage(key: string, value?: object): string {
     let label: {
       [key: string]: any;
     } = {};
-    label[key] = intl.formatMessage({
-      id: key
-    }, value);
+    label[key] = intl.formatMessage(
+      {
+        id: key
+      },
+      value
+    );
     return label[key];
-  } catch{
+  } catch {
     return key;
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(IntlProvider);
+export default connect(mapStateToProps, mapDispatchToProps)(IntlProvider);
