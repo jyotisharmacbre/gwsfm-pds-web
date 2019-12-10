@@ -1,6 +1,6 @@
 enum CalculationsSummaryType {
   subContractor,
-  testing
+  preliminary
 }
 
 export default CalculationsSummaryType;

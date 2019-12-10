@@ -29,7 +29,8 @@ import {calculateSell} from '../../../helpers/utility-helper';
 
 interface Props {
   fields:any,
-  activities:Array<ISubContractorActivity>
+  activities:Array<ISubContractorActivity>;
+  currencySymbol:string;
 }
  
 const SubContractorActivityForm :React.FC<Props> = (props:Props) => {
@@ -93,7 +94,7 @@ const SubContractorActivityForm :React.FC<Props> = (props:Props) => {
                     Validate.maxLength(1000),
                     onlyNumber
                   ]}
-                  currency="$"
+                  currency={props.currencySymbol}
                   divPosition="relative"
                   labelKey="LABEL_TOTAL_COST"
                   placeholderKey=""
@@ -121,7 +122,7 @@ const SubContractorActivityForm :React.FC<Props> = (props:Props) => {
                     }}
                   component={PdsFormInput}
                   className="width-120 pl-20"
-                  currency="$"
+                  currency={props.currencySymbol}
                   divPosition="relative"
                   labelKey="LABEL_TOTAL_SELL"
                   placeholderKey=""
