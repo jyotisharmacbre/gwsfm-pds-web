@@ -145,5 +145,16 @@ describe('DiscountForm Fields', () => {
           discountFormReducer(initialState, addDiscountData)
         ).toMatchSnapshot();
       });
+
+      it('should handle edit discount successfully', () => {
+        const editProjectAction: any = {
+          type: ActionType.DISCOUNT_FORM_DATA_EDIT
+        };
+        expect(
+          discountFormReducer(initialState, editProjectAction)
+        ).toMatchSnapshot();
+      });
+
     });
+
   });

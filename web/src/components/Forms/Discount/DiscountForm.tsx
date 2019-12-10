@@ -16,7 +16,7 @@ import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { LookupType } from '../../../store/Lookups/Types/LookupType';
-import { getDropdown, getPropertyName, getDiscountTypeValue, getCurrencySymbol, getRadioOptions } from '../../../helpers/utility-helper';
+import { getDropdown, getPropertyName, getDiscountTypeValue, getCurrencySymbol, getRadioOptions, getFilterElementFromArray } from '../../../helpers/utility-helper';
 import PdsFormTypeAhead from '../../PdsFormHandlers/PdsFormTypeAhead';
 import { IProjectDetail } from '../../../store/CustomerEnquiryForm/Types/IProjectDetail';
 import { ICurrency } from '../../../store/Lookups/Types/ICurrency';
@@ -24,6 +24,7 @@ import IReactIntl from '../../../Translations/IReactIntl';
 import { MainTitle } from '../../Title/Title';
 import PdsFormRadio from '../../PdsFormHandlers/PdsFormRadio';
 import { IDiscountActivity } from '../../../store/DiscountForm/Types/IDiscountActivity';
+import { dynamicsCompany } from '../../TypeAhead/TypeAheadConstantData/dynamicCompanyData';
 
 
 interface Props {
@@ -33,6 +34,8 @@ interface Props {
   projectstatus: any;
   currencies: Array<ICurrency> | null;
   currencyId: any;
+  clientName: string;
+  otherClientName: string;
 }
 
   let DiscountForm: React.FC<Props &
@@ -40,7 +43,6 @@ interface Props {
   InjectedFormProps<IDiscountActivity, Props>> = (props: any) => {
   const { handleSubmit, initialValues, discountTypeValue } = props;
   const normalize = value => (value ? parseInt(value) : null);
-
 
   return (
     <div className="container-fluid">
@@ -105,10 +107,13 @@ interface Props {
                     <FormattedMessage id="TITLE_CLIENT_DISCOUNT" />
                   </MainTitle>
                   <Field
-                  name="clientName"
+                  input={{
+                    value: (getFilterElementFromArray(dynamicsCompany,"CompanyId", props.clientName,"Name") || props.otherClientName),
+                    disabled: true
+                    }}
                     type="text"
                     component={PdsFormInput}
-                    readOnly="readOnly"
+                   
                     labelKey="LABEL_CLIENT"
                     messageKey="LABEL_CLIENT"
                     placeholderKey="PLACEHOLDER_ENTER_CLIENT_NAME"
