@@ -84,8 +84,8 @@ const CalculationsSummaryTable:React.FC<Props> = (props:any) => {
                 <tr>
                   <td>{props.currencySymbol}{formState.cost}</td>
                   <td>{calculateAverageMargin(formState.cost,formState.sell)}(%)</td>
-                  <td>{props.currencySymbol}{(formState.sell-formState.cost).toFixed(0)}</td>
-                  <td>{props.currencySymbol}{formState.sell.toFixed(0)}</td>
+                  <td>{props.currencySymbol}{(formState.sell-formState.cost).toFixed(2)}</td>
+                  <td>{props.currencySymbol}{formState.sell.toFixed(2)}</td>
                 </tr>
               </tbody>
             </table>
