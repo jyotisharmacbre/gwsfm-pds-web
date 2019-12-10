@@ -54,7 +54,7 @@ export const getFilterElementFromArray = (array:any, property:string,value:numbe
 
 export const calculateSell = (cost:number,margin:number) =>{
   let sell =0;
-  let divide = (1- margin)/100)
+  let divide = (1- margin/100);
   if(divide != 0)
   sell = cost / divide;
   return sell.toFixed(2);

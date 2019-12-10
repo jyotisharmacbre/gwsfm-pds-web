@@ -59,7 +59,6 @@ const SubContractorActivityForm :React.FC<Props> = (props:Props) => {
                   type="text"
                   component={PdsFormInput}
                   validate={[
-                    Validate.required('LABEL_ACTIVITY_NAME'),
                     Validate.maxLength(1000)
                   ]}
                   labelKey="LABEL_ACTIVITY_NAME"
