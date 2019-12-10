@@ -37,19 +37,19 @@ export const getdiscountFormData = {
     export const initialState = {
         form: {
             discountId: '',
-            projectId: '',
-            supplierName: '',
-            supplierState: '',
-            supplierTotalDiscount: undefined,
-            supplierComments: '',
-            clientState: '',
+            projectId: '123',
+            supplierName: 'Test',
+            supplierState: 'Test',
+            supplierTotalDiscount: 1,
+            supplierComments: 'Test',
+            clientState: 'Test',
             discountType: 1,
-            clientDiscount: undefined,
-            clientComments: ''
+            clientDiscount: 1,
+            clientComments: 'Test'
           },
           error: null,
           loading: false,
-          notify: Notify.none,
-          event: EventType.none
+          notify: Notify.success,
+          event: EventType.save
       };
     
