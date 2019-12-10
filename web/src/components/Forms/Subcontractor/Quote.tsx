@@ -26,7 +26,6 @@ const Quote = ({ fields }) => (
                         type="text"
                         component={PdsFormInput}
                         validate={[
-                            Validate.required('LABEL_SUPPLIER_NAME'),
                             Validate.maxLength(1000)
                           ]}
                         labelKey="LABEL_ACTIVITY_NAME"
@@ -38,7 +37,6 @@ const Quote = ({ fields }) => (
                         component={PdsFormInput}
                         className="width-120 pl-20 required"
                         validate={[
-                          Validate.required('LABEL_QUOTE_VALUE'),
                           Validate.maxLength(1000),
                           onlyNumber
                         ]}
