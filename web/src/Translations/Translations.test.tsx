@@ -5,15 +5,19 @@ import localeReducer from './Reducer';
 import { baseURL } from '../client/client';
 import { ILocaleState } from '../session/state';
 import configureMockStore from 'redux-mock-store';
-import ConnectedIntlProvider from './connectedIntlProvider';
+import ConnectedIntlProvider, { formatMessage } from './connectedIntlProvider';
 import {
   IGetLocalesSuccessAction,
   IGetLocalesBeginAction,
   IGetLocalesFailureAction
 } from './Type';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import React from 'react';
 import { Provider } from 'react-redux';
+import { store } from '../store';
+import { IntlProvider } from 'react-intl';
+import translations from './translation';
+import Translate from './translate';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -40,6 +44,7 @@ describe('ConnectedIntlProvider', () => {
   it('should return ConnectedIntlProvider', () => {
     expect(ConnectedIntlProvider.displayName).toMatchSnapshot();
   });
+
 });
 
 describe('locale reducer', () => {
@@ -89,3 +94,23 @@ describe('actions', () => {
     expect(store.getActions()).toMatchSnapshot();
   });
 });
+
+describe('Translation', () => {
+  it('should return formatted message when passing key as FIELD_VALIDATION_KEY', () => {
+    mount(<Provider store={store}>
+      <ConnectedIntlProvider>
+      </ConnectedIntlProvider>
+    </Provider>);
+    expect(formatMessage('FIELD_VALIDATION_KEY', { 0: 552 })).toMatchSnapshot();
+  });
+
+  it('should return formatted message when passing a key', () => {
+
+    const locale = 'en';
+    const messages = translations[locale].messages
+    const intlProvider = new IntlProvider({ locale, messages });
+
+    expect(Translate.getLabel({ intl: intlProvider.state.intl }, 'VALIDATION_IS_REQUIRED', { 0: 'Name' })).toMatchSnapshot();
+  })
+})
+

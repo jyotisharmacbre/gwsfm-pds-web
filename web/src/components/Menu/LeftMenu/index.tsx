@@ -58,7 +58,7 @@ const LeftMenu: React.FC = (props: any) => {
           </Link>
           <ul className="collapse list-unstyled show" id="homeSubmenu">
             <li className="subactive">
-              <Link to="/">preliminaries</Link>
+              <Link to="/preliminaries">preliminaries</Link>
             </li>
             <li>
               <Link to="/Subcontractor">subcontractors</Link>

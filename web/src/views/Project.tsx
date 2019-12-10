@@ -76,7 +76,9 @@ const Project: React.FC<IMapStateToProps & IMapDispatchToProps> = props => {
     if (props.notify == Notify.success) {
       if (props.event == EventType.next) {
         toast.success('Data Saved Successfully');
-        history.push('/ProjectOverview');
+        history.push({
+          pathname: `/projectoverview/${props.projectId}`
+        })
       } else if (props.event == EventType.save) {
         toast.success('Data Saved Successfully');
       }
@@ -123,8 +125,6 @@ const Project: React.FC<IMapStateToProps & IMapDispatchToProps> = props => {
       onSearchContract={onSearchContract}
       onSearchCompany={onSearchCompany}
       projectstatus={props.projectStatus}
-      dynamicsContract={props.dynamicsContract}
-      dynamicsCompany={props.dynamicsCompany}
       onSearchHOP={onSearchHOP}
       onSearchPO={onSearchPO}
       onSearchPM={onSearchPM}
