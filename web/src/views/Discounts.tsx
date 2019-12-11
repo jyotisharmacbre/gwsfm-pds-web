@@ -25,7 +25,7 @@ interface IMapDispatchToProps {
     event: EventType
   ) => void;
   resetDiscountState: () => void;
-  getProjectDetail: (projectId: string) => void;
+  getDiscountData: (projectId: string) => void;
   getAllCurrencies: () => void;
 }
 
@@ -56,8 +56,7 @@ interface IMapStateToProps {
       props.getProjectStatus();
       props.getAllCurrencies();
       if (paramProjectId != null && paramProjectId != '') {
-        console.log(paramProjectId, "paramProjectId")
-        props.getProjectDetail(paramProjectId);
+        props.getDiscountData(paramProjectId);
       }
     }, []);
 
@@ -145,8 +144,8 @@ interface IMapStateToProps {
         resetDiscountState: () =>
       dispatch(actions.resetDiscountState()),
       getAllCurrencies: () => dispatch(actions.getAllCurrencies()),
-      getProjectDetail: (projectId: string) =>
-      dispatch(actions.getProjectDetail(projectId)),
+      getDiscountData: (projectId: string) =>
+      dispatch(actions.getDiscountData(projectId)),
     };
   };
   

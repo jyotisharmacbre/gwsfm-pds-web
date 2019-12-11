@@ -163,14 +163,11 @@ interface Props {
                     labelKey="LABEL_DISCOUNT"
                     placeholderKey="PLACEHOLDER_DISCOUNT"
                     normalize={normalize}
-                    discountBind = {getDiscountTypeValue([
-                      { lookupKey: 1, description: 'Percent (%)'},
-                      { lookupKey: 2, description: 'Value (#)'}
-                    ], discountTypeValue,
-                      getCurrencySymbol(
-                      props.currencies,
-                      props.currencyId
-                    )
+                    discountBind = {getDiscountTypeValue(props.projectstatus
+                      .filter(
+                        element => element.lookupItem == LookupType.Discount_Type
+                      ), discountTypeValue,
+                      getFilterElementFromArray(props.currencies,"currencyId", props.currencyId,"currencySymbol")                      
                     )}
                   />
                   <label className="w-100 mb-0">

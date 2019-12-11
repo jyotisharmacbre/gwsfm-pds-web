@@ -33,6 +33,21 @@ const discountFormError = (error: string) => {
   };
 };
 
+const getDiscountDataSuccess = (response: IDiscountActivity) => {
+  return {
+    type: ActionType.DISCOUNT_FORM_DATA_GET,
+    payload: response
+  };
+};
+
+const getDiscountDataError = (error: string) => {
+  return {
+    type: ActionType.DISCOUNT_FORM_DATA_GET_ERROR,
+    payload: error
+  };
+};
+
+
 const headers = {
   'Content-Type': 'application/json'
 };
@@ -64,6 +79,20 @@ export const discountFormEdit = (
       })
       .catch(error => {
         dispatch(discountFormError(error));
+      });
+  };
+};
+
+export const getDiscountData = (projectId: string) => {
+  return (dispatch: Dispatch) => {
+    axios.baseAPI
+    .get(`api/Discounts/${projectId}`, { headers: headers })
+      .then(response => {
+        console.log(response.data, "data")
+        dispatch(getDiscountDataSuccess(response.data));
+      })
+      .catch(error => {
+        dispatch(getDiscountDataError(error));
       });
   };
 };
