@@ -132,8 +132,7 @@ interface Props {
                     <FormattedMessage id="LABEL_DISCOUNT_TYPE" />
                   </label>
                  {props.projectstatus &&
-                    props.projectstatus
-                      .filter(
+                    props.projectstatus.filter(
                         element => element.lookupItem == LookupType.Discount_Type
                       )
                       .map((data, index) => {
@@ -163,7 +162,7 @@ interface Props {
                     labelKey="LABEL_DISCOUNT"
                     placeholderKey="PLACEHOLDER_DISCOUNT"
                     normalize={normalize}
-                    discountBind = {getDiscountTypeValue(props.projectstatus
+                    discountBind = {getDiscountTypeValue(props.projectstatus && props.projectstatus
                       .filter(
                         element => element.lookupItem == LookupType.Discount_Type
                       ), discountTypeValue,
