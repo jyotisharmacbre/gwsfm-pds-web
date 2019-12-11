@@ -132,7 +132,6 @@ const ProjectOverview: React.FC<IProps &
                 ],
                 content: props.projectScope,
                 editActionClick: () => {
-                  debugger;
                   history.push(`/Project/${props.match.params.projectId}`);
                 }
               }}

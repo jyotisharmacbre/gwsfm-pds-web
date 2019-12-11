@@ -80,7 +80,6 @@ const Subcontractor: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> =
   }, [props.notify, props.event]);
 
   const handleEvent= (data: ISubContractor,event:EventType) => {
-    console.log(data);
     paramProjectId = props.match.params.projectId;
     data.activities[0].subContrActivityId == ''
       ? props.subContractorFormAdd(paramProjectId, data, event)

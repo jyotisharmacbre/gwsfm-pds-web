@@ -67,13 +67,11 @@ interface IProps {
 
 const Project: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = props => {
   let history = useHistory();
-  console.log(props.projectId, "projectid")
   useEffect(() => {
     window.scrollTo(0, 0);
     props.getProjectStatus();
     props.getAllCurrencies();
     let paramProjectId = props.match.params.projectId;
-    debugger;
     if (paramProjectId != null && paramProjectId != '') {
       props.getProjectDetail(paramProjectId);
     }

@@ -55,7 +55,6 @@ const headers = {
 export const discountFormAdd = ( projectId: string, data: IDiscountActivity, event: EventType) => {
   return (dispatch: Dispatch) => {
     data.projectId = projectId;
-    console.log(data, "submitted")
     axios.baseAPI
       .post('/api/Discounts/adddiscount', data, { headers: headers })
       .then(response => {
@@ -88,7 +87,6 @@ export const getDiscountData = (projectId: string) => {
     axios.baseAPI
     .get(`api/Discounts/${projectId}`, { headers: headers })
       .then(response => {
-        console.log(response.data, "data")
         dispatch(getDiscountDataSuccess(response.data));
       })
       .catch(error => {
