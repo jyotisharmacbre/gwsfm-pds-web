@@ -11,7 +11,6 @@ import { useHistory } from 'react-router-dom';
 
 
 const Layout :React.FC<IAppProps> = (props:any) => {
-  debugger;
   let history = useHistory();
   const { Theme, UseStyles } = props;
   
