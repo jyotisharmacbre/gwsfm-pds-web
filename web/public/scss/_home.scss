@@ -106,6 +106,7 @@
     &.user-dropdown {
         top: 24px !important;
         padding: 0;
+        display: inherit;
         width: 265px;
         right: -20px;
         left: auto;
@@ -398,4 +399,5 @@
     font-size: 12px;
     font-style: italic;
     font-weight: 300;
+    position: absolute;
 }

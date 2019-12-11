@@ -1,6 +1,6 @@
 import { Grid } from '@material-ui/core';
 import React from 'react';
-import { injectIntl } from 'react-intl';
+import { injectIntl, FormattedMessage } from 'react-intl';
 import CardContainer from '../components/CardContainer/CardContainer';
 import MultipleChart from '../components/Charts/MultipleCharts';
 import PreferredChart from '../components/Charts/PreferredChart';
@@ -13,6 +13,7 @@ import Translate from '../Translations/translate';
 import { Link } from 'react-router-dom';
 import { Tile } from '../components/Tile';
 import { Row, Col } from 'react-bootstrap';
+import { formatMessage } from '../Translations/connectedIntlProvider';
 
 class JustificationAuthorisation extends React.Component<IReactIntl> {
   GetButtons() {
@@ -114,6 +115,10 @@ class JustificationAuthorisation extends React.Component<IReactIntl> {
                 </p>
               </div>
               <Tile></Tile>
+              <div className="mr-35 three-btn mt-4">
+                <button className="active" type="button"> <FormattedMessage id="BUTTON_PREVIOUS"></FormattedMessage></button>
+                <button type="button" name="next" className="ml-auto"><FormattedMessage id="BUTTON_SAVE"></FormattedMessage></button>
+              <button type="button" name="next" className=""><FormattedMessage id="BUTTON_NEXT"></FormattedMessage></button></div>
             </div>
           </Col>
         </Row>
