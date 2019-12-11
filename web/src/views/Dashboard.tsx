@@ -33,7 +33,10 @@ class Dashboard extends React.Component<IReactIntl> {
                       <Link to="/Pipeline">
                         <button name="save" className="active mr-3" type="button">PIPELINE</button>
                       </Link>
-                      <button type="button" name="next">CREATE NEW PROJECT</button></div>
+                      <Link to="/Project">
+                      <button type="button" name="next">CREATE NEW PROJECT</button>
+                      </Link>
+                     </div> 
                   </div>
                 </div>
               </div>
