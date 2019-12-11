@@ -44,7 +44,4 @@ const Notification: React.FC<INotificationProps> = props => {
   );
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Notification);
+export default connect(mapStateToProps, mapDispatchToProps)(Notification);

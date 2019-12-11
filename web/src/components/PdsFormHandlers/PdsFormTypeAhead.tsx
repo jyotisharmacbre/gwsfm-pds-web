@@ -35,7 +35,8 @@ const PdsFormTypeAhead: React.FC<IMapDispatchToProps> = (props: any) => {
   return (
     <div className={'form-group'}>
       <label>
-        <FormattedMessage id={labelKey} />{className && className.split(' ').includes('required') ? '*' : ''}
+        <FormattedMessage id={labelKey} />
+        {className && className.split(' ').includes('required') ? '*' : ''}
       </label>
       <AsyncTypeahead
         filterBy={() => true}
@@ -62,8 +63,5 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(PdsFormTypeAhead);
+export default connect(null, mapDispatchToProps)(PdsFormTypeAhead);
 // export default injectIntl(PdsFormTypeAhead);

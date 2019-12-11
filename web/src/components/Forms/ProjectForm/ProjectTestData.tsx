@@ -1,5 +1,5 @@
-import Notify from "../../../enums/Notify";
-import EventType from "../../../enums/EventType";
+import Notify from '../../../enums/Notify';
+import EventType from '../../../enums/EventType';
 
 export const ProjectFormProps = {
   name: 'Test',
@@ -104,4 +104,3 @@ export const getprojectDetailData = {
   event: EventType.none,
   enquiryOverviewError: null
 };
-

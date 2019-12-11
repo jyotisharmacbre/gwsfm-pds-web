@@ -38,6 +38,48 @@ export const getDropdown = (data, value) => {
   return result;
 };
 
+export const getRadioOptions = (data, value) => {
+  let result =
+    data &&
+    data.map((status: any, i: number) => {
+      
+      if (status.lookupItem == value) {
+        console.log(status, "Items")
+        return status;
+      }
+    });
+  return result;
+};
+
+
+
+export const getCurrencySymbol = (currencies, currencyId) => {
+  let symbol = '';
+  let filter;
+  if (currencies) {
+    filter = currencies.find(element => element.currencyId == currencyId);
+    if (filter != null && filter != undefined) symbol = filter.currencySymbol;
+  }
+  return symbol;
+};
+
+
+
+export const getDiscountTypeValue = (data, value, currency) =>{
+let result = data && data.map((dataValue: any, i: number) => {
+  if(dataValue.lookupKey == value){
+    let arr= dataValue.description.split(' ');
+    let arrValue = arr[1][1];
+    if(arrValue == "#"){
+      return currency;
+    }
+    else{
+      return arrValue;
+    }
+  }
+})
+return result;
+}
 export const normalizeToNumber = value => (
   value = +value
 )
