@@ -109,7 +109,7 @@ const ProjectForm: React.FC<Props &
                   component={PdsFormInput}
                   className="required"
                   validate={[
-                    Validate.required('LABEL_PROJECT'),
+                    Validate.require('LABEL_PROJECT'),
                     Validate.maxLength(1000)
                   ]}
                   messageKey="MESSAGE_PROJECT_NAME"
