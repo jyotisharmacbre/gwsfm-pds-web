@@ -41,10 +41,8 @@ export const getDropdown = (data, value) => {
 export const getRadioOptions = (data, value) => {
   let result =
     data &&
-    data.map((status: any, i: number) => {
-      
+    data.map((status: any, i: number) => {      
       if (status.lookupItem == value) {
-        console.log(status, "Items")
         return status;
       }
     });

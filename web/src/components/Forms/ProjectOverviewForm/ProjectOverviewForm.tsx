@@ -14,6 +14,13 @@ import { IProjectAdditionalDetail } from '../../../store/ProjectOverviewForm/Typ
 import { getPropertyName, getDropdown } from '../../../helpers/utility-helper';
 import { LookupType } from '../../../store/Lookups/Types/LookupType';
 import EventType from '../../../enums/EventType';
+import FontawsomeSvg from '@fortawesome/fontawesome-svg-core';
+import FontawsomeFree from '@fortawesome/free-solid-svg-icons';
+import FontawsomeReact, {
+  FontAwesomeIcon
+} from '@fortawesome/react-fontawesome';
+import { faCheckCircle, faClock, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
+
 
 import {
   projectStatusData,
@@ -40,7 +47,7 @@ let ProjectOverviewForm: React.FC<Props &
   ));
   const normalize = value => (value ? parseInt(value) : null);
   return (
-    <div className="container">
+    <div className="container-fluid">
       <div className="row">
         <div className="col-lg-12 col-sm-12">
           <form
@@ -261,7 +268,7 @@ let ProjectOverviewForm: React.FC<Props &
                 </div>
 
                 <div className="row">
-                  <div className="col-xl-12">
+                  <div className="col-xl-10">
                     <div className="form-group">
                       <label>
                         <FormattedMessage id="LABEL_PROJECT_PLAN" />
@@ -304,7 +311,7 @@ let ProjectOverviewForm: React.FC<Props &
                 </div>
 
                 <div className="row">
-                  <div className="col-xl-12">
+                  <div className="col-xl-10">
                     <div className="form-group">
                       <label>Project Plan</label>
                       <div className="calender-wrap">
@@ -439,6 +446,218 @@ let ProjectOverviewForm: React.FC<Props &
                 />
               </div>
             </div>
+            {/* AUTHORISED SECTION */}
+            <div className="row">
+              <div className="col-xl-6">
+                <div className="authorised_form_wrap">
+                  <h6 className="ml-0">
+                    <FormattedMessage id="TITLE_PROJECT_AUTHORISED" />
+                  </h6>
+                  <div className="authorised_form_inner">
+                    <div className="row">
+                      <div className="col-md-12 d-flex">
+                        <label><FormattedMessage id="LABEL_AUTHORISED_BY" /></label>
+                        <h6 className="mb-0 d-none d-lg-block"><FormattedMessage id="TITLE_SIGN_OFF_STATUS" /> </h6>
+                      </div>
+                      <div className="col-lg-9">
+                          {/* <input className="form-control" type="text" placeholder="" /> */}
+                          <Field
+                            name={getPropertyName(
+                              initialValues,
+                              prop => prop.mainContractor
+                            )}
+                            data-test="mainContractor"
+                            type="text"
+                            component={PdsFormInput}                            
+                            rightSideFixPlaceHolderKey = "FIX_TEXT_HOP"
+                            className="required"
+                            validate={[
+                              Validate.required(''),
+                              Validate.maxLength(1000)
+                            ]}
+                            warn={alphaNumeric}
+                          />
+                      </div>
+                      <div className="col-lg-3">
+
+                        <div className="approve_state">
+                          <span className="icon"><FontAwesomeIcon className="green" icon={faCheckCircle} /></span>
+                          <label className='approv_label'><FormattedMessage id="LABEL_APPROVED" /> </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="row align-items-stretch">
+                      <div className="col-lg-9 col-md-12 d-flex">
+                        <label> Authorised By Up To &#163; 100k</label>
+                      </div>
+                      <div className="col-lg-9">
+                        <div className="form-group">
+                          <input className="form-control" type="number" placeholder="" />
+                          <span className="right_fix_txt"><FormattedMessage id="FIX_TEXT_AGM" /></span>
+                        </div>
+                      </div>
+                      <div className="col-lg-3">
+                        <div className="approve_state">
+                          <span className="icon"><FontAwesomeIcon className="green" icon={faCheckCircle} /></span>
+                          <label className='approv_label'><FormattedMessage id="LABEL_APPROVED" /> </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="row align-items-stretch">
+                      <div className="col-lg-9 col-md-12 d-flex">
+                        <label> Authorised By Up To &#163; 250k</label>
+                      </div>
+                      <div className="col-lg-9">
+                        <div className="form-group">
+                          <input className="form-control" type="number" placeholder="" />
+                          <span className="right_fix_txt"><FormattedMessage id="FIX_TEXT_COM" /> </span>
+                        </div>
+                      </div>
+                      <div className="col-lg-3">
+                        <div className="approve_state">
+                          <span className="icon"><FontAwesomeIcon className="orange" icon={faClock} /></span>
+                          <label className="approv_label"><FormattedMessage id="LABEL_PENDING" /> </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="row align-items-stretch">
+                      <div className="col-lg-9 col-md-12 d-flex">
+                        <label> Authorised By Up To &#163; 250k</label>
+                      </div>
+                      <div className="col-lg-9">
+                        <div className="form-group">
+                          <input className="form-control" type="number" placeholder="" />
+                          <span className="right_fix_txt"><FormattedMessage id="FIX_TEXT_BUL" /> </span>
+                        </div>
+                      </div>
+                      <div className="col-lg-3">
+                        <div className="approve_state">
+                          <span className="icon"><FontAwesomeIcon className="orange" icon={faClock} /></span>
+                          <label className='approv_label'><FormattedMessage id="LABEL_PENDING" /> </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="row align-items-stretch">
+                      <div className="col-lg-9 col-md-12 d-flex">
+                        <label> Authorised By Up To &#163; 1 Million</label>
+                      </div>
+                      <div className="col-lg-9">
+                        <div className="form-group">
+                          <input className="form-control" type="number" placeholder="" />
+                          <span className="right_fix_txt"><FormattedMessage id="FIX_TEXT_DPD" /> </span>
+                        </div>
+                      </div>
+                      <div className="col-lg-3">
+                        <div className="approve_state">
+                          <span className="icon"><FontAwesomeIcon className="orange" icon={faExclamationTriangle} /></span>
+                          <label className='approv_label'><FormattedMessage id="LABEL_RESPONSE_AWAITED" /> </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="row align-items-stretch">
+                      <div className="col-lg-9">
+                        <div className="form-group">
+                          <input className="form-control" type="number" placeholder="" />
+                          <span className="right_fix_txt"><FormattedMessage id="FIX_TEXT_DMD" /> </span>
+                        </div>
+                      </div>
+                      <div className="col-lg-3">
+                        <div className="approve_state">
+                          <span className="icon"><FontAwesomeIcon className="orange" icon={faExclamationTriangle} /></span>
+                          <label className='approv_label'><FormattedMessage id="LABEL_RESPONSE_AWAITED" /> </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="row align-items-stretch">
+                      <div className="col-lg-9 col-md-12 d-flex">
+                        <label> Authorised By Up To &#163; 3 Million</label>
+                        <label className="right_label"><FormattedMessage id="LABEL_DELEGATE" /> </label>
+                      </div>
+                      <div className="col-lg-9">
+                        <div className="form-group">
+                          <input className="form-control" type="number" placeholder="" />
+                          <span className="right_fix_txt"><FormattedMessage id="FIX_TEXT_DOFP" /> </span>
+                        </div>
+                      </div>
+                      <div className="col-lg-3">
+                        <div className="approve_state">
+                          <span className="icon"><FontAwesomeIcon className="orange" icon={faExclamationTriangle} /></span>
+                          <label className='approv_label'><FormattedMessage id="LABEL_RESPONSE_AWAITED" /> </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="row align-items-stretch">
+                      <div className="col-lg-9 col-md-12 d-flex">
+                        <label className="right_label"><FormattedMessage id="LABEL_DELEGATE" /> </label>
+                      </div>
+                      <div className="col-lg-9">
+                        <div className="form-group">
+                          <input className="form-control" type="number" placeholder="" />
+                          <span className="right_fix_txt"><FormattedMessage id="FIX_TEXT_PCOMM" /> </span>
+                        </div>
+                      </div>
+                      <div className="col-lg-3">
+                        <div className="approve_state">
+                          <span className="icon"><FontAwesomeIcon className="orange" icon={faExclamationTriangle} /></span>
+                          <label className='approv_label'><FormattedMessage id="LABEL_RESPONSE_AWAITED" /></label>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="row align-items-stretch">
+                      <div className="col-lg-9 col-md-12 d-flex">
+                        <label className="right_label"><FormattedMessage id="LABEL_DELEGATE" /></label>
+                      </div>
+                      <div className="col-lg-9">
+                        <div className="form-group">
+                          <input className="form-control" type="number" placeholder="" />
+                          <span className="right_fix_txt"><FormattedMessage id="FIX_TEXT_COO_UK_FD" /> </span>
+                        </div>
+                      </div>
+                      <div className="col-lg-3">
+                        <div className="approve_state">
+                          <span className="icon"><FontAwesomeIcon className="orange" icon={faExclamationTriangle} /></span>
+                          <label className='approv_label'><FormattedMessage id="LABEL_RESPONSE_AWAITED" /></label>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="row align-items-stretch">
+                      <div className="col-lg-9 col-md-12 d-flex">
+                        <label>Over &#163; 3 Million Authority</label></div>
+                      <div className="col-lg-9">
+                        <div className="form-group">
+                          <input className="form-control" type="number" placeholder="" />
+                          <span className="right_fix_txt"><FormattedMessage id="FIX_TEXT_CEO_GROUP_FD" /> </span>
+                        </div>
+                      </div>
+                      <div className="col-lg-3">
+                        <div className="approve_state">
+                          <span className="icon"><FontAwesomeIcon className="green" icon={faCheckCircle} /></span>
+                          <label className='approv_label'><FormattedMessage id="LABEL_APPROVED" /></label>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="row align-items-stretch">
+                      <div className="col-lg-9 col-md-12 d-flex">
+                        <label>Over &#163; 4.5 Million</label>
+                      </div>
+                      <div className="col-lg-9">
+                        <div className="form-group">
+                          <input className="form-control" type="number" placeholder="" />
+                          <span className="right_fix_txt"><FormattedMessage id="FIX_TEXT_CBRE_REGULATIONS" /></span>
+                        </div>
+                      </div>
+                      <div className="col-lg-3">
+                        <div className="approve_state">
+                          <span className="icon"><FontAwesomeIcon className="green" icon={faCheckCircle} /></span>
+                          <label className='approv_label'><FormattedMessage id="LABEL_APPROVED" /></label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div className="mr-35 d-flex justify-content-between mb-4">
               <button
                 className="active mb-4 mt-5"
@@ -451,7 +670,7 @@ let ProjectOverviewForm: React.FC<Props &
                 type="button"
                 name="next"
                 onClick={handleSubmit(values => props.onNext(values))}
-                className="mb-4 mt-5 text-right mr-0"
+                className="mb-4 mt-5 mr-0"
               >
                 <FormattedMessage id="BUTTON_NEXT" />
               </button>

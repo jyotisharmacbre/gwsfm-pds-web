@@ -1,7 +1,6 @@
 body {
     background-color: map-get($colors, grey04);
     font-family: 'Hind', sans-serif !important;
-    ;
 }
 
 #content {
@@ -75,6 +74,9 @@ form {
         &:focus {
             @include boxShadow(1px 0px 7px rgba(170, 169, 169, 0.2));
             border: 1px solid transparent;
+        }
+        &.custom-space {
+            padding: 12px 10px 8px 30px;
         }
     }
     textarea {
@@ -210,6 +212,12 @@ form {
     //   }
 }
 
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none !important; 
+  margin: 0 !important; 
+}
+
 button[type="submit"],
 button[type="button"] {
     background-color: #006a4d;
@@ -247,7 +255,10 @@ button[type="button"] {
     max-width: 120px;
 }
 
-.pl-20 {
+.width-285 {
+    max-width: 285px;
+}
+.pl-20{
     padding-left: 20px !important;
 }
 
@@ -308,7 +319,9 @@ button[type="button"] {
             margin-bottom: 15px;
         }
         &:first-child {
+            @include mdScreen {
             margin-left: initial!important;
+            }
         }
         &:nth-child(2) {
             @include smsScreen {

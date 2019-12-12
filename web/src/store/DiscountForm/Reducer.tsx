@@ -57,6 +57,23 @@ const resetDiscountState = (oldState, action) => {
   });
 };
 
+
+const getdiscountDataSuccess = (oldState, action) => {
+  return updateObject(oldState, {
+    event: action.event,
+    form: updateObject(oldState.form, action.payload)
+  });
+};
+
+const getdiscountDataError = (oldState, action) => {
+  return updateObject(oldState, {
+    error: action.error,
+    loading: false,
+    notify: Notify.error
+  });
+};
+
+
 const discountFormReducer = (oldState = initialState, action) => {
   switch (action.type) {
     case ActionType.DISCOUNT_FORM_DATA_ADD:
@@ -67,6 +84,10 @@ const discountFormReducer = (oldState = initialState, action) => {
       return discountFormError(oldState, action);
       case ActionType.RESET_DISCOUNT_FORM_STATE:
       return resetDiscountState(oldState, action);
+      case ActionType.DISCOUNT_FORM_DATA_GET:
+      return getdiscountDataSuccess(oldState, action);
+    case ActionType.DISCOUNT_FORM_DATA_GET_ERROR:
+      return getdiscountDataError(oldState, action);
     default:
       return oldState;
   }

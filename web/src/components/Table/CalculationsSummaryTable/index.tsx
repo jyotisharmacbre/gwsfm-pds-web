@@ -38,7 +38,7 @@ const CalculationsSummaryTable:React.FC<Props> = (props:any) => {
     const [formState,setFormState] = React.useState<IDiscountCalculation>({...initDiscount});
     
     React.useEffect(()=>{
-      if (props.projectId != '') {
+      if (props.projectId != '' && props.projectId != undefined && props.projectId != null) {
         props.getSubContractor(props.projectId);
         props.getPreliminaryDetails(props.projectId);
       }
@@ -46,6 +46,12 @@ const CalculationsSummaryTable:React.FC<Props> = (props:any) => {
 
     React.useEffect(()=>{
         let localReduxState:IDiscountCalculation = {...initDiscount}; 
+        if(props.name == CalculationsSummaryType.subContractor && props.subContractor){
+          setFormState(getSubContractorDiscountValue(props.subContractor,{...reduxState}));
+          }
+          if(props.name == CalculationsSummaryType.preliminary && props.preliminary){
+            setFormState(getPreliminarySummaryCalculation(props.preliminary,{...reduxState}));
+            }
         if(props.name != CalculationsSummaryType.subContractor && props.subContractorState){
         getSubContractorDiscountValue(props.subContractorState,localReduxState);
         }
@@ -53,20 +59,7 @@ const CalculationsSummaryTable:React.FC<Props> = (props:any) => {
         getPreliminarySummaryCalculation(props.preliminaryState,localReduxState);
         }
         setReduxState(localReduxState);
-    },[props.subContractorState,props.preliminaryState]);
-
-    React.useEffect(()=>{
-        if(props.name == CalculationsSummaryType.subContractor && props.subContractor){
-        setFormState(getSubContractorDiscountValue(props.subContractor,{...reduxState}));
-        }
-    },[props.subContractor]);
-    
-    React.useEffect(()=>{
-        if(props.name == CalculationsSummaryType.preliminary && props.preliminary){
-        setFormState(getPreliminarySummaryCalculation(props.preliminary,{...reduxState}));
-        }
-    },[props.preliminary]);
-    
+    },[props.subContractor,props.preliminary,props.subContractorState,props.preliminaryState]);
     return (
     <div className="col-lg-8 px-0">
         <div className="price-sumry discount_table">

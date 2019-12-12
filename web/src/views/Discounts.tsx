@@ -25,7 +25,7 @@ interface IMapDispatchToProps {
     event: EventType
   ) => void;
   resetDiscountState: () => void;
-  getProjectDetail: (projectId: string) => void;
+  getDiscountData: (projectId: string) => void;
   getAllCurrencies: () => void;
 }
 
@@ -56,8 +56,7 @@ interface IMapStateToProps {
       props.getProjectStatus();
       props.getAllCurrencies();
       if (paramProjectId != null && paramProjectId != '') {
-        console.log(paramProjectId, "paramProjectId")
-        props.getProjectDetail(paramProjectId);
+        props.getDiscountData(paramProjectId);
       }
     }, []);
 
@@ -65,7 +64,7 @@ interface IMapStateToProps {
       if (props.notify == Notify.success) {
         if (props.event == EventType.next) {
           toast.success('Data Saved Successfully');
-          history.push(`/Preliminaries/${props.match.params.projectId}`);
+          history.push(`/`);
         } else if (props.event == EventType.previous) {
           toast.success('Data Saved Successfully');
           history.push('/Subcontractor');
@@ -145,8 +144,8 @@ interface IMapStateToProps {
         resetDiscountState: () =>
       dispatch(actions.resetDiscountState()),
       getAllCurrencies: () => dispatch(actions.getAllCurrencies()),
-      getProjectDetail: (projectId: string) =>
-      dispatch(actions.getProjectDetail(projectId)),
+      getDiscountData: (projectId: string) =>
+      dispatch(actions.getDiscountData(projectId)),
     };
   };
   

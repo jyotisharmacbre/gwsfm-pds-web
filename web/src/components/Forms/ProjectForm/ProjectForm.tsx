@@ -246,10 +246,12 @@ const ProjectForm: React.FC<Props &
                 </div>
 
                 <div className={'form-group'}>
-                  <label>Type of engagement</label>
+                  <label><FormattedMessage id='LABEL_TYPE_OF_ENGAGEMENT'></FormattedMessage></label>
                   <div className="select-wrapper">
-                    <Field name="engagementId" component={PdsFormSelect} normalize={normalizeToNumber}>
-                      <option value="">Select type of engagement</option>
+                    <Field name="engagementId" component={PdsFormSelect} normalize={normalizeToNumber}>                    
+                    <FormattedMessage id="PLACEHOLDER_TYPE_OF_ENGAGEMENT">
+                        {message => <option value="">{message}</option>}
+                      </FormattedMessage>
                       {getDropdown(
                         props.projectstatus,
                         LookupType.Engagement_Type
@@ -354,7 +356,7 @@ const ProjectForm: React.FC<Props &
                     <Field
                       name="contractTypeId"
                       component={PdsFormSelect}
-                      validate={Validate.required('Contract type')}
+                      validate={Validate.required('LABEL_CONTRACT_TYPE')}
                       placeholderKey="PLACEHOLDER_CONTRACT_TYPE"
                       messageKey="MESSAGE_CONTRACT_TYPE"
                       normalize={normalizeToNumber}

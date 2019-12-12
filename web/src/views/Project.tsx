@@ -61,14 +61,19 @@ interface IMapDispatchToProps {
   handleProjectDetailsEdit: (form: IProjectDetail, event: EventType) => void;
 }
 
-const Project: React.FC<IMapStateToProps & IMapDispatchToProps> = props => {
+interface IProps {
+  match: any;
+} 
+
+const Project: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = props => {
   let history = useHistory();
   useEffect(() => {
     window.scrollTo(0, 0);
     props.getProjectStatus();
     props.getAllCurrencies();
-    if (props.projectId != null && props.projectId != '') {
-      props.getProjectDetail(props.projectId);
+    let paramProjectId = props.match.params.projectId;
+    if (paramProjectId != null && paramProjectId != '') {
+      props.getProjectDetail(paramProjectId);
     }
   }, []);
 
@@ -77,7 +82,7 @@ const Project: React.FC<IMapStateToProps & IMapDispatchToProps> = props => {
       if (props.event == EventType.next) {
         toast.success('Data Saved Successfully');
         history.push({
-          pathname: `/projectoverview/${props.projectId}`
+          pathname: `/projectOverview/${props.projectId}`
         })
       } else if (props.event == EventType.save) {
         toast.success('Data Saved Successfully');

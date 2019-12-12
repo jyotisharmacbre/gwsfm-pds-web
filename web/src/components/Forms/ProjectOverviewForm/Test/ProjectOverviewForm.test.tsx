@@ -76,8 +76,8 @@ describe('ProjectOverviewForm Fields', () => {
       it('Shows error when Main Contractor is set to blank', () => {
         field.simulate('blur');
         const errorBlock = wrapper.find('.text-danger');
-        expect(errorBlock).toHaveLength(1);
-      });
+        expect(errorBlock).toHaveLength(2);
+      }); 
     });
     describe('Enquiry Received From field', () => {
       let field: ShallowWrapper;

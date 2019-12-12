@@ -84,7 +84,7 @@ interface Props {
                     normalize={normalize}
                   />
                   <label className="w-100 mb-0">
-                      Sub-Total Discounts
+                      <FormattedMessage id='LABEL_SUB_TOTAL_DISCOUNTS'></FormattedMessage>
                     </label>
                     <label className="m-0 mb-4">&#163;2,000.00</label>
                   <Field
@@ -129,11 +129,10 @@ interface Props {
                   />
                   <div className="form-group">
                   <label>
-                    <FormattedMessage id="LABEL_DISCOUNT_TYPE" />*
+                    <FormattedMessage id="LABEL_DISCOUNT_TYPE" />
                   </label>
                  {props.projectstatus &&
-                    props.projectstatus
-                      .filter(
+                    props.projectstatus.filter(
                         element => element.lookupItem == LookupType.Discount_Type
                       )
                       .map((data, index) => {
@@ -163,20 +162,15 @@ interface Props {
                     labelKey="LABEL_DISCOUNT"
                     placeholderKey="PLACEHOLDER_DISCOUNT"
                     normalize={normalize}
-                    discountBind = {getDiscountTypeValue([
-                      { lookupKey: 1, description: 'Percent (%)'},
-                      { lookupKey: 2, description: 'Value (#)'}
-                    ], discountTypeValue,
-                      getFilterElementFromArray(
-                      props.currencies,
-                      'currencyId',
-                      props.currencyId,
-                      'currencySymbol'
-                      ) 
+                    discountBind = {getDiscountTypeValue(props.projectstatus && props.projectstatus
+                      .filter(
+                        element => element.lookupItem == LookupType.Discount_Type
+                      ), discountTypeValue,
+                      getFilterElementFromArray(props.currencies,"currencyId", props.currencyId,"currencySymbol")                      
                     )}
                   />
                   <label className="w-100 mb-0">
-                      Sub-Total Discounts
+                     <FormattedMessage id='LABEL_SUB_TOTAL_DISCOUNTS'></FormattedMessage>
                     </label>
                     <label className="m-0 mb-4">&#163;2,000.00</label>
                   <Field

@@ -12,7 +12,7 @@ interface IMapDispatchToProps {
   getLookups: () => void;
 }
 interface IMapStateToProps {
-  notify: Notify;
+  
   projectPipeline: Array<IProjectPipelineGrid>;
   lookupDetails: Array<ILookup>;
 }
@@ -52,7 +52,8 @@ const ProjectPipeline: React.FC<IMapStateToProps &
 const mapStateToProps = (state: IState) => ({
   lookupDetails: state.lookup.projectstatus,
 
-  projectPipeline: state.pipelineGrid.pipelineDetails
+  projectPipeline: state.pipelineGrid.pipelineDetails,
+
 });
 
 const mapDispatchToProps = dispatch => {

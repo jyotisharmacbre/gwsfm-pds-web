@@ -33,6 +33,21 @@ const discountFormError = (error: string) => {
   };
 };
 
+const getDiscountDataSuccess = (response: IDiscountActivity) => {
+  return {
+    type: ActionType.DISCOUNT_FORM_DATA_GET,
+    payload: response
+  };
+};
+
+const getDiscountDataError = (error: string) => {
+  return {
+    type: ActionType.DISCOUNT_FORM_DATA_GET_ERROR,
+    payload: error
+  };
+};
+
+
 const headers = {
   'Content-Type': 'application/json'
 };
@@ -40,7 +55,6 @@ const headers = {
 export const discountFormAdd = ( projectId: string, data: IDiscountActivity, event: EventType) => {
   return (dispatch: Dispatch) => {
     data.projectId = projectId;
-    console.log(data, "submitted")
     axios.baseAPI
       .post('/api/Discounts/adddiscount', data, { headers: headers })
       .then(response => {
@@ -64,6 +78,19 @@ export const discountFormEdit = (
       })
       .catch(error => {
         dispatch(discountFormError(error));
+      });
+  };
+};
+
+export const getDiscountData = (projectId: string) => {
+  return (dispatch: Dispatch) => {
+    axios.baseAPI
+    .get(`api/Discounts/${projectId}`, { headers: headers })
+      .then(response => {
+        dispatch(getDiscountDataSuccess(response.data));
+      })
+      .catch(error => {
+        dispatch(getDiscountDataError(error));
       });
   };
 };

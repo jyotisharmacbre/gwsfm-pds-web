@@ -15,7 +15,7 @@ const Routes: React.FC = props => {
     <Switch>
       <Route exact path="/" component={Dashboard} />
       <Route path="/Pipeline" component={Pipeline} />
-      <Route path="/Project" component={Project} />
+      <Route path="/Project/:projectId?" component={Project} />
       <Route path="/Notifications" component={Notifications} />
       <Route path="/ProjectOverview/:projectId" component={ProjectOverview} />
       <Route path="/Discounts/:projectId" component={Discounts} />
@@ -24,9 +24,10 @@ const Routes: React.FC = props => {
         path="/JustificationAuthorisation"
         component={JustificationAuthorisation}
       />
-      <Route path="/Preliminaries/:projectId?" component={Preliminaries} />
+      <Route path="/Preliminaries/:projectId" component={Preliminaries} />
      
-         <Route path="/Subcontractor/:projectId?" component={Subcontractor} />
+         <Route path="/Subcontractor/:projectId" component={Subcontractor} />
+         
     </Switch>
   );
 };

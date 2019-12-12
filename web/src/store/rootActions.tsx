@@ -20,7 +20,7 @@ export {
   getPreliminaryDetails
 } from './Preliminaries/Actions';
 
-export { discountFormAdd, discountFormEdit, resetDiscountState} from './DiscountForm/Actions'
+export { discountFormAdd, discountFormEdit, resetDiscountState, getDiscountData} from './DiscountForm/Actions'
 export { 
   subContractorFormAdd,
   subContractorFormEdit,

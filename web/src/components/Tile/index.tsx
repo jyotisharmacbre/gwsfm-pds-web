@@ -10,7 +10,7 @@ export function Tile(props: any) {
     <Row>
       <Col lg={12}>
         <div className="card_outer_wrap">
-          <Row className="pt-lg-4">
+          <Row className="pt-lg-3">
             <Col lg={4} className="pl-md-2 pr-md-2">
               <div className="card_wrap">
                 <span className="tick_wrap active">
