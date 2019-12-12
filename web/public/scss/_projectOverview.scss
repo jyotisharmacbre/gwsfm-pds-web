@@ -218,3 +218,7 @@
             margin-left: auto;
         }
     }
+    .link_disabled {
+        pointer-events:none; 
+        opacity:0.6;         
+    }
