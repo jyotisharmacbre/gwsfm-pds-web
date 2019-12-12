@@ -82,7 +82,7 @@ const Project: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = props
       if (props.event == EventType.next) {
         toast.success('Data Saved Successfully');
         history.push({
-          pathname: `/projectoverview/${props.match.params.projectId}`
+          pathname: `/projectOverview/${props.projectId}`
         })
       } else if (props.event == EventType.save) {
         toast.success('Data Saved Successfully');

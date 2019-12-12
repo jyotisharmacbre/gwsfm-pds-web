@@ -64,7 +64,7 @@ interface IMapStateToProps {
       if (props.notify == Notify.success) {
         if (props.event == EventType.next) {
           toast.success('Data Saved Successfully');
-          history.push(`/Preliminaries/${props.match.params.projectId}`);
+          history.push(`/`);
         } else if (props.event == EventType.previous) {
           toast.success('Data Saved Successfully');
           history.push('/Subcontractor');
