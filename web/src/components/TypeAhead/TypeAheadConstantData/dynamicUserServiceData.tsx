@@ -30,5 +30,21 @@ export const dynamicUserServiceData = [
       "email": "Amit.Kumar10@cbre.co.in",
       "displayName": "1.Kumar, Amit 10 @ Noida",
       "groups": null
+    },
+    {
+      "id": "284af647-e5c5-47e1-bbc9-40d070383729",
+        "lastName": "Saxena",
+        "firstname": "Shubham",
+        "email": "subham.saxena2@cbre.com",
+        "displayName": "Saxena, Shubham @ Gurgaon",
+        "groups": null
+    },
+    {
+      "id": "284af647-e5c5-47e1-bbc9-40d070383729",
+        "lastName": "Singh",
+        "firstname": "Avneet",
+        "email": "avneet.singh@cbre.com",
+        "displayName": "Saxena, Shubham @ Gurgaon",
+        "groups": null
     }
   ];
