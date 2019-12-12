@@ -30,6 +30,7 @@ interface IMapDispatchToProps {
     event: EventType
   ) => void;
   subContractorFormEdit: (
+    projectId:string,
     form: ISubContractor,
     event: EventType
   ) => void;
@@ -84,7 +85,7 @@ const Subcontractor: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> =
     paramProjectId = props.match.params.projectId;
     data.activities[0].subContrActivityId == ''
       ? props.subContractorFormAdd(paramProjectId, data, event)
-      : props.subContractorFormEdit(data, event);
+      : props.subContractorFormEdit(paramProjectId,data, event);
   }; 
 
   return (
@@ -125,8 +126,8 @@ const mapDispatchToProps = dispatch => {
   return {
     subContractorFormAdd: (projectId, form, event) =>
       dispatch(actions.subContractorFormAdd(projectId, form, event)),
-    subContractorFormEdit: (form, event) =>
-      dispatch(actions.subContractorFormEdit(form, event)),
+    subContractorFormEdit: (projectId,form, event) =>
+      dispatch(actions.subContractorFormEdit(projectId,form, event)),
     getProjectDetail: projectId =>
       dispatch(actions.getProjectDetail(projectId)),
     getSubContractor: projectId =>

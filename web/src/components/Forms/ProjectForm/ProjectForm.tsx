@@ -21,7 +21,7 @@ import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { LookupType } from '../../../store/Lookups/Types/LookupType';
-import { getDropdown, getCurrencySymbol, normalizeToNumber } from '../../../helpers/utility-helper';
+import { getDropdown, getFilterElementFromArray, normalizeToNumber } from '../../../helpers/utility-helper';
 import PdsFormTypeAhead from '../../PdsFormHandlers/PdsFormTypeAhead';
 import { IProjectDetail } from '../../../store/CustomerEnquiryForm/Types/IProjectDetail';
 import { ICurrency } from '../../../store/Lookups/Types/ICurrency';
@@ -334,9 +334,11 @@ const ProjectForm: React.FC<Props &
                     Validate.maxLength(1000),
                     onlyNumber
                   ]}
-                  currency={getCurrencySymbol(
+                  currency={getFilterElementFromArray(
                     props.currencies,
-                    props.currencyId
+                    'currencyId',
+                    props.currencyId,
+                    'currencySymbol'
                   )}
                   divPosition="relative"
                   labelKey="LABEL_APPROXIMATE_VALUE"

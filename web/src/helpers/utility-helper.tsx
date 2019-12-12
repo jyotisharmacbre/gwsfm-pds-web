@@ -51,20 +51,6 @@ export const getRadioOptions = (data, value) => {
   return result;
 };
 
-
-
-export const getCurrencySymbol = (currencies, currencyId) => {
-  let symbol = '';
-  let filter;
-  if (currencies) {
-    filter = currencies.find(element => element.currencyId == currencyId);
-    if (filter != null && filter != undefined) symbol = filter.currencySymbol;
-  }
-  return symbol;
-};
-
-
-
 export const getDiscountTypeValue = (data, value, currency) =>{
 let result = data && data.map((dataValue: any, i: number) => {
   if(dataValue.lookupKey == value){
@@ -80,6 +66,7 @@ let result = data && data.map((dataValue: any, i: number) => {
 })
 return result;
 }
+
 export const normalizeToNumber = value => (
   value = +value
 )
