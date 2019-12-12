@@ -65,7 +65,7 @@ const ProjectForm: React.FC<Props &
   } = props;
   const otherDynamicsContract =
     props.dynamicsOtherContract.length > 0
-      ? props.dynamicsOtherContract[0].label
+      ? props.dynamicsOtherContract[0].label.split(' ')[0]
       : '';
 
   const otherDynamicsCompany =
@@ -76,8 +76,14 @@ const ProjectForm: React.FC<Props &
   const getDynamicsContractDropdown =
     dynamicsContract &&
     dynamicsContract.map((ContractData: any) => {
-      return { label: ContractData.ContractName, id: ContractData.ContractId };
-    });
+      return { label: ContractData.ContractName + " " + 
+      ((ContractData.ContractId =='0' || '') ? '' :  ContractData.ContractId)
+       + " " +
+       (ContractData.Name== "" ? '' : ContractData.Name)
+       + " " +
+       ((ContractData.CustomerId=='0' || '') ? '' : ContractData.CustomerId), 
+       id: ContractData.ContractId };
+    }); 
 
   const getDynamicsCompanyDropdown =
   dynamicsCompany &&
@@ -88,7 +94,7 @@ const ProjectForm: React.FC<Props &
   const getUserServiceDropdown =
   dynamicUserServiceData &&
   dynamicUserServiceData.map((UserServiceData: any) => {
-    return { label: UserServiceData.firstname + " " + UserServiceData.lastName, id: UserServiceData.id,
+    return { label: UserServiceData.firstname , id: UserServiceData.id,
       email: UserServiceData.email
     };
   });

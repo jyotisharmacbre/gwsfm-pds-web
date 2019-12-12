@@ -4,8 +4,6 @@ export interface IProjectAdditionalDetail {
   mainContractor: string;
   otherMainContractor: string;
   enquiryReceivedFrom: string;
-  potentialCustomer: string;
-  otherPotentialCustomer: string;
   enquiryTypeId: number;
   creditCheckResult: string;
   siteAddress: string;
