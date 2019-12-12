@@ -76,12 +76,11 @@ const ProjectForm: React.FC<Props &
   const getDynamicsContractDropdown =
     dynamicsContract &&
     dynamicsContract.map((ContractData: any) => {
-      return { label: ContractData.ContractName + " " + 
-      ((ContractData.ContractId =='0' || '') ? '' :  ContractData.ContractId)
+      return { label: ContractData.ContractName +
+      ((ContractData.ContractId =='0') ? '' :  (" ("+ ContractData.ContractId + "),"))
        + " " +
-       (ContractData.Name== "" ? '' : ContractData.Name)
-       + " " +
-       ((ContractData.CustomerId=='0' || '') ? '' : ContractData.CustomerId), 
+       (ContractData.Name== '' ? '' : ContractData.Name) +
+       ((ContractData.CustomerId=='') ? '' : (" ("+ ContractData.CustomerId + ")")), 
        id: ContractData.ContractId };
     }); 
 
