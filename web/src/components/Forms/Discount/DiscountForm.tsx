@@ -132,8 +132,7 @@ interface Props {
                     <FormattedMessage id="LABEL_DISCOUNT_TYPE" />
                   </label>
                  {props.projectstatus &&
-                    props.projectstatus
-                      .filter(
+                    props.projectstatus.filter(
                         element => element.lookupItem == LookupType.Discount_Type
                       )
                       .map((data, index) => {
@@ -163,14 +162,11 @@ interface Props {
                     labelKey="LABEL_DISCOUNT"
                     placeholderKey="PLACEHOLDER_DISCOUNT"
                     normalize={normalize}
-                    discountBind = {getDiscountTypeValue([
-                      { lookupKey: 1, description: 'Percent (%)'},
-                      { lookupKey: 2, description: 'Value (#)'}
-                    ], discountTypeValue,
-                      getCurrencySymbol(
-                      props.currencies,
-                      props.currencyId
-                    )
+                    discountBind = {getDiscountTypeValue(props.projectstatus && props.projectstatus
+                      .filter(
+                        element => element.lookupItem == LookupType.Discount_Type
+                      ), discountTypeValue,
+                      getFilterElementFromArray(props.currencies,"currencyId", props.currencyId,"currencySymbol")                      
                     )}
                   />
                   <label className="w-100 mb-0">
