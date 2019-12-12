@@ -94,7 +94,7 @@ const ProjectForm: React.FC<Props &
   const getUserServiceDropdown =
   dynamicUserServiceData &&
   dynamicUserServiceData.map((UserServiceData: any) => {
-    return { label: UserServiceData.firstname , id: UserServiceData.id,
+    return { label: UserServiceData.firstname + " " + UserServiceData.lastName, id: UserServiceData.id,
       email: UserServiceData.email
     };
   });
