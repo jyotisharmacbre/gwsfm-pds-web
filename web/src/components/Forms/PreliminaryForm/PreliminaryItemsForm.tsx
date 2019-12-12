@@ -24,7 +24,6 @@ const PreliminaryItemsForm:React.FC<Props>
     props.preliminaryData[props.componentIndex].items[index].totalCost=(props.preliminaryData[props.componentIndex].items[index].noOfHours*props.preliminaryData[props.componentIndex].items[index].hourRate);
   }
   const{fields,itemDetail,componentIndex,currencies,currencyId,currencySymbol,preliminaryData}=props;
-  const currencySymbols:string=getFilterElementFromArray(props.currencies,"currencyId",props.currencyId,"currencySymbol");
 
   return (
   <tbody>
@@ -37,6 +36,7 @@ const PreliminaryItemsForm:React.FC<Props>
                         input={{disabled: true} }
                         data-test="nameOfSupplier"
                         type="text"
+                        className="width-120 mb-0"
                         component={PdsFormInput}
                         validate={[
                             Validate.maxLength(1000),
@@ -83,24 +83,24 @@ const PreliminaryItemsForm:React.FC<Props>
                   type="number"
                  input={{ disabled: true}}
                   component={PdsFormInput}
-                  className="width-120 pl-20 required "
+                  className="width-120 pl-20 required currency"
                   validate={[
                     Validate.maxLength(15),
                     onlyNumber
                   ]}
-                  currency={currencySymbols}
+                  currency={currencySymbol}
                   divPosition="relative"
                   placeholderKey=""
                 />:<Field
                 name={`${member}.hourRate`}
                 type="number"
                 component={PdsFormInput}
-                className="width-120 pl-20 required "
+                className="width-120 pl-20 required currency"
                 validate={[
                   Validate.maxLength(15),
                   onlyNumber
                 ]}
-                currency={currencySymbols}
+                currency={currencySymbol}
                 divPosition="relative"
                 placeholderKey=""
               />}
@@ -110,12 +110,12 @@ const PreliminaryItemsForm:React.FC<Props>
                   name={`${member}.totalCost`}
                   type="number"
                   component={PdsFormInput}
-                  className="width-120 pl-20 required"
+                  className="width-120 pl-20 required currency"
                   validate={[
                     Validate.maxLength(15),
                     onlyNumber
                   ]}
-                  currency={currencySymbols}
+                  currency={currencySymbol}
                   divPosition="relative"
                 />:<Field
                 name={`${member}.totalCost`}
@@ -126,12 +126,12 @@ const PreliminaryItemsForm:React.FC<Props>
                   onchange:updateCost(index)
                   }}
                 component={PdsFormInput}
-                className="width-120 pl-20 required"
+                className="width-120 pl-20 required currency"
                 validate={[
                   Validate.maxLength(15),
                   onlyNumber
                 ]}
-                currency={currencySymbols}
+                currency={currencySymbol}
                 divPosition="relative"
               />}
     </td>
@@ -140,7 +140,7 @@ const PreliminaryItemsForm:React.FC<Props>
                   name={`${member}.grossMargin`}
                   type="number"
                   component={PdsFormInput}
-                  className="width-120 pl-20 required"
+                  className="width-120 pl-20 required currency"
                   validate={[
                     Validate.maxLength(15),
                     onlyNumber
@@ -158,12 +158,12 @@ const PreliminaryItemsForm:React.FC<Props>
                      disabled: true 
                     }}
                    component={PdsFormInput}
-                  className="width-120 pl-20 required"
+                  className="width-120 pl-20 required currency"
                   validate={[
                     Validate.maxLength(15),
                     onlyNumber
                   ]}
-                  currency={currencySymbols}
+                  currency={currencySymbol}
                   divPosition="relative"
                 />
     </td>

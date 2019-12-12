@@ -13,6 +13,7 @@ interface Props {
   onPrevious:()=>void;
   onToggle:(id:string)=>void;
   preliminariesDetails: any;
+  currencySymbol:string;
 }
 let PreliminaryForm: React.FC<
   Props &IReactIntl& InjectedFormProps<IPreliminaryForm, Props>
@@ -32,6 +33,7 @@ let PreliminaryForm: React.FC<
       onToggleEvent={props.onToggle}
       prelimData={props.preliminariesDetails}
       handleSubmit={handleSubmit}
+      currencySymbol={props.currencySymbol}
        />
      <div className="mr-35 three-btn">
          <button
@@ -71,7 +73,8 @@ const form = reduxForm<IPreliminaryForm, Props>({
   destroyOnUnmount: false,
   forceUnregisterOnUnmount: false,
   form: 'PreliminaryForm',
-  enableReinitialize: true
+  enableReinitialize: true,
+  keepDirtyOnReinitialize :true
 })(injectIntl(PreliminaryForm));
 
 export default connect(mapStateToProps)(form);
