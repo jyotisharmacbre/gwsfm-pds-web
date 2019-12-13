@@ -12,7 +12,7 @@ interface IMapStateToProps {
 const LeftMenu: React.FC<IMapStateToProps> = props => {
   let history = useHistory();
   let urlProjectId:string="";
-  if(props.projectId!=""&&props.projectId!=null&&props.projectId!=undefined)
+  if(props.projectId)
   {
     urlProjectId=props.projectId;
   }
@@ -20,7 +20,7 @@ const LeftMenu: React.FC<IMapStateToProps> = props => {
   {
     urlProjectId=history.location.pathname.split('/')[2];
   }
-  let isDisable:boolean=(urlProjectId!=''&&urlProjectId!=null&&urlProjectId!=undefined&&urlProjectId!="undefined")
+  let isDisable:boolean=(urlProjectId && urlProjectId!="undefined")
   ?true:false;
 
   return (
