@@ -82,10 +82,10 @@ const ProjectOverview: React.FC<IProps &
     if (props.notify == Notify.success) {
       if (props.event == EventType.next) {
         toast.success('Data Saved Successfully');
-        history.push('/JustificationAuthorisation');
+        history.push(`/JustificationAuthorisation/${props.match.params.projectId}`);
       } else if (props.event == EventType.previous) {
         toast.success('Data Saved Successfully');
-        history.push('/Project');
+        history.push(`/Project/${props.match.params.projectId}`);
       }
       props.resetProjectOverviewState();
     }
