@@ -136,3 +136,11 @@ export const getPreliminarySummaryCalculation = (data:Array<IPreliminariesCompon
         }
         return {cost:state.cost,sell:state.sell,margin:state.margin};  
 }
+
+export const restrictMinus = (value:number) => {
+  if(value < 0) {
+    return 0
+  } else {
+    return value
+  }
+}

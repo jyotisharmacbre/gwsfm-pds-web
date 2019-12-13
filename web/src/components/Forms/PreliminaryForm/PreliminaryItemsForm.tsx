@@ -2,7 +2,7 @@ import React from 'react';
 import { Field, formValueSelector } from 'redux-form';
 import PdsFormInput from '../../PdsFormHandlers/PdsFormInput';
 import { Validate, alphaNumeric, onlyNumber } from '../../../helpers/fieldValidations';
-import { getFilterElementFromArray,calculateCost,calculateSell} from '../../../helpers/utility-helper';
+import { getFilterElementFromArray,calculateCost,calculateSell, restrictMinus} from '../../../helpers/utility-helper';
 import { IState } from '../../../store/state';
 import { connect } from 'react-redux';
 import { ICurrency } from '../../../store/Lookups/Types/ICurrency';
@@ -58,12 +58,13 @@ const PreliminaryItemsForm:React.FC<Props>
                   name={`${member}.noOfHours`}
                   type="number"
                  input={{ disabled: true}}
-                  component={PdsFormInput}
+                 component={PdsFormInput}
                   className="width-120 pl-20 required "
                   validate={[
                     Validate.maxLength(15),
                     onlyNumber
                   ]}
+                  normalize={restrictMinus}
                   divPosition="relative"
                 />:<Field
                 name={`${member}.noOfHours`}
@@ -74,6 +75,7 @@ const PreliminaryItemsForm:React.FC<Props>
                   Validate.maxLength(15),
                   onlyNumber
                 ]}
+                normalize={restrictMinus}
                 divPosition="relative"
               />}
     </td>
@@ -81,7 +83,8 @@ const PreliminaryItemsForm:React.FC<Props>
                 {(props.itemDetail.items[index].itemId=="1"||props.itemDetail.items[index].itemId=="2")?<Field
                   name={`${member}.hourRate`}
                   type="number"
-                 input={{ disabled: true}}
+                  normalize={restrictMinus}                 
+                  input={{ disabled: true}}
                   component={PdsFormInput}
                   className="width-120 pl-20 required currency"
                   validate={[
@@ -95,6 +98,7 @@ const PreliminaryItemsForm:React.FC<Props>
                 name={`${member}.hourRate`}
                 type="number"
                 component={PdsFormInput}
+                normalize={restrictMinus}
                 className="width-120 pl-20 required currency"
                 validate={[
                   Validate.maxLength(15),
@@ -110,6 +114,7 @@ const PreliminaryItemsForm:React.FC<Props>
                   name={`${member}.totalCost`}
                   type="number"
                   component={PdsFormInput}
+                  normalize={restrictMinus}
                   className="width-120 pl-20 required currency"
                   validate={[
                     Validate.maxLength(15),
@@ -120,6 +125,7 @@ const PreliminaryItemsForm:React.FC<Props>
                 />:<Field
                 name={`${member}.totalCost`}
                 type="number"
+                normalize={restrictMinus}
                 input={{
                   value:calculateCost(props.preliminaryData[props.componentIndex].items[index].noOfHours,props.preliminaryData[props.componentIndex].items[index].hourRate),
                   disabled: true,
@@ -139,6 +145,7 @@ const PreliminaryItemsForm:React.FC<Props>
     <Field
                   name={`${member}.grossMargin`}
                   type="number"
+                  normalize={restrictMinus}
                   component={PdsFormInput}
                   className="width-120 pl-20 required currency"
                   validate={[
