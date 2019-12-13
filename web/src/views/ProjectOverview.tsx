@@ -43,6 +43,7 @@ interface IMapStateToProps {
   enquiryOverview: IProject;
   event: EventType;
   projectScope: string;
+  status:number;
 }
 interface IMapDispatchToProps {
   getProjectStatus: () => void;
@@ -58,6 +59,10 @@ interface IMapDispatchToProps {
   getAdditionalDetails: (projectId: string) => void;
   getEnquiryOverview: (projectId: string) => void;
   resetProjectOverviewState: () => void;
+  getProjectDetail: (projectId: string) => void;
+  changeProjectStatusToOnHold: (projectId: string) => void;
+  changeProjectStatusToBidLost: (projectId: string) => void;
+  reactivateProject:(projectId: string) => void;
 }
 interface IProps {
   projectId: string;
@@ -68,14 +73,20 @@ const ProjectOverview: React.FC<IProps &
   IMapStateToProps &
   IMapDispatchToProps> = props => {
   let history = useHistory();
+  const handleConfirmEvent=()=>{
+      }
+      const changeProjectStatus=()=>{
+      }
   useEffect(() => {
     window.scrollTo(0, 0);
     props.getProjectStatus();
+    props.getProjectDetail(props.match.params.projectId);
     let paramProjectId = props.projectId == '' ? props.match.params.projectId : props.projectId;
     if (paramProjectId != null && paramProjectId != '') {
       props.getAdditionalDetails(paramProjectId);
       props.getEnquiryOverview(paramProjectId);
     }
+    changeProjectStatus();
   }, []);
 
   useEffect(() => {
@@ -107,6 +118,7 @@ const ProjectOverview: React.FC<IProps &
     if (id != null && id != undefined) data = id.toString();
     return data;
   };
+ 
   return (
     <React.Fragment>
       <Container component="main">
@@ -142,6 +154,7 @@ const ProjectOverview: React.FC<IProps &
               onNext={handleNext}
               onPrevious={handlePrevious}
               projectstatus={props.projectStatus}
+              status={4}
             />
           </Grid>
         </Grid>
@@ -157,7 +170,8 @@ const mapStateToProps = (state: IState) => ({
   projectStatus: state.lookup.projectstatus,
   enquiryOverview: state.project.enquiryOverview,
   event: state.projectOverview.event,
-  projectScope: state.project.form.scope
+  projectScope: state.project.form.scope,
+  status:state.project.form.status
 });
 
 const mapDispatchToProps = dispatch => {
@@ -172,7 +186,15 @@ const mapDispatchToProps = dispatch => {
     getEnquiryOverview: projectId =>
       dispatch(actions.getEnquiryOverview(projectId)),
     resetProjectOverviewState: () =>
-      dispatch(actions.resetProjectOverviewState())
+      dispatch(actions.resetProjectOverviewState()),
+    getProjectDetail: projectId =>
+      dispatch(actions.getProjectDetail(projectId)),
+    changeProjectStatusToOnHold: projectId =>
+      dispatch(actions.changeProjectStatusToOnHold(projectId)),
+    changeProjectStatusToBidLost: projectId =>
+      dispatch(actions.changeProjectStatusToBidLost(projectId)),
+    reactivateProject: projectId =>
+      dispatch(actions.reactivateProject(projectId))
   };
 };
 

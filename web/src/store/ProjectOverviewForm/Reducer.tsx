@@ -4,6 +4,7 @@ import { IProjectOverviewState } from './Types/IProjectOverviewState';
 import moment from 'moment';
 import Notify from '../../enums/Notify';
 import EventType from '../../enums/EventType';
+import { changeProjectStatusToBidLost } from './Actions';
 
 const initialState: IProjectOverviewState = {
   form: {
@@ -91,6 +92,36 @@ const resetProjectOverviewState = (oldState, action) => {
     event: EventType.none
   });
 };
+const changeProjectStatusToBidLostSuccess = (oldState, action) => {
+  return updateObject(oldState, {
+    notify: Notify.success
+  });
+};
+const changeProjectStatusToBidLostError = (oldState, action) => {
+  return updateObject(oldState, {
+    notify: Notify.error
+  });
+};
+const changeProjectStatusToOnHoldSuccess = (oldState, action) => {
+  return updateObject(oldState, {
+    notify: Notify.success
+  });
+};
+const changeProjectStatusToOnHoldError = (oldState, action) => {
+  return updateObject(oldState, {
+    notify: Notify.error
+  });
+};
+const reactivateProjectSuccess = (oldState, action) => {
+  return updateObject(oldState, {
+    notify: Notify.error
+  });
+};
+const reactivateProjectError = (oldState, action) => {
+  return updateObject(oldState, {
+    notify: Notify.error
+  });
+};
 
 const projectOverviewFormReducer = (oldState = initialState, action) => {
   switch (action.type) {
@@ -106,6 +137,20 @@ const projectOverviewFormReducer = (oldState = initialState, action) => {
       return getAdditionalDetailsError(oldState, action);
     case ActionType.RESET_PROJECT_OVERVIEW_STATE:
       return resetProjectOverviewState(oldState, action);
+      case ActionType.RESET_PROJECT_OVERVIEW_STATE:
+      return resetProjectOverviewState(oldState, action);
+      case ActionType.CHANGE_PROJECT_STATUS_TO_BID_LOST_SUCCESS:
+      return changeProjectStatusToBidLostSuccess(oldState, action);
+      case ActionType.CHANGE_PROJECT_STATUS_TO_BID_LOST_ERROR:
+        return changeProjectStatusToBidLostError(oldState, action);
+      case ActionType.CHANGE_PROJECT_STATUS_TO_ON_HOLD_SUCCESS:
+        return changeProjectStatusToOnHoldSuccess(oldState, action);
+      case ActionType.CHANGE_PROJECT_STATUS_TO_ON_HOLD_ERROR:
+        return changeProjectStatusToOnHoldError(oldState, action);
+      case ActionType.REACTIVATE_PROJECT_SUCCESS:
+        return reactivateProjectSuccess(oldState, action);
+      case ActionType.REACTIVATE_PROJECT_ERROR:
+        return reactivateProjectError(oldState, action);
     default:
       return oldState;
   }

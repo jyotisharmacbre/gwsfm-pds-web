@@ -2,7 +2,10 @@ export {
   projectOverviewFormAdd,
   projectOverviewFormEdit,
   getAdditionalDetails,
-  resetProjectOverviewState
+  resetProjectOverviewState,
+  changeProjectStatusToBidLost,
+  changeProjectStatusToOnHold,
+  reactivateProject
 } from './ProjectOverviewForm/Actions';
 
 export {

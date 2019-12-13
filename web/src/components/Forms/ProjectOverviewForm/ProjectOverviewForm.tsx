@@ -34,6 +34,7 @@ interface Props {
   onNext: (data: IProjectAdditionalDetail) => void;
   onPrevious: (data: IProjectAdditionalDetail) => void;
   projectstatus: any;
+  status:number;
 }
 
 let ProjectOverviewForm: React.FC<Props &
@@ -47,7 +48,7 @@ let ProjectOverviewForm: React.FC<Props &
   ));
   const normalize = value => (value ? parseInt(value) : null);
   return (
-    <div className="container-fluid">
+    <div className="container-fluid ">
       <div className="row">
         <div className="col-lg-12 col-sm-12">
           <form
@@ -55,7 +56,7 @@ let ProjectOverviewForm: React.FC<Props &
             noValidate={true}
             data-test="projectOverviewForm"
           >
-            <div className="row">
+            <div className={"row"+(props.status=="4"||props.status=="6")?"link_disabled":""}>
               <div className="col-lg-8">
                 <Field
                   name={getPropertyName(
@@ -323,7 +324,7 @@ let ProjectOverviewForm: React.FC<Props &
                               labelKey="LABEL_FIRST_VALUATION_DATE"
                             />
                           </div>
-                          <div className="col-xl-6 mt-2 position-relative manipulate-calendar">
+                          <div className="col-xl-6 mt-2 position-relative manipulate-calendar" >
                             <DatePicker
                               name="finalAccountDate"
                               data-test="finalAccountDate"
@@ -447,7 +448,7 @@ let ProjectOverviewForm: React.FC<Props &
               </div>
             </div>
             {/* AUTHORISED SECTION */}
-            <div className="row">
+            <div className={"row"+(props.status=="4"||props.status=="6")?"link_disabled":""}>
               <div className="col-xl-6">
                 <div className="authorised_form_wrap">
                   <h6 className="ml-0">
