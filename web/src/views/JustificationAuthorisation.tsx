@@ -20,11 +20,13 @@ const JustificationAuthorisation: React.FC<IProps> = (props: IProps) => {
             <div className="heading-subtitle">
               <h1>
                 <span className="d-md-block d-none">
-                  Justification &amp; Authorisation
+                  <FormattedMessage id="JA_HEADER"></FormattedMessage>
                 </span>{' '}
                 <span className="d-md-none">J&amp;A</span>
               </h1>
-              <p>Please select the section that is relevant to your project.</p>
+              <p>
+                <FormattedMessage id="JA_COMMON_TEXT"></FormattedMessage>
+              </p>
             </div>
             <Tile></Tile>
             <div className="mr-35 three-btn mt-4">
