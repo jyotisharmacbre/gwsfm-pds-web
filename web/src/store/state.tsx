@@ -8,6 +8,7 @@ import { IUserServiceState } from './UserService/Types/IUserServiceState';
 import { IDynamicDataState } from './DynamicsData/Types/IDynamicDataState';
 import { IDiscountState } from './DiscountForm/Types/IDiscountState';
 import { IProjectPipelineGridState } from './pipeline/Types/IProjectPipelineGridState';
+import { IUserPreferencesState } from './UserPreferencesForm/Types/IUserPreferencesState';
 
 export type IState = {
   form: any;
@@ -22,4 +23,5 @@ export type IState = {
   adData: IUserServiceState;
   discount: IDiscountState;
   preliminary: IPreliminaryState;
+  userPreferences: IUserPreferencesState
 };

@@ -13,9 +13,9 @@ import { useHistory } from 'react-router-dom';
 const Layout :React.FC<IAppProps> = (props:any) => {
   let history = useHistory();
   const { Theme, UseStyles } = props;
-  
-  const helloAuthenticatedUser = () => {
-    return 'Hello, ' + getDisplayName();
+
+  const getAuthenticatedUserName = () => {
+    return getDisplayName();
   }
   return (
     <div className="wrapper">
@@ -23,7 +23,7 @@ const Layout :React.FC<IAppProps> = (props:any) => {
       <Nav Theme={Theme} UseStyles={UseStyles} />:
       null}
       <div id="content">
-        <ProfileMenu Name={helloAuthenticatedUser()} />
+        <ProfileMenu Name={getAuthenticatedUserName()} />
         <Body Theme={Theme} UseStyles={UseStyles} />
       </div>
     </div>

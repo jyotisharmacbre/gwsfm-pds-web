@@ -27,3 +27,7 @@ export {
   getSubContractor,
   resetSubContractorState 
 } from './SubContractor/Actions';
+
+export {
+  userPreferencesFormEdit,
+} from './UserPreferencesForm/Actions';

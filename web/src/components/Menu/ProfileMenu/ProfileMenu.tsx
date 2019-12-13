@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import close_icon from '../../images/logo-black.png';
 import FontawsomeSvg from '@fortawesome/fontawesome-svg-core';
 import FontawsomeFree from '@fortawesome/free-solid-svg-icons';
@@ -16,6 +16,9 @@ import {
 import authentication from '@kdpw/msal-b2c-react';
 
 export default function ProfileMenu(props: { Name?: string }) {
+
+    const [showMenu, setMenuVisibility] = useState(false);
+  
   return (
     <nav className="topbar">
       <div className="container-fluid">
@@ -41,6 +44,7 @@ export default function ProfileMenu(props: { Name?: string }) {
               <li>
                 <div className="dropdown show">
                   <a
+                    onClick={() => setMenuVisibility(!showMenu)}
                     className="btn btn-secondary dropdown-toggle p-0"
                     href="#"
                     id="js-usertext"
@@ -49,14 +53,14 @@ export default function ProfileMenu(props: { Name?: string }) {
                     aria-expanded="false"
                   >
                     <FontAwesomeIcon className="" icon={faUser} />
-                    <span id="sm_none">{props.Name}</span>
+                    <span id="sm_none">{props.Name && `Hello, ${props.Name}`}</span>
                     <span className="down-arrow">
                       <FontAwesomeIcon className="" icon={faAngleDown} />
                     </span>
                   </a>
 
                   <div
-                    className="dropdown-menu dropdown-menu-right user-dropdown"
+                    className={`dropdown-menu dropdown-menu-right user-dropdown ${showMenu? 'show': 'hide'}`}
                     aria-labelledby="dropdownMenuLink"
                   >
                     <div className="language_wrap">
@@ -66,8 +70,8 @@ export default function ProfileMenu(props: { Name?: string }) {
                             <i>
                               <FontAwesomeIcon className="" icon={faUser} />
                             </i>
-                            <p className="title_name">First Name Last Name</p>
-                            <span className="dsc">access type</span>
+                            <p className="title_name">{props.Name && props.Name}</p>
+                            <span className="dsc">user</span>
                           </a>
                         </li>
                         <li>
@@ -75,8 +79,8 @@ export default function ProfileMenu(props: { Name?: string }) {
                             <i>
                               <FontAwesomeIcon className="" icon={faUser} />
                             </i>
-                            <p className="title_name">current location</p>
-                            <span className="dsc">london-UK</span>
+                            <p className="title_name">English</p>
+                            <span className="dsc">preferred language</span>
                           </a>
                         </li>
                         <li>
@@ -84,8 +88,8 @@ export default function ProfileMenu(props: { Name?: string }) {
                             <i>
                               <FontAwesomeIcon className="" icon={faUser} />
                             </i>
-                            <p className="title_name">preferred currency</p>
-                            <span className="dsc">sterling pound</span>
+                            <p className="title_name">$</p>
+                            <span className="dsc">preferred currency</span>
                           </a>
                         </li>
                       </ul>
