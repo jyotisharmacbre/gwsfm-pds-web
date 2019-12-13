@@ -30,6 +30,7 @@ import TypeAhead from '../../TypeAhead/TypeAhead';
 import { dynamicsContract } from '../../TypeAhead/TypeAheadConstantData/dynamicContractData';
 import { dynamicsCompany } from '../../TypeAhead/TypeAheadConstantData/dynamicCompanyData';
 import { IUserServiceData } from '../../../store/UserService/Types/IUserService';
+import { any } from 'prop-types';
 
 interface Props {
   projectstatus: any;
@@ -88,8 +89,9 @@ const ProjectForm: React.FC<Props &
 
   const getUserServiceDropdown =
   userServiceData &&
-  userServiceData.map((UserServiceData: any) => {
-    return { label: UserServiceData.firstname + " " + UserServiceData.lastName, id: UserServiceData.id,
+  userServiceData.filter(user => user.firstname && user.lastName).map((UserServiceData: any) => {
+    return { label: UserServiceData.firstname + " " + UserServiceData.lastName,
+     id: UserServiceData.id,
       email: UserServiceData.email
     };
   });
