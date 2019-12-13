@@ -29,12 +29,10 @@ const preliminaryEditError = (oldState, action) => {
   });
 };
 const preliminaryGetSuccess = (oldState, action) => {
-  oldState={
-    ...oldState,
+  return updateObject(oldState, {
     notify:Notify.none,
     preliminaryDetails:bindUserData(action.payload)
-  }
-  return oldState;
+  });
 };
 const preliminaryGetError = (oldState, action) => {
   return updateObject(oldState, {

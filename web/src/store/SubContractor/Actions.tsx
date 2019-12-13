@@ -74,9 +74,13 @@ export const subContractorFormAdd = (
 };
 
 export const subContractorFormEdit = (
+  projectId: string,
   data: ISubContractor,
   event: EventType
 ) => {
+  data.activities.map(element => {
+    element.projectId = projectId;
+  });
   return (dispatch: Dispatch) => {
     axios.baseAPI
       .put('api/SubContractor/activities', data.activities, config)
