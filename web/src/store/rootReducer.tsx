@@ -20,9 +20,8 @@ export default combineReducers<IState>({
   subContractor: subContractorReducer,
   pipelineGrid: projectPipelineDetailReducer,
   locale: localeReducer,
-  UserService: userServiceReducer,
   dynamicData: dynamicDataReducer,
-  adData: userServiceReducer,
+  userService: userServiceReducer,
   discount: discountFormReducer,
   preliminary: preliminaryReducer
 });

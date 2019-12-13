@@ -1,8 +1,6 @@
-import { IAdHOPData, IAdPMData, IAdPOData } from './IUserService';
+import { IUserServiceData } from './IUserService';
 
 export interface IUserServiceState {
-  ADhopData: Array<IAdHOPData>;
-  ADpmData: Array<IAdPMData>;
-  ADpoData: Array<IAdPOData>;
+  userServiceData: Array<IUserServiceData>;
   error: string | null;
 }
