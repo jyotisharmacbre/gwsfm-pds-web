@@ -3,7 +3,8 @@ import {ISubContractorActivity} from '../store/SubContractor/Types/ISubContracto
 import IDiscountCalculation from '../models/IDiscountCalculation';
 import {IPreliminariesComponentDetails} from '../store/Preliminaries/Types/IPreliminariesComponentDetails';
 import {IPreliminariesItems} from '../store/Preliminaries/Types/IPreliminariesItems';
-
+import { confirmAlert } from 'react-confirm-alert'; 
+import 'react-confirm-alert/src/react-confirm-alert.css';
 export const updateObject = (oldState, updatedProperties) => {
   return {
     ...oldState,
@@ -135,4 +136,21 @@ export const getPreliminarySummaryCalculation = (data:Array<IPreliminariesCompon
           })
         }
         return {cost:state.cost,sell:state.sell,margin:state.margin};  
+}
+export const confirmationAlert=(title:string,message:string,onConfirm:any,param?:any)=>
+{
+  confirmAlert({
+    title: title,
+    message: message,
+    buttons: [
+      {
+        label: 'Yes',
+        onClick: () =>onConfirm(param)
+      },
+      {
+        label: 'No',
+        onClick: () => {}
+      }
+    ]
+  });
 }

@@ -25,7 +25,7 @@ import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import {newActivity} from '../../../store/SubContractor/InitialState';
 import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
-import {calculateSell} from '../../../helpers/utility-helper';
+import {calculateSell,confirmationAlert} from '../../../helpers/utility-helper';
 
 interface Props {
   fields:any,
@@ -45,7 +45,8 @@ const SubContractorActivityForm :React.FC<Props> = (props:Props) => {
               <button
                 data-test="deleteactivity"
                 className="delete_text"
-                onClick={() => fields.remove(index)}
+                onClick={
+                 ()=> confirmationAlert("Confirmation","Are you sure.Do you want to remove this activity.",()=>fields.remove(index))}
               >
                 <FormattedMessage id='BUTTON_DELETE' />
                 <FontAwesomeIcon className="" icon={faTrash} />
