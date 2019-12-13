@@ -2,7 +2,7 @@ import React from 'react';
 import { Field, formValueSelector } from 'redux-form';
 import PdsFormInput from '../../PdsFormHandlers/PdsFormInput';
 import { Validate, alphaNumeric, onlyNumber } from '../../../helpers/fieldValidations';
-import { getFilterElementFromArray,calculateCost,calculateSell, restrictMinus} from '../../../helpers/utility-helper';
+import { calculateCost,calculateSell, restrictMinus} from '../../../helpers/utility-helper';
 import { IState } from '../../../store/state';
 import { connect } from 'react-redux';
 import { ICurrency } from '../../../store/Lookups/Types/ICurrency';
