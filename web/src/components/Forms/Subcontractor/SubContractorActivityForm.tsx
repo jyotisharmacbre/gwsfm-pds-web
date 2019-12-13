@@ -31,6 +31,7 @@ interface Props {
   fields:any,
   activities:Array<ISubContractorActivity>;
   currencySymbol:string;
+  intl:any;
 }
  
 const SubContractorActivityForm :React.FC<Props> = (props:Props) => {
@@ -46,7 +47,7 @@ const SubContractorActivityForm :React.FC<Props> = (props:Props) => {
                 data-test="deleteactivity"
                 className="delete_text"
                 onClick={
-                 ()=> confirmationAlert("Confirmation","Are you sure.Do you want to remove this activity.",()=>fields.remove(index))}
+                 ()=> confirmationAlert(props.intl,"TITLE_CONFIRMATION","MESSAGE_SUBCONTRACTOR_DELETE_ACTIVITY",()=>fields.remove(index))}
               >
                 <FormattedMessage id='BUTTON_DELETE' />
                 <FontAwesomeIcon className="" icon={faTrash} />

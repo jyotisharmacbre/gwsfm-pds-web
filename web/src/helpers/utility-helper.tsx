@@ -137,18 +137,18 @@ export const getPreliminarySummaryCalculation = (data:Array<IPreliminariesCompon
         }
         return {cost:state.cost,sell:state.sell,margin:state.margin};  
 }
-export const confirmationAlert=(title:string,message:string,onConfirm:any,param?:any)=>
-{
+export const confirmationAlert=(intl:any,title:string,message:string,onConfirm:any,param?:any)=>
+{   
   confirmAlert({
-    title: title,
-    message: message,
+    title: intl.formatMessage({ id: title }),
+    message: intl.formatMessage({ id: message }),
     buttons: [
       {
-        label: 'Yes',
+        label:intl.formatMessage({ id: "LABEL_YES" }),
         onClick: () =>onConfirm(param)
       },
       {
-        label: 'No',
+        label: intl.formatMessage({ id: "LABEL_NO" }),
         onClick: () => {}
       }
     ]
