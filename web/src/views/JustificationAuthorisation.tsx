@@ -1,19 +1,7 @@
-import { Grid } from '@material-ui/core';
-import React, { useEffect } from 'react';
-import { injectIntl, FormattedMessage } from 'react-intl';
-import CardContainer from '../components/CardContainer/CardContainer';
-import MultipleChart from '../components/Charts/MultipleCharts';
-import PreferredChart from '../components/Charts/PreferredChart';
-import RunRateChart from '../components/Charts/RunRateChart';
-import HeaderPage from '../components/HeaderPage/HeaderPage';
-import Table from '../components/Table/Simple/Table';
-import { IBtnActionProps } from '../props/AppProps';
-import IReactIntl from '../Translations/IReactIntl';
-import Translate from '../Translations/translate';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import { Tile } from '../components/Tile';
 import { Row, Col } from 'react-bootstrap';
-import { formatMessage } from '../Translations/connectedIntlProvider';
 import { useHistory } from 'react-router-dom';
 
 interface IProps {
@@ -43,9 +31,6 @@ const JustificationAuthorisation: React.FC<IProps> = (props: IProps) => {
               <button className="active" type="button">
                 {' '}
                 <FormattedMessage id="BUTTON_PREVIOUS"></FormattedMessage>
-              </button>
-              <button type="button" name="next" className="ml-auto">
-                <FormattedMessage id="BUTTON_SAVE"></FormattedMessage>
               </button>
               <button
                 type="button"
