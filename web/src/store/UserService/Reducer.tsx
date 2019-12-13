@@ -20,32 +20,6 @@ const getUSerServiceError = (oldState, action) => {
   });
 };
 
-// const getADPMSuccess = (oldState, action) => {
-//   return updateObject(oldState, {
-//     error: null,
-//     ADpmData: action.payload
-//   });
-// };
-
-// const getADPMError = (oldState, action) => {
-//   return updateObject(oldState, {
-//     error: action.payload
-//   });
-// };
-
-// const getADPOSuccess = (oldState, action) => {
-//   return updateObject(oldState, {
-//     error: null,
-//     ADpoData: action.payload
-//   });
-// };
-
-// const getADPOError = (oldState, action) => {
-//   return updateObject(oldState, {
-//     error: action.payload
-//   });
-// };
-
 const userServiceReducer = (oldState = initialState, action) => {
   switch (action.type) {
     case ActionType.USER_SERVICE_GET_SUCCESS:
