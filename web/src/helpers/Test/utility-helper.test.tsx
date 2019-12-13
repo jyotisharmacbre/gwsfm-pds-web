@@ -4,12 +4,13 @@ import {
   normalizeToNumber,
   getFilterElementFromArray,
   calculateAverageMargin,
-  getSubContractorDiscountValue,
+  getSubContractorSummaryCalculation,
   getPreliminarySummaryCalculation} from '../../helpers/utility-helper';
 import {currencies} from './utility-helper-test-data';
 import IDiscountCalculation from '../models/IDiscountCalculation';
 import {newActivity} from '../../store/SubContractor/InitialState';
-describe('utility helper test cases', () => {
+
+describe('utility helper functions run without error', () => {
   
   it('should return the curency symbol', () => {
     let expectedResult = '$';
@@ -23,24 +24,24 @@ describe('utility helper test cases', () => {
     expect(result).toBe(expectedResult);
   });
 
-  it('sell calculaton', () => {
+  it('should calculate total sell', () => {
     let result = +calculateSell(100,20);
     expect(result).toBe(125);
   });
 
-  it('average margin calculaton', () => {
+  it('should calculate average margin', () => {
     let result = +calculateAverageMargin(100,125);
     expect(result).toBe(20); 
   });
   
-  it('summary calculation from sub contractor object', () => {
+  it('should calculate summary for sub contractor object', () => {
       let initialValue:IDiscountCalculation = {cost:100,sell:125,margin:20};
       let expectedResult:IDiscountCalculation = {cost:200,sell:250,margin:40};
       let activity = {...newActivity};
       activity.totalCost = 100;
       activity.grossMargin = 20;
       activity.totalSell = +calculateSell(activity.totalCost,activity.grossMargin);
-      let result = getSubContractorDiscountValue([activity],initialValue);
+      let result = getSubContractorSummaryCalculation([activity],initialValue);
       expect(result).toStrictEqual(expectedResult); 
     });
 });

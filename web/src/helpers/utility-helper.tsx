@@ -94,7 +94,7 @@ export const calculateAverageMargin = (totalCost:number,totalSell:number) =>{
   return averageMargin.toFixed(2);
 }
 
-export const getSubContractorDiscountValue = (data:Array<ISubContractorActivity>,state:IDiscountCalculation) => {
+export const getSubContractorSummaryCalculation = (data:Array<ISubContractorActivity>,state:IDiscountCalculation) => {
         data.map((element:ISubContractorActivity)=>{
             state.cost = state.cost + (+element.totalCost);
             state.sell = state.sell + (+calculateSell(element.totalCost,element.grossMargin));

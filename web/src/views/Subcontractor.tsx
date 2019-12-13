@@ -8,9 +8,11 @@ import { IState } from '../store/state';
 import EventType from '../enums/EventType';
 import { toast } from 'react-toastify';
 import Notify from '../enums/Notify';
-import {getFilterElementFromArray} from '../helpers/utility-helper';
+import {getPropertyName,getFilterElementFromArray} from '../helpers/utility-helper';
 import { ICurrency } from '../store/Lookups/Types/ICurrency';
 import { FormattedMessage } from 'react-intl';
+import Currency from '../store/Lookups/InitialState/Currency';
+
 interface IProps {
   match: any;
 } 
@@ -43,6 +45,7 @@ interface IMapDispatchToProps {
 const Subcontractor: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = props => {
   let history = useHistory();
   let paramProjectId:string = '';
+  const CurrencyObj = new Currency();
   const [currencySymbol,setCurrencySymbol] = React.useState('$');
   
   useEffect(() => {
@@ -59,7 +62,18 @@ const Subcontractor: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> =
   useEffect(() => {
     if(props.currencyId>0 && props.currencies){
       setCurrencySymbol(
-        getFilterElementFromArray(props.currencies,"currencyId",props.currencyId,"currencySymbol")
+        getFilterElementFromArray(
+                        props.currencies,
+                        getPropertyName(
+                        CurrencyObj,
+                        prop => prop.currencyId
+                      ),
+                        props.currencyId,
+                        getPropertyName(
+                        CurrencyObj,
+                        prop => prop.currencySymbol
+                      )
+                      )
       )
     }
   }, [props.currencyId,props.currencies]);

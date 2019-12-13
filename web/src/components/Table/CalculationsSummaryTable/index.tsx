@@ -7,7 +7,7 @@ import CalculationsSummaryType from '../../../enums/CalculationsSummaryType';
 import {
   calculateSell,
   calculateAverageMargin,
-  getSubContractorDiscountValue,
+  getSubContractorSummaryCalculation,
   getPreliminarySummaryCalculation} 
 from '../../../helpers/utility-helper';
 import IDiscountCalculation from '../../../models/IDiscountCalculation';
@@ -47,13 +47,13 @@ const CalculationsSummaryTable:React.FC<Props> = (props:any) => {
     React.useEffect(()=>{
         let localFormState:IDiscountCalculation = {...initDiscount};
         if(props.name != CalculationsSummaryType.subContractor && props.subContractorState){
-          getSubContractorDiscountValue(props.subContractorState,reduxState);
+          getSubContractorSummaryCalculation(props.subContractorState,reduxState);
         }
         if(props.name != CalculationsSummaryType.preliminary && props.preliminaryState && props.preliminaryState.length > 0){ 
           getPreliminarySummaryCalculation(props.preliminaryState,reduxState);
         } 
         if(props.name == CalculationsSummaryType.subContractor && props.subContractor){
-            localFormState = getSubContractorDiscountValue(props.subContractor,{...reduxState});
+            localFormState = getSubContractorSummaryCalculation(props.subContractor,{...reduxState});
             setFormState(localFormState);
         }
         if(props.name == CalculationsSummaryType.preliminary && props.preliminary){

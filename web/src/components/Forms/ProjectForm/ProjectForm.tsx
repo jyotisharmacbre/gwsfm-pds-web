@@ -21,10 +21,11 @@ import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { LookupType } from '../../../store/Lookups/Types/LookupType';
-import { getDropdown, getFilterElementFromArray, normalizeToNumber } from '../../../helpers/utility-helper';
+import { getPropertyName,getDropdown, getFilterElementFromArray, normalizeToNumber } from '../../../helpers/utility-helper';
 import PdsFormTypeAhead from '../../PdsFormHandlers/PdsFormTypeAhead';
 import { IProjectDetail } from '../../../store/CustomerEnquiryForm/Types/IProjectDetail';
 import { ICurrency } from '../../../store/Lookups/Types/ICurrency';
+import Currency from '../../../store/Lookups/InitialState/Currency';
 import IReactIntl from '../../../Translations/IReactIntl';
 import TypeAhead from '../../TypeAhead/TypeAhead';
 import { dynamicsContract } from '../../TypeAhead/TypeAheadConstantData/dynamicContractData';
@@ -84,7 +85,6 @@ const ProjectForm: React.FC<Props &
   dynamicsCompany.map((CompanyData: any) => {
     return { label: CompanyData.Name, id: CompanyData.CompanyId };
   });
-
   const getUserServiceDropdown =
   dynamicUserServiceData &&
   dynamicUserServiceData.map((UserServiceData: any) => {
@@ -92,7 +92,7 @@ const ProjectForm: React.FC<Props &
       email: UserServiceData.email
     };
   });
-
+  const CurrencyObj = new Currency();
   return (
     <div className="container-fluid">
       <div className=" row">
@@ -338,9 +338,15 @@ const ProjectForm: React.FC<Props &
                   ]}
                   currency={getFilterElementFromArray(
                     props.currencies,
-                    'currencyId',
+                    getPropertyName(
+                    CurrencyObj,
+                    prop => prop.currencyId
+                  ),
                     props.currencyId,
-                    'currencySymbol'
+                    getPropertyName(
+                    CurrencyObj,
+                    prop => prop.currencySymbol
+                  )
                   )}
                   divPosition="relative"
                   labelKey="LABEL_APPROXIMATE_VALUE"
