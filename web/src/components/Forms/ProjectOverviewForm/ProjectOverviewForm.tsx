@@ -91,23 +91,6 @@ let ProjectOverviewForm: React.FC<Props &
                   labelKey="LABEL_ENQUIRY_RECEIVED_FROM"
                   placeholderKey="PLACEHOLDER_ENQUIRY_SENDER_NAME"
                 />
-                <Field
-                  name={getPropertyName(
-                    initialValues,
-                    prop => prop.potentialCustomer
-                  )}
-                  data-test="potentialCustomer"
-                  type="text"
-                  component={PdsFormInput}
-                  className="required"
-                  validate={[
-                    Validate.required('LABEL_POTENTIAL_CUSTOMER'),
-                    Validate.maxLength(1000)
-                  ]}
-                  warn={alphaNumeric}
-                  labelKey="LABEL_POTENTIAL_CUSTOMER"
-                  placeholderKey="PLACEHOLDER_POTENTIAL_CUSTOMERS_NAME"
-                />
                 <div className="form-group">
                   <label>
                     <FormattedMessage id="LABEL_TYPE_OF_ENQUIRY" />*
