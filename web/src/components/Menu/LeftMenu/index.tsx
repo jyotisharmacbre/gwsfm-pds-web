@@ -5,6 +5,7 @@ import upload_icon from '../../images/upload-icon.jpg';
 import { IState } from '../../../store/state';
 import { connect } from 'react-redux';
 import { useHistory} from 'react-router-dom';
+import { isValidGUID } from '../../../helpers/utility-helper';
 
 interface IMapStateToProps {
   projectId: string;
@@ -12,15 +13,20 @@ interface IMapStateToProps {
 const LeftMenu: React.FC<IMapStateToProps> = props => {
   let history = useHistory();
   let urlProjectId:string="";
-  if(props.projectId!=""&&props.projectId!=null&&props.projectId!=undefined)
+  if(props.projectId)
   {
     urlProjectId=props.projectId;
   }
   else
   {
-    urlProjectId=history.location.pathname.split('/')[2];
+    history.location.pathname.split('/').forEach((data)=>{
+      if(isValidGUID(data)){
+        urlProjectId=data;
+        return;
+      }
+    })
   }
-  let isDisable:boolean=(urlProjectId!=''&&urlProjectId!=null&&urlProjectId!=undefined&&urlProjectId!="undefined")
+  let isDisable:boolean=(urlProjectId&&urlProjectId!="undefined")
   ?true:false;
 
   return (

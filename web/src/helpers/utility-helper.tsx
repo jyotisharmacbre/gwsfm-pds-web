@@ -136,3 +136,8 @@ export const getPreliminarySummaryCalculation = (data:Array<IPreliminariesCompon
         }
         return {cost:state.cost,sell:state.sell,margin:state.margin};  
 }
+export const isValidGUID=(stringToTest:string)=>
+{
+  var regexGuid = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
+    return regexGuid.test(stringToTest);
+}
