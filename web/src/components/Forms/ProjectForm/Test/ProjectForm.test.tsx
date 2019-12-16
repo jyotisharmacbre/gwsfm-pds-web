@@ -80,6 +80,23 @@ describe('ProjectForm Fields', () => {
         expect(errorBlock).toHaveLength(1);
       });
     });
+    describe('divisionId field', () => {
+      beforeEach(() => {
+        field = wrapper.find('select[name="divisionId"]').first();
+      });
+      it('Should renders divisionId field', () => {
+        expect(field.render());
+      });
+    });
+
+    describe('businessUnitId field', () => {
+      beforeEach(() => {
+        field = wrapper.find('select[name="businessUnitId"]').first();
+      });
+      it('Should renders businessUnitId field', () => {
+        expect(field.render());
+      });
+    });
 
     describe('ProbabilityOfWinning field', () => {
       beforeEach(() => {
@@ -133,6 +150,7 @@ describe('ProjectForm Fields', () => {
           currencyId: 1
         });
       });
+      
       it('Should renders currencyId field', () => {
         expect(field.render());
       });
