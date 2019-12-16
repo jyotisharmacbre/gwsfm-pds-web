@@ -100,9 +100,6 @@ const ProjectForm: React.FC<Props &
 
     const CurrencyObj = new Currency();
 
-    console.log(props.probabilityOfWinning, "probabilityOfWinning");
-    console.log(props.approximateValue, "approximateValue");
-
   return (
     <div className="container-fluid">
       <div className=" row">
