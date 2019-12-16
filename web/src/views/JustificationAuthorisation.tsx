@@ -12,6 +12,9 @@ const JustificationAuthorisation: React.FC<IProps> = (props: IProps) => {
   const redirectToPrelims = () => {
     return history.push(`/preliminaries/${props.match.params.projectId}`);
   };
+  const redirectToOverview = () => {
+    return history.push(`/projectoverview/${props.match.params.projectId}`);
+  };
   return (
     <div className="container-fluid">
       <Row>
@@ -30,7 +33,11 @@ const JustificationAuthorisation: React.FC<IProps> = (props: IProps) => {
             </div>
             <Tile></Tile>
             <div className="mr-35 three-btn mt-4">
-              <button className="active" type="button">
+              <button
+                className="active"
+                type="button"
+                onClick={redirectToOverview}
+              >
                 {' '}
                 <FormattedMessage id="BUTTON_PREVIOUS"></FormattedMessage>
               </button>
