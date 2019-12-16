@@ -141,8 +141,6 @@ export const confirmationAlert=(intl:any,title:string,message:string,onConfirm:a
     ]
   });
 }
-}
-
 export const restrictMinus = (value:number) => {
   if(value < 0) {
     return 0
