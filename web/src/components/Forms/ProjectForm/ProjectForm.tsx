@@ -130,7 +130,6 @@ const ProjectForm: React.FC<Props &
                     <Field
                       name="divisionId"
                       component={PdsFormSelect}
-                      placeHolder="Select"
                     >
                       <FormattedMessage id="PLACEHOLDER_DIVISION">
                         {message => <option value="">{message}</option>}
@@ -158,7 +157,6 @@ const ProjectForm: React.FC<Props &
                     <Field
                       name="businessUnitId"
                       component={PdsFormSelect}
-                      placeHolder="Select"
                     >
                       <FormattedMessage id="PLACEHOLDER_BUSINESS_UNIT">
                         {message => <option value="">{message}</option>}
@@ -291,7 +289,6 @@ const ProjectForm: React.FC<Props &
                     <Field
                       name="status"
                       component={PdsFormSelect}
-                      placeHolder="Select status"
                       normalize={normalizeToNumber}
                     >
                       <FormattedMessage id="PLACEHOLDER_PROJECT_STATUS">
