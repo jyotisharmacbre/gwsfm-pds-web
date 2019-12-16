@@ -184,6 +184,24 @@ describe('ProjectForm Fields', () => {
       });
     });
 
+    describe('soldMargin field', () => {
+      beforeEach(() => {
+        field = wrapper.find('input[name="soldMargin"]').first();
+      });
+      it('Should renders soldMargin field', () => {
+        expect(field.prop('type')).toBe('number');
+      });
+    });
+
+    describe('weightedTCV field', () => {
+      beforeEach(() => {
+        field = wrapper.find('input[name="weightedTCV"]').first();
+      });
+      it('Should renders weightedTCV field', () => {
+        expect(field.prop('type')).toBe('number');
+      });
+    });
+
     describe('Comment field', () => {
       beforeEach(() => {
         field = wrapper.find('textarea[name="scope"]').first();

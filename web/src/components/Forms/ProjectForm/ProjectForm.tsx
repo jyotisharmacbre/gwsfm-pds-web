@@ -21,7 +21,7 @@ import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { LookupType } from '../../../store/Lookups/Types/LookupType';
-import { getPropertyName,getDropdown, getFilterElementFromArray, normalizeToNumber } from '../../../helpers/utility-helper';
+import { getPropertyName,getDropdown, getFilterElementFromArray, normalizeToNumber, maxLimit, calculateRank } from '../../../helpers/utility-helper';
 import PdsFormTypeAhead from '../../PdsFormHandlers/PdsFormTypeAhead';
 import { IProjectDetail } from '../../../store/CustomerEnquiryForm/Types/IProjectDetail';
 import { ICurrency } from '../../../store/Lookups/Types/ICurrency';
@@ -92,13 +92,14 @@ const ProjectForm: React.FC<Props &
   const getUserServiceDropdown =
   userServiceData &&
   userServiceData.filter(user => user.firstname && user.lastName).map((UserServiceData: any) => {
-    return { label: UserServiceData.firstname + " " + UserServiceData.lastName,
+    return { label: `${UserServiceData.firstname} ${UserServiceData.lastName} (${UserServiceData.email === null ? 'NA' : UserServiceData.email})`,
      id: UserServiceData.id,
       email: UserServiceData.email
     };
   });
 
     const CurrencyObj = new Currency();
+
   return (
     <div className="container-fluid">
       <div className=" row">
@@ -381,6 +382,7 @@ const ProjectForm: React.FC<Props &
                     onlyNumber
                   ]}
                   messageKey="MESSAGE_PROBABILITYOFWINING"
+                  normalize = {maxLimit}
                 />
 
                 <Field
@@ -496,6 +498,50 @@ const ProjectForm: React.FC<Props &
                     </Field>
                   </div>
                 </div>
+                <Field
+                  name="soldMargin"
+                  type="number"
+                  component={PdsFormInput}
+                  labelKey="LABEL_SOLID_MARGIN"
+                  className="pl-30 width-288"  
+                  discountBind = "%"
+                  validate={[
+                    Validate.maxLength(3)
+                  ]}
+                  normalize = {maxLimit}
+                />
+
+<Field
+                  name="weightedTCV"
+                  type="number"
+                  component={PdsFormInput}
+                  labelKey="LABEL_WEIGHTED_TCV"
+                  className="pl-20 width-288"   
+                  currency={getFilterElementFromArray(
+                    props.currencies,
+                    getPropertyName(
+                    CurrencyObj,
+                    prop => prop.currencyId
+                  ),
+                    props.currencyId,
+                    getPropertyName(
+                    CurrencyObj,
+                    prop => prop.currencySymbol
+                  )
+                  )}   
+                />
+
+<Field
+                  name={'rank'}
+                  type="text"
+                  labelKey="LABEL_RANK"
+                  input={{
+                    value:calculateRank(props.probabilityOfWinning, props.approximateValue),
+                     disabled: true 
+                    }}
+                   component={PdsFormInput}
+                   className= "static-field"
+                />
 
                 <Field
                   labelKey="LABEL_COMMENTS"
@@ -535,7 +581,9 @@ const mapStateToProps = (state: IState) => ({
   initialValues: state.project.form,
   dynamicsOtherContract: state.dynamicData.dynamicsOtherContract,
   dynamicsOtherCompany: state.dynamicData.dynamicsOtherCompany,
-  currencyId: selector(state, 'currencyId')
+  currencyId: selector(state, 'currencyId'),
+  probabilityOfWinning: selector(state, 'probabilityOfWinning'),
+  approximateValue : selector(state, "approxValue")
 });
 
 const form = reduxForm<IProjectDetail, Props>({
