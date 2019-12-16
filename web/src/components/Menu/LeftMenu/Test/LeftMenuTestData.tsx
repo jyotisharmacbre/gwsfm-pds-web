@@ -1,9 +1,10 @@
 import { IProjectDetailState } from "../../../../store/CustomerEnquiryForm/Types/IProjectDetailState";
 import Notify from "../../../../enums/Notify";
 import EventType from "../../../../enums/EventType";
+import { IProjectDetail } from "../../../../store/CustomerEnquiryForm/Types/IProjectDetail";
+import { IProject } from "../../../../store/CustomerEnquiryForm/Types/IProject";
 
-export let leftMenuProjectData:IProjectDetailState={
-    form: {
+export let form:IProjectDetail={
         projectId: '',
         name: '',
         contractorId: '',
@@ -28,15 +29,18 @@ export let leftMenuProjectData:IProjectDetailState={
         comment: '',
         otherCompanyName: '',
         otherContractName:''
-      },
-      enquiryOverview: {
-        projectName: '',
-        companyId: '',
-        headOfProject: '',
-        projectManager: '',
-        scope: '',
-        cnNumber: ''
-      },
+}
+export let enquiryOverview:IProject={
+  projectName: '',
+  companyId: '',
+  headOfProject: '',
+  projectManager: '',
+  scope: '',
+  cnNumber: ''
+}
+export let leftMenuProjectData:IProjectDetailState={
+      form: form,
+      enquiryOverview: enquiryOverview,
       error: null,
       loading: false,
       notify: Notify.none,
