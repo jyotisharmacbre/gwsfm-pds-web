@@ -24,7 +24,9 @@ export const ProjectFormProps = {
   thirdAssetWorkedOn: 0,
   comment: 'Test',
   divisionId: 'Test',
-  businessUnitId: 'Test'
+  businessUnitId: 'Test',
+  weightedTCV: 10,
+  soldMargin: 10
 };
 
 export const initialState = {
@@ -52,7 +54,9 @@ export const initialState = {
     thirdAssetWorkedOn: 0,
     comment: '',
     divisionId: '',
-  businessUnitId: ''
+  businessUnitId: '',
+  weightedTCV: 10,
+  soldMargin: 10
   },
   enquiryOverview: {
     projectName: '',

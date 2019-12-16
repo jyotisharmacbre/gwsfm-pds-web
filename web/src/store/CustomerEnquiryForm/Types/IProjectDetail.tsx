@@ -25,4 +25,6 @@ export interface IProjectDetail {
   otherContractName: string;
   businessUnitId: string;
   divisionId: string;
+  weightedTCV: number | undefined;
+  soldMargin: number | undefined;
 }
