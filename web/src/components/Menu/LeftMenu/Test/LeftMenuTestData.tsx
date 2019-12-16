@@ -4,7 +4,7 @@ import EventType from "../../../../enums/EventType";
 import { IProjectDetail } from "../../../../store/CustomerEnquiryForm/Types/IProjectDetail";
 import { IProject } from "../../../../store/CustomerEnquiryForm/Types/IProject";
 
-export let form:IProjectDetail={
+export const form:IProjectDetail={
         projectId: '',
         name: '',
         contractorId: '',
@@ -28,9 +28,13 @@ export let form:IProjectDetail={
         thirdAssetWorkedOn: 0,
         comment: '',
         otherCompanyName: '',
-        otherContractName:''
+        otherContractName:'',
+        businessUnitId: '',
+        divisionId: '',
+        weightedTCV: 0,
+        soldMargin: 0
 }
-export let enquiryOverview:IProject={
+export const enquiryOverview:IProject={
   projectName: '',
   companyId: '',
   headOfProject: '',
@@ -38,7 +42,7 @@ export let enquiryOverview:IProject={
   scope: '',
   cnNumber: ''
 }
-export let leftMenuProjectData:IProjectDetailState={
+export const leftMenuProjectData:IProjectDetailState={
       form: form,
       enquiryOverview: enquiryOverview,
       error: null,
