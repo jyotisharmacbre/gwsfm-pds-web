@@ -8,9 +8,11 @@ import { IState } from '../store/state';
 import EventType from '../enums/EventType';
 import { toast } from 'react-toastify';
 import Notify from '../enums/Notify';
-import {getFilterElementFromArray} from '../helpers/utility-helper';
+import {getPropertyName,getFilterElementFromArray} from '../helpers/utility-helper';
 import { ICurrency } from '../store/Lookups/Types/ICurrency';
 import { FormattedMessage } from 'react-intl';
+import Currency from '../store/Lookups/InitialState/Currency';
+
 interface IProps {
   match: any;
 } 
@@ -30,6 +32,7 @@ interface IMapDispatchToProps {
     event: EventType
   ) => void;
   subContractorFormEdit: (
+    projectId:string,
     form: ISubContractor,
     event: EventType
   ) => void;
@@ -42,6 +45,7 @@ interface IMapDispatchToProps {
 const Subcontractor: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = props => {
   let history = useHistory();
   let paramProjectId:string = '';
+  const CurrencyObj = new Currency();
   const [currencySymbol,setCurrencySymbol] = React.useState('$');
   
   useEffect(() => {
@@ -58,7 +62,18 @@ const Subcontractor: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> =
   useEffect(() => {
     if(props.currencyId>0 && props.currencies){
       setCurrencySymbol(
-        getFilterElementFromArray(props.currencies,"currencyId",props.currencyId,"currencySymbol")
+        getFilterElementFromArray(
+                        props.currencies,
+                        getPropertyName(
+                        CurrencyObj,
+                        prop => prop.currencyId
+                      ),
+                        props.currencyId,
+                        getPropertyName(
+                        CurrencyObj,
+                        prop => prop.currencySymbol
+                      )
+                      )
       )
     }
   }, [props.currencyId,props.currencies]);
@@ -70,7 +85,7 @@ const Subcontractor: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> =
         history.push(`/Discounts/${props.match.params.projectId}`);
       } else if (props.event == EventType.previous) {
         toast.success('Data Saved Successfully');
-        history.push('/');
+        history.push(`/preliminaries/${props.match.params.projectId}`);
       }
       else if (props.event == EventType.save) {
         toast.success('Data Saved Successfully');
@@ -83,7 +98,7 @@ const Subcontractor: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> =
     paramProjectId = props.match.params.projectId;
     data.activities[0].subContrActivityId == ''
       ? props.subContractorFormAdd(paramProjectId, data, event)
-      : props.subContractorFormEdit(data, event);
+      : props.subContractorFormEdit(paramProjectId,data, event);
   }; 
 
   return (
@@ -101,7 +116,7 @@ const Subcontractor: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> =
                 <p className="text-green"> <FormattedMessage id='PAGE_SUB_TITLE'></FormattedMessage></p>
               </div>
             {currencySymbol != '' ? <SubcontractorForm
-              projectId={paramProjectId}
+              projectId={props.match.params.projectId}
               onSubmitForm={handleEvent}
               currencySymbol={currencySymbol}
             />:null}
@@ -124,8 +139,8 @@ const mapDispatchToProps = dispatch => {
   return {
     subContractorFormAdd: (projectId, form, event) =>
       dispatch(actions.subContractorFormAdd(projectId, form, event)),
-    subContractorFormEdit: (form, event) =>
-      dispatch(actions.subContractorFormEdit(form, event)),
+    subContractorFormEdit: (projectId,form, event) =>
+      dispatch(actions.subContractorFormEdit(projectId,form, event)),
     getProjectDetail: projectId =>
       dispatch(actions.getProjectDetail(projectId)),
     getSubContractor: projectId =>

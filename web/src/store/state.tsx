@@ -17,9 +17,8 @@ export type IState = {
   locale: ILocaleState;
   subContractor: ISubContractorState;
   pipelineGrid: IProjectPipelineGridState;
-  UserService: IUserServiceState;
+  userService: IUserServiceState;
   dynamicData: IDynamicDataState;
-  adData: IUserServiceState;
   discount: IDiscountState;
   preliminary: IPreliminaryState;
 };

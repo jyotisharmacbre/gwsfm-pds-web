@@ -13,19 +13,16 @@ interface IMapStateToProps {
 const LeftMenu: React.FC<IMapStateToProps> = props => {
   let history = useHistory();
   let urlProjectId:string="";
-  if(props.projectId)
-  {
-    urlProjectId=props.projectId;
-  }
-  else
-  {
+  const getGUID=()=>{
     history.location.pathname.split('/').forEach((data)=>{
       if(isValidGUID(data)){
-        urlProjectId=data;
+        urlProjectId=data
         return;
       }
     })
+    return urlProjectId;
   }
+   urlProjectId=props.projectId?props.projectId:getGUID();
   let isDisable:boolean=(urlProjectId&&urlProjectId!="undefined")
   ?true:false;
 

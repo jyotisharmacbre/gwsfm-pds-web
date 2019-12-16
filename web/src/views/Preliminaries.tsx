@@ -16,9 +16,9 @@ import EventType from '../enums/EventType';
 import { Prompt } from "react-router-dom"
 import CalculationsSummaryTable from '../components/Table/CalculationsSummaryTable';
 import CalculationsSummaryType from '../enums/CalculationsSummaryType';
-import { getFilterElementFromArray } from '../helpers/utility-helper';
+import { getPropertyName,getFilterElementFromArray } from '../helpers/utility-helper';
 import { formValueSelector } from 'redux-form';
-
+import Currency from '../store/Lookups/InitialState/Currency';
 interface IMapStateToProps {
   preliminaryDetails: Array<IPreliminariesComponentDetails>;
   lookupData: Array<ILookup>;
@@ -50,6 +50,7 @@ const Preliminaries: React.FC<
 > = props => {
   let history = useHistory();
   let paramProjectId: string = '';
+  const CurrencyObj = new Currency();
   let isLookupSessionExists: boolean = (sessionStorage.getItem("lookupData") != null && sessionStorage.getItem("lookupData") != undefined && sessionStorage.getItem("lookupData") != "")
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -126,7 +127,7 @@ const Preliminaries: React.FC<
     else { toast.error('No data changed to save.'); }
   };
   const handlePrevious = () => {
-    history.push('/Project');
+    history.push(`/Project/${props.match.params.projectId}`);
   };
 
   return (
@@ -154,7 +155,18 @@ const Preliminaries: React.FC<
                       projectId={props.match.params.projectId}
                       name={CalculationsSummaryType.preliminary} 
                       preliminary={props.preliminaryForm}
-                      currencySymbol={getFilterElementFromArray(props.currencies,"currencyId",props.currencyId,"currencySymbol")}/>
+                      currencySymbol={getFilterElementFromArray(
+                        props.currencies,
+                        getPropertyName(
+                        CurrencyObj,
+                        prop => prop.currencyId
+                      ),
+                        props.currencyId,
+                        getPropertyName(
+                        CurrencyObj,
+                        prop => prop.currencySymbol
+                      )
+                      )}/>
                     </div>
                   </div>
                   <div className="col-lg-4">
@@ -172,7 +184,18 @@ const Preliminaries: React.FC<
                 onPrevious={handlePrevious}
                 onToggle={handleToggle}
                 preliminariesDetails={props.preliminaryDetails}
-                currencySymbol={getFilterElementFromArray(props.currencies,"currencyId",props.currencyId,"currencySymbol")}
+                currencySymbol={getFilterElementFromArray(
+                    props.currencies,
+                    getPropertyName(
+                    CurrencyObj,
+                    prop => prop.currencyId
+                  ),
+                    props.currencyId,
+                    getPropertyName(
+                    CurrencyObj,
+                    prop => prop.currencySymbol
+                  )
+                  )}
               />
             </div>
           </form>

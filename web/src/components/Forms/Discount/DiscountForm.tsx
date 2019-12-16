@@ -16,7 +16,7 @@ import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { LookupType } from '../../../store/Lookups/Types/LookupType';
-import { getDropdown, getPropertyName, getDiscountTypeValue, getCurrencySymbol, getRadioOptions, getFilterElementFromArray } from '../../../helpers/utility-helper';
+import { getDropdown, getPropertyName, getDiscountTypeValue, getRadioOptions, getFilterElementFromArray } from '../../../helpers/utility-helper';
 import PdsFormTypeAhead from '../../PdsFormHandlers/PdsFormTypeAhead';
 import { IProjectDetail } from '../../../store/CustomerEnquiryForm/Types/IProjectDetail';
 import { ICurrency } from '../../../store/Lookups/Types/ICurrency';
