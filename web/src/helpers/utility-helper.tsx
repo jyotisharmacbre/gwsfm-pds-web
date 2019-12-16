@@ -137,3 +137,17 @@ export const isValidGUID=(stringToTest:string)=>
   var regexGuid = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
     return regexGuid.test(stringToTest);
 }
+export const maxLimit = (value: number) =>{
+  if(value<0){
+    return 0
+  } else if (value>100){
+    return 100
+  } else {
+    return value
+  }
+}
+
+
+export const calculateRank = (probabilityOfWinning:number,approximateValue:number) =>{ 
+  return probabilityOfWinning * approximateValue;
+}
