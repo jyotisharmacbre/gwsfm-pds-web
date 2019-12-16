@@ -140,7 +140,6 @@ const ProjectForm: React.FC<Props &
                         dynamicsDivisions.map((data: any, i: number) => {
                           return (
                             <option
-                              key={data.DivisionId}
                               value={data.DivisionId}
                             >
                               {data.Description}
@@ -168,7 +167,6 @@ const ProjectForm: React.FC<Props &
                         dynamicBusinessUnits.map((data: any, i: number) => {
                           return (
                             <option
-                              key={data.BusinessUnitId}
                               value={data.BusinessUnitId}
                             >
                               {data.Description}
