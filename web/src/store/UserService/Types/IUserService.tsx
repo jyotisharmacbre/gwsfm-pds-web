@@ -1,14 +1,8 @@
-export interface IAdHOPData {
+export interface IUserServiceData {
   id: string;
-  name: string;
-}
-
-export interface IAdPOData {
-  id: string;
-  name: string;
-}
-
-export interface IAdPMData {
-  id: string;
-  name: string;
+  lastName: string;
+  firstname: string;
+  email: string;
+  displayName: string;
+  groups: [] | null;
 }
