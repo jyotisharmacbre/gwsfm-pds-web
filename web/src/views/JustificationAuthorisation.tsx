@@ -1,22 +1,20 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Tile } from '../components/Tile';
+import Tile from '../components/Tile';
 import { Row, Col } from 'react-bootstrap';
-import { useHistory } from 'react-router-dom';
+import { useHistory,match } from 'react-router-dom';
 
 interface IProps {
-  match: any;
+  match: match<{projectId:string}>;
 }
 const JustificationAuthorisation: React.FC<IProps> = (props: IProps) => {
   let history = useHistory();
-  const redirectToPrelims = () => {
-    return history.push(`/preliminaries/${props.match.params.projectId}`);
-  };
-  const redirectToOverview = () => {
-    return history.push(`/projectoverview/${props.match.params.projectId}`);
+  const testData = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore';
+  const redirect = (module:string) => {
+    return history.push(`/${module}/${props.match.params.projectId}`);
   };
   return (
-    <div className="container-fluid">
+    <div className="container-fluid" data-test="j-a-component">
       <Row>
         <Col lg={12}>
           <div className="custom-wrap">
@@ -31,12 +29,28 @@ const JustificationAuthorisation: React.FC<IProps> = (props: IProps) => {
                 <FormattedMessage id="JA_COMMON_TEXT"></FormattedMessage>
               </p>
             </div>
-            <Tile></Tile>
+                <Row>
+                <Col lg={12}>
+                  <div className="card_outer_wrap">
+                    <Row className="pt-lg-3">
+                      <Col lg={4} className="pl-md-2 pr-md-2" onClick={()=> redirect('preliminaries')}>
+                        <Tile heading='PAGE_PRELIMINARY_TITLE' content={testData}></Tile>
+                      </Col>
+                      <Col lg={4} className="pl-md-2 pr-md-2" onClick={()=> redirect('Subcontractor')}>
+                        <Tile heading='PAGE_SUB_TITLE' content={testData}></Tile>
+                      </Col>
+                      <Col lg={4} className="pl-md-2 pr-md-2" onClick={()=> redirect('Discounts')}>
+                        <Tile heading='SUB_TITLE_DISCOUNTS' content={testData}></Tile>
+                      </Col>
+                    </Row>
+                  </div>
+                </Col>
+              </Row>
             <div className="mr-35 three-btn mt-4">
               <button
                 className="active"
                 type="button"
-                onClick={redirectToOverview}
+                onClick={() => redirect('projectoverview')}
               >
                 {' '}
                 <FormattedMessage id="BUTTON_PREVIOUS"></FormattedMessage>
@@ -45,7 +59,7 @@ const JustificationAuthorisation: React.FC<IProps> = (props: IProps) => {
                 type="button"
                 name="next"
                 className=""
-                onClick={redirectToPrelims}
+                onClick={() => redirect('preliminaries')}
               >
                 <FormattedMessage id="BUTTON_NEXT"></FormattedMessage>
               </button>
