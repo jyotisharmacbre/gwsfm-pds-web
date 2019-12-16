@@ -55,12 +55,11 @@ let props: any = {
   it('should match the snapshot', () => {
     expect(wrapper).toMatchSnapshot();
   }); 
-  it('should disable the link, if project id is not found', () => {
+  it('should disable the link if project id is not found', () => {
     const container = findByTestAtrr(wrapper,'ProjectOverviewLink').first();
     expect(container.hasClass("link_disabled")).toBe(true);
   });
   it('should enable and pass project id with url,if project id is there', () => {
-    props.projectId="309ccd02-38ab-4643-1165-08d77e00a6ce";
     leftMenuProjectData.form.projectId="309ccd02-38ab-4643-1165-08d77e00a6ce";
     wrapper = mount(
   <Provider store={store}>
