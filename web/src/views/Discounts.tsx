@@ -10,7 +10,7 @@ import * as actions from '../store/rootActions';
 import { connect } from 'react-redux';
 import { IState } from '../store/state';
 import { toast } from 'react-toastify';
-import { useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
 import { ILookup } from '../store/Lookups/Types/ILookup';
 import { ICurrency } from '../store/Lookups/Types/ICurrency';
 interface IMapDispatchToProps {

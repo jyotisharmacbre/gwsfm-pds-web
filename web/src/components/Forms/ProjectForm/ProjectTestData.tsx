@@ -22,7 +22,11 @@ export const ProjectFormProps = {
   firstAssetWorkedOn: 0,
   secondAssetWorkedOn: 0,
   thirdAssetWorkedOn: 0,
-  comment: 'Test'
+  comment: 'Test',
+  divisionId: 'Test',
+  businessUnitId: 'Test',
+  weightedTCV: 10,
+  soldMargin: 10
 };
 
 export const initialState = {
@@ -48,7 +52,11 @@ export const initialState = {
     firstAssetWorkedOn: 0,
     secondAssetWorkedOn: 0,
     thirdAssetWorkedOn: 0,
-    comment: ''
+    comment: '',
+    divisionId: '',
+  businessUnitId: '',
+  weightedTCV: 10,
+  soldMargin: 10
   },
   enquiryOverview: {
     projectName: '',

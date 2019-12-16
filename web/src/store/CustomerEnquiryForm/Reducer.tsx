@@ -29,7 +29,11 @@ const initialState: IProjectDetailState = {
     thirdAssetWorkedOn: 0,
     comment: '',
     otherCompanyName: '',
-    otherContractName:''
+    otherContractName:'',
+    divisionId : '',
+    businessUnitId: '',
+    weightedTCV: undefined,
+  soldMargin: undefined
   },
   enquiryOverview: {
     projectName: '',
