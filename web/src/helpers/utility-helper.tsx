@@ -3,8 +3,6 @@ import {ISubContractorActivity} from '../store/SubContractor/Types/ISubContracto
 import IDiscountCalculation from '../models/IDiscountCalculation';
 import {IPreliminariesComponentDetails} from '../store/Preliminaries/Types/IPreliminariesComponentDetails';
 import {IPreliminariesItems} from '../store/Preliminaries/Types/IPreliminariesItems';
-import { confirmAlert } from 'react-confirm-alert'; 
-import 'react-confirm-alert/src/react-confirm-alert.css';
 export const updateObject = (oldState, updatedProperties) => {
   return {
     ...oldState,
@@ -123,23 +121,6 @@ export const getPreliminarySummaryCalculation = (data:Array<IPreliminariesCompon
           })
         }
         return {cost:state.cost,sell:state.sell,margin:state.margin};  
-}
-export const confirmationAlert=(intl:any,title:string,message:string,onConfirm:any,param?:any)=>
-{   
-  confirmAlert({
-    title: intl.formatMessage({ id: title }),
-    message: intl.formatMessage({ id: message }),
-    buttons: [
-      {
-        label:intl.formatMessage({ id: "LABEL_YES" }),
-        onClick: () =>onConfirm(param)
-      },
-      {
-        label: intl.formatMessage({ id: "LABEL_NO" }),
-        onClick: () => {}
-      }
-    ]
-  });
 }
 export const restrictMinus = (value:number) => {
   if(value < 0) {
