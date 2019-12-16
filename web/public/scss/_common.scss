@@ -321,16 +321,12 @@ button[type="button"] {
     button {
         margin-right: 20px;
         @include mdScreen {
-            margin-bottom: 15px;
-        }
-        &:first-child {
-            @include mdScreen {
-                margin-left: initial!important;
-            }
+            margin: 8px 8px;
         }
         &:nth-child(2) {
-            @include smsScreen {
-                margin-left: 0 !important;
+            margin-right: 0;
+            @include mdScreen {
+                margin-right: 8px;
             }
         }
     }
