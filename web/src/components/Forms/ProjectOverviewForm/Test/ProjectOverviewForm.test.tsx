@@ -93,20 +93,6 @@ describe('ProjectOverviewForm Fields', () => {
         expect(errorBlock).toHaveLength(1);
       });
     });
-    describe('Potential Customer field', () => {
-      let field: ShallowWrapper;
-      beforeEach(() => {
-        field = wrapper.find('input[name="potentialCustomer"]').first();
-      });
-      it('Should renders Potential Customer field', () => {
-        expect(field.prop('type')).toBe('text');
-      });
-      it('Shows error when Potential Customer is set to blank', () => {
-        field.simulate('blur');
-        const errorBlock = wrapper.find('.text-danger');
-        expect(errorBlock).toHaveLength(1);
-      });
-    });
     describe('Credit Check Result field', () => {
       let field: ShallowWrapper;
       beforeEach(() => {

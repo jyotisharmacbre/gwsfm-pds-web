@@ -1,11 +1,6 @@
 import * as axios from '../../client';
 import { ActionType } from './Types/ActionType';
 import { Dispatch } from 'redux';
-import {
-  getADhopOther,
-  getADpoOther,
-  getADpmOther
-} from '../UserService/Action';
 
 const getDynamicContractSuccess = (response: any) => {
   return {
@@ -99,17 +94,7 @@ export const getDynamicOther = (data: any, type: string) => {
       return (dispatch: Dispatch) => {
         dispatch(getDynamicCompanyOtherSuccess(data));
       };
-    case 'headOfProject':
-      return (dispatch: Dispatch) => {
-        dispatch(getADhopOther(data));
-      };
-    case 'projectOwner':
-      return (dispatch: Dispatch) => {
-        dispatch(getADpoOther(data));
-      };
-    case 'projectManager':
-      return (dispatch: Dispatch) => {
-        dispatch(getADpmOther(data));
-      };
+      default:
+        return '';
   }
 };
