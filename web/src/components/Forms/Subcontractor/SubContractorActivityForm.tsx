@@ -25,7 +25,8 @@ import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import {newActivity} from '../../../store/SubContractor/InitialState';
 import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
-import {calculateSell,confirmationAlert} from '../../../helpers/utility-helper';
+import {calculateSell} from '../../../helpers/utility-helper';
+import { confirmAlert } from '../../Popup/CustomModalPopup';
 
 interface Props {
   fields:any,
@@ -35,7 +36,7 @@ interface Props {
 }
  
 const SubContractorActivityForm :React.FC<Props> = (props:Props) => {
-  const {fields} = props;
+  const {fields,intl} = props;
   return(
     <div>
     {fields.map((member, index) => (
@@ -47,7 +48,12 @@ const SubContractorActivityForm :React.FC<Props> = (props:Props) => {
                 data-test="deleteactivity"
                 className="delete_text"
                 onClick={
-                 ()=> confirmationAlert(props.intl,"TITLE_CONFIRMATION","MESSAGE_SUBCONTRACTOR_DELETE_ACTIVITY",()=>fields.remove(index))}
+                 ()=>confirmAlert({
+                  intl:props.intl,
+                  title:"TITLE_CONFIRMATION",
+                  message:"MESSAGE_SUBCONTRACTOR_DELETE_ACTIVITY",
+                  handleConfirm:()=>fields.remove(index)
+                })}
               >
                 <FormattedMessage id='BUTTON_DELETE' />
                 <FontAwesomeIcon className="" icon={faTrash} />

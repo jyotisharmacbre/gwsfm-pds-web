@@ -86,8 +86,6 @@
     "LABEL_VALUE": "Valeur (#)",
     "LABEL_END_CLIENT_NAME":"Nom du client final",
     "LABEL_PROJECT_ID":"ID du projet",
-    "LABEL_YES": "Oui",  
-    "LABEL_NO": "Non", 
     "MESSAGE_APPROXIMATE_VALUE": "Valeur approximative",
     "MESSAGE_COMPANY_NAME": "Nom de la compagnie",
     "MESSAGE_CONTRACT_NAME": "Nom du contrat",
