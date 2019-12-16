@@ -7,11 +7,11 @@ import EventType from '../../enums/EventType';
 const initialState: IUserPreferencesState = {
   form: {  
   userPreferenceId: '',
-  languageId: 0,
-  languageName: '',
-  currencyId: 0,
-  currencySymbol: '',
-  currencyName: ''
+  languageId: 1,
+  languageName: 'English',
+  currencyId: 1,
+  currencySymbol: '$',
+  currencyName: 'Dollar'
   },
   error: null,
   loading: false,
@@ -38,6 +38,16 @@ const userPreferencesFormEditSuccess = (oldState, action) => {
   });
 };
 
+const userPreferencesGetSuccess = (oldState, action) => {
+  return updateObject(oldState, {
+    form: action.payload,
+    error: null,
+    loading: false,
+    notify: Notify.success,
+    event: action.event
+  });
+};
+
 const userPreferencesFormError = (oldState, action) => {
   return updateObject(oldState, {
     error: action.error,
@@ -49,6 +59,8 @@ const userPreferencesFormError = (oldState, action) => {
 
 const userPreferencesFormReducer = (oldState = initialState, action) => {
   switch (action.type) {
+    case ActionType.USER_PREFERENCES_GET_SUCCESS:
+    return userPreferencesGetSuccess(oldState, action);
     case ActionType.USER_PREFERENCES_FORM_ADD_SUCCESS:
       return userPreferencesFormAddSuccess(oldState, action);
     case ActionType.USER_PREFERENCES_FORM_EDIT_SUCCESS:

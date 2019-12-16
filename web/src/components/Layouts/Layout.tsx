@@ -14,16 +14,14 @@ const Layout :React.FC<IAppProps> = (props:any) => {
   let history = useHistory();
   const { Theme, UseStyles } = props;
 
-  const getAuthenticatedUserName = () => {
-    return getDisplayName();
-  }
+
   return (
     <div className="wrapper">
       {history.location.pathname != '/' ?
       <Nav Theme={Theme} UseStyles={UseStyles} />:
       null}
       <div id="content">
-        <ProfileMenu Name={getAuthenticatedUserName()} />
+       <ProfileMenu />
         <Body Theme={Theme} UseStyles={UseStyles} />
       </div>
     </div>
