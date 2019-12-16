@@ -85,8 +85,6 @@
     "LABEL_VALUE": "Value (#)",
     "LABEL_END_CLIENT_NAME": "End Client Name",
     "LABEL_PROJECT_ID": "Project ID",
-    "LABEL_DIVISION": "Division",
-    "LABEL_BUSINESS_UNIT": "Business Unit",
     "LABEL_WEIGHTED_TCV": "Weighted TCV",
     "LABEL_SOLID_MARGIN": "Solid Margin",
     "LABEL_RANK": "Rank",
@@ -152,8 +150,6 @@
     "PLACEHOLDER_VALUATION_INTERVALS": "Add valuation intervals",
     "PLACEHOLDER_WORK_TYPES": "Select work types",
     "PLACEHOLDER_WIN_PROBABILITY": "00%",
-    "PLACEHOLDER_DIVISION": "Select division",
-    "PLACEHOLDER_BUSINESS_UNIT": "Select business unit",
     "VALIDATION_MESSAGE_APPROXIMATE_VALUE_REQUIRED": "Approximate value is required",
     "VALIDATION_MESSAGE_ASSET_REQUIRED": "Asset is required",
     "VALIDATION_MESSAGE_CDMNOTIFIABLE_REQUIRED": "CDM notifiable is required",
@@ -184,5 +180,7 @@
     "T_HEADING_NAME_OF_SUPPLIER": "Name of Supplier",
     "T_HEADING_NO_OF_HOURS": "No Of Hours",
     "T_HEADING_HOUR_RATE": "Hour Rate",
-    "T_HEADING_COMMENTS": "Comments"
+    "T_HEADING_COMMENTS": "Comments",
+    "JA_COMMON_TEXT": "Please select the section that is relevant to your project.",
+    "JA_HEADER": "Justification & Authorisation"
 }

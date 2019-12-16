@@ -85,8 +85,6 @@
     "LABEL_VALUE": "Valeur (#)",
     "LABEL_END_CLIENT_NAME": "Nom du client final",
     "LABEL_PROJECT_ID": "ID du projet",
-    "LABEL_DIVISION": "Division",
-    "LABEL_BUSINESS_UNIT": "Affaires Unité",
     "LABEL_SOLID_MARGIN": "solide marge",
     "LABEL_RANK": "rang",
     "LABEL_WEIGHTED_TCV": "Pondérée TCV",
@@ -152,8 +150,6 @@
     "PLACEHOLDER_VALUATION_INTERVALS": "Ajouter des intervalles d'évaluation",
     "PLACEHOLDER_WORK_TYPES": "Sélectionner les types de travail",
     "PLACEHOLDER_WIN_PROBABILITY": "00%",
-    "PLACEHOLDER_DIVISION": "Sélectionner division",
-    "PLACEHOLDER_BUSINESS_UNIT": "Sélectionner affaires unité",
     "VALIDATION_MESSAGE_APPROXIMATE_VALUE_REQUIRED": "Une valeur approximative est requise",
     "VALIDATION_MESSAGE_ASSET_REQUIRED": "Un atout est nécessaire",
     "VALIDATION_MESSAGE_CDMNOTIFIABLE_REQUIRED": "La notification MDP est obligatoire",
@@ -184,5 +180,7 @@
     "T_HEADING_NAME_OF_SUPPLIER": "Nom du fournisseur",
     "T_HEADING_NO_OF_HOURS": "Pas d'heures",
     "T_HEADING_HOUR_RATE": "Taux horaire",
-    "T_HEADING_COMMENTS": "commentaires"
+    "T_HEADING_COMMENTS": "commentaires",
+    "JA_COMMON_TEXT": "Veuillez sélectionner la section qui correspond à votre projet.",
+    "JA_HEADER": "Justification et autorisation"
 }
