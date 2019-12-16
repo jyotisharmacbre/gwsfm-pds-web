@@ -23,4 +23,6 @@ export interface IProjectDetail {
   comment: string;
   otherCompanyName: string;
   otherContractName: string;
+  businessUnitId: string;
+  divisionId: string;
 }

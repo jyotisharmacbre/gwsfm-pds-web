@@ -31,6 +31,8 @@ import TypeAhead from '../../TypeAhead/TypeAhead';
 import { dynamicsContract } from '../../TypeAhead/TypeAheadConstantData/dynamicContractData';
 import { dynamicsCompany } from '../../TypeAhead/TypeAheadConstantData/dynamicCompanyData';
 import { dynamicUserServiceData } from '../../TypeAhead/TypeAheadConstantData/dynamicUserServiceData';
+import { dynamicsDivisions } from '../../../helpers/dynamicsDivisionData';
+import { dynamicBusinessUnits } from '../../../helpers/dynamicBusinessData';
 
 interface Props {
   projectstatus: any;
@@ -102,7 +104,8 @@ const ProjectForm: React.FC<Props &
       email: UserServiceData.email
     };
   });
-  const CurrencyObj = new Currency();
+
+    const CurrencyObj = new Currency();
   return (
     <div className="container-fluid">
       <div className=" row">
@@ -126,6 +129,62 @@ const ProjectForm: React.FC<Props &
                   labelKey="LABEL_PROJECT"
                   placeholderKey="PLACEHOLDER_PROJECT_NAME"
                 />
+                <div className={'form-group'}>
+                  <label>
+                    <FormattedMessage id="LABEL_DIVISION" />
+                  </label>
+                  <div className="select-wrapper">
+                    <Field
+                      name="divisionId"
+                      component={PdsFormSelect}
+                      placeHolder="Select"
+                    >
+                      <FormattedMessage id="PLACEHOLDER_DIVISION">
+                        {message => <option value="">{message}</option>}
+                      </FormattedMessage>
+                      
+                      {dynamicsDivisions &&
+                        dynamicsDivisions.map((data: any, i: number) => {
+                          return (
+                            <option
+                              key={data.DivisionId}
+                              value={data.DivisionId}
+                            >
+                              {data.Description}
+                            </option>
+                          );
+                        })}
+                    </Field>
+                  </div>
+                </div>
+
+                <div className={'form-group'}>
+                  <label>
+                    <FormattedMessage id="LABEL_BUSINESS_UNIT" />
+                  </label>
+                  <div className="select-wrapper">
+                    <Field
+                      name="businessUnitId"
+                      component={PdsFormSelect}
+                      placeHolder="Select"
+                    >
+                      <FormattedMessage id="PLACEHOLDER_BUSINESS_UNIT">
+                        {message => <option value="">{message}</option>}
+                      </FormattedMessage>
+                      {dynamicBusinessUnits &&
+                        dynamicBusinessUnits.map((data: any, i: number) => {
+                          return (
+                            <option
+                              key={data.BusinessUnitId}
+                              value={data.BusinessUnitId}
+                            >
+                              {data.Description}
+                            </option>
+                          );
+                        })}
+                    </Field>
+                  </div>
+                </div>
                 <TypeAhead name="companyId"
                 options={getDynamicsCompanyDropdown}
                 DynamicsType="companyId"
