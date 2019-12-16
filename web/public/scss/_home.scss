@@ -134,7 +134,7 @@
                     display: block;
                     a {
                         position: relative;
-                        color: map-get($colors , grey002 );
+                        color: map-get($colors, grey002);
                         padding-left: 30px;
                         i {
                             position: absolute;
@@ -145,32 +145,32 @@
                             font-size: 17px;
                         }
                         .title_name {
-                            color: map-get($colors , grey002 );
+                            color: map-get($colors, grey002);
                             font-weight: 500;
                             font-size: 15px;
                             margin: 0;
                             line-height: 18px;
                         }
                         .dsc {
-                            color: map-get($colors , grey005 );
+                            color: map-get($colors, grey005);
                             font-size: 14px;
                         }
                     }
                 }
             }
             .link_group {
-                background: map-get($colors,  darkGreen );
+                background: map-get($colors, darkGreen);
                 display: flex;
                 justify-content: space-evenly;
                 padding: 14px 0;
                 @include borderRadius(0 0 5px 5px);
                 a {
-                    color: map-get($colors , whiteColor );
+                    color: map-get($colors, whiteColor);
                     font-size: 14px;
                     font-weight: 500;
                 }
                 span {
-                    color: map-get($colors , whiteColor );
+                    color: map-get($colors, whiteColor);
                     font-size: unset;
                 }
             }
@@ -350,7 +350,7 @@
     h2 {
         font-size: 26px;
         font-weight: 500;
-        color: map-get($colors , darkBlack );
+        color: map-get($colors, darkBlack);
     }
     h1 {
         margin-bottom: 40px;
@@ -400,4 +400,15 @@
     font-style: italic;
     font-weight: 300;
     position: absolute;
+}
+
+.width-288 {
+    width: 288px !important;
+}
+
+.static-field {
+    background: none !important;
+    border: 0 !important;
+    font-size: 20px !important;
+    padding-left: 0 !important;
 }
