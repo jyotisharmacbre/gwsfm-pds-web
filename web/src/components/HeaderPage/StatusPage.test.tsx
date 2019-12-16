@@ -8,12 +8,11 @@ import { IntlProvider } from 'react-intl';
 import translations from '../../Translations/translation';
 import configureStore from 'redux-mock-store';
 import StatusPage from './StatusPage';
-import { findDOMNode } from 'react-dom';
-import { confirmAlert } from 'react-confirm-alert'; 
 import 'react-confirm-alert/src/react-confirm-alert.css';
 
 const props: any = {
     status : 4,
+    statusName:"test",
     onReactivate:jest.fn(),
     handleBidLost:jest.fn(),
     handleOnHold:jest.fn()
@@ -44,6 +43,7 @@ const props: any = {
   it('should not display reactivate button on click of status edit icon, if status is not bid lost or on hold', () => {
     const testProps: any = {
         status : 7,
+        statusName:"test",
         onReactivate:jest.fn(),
         handleBidLost:jest.fn(),
         handleOnHold:jest.fn()

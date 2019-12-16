@@ -73,10 +73,7 @@ const ProjectOverview: React.FC<IProps &
   IMapStateToProps &
   IMapDispatchToProps> = props => {
   let history = useHistory();
-  const handleConfirmEvent=()=>{
-      }
-      const changeProjectStatus=()=>{
-      }
+  let projectStatusName:string="";
   useEffect(() => {
     window.scrollTo(0, 0);
     props.getProjectStatus();
@@ -86,7 +83,6 @@ const ProjectOverview: React.FC<IProps &
       props.getAdditionalDetails(paramProjectId);
       props.getEnquiryOverview(paramProjectId);
     }
-    changeProjectStatus();
   }, []);
 
   useEffect(() => {
@@ -101,7 +97,6 @@ const ProjectOverview: React.FC<IProps &
       props.resetProjectOverviewState();
     }
   }, [props.notify, props.event]);
-
   const handlePrevious = (data: IProjectAdditionalDetail) => {
     data.projectAddDetailId == ''
       ? props.projectOverviewFormAdd(props.projectId, data, EventType.previous)
@@ -118,12 +113,33 @@ const ProjectOverview: React.FC<IProps &
     if (id != null && id != undefined) data = id.toString();
     return data;
   };
- 
+  const getProjectStatusName=()=>{
+let projectStatusData:Array<ILookup>=[];
+    if(props.projectStatus.length>0)
+    {
+       projectStatusData=props.projectStatus.filter((data)=>{return (data.lookupItem=="Project_Status"&&data.lookupKey==props.status)});
+    }
+    else if(sessionStorage.getItem("lookupData"))
+    {
+      let lookupData:any=sessionStorage.getItem("lookupData");
+      projectStatusData=JSON.parse(lookupData).filter((data)=>{return (data.lookupItem=="Project_Status"&&data.lookupKey==props.status)});
+    }
+    return (projectStatusData.length>0?projectStatusData[0].description:"")
+  }
+  const handleReactivateEvent=()=>{
+    props.reactivateProject(props.match.params.projectId)
+  }
+  const handleOnHoldEvent=()=>{
+    props.changeProjectStatusToOnHold(props.match.params.projectId)
+  }
+  const handleBidLostEvent=()=>{
+    props.changeProjectStatusToBidLost(props.match.params.projectId)
+  }
   return (
     <React.Fragment>
       <Container component="main">
         <HeaderPage Title={formatMessage('TITLE_PROJECT_OVERVIEW')} ActionList={[]} />
-        <StatusPage status={4} onReactivate={()=>props.reactivateProject(props.match.params.projectId)} handleOnHold={()=>props.changeProjectStatusToOnHold(props.match.params.projectId)} handleBidLost={()=>props.changeProjectStatusToBidLost(props.match.params.projectId)}/>
+        <StatusPage status={props.status} statusName={getProjectStatusName()} onReactivate={handleReactivateEvent} handleOnHold={handleOnHoldEvent} handleBidLost={handleBidLostEvent}/>
         <Grid spacing={3} container>
           <Grid item xs={12} sm={12}>
             <GeneralTable
