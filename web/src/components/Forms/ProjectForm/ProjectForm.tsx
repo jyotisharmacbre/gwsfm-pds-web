@@ -92,7 +92,7 @@ const ProjectForm: React.FC<Props &
   const getUserServiceDropdown =
   userServiceData &&
   userServiceData.filter(user => user.firstname && user.lastName).map((UserServiceData: any) => {
-    return { label: UserServiceData.firstname + " " + UserServiceData.lastName,
+    return { label: `${UserServiceData.firstname} ${UserServiceData.lastName} (${UserServiceData.email === null ? 'NA' : UserServiceData.email})`,
      id: UserServiceData.id,
       email: UserServiceData.email
     };
