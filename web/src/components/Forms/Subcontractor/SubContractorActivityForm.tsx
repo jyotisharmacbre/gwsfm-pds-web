@@ -26,15 +26,17 @@ import {newActivity} from '../../../store/SubContractor/InitialState';
 import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
 import {calculateSell} from '../../../helpers/utility-helper';
+import { confirmAlert } from '../../Popup/CustomModalPopup';
 
 interface Props {
   fields:any,
   activities:Array<ISubContractorActivity>;
   currencySymbol:string;
+  intl:any;
 }
  
 const SubContractorActivityForm :React.FC<Props> = (props:Props) => {
-  const {fields} = props;
+  const {fields,intl} = props;
   return(
     <div>
     {fields.map((member, index) => (
@@ -45,7 +47,13 @@ const SubContractorActivityForm :React.FC<Props> = (props:Props) => {
               <button
                 data-test="deleteactivity"
                 className="delete_text"
-                onClick={() => fields.remove(index)}
+                onClick={
+                 ()=>confirmAlert({
+                  intl:props.intl,
+                  titleKey:"TITLE_CONFIRMATION",
+                  contentKey:"MESSAGE_SUBCONTRACTOR_DELETE_ACTIVITY",
+                  handleConfirm:()=>fields.remove(index)
+                })}
               >
                 <FormattedMessage id='BUTTON_DELETE' />
                 <FontAwesomeIcon className="" icon={faTrash} />

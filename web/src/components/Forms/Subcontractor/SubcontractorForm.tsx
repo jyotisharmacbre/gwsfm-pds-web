@@ -25,7 +25,7 @@ interface Props {
 let SubcontractorForm: React.FC<
   Props & IReactIntl & InjectedFormProps<ISubContractor, Props>
 > = (props: any) => {
-   const {handleSubmit} = props;
+   const {handleSubmit,intl} = props;
   return (
     <form className="subcontractor_form" onSubmit={handleSubmit} noValidate={true}>
       <CalculationsSummaryTable
@@ -36,6 +36,7 @@ let SubcontractorForm: React.FC<
       <FieldArray 
       name="activities" 
       component={SubContractorActivityForm}
+      intl={props.intl}
       currencySymbol={props.currencySymbol}
        />
       

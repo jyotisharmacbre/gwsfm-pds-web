@@ -1,26 +1,28 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import cbre_icon from '../../images/logo-black.png';
 import upload_icon from '../../images/upload-icon.jpg';
 import { IState } from '../../../store/state';
 import { connect } from 'react-redux';
-import { useHistory} from 'react-router-dom';
+import { isValidGUID } from '../../../helpers/utility-helper';
 
 interface IMapStateToProps {
   projectId: string;
 }
 const LeftMenu: React.FC<IMapStateToProps> = props => {
-  let history = useHistory();
   let urlProjectId:string="";
-  if(props.projectId)
-  {
-    urlProjectId=props.projectId;
+  let history=useHistory();
+  const getGUID=()=>{
+    history.location.pathname.split('/').forEach((data)=>{
+      if(isValidGUID(data)){
+        urlProjectId=data
+        return;
+      }
+    })
+    return urlProjectId;
   }
-  else
-  {
-    urlProjectId=history.location.pathname.split('/')[2];
-  }
-  let isDisable:boolean=(urlProjectId && urlProjectId!="undefined")
+   urlProjectId=props.projectId?props.projectId:getGUID();
+  let isDisable:boolean=(urlProjectId&&urlProjectId!="undefined")
   ?true:false;
 
   return (
@@ -45,7 +47,7 @@ const LeftMenu: React.FC<IMapStateToProps> = props => {
           upload library
         </p>
         <li className="active">
-          <Link
+          <Link data-test="ProjectLink"
             to={{
               pathname: '/Project/'+urlProjectId
             }}
@@ -53,8 +55,8 @@ const LeftMenu: React.FC<IMapStateToProps> = props => {
             customer enquiry
           </Link>
         </li>
-        <li className={isDisable?"":"link_disabled"}>
-          <Link
+        <li data-test="ProjectOverviewLink" className={isDisable?"":"link_disabled"}>
+          <Link data-test="ProjectOverviewPath"
             to={{
               pathname: '/ProjectOverview/'+urlProjectId
             }}

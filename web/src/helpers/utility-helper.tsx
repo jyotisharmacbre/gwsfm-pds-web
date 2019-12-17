@@ -3,8 +3,6 @@ import {ISubContractorActivity} from '../store/SubContractor/Types/ISubContracto
 import IDiscountCalculation from '../models/IDiscountCalculation';
 import {IPreliminariesComponentDetails} from '../store/Preliminaries/Types/IPreliminariesComponentDetails';
 import {IPreliminariesItems} from '../store/Preliminaries/Types/IPreliminariesItems';
-import { confirmAlert } from 'react-confirm-alert'; 
-import 'react-confirm-alert/src/react-confirm-alert.css';
 export const updateObject = (oldState, updatedProperties) => {
   return {
     ...oldState,
@@ -124,7 +122,6 @@ export const getPreliminarySummaryCalculation = (data:Array<IPreliminariesCompon
         }
         return {cost:state.cost,sell:state.sell,margin:state.margin};  
 }
-
 export const restrictMinus = (value:number) => {
   if(value < 0) {
     return 0
@@ -133,6 +130,11 @@ export const restrictMinus = (value:number) => {
   }
 }
 
+export const isValidGUID=(stringToTest:string)=>
+{
+  var regexGuid = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
+    return regexGuid.test(stringToTest);
+}
 export const maxLimit = (value: number) =>{
   if(value<0){
     return 0
