@@ -130,6 +130,11 @@ export const restrictMinus = (value:number) => {
   }
 }
 
+export const isValidGUID=(stringToTest:string)=>
+{
+  var regexGuid = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
+    return regexGuid.test(stringToTest);
+}
 export const maxLimit = (value: number) =>{
   if(value<0){
     return 0
