@@ -59,7 +59,7 @@ let props: any = {
     const container = findByTestAtrr(wrapper,'ProjectOverviewLink').first();
     expect(container.hasClass("link_disabled")).toBe(true);
   });
-  it('should enable and pass project id with url,if project id is there', () => {
+  it('should enable and pass project id with url if project id is there', () => {
     leftMenuProjectData.form.projectId="309ccd02-38ab-4643-1165-08d77e00a6ce";
     wrapper = mount(
   <Provider store={store}>
