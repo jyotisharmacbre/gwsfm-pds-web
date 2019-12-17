@@ -112,7 +112,8 @@ const changeProjectStatusToOnHoldError = (oldState, action) => {
 };
 const reactivateProjectSuccess = (oldState, action) => {
   return updateObject(oldState, {
-    notify: Notify.error
+    notify: Notify.success,
+    event:EventType.save
   });
 };
 const reactivateProjectError = (oldState, action) => {

@@ -23,6 +23,7 @@ interface IMapStateToProps {
   event: EventType;
   currencyId:number,
   currencies: Array<ICurrency> | null;
+  status:number;
 }
 
 interface IMapDispatchToProps {
@@ -103,7 +104,7 @@ const Subcontractor: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> =
 
   return (
     <div className="container-fluid">
-        <div className="row">
+           <div className={(props.status==4||props.status==6)?"link_disabled row":"row"}>
           <div className="col-lg-12">
             <div className="custom-wrap">
               <div className="heading-subtitle">
@@ -132,7 +133,9 @@ const mapStateToProps = (state: IState) => ({
   notify: state.subContractor.notify,
   event: state.subContractor.event,
   currencyId:state.project.form.currencyId,
-  currencies: state.lookup.currencies
+  currencies: state.lookup.currencies,
+  status:state.project.form.status
+
 });
 
 const mapDispatchToProps = dispatch => {

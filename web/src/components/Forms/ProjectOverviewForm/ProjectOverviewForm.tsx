@@ -56,7 +56,7 @@ let ProjectOverviewForm: React.FC<Props &
             noValidate={true}
             data-test="projectOverviewForm"
           >
-            <div className={"row"+(props.status=="4"||props.status=="6")?"link_disabled":""}>
+            <div className={(props.status==4||props.status==6)?"link_disabled row":"row"}>
               <div className="col-lg-8">
                 <Field
                   name={getPropertyName(
@@ -431,7 +431,7 @@ let ProjectOverviewForm: React.FC<Props &
               </div>
             </div>
             {/* AUTHORISED SECTION */}
-            <div className={"row"+(props.status=="4"||props.status=="6")?"link_disabled":""}>
+            <div className={(props.status==4||props.status==6)?"link_disabled row":"row"}>
               <div className="col-xl-6">
                 <div className="authorised_form_wrap">
                   <h6 className="ml-0">

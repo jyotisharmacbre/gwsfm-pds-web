@@ -37,6 +37,7 @@ interface IMapStateToProps {
   dynamicsContract: Array<IDynamicContractData>;
   dynamicsCompany: Array<IDynamicCompanyData>;
   userServiceData: Array<IUserServiceData>;
+  status:number;
 }
 
 interface IMapDispatchToProps {
@@ -108,6 +109,7 @@ const Project: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = props
   };
 
   return (
+    <div className={(props.status==4||props.status==6)?"link_disabled":""}>
     <ProjectForm
       onSave={handleSave}
       onNext={handleNext}
@@ -118,6 +120,7 @@ const Project: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = props
       onSearchUserService={onSearchUserService}
       userServiceData = {props.userServiceData}
     />
+    </div>
   );
 };
 
@@ -130,7 +133,9 @@ const mapStateToProps = (state: IState) => {
     notify: state.project.notify,
     event: state.project.event,
     projectId: state.project.form.projectId,
-    currencies: state.lookup.currencies
+    currencies: state.lookup.currencies,
+    status:state.project.form.status
+
   };
 };
 

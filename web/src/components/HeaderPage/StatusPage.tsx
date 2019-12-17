@@ -32,21 +32,21 @@ const StatusPage: React.FC<IProps&IReactIntl> = props => {
       
              <div className="col-md-6 float-right">
                                         <div className="activate_status_box">
-                                        <div className="status-dropdown-btn toggle mrgnrght10 mrgnt5">
+                                        {(props.status==4 || props.status==6)? <div className="status-dropdown-btn toggle mrgnrght10 mrgnt5">
                                                         <span>
-                                                        {(props.status==4 || props.status==6)?
+                                                       
                                                         <button type="button"  id="reactivateButton" data-test="activateButton" 
                                                         onClick={()=>
                                                         confirmAlert({
                                                         intl:props.intl,
                                                         titleKey:"TITLE_CONFIRMATION",
                                                         contentKey:"MESSAGE_PROJECT_REACTIVATE",
-                                                        handleConfirm:()=>props.onReactivate
+                                                        handleConfirm:()=>props.onReactivate()
                                                         })}>
                                             <FontAwesomeIcon className="active mrgnrght10" icon={faLightbulb} />ACTIVATE
-                                            </button>:null}
+                                            </button>
                                                         </span>
-                                           </div>
+                                           </div>:
                                             <div className="status_btn">
                                                 <div className="status-dropdown">
                                                     <div className="status-dropdown-btn toggle">
@@ -63,7 +63,7 @@ const StatusPage: React.FC<IProps&IReactIntl> = props => {
                                                                     intl:props.intl,
                                                                     titleKey:"TITLE_CONFIRMATION",
                                                                     contentKey:"MESSAGE_PROJECT_STATUS_CHANGE",
-                                                                    handleConfirm:()=>props.handleBidLost
+                                                                    handleConfirm:()=>props.handleBidLost()
                                                                   })
                                                                 }> 
                                                                 <a title="Bid Lost">Bid
@@ -73,7 +73,7 @@ const StatusPage: React.FC<IProps&IReactIntl> = props => {
                                                             intl:props.intl,
                                                             titleKey:"TITLE_CONFIRMATION",
                                                             contentKey:"MESSAGE_PROJECT_STATUS_CHANGE",
-                                                            handleConfirm:()=>props.handleOnHold
+                                                            handleConfirm:()=>props.handleOnHold()
                                                             })}>
                                                                     <a
                                                                     title="On Hold">On
@@ -83,7 +83,7 @@ const StatusPage: React.FC<IProps&IReactIntl> = props => {
                                                        
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div>}
                                         </div>
                                     </div>
     ) 

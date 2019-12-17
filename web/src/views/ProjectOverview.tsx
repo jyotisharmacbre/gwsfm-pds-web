@@ -99,7 +99,7 @@ const ProjectOverview: React.FC<IProps &
   }, [props.notify, props.event]);
   useEffect(() => {
     if (props.notify == Notify.success) {
-      if (props.event == EventType.next) 
+      if (props.event == EventType.save) 
       {
         toast.success('Project reactivated successfully');
         props.getProjectDetail(props.match.params.projectId);
@@ -161,7 +161,7 @@ const ProjectOverview: React.FC<IProps &
     <React.Fragment>
       <Container component="main">
         <HeaderPage Title={formatMessage('TITLE_PROJECT_OVERVIEW')} ActionList={[]} />
-        <StatusPage status={4} statusName={getProjectStatusName()} onReactivate={handleReactivateEvent} handleOnHold={handleOnHoldEvent} handleBidLost={handleBidLostEvent}/>
+        <StatusPage status={props.status} statusName={getProjectStatusName()} onReactivate={handleReactivateEvent} handleOnHold={handleOnHoldEvent} handleBidLost={handleBidLostEvent}/>
         <Grid spacing={3} container>
           <Grid item xs={12} sm={12}>
             <GeneralTable
@@ -193,7 +193,7 @@ const ProjectOverview: React.FC<IProps &
               onNext={handleNext}
               onPrevious={handlePrevious}
               projectstatus={props.projectStatus}
-              status={4}
+              status={props.status}
             />
           </Grid>
         </Grid>

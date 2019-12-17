@@ -43,6 +43,7 @@ interface IMapStateToProps {
   currencyId: number;
   clientName: string;
   otherClientName: string;
+  status:number;
 }
 
 
@@ -97,8 +98,8 @@ interface IMapStateToProps {
 
     return (
       <div className="container-fluid">
-        <div className="row">
-          <div className="col-lg-12">
+            <div className={(props.status==4||props.status==6)?"link_disabled row":"row"}> 
+             <div className="col-lg-12">
             <div className="custom-wrap discount_wrap">
               <div className="heading-subtitle">
                 <h1>
@@ -131,7 +132,8 @@ interface IMapStateToProps {
     currencies: state.lookup.currencies,
     currencyId: state.project.form.currencyId,
     clientName: state.project.form.companyId,
-    otherClientName: state.project.form.otherCompanyName
+    otherClientName: state.project.form.otherCompanyName,
+    status:state.project.form.status
   });
   
   const mapDispatchToProps = dispatch => {
