@@ -37,8 +37,16 @@ describe('PdsFormButton Renders', () => {
     };
     wrapper = shallow(<PdsFormButton {...props} />);
   });
-  it('Should render a button', () => {
-    const button = findByTestAtrr(wrapper, 'buttonComponent');
-    expect(button.length).toBe(2);
+  it('Should render first button without active class', () => {
+    const button_1 = findByTestAtrr(wrapper, 'buttonComponent_0');
+    expect(button_1.length).toBe(1);
+    expect(button_1.hasClass('active button-type')).toEqual(false);
   });
+
+  it('should render second button with active class', () => {
+    const button_2 = findByTestAtrr(wrapper, 'buttonComponent_1');
+    expect(button_2.length).toBe(1);
+    expect(button_2.hasClass('active button-type')).toBeTruthy;
+  });
+   
 });
