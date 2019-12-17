@@ -82,4 +82,19 @@ let props: any = {
     expect(link.getDOMNode().href).not.toContain("309ccd02-38ab-4643-1165-08d7");
     expect(container.hasClass("link_disabled")).toBe(true);
   });
+  it('should take only first GUID if more than two GUID found in the url', () => {
+    leftMenuProjectData.form.projectId="309ccd02-38ab-4643-1165-08d77e00a6ce";
+    window.location.href="http://localhost/projectOverview/309ccd02-38ab-4643-1165-08d77e00a6ce/309ccd02-38ab-4643-1165-08d7";
+    wrapper = mount(
+      <Provider store={store}>
+      <IntlProvider locale="en" messages={translations['en'].messages}>
+      <BrowserRouter>
+      <LeftMenu {...props}/>
+      </BrowserRouter>
+      </IntlProvider>
+      </Provider>
+    );
+    const link = findByTestAtrr(wrapper,'ProjectOverviewPath').first();
+    expect(link.getDOMNode().href).toContain("309ccd02-38ab-4643-1165-08d77e00a6ce");
+  });
 });
