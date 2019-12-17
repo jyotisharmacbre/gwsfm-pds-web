@@ -3,7 +3,6 @@ import {ISubContractorActivity} from '../store/SubContractor/Types/ISubContracto
 import IDiscountCalculation from '../models/IDiscountCalculation';
 import {IPreliminariesComponentDetails} from '../store/Preliminaries/Types/IPreliminariesComponentDetails';
 import {IPreliminariesItems} from '../store/Preliminaries/Types/IPreliminariesItems';
-
 export const updateObject = (oldState, updatedProperties) => {
   return {
     ...oldState,
@@ -123,7 +122,6 @@ export const getPreliminarySummaryCalculation = (data:Array<IPreliminariesCompon
         }
         return {cost:state.cost,sell:state.sell,margin:state.margin};  
 }
-
 export const restrictMinus = (value:number) => {
   if(value < 0) {
     return 0
