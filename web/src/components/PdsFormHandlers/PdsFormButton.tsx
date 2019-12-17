@@ -28,9 +28,9 @@ class PdsFormButton extends React.Component<Props> {
           </label>
         )}
         <div>
-          {buttons.map(b => (
+          {buttons.map((b,index) => (
             <button
-              data-test="buttonComponent"
+              data-test={"buttonComponent_"+index}
               type="button"
               key={b.title}
               onClick={event => this.handleClick(event, b)}
