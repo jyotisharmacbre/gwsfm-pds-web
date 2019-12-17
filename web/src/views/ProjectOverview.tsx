@@ -18,7 +18,7 @@ import { ILookup } from '../store/Lookups/Types/ILookup';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { formatMessage } from '../Translations/connectedIntlProvider';
-import StatusPage from '../components/HeaderPage/StatusPage';
+import ProjectOverviewStatusTab from '../components/HeaderPage/ProjectOverviewStatusTab';
 
 const tableHeaders: IGeneralTableHeaderProps[] = [
   { heading: 'End Client Name', subHeading: 'ING' },
@@ -161,7 +161,7 @@ const ProjectOverview: React.FC<IProps &
     <React.Fragment>
       <Container component="main">
         <HeaderPage Title={formatMessage('TITLE_PROJECT_OVERVIEW')} ActionList={[]} />
-        <StatusPage status={props.status} statusName={getProjectStatusName()} onReactivate={handleReactivateEvent} handleOnHold={handleOnHoldEvent} handleBidLost={handleBidLostEvent}/>
+        <ProjectOverviewStatusTab status={props.status} statusName={getProjectStatusName()} onReactivate={handleReactivateEvent} handleOnHold={handleOnHoldEvent} handleBidLost={handleBidLostEvent}/>
         <Grid spacing={3} container>
           <Grid item xs={12} sm={12}>
             <GeneralTable

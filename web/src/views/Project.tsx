@@ -27,6 +27,7 @@ import {
 import {
   getUserService
 } from '../store/UserService/Action';
+import ProjectStatus from '../enums/ProjectStatus';
 
 interface IMapStateToProps {
   notify: Notify;
@@ -109,7 +110,7 @@ const Project: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = props
   };
 
   return (
-    <div className={(props.status==4||props.status==6)?"link_disabled":""}>
+    <div className={(props.status==ProjectStatus.bidlost||props.status==ProjectStatus.onhold)?"link_disabled":""}>
     <ProjectForm
       onSave={handleSave}
       onNext={handleNext}

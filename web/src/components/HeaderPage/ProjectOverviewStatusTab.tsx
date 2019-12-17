@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { confirmAlert } from '../Popup/CustomModalPopup';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import IReactIntl from '../../Translations/IReactIntl';
+import ProjectStatus from '../../enums/ProjectStatus';
 
 interface IProps
 {
@@ -14,7 +15,7 @@ interface IProps
     handleOnHold:()=>void;
 }
 
-const StatusPage: React.FC<IProps&IReactIntl> = props => {  
+const ProjectOverviewStatusTab: React.FC<IProps&IReactIntl> = props => {  
     const handleToggleStatusTab=()=>{
         var element: any = document.getElementById('statusTab');
         if (element != null) {
@@ -32,7 +33,7 @@ const StatusPage: React.FC<IProps&IReactIntl> = props => {
       
              <div className="col-md-6 float-right">
                                         <div className="activate_status_box">
-                                        {(props.status==4 || props.status==6)? <div className="status-dropdown-btn toggle mrgnrght10 mrgnt5">
+                                        {(props.status==ProjectStatus.bidlost || props.status==ProjectStatus.onhold)? <div className="status-dropdown-btn toggle mrgnrght10 mrgnt5">
                                                         <span>
                                                        
                                                         <button type="button"  id="reactivateButton" data-test="activateButton" 
@@ -90,4 +91,4 @@ const StatusPage: React.FC<IProps&IReactIntl> = props => {
    
 }
 
-export default injectIntl(StatusPage);
+export default injectIntl(ProjectOverviewStatusTab);

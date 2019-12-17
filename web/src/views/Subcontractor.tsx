@@ -12,6 +12,7 @@ import {getPropertyName,getFilterElementFromArray} from '../helpers/utility-help
 import { ICurrency } from '../store/Lookups/Types/ICurrency';
 import { FormattedMessage } from 'react-intl';
 import Currency from '../store/Lookups/InitialState/Currency';
+import ProjectStatus from '../enums/ProjectStatus';
 
 interface IProps {
   match: any;
@@ -104,7 +105,7 @@ const Subcontractor: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> =
 
   return (
     <div className="container-fluid">
-           <div className={(props.status==4||props.status==6)?"link_disabled row":"row"}>
+           <div className={(props.status==ProjectStatus.bidlost||props.status==ProjectStatus.onhold)?"link_disabled row":"row"}>
           <div className="col-lg-12">
             <div className="custom-wrap">
               <div className="heading-subtitle">

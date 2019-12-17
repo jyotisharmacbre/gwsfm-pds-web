@@ -7,7 +7,7 @@ import {findByTestAtrr} from '../../helpers/test-helper';
 import { IntlProvider } from 'react-intl';
 import translations from '../../Translations/translation';
 import configureStore from 'redux-mock-store';
-import StatusPage from './StatusPage';
+import ProjectOverviewStatusTab from './ProjectOverviewStatusTab';
 const props: any = {
     status : 1,
     statusName:"test",
@@ -25,7 +25,7 @@ const props: any = {
       wrapper = mount(
         <Provider store={store}>
         <IntlProvider locale="en" messages={translations['en'].messages}>
-        <StatusPage {...props}/>
+        <ProjectOverviewStatusTab {...props}/>
         </IntlProvider>
         </Provider>
       );
@@ -52,7 +52,7 @@ it('should  display reactivate button if status is bid lost or on hold', () => {
 wrapper = mount(
     <Provider store={store}>
     <IntlProvider locale="en" messages={translations['en'].messages}>
-    <StatusPage {...testProps}/>
+    <ProjectOverviewStatusTab {...testProps}/>
     </IntlProvider>
     </Provider>
   );

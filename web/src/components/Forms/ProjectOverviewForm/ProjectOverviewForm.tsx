@@ -29,6 +29,7 @@ import {
 import { Validate, alphaNumeric } from '../../../helpers/fieldValidations';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import IReactIntl from '../../../Translations/IReactIntl';
+import ProjectStatus from '../../../enums/ProjectStatus';
 
 interface Props {
   onNext: (data: IProjectAdditionalDetail) => void;
@@ -56,7 +57,7 @@ let ProjectOverviewForm: React.FC<Props &
             noValidate={true}
             data-test="projectOverviewForm"
           >
-            <div className={(props.status==4||props.status==6)?"link_disabled row":"row"}>
+            <div className={(props.status==ProjectStatus.bidlost||props.status==ProjectStatus.onhold)?"link_disabled row":"row"}>
               <div className="col-lg-8">
                 <Field
                   name={getPropertyName(
@@ -431,7 +432,7 @@ let ProjectOverviewForm: React.FC<Props &
               </div>
             </div>
             {/* AUTHORISED SECTION */}
-            <div className={(props.status==4||props.status==6)?"link_disabled row":"row"}>
+            <div className={(props.status==ProjectStatus.bidlost||props.status==ProjectStatus.onhold)?"link_disabled row":"row"}>
               <div className="col-xl-6">
                 <div className="authorised_form_wrap">
                   <h6 className="ml-0">

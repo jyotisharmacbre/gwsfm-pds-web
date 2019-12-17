@@ -13,6 +13,7 @@ import { toast } from 'react-toastify';
 import { useHistory } from 'react-router-dom';
 import { ILookup } from '../store/Lookups/Types/ILookup';
 import { ICurrency } from '../store/Lookups/Types/ICurrency';
+import ProjectStatus from '../enums/ProjectStatus';
 interface IMapDispatchToProps {
   getProjectStatus: () => void;
   discountFormAdd: (
@@ -98,7 +99,7 @@ interface IMapStateToProps {
 
     return (
       <div className="container-fluid">
-            <div className={(props.status==4||props.status==6)?"link_disabled row":"row"}> 
+            <div className={(props.status==ProjectStatus.bidlost||props.status==ProjectStatus.onhold)?"link_disabled row":"row"}> 
              <div className="col-lg-12">
             <div className="custom-wrap discount_wrap">
               <div className="heading-subtitle">
