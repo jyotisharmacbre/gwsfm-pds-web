@@ -331,3 +331,43 @@ button[type="button"] {
         }
     }
 }
+
+/*custom modal*/
+.custom_modal {
+    background: rgba(0, 0, 0, 0.5);
+    &.modal{
+        &.show{
+            .modal-dialog{
+                max-width: 300px;
+                margin: 1.75rem auto;
+                padding: 10px;
+            }
+            .modal-content{
+                border: 0;
+                padding: 15px;
+                .modal-header {
+                    padding: 0;
+                    border: 0;
+                }
+                .modal-title {
+                    color: map-get($colors , grey03 );
+                    font-size: 14px;
+                    font-weight: 600;
+                    margin-bottom: 6px;
+                }
+                .modal-body {
+                    padding: 0;
+                    font-size: 11px;
+                    color: map-get($colors , grey03 );;
+                    font-weight: 400;
+                }
+            }
+            .modal-footer {
+                border: 0;
+                padding: 15px 0 0 0;
+                display: flex;
+                justify-content: space-between;
+            }
+        }
+    } 
+}
