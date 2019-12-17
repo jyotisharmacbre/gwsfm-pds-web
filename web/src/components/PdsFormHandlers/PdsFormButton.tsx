@@ -31,9 +31,10 @@ class PdsFormButton extends React.Component<Props> {
           {buttons.map(b => (
             <button
               data-test="buttonComponent"
+              type="button"
               key={b.title}
               onClick={event => this.handleClick(event, b)}
-              className={b.value === input.value ? 'active' : ''}
+              className={(b.value === input.value ? 'active' : '') + " button-type"}
             >
               <FormattedMessage id={b.title} />
             </button>
