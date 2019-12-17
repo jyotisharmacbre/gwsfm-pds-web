@@ -1,12 +1,30 @@
 import React from 'react';
-import clsx from 'clsx';
-import { injectIntl } from 'react-intl';
-import Translate from '../../../Translations/translate';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import cbre_icon from '../../images/logo-black.png';
 import upload_icon from '../../images/upload-icon.jpg';
+import { IState } from '../../../store/state';
+import { connect } from 'react-redux';
+import { isValidGUID } from '../../../helpers/utility-helper';
 
-const LeftMenu: React.FC = (props: any) => {
+interface IMapStateToProps {
+  projectId: string;
+}
+const LeftMenu: React.FC<IMapStateToProps> = props => {
+  let urlProjectId:string="";
+  let history=useHistory();
+  const getGUID=()=>{
+    history.location.pathname.split('/').forEach((data)=>{
+      if(isValidGUID(data)){
+        urlProjectId=data
+        return;
+      }
+    })
+    return urlProjectId;
+  }
+   urlProjectId=props.projectId?props.projectId:getGUID();
+  let isDisable:boolean=(urlProjectId&&urlProjectId!="undefined")
+  ?true:false;
+
   return (
     <nav id="sidebar">
       <div className="sidebar-header">
@@ -29,26 +47,26 @@ const LeftMenu: React.FC = (props: any) => {
           upload library
         </p>
         <li className="active">
-          <Link
+          <Link data-test="ProjectLink"
             to={{
-              pathname: '/Project'
+              pathname: '/Project/'+urlProjectId
             }}
           >
             customer enquiry
           </Link>
         </li>
-        <li>
-          <Link
+        <li data-test="ProjectOverviewLink" className={isDisable?"":"link_disabled"}>
+          <Link data-test="ProjectOverviewPath"
             to={{
-              pathname: '/ProjectOverview'
+              pathname: '/ProjectOverview/'+urlProjectId
             }}
           >
             project overview
           </Link>
         </li>
-        <li className="">
+        <li className={isDisable?"":"link_disabled"}>
           <Link
-            to="/JustificationAuthorisation"
+            to={"/JustificationAuthorisation/"+urlProjectId}
             data-target="#homeSubmenu"
             data-toggle="collapse"
             aria-expanded="true"
@@ -57,24 +75,24 @@ const LeftMenu: React.FC = (props: any) => {
             justification &amp; authorisation
           </Link>
           <ul className="collapse list-unstyled show" id="homeSubmenu">
-            <li className="subactive">
-              <Link to="/preliminaries">preliminaries</Link>
+            <li>
+              <Link to={"/preliminaries/"+urlProjectId}>preliminaries</Link>
             </li>
             <li>
-              <Link to="/Subcontractor">subcontractors</Link>
+              <Link to={"/Subcontractor/"+urlProjectId}>subcontractors</Link>
             </li>
             <li>
-              <Link to="/Discounts">discounts </Link>
+              <Link to={"/Discounts/"+urlProjectId}>discounts </Link>
             </li>
           </ul>
         </li>
-        <li>
+        <li className={isDisable?"":"link_disabled"}>
           <Link to="/">review &amp; submit</Link>
         </li>
-        <li>
+        <li className={isDisable?"":"link_disabled"}>
           <Link to="/">review &amp; approve</Link>
         </li>
-        <li>
+        <li className={isDisable?"":"link_disabled"}>
           <Link to="/">Logout</Link>
         </li>
       </ul>
@@ -82,4 +100,11 @@ const LeftMenu: React.FC = (props: any) => {
   );
 };
 
-export default injectIntl(LeftMenu);
+const mapStateToProps = (state: IState) => {
+  return {
+    projectId: state.project.form.projectId
+  };
+};
+export default connect(
+  mapStateToProps
+)(LeftMenu);
