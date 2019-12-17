@@ -12,6 +12,7 @@ import dynamicDataReducer from './DynamicsData/Reducer';
 import discountFormReducer from './DiscountForm/Reducer';
 
 import preliminaryReducer from './Preliminaries/Reducer';
+import DashboardGridDetailReducer from './Dashboard/Reducer';
 export default combineReducers<IState>({
   form: reducerForm,
   project: projectDetailReducer,
@@ -23,5 +24,6 @@ export default combineReducers<IState>({
   dynamicData: dynamicDataReducer,
   userService: userServiceReducer,
   discount: discountFormReducer,
-  preliminary: preliminaryReducer
+  preliminary: preliminaryReducer,
+  dashboardGrid: DashboardGridDetailReducer
 });

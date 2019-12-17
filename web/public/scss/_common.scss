@@ -1,333 +1,341 @@
 body {
-    background-color: map-get($colors, grey04);
-    font-family: 'Hind', sans-serif !important;
+  background-color: map-get($colors, grey04);
+  font-family: 'Hind', sans-serif !important;
 }
 
 #content {
-    width: calc(100% - 250px);
-    min-height: 100vh;
-    @include transition(all 0.3s);
-    @include smScreen {
-        width: 100%;
-    }
+  width: calc(100% - 250px);
+  min-height: 100vh;
+  @include transition(all 0.3s);
+  @include smScreen {
+    width: 100%;
+  }
 }
 
 .hr_line {
-    border: 1px solid map-get($colors, grey001);
-    margin-bottom: 25px;
-    margin-top: 10px;
+  border: 1px solid map-get($colors, grey001);
+  margin-bottom: 25px;
+  margin-top: 10px;
 }
 
 .width-250 {
-    max-width: 250px;
+  max-width: 250px;
 }
 
 .text-green {
-    color: map-get($colors, darkGreen) !important;
+  color: map-get($colors, darkGreen) !important;
 }
 
 .bg-green {
-    background: map-get($colors, Green03);
+  background: map-get($colors, Green03);
 }
 
 ::placeholder {
-    /* Firefox, Chrome, Opera */
-    color: map-get($colors, lightenBgColor);
+  /* Firefox, Chrome, Opera */
+  color: map-get($colors, lightenBgColor);
 }
 
 :-ms-input-placeholder {
-    /* Internet Explorer 10-11 */
-    color: map-get($colors, lightenBgColor);
+  /* Internet Explorer 10-11 */
+  color: map-get($colors, lightenBgColor);
 }
 
 ::-ms-input-placeholder {
-    /* Microsoft Edge */
-    color: map-get($colors, lightenBgColor);
+  /* Microsoft Edge */
+  color: map-get($colors, lightenBgColor);
 }
 
 form {
+  label {
+    color: map-get($colors, grey03);
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .form-group {
+    margin-bottom: 25px;
+    position: relative;
+    .symbol_fix {
+      position: absolute;
+      left: 15px;
+      top: 43px;
+      color: map-get($colors, grey06);
+      font-size: 14px;
+      margin-right: 10px;
+    }
+  }
+  .form-control {
+    @include borderRadius(3px);
+    border: 1px solid map-get($colors, grey05);
+    height: auto;
+    padding: 10px;
+    font-size: 13px;
+    text-transform: capitalize;
+    &:focus {
+      @include boxShadow(1px 0px 7px rgba(170, 169, 169, 0.2));
+      border: 1px solid transparent;
+    }
+    &.custom-space {
+      padding: 12px 10px 8px 30px;
+    }
+  }
+  textarea {
+    resize: none;
+  }
+  button {
+    background: map-get($colors, whiteColor);
+    border: 1px solid map-get($colors, grey06);
+    @include borderRadius(2px);
+    color: map-get($colors, grey06);
+    padding: 8px 25px;
+    font-size: 13px;
+    line-height: normal;
+    margin-right: 8px;
+    cursor: pointer;
+    &:focus {
+      outline: none;
+    }
+    &.active {
+      background: map-get($colors, lightGreen02);
+      color: map-get($colors, whiteColor);
+      border: 1px solid map-get($colors, lightGreen02);
+    }
+  }
+  .select-wrapper {
+    position: relative;
+    select {
+      &.form-control {
+        max-width: 285px;
+        color: #999;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        border: 1px solid map-get($colors, grey08);
+        position: relative;
+        @include borderRadius(6px);
+        padding: 10px 10px;
+        height: auto !important;
+        @include smScreen {
+          max-width: 100%;
+        }
+      }
+    }
+    &:before {
+      content: '';
+      position: absolute;
+      z-index: 9;
+      background-repeat: no-repeat;
+      background-position: center right;
+      width: 10px;
+      height: 10px;
+      right: calc(100% - 272px);
+      top: 14px;
+      margin: auto 0;
+      border: 2px solid #006a4d;
+      border-top: 0;
+      border-left: 0;
+      @include transform(rotate(45deg));
+      @include transition(all 0.3s);
+      @include smScreen {
+        right: 10px;
+      }
+    }
+    &.active {
+      &:before {
+        @include transform(rotate(225deg));
+        top: 18px;
+      }
+    }
+  }
+  .form-check {
+    position: relative;
+    input[type='radio'] {
+      opacity: 0;
+    }
     label {
-        color: map-get($colors, grey03);
-        margin-bottom: 8px;
-        font-size: 14px;
-        font-weight: 600;
+      padding-left: 10px;
+      color: map-get($colors, grey09);
+      cursor: pointer;
+      margin-bottom: 7px !important;
+      &:before {
+        width: 15px;
+        height: 15px;
+        position: absolute;
+        top: 4px;
+        left: 0;
+        content: '';
+        display: inline-block;
+        @include borderRadius(50px);
+        border: 1px solid map-get($colors, grey09);
+        background: transparent;
+        z-index: -1;
+      }
     }
-    .form-group {
-        margin-bottom: 25px;
-        position: relative;
-        .symbol_fix {
-            position: absolute;
-            left: 15px;
-            top: 43px;
-            color: map-get($colors, grey06);
-            font-size: 14px;
-            margin-right: 10px;
-        }
-    }
-    .form-control {
-        @include borderRadius(3px);
-        border: 1px solid map-get($colors, grey05);
-        height: auto;
-        padding: 10px;
-        font-size: 13px;
-        text-transform: capitalize;
-        &:focus {
-            @include boxShadow(1px 0px 7px rgba(170, 169, 169, 0.2));
-            border: 1px solid transparent;
-        }
-        &.custom-space {
-            padding: 12px 10px 8px 30px;
-        }
-    }
-    textarea {
-        resize: none;
-    }
-    button {
-        background: map-get($colors, whiteColor);
-        border: 1px solid map-get($colors, grey06);
-        @include borderRadius(2px);
-        color: map-get($colors, grey06);
-        padding: 8px 25px;
-        font-size: 13px;
-        line-height: normal;
-        margin-right: 8px;
-        cursor: pointer;
-        &:focus {
-            outline: none;
-        }
-        &.active {
-            background: map-get($colors, lightGreen02);
-            color: map-get($colors, whiteColor);
-            border: 1px solid map-get($colors, lightGreen02);
-        }
-    }
-    .select-wrapper {
-        position: relative;
-        select {
-            &.form-control {
-                max-width: 285px;
-                color: #999;
-                -webkit-appearance: none;
-                -moz-appearance: none;
-                appearance: none;
-                border: 1px solid map-get($colors, grey08);
-                position: relative;
-                @include borderRadius(6px);
-                padding: 10px 10px;
-                height: auto !important;
-                @include smScreen {
-                    max-width: 100%;
-                }
-            }
+    input[type='radio'] {
+      margin: 3px 0 0 -17px;
+      //     &:disabled + label {
+      //     color: #999;
+      //     &:before {
+      //       background-color: #000;
+      //     }
+      //   }
+      &:checked + label {
+        color: map-get($colors, black);
+        &:after {
+          content: '';
+          position: absolute;
+          top: 8px;
+          left: 4px;
+          display: inline-block;
+          font-size: 11px;
+          width: 7px;
+          height: 7px;
+          background-color: map-get($colors, lightGreen02);
+          @include borderRadius(50px);
         }
         &:before {
-            content: '';
-            position: absolute;
-            z-index: 9;
-            background-repeat: no-repeat;
-            background-position: center right;
-            width: 10px;
-            height: 10px;
-            right: calc(100% - 272px);
-            top: 14px;
-            margin: auto 0;
-            border: 2px solid #006a4d;
-            border-top: 0;
-            border-left: 0;
-            @include transform(rotate(45deg));
-            @include transition(all 0.3s);
-            @include smScreen {
-                right: 10px;
-            }
+          border: 1px solid map-get($colors, lightGreen02);
         }
-        &.active {
-            &:before {
-                @include transform(rotate(225deg));
-                top: 18px;
-            }
-        }
+      }
     }
-    .form-check {
-        position: relative;
-        input[type="radio"] {
-            opacity: 0;
-        }
-        label {
-            padding-left: 10px;
-            color: map-get($colors, grey09);
-            cursor: pointer;
-            margin-bottom: 7px !important;
-            &:before {
-                width: 15px;
-                height: 15px;
-                position: absolute;
-                top: 4px;
-                left: 0;
-                content: '';
-                display: inline-block;
-                @include borderRadius(50px);
-                border: 1px solid map-get($colors, grey09);
-                background: transparent;
-                z-index: -1;
-            }
-        }
-        input[type="radio"] {
-            margin: 3px 0 0 -17px;
-            //     &:disabled + label {
-            //     color: #999;
-            //     &:before {
-            //       background-color: #000;
-            //     }
-            //   }
-            &:checked+label {
-                color: map-get($colors, black);
-                &:after {
-                    content: '';
-                    position: absolute;
-                    top: 8px;
-                    left: 4px;
-                    display: inline-block;
-                    font-size: 11px;
-                    width: 7px;
-                    height: 7px;
-                    background-color: map-get($colors, lightGreen02);
-                    @include borderRadius(50px);
-                }
-                &:before {
-                    border: 1px solid map-get($colors, lightGreen02);
-                }
-            }
-        }
-    }
-    //   .rdio-default input[type="radio"]:checked + label:before {
-    //     border-color: #fbc52d;
-    //   }
-    //   .rdio-primary input[type="radio"]:checked + label {
-    //     &:before {
-    //       border-color: #fbc52d;
-    //     }
-    //     &::after {
-    //       background-color: #fbc52d;
-    //     }
-    //   }
+  }
+  //   .rdio-default input[type="radio"]:checked + label:before {
+  //     border-color: #fbc52d;
+  //   }
+  //   .rdio-primary input[type="radio"]:checked + label {
+  //     &:before {
+  //       border-color: #fbc52d;
+  //     }
+  //     &::after {
+  //       background-color: #fbc52d;
+  //     }
+  //   }
 }
 
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
-    -webkit-appearance: none !important;
-    margin: 0 !important;
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none !important;
+  margin: 0 !important;
 }
 
-button[type="submit"],
-button[type="button"] {
-    background-color: #006a4d;
-    border: 0;
-    font-weight: 600;
-    padding: 12px 20px 10px;
-    font-size: 16px;
-    min-width: 160px;
+button[type='submit'],
+button[type='button'] {
+  background-color: #006a4d;
+  border: 0;
+  font-weight: 600;
+  padding: 12px 20px 10px;
+  font-size: 16px;
+  min-width: 160px;
+  border: 2px solid map-get($colors, darkGreen);
+  text-align: center;
+  letter-spacing: 2px;
+  @include borderRadius(5px);
+  color: map-get($colors, whiteColor);
+  cursor: pointer;
+  &:hover,
+  &.active {
+    color: map-get($colors, darkGreen);
     border: 2px solid map-get($colors, darkGreen);
-    text-align: center;
-    letter-spacing: 2px;
-    @include borderRadius(5px);
-    color: map-get($colors, whiteColor);
-    cursor: pointer;
-    &:hover,
-    &.active {
-        color: map-get($colors, darkGreen);
-        border: 2px solid map-get($colors, darkGreen);
-        background-color: transparent;
-    }
-    @include mdScreen {
-        padding: 12px 25px;
-    }
-    @include smScreen {
-        padding: 8px 15px;
-        font-size: 14px;
-    }
+    background-color: transparent;
+  }
+  @include mdScreen {
+    padding: 12px 25px;
+  }
+  @include smScreen {
+    padding: 8px 15px;
+    font-size: 14px;
+  }
 }
 
 .width-100 {
-    max-width: 100px;
+  max-width: 100px;
 }
 
 .width-120 {
-    max-width: 120px;
+  max-width: 120px;
 }
 
 .width-285 {
-    max-width: 285px;
+  max-width: 285px;
 }
 
 .pl-20 {
-    padding-left: 20px !important;
+  padding-left: 20px !important;
 }
 
 .pl-30 {
-    padding-left: 30px !important;
+  padding-left: 30px !important;
 }
 
 .rbt-input-hint {
-    display: none !important;
+  display: none !important;
 }
 
 .mx-35 {
-    margin: 0 35px;
-    @include smScreen {
-        margin: 0 0;
-    }
+  margin: 0 35px;
+  @include smScreen {
+    margin: 0 0;
+  }
 }
-
 
 /*override bootstrap*/
 
 .btn-secondary:not(:disabled):not(.disabled):active:focus,
-.show>.btn-secondary.dropdown-toggle:focus {
-    @include boxShadow(none);
+.show > .btn-secondary.dropdown-toggle:focus {
+  @include boxShadow(none);
 }
 
 .three-btn {
-    padding: 40px 0;
-    display: flex;
-    justify-content: space-between;
+  padding: 40px 0;
+  display: flex;
+  justify-content: space-between;
+  @include mdScreen {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  button {
+    margin-right: 20px;
     @include mdScreen {
-        flex-wrap: wrap;
-        justify-content: center;
+      margin-bottom: 15px;
     }
-    button {
-        margin-right: 20px;
-        @include mdScreen {
-            margin-bottom: 15px;
-        }
-        &:last-child {
-            margin-right: 0;
-        }
-        &:nth-child(2) {
-            @include smsScreen {
-                margin-left: 0 !important;
-            }
-        }
+    &:last-child {
+      margin-right: 0;
     }
+    &:nth-child(2) {
+      @include smsScreen {
+        margin-left: 0 !important;
+      }
+    }
+  }
 }
 
 .two-side-btn {
-    padding: 40px 0;
-    display: flex;
-    justify-content: space-between;
+  padding: 40px 0;
+  display: flex;
+  justify-content: space-between;
+  @include mdScreen {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  button {
+    margin-right: 20px;
     @include mdScreen {
-        flex-wrap: wrap;
-        justify-content: center;
+      margin: 8px 8px;
     }
-    button {
-        margin-right: 20px;
-        @include mdScreen {
-            margin: 8px 8px;
-        }
-        &:nth-child(2) {
-            margin-right: 0;
-            @include mdScreen {
-                margin-right: 8px;
-            }
-        }
+    &:nth-child(2) {
+      margin-right: 0;
+      @include mdScreen {
+        margin-right: 8px;
+      }
     }
+  }
+}
+.DashboardGrid {
+  width: 90%;
+}
+
+.DashboardGridButtons {
+  background-color: greenyellow;
+  text-align: center;
+  border-radius: 10px;
 }

@@ -74,7 +74,17 @@ export interface ITableProps {
     rowData: any
   ) => void;
 }
-
+export interface IGridTableProps {
+  columns: any[];
+  data: any[];
+  ActionList: IBtnActionProps[];
+  sorting: boolean;
+  className: string;
+  onRowClick?: (
+    e: React.MouseEvent<Element, MouseEvent> | undefined,
+    rowData: any
+  ) => void;
+}
 export interface ITableFilterProps extends ITableProps {}
 
 export interface INotificationProps {
