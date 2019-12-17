@@ -63,6 +63,7 @@ interface IMapDispatchToProps {
   changeProjectStatusToOnHold: (projectId: string) => void;
   changeProjectStatusToBidLost: (projectId: string) => void;
   reactivateProject:(projectId: string) => void;
+  setProjectStatus:(status: number) => void;
 }
 interface IProps {
   projectId: string;
@@ -73,7 +74,6 @@ const ProjectOverview: React.FC<IProps &
   IMapStateToProps &
   IMapDispatchToProps> = props => {
   let history = useHistory();
-  let projectStatusName:string="";
   useEffect(() => {
     window.scrollTo(0, 0);
     props.getProjectStatus();
@@ -97,6 +97,26 @@ const ProjectOverview: React.FC<IProps &
       props.resetProjectOverviewState();
     }
   }, [props.notify, props.event]);
+  useEffect(() => {
+    if (props.notify == Notify.success) {
+      if (props.event == EventType.next) 
+      {
+        toast.success('Project reactivated successfully');
+        props.getProjectDetail(props.match.params.projectId);
+      }
+      else
+      {
+        toast.success('Project status changed successfully');
+
+      }
+        
+      } else if (props.notify == Notify.error) 
+      {
+        toast.error('Error occured.Please contact administrator');
+      }
+      props.resetProjectOverviewState();
+    },
+ [props.notify]);
   const handlePrevious = (data: IProjectAdditionalDetail) => {
     data.projectAddDetailId == ''
       ? props.projectOverviewFormAdd(props.projectId, data, EventType.previous)
@@ -114,7 +134,7 @@ const ProjectOverview: React.FC<IProps &
     return data;
   };
   const getProjectStatusName=()=>{
-let projectStatusData:Array<ILookup>=[];
+    let projectStatusData:Array<ILookup>=[];
     if(props.projectStatus.length>0)
     {
        projectStatusData=props.projectStatus.filter((data)=>{return (data.lookupItem=="Project_Status"&&data.lookupKey==props.status)});
@@ -127,19 +147,21 @@ let projectStatusData:Array<ILookup>=[];
     return (projectStatusData.length>0?projectStatusData[0].description:"")
   }
   const handleReactivateEvent=()=>{
-    props.reactivateProject(props.match.params.projectId)
+    props.reactivateProject(props.match.params.projectId);
   }
   const handleOnHoldEvent=()=>{
-    props.changeProjectStatusToOnHold(props.match.params.projectId)
+    props.setProjectStatus(6);
+    props.changeProjectStatusToOnHold(props.match.params.projectId);
   }
   const handleBidLostEvent=()=>{
-    props.changeProjectStatusToBidLost(props.match.params.projectId)
+    props.setProjectStatus(4);
+    props.changeProjectStatusToBidLost(props.match.params.projectId);
   }
   return (
     <React.Fragment>
       <Container component="main">
         <HeaderPage Title={formatMessage('TITLE_PROJECT_OVERVIEW')} ActionList={[]} />
-        <StatusPage status={props.status} statusName={getProjectStatusName()} onReactivate={handleReactivateEvent} handleOnHold={handleOnHoldEvent} handleBidLost={handleBidLostEvent}/>
+        <StatusPage status={4} statusName={getProjectStatusName()} onReactivate={handleReactivateEvent} handleOnHold={handleOnHoldEvent} handleBidLost={handleBidLostEvent}/>
         <Grid spacing={3} container>
           <Grid item xs={12} sm={12}>
             <GeneralTable
@@ -211,7 +233,9 @@ const mapDispatchToProps = dispatch => {
     changeProjectStatusToBidLost: projectId =>
       dispatch(actions.changeProjectStatusToBidLost(projectId)),
     reactivateProject: projectId =>
-      dispatch(actions.reactivateProject(projectId))
+      dispatch(actions.reactivateProject(projectId)),
+    setProjectStatus: status =>
+      dispatch(actions.changeProjectStatus(status))
   };
 };
 

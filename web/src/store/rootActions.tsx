@@ -13,7 +13,8 @@ export {
   getEnquiryOverview,
   getProjectDetail,
   resetProjectDetailState,
-  projectDetailEdit
+  projectDetailEdit,
+  changeProjectStatus
 } from './CustomerEnquiryForm/Action';
 
 export { getProjectStatus, getAllCurrencies } from './Lookups/Actions';

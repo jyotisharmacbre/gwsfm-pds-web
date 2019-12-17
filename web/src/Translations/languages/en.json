@@ -91,6 +91,7 @@
     "LABEL_RANK": "Rank",
     "LABEL_DIVISION": "Division",
     "LABEL_BUSINESS_UNIT": "Business Unit",
+    "LABEL_LIVE":"Live",
     "MESSAGE_APPROXIMATE_VALUE": "Approximate Value",
     "MESSAGE_COMPANY_NAME": "Company name",
     "MESSAGE_CONTRACT_NAME": "Contract name",
