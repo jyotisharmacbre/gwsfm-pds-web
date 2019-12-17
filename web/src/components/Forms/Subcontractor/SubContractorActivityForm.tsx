@@ -50,8 +50,8 @@ const SubContractorActivityForm :React.FC<Props> = (props:Props) => {
                 onClick={
                  ()=>confirmAlert({
                   intl:props.intl,
-                  title:"TITLE_CONFIRMATION",
-                  message:"MESSAGE_SUBCONTRACTOR_DELETE_ACTIVITY",
+                  titleKey:"TITLE_CONFIRMATION",
+                  contentKey:"MESSAGE_SUBCONTRACTOR_DELETE_ACTIVITY",
                   handleConfirm:()=>fields.remove(index)
                 })}
               >
