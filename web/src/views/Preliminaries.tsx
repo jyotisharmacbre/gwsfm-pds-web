@@ -13,7 +13,6 @@ import { ILookup } from '../store/Lookups/Types/ILookup';
 import { ICurrency } from '../store/Lookups/Types/ICurrency';
 import { FormattedMessage } from 'react-intl';
 import EventType from '../enums/EventType';
-import { Prompt } from "react-router-dom"
 import CalculationsSummaryTable from '../components/Table/CalculationsSummaryTable';
 import CalculationsSummaryType from '../enums/CalculationsSummaryType';
 import { getPropertyName,getFilterElementFromArray } from '../helpers/utility-helper';
@@ -67,7 +66,7 @@ const Preliminaries: React.FC<
     if (props.notify == Notify.success) {
       toast.success('Data Saved Successfully');
       if (props.event == EventType.next) {
-        history.push('/Subcontractor/' + paramProjectId);
+        history.push('/Subcontractor/' + props.match.params.projectId);
       }
     }
     else if (props.notify == Notify.error) {
@@ -132,7 +131,6 @@ const Preliminaries: React.FC<
 
   return (
     <div className="container-fluid">
-      <Prompt when={!!props.preliminaryDetails} message="Your unsaved changes will be trashed, are you sure you want to leave this page?" />
       <div className=" row">
         <div className="col-lg-12">
           <form className="custom-wrap">
