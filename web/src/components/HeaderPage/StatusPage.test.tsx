@@ -8,10 +8,8 @@ import { IntlProvider } from 'react-intl';
 import translations from '../../Translations/translation';
 import configureStore from 'redux-mock-store';
 import StatusPage from './StatusPage';
-import 'react-confirm-alert/src/react-confirm-alert.css';
-
 const props: any = {
-    status : 4,
+    status : 1,
     statusName:"test",
     onReactivate:jest.fn(),
     handleBidLost:jest.fn(),
@@ -22,9 +20,7 @@ const props: any = {
     let store;
     let wrapper;  
     beforeEach(() => {
-        store = mockStore({
-            
-          });
+        store = mockStore({ });
     
       wrapper = mount(
         <Provider store={store}>
@@ -40,55 +36,50 @@ const props: any = {
   it('should match the snapshot', () => {
     expect(wrapper).toMatchSnapshot();
   });
-  it('should not display reactivate button on click of status edit icon, if status is not bid lost or on hold', () => {
-    const testProps: any = {
-        status : 7,
-        statusName:"test",
-        onReactivate:jest.fn(),
-        handleBidLost:jest.fn(),
-        handleOnHold:jest.fn()
-      };
-    wrapper = mount(
-        <Provider store={store}>
-        <IntlProvider locale="en" messages={translations['en'].messages}>
-        <StatusPage {...testProps}/>
-        </IntlProvider>
-        </Provider>
-      );
-    let container=findByTestAtrr(wrapper,"toggleStatusTab").first();
-    container.simulate("click");
+  it('should not display reactivate button if status is not bid lost or on hold', () => {
+
     let button=findByTestAtrr(wrapper,"activateButton").first();
     expect(button.length).toBe(0);
 });
+it('should  display reactivate button if status is bid lost or on hold', () => {
+  const testProps: any = {
+    status : 4,
+    statusName:"test",
+    onReactivate:jest.fn(),
+    handleBidLost:jest.fn(),
+    handleOnHold:jest.fn()
+  };
+wrapper = mount(
+    <Provider store={store}>
+    <IntlProvider locale="en" messages={translations['en'].messages}>
+    <StatusPage {...testProps}/>
+    </IntlProvider>
+    </Provider>
+  );
+  let button=findByTestAtrr(wrapper,"activateButton").first();
+  expect(button.length).toBe(1);
+});
 it('should display status tab on click of status edit icon', () => {
-    let container=findByTestAtrr(wrapper,"toggleStatusTab").first();
-    container.simulate("click");
-    let button=findByTestAtrr(wrapper,"statusTab").first();
-    expect(button.length).toBe(1);
-    expect(button.hasClass('hide')).toBe(true);
+  let container=findByTestAtrr(wrapper,"toggleStatusTab").first();
+  container.simulate("click");
+  let button=findByTestAtrr(wrapper,"statusTab").first();
+  expect(button.length).toBe(1);
+  expect(button.hasClass('hide')).toBe(true);
 });
-  it('should display reactivate button on click of status edit icon', () => {
-      let container=findByTestAtrr(wrapper,"toggleStatusTab").first();
-      container.simulate("click");
-      let button=findByTestAtrr(wrapper,"activateButton").first();
-      expect(button.length).toBe(1);
-      expect(button.text()).toBe("ACTIVATE");
-
-  });
-  it('should trigger confirmation popup click event on click of bid lost', () => {
-    let container=findByTestAtrr(wrapper,"bidlost").first();
-    container.simulate("click");
-    expect(container.invoke.call.length).toBe(1);
+it('should trigger bid lost action handler on click of bid lost', () => {
+  let container=findByTestAtrr(wrapper,"bidlost").first();
+  container.simulate("click");
+  expect(container.invoke.call.length).toBe(1);
 });
-it('should trigger confirmation popup click event on click of on hold', () => {
-    let container=findByTestAtrr(wrapper,"onhold").first();
+it('should trigger on hold action handler on click of on hold', () => {
+  let container=findByTestAtrr(wrapper,"onhold").first();
+  container.simulate("click");
+  expect(container.invoke.call.length).toBe(1);
+});
+it('should trigger reactivate action handler on click of active button', () => {
+  let container=findByTestAtrr(wrapper,"toggleStatusTab").first();
     container.simulate("click");
     expect(container.invoke.call.length).toBe(1);
-});
-it('should trigger confirmation popup click event on click of active button', () => {
-    let container=findByTestAtrr(wrapper,"toggleStatusTab").first();
-      container.simulate("click");
-      expect(container.invoke.call.length).toBe(1);
 });
 });
 
