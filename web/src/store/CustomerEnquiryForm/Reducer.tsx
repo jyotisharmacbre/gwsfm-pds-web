@@ -13,7 +13,7 @@ const initialState: IProjectDetailState = {
     headOfProject: '',
     projectOwner: '',
     projectManager: '',
-    pmHasExperience: true,
+    pmHasExperience: false,
     scope: '',
     cnNumber: '',
     status: 1,
@@ -23,13 +23,17 @@ const initialState: IProjectDetailState = {
     probabilityOfWinning: '',
     approxValue: '',
     contractTypeId: '',
-    cdmNotifiable: true,
+    cdmNotifiable: false,
     firstAssetWorkedOn: 0,
     secondAssetWorkedOn: 0,
     thirdAssetWorkedOn: 0,
     comment: '',
     otherCompanyName: '',
-    otherContractName:''
+    otherContractName:'',
+    divisionId : '',
+    businessUnitId: '',
+    weightedTCV: undefined,
+  soldMargin: undefined
   },
   enquiryOverview: {
     projectName: '',

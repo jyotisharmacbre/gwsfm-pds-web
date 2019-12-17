@@ -22,14 +22,10 @@ import {
   IDynamicCompanyData
 } from '../store/DynamicsData/Types/IDynamicData';
 import {
-  IAdPOData,
-  IAdHOPData,
-  IAdPMData
+  IUserServiceData
 } from '../store/UserService/Types/IUserService';
 import {
-  getUserServiceHOP,
-  getUserServicePO,
-  getUserServicePM
+  getUserService
 } from '../store/UserService/Action';
 
 interface IMapStateToProps {
@@ -40,23 +36,20 @@ interface IMapStateToProps {
   projectStatus: Array<ILookup>;
   dynamicsContract: Array<IDynamicContractData>;
   dynamicsCompany: Array<IDynamicCompanyData>;
-  adHOPData: Array<IAdHOPData>;
-  adPOData: Array<IAdPOData>;
-  adPMData: Array<IAdPMData>;
+  userServiceData: Array<IUserServiceData>;
 }
 
 interface IMapDispatchToProps {
   handleGetDynamicContractData: (searchContract: string) => void;
   handleGetDynamicCompanyData: (searchCompany: string) => void;
-  handleGetADHOPData: (searchHOP: string) => void;
-  handleGetADPOData: (searchPO: string) => void;
-  handleGetADPMData: (searchPM: string) => void;
+  handleGetuserServiceData: (searchText: string) => void;
   getProjectStatus: () => void;
   getProjectDetail: (projectId: string) => void;
   resetProjectDetailState: () => void;
   getAllCurrencies: () => void;
   getDynamicContractData: () => void;
   getDynamicCompanyData: () => void;
+  getUserService: () => void;
   handleProjectDetailsSubmit: (form: IProjectDetail, event: EventType) => void;
   handleProjectDetailsEdit: (form: IProjectDetail, event: EventType) => void;
 }
@@ -110,16 +103,8 @@ const Project: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = props
     props.handleGetDynamicCompanyData(values);
   };
 
-  const onSearchHOP = (values: any) => {
-    props.handleGetADHOPData(values);
-  };
-
-  const onSearchPO = (values: any) => {
-    props.handleGetADPOData(values);
-  };
-
-  const onSearchPM = (values: any) => {
-    props.handleGetADPMData(values);
+  const onSearchUserService = (values: any) => {
+    props.handleGetuserServiceData(values);
   };
 
   return (
@@ -130,12 +115,8 @@ const Project: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = props
       onSearchContract={onSearchContract}
       onSearchCompany={onSearchCompany}
       projectstatus={props.projectStatus}
-      onSearchHOP={onSearchHOP}
-      onSearchPO={onSearchPO}
-      onSearchPM={onSearchPM}
-      adHOPData={props.adHOPData}
-      adPOData={props.adPOData}
-      adPMData={props.adPMData}
+      onSearchUserService={onSearchUserService}
+      userServiceData = {props.userServiceData}
     />
   );
 };
@@ -145,9 +126,7 @@ const mapStateToProps = (state: IState) => {
     projectStatus: state.lookup.projectstatus,
     dynamicsContract: state.dynamicData.dynamicsContract,
     dynamicsCompany: state.dynamicData.dynamicsCompany,
-    adHOPData: state.adData.ADhopData,
-    adPOData: state.adData.ADpoData,
-    adPMData: state.adData.ADpmData,
+    userServiceData: state.userService.userServiceData,
     notify: state.project.notify,
     event: state.project.event,
     projectId: state.project.form.projectId,
@@ -170,9 +149,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(getDynamicContractData(searchContract)),
     handleGetDynamicCompanyData: searchCompany =>
       dispatch(getDynamicCompanyData(searchCompany)),
-    handleGetADHOPData: searchHOP => dispatch(getUserServiceHOP(searchHOP)),
-    handleGetADPOData: searchPO => dispatch(getUserServicePO(searchPO)),
-    handleGetADPMData: searchPM => dispatch(getUserServicePM(searchPM))
+    handleGetuserServiceData: search => dispatch(getUserService(search))
   };
 };
 

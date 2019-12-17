@@ -212,10 +212,10 @@ form {
     //   }
 }
 
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-  -webkit-appearance: none !important; 
-  margin: 0 !important; 
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none !important;
+    margin: 0 !important;
 }
 
 button[type="submit"],
@@ -258,12 +258,17 @@ button[type="button"] {
 .width-285 {
     max-width: 285px;
 }
-.pl-20{
+
+.pl-20 {
     padding-left: 20px !important;
 }
 
 .pl-30 {
     padding-left: 30px !important;
+}
+
+.rbt-input-hint {
+    display: none !important;
 }
 
 .mx-35 {
@@ -316,16 +321,12 @@ button[type="button"] {
     button {
         margin-right: 20px;
         @include mdScreen {
-            margin-bottom: 15px;
-        }
-        &:first-child {
-            @include mdScreen {
-            margin-left: initial!important;
-            }
+            margin: 8px 8px;
         }
         &:nth-child(2) {
-            @include smsScreen {
-                margin-left: 0 !important;
+            margin-right: 0;
+            @include mdScreen {
+                margin-right: 8px;
             }
         }
     }

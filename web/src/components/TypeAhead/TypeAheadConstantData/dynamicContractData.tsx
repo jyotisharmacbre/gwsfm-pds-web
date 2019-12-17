@@ -1,10 +1,10 @@
 
 export const  dynamicsContract = [
     {
-      "CustomerId": "123",
-      "Name": "Caretown Ltd",
       "ContractId": "0",
-      "ContractName": "Other"
+      "ContractName": "Other",
+      "CustomerId": "",
+      "Name": "",
     },
       {
         "CustomerId": "SL00193",
