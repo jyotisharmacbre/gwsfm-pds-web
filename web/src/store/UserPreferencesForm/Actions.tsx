@@ -3,7 +3,16 @@ import { ActionType } from './Types/ActionType';
 import { Dispatch } from 'redux';
 import { IUserPreferences } from './Types/IUserPreferences';
 import EventType from '../../enums/EventType';
+import * as axios from '../../client';
 import { getUserPreferences } from '../../services/lookup.service';
+import { getLocaleActionCreator } from '../../Translations/Actions';
+
+let config = {
+  headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'   
+  }
+};
 
 const userPreferencesFormAddSuccess = (
   response: IUserPreferences,
@@ -33,8 +42,26 @@ const userPreferencesGetSuccess = (response: any) => {
 
 const userPreferencesFormError = (error: string) => {
   return {
-    type: ActionType.USER_PREFERENCES_FORM_EDIT_SUCCESS,
+    type: ActionType.USER_PREFERENCES_FORM_ERROR,
     payload: error
+  };
+};
+
+export const userPreferencesFormAdd = (
+  data: IUserPreferences,
+  event: EventType
+) => {
+  return async (dispatch: Dispatch) => {
+    {
+      axios.baseAPI
+        .post('/api/Users/addUserPreferences', data, config)
+        .then(response => {         
+          dispatch(userPreferencesFormAddSuccess(response.data, event));
+        })
+        .catch(error => {
+          dispatch(userPreferencesFormError(error));
+        });
+    };
   };
 };
 
@@ -45,14 +72,17 @@ export const userPreferencesFormEdit = (
 ) => {
   return async (dispatch: Dispatch) => {
     {
-      try {
-        let res = await getUserPreferences();
-        dispatch(userPreferencesFormEditSuccess(res, event));
-      } catch (err) {
-        dispatch(userPreferencesFormError(err));
-      }
-    }
-  }
+      axios.baseAPI
+        .put('/api/Users/updateUserPreferences', data, config)
+        .then(response => {
+          userPreferencesGet();
+          dispatch(userPreferencesFormEditSuccess(response.data, event));
+        })
+        .catch(error => {
+          dispatch(userPreferencesFormError(error));
+        });
+    };
+  };
 };
 
 export const userPreferencesGet = () => {
@@ -60,11 +90,22 @@ export const userPreferencesGet = () => {
     {
       try {
         let res = await getUserPreferences();
-        console.log("user prefrences response: ", res);
         dispatch(userPreferencesGetSuccess(res.data));
       } catch (err) {
         dispatch(userPreferencesFormError(err));
       }
     }
   }
+};
+
+const resetUserPreferencesStateDispatch = () => {
+  return {
+    type: ActionType.RESET_USER_PREFERENCES_STATE
+  };
+};
+
+export const resetUserPreferencesState = () => {
+  return (dispatch: Dispatch) => {
+    dispatch(resetUserPreferencesStateDispatch());
+  };
 };

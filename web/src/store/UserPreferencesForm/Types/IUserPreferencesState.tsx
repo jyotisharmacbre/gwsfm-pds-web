@@ -3,7 +3,7 @@ import Notify from '../../../enums/Notify';
 import EventType from '../../../enums/EventType';
 
 export interface IUserPreferencesState {
-  form: IUserPreferences;
+  preferences: IUserPreferences;
   error: string | null;
   loading: boolean;
   notify: Notify;

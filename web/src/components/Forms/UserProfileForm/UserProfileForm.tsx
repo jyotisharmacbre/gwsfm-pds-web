@@ -28,12 +28,16 @@ import { ILanguage } from '../../../store/Lookups/Types/ILanguage';
 
 interface Props {
   onSubmitForm: (data: IUserPreferences, event: EventType) => void;
+  redirectMenu: () => void;
+  currencies: ICurrency;
+  languages: ILanguage;
 }
 
 const UserProfileForm: React.FC<Props &
   InjectedFormProps<IUserPreferences, Props>> = (props: any, Name: any) => {
-    const { handleSubmit } = props;
-debugger;
+
+    const { handleSubmit, redirectMenu } = props;
+  
     return (
       <form onSubmit={handleSubmit} noValidate={true}>
         <div>
@@ -46,7 +50,7 @@ debugger;
                   <FontAwesomeIcon className="" icon={faUser} />
                 </i>
                 <p className="title_name">user</p>
-                <span id="sm_none">{getDisplayName() && `Hello, ${getDisplayName()}`}</span>
+                <span className="dsc">{getDisplayName()}</span>
               </a>
             </li>
             <li>
@@ -112,11 +116,11 @@ debugger;
           </ul>
 
 
-
-          <button type="button" name="save"
-            onClick={handleSubmit(values => props.onSubmit(values))}>
-            <FormattedMessage id="BUTTON_SAVE" />
-          </button>
+          <div className='link_group'>
+                        <a href="#" onClick={handleSubmit(values => props.onSubmitForm(values))}><FormattedMessage id="BUTTON_SAVE" /></a>
+                        <span>|</span>
+                        <a href="#" onClick={redirectMenu}>Cancel</a>
+                      </div>
 
           {/* END EDIT FORM SECTION */}
         </div>
@@ -127,18 +131,12 @@ debugger;
 
 const mapStateToProps = (state: IState) => {
   return {
-    userPreferenceId: state.userPreferences.form.userPreferenceId,
-    //languageId: state.userPreferences.form.languageId,
-    languageName: state.userPreferences.form.languageName,
-    // currencyId: state.userPreferences.form.currencyId,
-    currencySymbol: state.userPreferences.form.currencySymbol,
-    currencyName: state.userPreferences.form.currencyName,
-    currencies: state.lookup.currencies,
+    initialValues: state.userPreferences.preferences,
     currencyId: selector(state, 'currencyId'),
     languageId: selector(state, 'languageId'),
-    languages: state.lookup.languages,
   }
 }
+
 
 const form = reduxForm<IUserPreferences, Props>({
   form: 'UserProfileForm',

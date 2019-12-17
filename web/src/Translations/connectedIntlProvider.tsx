@@ -3,8 +3,8 @@ import { IntlProvider } from 'react-intl';
 import translations from './translation';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
-import { getLocaleActionCreator } from './Actions';
 import { IState } from '../store/state';
+import { userPreferencesGet } from '../store/UserPreferencesForm/Actions';
 
 // This function will map the current redux state to the props for the component that it is "connected" to.
 // When the state of the redux store changes, this function will be called, if the props that come out of
@@ -17,8 +17,7 @@ import { IState } from '../store/state';
 
 let intl;
 const mapStateToProps = (state: IState) => {
-  let { locale } = state.locale;
-
+  let locale = state.userPreferences.preferences.languageName;
   let messages = translations[locale].messages;
   let intlProvider = new IntlProvider({ locale, messages });
   intl = intlProvider.state.intl;
@@ -26,7 +25,7 @@ const mapStateToProps = (state: IState) => {
 };
 
 function mapDispatchToProps(dispatch: ThunkDispatch<any, any, AnyAction>) {
-  dispatch(getLocaleActionCreator());
+  dispatch(userPreferencesGet())
   return {};
 }
 

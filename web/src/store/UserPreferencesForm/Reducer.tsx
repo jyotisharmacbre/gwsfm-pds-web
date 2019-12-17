@@ -5,10 +5,10 @@ import Notify from '../../enums/Notify';
 import EventType from '../../enums/EventType';
 
 const initialState: IUserPreferencesState = {
-  form: {  
+  preferences: {  
   userPreferenceId: '',
   languageId: 1,
-  languageName: 'English',
+  languageName: 'en',
   currencyId: 1,
   currencySymbol: '$',
   currencyName: 'Dollar'
@@ -25,7 +25,7 @@ const userPreferencesFormAddSuccess = (oldState, action) => {
     loading: false,
     notify: Notify.success,
     event: action.event,
-    form: updateObject(oldState.form, action.payload)
+    preferences: updateObject(oldState.preferences, action.payload)
   });
 };
 
@@ -40,10 +40,10 @@ const userPreferencesFormEditSuccess = (oldState, action) => {
 
 const userPreferencesGetSuccess = (oldState, action) => {
   return updateObject(oldState, {
-    form: action.payload,
+    preferences: action.payload,
     error: null,
     loading: false,
-    notify: Notify.success,
+    notify: Notify.none,
     event: action.event
   });
 };
@@ -53,6 +53,12 @@ const userPreferencesFormError = (oldState, action) => {
     error: action.error,
     loading: false,
     notify: Notify.error
+  });
+};
+
+const resetUserPreferencesState = (oldState) => {
+  return updateObject(oldState, {
+    notify: Notify.none,
   });
 };
 
@@ -67,6 +73,8 @@ const userPreferencesFormReducer = (oldState = initialState, action) => {
       return userPreferencesFormEditSuccess(oldState, action);
     case ActionType.USER_PREFERENCES_FORM_ERROR:
       return userPreferencesFormError(oldState, action);  
+      case ActionType.RESET_USER_PREFERENCES_STATE:
+        return resetUserPreferencesState(oldState)
     default:
       return oldState;
   }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import close_icon from '../../images/logo-black.png';
 import FontawsomeSvg from '@fortawesome/fontawesome-svg-core';
 import FontawsomeFree from '@fortawesome/free-solid-svg-icons';
@@ -16,13 +16,14 @@ import {
 // @ts-ignore
 import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
-import { userPreferencesGet, userPreferencesFormEdit } from '../../../store/UserPreferencesForm/Actions';
+import { userPreferencesGet, userPreferencesFormEdit, userPreferencesFormAdd, resetUserPreferencesState } from '../../../store/UserPreferencesForm/Actions';
 import UserProfileForm from '../../Forms/UserProfileForm/UserProfileForm';
 import { IUserPreferences } from '../../../store/UserPreferencesForm/Types/IUserPreferences';
 import EventType from '../../../enums/EventType';
 import Notify from '../../../enums/Notify';
 import { ICurrency } from '../../../store/Lookups/Types/ICurrency';
-import { getDisplayName } from '../../../helpers/auth-helper';
+import { getDisplayName, logOut } from '../../../helpers/auth-helper';
+import { toast } from 'react-toastify';
 
 interface IMapDispatchToProps {
   userPreferencesFormAdd: (
@@ -34,9 +35,10 @@ interface IMapDispatchToProps {
     event: EventType
   ) => void;
 
-  getUserPreferences();
-  getAllLanguages();
-  getAllCurrencies();
+  getUserPreferences: () => void;
+  getAllLanguages: () => void;
+  getAllCurrencies: () => void;
+  resetUserPreferencesState: () => void;
 }
 
 interface IProps {
@@ -44,24 +46,45 @@ interface IProps {
 }
 
 interface IMapStateToProps {
-  form: IUserPreferences;
+  preferences: IUserPreferences;
   notify: Notify;
-  event: EventType;
 }
 
 const ProfileMenu: React.FC<any> = props => {
   const [showMenu, setMenuVisibility] = useState(false);
   const [isEditable, makeEditable] = useState(false);
 
+  useEffect(() => {
+    props.getUserPreferences();
+    props.getAllLanguages();
+    props.getAllCurrencies();
+  }, [])
+
+  useEffect(() => {
+  debugger;
+    if (props.notify == Notify.success) {
+      toast.success('Data Saved Successfully');
+      props.getUserPreferences();
+      props.resetUserPreferencesState();
+      setMenuVisibility(true);
+      makeEditable(false);
+    }
+  }, [props.notify]);
+
 
 
 
   const handleEvent = (userPreferences: IUserPreferences, event: EventType) => {
-    userPreferences.userPreferenceId == ''
+    userPreferences.userPreferenceId == '' ||
+      userPreferences.userPreferenceId == '00000000-0000-0000-0000-000000000000'
       ? props.userPreferencesFormAdd(userPreferences, event)
       : props.userPreferencesFormEdit(userPreferences, event);
   };
 
+  const closePanel = ()=> {
+    setMenuVisibility(true);
+    makeEditable(false);
+  }
 
   return (
     <nav className="topbar">
@@ -114,7 +137,11 @@ const ProfileMenu: React.FC<any> = props => {
 
                       <div className={`${isEditable ? 'show' : 'hide'}`}>
 
-                        <UserProfileForm onSubmitForm={handleEvent} />
+                        <UserProfileForm onSubmitForm={handleEvent}
+                          redirectMenu = {closePanel}
+                          currencies={props.currencies}
+                          languages={props.languages}
+                        />
                       </div>
 
                       {/* END EDIT FORM SECTION */}
@@ -126,7 +153,7 @@ const ProfileMenu: React.FC<any> = props => {
                               <FontAwesomeIcon className="" icon={faUser} />
                             </i>
                             <p className="title_name">user</p>
-                            {/* <span className="dsc">{props.Name && props.Name}</span> */}
+                            <span className="dsc">{getDisplayName()}</span>
                           </a>
                         </li>
                         <li>
@@ -148,22 +175,19 @@ const ProfileMenu: React.FC<any> = props => {
                           </a>
                         </li>
                       </ul>
-                      <div className="link_group">
-                        <a className={`${!isEditable ? 'show' : 'hide'}`} onClick={() => makeEditable(!isEditable)}>EDIT</a>
-                        <a className={`${isEditable ? 'show' : 'hide'}`} onClick={() => makeEditable(!isEditable)}>Cancel</a>
+                      <div className={`${!isEditable ? 'show' : 'hide'}`}>
 
+                      <div className='link_group'>
+                        <a href="#" onClick={() => makeEditable(!isEditable)}>EDIT</a>
                         <span>|</span>
-                        <a href="#">SIGN OUT</a>
+                        <a href="#" onClick={logOut}>SIGN OUT</a>
+                      </div>
+                      
                       </div>
                     </div>
                   </div>
                 </div>
               </li>
-              {/* <li id="sm_none">
-                <a className="" onClick={() => authentication.signOut()}>
-                  logout
-                </a>
-              </li> */}
               <li>
                 <button
                   type="button"
@@ -184,14 +208,15 @@ const ProfileMenu: React.FC<any> = props => {
 }
 const mapStateToProps = (state: IState) => {
   return {
-    userPreferenceId: state.userPreferences.form.userPreferenceId,
-    languageId: state.userPreferences.form.languageId,
-    languageName: state.userPreferences.form.languageName,
-    currencyId: state.userPreferences.form.currencyId,
-    currencySymbol: state.userPreferences.form.currencySymbol,
-    currencyName: state.userPreferences.form.currencyName,
+    userPreferences: state.userPreferences.preferences,
+    languageId: state.userPreferences.preferences.languageId,
+    languageName: state.userPreferences.preferences.languageName,
+    currencyId: state.userPreferences.preferences.currencyId,
+    currencySymbol: state.userPreferences.preferences.currencySymbol,
+    currencyName: state.userPreferences.preferences.currencyName,
     currencies: state.lookup.currencies,
-    languages: state.lookup.languages
+    languages: state.lookup.languages,
+    notify: state.userPreferences.notify
   }
 }
 
@@ -199,9 +224,12 @@ const mapDispatchToProps = dispatch => {
   return {
     userPreferencesFormEdit: (userPreferences, event) =>
       dispatch(userPreferencesFormEdit(userPreferences, event)),
-    getUserPreferences: dispatch(userPreferencesGet()),
-    getAllLanguages: dispatch(actions.getAllLanguages()),
-    getAllCurrencies: dispatch(actions.getAllCurrencies())
+    userPreferencesFormAdd: (userPreferences, event) =>
+      dispatch(userPreferencesFormAdd(userPreferences, event)),
+    getUserPreferences: () => dispatch(userPreferencesGet()),
+    getAllLanguages: () => dispatch(actions.getAllLanguages()),
+    getAllCurrencies: () => dispatch(actions.getAllCurrencies()),
+    resetUserPreferencesState: ()=> dispatch(resetUserPreferencesState())
   }
 }
 

@@ -8,3 +8,7 @@ export const getDisplayName = () => {
   const decoded: DecodedToken = jwtDecode(token);
   return decoded.name;
 };
+
+export const logOut = () =>{
+  authentication.signOut();
+}
