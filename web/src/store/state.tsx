@@ -16,9 +16,8 @@ export type IState = {
   project: IProjectDetailState;
   subContractor: ISubContractorState;
   pipelineGrid: IProjectPipelineGridState;
-  UserService: IUserServiceState;
+  userService: IUserServiceState;
   dynamicData: IDynamicDataState;
-  adData: IUserServiceState;
   discount: IDiscountState;
   preliminary: IPreliminaryState;
   userPreferences: IUserPreferencesState

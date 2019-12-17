@@ -68,8 +68,11 @@ export const projectDetail:IProjectDetailState={
     thirdAssetWorkedOn: 0,
     comment: '',
     otherCompanyName: '',
-  otherContractName: ''
-    
+  otherContractName: '',
+    divisionId : '',
+    businessUnitId: '',
+    weightedTCV: 0,
+  soldMargin: 0
   },
   enquiryOverview: {
     projectName: '',

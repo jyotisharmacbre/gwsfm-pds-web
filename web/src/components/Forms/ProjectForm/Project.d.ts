@@ -20,4 +20,6 @@ export interface Project {
   secondAssetWorkedOn: number;
   thirdAssetWorkedOn: number;
   comment: string;
+  divisionId : string;
+  businessUnitId: string;
 }

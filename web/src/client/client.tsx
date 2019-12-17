@@ -3,6 +3,8 @@ import authentication from '@kdpw/msal-b2c-react';
 
 export const baseURL = 'https://qat-pds-middletier.azurewebsites.net';
 export const baseAPI = axios.create({ baseURL });
+export const userServiceURL = 'https://qat-identity-api.azurewebsites.net';
+export const userServiceAPI = axios.create({ baseURL: userServiceURL });
 
 const isTokenHandlerEnabled = (config = {}) => {
   return config.hasOwnProperty('tokenHandlerEnabled') &&
@@ -35,6 +37,7 @@ const requestHandler = request => {
 };
 
 baseAPI.interceptors.request.use(request => requestHandler(request));
+userServiceAPI.interceptors.request.use(request => requestHandler(request));
 
 const errorHandler = error => {
   if (isErrorHandlerEnabled(error.config)) {
@@ -51,6 +54,11 @@ const successHandler = response => {
 };
 
 baseAPI.interceptors.response.use(
+  response => successHandler(response),
+  error => errorHandler(error)
+);
+
+userServiceAPI.interceptors.response.use(
   response => successHandler(response),
   error => errorHandler(error)
 );

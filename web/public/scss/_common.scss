@@ -321,17 +321,37 @@ button[type="button"] {
     button {
         margin-right: 20px;
         @include mdScreen {
-            margin-bottom: 15px;
-        }
-        &:first-child {
-            @include mdScreen {
-                margin-left: initial!important;
-            }
+            margin: 8px 8px;
         }
         &:nth-child(2) {
-            @include smsScreen {
-                margin-left: 0 !important;
+            margin-right: 0;
+            @include mdScreen {
+                margin-right: 8px;
             }
         }
+    }
+}
+
+.button-type {
+    background: map-get($colors, whiteColor) !important;
+    border: 1px solid map-get($colors, grey06) !important;
+    @include borderRadius(2px);
+    color: map-get($colors, grey06) !important;
+    padding: 8px 25px !important;
+    font-size: 13px !important;
+    line-height: normal !important;
+    margin-right: 8px !important;
+    font-weight: normal !important;
+    min-width: 0 !important;
+    cursor: pointer !important;
+    border-radius: 0 !important;
+    letter-spacing: inherit !important;
+    &:focus {
+        outline: none !important;
+    }
+    &.active {
+        background: map-get($colors, lightGreen02) !important;
+        color: map-get($colors, whiteColor) !important;
+        border: 1px solid map-get($colors, lightGreen02) !important;
     }
 }
