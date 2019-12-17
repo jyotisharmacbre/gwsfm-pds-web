@@ -44,6 +44,28 @@ const getDynamicCompanyOtherSuccess = (response: any) => {
   };
 };
 
+const getDynamicSubContractorSuccess = (response: any) => {
+  return {
+    type: ActionType.DYNAMIC_SUB_CONTRACTOR_DATA_GET_SUCCESS,
+    payload: response
+  };
+};
+
+const getDynamicSubContractorError = (error: any) => {
+  return {
+    type: ActionType.DYNAMIC_SUB_CONTRACTOR_DATA_GET_ERROR,
+    payload: error
+  };
+};
+
+
+const getDynamicSubContractorOtherSuccess = (response: any) => {
+  return {
+    type: ActionType.DYNAMIC_OTHER_SUB_CONTRACTOR_SUCCESS,
+    payload: response
+  };
+};
+
 let config = {
   headers: {
     'Content-Type': 'application/json'
@@ -84,6 +106,23 @@ export const getDynamicCompanyData = (searchCompany: string) => {
   };
 };
 
+export const getDynamicSubContractorData = (searchSubContractor: string) => {
+  return (dispatch: Dispatch) => {
+    axios.baseAPI
+      .get(
+        `/api/DynamicsLookup/getSubContractors/${searchSubContractor}?topCount=50
+      `,
+        config
+      )
+      .then(response => {
+        dispatch(getDynamicSubContractorSuccess(response.data));
+      })
+      .catch(error => {
+        dispatch(getDynamicSubContractorError(error));
+      });
+  };
+};
+
 export const getDynamicOther = (data: any, type: string) => {
   switch (type) {
     case 'contractorId':
@@ -94,7 +133,12 @@ export const getDynamicOther = (data: any, type: string) => {
       return (dispatch: Dispatch) => {
         dispatch(getDynamicCompanyOtherSuccess(data));
       };
+    case 'SubContractorId':
+    return (dispatch: Dispatch) => {
+      dispatch(getDynamicSubContractorOtherSuccess(data));
+    };
       default:
         return '';
   }
 };
+

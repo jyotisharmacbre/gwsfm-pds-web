@@ -34,7 +34,7 @@ const TypeAhead = ({ name, options, onSearch, DynamicsType, placeholderKey, intl
     searchText, labelName,validationKey, submitParam,selected, ...props }) => {
 
     function handleChange(value: any) {
-      if(DynamicsType === 'contractorId'  || DynamicsType === 'companyId'){
+      if(DynamicsType === 'contractorId'  || DynamicsType === 'companyId' || DynamicsType === 'SubContractorId'){
         props.handleOtherFieldChange(value, DynamicsType);
       }
       }    
