@@ -4,7 +4,6 @@ import { IState } from './state';
 import projectDetailReducer from './CustomerEnquiryForm/Reducer';
 import projectOverviewFormReducer from './ProjectOverviewForm/Reducer';
 import lookupReducer from './Lookups/Reducer';
-import localeReducer from '../Translations/Reducer';
 import subContractorReducer from './SubContractor/Reducer';
 import projectPipelineDetailReducer from './pipeline/Reducer';
 import userServiceReducer from './UserService/Reducer';
@@ -20,7 +19,6 @@ export default combineReducers<IState>({
   lookup: lookupReducer,
   subContractor: subContractorReducer,
   pipelineGrid: projectPipelineDetailReducer,
-  locale: localeReducer,
   UserService: userServiceReducer,
   dynamicData: dynamicDataReducer,
   adData: userServiceReducer,

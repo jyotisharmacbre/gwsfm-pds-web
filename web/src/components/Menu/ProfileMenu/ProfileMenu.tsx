@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import close_icon from '../../images/logo-black.png';
-import FontawsomeSvg from '@fortawesome/fontawesome-svg-core';
-import FontawsomeFree from '@fortawesome/free-solid-svg-icons';
 import * as actions from '../../../store/rootActions';
-import FontawsomeReact, {
+import {
   FontAwesomeIcon
 } from '@fortawesome/react-fontawesome';
 import {
@@ -120,7 +118,7 @@ const ProfileMenu: React.FC<any> = props => {
                     aria-expanded="false"
                   >
                     <FontAwesomeIcon className="" icon={faUser} />
-                    <span id="sm_none">{getDisplayName() && `Hello, ${getDisplayName()}`}</span>
+                    <span id="sm_none">{props.displayName && `Hello, ${props.displayName}`}</span>
                     <span className="down-arrow">
                       <FontAwesomeIcon className="" icon={faAngleDown} />
                     </span>
@@ -141,6 +139,7 @@ const ProfileMenu: React.FC<any> = props => {
                           redirectMenu = {closePanel}
                           currencies={props.currencies}
                           languages={props.languages}
+                          displayName= {props.displayName}
                         />
                       </div>
 
@@ -153,7 +152,7 @@ const ProfileMenu: React.FC<any> = props => {
                               <FontAwesomeIcon className="" icon={faUser} />
                             </i>
                             <p className="title_name">user</p>
-                            <span className="dsc">{getDisplayName()}</span>
+                            <span className="dsc">{props.displayName}</span>
                           </a>
                         </li>
                         <li>
@@ -216,8 +215,9 @@ const mapStateToProps = (state: IState) => {
     currencyName: state.userPreferences.preferences.currencyName,
     currencies: state.lookup.currencies,
     languages: state.lookup.languages,
-    notify: state.userPreferences.notify
-  }
+    notify: state.userPreferences.notify,
+    displayName: getDisplayName()
+    }
 }
 
 const mapDispatchToProps = dispatch => {

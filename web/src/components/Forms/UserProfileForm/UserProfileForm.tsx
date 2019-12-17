@@ -1,21 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import close_icon from '../../images/logo-black.png';
-import FontawsomeSvg from '@fortawesome/fontawesome-svg-core';
-import FontawsomeFree from '@fortawesome/free-solid-svg-icons';
-import FontawsomeReact, {
+import React from 'react';
+import {
   FontAwesomeIcon
 } from '@fortawesome/react-fontawesome';
 import {
-  faAngleDown,
-  faUser,
-  faBell,
-  faHome
+  faUser
 } from '@fortawesome/free-solid-svg-icons';
 
-// @ts-ignore
 import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
-import { userPreferencesGet } from '../../../store/UserPreferencesForm/Actions';
 import { Field, InjectedFormProps, formValueSelector, reduxForm } from 'redux-form';
 import PdsFormSelect from '../../PdsFormHandlers/PdsFormSelect';
 import { Validate } from '../../../helpers/fieldValidations';
@@ -23,7 +15,6 @@ import { FormattedMessage } from 'react-intl';
 import { IUserPreferences } from '../../../store/UserPreferencesForm/Types/IUserPreferences';
 import { ICurrency } from '../../../store/Lookups/Types/ICurrency';
 import EventType from '../../../enums/EventType';
-import { getDisplayName } from '../../../helpers/auth-helper';
 import { ILanguage } from '../../../store/Lookups/Types/ILanguage';
 
 interface Props {
@@ -31,9 +22,10 @@ interface Props {
   redirectMenu: () => void;
   currencies: ICurrency;
   languages: ILanguage;
+  displayName: string;
 }
 
-const UserProfileForm: React.FC<Props &
+let UserProfileForm: React.FC<Props &
   InjectedFormProps<IUserPreferences, Props>> = (props: any, Name: any) => {
 
     const { handleSubmit, redirectMenu } = props;
@@ -50,7 +42,7 @@ const UserProfileForm: React.FC<Props &
                   <FontAwesomeIcon className="" icon={faUser} />
                 </i>
                 <p className="title_name">user</p>
-                <span className="dsc">{getDisplayName()}</span>
+                <span className="dsc">{props.displayName}</span>
               </a>
             </li>
             <li>
@@ -117,7 +109,7 @@ const UserProfileForm: React.FC<Props &
 
 
           <div className='link_group'>
-                        <a href="#" onClick={handleSubmit(values => props.onSubmitForm(values))}><FormattedMessage id="BUTTON_SAVE" /></a>
+                        <a href="#" data-name="save" onClick={handleSubmit(values => props.onSubmitForm(values))}><FormattedMessage id="BUTTON_SAVE" /></a>
                         <span>|</span>
                         <a href="#" onClick={redirectMenu}>Cancel</a>
                       </div>

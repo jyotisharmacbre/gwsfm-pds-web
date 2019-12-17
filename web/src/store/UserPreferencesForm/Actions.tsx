@@ -5,7 +5,6 @@ import { IUserPreferences } from './Types/IUserPreferences';
 import EventType from '../../enums/EventType';
 import * as axios from '../../client';
 import { getUserPreferences } from '../../services/lookup.service';
-import { getLocaleActionCreator } from '../../Translations/Actions';
 
 let config = {
   headers: {
