@@ -7,7 +7,7 @@ describe('card tile component', () => {
   let wrapper: any;
   beforeEach(() => {
     wrapper = shallow(
-        <Tile heading='heading-test' content='content-test'/>
+        <Tile headingKey='heading-test' contentKey='content-test'/>
     );
   });
   
@@ -21,8 +21,8 @@ describe('card tile component', () => {
 
   it('should Not throw a warning for proptypes', () => {
       const expectedProps = {
-        heading: '',
-       content: ''
+        headingKey: '',
+        contentKey: ''
       };
       const propsError = checkProps(Tile, expectedProps);
       expect(propsError).toBeUndefined();
