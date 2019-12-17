@@ -9,8 +9,6 @@ export const initialState: IProjectOverviewState = {
       mainContractor: '',
       otherMainContractor: '',
       enquiryReceivedFrom: '',
-      potentialCustomer: '',
-      otherPotentialCustomer: '',
       enquiryTypeId: -1,
       creditCheckResult: '',
       siteAddress: '',
