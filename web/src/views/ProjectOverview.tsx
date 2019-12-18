@@ -119,9 +119,9 @@ const ProjectOverview: React.FC<IProps &
               {...{
                 headers: [
                   {
-                    heading: formatMessage('LABEL_END_CONTRACT_NAME'),
+                    heading: formatMessage('LABEL_END_CUSTOMER_NAME'),
                     subHeading: convertToString(getFilterElementFromArray(dynamicsContract, 'ContractId',
-                    props.enquiryOverview.contractorId, 'ContractName'))
+                    props.enquiryOverview.contractorId, 'Name') || props.enquiryOverview.otherContractName)
                   },
                   {
                     heading: formatMessage('MESSAGE_PROJECT_NAME'),

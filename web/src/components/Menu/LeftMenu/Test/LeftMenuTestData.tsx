@@ -40,7 +40,8 @@ export const enquiryOverview:IProject={
   headOfProject: '',
   projectManager: '',
   scope: '',
-  cnNumber: ''
+  cnNumber: '',
+  otherContractName: ''
 }
 export const leftMenuProjectData:IProjectDetailState={
       form: form,

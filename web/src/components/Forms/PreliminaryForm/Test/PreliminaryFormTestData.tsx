@@ -79,7 +79,8 @@ export const projectDetail:IProjectDetailState={
     headOfProject: '',
     projectManager: '',
     scope: '',
-    cnNumber: '1'
+    cnNumber: '1',
+    otherContractName: ''
   },
   error: null,
   loading: false,

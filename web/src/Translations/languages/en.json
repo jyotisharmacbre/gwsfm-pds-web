@@ -84,7 +84,7 @@
     "LABEL_DISCOUNT_TYPE": "Discount Type",
     "LABEL_PERCENTAGE": "Percentage (%)",
     "LABEL_VALUE": "Value (#)",
-    "LABEL_END_CONTRACT_NAME": "Contract Name",
+    "LABEL_END_CUSTOMER_NAME": "Customer Name",
     "LABEL_PROJECT_ID": "Project ID",
     "LABEL_WEIGHTED_TCV": "Weighted TCV",
     "LABEL_SOLID_MARGIN": "Solid Margin",

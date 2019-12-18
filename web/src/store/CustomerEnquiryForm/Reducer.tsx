@@ -41,7 +41,8 @@ const initialState: IProjectDetailState = {
     headOfProject: '',
     projectManager: '',
     scope: '',
-    cnNumber: ''
+    cnNumber: '',
+    otherContractName: ''
   },
   error: null,
   loading: false,

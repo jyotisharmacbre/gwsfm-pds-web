@@ -5,4 +5,5 @@ export interface IProject {
   projectManager: string;
   scope: string;
   cnNumber: string;
+  otherContractName: string;
 }
