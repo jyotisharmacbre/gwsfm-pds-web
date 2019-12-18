@@ -75,7 +75,7 @@ export const projectDetail:IProjectDetailState={
   },
   enquiryOverview: {
     projectName: '',
-    companyId: '1',
+    contractorId: '1',
     headOfProject: '',
     projectManager: '',
     scope: '',

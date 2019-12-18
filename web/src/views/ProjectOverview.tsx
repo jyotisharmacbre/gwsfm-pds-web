@@ -19,6 +19,8 @@ import { ILookup } from '../store/Lookups/Types/ILookup';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { formatMessage } from '../Translations/connectedIntlProvider';
+import { dynamicsContract } from '../components/TypeAhead/TypeAheadConstantData/dynamicContractData';
+import { getFilterElementFromArray } from '../helpers/utility-helper';
 
 const tableHeaders: IGeneralTableHeaderProps[] = [
   { heading: 'End Client Name', subHeading: 'ING' },
@@ -117,8 +119,9 @@ const ProjectOverview: React.FC<IProps &
               {...{
                 headers: [
                   {
-                    heading: formatMessage('LABEL_END_CLIENT_NAME'),
-                    subHeading: convertToString(props.enquiryOverview.companyId)
+                    heading: formatMessage('LABEL_END_CONTRACT_NAME'),
+                    subHeading: convertToString(getFilterElementFromArray(dynamicsContract, 'ContractId',
+                    props.enquiryOverview.contractorId, 'ContractName'))
                   },
                   {
                     heading: formatMessage('MESSAGE_PROJECT_NAME'),

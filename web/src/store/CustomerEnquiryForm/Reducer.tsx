@@ -37,7 +37,7 @@ const initialState: IProjectDetailState = {
   },
   enquiryOverview: {
     projectName: '',
-    companyId: '',
+    contractorId: '',
     headOfProject: '',
     projectManager: '',
     scope: '',

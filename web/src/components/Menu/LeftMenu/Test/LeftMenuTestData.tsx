@@ -36,7 +36,7 @@ export const form:IProjectDetail={
 }
 export const enquiryOverview:IProject={
   projectName: '',
-  companyId: '',
+  contractorId: '',
   headOfProject: '',
   projectManager: '',
   scope: '',
