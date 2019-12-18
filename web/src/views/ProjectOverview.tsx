@@ -46,7 +46,6 @@ interface IMapStateToProps {
   event: EventType;
   projectScope: string;
   status:number;
-  projectScope: string;  
   dynamicsSubContractor: Array<IDynamicSubContractorData>;
 }
 interface IMapDispatchToProps {
@@ -68,7 +67,6 @@ interface IMapDispatchToProps {
   changeProjectStatusToBidLost: (projectId: string) => void;
   reactivateProject:(projectId: string) => void;
   setProjectStatus:(status: number) => void;
-  resetProjectOverviewState: () => void;  
   handleGetDynamicSubContractorData: (searchSubContractor: string) => void;
 }
 interface IProps {
@@ -223,9 +221,8 @@ const mapStateToProps = (state: IState) => ({
   enquiryOverview: state.project.enquiryOverview,
   event: state.projectOverview.event,
   projectScope: state.project.form.scope,
-  status:state.project.form.status
-  projectScope: state.project.form.scope,  
-  dynamicsSubcontractor: state.dynamicData.dynamicsSubcontractor,
+  status:state.project.form.status, 
+  dynamicsSubcontractor: state.dynamicData.dynamicsSubcontractor
 });
 
 const mapDispatchToProps = dispatch => {
@@ -250,8 +247,7 @@ const mapDispatchToProps = dispatch => {
     reactivateProject: projectId =>
       dispatch(actions.reactivateProject(projectId)),
     setProjectStatus: status =>
-      dispatch(actions.changeProjectStatus(status))
-      dispatch(actions.resetProjectOverviewState()),
+      dispatch(actions.changeProjectStatus(status)),
     handleGetDynamicSubContractorData: searchSubContractor =>
       dispatch(getDynamicSubContractorData(searchSubContractor)),
   };
