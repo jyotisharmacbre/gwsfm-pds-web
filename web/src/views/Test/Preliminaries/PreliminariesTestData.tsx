@@ -104,11 +104,12 @@ export const lookUpInitialState: ILookupState = {
     },
     enquiryOverview: {
       projectName: '',
-      companyId: '',
-      headOfProject: '',
-      projectManager: '',
-      scope: '',
-      cnNumber: ''
+      contractorId: '',
+  headOfProject: '',
+  projectManager: '',
+  scope: '',
+  cnNumber: '',
+  otherContractName: '',
     },
     error: null,
     loading: false,
