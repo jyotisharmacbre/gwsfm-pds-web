@@ -23,13 +23,15 @@ interface Props {
   currencies: ICurrency;
   languages: ILanguage;
   displayName: string;
+  displayEmail: string;
+
 }
 
 let UserProfileForm: React.FC<Props &
   InjectedFormProps<IUserPreferences, Props>> = (props: any, Name: any) => {
 
     const { handleSubmit, redirectMenu } = props;
-  
+
     return (
       <form onSubmit={handleSubmit} noValidate={true}>
         <div>
@@ -41,8 +43,8 @@ let UserProfileForm: React.FC<Props &
                 <i>
                   <FontAwesomeIcon className="" icon={faUser} />
                 </i>
-                <p className="title_name">user</p>
-                <span className="dsc">{props.displayName}</span>
+                <p className="title_name">{props.displayName}</p>
+                <span className="dsc">{props.displayEmail}</span>
               </a>
             </li>
             <li>
@@ -109,10 +111,10 @@ let UserProfileForm: React.FC<Props &
 
 
           <div className='link_group'>
-                        <a href="#" data-name="save" onClick={handleSubmit(values => props.onSubmitForm(values))}><FormattedMessage id="BUTTON_SAVE" /></a>
-                        <span>|</span>
-                        <a href="#" onClick={redirectMenu}>Cancel</a>
-                      </div>
+            <a href="#" data-name="save" onClick={handleSubmit(values => props.onSubmitForm(values))}><FormattedMessage id="BUTTON_SAVE" /></a>
+            <span>|</span>
+            <a href="#" onClick={redirectMenu}>Cancel</a>
+          </div>
 
           {/* END EDIT FORM SECTION */}
         </div>

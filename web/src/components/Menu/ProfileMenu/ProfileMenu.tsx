@@ -20,7 +20,7 @@ import { IUserPreferences } from '../../../store/UserPreferencesForm/Types/IUser
 import EventType from '../../../enums/EventType';
 import Notify from '../../../enums/Notify';
 import { ICurrency } from '../../../store/Lookups/Types/ICurrency';
-import { getDisplayName, logOut } from '../../../helpers/auth-helper';
+import { getDisplayName, getDisplayEmail, logOut } from '../../../helpers/auth-helper';
 import { toast } from 'react-toastify';
 
 interface IMapDispatchToProps {
@@ -59,7 +59,6 @@ const ProfileMenu: React.FC<any> = props => {
   }, [])
 
   useEffect(() => {
-  debugger;
     if (props.notify == Notify.success) {
       toast.success('Data Saved Successfully');
       props.getUserPreferences();
@@ -140,6 +139,7 @@ const ProfileMenu: React.FC<any> = props => {
                           currencies={props.currencies}
                           languages={props.languages}
                           displayName= {props.displayName}
+                          displayEmail = {props.displayEmail}
                         />
                       </div>
 
@@ -151,8 +151,8 @@ const ProfileMenu: React.FC<any> = props => {
                             <i>
                               <FontAwesomeIcon className="" icon={faUser} />
                             </i>
-                            <p className="title_name">user</p>
-                            <span className="dsc">{props.displayName}</span>
+                            <p className="title_name">{props.displayName}</p>
+                            <span className="dsc">{props.displayEmail}</span>
                           </a>
                         </li>
                         <li>
@@ -216,7 +216,8 @@ const mapStateToProps = (state: IState) => {
     currencies: state.lookup.currencies,
     languages: state.lookup.languages,
     notify: state.userPreferences.notify,
-    displayName: getDisplayName()
+    displayName: getDisplayName(),
+    displayEmail: getDisplayEmail()
     }
 }
 
