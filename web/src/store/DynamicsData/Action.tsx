@@ -82,7 +82,7 @@ export const getDynamicContractData = (searchContract: string) => {
   return (dispatch: Dispatch) => {
     axios.baseAPI
       .get(
-        `/api/DynamicsLookup/getContracts/${searchContract}?topCount=50
+        `/api/ERPLookup/getContractsAndCustomers/${searchContract}?topCount=50
       `,
         config
       )
