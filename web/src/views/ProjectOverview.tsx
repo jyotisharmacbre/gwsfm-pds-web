@@ -21,6 +21,8 @@ import { toast } from 'react-toastify';
 import { formatMessage } from '../Translations/connectedIntlProvider';
 import { dynamicsContract } from '../components/TypeAhead/TypeAheadConstantData/dynamicContractData';
 import { getFilterElementFromArray } from '../helpers/utility-helper';
+import { getDynamicSubContractorData } from '../store/DynamicsData/Action';
+import { IDynamicSubContractorData } from '../store/DynamicsData/Types/IDynamicData';
 
 const tableHeaders: IGeneralTableHeaderProps[] = [
   { heading: 'End Client Name', subHeading: 'ING' },
@@ -44,7 +46,8 @@ interface IMapStateToProps {
   projectStatus: Array<ILookup>;
   enquiryOverview: IProject;
   event: EventType;
-  projectScope: string;
+  projectScope: string;  
+  dynamicsSubContractor: Array<IDynamicSubContractorData>;
 }
 interface IMapDispatchToProps {
   getProjectStatus: () => void;
@@ -59,7 +62,8 @@ interface IMapDispatchToProps {
   ) => void;
   getAdditionalDetails: (projectId: string) => void;
   getEnquiryOverview: (projectId: string) => void;
-  resetProjectOverviewState: () => void;
+  resetProjectOverviewState: () => void;  
+  handleGetDynamicSubContractorData: (searchSubContractor: string) => void;
 }
 interface IProps {
   projectId: string;
@@ -95,13 +99,13 @@ const ProjectOverview: React.FC<IProps &
 
   const handlePrevious = (data: IProjectAdditionalDetail) => {
     data.projectAddDetailId == ''
-      ? props.projectOverviewFormAdd(props.projectId, data, EventType.previous)
+      ? props.projectOverviewFormAdd(props.match.params.projectId, data, EventType.previous)
       : props.projectOverviewFormEdit(data, EventType.previous);
   };
 
   const handleNext = (data: IProjectAdditionalDetail) => {
     data.projectAddDetailId == ''
-      ? props.projectOverviewFormAdd(props.projectId, data, EventType.next)
+      ? props.projectOverviewFormAdd(props.match.params.projectId, data, EventType.next)
       : props.projectOverviewFormEdit(data, EventType.next);
   };
   const convertToString = id => {
@@ -109,6 +113,12 @@ const ProjectOverview: React.FC<IProps &
     if (id != null && id != undefined) data = id.toString();
     return data;
   };
+
+  
+  const onSearchSubContractor = (values: string) => {
+    props.handleGetDynamicSubContractorData(values);
+  };
+
   return (
     <React.Fragment>
       <Container component="main">
@@ -145,6 +155,7 @@ const ProjectOverview: React.FC<IProps &
               onNext={handleNext}
               onPrevious={handlePrevious}
               projectstatus={props.projectStatus}
+              onSearchSubContractor = {onSearchSubContractor}
             />
           </Grid>
         </Grid>
@@ -160,7 +171,8 @@ const mapStateToProps = (state: IState) => ({
   projectStatus: state.lookup.projectstatus,
   enquiryOverview: state.project.enquiryOverview,
   event: state.projectOverview.event,
-  projectScope: state.project.form.scope
+  projectScope: state.project.form.scope,  
+  dynamicsSubcontractor: state.dynamicData.dynamicsSubcontractor,
 });
 
 const mapDispatchToProps = dispatch => {
@@ -175,7 +187,9 @@ const mapDispatchToProps = dispatch => {
     getEnquiryOverview: projectId =>
       dispatch(actions.getEnquiryOverview(projectId)),
     resetProjectOverviewState: () =>
-      dispatch(actions.resetProjectOverviewState())
+      dispatch(actions.resetProjectOverviewState()),
+    handleGetDynamicSubContractorData: searchSubContractor =>
+      dispatch(getDynamicSubContractorData(searchSubContractor)),
   };
 };
 
