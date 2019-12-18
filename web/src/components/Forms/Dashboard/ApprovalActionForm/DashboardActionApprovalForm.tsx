@@ -8,27 +8,19 @@ import { injectIntl } from 'react-intl';
 import { reduxForm, InjectedFormProps } from 'redux-form';
 import { IProjectDashboardGrid } from '../../../../store/Dashboard/Types/IProjectDashboardGrid';
 import IReactIntl from '../../../../Translations/IReactIntl';
+import { ILookup } from '../../../../store/Lookups/Types/ILookup';
 
 interface Props {
-  actionApprovalValues: any;
+  actionApprovalValues: Array<IProjectDashboardGrid>;
   showValues: number;
-  lookupValues: any;
+  lookupValues: Array<ILookup>;
 }
 let DashboardActionApprovalForm: React.FC<
   Props & InjectedFormProps<Array<IProjectDashboardGrid>, Props>
 > = props => {
   const { actionApprovalValues, lookupValues } = props;
   const getActionApprovalValues = (allLookups, countVals) => {
-    let data = actionApprovalValues.map(function(rowProject) {
-      var statusID = rowProject.projectStatus;
-      if (allLookups.length > 0)
-        rowProject.projectStatus = (
-          <p className="DashboardGridButtons">{rowProject.projectStatus}</p>
-        );
-
-      return rowProject;
-    });
-    return data;
+    return actionApprovalValues;
   };
   return (
     <React.Fragment>
