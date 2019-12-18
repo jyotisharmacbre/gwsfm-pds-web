@@ -4,12 +4,17 @@ import jwtDecode from 'jwt-decode';
 import { DecodedToken } from '../models/decodedToken';
 
 export const getDisplayName = () => {
-  const decoded: DecodedToken = decodeName();
+  const decoded: DecodedToken = decodeToken();
   return decoded.name;
 };
 
+export const getFirstName = () => {
+  const decoded: DecodedToken = decodeToken();
+  return decoded.given_name;
+};
+
 export const getDisplayEmail = () => {
-  const decoded: DecodedToken = decodeName();
+  const decoded: DecodedToken = decodeToken();
   return decoded.emails[0];
 };
 
@@ -17,9 +22,10 @@ export const logOut = () =>{
   authentication.signOut();
 }
 
-function decodeName() {
+function decodeToken() {
   const token = authentication.getAccessToken();
   const decoded: DecodedToken = jwtDecode(token);
+  console.log("decoded token:", decoded);
   return decoded;
 }
 

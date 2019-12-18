@@ -21,7 +21,7 @@ import { IUserPreferences } from '../../../store/UserPreferencesForm/Types/IUser
 import EventType from '../../../enums/EventType';
 import Notify from '../../../enums/Notify';
 import { ICurrency } from '../../../store/Lookups/Types/ICurrency';
-import { getDisplayName, getDisplayEmail, logOut } from '../../../helpers/auth-helper';
+import { getDisplayName, getDisplayEmail, logOut, getFirstName } from '../../../helpers/auth-helper';
 import { toast } from 'react-toastify';
 
 interface IMapDispatchToProps {
@@ -124,7 +124,7 @@ const ProfileMenu: React.FC<any> = props => {
                     aria-expanded="false"
                   >
                     <FontAwesomeIcon className="" icon={faUser} />
-                    <span id="sm_none">{props.displayName && `Hello, ${props.displayName}`}</span>
+                    <span id="sm_none">{props.displayName && `Hello, ${getFirstName()}`}</span>
                     <span className="down-arrow">
                       <FontAwesomeIcon className="" icon={faAngleDown} />
                     </span>

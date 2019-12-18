@@ -77,7 +77,6 @@ const getAllLanguagesError = (error: any) => {
 };
 
 export const getAllCurrencies = () => {
-  debugger;
   return (dispatch: Dispatch) => {
     axios.baseAPI
       .get('api/LookupData/GetAllCurrencies')
