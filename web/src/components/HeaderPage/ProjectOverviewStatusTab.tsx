@@ -33,7 +33,7 @@ const ProjectOverviewStatusTab: React.FC<IProps&IReactIntl> = props => {
       
              <div className="col-md-6 float-right">
                                         <div className="activate_status_box">
-                                        {(props.status==ProjectStatus.bidlost || props.status==ProjectStatus.onhold)? <div className="status-dropdown-btn toggle mrgnrght10 mrgnt5">
+                                        {(props.status==ProjectStatus.BidLost || props.status==ProjectStatus.OnHold)? <div className="status-dropdown-btn toggle mrgnrght10 mrgnt5">
                                                         <span>
                                                        
                                                         <button type="button"  id="reactivateButton" data-test="activateButton" 

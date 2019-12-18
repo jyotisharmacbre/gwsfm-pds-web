@@ -134,7 +134,7 @@ const Preliminaries: React.FC<
 
   return (
     <div className="container-fluid">
-      <div className={(props.status==ProjectStatus.bidlost||props.status==ProjectStatus.onhold)?"link_disabled row":"row"}>
+      <div className={(props.status==ProjectStatus.BidLost||props.status==ProjectStatus.OnHold)?"link_disabled row":"row"}>
         <div className="col-lg-12">
           <form className="custom-wrap">
             <div className="heading-subtitle">

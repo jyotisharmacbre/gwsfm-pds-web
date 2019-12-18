@@ -110,7 +110,7 @@ const Project: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = props
   };
 
   return (
-    <div className={(props.status==ProjectStatus.bidlost||props.status==ProjectStatus.onhold)?"link_disabled":""}>
+    <div className={(props.status==ProjectStatus.BidLost||props.status==ProjectStatus.OnHold)?"link_disabled":""}>
     <ProjectForm
       onSave={handleSave}
       onNext={handleNext}
