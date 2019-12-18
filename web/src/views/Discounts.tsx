@@ -130,8 +130,8 @@ interface IMapStateToProps {
     projectStatus: state.lookup.projectstatus,
     currencies: state.lookup.currencies,
     currencyId: state.project.form.currencyId,
-    clientName: state.project.form.companyId,
-    otherClientName: state.project.form.otherCompanyName
+    clientName: state.project.form.contractorId,
+    otherClientName: state.project.form.otherContractName
   });
   
   const mapDispatchToProps = dispatch => {
