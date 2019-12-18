@@ -37,6 +37,13 @@ const LeftMenu: React.FC<IMapStateToProps> = props => {
   let isDisable:boolean=(urlProjectId&&urlProjectId!="undefined")
   ?true:false;
 
+  const disableEnableMenu=(value:string)=>{
+    return activeClass==value?"active":""
+  }
+  const disableEnableSubActiveClass=(value:string)=>{
+    return activeClass==value?"subactive":""
+  }
+
   return (
     <nav id="sidebar">
       <div className="sidebar-header">
@@ -64,7 +71,7 @@ const LeftMenu: React.FC<IMapStateToProps> = props => {
           <img src={upload_icon} alt="upload icon" />
           upload library
         </p> */}
-        <li className={activeClass=="project"?"active":""}>
+        <li className={disableEnableMenu("project")}>
           <Link data-test="ProjectLink"
             to={{
               pathname: '/Project/'+urlProjectId
@@ -73,7 +80,7 @@ const LeftMenu: React.FC<IMapStateToProps> = props => {
             customer enquiry
           </Link>
         </li>
-        <li data-test="ProjectOverviewLink" className={isDisable?(activeClass=="projectoverview"?"active":""):"link_disabled"}>
+        <li data-test="ProjectOverviewLink" className={isDisable?(disableEnableMenu("projectoverview")):"link_disabled"}>
           <Link data-test="ProjectOverviewPath"
             to={{
               pathname: '/ProjectOverview/'+urlProjectId
@@ -83,10 +90,10 @@ const LeftMenu: React.FC<IMapStateToProps> = props => {
           </Link>
         </li>
         <li className={isDisable?
-          ((activeClass=="justificationauthorisation"
-          ||activeClass=="preliminaries"
-          ||activeClass=="subcontractor"
-          ||activeClass=="discounts")?"active":""):
+          (disableEnableMenu("justificationauthorisation")
+          ||disableEnableMenu("preliminaries")
+          ||disableEnableMenu("subcontractor")
+          ||disableEnableMenu("discounts")):
           "link_disabled"}>
           <Link
             to={"/JustificationAuthorisation/"+urlProjectId}
@@ -98,13 +105,13 @@ const LeftMenu: React.FC<IMapStateToProps> = props => {
             justification &amp; authorisation
           </Link>
           <ul className="collapse list-unstyled show" id="homeSubmenu">
-            <li className={activeClass=="preliminaries"?"subactive":""}>
+            <li className={disableEnableSubActiveClass("preliminaries")}>
               <Link to={"/preliminaries/"+urlProjectId}>preliminaries</Link>
             </li>
-            <li className={activeClass=="subcontractor"?"subactive":""}>
+            <li className={disableEnableSubActiveClass("subcontractor")}>
               <Link to={"/Subcontractor/"+urlProjectId}>subcontractors</Link>
             </li>
-            <li className={activeClass=="discounts"?"subactive":""}>
+            <li className={disableEnableSubActiveClass("discounts")}>
               <Link to={"/Discounts/"+urlProjectId}>discounts </Link>
             </li>
           </ul>

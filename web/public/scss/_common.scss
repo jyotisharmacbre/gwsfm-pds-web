@@ -367,6 +367,9 @@ button[type="button"] {
                 padding: 15px 0 0 0;
                 display: flex;
                 justify-content: space-between;
+                button {
+                    min-width: 100px;
+                }
             }
         }
     } 
