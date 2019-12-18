@@ -17,3 +17,7 @@ export interface IDynamicOther {
   id: string;
   label: string;
 }
+
+export interface IDynamicsOtherSubContractor {
+  label: string, id: string
+}

@@ -113,7 +113,7 @@ const ProjectOverview: React.FC<IProps &
   };
 
   
-  const onSearchSubContractor = (values: any) => {
+  const onSearchSubContractor = (values: string) => {
     props.handleGetDynamicSubContractorData(values);
   };
 

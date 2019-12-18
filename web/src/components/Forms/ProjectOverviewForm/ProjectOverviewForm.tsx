@@ -31,17 +31,21 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 import IReactIntl from '../../../Translations/IReactIntl';
 import TypeAhead from '../../TypeAhead/TypeAhead';
 import { dynamicsSubcontractorData } from '../../TypeAhead/TypeAheadConstantData/dynamicSubcontractorData';
+import { IDynamicsOtherSubContractor } from '../../../store/DynamicsData/Types/IDynamicData';
 
 interface Props {
   onNext: (data: IProjectAdditionalDetail) => void;
   onPrevious: (data: IProjectAdditionalDetail) => void;
   projectstatus: any;
-  onSearchSubContractor: (value: any) => void;
+  onSearchSubContractor: (value: string) => void;
 }
 
-let ProjectOverviewForm: React.FC<Props &
-  IReactIntl &
-  InjectedFormProps<IProjectAdditionalDetail, Props>> = (props: any) => {
+interface IMapStateToProps {  
+  dynamicsOtherSubContractor: Array<IDynamicsOtherSubContractor>;
+}
+
+let ProjectOverviewForm: React.FC<Props & IMapStateToProps &
+  InjectedFormProps<IProjectAdditionalDetail, Props  & IMapStateToProps>> = props => {
   const { handleSubmit, initialValues, onSearchSubContractor } = props;
   const DropdownOptions = projectStatusData.map((status: any, i: number) => (
     <option key={i} value={status.value}>
@@ -51,7 +55,7 @@ let ProjectOverviewForm: React.FC<Props &
   const normalize = value => (value ? parseInt(value) : null);
 
   const otherDynamicsSubContractor =
-  props.dynamicsOtherSubContractor.length > 0
+  props.dynamicsOtherSubContractor && props.dynamicsOtherSubContractor.length > 0
     ? props.dynamicsOtherSubContractor[0].label
     : '';
       
@@ -697,11 +701,11 @@ const mapStateToProps = (state: IState) => ({
   dynamicsOtherSubContractor: state.dynamicData.dynamicsOtherSubContractor,
 });
 
-const form = reduxForm<IProjectAdditionalDetail, Props>({
+const form = reduxForm<IProjectAdditionalDetail, Props & IMapStateToProps>({
   destroyOnUnmount: false,
   forceUnregisterOnUnmount: false,
   form: 'projectOverviewForm',
   enableReinitialize: true
-})(injectIntl(ProjectOverviewForm));
+})(ProjectOverviewForm);
 
 export default connect(mapStateToProps)(form);
