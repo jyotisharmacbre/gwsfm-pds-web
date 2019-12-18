@@ -464,7 +464,7 @@ const ProjectForm: React.FC<Props &
                       <FormattedMessage id="PLACEHOLDER_FIRST_ASSET">
                         {message => <option value="">{message}</option>}
                       </FormattedMessage>
-                      >{getDropdown(props.projectstatus, LookupType.Asset)}
+                      >{getDropdown(props.projectstatus, LookupType.Asset_Type)}
                     </Field>
                   </div>
 
@@ -479,7 +479,7 @@ const ProjectForm: React.FC<Props &
                       <FormattedMessage id="PLACEHOLDER_SECOND_ASSET">
                         {message => <option value="">{message}</option>}
                       </FormattedMessage>
-                      {getDropdown(props.projectstatus, LookupType.Asset)}
+                      {getDropdown(props.projectstatus, LookupType.Asset_Type)}
                     </Field>
                   </div>
 
@@ -494,7 +494,7 @@ const ProjectForm: React.FC<Props &
                       <FormattedMessage id="PLACEHOLDER_THIRD_ASSET">
                         {message => <option value="">{message}</option>}
                       </FormattedMessage>
-                      {getDropdown(props.projectstatus, LookupType.Asset)}
+                      {getDropdown(props.projectstatus, LookupType.Asset_Type)}
                     </Field>
                   </div>
                 </div>

@@ -27,7 +27,7 @@ export const getProjectStatus = () => {
     'Contract_Type',
     'Country',
     'Currency',
-    'Asset',
+    'Asset_Type',
     'Work_Type',
     'Enquiry_Type',
     'Discount_Type',
