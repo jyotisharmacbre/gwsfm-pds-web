@@ -17,6 +17,7 @@ import CalculationsSummaryType from '../enums/CalculationsSummaryType';
 import { getPropertyName,getFilterElementFromArray } from '../helpers/utility-helper';
 import { formValueSelector } from 'redux-form';
 import Currency from '../store/Lookups/InitialState/Currency';
+import ProjectStatus from '../enums/ProjectStatus';
 import { History } from 'history';
 interface IMapStateToProps {
   preliminaryDetails: Array<IPreliminariesComponentDetails>;
@@ -26,6 +27,7 @@ interface IMapStateToProps {
   notify: Notify;
   event: EventType;
   currencyId: number;
+  status:number;
   preliminaryForm:Array<IPreliminariesComponentDetails>;
   history:History;
 }
@@ -131,7 +133,7 @@ const Preliminaries: React.FC<
 
   return (
     <div className="container-fluid">
-      <div className=" row">
+      <div data-test="pre_row_status" className={(props.status==ProjectStatus.BidLost||props.status==ProjectStatus.OnHold)?"link_disabled row":"row"}>
         <div className="col-lg-12">
           <form className="custom-wrap">
             <div className="heading-subtitle">
@@ -214,6 +216,7 @@ const mapStateToProps = (state: IState) => {
     notify: state.preliminary.notify,
     currencyId: state.project.form.currencyId,
     event: state.preliminary.event,
+    status:state.project.form.status,
     preliminaryForm: selector(state, 'preliminaryDetails')
   };
 };

@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 import HeaderPage from '../components/HeaderPage/HeaderPage';
 import GeneralTable from '../components/Table/General';
 import { Grid, Container } from '@material-ui/core';
@@ -21,6 +20,7 @@ import { toast } from 'react-toastify';
 import { formatMessage } from '../Translations/connectedIntlProvider';
 import { dynamicsContract } from '../components/TypeAhead/TypeAheadConstantData/dynamicContractData';
 import { getFilterElementFromArray } from '../helpers/utility-helper';
+import ProjectOverviewStatusTab from '../components/HeaderPage/ProjectOverviewStatusTab';
 import { getDynamicSubContractorData } from '../store/DynamicsData/Action';
 import { IDynamicSubContractorData } from '../store/DynamicsData/Types/IDynamicData';
 
@@ -46,7 +46,8 @@ interface IMapStateToProps {
   projectStatus: Array<ILookup>;
   enquiryOverview: IProject;
   event: EventType;
-  projectScope: string;  
+  projectScope: string;
+  status:number;
   dynamicsSubContractor: Array<IDynamicSubContractorData>;
 }
 interface IMapDispatchToProps {
@@ -62,7 +63,12 @@ interface IMapDispatchToProps {
   ) => void;
   getAdditionalDetails: (projectId: string) => void;
   getEnquiryOverview: (projectId: string) => void;
-  resetProjectOverviewState: () => void;  
+  resetProjectOverviewState: () => void;
+  getProjectDetail: (projectId: string) => void;
+  changeProjectStatusToOnHold: (projectId: string) => void;
+  changeProjectStatusToBidLost: (projectId: string) => void;
+  reactivateProject:(projectId: string) => void;
+  setProjectStatus:(status: number) => void;
   handleGetDynamicSubContractorData: (searchSubContractor: string) => void;
 }
 interface IProps {
@@ -77,6 +83,7 @@ const ProjectOverview: React.FC<IProps &
   useEffect(() => {
     window.scrollTo(0, 0);
     props.getProjectStatus();
+    props.getProjectDetail(props.match.params.projectId);
     let paramProjectId = props.projectId == '' ? props.match.params.projectId : props.projectId;
     if (paramProjectId != null && paramProjectId != '') {
       props.getAdditionalDetails(paramProjectId);
@@ -96,7 +103,26 @@ const ProjectOverview: React.FC<IProps &
       props.resetProjectOverviewState();
     }
   }, [props.notify, props.event]);
+  useEffect(() => {
+    if (props.notify == Notify.success) {
+      if (props.event == EventType.save) 
+      {
+        toast.success('Project reactivated successfully');
+        props.getProjectDetail(props.match.params.projectId);
+      }
+      else
+      {
+        toast.success('Project status changed successfully');
 
+      }
+        
+      } else if (props.notify == Notify.error) 
+      {
+        toast.error('Error occured.Please contact administrator');
+      }
+      props.resetProjectOverviewState();
+    },
+ [props.notify]);
   const handlePrevious = (data: IProjectAdditionalDetail) => {
     data.projectAddDetailId == ''
       ? props.projectOverviewFormAdd(props.match.params.projectId, data, EventType.previous)
@@ -113,6 +139,30 @@ const ProjectOverview: React.FC<IProps &
     if (id != null && id != undefined) data = id.toString();
     return data;
   };
+  const getProjectStatusName=()=>{
+    let projectStatusData:Array<ILookup>=[];
+    if(props.projectStatus.length>0)
+    {
+       projectStatusData=props.projectStatus.filter((data)=>{return (data.lookupItem=="Project_Status"&&data.lookupKey==props.status)});
+    }
+    else if(sessionStorage.getItem("lookupData"))
+    {
+      let lookupData:any=sessionStorage.getItem("lookupData");
+      projectStatusData=JSON.parse(lookupData).filter((data)=>{return (data.lookupItem=="Project_Status"&&data.lookupKey==props.status)});
+    }
+    return (projectStatusData.length>0?projectStatusData[0].description:"")
+  }
+  const handleReactivateEvent=()=>{
+    props.reactivateProject(props.match.params.projectId);
+  }
+  const handleOnHoldEvent=()=>{
+    props.setProjectStatus(6);
+    props.changeProjectStatusToOnHold(props.match.params.projectId);
+  }
+  const handleBidLostEvent=()=>{
+    props.setProjectStatus(4);
+    props.changeProjectStatusToBidLost(props.match.params.projectId);
+  }
 
   
   const onSearchSubContractor = (values: string) => {
@@ -123,6 +173,7 @@ const ProjectOverview: React.FC<IProps &
     <React.Fragment>
       <Container component="main">
         <HeaderPage Title={formatMessage('TITLE_PROJECT_OVERVIEW')} ActionList={[]} />
+        <ProjectOverviewStatusTab status={props.status} statusName={getProjectStatusName()} onReactivate={handleReactivateEvent} handleOnHold={handleOnHoldEvent} handleBidLost={handleBidLostEvent}/>
         <Grid spacing={3} container>
           <Grid item xs={12} sm={12}>
             <GeneralTable
@@ -155,6 +206,7 @@ const ProjectOverview: React.FC<IProps &
               onNext={handleNext}
               onPrevious={handlePrevious}
               projectstatus={props.projectStatus}
+              status={props.status}
               onSearchSubContractor = {onSearchSubContractor}
             />
           </Grid>
@@ -171,8 +223,9 @@ const mapStateToProps = (state: IState) => ({
   projectStatus: state.lookup.projectstatus,
   enquiryOverview: state.project.enquiryOverview,
   event: state.projectOverview.event,
-  projectScope: state.project.form.scope,  
-  dynamicsSubcontractor: state.dynamicData.dynamicsSubcontractor,
+  projectScope: state.project.form.scope,
+  status:state.project.form.status, 
+  dynamicsSubcontractor: state.dynamicData.dynamicsSubcontractor
 });
 
 const mapDispatchToProps = dispatch => {
@@ -188,6 +241,16 @@ const mapDispatchToProps = dispatch => {
       dispatch(actions.getEnquiryOverview(projectId)),
     resetProjectOverviewState: () =>
       dispatch(actions.resetProjectOverviewState()),
+    getProjectDetail: projectId =>
+      dispatch(actions.getProjectDetail(projectId)),
+    changeProjectStatusToOnHold: projectId =>
+      dispatch(actions.changeProjectStatusToOnHold(projectId)),
+    changeProjectStatusToBidLost: projectId =>
+      dispatch(actions.changeProjectStatusToBidLost(projectId)),
+    reactivateProject: projectId =>
+      dispatch(actions.reactivateProject(projectId)),
+    setProjectStatus: status =>
+      dispatch(actions.changeProjectStatus(status)),
     handleGetDynamicSubContractorData: searchSubContractor =>
       dispatch(getDynamicSubContractorData(searchSubContractor)),
   };

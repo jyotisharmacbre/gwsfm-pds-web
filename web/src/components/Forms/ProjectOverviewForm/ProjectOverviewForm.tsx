@@ -32,11 +32,13 @@ import IReactIntl from '../../../Translations/IReactIntl';
 import TypeAhead from '../../TypeAhead/TypeAhead';
 import { dynamicsSubcontractorData } from '../../TypeAhead/TypeAheadConstantData/dynamicSubcontractorData';
 import { IDynamicsOtherSubContractor } from '../../../store/DynamicsData/Types/IDynamicData';
+import ProjectStatus from '../../../enums/ProjectStatus';
 
 interface Props {
   onNext: (data: IProjectAdditionalDetail) => void;
   onPrevious: (data: IProjectAdditionalDetail) => void;
   projectstatus: any;
+  status:number;
   onSearchSubContractor: (value: string) => void;
 }
 
@@ -68,7 +70,7 @@ let ProjectOverviewForm: React.FC<Props & IMapStateToProps &
   }); 
 
   return (
-    <div className="container-fluid">
+    <div className="container-fluid ">
       <div className="row">
         <div className="col-lg-12 col-sm-12">
           <form
@@ -76,7 +78,7 @@ let ProjectOverviewForm: React.FC<Props & IMapStateToProps &
             noValidate={true}
             data-test="projectOverviewForm"
           >
-            <div className="row">
+            <div className={(props.status==ProjectStatus.BidLost||props.status==ProjectStatus.OnHold)?"link_disabled row":"row"}>
               <div className="col-lg-8">
 
              <TypeAhead name={getPropertyName(
@@ -337,7 +339,7 @@ let ProjectOverviewForm: React.FC<Props & IMapStateToProps &
                               labelKey="LABEL_FIRST_VALUATION_DATE"
                             />
                           </div>
-                          <div className="col-xl-6 mt-2 position-relative manipulate-calendar">
+                          <div className="col-xl-6 mt-2 position-relative manipulate-calendar" >
                             <DatePicker
                               name="finalAccountDate"
                               data-test="finalAccountDate"
@@ -461,7 +463,7 @@ let ProjectOverviewForm: React.FC<Props & IMapStateToProps &
               </div>
             </div>
             {/* AUTHORISED SECTION */}
-            <div className="row">
+            <div className={(props.status==ProjectStatus.BidLost||props.status==ProjectStatus.OnHold)?"link_disabled row":"row"}>
               <div className="col-xl-6">
                 <div className="authorised_form_wrap">
                   <h6 className="ml-0">

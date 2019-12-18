@@ -1,0 +1,255 @@
+/* Activity Feed*/
+h3.feed_head {
+    font-size: 1rem;
+}
+.activity_feed {
+    position: relative;
+    
+    &:before {
+        content: '';
+        position: absolute;
+        top: 20px;
+        left: 34px;
+        height: calc(100% - 90px);
+        width: 2px;
+        background: map-get($colors, grey06);
+        z-index: 9;
+    }
+    &:after {
+        content: '';
+        display: table;
+        clear: both;
+    }
+
+    .feed-block {        
+            position: relative;
+            margin:0;
+            background: map-get($colors, whiteColor ); 
+            padding-left: 20px;
+            &:nth-child(even) {
+                background: map-get($colors, grey08 );
+            }
+            &:first-child {
+                margin-top: 0; 
+            }        
+        }
+    .feed-block-content {
+        position: relative;
+        margin-left: 0px;               
+        padding: 1em 1em 1em 3em;
+        
+       
+        &:before {
+            content: '';
+            position: absolute;
+            top: 16px;
+            right: 100%;
+            display: none;
+            height: 0;
+            width: 0;
+            border: 7px solid transparent;
+            border-right: 7px solid map-get($colors, whiteColor );
+        }
+        h2 {
+            color: map-get($colors, grey03 );
+           font-size: 1.1rem;
+           font-weight: 500;
+           span {
+            color: map-get($colors, lightGreen );
+           }
+        }
+        p {
+            margin: 1em 0;
+            line-height: 1.6;
+            font-size: 0.8125rem;
+        }
+        .feed-date-time {
+            float: right;
+            padding: .8em 0;
+            opacity: .7;
+            position: absolute;
+            top: 0;
+            right: 20px;
+            font-size: 0.875rem;
+        }
+
+       
+    }
+    .feed-block-img {
+        position: absolute;
+        top: 0;
+        left: 20px;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        z-index: 10;
+        text-align: center;
+        background-color: map-get($colors, grey08);
+        
+        top:20px;
+        
+        i{
+            margin-top: 6px;
+            color: #04603f;
+        }
+        &.close-icon {
+            background-color: map-get($colors, red);
+            
+            i{
+                color: map-get($colors, whiteColor);
+                margin-top: 7px;              
+            }
+        }
+        &.check-icon {
+            background-color: map-get($colors, lightGreen02);
+           
+            i{
+                color: map-get($colors, whiteColor);
+                margin-top: 8px;
+               
+            }
+        }
+    }
+}
+
+
+/* Activity Feed Ends*/
+
+/* Status Button*/
+
+.activate_status_box {display: flex; align-items: baseline;}
+.status_btn {
+    .status-dropdown {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-width: 150px;
+        max-width: 300px;
+        .status-dropdown-btn {
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 40px;
+            padding: 0 16px;
+            border-radius: 99em;
+            border: 1px solid  map-get($colors, grey08 );
+            background-color: #e8ecf3;
+            //background-color: map-get($colors, grey06 );
+            margin: 0;
+            cursor: pointer;
+            &.active-menu{
+                background-color: map-get($colors, whiteColor );
+                border-radius: 7px;
+            }
+            .dropdown-placeholder {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 18px;
+                display:flex;
+                position: relative;
+                width: 100%;
+                letter-spacing: 0;
+                color: map-get($colors , grey10 );
+                padding-right: 20px;
+                i{
+                    position: absolute;
+                    right:0;
+
+                }
+            }
+        }
+    }
+    .status-dropdown-menu{
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    border-radius: 0 0 7px 7px;
+    z-index: 1;
+    list-style-type: none;
+    overflow: hidden;
+    border: 1px solid #d9e1e0;
+    box-shadow: 0 1px 2px 0 rgba(170,183,178,.6);
+    background-color: map-get($colors, whiteColor);
+    &>p {
+        padding-left: 10px;
+        font-size: 14px; font-weight: 600;
+        line-height: 2.4;
+        margin:0;
+    }
+.status-dropdown-list {
+    padding: 0;
+    margin:0;
+}
+    .status-dropdown-item{
+        position: relative;
+        background: transparent;
+        overflow: hidden;
+        border-top: solid 1px map-get($colors, grey06);
+        &.status-selected a:before, &.status-selected button:before {
+            content: "";
+            position: absolute;
+            top: 16px;
+            left: -7px;
+            margin-left: 16px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: #009f6f;
+            
+        }
+       
+        &:hover {
+            background-color: map-get($colors, grey08 )
+        }
+        a {
+            display: block;
+            width: 100%;
+            padding: 8px 16px 8px 20px;
+            background: transparent;
+            border: none;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 24px;
+            text-align: left;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            cursor: pointer;
+            color: #2b3836;
+        }
+    }
+    
+}
+}
+.status-hidden {display: none;}
+.toggle-content {
+    display: none;
+    &.is-visible {
+        display: block;
+    }
+}
+.active-menu {
+    
+    i{
+        color: map-get($colors, lightGreen )
+    }
+}
+.mrgnrght10
+{
+    margin-right:10px;
+}
+.mrgnlft10
+{
+    margin-left:10px;
+}
+.mrgnt5
+{
+    margin-top:5px;
+}
+
+/* Status Button Ends*/
