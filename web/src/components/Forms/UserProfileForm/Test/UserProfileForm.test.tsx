@@ -1,34 +1,17 @@
 import React from 'react';
-import { mount, ShallowWrapper } from 'enzyme';
+import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
 import { store } from '../../../../store';
 import UserProfileForm from '../UserProfileForm';
 import { IntlProvider } from 'react-intl';
 import translations from '../../../../Translations/translation';
 import * as connectedIntlProvider from './../../../../Translations/connectedIntlProvider';
-import Notify from '../../../../enums/Notify';
-import EventType from '../../../../enums/EventType';
 import UserPreferencesReducer from '../../../../store/UserPreferencesForm/Reducer';
 import { ActionType } from '../../../../store/UserPreferencesForm/Types/ActionType';
 import nock from 'nock';
 import { baseURL } from '../../../../client/client';
-import { IUserPreferencesState } from '../../../../store/UserPreferencesForm/Types/IUserPreferencesState';
 import { findByTestAtrr } from '../../../../helpers/test-helper';
-
-const initialState: IUserPreferencesState = {
-  preferences: {
-    userPreferenceId: '',
-    languageId: 1,
-    languageName: 'en',
-    currencyId: 1,
-    currencySymbol: '$',
-    currencyName: 'Dollar'
-  },
-  error: null,
-  loading: false,
-  notify: Notify.none,
-  event: EventType.none
-};
+import { currencies, languages, initialState } from './testData';
 
 nock(baseURL)
   .post('/api/Users/addUserPreferences')
@@ -41,10 +24,6 @@ nock(baseURL)
 nock(baseURL)
   .get('/api/Users/getUserPreferences')
   .reply(200, { languageName: 'en', languageId: 1 });
-
-const currencies = [{ currencyId: 1, currencySymbol: '$', currencyName: 'dollar' }, { currencyId: 2, currencySymbol: 'f', currencyName: 'frenc' }];
-const languages = [{ languageId: 1, languageName: 'english' }, { languageId: 2, languageName: 'french' }];
-
 
 describe('UserProfileForm Fields', () => {
   let wrapper: any;
@@ -137,6 +116,11 @@ describe('UserProfileForm Fields', () => {
         });
         wrapper.update();
         expect(field.find('option').at(1).instance().selected).toBeTruthy;
+      });
+      it('Shows error when currencyId is set to blank', () => {
+        field.simulate('blur');
+        const errorBlock = wrapper.find('.text-danger');
+        expect(errorBlock).toHaveLength(1);
       });
     });
 
