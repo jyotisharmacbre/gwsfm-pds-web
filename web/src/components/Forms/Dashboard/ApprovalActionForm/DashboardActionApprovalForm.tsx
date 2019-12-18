@@ -4,15 +4,19 @@ import { IState } from '../../../../store/state';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import GridTable from '../../../Table/GridTable';
-import { getLookupDescription } from '../../../../helpers/utility-helper';
-import { LookupItems } from '../../../../helpers/constants';
+import { injectIntl } from 'react-intl';
+import { reduxForm, InjectedFormProps } from 'redux-form';
+import { IProjectDashboardGrid } from '../../../../store/Dashboard/Types/IProjectDashboardGrid';
+import IReactIntl from '../../../../Translations/IReactIntl';
 
 interface Props {
   actionApprovalValues: any;
   showValues: number;
   lookupValues: any;
 }
-const DashboardActionApprovalForm: React.FC<Props> = (props: any) => {
+let DashboardActionApprovalForm: React.FC<
+  Props & InjectedFormProps<Array<IProjectDashboardGrid>, Props>
+> = props => {
   const { actionApprovalValues, lookupValues } = props;
   const getActionApprovalValues = (allLookups, countVals) => {
     let data = actionApprovalValues.map(function(rowProject) {
@@ -22,16 +26,7 @@ const DashboardActionApprovalForm: React.FC<Props> = (props: any) => {
         rowProject.projectStatus = (
           <p className="DashboardGridButtons">{rowProject.projectStatus}</p>
         );
-      rowProject.name = (
-        <Link
-          to={{
-            pathname: `/projectoverview/${rowProject.projectID}`,
-            state: { fromDashboard: true }
-          }}
-        >
-          {rowProject.name}
-        </Link>
-      );
+
       return rowProject;
     });
     return data;
@@ -66,4 +61,8 @@ const getTableColumns = () => {
 const mapStateToProps = (state: IState) => ({
   initialValues: state.dashboardGrid.actionApprovalDetails
 });
-export default connect(mapStateToProps)(DashboardActionApprovalForm);
+const form = reduxForm<Array<IProjectDashboardGrid>, Props>({
+  form: 'DashboardActionApprovalForm',
+  enableReinitialize: true
+})(DashboardActionApprovalForm);
+export default connect(mapStateToProps)(form);

@@ -1,15 +1,4 @@
-import { Grid } from '@material-ui/core';
 import React, { useEffect } from 'react';
-import { injectIntl } from 'react-intl';
-import CardContainer from '../components/CardContainer/CardContainer';
-import MultipleChart from '../components/Charts/MultipleCharts';
-import PreferredChart from '../components/Charts/PreferredChart';
-import RunRateChart from '../components/Charts/RunRateChart';
-import HeaderPage from '../components/HeaderPage/HeaderPage';
-import Table from '../components/Table/Simple/Table';
-import { IBtnActionProps } from '../props/AppProps';
-import IReactIntl from '../Translations/IReactIntl';
-import Translate from '../Translations/translate';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { IState } from '../store/state';
@@ -59,13 +48,11 @@ const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = props => {
               </div>
             </div>
           </div>
-          <React.Fragment>
-            <DashboardActionApprovalForm
-              actionApprovalValues={props.dashboardGridValues}
-              showValues={props.valuesCount}
-              lookupValues={props.lookupDetails}
-            />
-          </React.Fragment>
+          <DashboardActionApprovalForm
+            actionApprovalValues={props.dashboardGridValues}
+            showValues={props.valuesCount}
+            lookupValues={props.lookupDetails}
+          />
         </div>
       </div>
     </div>
