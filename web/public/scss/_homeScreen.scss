@@ -6,7 +6,7 @@
         position: inherit;
         border: 0;
         border-radius: 0;
-        border-bottom: 1px solid map-get($colors , grey11 );
+        border-bottom: 1px solid map-get($colors , grey12 );
         h2 {
             color: map-get($colors , lightGreen03 );
             font-size: 13px;
@@ -28,7 +28,7 @@
     &.price-sumry {
         &.home_screen_table {
             tr {
-                border-bottom: 1px solid map-get($colors , grey11 );
+                border-bottom: 1px solid map-get($colors , grey12 );
                 background: map-get($colors , whiteColor );
             }
             th {
