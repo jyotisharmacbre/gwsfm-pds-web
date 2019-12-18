@@ -1,16 +1,15 @@
 import React, { Component, useEffect } from 'react';
 import DiscountTable from '../components/Table/DiscountTable';
 import DiscountForm from '../components/Forms/Discount/DiscountForm';
-import { FormattedMessage, injectIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { IDiscountActivity } from '../store/DiscountForm/Types/IDiscountActivity';
 import EventType from '../enums/EventType';
 import Notify from '../enums/Notify';
-import { IDiscountState } from '../store/DiscountForm/Types/IDiscountState';
 import * as actions from '../store/rootActions';
 import { connect } from 'react-redux';
 import { IState } from '../store/state';
 import { toast } from 'react-toastify';
-import { useHistory } from 'react-router-dom';
+import { History } from 'history';
 import { ILookup } from '../store/Lookups/Types/ILookup';
 import { ICurrency } from '../store/Lookups/Types/ICurrency';
 import ProjectStatus from '../enums/ProjectStatus';
@@ -32,6 +31,7 @@ interface IMapDispatchToProps {
 
 interface IProps {
   match: any;
+  history:History;
 }
 
 interface IMapStateToProps {
@@ -52,7 +52,6 @@ interface IMapStateToProps {
   IMapStateToProps &
   IMapDispatchToProps> = props => {
     let paramProjectId = props.match.params.projectId;
-    let history = useHistory();
     useEffect(() => {
       window.scrollTo(0, 0);
       props.getProjectStatus();
@@ -66,10 +65,10 @@ interface IMapStateToProps {
       if (props.notify == Notify.success) {
         if (props.event == EventType.next) {
           toast.success('Data Saved Successfully');
-          history.push(`/`);
+          props.history.push(`/`);
         } else if (props.event == EventType.previous) {
           toast.success('Data Saved Successfully');
-          history.push('/Subcontractor');
+          props.history.push('/Subcontractor');
         }
         else if (props.event == EventType.save) {
           toast.success('Data Saved Successfully');
@@ -99,7 +98,7 @@ interface IMapStateToProps {
 
     return (
       <div className="container-fluid">
-            <div className={(props.status==ProjectStatus.BidLost||props.status==ProjectStatus.OnHold)?"link_disabled row":"row"}> 
+            <div data-test="dis_row_status" className={(props.status==ProjectStatus.BidLost||props.status==ProjectStatus.OnHold)?"link_disabled row":"row"}> 
              <div className="col-lg-12">
             <div className="custom-wrap discount_wrap">
               <div className="heading-subtitle">
