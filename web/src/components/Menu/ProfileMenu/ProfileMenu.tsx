@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import close_icon from '../../images/logo-black.png';
+import { Link } from 'react-router-dom';
 import * as actions from '../../../store/rootActions';
 import {
   FontAwesomeIcon
@@ -89,7 +90,13 @@ const ProfileMenu: React.FC<any> = props => {
         <div className="row d-flex align-items-center">
           <div className="col-sm-12">
             <div className="logo">
-              <img src={close_icon} alt="close" />
+              <Link data-test=""
+                to={{
+                  pathname: "/"
+                }}
+              >
+                <img src={close_icon} alt="close" />
+              </Link>
             </div>
             <ul className="icons-blocks">
               <li id="sm_none">

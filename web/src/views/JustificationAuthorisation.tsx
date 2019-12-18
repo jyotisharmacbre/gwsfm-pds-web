@@ -10,7 +10,6 @@ interface IProps {
   history : History;
 }
 const JustificationAuthorisation: React.FC<IProps> = (props: IProps) => {
-  debugger;
   const testData = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore';
   const redirect = (module:string) => {
     return props.history.push(`/${module}/${props.match.params.projectId}`);

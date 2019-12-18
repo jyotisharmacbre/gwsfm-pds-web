@@ -2,7 +2,10 @@ export {
   projectOverviewFormAdd,
   projectOverviewFormEdit,
   getAdditionalDetails,
-  resetProjectOverviewState
+  resetProjectOverviewState,
+  changeProjectStatusToBidLost,
+  changeProjectStatusToOnHold,
+  reactivateProject
 } from './ProjectOverviewForm/Actions';
 
 export {
@@ -10,7 +13,8 @@ export {
   getEnquiryOverview,
   getProjectDetail,
   resetProjectDetailState,
-  projectDetailEdit
+  projectDetailEdit,
+  changeProjectStatus
 } from './CustomerEnquiryForm/Action';
 
 export { getProjectStatus, getAllCurrencies, getAllLanguages } from './Lookups/Actions';

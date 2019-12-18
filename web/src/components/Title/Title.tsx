@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 export function MainTitle(props: any) {
   return (
-    <div>
+    <div className="col-md-6 float-left">
       <h1>{props.children}</h1>
     </div>
   );

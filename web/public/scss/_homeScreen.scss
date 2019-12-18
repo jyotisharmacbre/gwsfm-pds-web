@@ -1,0 +1,48 @@
+.top_Title {
+    &.top_Title2 {
+        padding: 0px 20px 5px 0px;
+        display: flex;
+        align-items: center;
+        position: inherit;
+        border: 0;
+        border-radius: 0;
+        border-bottom: 1px solid map-get($colors , grey12 );
+        h2 {
+            color: map-get($colors , lightGreen03 );
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: capitalize;
+            margin: 10px 0 10px;
+            position: relative;
+            padding-left: 30px;
+            line-height: 30px;
+            &:before{
+                background: map-get($colors , lightGreen03 );
+                width: 4px;
+            }
+        }
+    }
+}
+
+.table-grid-wrap {
+    &.price-sumry {
+        &.home_screen_table {
+            tr {
+                border-bottom: 1px solid map-get($colors , grey12 );
+                background: map-get($colors , whiteColor );
+            }
+            th {
+                border: 0;
+                font-size: 12px;
+                text-transform: uppercase;
+                font-weight: 700;
+                padding: 15px 15px 11px 15px;
+            }
+            td {
+                border: 0;
+                padding: 15px 15px 11px 15px;
+                font-size: 12px;
+            }
+        }
+    }
+}

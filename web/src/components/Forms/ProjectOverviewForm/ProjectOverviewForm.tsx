@@ -29,25 +29,48 @@ import {
 import { Validate, alphaNumeric } from '../../../helpers/fieldValidations';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import IReactIntl from '../../../Translations/IReactIntl';
+import TypeAhead from '../../TypeAhead/TypeAhead';
+import { dynamicsSubcontractorData } from '../../TypeAhead/TypeAheadConstantData/dynamicSubcontractorData';
+import { IDynamicsOtherSubContractor } from '../../../store/DynamicsData/Types/IDynamicData';
+import ProjectStatus from '../../../enums/ProjectStatus';
 
 interface Props {
   onNext: (data: IProjectAdditionalDetail) => void;
   onPrevious: (data: IProjectAdditionalDetail) => void;
   projectstatus: any;
+  status:number;
+  onSearchSubContractor: (value: string) => void;
 }
 
-let ProjectOverviewForm: React.FC<Props &
-  IReactIntl &
-  InjectedFormProps<IProjectAdditionalDetail, Props>> = (props: any) => {
-  const { handleSubmit, initialValues } = props;
+interface IMapStateToProps {  
+  dynamicsOtherSubContractor: Array<IDynamicsOtherSubContractor>;
+}
+
+let ProjectOverviewForm: React.FC<Props & IMapStateToProps &
+  InjectedFormProps<IProjectAdditionalDetail, Props  & IMapStateToProps>> = props => {
+  const { handleSubmit, initialValues, onSearchSubContractor } = props;
   const DropdownOptions = projectStatusData.map((status: any, i: number) => (
     <option key={i} value={status.value}>
       {status.label}
     </option>
   ));
   const normalize = value => (value ? parseInt(value) : null);
+
+  const otherDynamicsSubContractor =
+  props.dynamicsOtherSubContractor && props.dynamicsOtherSubContractor.length > 0
+    ? props.dynamicsOtherSubContractor[0].label
+    : '';
+      
+  const getDynamicsSubcontractorDropdown =
+  dynamicsSubcontractorData &&
+  dynamicsSubcontractorData.map((SubContractorData) => {
+    return { 
+    label: SubContractorData.Name,
+    id: SubContractorData.SubContractorId }     
+  }); 
+
   return (
-    <div className="container-fluid">
+    <div className="container-fluid ">
       <div className="row">
         <div className="col-lg-12 col-sm-12">
           <form
@@ -55,25 +78,35 @@ let ProjectOverviewForm: React.FC<Props &
             noValidate={true}
             data-test="projectOverviewForm"
           >
-            <div className="row">
+            <div className={(props.status==ProjectStatus.BidLost||props.status==ProjectStatus.OnHold)?"link_disabled row":"row"}>
               <div className="col-lg-8">
-                <Field
-                  name={getPropertyName(
+
+             <TypeAhead name={getPropertyName(
                     initialValues,
                     prop => prop.mainContractor
                   )}
-                  data-test="mainContractor"
-                  type="text"
-                  component={PdsFormInput}
-                  labelKey="LABEL_MAIN_CONTRACTOR"
-                  placeholderKey="PLACEHOLDER_CONTRACTORS_NAME"
-                  className="required"
-                  validate={[
-                    Validate.required('LABEL_MAIN_CONTRACTOR'),
-                    Validate.maxLength(1000)
-                  ]}
-                  warn={alphaNumeric}
-                />
+                options={getDynamicsSubcontractorDropdown}
+                DynamicsType="SubContractorId"
+                onSearch={ onSearchSubContractor }
+                placeholderKey="PLACEHOLDER_CONTRACTORS_NAME"
+                className="required"
+                labelName="LABEL_MAIN_CONTRACTOR"
+                validationKey="LABEL_MAIN_CONTRACTOR"
+                submitParam = "id"/>
+
+                {otherDynamicsSubContractor === 'Other' && (
+                  <Field
+                    name="otherMainContractor"
+                    type="text"
+                    component={PdsFormInput}
+                    className="required"
+                    validate={[
+                      Validate.required('LABEL_OTHER_MAIN_CONTRACTOR')
+                    ]}
+                    labelKey="LABEL_OTHER_MAIN_CONTRACTOR"
+                    placeholderKey="PLACEHOLDER_CONTRACTORS_NAME"
+                  />
+                )}
                 <Field
                   name={getPropertyName(
                     initialValues,
@@ -306,7 +339,7 @@ let ProjectOverviewForm: React.FC<Props &
                               labelKey="LABEL_FIRST_VALUATION_DATE"
                             />
                           </div>
-                          <div className="col-xl-6 mt-2 position-relative manipulate-calendar">
+                          <div className="col-xl-6 mt-2 position-relative manipulate-calendar" >
                             <DatePicker
                               name="finalAccountDate"
                               data-test="finalAccountDate"
@@ -430,7 +463,7 @@ let ProjectOverviewForm: React.FC<Props &
               </div>
             </div>
             {/* AUTHORISED SECTION */}
-            <div className="row">
+            <div className={(props.status==ProjectStatus.BidLost||props.status==ProjectStatus.OnHold)?"link_disabled row":"row"}>
               <div className="col-xl-6">
                 <div className="authorised_form_wrap">
                   <h6 className="ml-0">
@@ -666,14 +699,15 @@ let ProjectOverviewForm: React.FC<Props &
 };
 
 const mapStateToProps = (state: IState) => ({
-  initialValues: state.projectOverview.form
+  initialValues: state.projectOverview.form,  
+  dynamicsOtherSubContractor: state.dynamicData.dynamicsOtherSubContractor,
 });
 
-const form = reduxForm<IProjectAdditionalDetail, Props>({
+const form = reduxForm<IProjectAdditionalDetail, Props & IMapStateToProps>({
   destroyOnUnmount: false,
   forceUnregisterOnUnmount: false,
   form: 'projectOverviewForm',
   enableReinitialize: true
-})(injectIntl(ProjectOverviewForm));
+})(ProjectOverviewForm);
 
 export default connect(mapStateToProps)(form);

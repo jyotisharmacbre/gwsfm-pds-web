@@ -76,11 +76,12 @@ export const projectDetail:IProjectDetailState={
   },
   enquiryOverview: {
     projectName: '',
-    companyId: '1',
+    contractorId: '1',
     headOfProject: '',
     projectManager: '',
     scope: '',
-    cnNumber: '1'
+    cnNumber: '1',
+    otherContractName: ''
   },
   error: null,
   loading: false,

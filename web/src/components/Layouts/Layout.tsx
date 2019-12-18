@@ -14,11 +14,11 @@ const Layout :React.FC<IAppProps> = (props:any) => {
 
   return (
     <div className="wrapper">
-      {(history.location.pathname != '/' &&history.location.pathname!='/Pipeline')?
+      {(history.location.pathname != '/' && history.location.pathname!='/Pipeline')?
       <Nav Theme={Theme} UseStyles={UseStyles} />:
       null}
-      <div id="content">
-       <ProfileMenu />
+      <div id="content" className={history.location.pathname == '/'?"w-100":""}>
+        <ProfileMenu />
         <Body Theme={Theme} UseStyles={UseStyles} />
       </div>
     </div>

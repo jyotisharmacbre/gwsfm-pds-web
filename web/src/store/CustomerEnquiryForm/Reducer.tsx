@@ -37,11 +37,12 @@ const initialState: IProjectDetailState = {
   },
   enquiryOverview: {
     projectName: '',
-    companyId: '',
+    contractorId: '',
     headOfProject: '',
     projectManager: '',
     scope: '',
-    cnNumber: ''
+    cnNumber: '',
+    otherContractName: ''
   },
   error: null,
   loading: false,
@@ -115,6 +116,11 @@ const setProjectId = (oldState, action) => {
     form: updateObject(oldState.form, { projectId: action.projectId })
   });
 };
+const changeProjectStatus=(oldState, action) => {
+  return updateObject(oldState, {
+    form: updateObject(oldState.form, { status: action.payload })
+  });
+};
 
 const projectDetailReducer = (oldState = initialState, action) => {
   switch (action.type) {
@@ -136,6 +142,8 @@ const projectDetailReducer = (oldState = initialState, action) => {
       return resetProjectDetailState(oldState, action);
     case ActionType.SET_PROJECT_ID_STATE:
       return setProjectId(oldState, action);
+      case ActionType.CHANGE_PROJECT_STATUS_STATE:
+      return changeProjectStatus(oldState, action);
     default:
       return oldState;
   }

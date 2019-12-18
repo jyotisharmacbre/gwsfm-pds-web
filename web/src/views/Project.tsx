@@ -15,7 +15,8 @@ import { toast } from 'react-toastify';
 import { ICurrency } from '../store/Lookups/Types/ICurrency';
 import {
   getDynamicContractData,
-  getDynamicCompanyData
+  getDynamicCompanyData,
+  getDynamicSubContractorData
 } from '../store/DynamicsData/Action';
 import {
   IDynamicContractData,
@@ -27,6 +28,8 @@ import {
 import {
   getUserService
 } from '../store/UserService/Action';
+import ProjectStatus from '../enums/ProjectStatus';
+import { getUserPreferences } from '../services/lookup.service';
 
 interface IMapStateToProps {
   notify: Notify;
@@ -37,6 +40,7 @@ interface IMapStateToProps {
   dynamicsContract: Array<IDynamicContractData>;
   dynamicsCompany: Array<IDynamicCompanyData>;
   userServiceData: Array<IUserServiceData>;
+  status:number;
 }
 
 interface IMapDispatchToProps {
@@ -49,6 +53,7 @@ interface IMapDispatchToProps {
   getAllCurrencies: () => void;
   getDynamicContractData: () => void;
   getDynamicCompanyData: () => void;
+  getDynamicSubContractorData: () => void;
   getUserService: () => void;
   handleProjectDetailsSubmit: (form: IProjectDetail, event: EventType) => void;
   handleProjectDetailsEdit: (form: IProjectDetail, event: EventType) => void;
@@ -108,6 +113,7 @@ const Project: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = props
   };
 
   return (
+    <div className={(props.status==ProjectStatus.BidLost||props.status==ProjectStatus.OnHold)?"link_disabled":""}>
     <ProjectForm
       onSave={handleSave}
       onNext={handleNext}
@@ -118,6 +124,7 @@ const Project: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = props
       onSearchUserService={onSearchUserService}
       userServiceData = {props.userServiceData}
     />
+    </div>
   );
 };
 
@@ -130,7 +137,9 @@ const mapStateToProps = (state: IState) => {
     notify: state.project.notify,
     event: state.project.event,
     projectId: state.project.form.projectId,
-    currencies: state.lookup.currencies
+    currencies: state.lookup.currencies,
+    status:state.project.form.status
+
   };
 };
 
