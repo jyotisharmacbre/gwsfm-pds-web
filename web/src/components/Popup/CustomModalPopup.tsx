@@ -28,8 +28,8 @@ const CustomModalPopup:React.FC<IProps&IReactIntl> = props =>
         target.parentNode.removeChild(target)
       }
   return(
-          <div className="modal fade show" id="exampleModal" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" data-keyboard="false" data-backdrop="static" style={{display: 'block'}} aria-modal="true">
-                      <div className="modal-dialog" role="document">
+          <div className="modal fade show custom_modal" id="exampleModal" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" data-keyboard="false" data-backdrop="static" style={{display: 'block'}} aria-modal="true">
+                      <div className="modal-dialog modal-dialog-centered" role="document">
                           <div className="modal-content">
                               <div className="modal-header">
                       <h5 className="modal-title" id="exampleModalLabel">
@@ -44,10 +44,10 @@ const CustomModalPopup:React.FC<IProps&IReactIntl> = props =>
                                   {props.intl.formatMessage({ id: props.contentKey})}
                               </div>
                               <div className="modal-footer">
-                                  <button type="button" data-test="button_reject" className="btn btn-secondary"  onClick={()=>reject()}>                              
+                                  <button type="button" data-test="button_reject" className=""  onClick={()=>reject()}>                              
                                   {props.intl.formatMessage({ id: "BUTTON_NO" })}
                                   </button>
-                                  <button type="button" data-test="button_confirm" className="btn btn-primary" onClick={()=>confirm()}>
+                                  <button type="button" data-test="button_confirm" className="active" onClick={()=>confirm()}>
                                   {props.intl.formatMessage({ id: "BUTTON_YES" })}
                                   </button>
                               </div>

@@ -11,6 +11,8 @@ interface IMapStateToProps {
 }
 const LeftMenu: React.FC<IMapStateToProps> = props => {
   let urlProjectId:string="";
+  let activeClass:string="";
+  let links:Array<string>=["project","projectoverview","justificationauthorisation","preliminaries","subcontractor","discounts"]
   let history=useHistory();
   const getGUID=()=>{
     history.location.pathname.split('/').forEach((data)=>{
@@ -21,15 +23,38 @@ const LeftMenu: React.FC<IMapStateToProps> = props => {
     })
     return urlProjectId;
   }
+  const getUrlPathName=()=>{
+    history.location.pathname.split('/').forEach((data)=>{
+      if(links.includes(data.toLowerCase())){
+        activeClass=data
+        return;
+      }
+    })
+    return activeClass;
+  }
    urlProjectId=props.projectId?props.projectId:getGUID();
+   activeClass=activeClass?activeClass:getUrlPathName().toLowerCase();
   let isDisable:boolean=(urlProjectId&&urlProjectId!="undefined")
   ?true:false;
+
+  const disableEnableMenu=(value:string)=>{
+    return activeClass==value?"active":""
+  }
+  const disableEnableSubActiveClass=(value:string)=>{
+    return activeClass==value?"subactive":""
+  }
 
   return (
     <nav id="sidebar">
       <div className="sidebar-header">
         <div id="sm_none" className="logo">
-          <img src={cbre_icon} alt="CBRE PDS" />
+        <Link data-test=""
+            to={{
+              pathname: "/"
+            }}
+          >
+            <img src={cbre_icon} alt="CBRE PDS" />
+          </Link>
         </div>
         <div className="cross-menu">
           MENU
@@ -42,11 +67,11 @@ const LeftMenu: React.FC<IMapStateToProps> = props => {
       </div>
 
       <ul id="homeMenu" className="list-unstyled components">
-        <p className="upload mb-0">
+        {/* <p className="upload mb-0">
           <img src={upload_icon} alt="upload icon" />
           upload library
-        </p>
-        <li className="active">
+        </p> */}
+        <li className={disableEnableMenu("project")}>
           <Link data-test="ProjectLink"
             to={{
               pathname: '/Project/'+urlProjectId
@@ -55,7 +80,7 @@ const LeftMenu: React.FC<IMapStateToProps> = props => {
             customer enquiry
           </Link>
         </li>
-        <li data-test="ProjectOverviewLink" className={isDisable?"":"link_disabled"}>
+        <li data-test="ProjectOverviewLink" className={isDisable?(disableEnableMenu("projectoverview")):"link_disabled"}>
           <Link data-test="ProjectOverviewPath"
             to={{
               pathname: '/ProjectOverview/'+urlProjectId
@@ -64,7 +89,12 @@ const LeftMenu: React.FC<IMapStateToProps> = props => {
             project overview
           </Link>
         </li>
-        <li className={isDisable?"":"link_disabled"}>
+        <li className={isDisable?
+          (disableEnableMenu("justificationauthorisation")
+          ||disableEnableMenu("preliminaries")
+          ||disableEnableMenu("subcontractor")
+          ||disableEnableMenu("discounts")):
+          "link_disabled"}>
           <Link
             to={"/JustificationAuthorisation/"+urlProjectId}
             data-target="#homeSubmenu"
@@ -75,13 +105,13 @@ const LeftMenu: React.FC<IMapStateToProps> = props => {
             justification &amp; authorisation
           </Link>
           <ul className="collapse list-unstyled show" id="homeSubmenu">
-            <li>
+            <li className={disableEnableSubActiveClass("preliminaries")}>
               <Link to={"/preliminaries/"+urlProjectId}>preliminaries</Link>
             </li>
-            <li>
+            <li className={disableEnableSubActiveClass("subcontractor")}>
               <Link to={"/Subcontractor/"+urlProjectId}>subcontractors</Link>
             </li>
-            <li>
+            <li className={disableEnableSubActiveClass("discounts")}>
               <Link to={"/Discounts/"+urlProjectId}>discounts </Link>
             </li>
           </ul>

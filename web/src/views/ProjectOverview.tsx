@@ -19,6 +19,8 @@ import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { formatMessage } from '../Translations/connectedIntlProvider';
 import ProjectOverviewStatusTab from '../components/HeaderPage/ProjectOverviewStatusTab';
+import { getDynamicSubContractorData } from '../store/DynamicsData/Action';
+import { IDynamicSubContractorData } from '../store/DynamicsData/Types/IDynamicData';
 
 const tableHeaders: IGeneralTableHeaderProps[] = [
   { heading: 'End Client Name', subHeading: 'ING' },
@@ -44,6 +46,8 @@ interface IMapStateToProps {
   event: EventType;
   projectScope: string;
   status:number;
+  projectScope: string;  
+  dynamicsSubContractor: Array<IDynamicSubContractorData>;
 }
 interface IMapDispatchToProps {
   getProjectStatus: () => void;
@@ -64,6 +68,8 @@ interface IMapDispatchToProps {
   changeProjectStatusToBidLost: (projectId: string) => void;
   reactivateProject:(projectId: string) => void;
   setProjectStatus:(status: number) => void;
+  resetProjectOverviewState: () => void;  
+  handleGetDynamicSubContractorData: (searchSubContractor: string) => void;
 }
 interface IProps {
   projectId: string;
@@ -119,13 +125,13 @@ const ProjectOverview: React.FC<IProps &
  [props.notify]);
   const handlePrevious = (data: IProjectAdditionalDetail) => {
     data.projectAddDetailId == ''
-      ? props.projectOverviewFormAdd(props.projectId, data, EventType.previous)
+      ? props.projectOverviewFormAdd(props.match.params.projectId, data, EventType.previous)
       : props.projectOverviewFormEdit(data, EventType.previous);
   };
 
   const handleNext = (data: IProjectAdditionalDetail) => {
     data.projectAddDetailId == ''
-      ? props.projectOverviewFormAdd(props.projectId, data, EventType.next)
+      ? props.projectOverviewFormAdd(props.match.params.projectId, data, EventType.next)
       : props.projectOverviewFormEdit(data, EventType.next);
   };
   const convertToString = id => {
@@ -157,6 +163,12 @@ const ProjectOverview: React.FC<IProps &
     props.setProjectStatus(4);
     props.changeProjectStatusToBidLost(props.match.params.projectId);
   }
+
+  
+  const onSearchSubContractor = (values: string) => {
+    props.handleGetDynamicSubContractorData(values);
+  };
+
   return (
     <React.Fragment>
       <Container component="main">
@@ -194,6 +206,7 @@ const ProjectOverview: React.FC<IProps &
               onPrevious={handlePrevious}
               projectstatus={props.projectStatus}
               status={props.status}
+              onSearchSubContractor = {onSearchSubContractor}
             />
           </Grid>
         </Grid>
@@ -211,6 +224,8 @@ const mapStateToProps = (state: IState) => ({
   event: state.projectOverview.event,
   projectScope: state.project.form.scope,
   status:state.project.form.status
+  projectScope: state.project.form.scope,  
+  dynamicsSubcontractor: state.dynamicData.dynamicsSubcontractor,
 });
 
 const mapDispatchToProps = dispatch => {
@@ -236,6 +251,9 @@ const mapDispatchToProps = dispatch => {
       dispatch(actions.reactivateProject(projectId)),
     setProjectStatus: status =>
       dispatch(actions.changeProjectStatus(status))
+      dispatch(actions.resetProjectOverviewState()),
+    handleGetDynamicSubContractorData: searchSubContractor =>
+      dispatch(getDynamicSubContractorData(searchSubContractor)),
   };
 };
 
