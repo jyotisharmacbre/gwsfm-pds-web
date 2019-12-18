@@ -59,6 +59,7 @@
     "LABEL_INSURANCE": "Insurance",
     "LABEL_LIQUIDATED_DAMAGES": "Liquidated Damages",
     "LABEL_MAIN_CONTRACTOR": "Main Contractor",
+    "LABEL_OTHER_MAIN_CONTRACTOR": "Other main contractor",
     "LABEL_PAYMENT_TERMS": "Payment Terms",
     "LABEL_POTENTIAL_CUSTOMER": "Potential Customer",
     "LABEL_PROBABILITY_OF_WINING": "Probability of wining (%)",

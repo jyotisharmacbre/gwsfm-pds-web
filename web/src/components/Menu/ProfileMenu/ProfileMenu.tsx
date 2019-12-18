@@ -14,6 +14,7 @@ import {
 
 // @ts-ignore
 import authentication from '@kdpw/msal-b2c-react';
+import { Link } from 'react-router-dom';
 
 export default function ProfileMenu(props: { Name?: string }) {
   return (
@@ -22,7 +23,13 @@ export default function ProfileMenu(props: { Name?: string }) {
         <div className="row d-flex align-items-center">
           <div className="col-sm-12">
             <div className="logo">
-              <img src={close_icon} alt="close" />
+              <Link data-test=""
+                to={{
+                  pathname: "/"
+                }}
+              >
+                <img src={close_icon} alt="close" />
+              </Link>
             </div>
             <ul className="icons-blocks">
               <li id="sm_none">
