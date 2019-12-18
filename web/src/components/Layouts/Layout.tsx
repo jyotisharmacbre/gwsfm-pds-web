@@ -19,7 +19,7 @@ const Layout :React.FC<IAppProps> = (props:any) => {
       {(history.location.pathname != '/' && history.location.pathname!='/Pipeline')?
       <Nav Theme={Theme} UseStyles={UseStyles} />:
       null}
-      <div id="content">
+      <div id="content" className={history.location.pathname == '/'?"w-100":""}>
         <ProfileMenu Name={helloAuthenticatedUser()} />
         <Body Theme={Theme} UseStyles={UseStyles} />
       </div>
