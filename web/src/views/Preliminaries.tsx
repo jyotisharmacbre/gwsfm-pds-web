@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { IState } from '../store/state';
 import { IPreliminariesComponentDetails } from '../store/Preliminaries/Types/IPreliminariesComponentDetails';
-import { useHistory } from 'react-router-dom';
 import * as actions from '../store/rootActions';
 import PreliminaryForm from '../components/Forms/PreliminaryForm/PreliminaryForm';
 import { IPreliminaries } from '../store/Preliminaries/Types/IPreliminaries';
@@ -13,12 +12,12 @@ import { ILookup } from '../store/Lookups/Types/ILookup';
 import { ICurrency } from '../store/Lookups/Types/ICurrency';
 import { FormattedMessage } from 'react-intl';
 import EventType from '../enums/EventType';
-import { Prompt } from "react-router-dom"
 import CalculationsSummaryTable from '../components/Table/CalculationsSummaryTable';
 import CalculationsSummaryType from '../enums/CalculationsSummaryType';
 import { getPropertyName,getFilterElementFromArray } from '../helpers/utility-helper';
 import { formValueSelector } from 'redux-form';
 import Currency from '../store/Lookups/InitialState/Currency';
+import { History } from 'history';
 interface IMapStateToProps {
   preliminaryDetails: Array<IPreliminariesComponentDetails>;
   lookupData: Array<ILookup>;
@@ -28,6 +27,7 @@ interface IMapStateToProps {
   event: EventType;
   currencyId: number;
   preliminaryForm:Array<IPreliminariesComponentDetails>;
+  history:History;
 }
 interface IMapDispatchToProps {
   preliminaryAdd: (
@@ -48,7 +48,6 @@ interface IMapDispatchToProps {
 const Preliminaries: React.FC<
   IMapStateToProps & IMapDispatchToProps
 > = props => {
-  let history = useHistory();
   let paramProjectId: string = '';
   const CurrencyObj = new Currency();
   let isLookupSessionExists: boolean = (sessionStorage.getItem("lookupData") != null && sessionStorage.getItem("lookupData") != undefined && sessionStorage.getItem("lookupData") != "")
@@ -67,7 +66,7 @@ const Preliminaries: React.FC<
     if (props.notify == Notify.success) {
       toast.success('Data Saved Successfully');
       if (props.event == EventType.next) {
-        history.push('/Subcontractor/' + paramProjectId);
+        props.history.push('/Subcontractor/' + props.match.params.projectId);
       }
     }
     else if (props.notify == Notify.error) {
@@ -127,12 +126,11 @@ const Preliminaries: React.FC<
     else { toast.error('No data changed to save.'); }
   };
   const handlePrevious = () => {
-    history.push(`/Project/${props.match.params.projectId}`);
+    props.history.push(`/Project/${props.match.params.projectId}`);
   };
 
   return (
     <div className="container-fluid">
-      <Prompt when={!!props.preliminaryDetails} message="Your unsaved changes will be trashed, are you sure you want to leave this page?" />
       <div className=" row">
         <div className="col-lg-12">
           <form className="custom-wrap">

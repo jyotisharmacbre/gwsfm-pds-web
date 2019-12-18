@@ -332,26 +332,45 @@ button[type="button"] {
     }
 }
 
-// .button-type {
-//     background: map-get($colors, whiteColor) !important;
-//     border: 1px solid map-get($colors, grey06) !important;
-//     @include borderRadius(2px);
-//     color: map-get($colors, grey06) !important;
-//     padding: 8px 25px !important;
-//     font-size: 13px !important;
-//     line-height: normal !important;
-//     margin-right: 8px !important;
-//     font-weight: normal !important;
-//     min-width: 0 !important;
-//     cursor: pointer !important;
-//     border-radius: 0 !important;
-//     letter-spacing: inherit !important;
-//     &:focus {
-//         outline: none !important;
-//     }
-//     &.active {
-//         background: map-get($colors, lightGreen02) !important;
-//         color: map-get($colors, whiteColor) !important;
-//         border: 1px solid map-get($colors, lightGreen02) !important;
-//     }
-// }
+/*custom modal*/
+.custom_modal {
+    background: rgba(0, 0, 0, 0.5);
+    &.modal{
+        &.show{
+            .modal-dialog{
+                max-width: 300px;
+                margin: 1.75rem auto;
+                padding: 10px;
+            }
+            .modal-content{
+                border: 0;
+                padding: 15px;
+                .modal-header {
+                    padding: 0;
+                    border: 0;
+                }
+                .modal-title {
+                    color: map-get($colors , grey03 );
+                    font-size: 14px;
+                    font-weight: 600;
+                    margin-bottom: 6px;
+                }
+                .modal-body {
+                    padding: 0;
+                    font-size: 11px;
+                    color: map-get($colors , grey03 );;
+                    font-weight: 400;
+                }
+            }
+            .modal-footer {
+                border: 0;
+                padding: 15px 0 0 0;
+                display: flex;
+                justify-content: space-between;
+                button {
+                    min-width: 100px;
+                }
+            }
+        }
+    } 
+}
