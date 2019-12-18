@@ -25,6 +25,7 @@ import { MainTitle } from '../../Title/Title';
 import PdsFormRadio from '../../PdsFormHandlers/PdsFormRadio';
 import { IDiscountActivity } from '../../../store/DiscountForm/Types/IDiscountActivity';
 import { dynamicsCompany } from '../../TypeAhead/TypeAheadConstantData/dynamicCompanyData';
+import { dynamicsContract } from '../../TypeAhead/TypeAheadConstantData/dynamicContractData';
 
 
 interface Props {
@@ -108,7 +109,7 @@ interface Props {
                   </MainTitle>
                   <Field
                   input={{
-                    value: (getFilterElementFromArray(dynamicsCompany,"CompanyId", props.clientName,"Name") || props.otherClientName),
+                    value: (getFilterElementFromArray(dynamicsContract,"CustomerId", props.clientName,"Name") || props.otherClientName),
                     disabled: true
                     }}
                     type="text"

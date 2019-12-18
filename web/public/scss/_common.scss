@@ -310,32 +310,75 @@ button[type='button'] {
 }
 
 .two-side-btn {
-  padding: 40px 0;
-  display: flex;
-  justify-content: space-between;
-  @include mdScreen {
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  button {
-    margin-right: 20px;
+    padding: 40px 0;
+    display: flex;
+    justify-content: space-between;
     @include mdScreen {
-      margin: 8px 8px;
+        flex-wrap: wrap;
+        justify-content: center;
     }
-    &:nth-child(2) {
-      margin-right: 0;
-      @include mdScreen {
-        margin-right: 8px;
-      }
+    button {
+        margin-right: 20px;
+        @include mdScreen {
+            margin: 8px 8px;
+        }
+        &:nth-child(2) {
+            margin-right: 0;
+            @include mdScreen {
+                margin-right: 8px;
+            }
+        }
     }
-  }
+}
+
+/*custom modal*/
+.custom_modal {
+    background: rgba(0, 0, 0, 0.5);
+    &.modal{
+        &.show{
+            .modal-dialog{
+                max-width: 300px;
+                margin: 1.75rem auto;
+                padding: 10px;
+            }
+            .modal-content{
+                border: 0;
+                padding: 15px;
+                .modal-header {
+                    padding: 0;
+                    border: 0;
+                }
+                .modal-title {
+                    color: map-get($colors , grey03 );
+                    font-size: 14px;
+                    font-weight: 600;
+                    margin-bottom: 6px;
+                }
+                .modal-body {
+                    padding: 0;
+                    font-size: 11px;
+                    color: map-get($colors , grey03 );;
+                    font-weight: 400;
+                }
+            }
+            .modal-footer {
+                border: 0;
+                padding: 15px 0 0 0;
+                display: flex;
+                justify-content: space-between;
+                button {
+                    min-width: 100px;
+                }
+            }
+        }
+    } 
 }
 .DashboardGrid {
-  width: 90%;
+    width: 90%;
 }
 
 .DashboardGridButtons {
-  background-color: greenyellow;
-  text-align: center;
-  border-radius: 10px;
+    background-color: greenyellow;
+    text-align: center;
+    border-radius: 10px;
 }

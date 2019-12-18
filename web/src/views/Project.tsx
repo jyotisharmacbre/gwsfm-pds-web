@@ -15,7 +15,8 @@ import { toast } from 'react-toastify';
 import { ICurrency } from '../store/Lookups/Types/ICurrency';
 import {
   getDynamicContractData,
-  getDynamicCompanyData
+  getDynamicCompanyData,
+  getDynamicSubContractorData
 } from '../store/DynamicsData/Action';
 import {
   IDynamicContractData,
@@ -27,6 +28,7 @@ import {
 import {
   getUserService
 } from '../store/UserService/Action';
+import { getUserPreferences } from '../services/lookup.service';
 
 interface IMapStateToProps {
   notify: Notify;
@@ -49,6 +51,7 @@ interface IMapDispatchToProps {
   getAllCurrencies: () => void;
   getDynamicContractData: () => void;
   getDynamicCompanyData: () => void;
+  getDynamicSubContractorData: () => void;
   getUserService: () => void;
   handleProjectDetailsSubmit: (form: IProjectDetail, event: EventType) => void;
   handleProjectDetailsEdit: (form: IProjectDetail, event: EventType) => void;
