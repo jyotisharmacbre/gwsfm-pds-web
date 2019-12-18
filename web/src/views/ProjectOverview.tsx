@@ -76,7 +76,6 @@ const ProjectOverview: React.FC<IProps &
     window.scrollTo(0, 0);
     props.getProjectStatus();
     let paramProjectId = props.projectId == '' ? props.match.params.projectId : props.projectId;
-    debugger;
     if (paramProjectId != null && paramProjectId != '') {
       props.getAdditionalDetails(paramProjectId);
       props.getEnquiryOverview(paramProjectId);
@@ -103,7 +102,6 @@ const ProjectOverview: React.FC<IProps &
   };
 
   const handleNext = (data: IProjectAdditionalDetail) => {
-    debugger;
     data.projectAddDetailId == ''
       ? props.projectOverviewFormAdd(props.match.params.projectId, data, EventType.next)
       : props.projectOverviewFormEdit(data, EventType.next);

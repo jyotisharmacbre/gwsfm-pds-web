@@ -66,6 +66,12 @@ const getDynamicSubContractorOtherSuccess = (response: any) => {
   };
 };
 
+const getDefaultSuccess = (response: any) => {
+  return {
+    type: ActionType.DYNAMIC_OTHER_DEFAULT_SUCCESS
+  };
+};
+
 let config = {
   headers: {
     'Content-Type': 'application/json'
@@ -138,7 +144,9 @@ export const getDynamicOther = (data: any, type: string) => {
       dispatch(getDynamicSubContractorOtherSuccess(data));
     };
       default:
-        return '';
+        return (dispatch: Dispatch) => {
+          dispatch(getDefaultSuccess(data));
+        };
   }
 };
 

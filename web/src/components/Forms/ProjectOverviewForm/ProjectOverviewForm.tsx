@@ -57,7 +57,7 @@ let ProjectOverviewForm: React.FC<Props &
       
   const getDynamicsSubcontractorDropdown =
   dynamicsSubcontractorData &&
-  dynamicsSubcontractorData.map((SubContractorData: any) => {
+  dynamicsSubcontractorData.map((SubContractorData) => {
     return { 
     label: SubContractorData.Name,
     id: SubContractorData.SubContractorId }     
