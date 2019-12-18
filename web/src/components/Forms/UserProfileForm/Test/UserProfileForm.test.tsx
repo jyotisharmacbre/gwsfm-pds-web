@@ -13,6 +13,7 @@ import { ActionType } from '../../../../store/UserPreferencesForm/Types/ActionTy
 import nock from 'nock';
 import { baseURL } from '../../../../client/client';
 import { IUserPreferencesState } from '../../../../store/UserPreferencesForm/Types/IUserPreferencesState';
+import { findByTestAtrr } from '../../../../helpers/test-helper';
 
 const initialState: IUserPreferencesState = {
   preferences: {
@@ -41,12 +42,18 @@ nock(baseURL)
   .get('/api/Users/getUserPreferences')
   .reply(200, { languageName: 'en', languageId: 1 });
 
+const currencies = [{ currencyId: 1, currencySymbol: '$', currencyName: 'dollar' }, { currencyId: 2, currencySymbol: 'f', currencyName: 'frenc' }];
+const languages = [{ languageId: 1, languageName: 'english' }, { languageId: 2, languageName: 'french' }];
+
+
 describe('UserProfileForm Fields', () => {
-  let handleEvent = () =>{};
-  let closePanel = () =>{};
   let wrapper: any;
   const props: any = {
-    handleSubmit: jest.fn()
+    onSubmitForm: jest.fn(),
+    redirectMenu: jest.fn(),
+    displayName: 'userName',
+    currencies: currencies,
+    languages: languages
   };
   beforeEach(() => {
     const formatMessage = jest.mock(
@@ -57,17 +64,12 @@ describe('UserProfileForm Fields', () => {
       .mockImplementationOnce(() => {
         return 'intlmessage';
       });
-
     wrapper = mount(
       <Provider store={store}>
         <IntlProvider locale="en" messages={translations['en'].messages}>
-        <UserProfileForm onSubmitForm={handleEvent}
-                          redirectMenu = {closePanel}
-                          currencies={props.currencies}
-                          languages={props.languages}
-                          displayName= 'userName'
-                          {...props}
-                        />
+          <UserProfileForm
+            {...props}
+          />
         </IntlProvider>
       </Provider>
     );
@@ -77,27 +79,37 @@ describe('UserProfileForm Fields', () => {
   });
 
   it('Defines the Form', () => {
-  let form = wrapper.find('[form="UserProfileForm"]').first();
+    let form = wrapper.find('[form="UserProfileForm"]').first();
 
-      expect(form).toHaveLength(1);
+    expect(form).toHaveLength(1);
   });
 
-   describe('Defines form fields', () => {
-    let field: ShallowWrapper;
+  describe('Defines form fields', () => {
+    let field: any;
 
     describe('languageId field', () => {
       beforeEach(() => {
         field = wrapper.find('select[name="languageId"]').first();
-        wrapper.setProps({
-          currencies: [
-            { languageId: 1, languageName: 'english' }
-          ],
-          languageId: 1
-        });
       });
       it('Should renders languageId field', () => {
         expect(field.render());
       });
+      it('Should select language from state to french', () => {
+        wrapper.setProps({
+          languageId: 2
+        });
+        wrapper.update();
+        expect(field.find('option').at(2).instance().selected).toBeTruthy;
+      });
+
+      it('Should select language from state to english', () => {
+        wrapper.setProps({
+          languageId: 1
+        });
+        wrapper.update();
+        expect(field.find('option').at(1).instance().selected).toBeTruthy;
+      });
+
       it('Shows error when languageId is set to blank', () => {
         field.simulate('blur');
         const errorBlock = wrapper.find('.text-danger');
@@ -105,23 +117,26 @@ describe('UserProfileForm Fields', () => {
       });
     });
 
-    describe('currencyId field', () => {
+    describe('currency field', () => {
       beforeEach(() => {
         field = wrapper.find('select[name="currencyId"]').first();
-        wrapper.setProps({
-          currencies: [
-            { currencyId: 1, currencySymbol: '$', currencyName: 'dollar' }
-          ],
-          currencyId: 1
-        });
       });
       it('Should renders currencyId field', () => {
         expect(field.render());
       });
-      it('Shows error when currencyId is set to blank', () => {
-        field.simulate('blur');
-        const errorBlock = wrapper.find('.text-danger');
-        expect(errorBlock).toHaveLength(1);
+      it('Should select currency from state to frenc', () => {
+        wrapper.setProps({
+          currencyId: 2
+        });
+        wrapper.update();
+        expect(field.find('option').at(2).instance().selected).toBeTruthy;
+      });
+      it('Should select currency from state to dollor', () => {
+        wrapper.setProps({
+          currencyId: 1
+        });
+        wrapper.update();
+        expect(field.find('option').at(1).instance().selected).toBeTruthy;
       });
     });
 
@@ -129,11 +144,32 @@ describe('UserProfileForm Fields', () => {
 
     describe('Save button', () => {
       beforeEach(() => {
-        field = wrapper.find('a[data-name="save"]').first();
+        field = findByTestAtrr(wrapper, 'save').first();
       });
       it('Should renders save button', () => {
         expect(field).toHaveLength(1);
       });
+
+      it('should call save function on button click', () => {
+        field.simulate('click');
+        expect(props.onSubmitForm.mock.calls.length).toEqual(1);
+      });
+
+    });
+
+    describe('Cancel button', () => {
+      beforeEach(() => {
+        field = findByTestAtrr(wrapper, 'cancel').first();
+      });
+      it('Should renders cancel button', () => {
+        expect(field).toHaveLength(1);
+      });
+
+      it('should call save function on button click', () => {
+        field.simulate('click');
+        expect(props.redirectMenu.mock.calls.length).toEqual(1);
+      });
+
     });
 
     describe('UserProfile form reducer', () => {

@@ -111,9 +111,9 @@ let UserProfileForm: React.FC<Props &
 
 
           <div className='link_group'>
-            <a href="#" data-name="save" onClick={handleSubmit(values => props.onSubmitForm(values))}><FormattedMessage id="BUTTON_SAVE" /></a>
+            <a href="#" data-test="save" onClick={handleSubmit(values => props.onSubmitForm(values))}><FormattedMessage id="BUTTON_SAVE" /></a>
             <span>|</span>
-            <a href="#" onClick={redirectMenu}>Cancel</a>
+            <a href="#" data-test="cancel" onClick={redirectMenu}>Cancel</a>
           </div>
 
           {/* END EDIT FORM SECTION */}
