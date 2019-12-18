@@ -7,11 +7,11 @@ import Notify from '../../enums/Notify';
 const initialState: IProjectDashboardGridState = {
   actionApprovalDetails: [
     {
-      name: 'Name',
-      updatedBy: 'Admin',
-      updatedDate: moment().toString(),
+      name: '',
+      updatedBy: '',
+      updatedDate: '',
       projectStatus: 2,
-      projectID: 'GUID_Value'
+      projectID: ''
     }
   ],
   error: null
