@@ -67,6 +67,7 @@ export const preliminariesData:any =
 }
 export const lookUpInitialState: ILookupState = {
     projectstatus: [],
+    languages: [],
     currencies: null,
     error: null
   };
