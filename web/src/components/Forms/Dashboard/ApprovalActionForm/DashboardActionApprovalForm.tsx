@@ -20,7 +20,6 @@ let DashboardActionApprovalForm: React.FC<
   const { actionApprovalValues, lookupValues } = props;
   const getActionApprovalValues = (allLookups, countVals) => {
     let data = actionApprovalValues.map(function(rowProject) {
-      debugger;
       var statusID = rowProject.projectStatus;
       if (allLookups.length > 0)
         rowProject.projectStatus = (

@@ -22,14 +22,6 @@ const headers = {
 
 export const projectDashboardGridDetail = () => {
   return (dispatch: Dispatch) => {
-    // axios.baseAPI
-    //   .get('api/Projects/GetAll', { headers: headers })
-    //   .then(response => {
-    //     dispatch(DashboardGridDetailSuccess(response.data));
-    //   })
-    //   .catch(error => {
-    //     dispatch(DashboardGridDetailError(error));
-    //   });
     let data = [
       {
         name: 'Sample Project',
