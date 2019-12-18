@@ -19,6 +19,8 @@ import { ILookup } from '../store/Lookups/Types/ILookup';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { formatMessage } from '../Translations/connectedIntlProvider';
+import { dynamicsContract } from '../components/TypeAhead/TypeAheadConstantData/dynamicContractData';
+import { getFilterElementFromArray } from '../helpers/utility-helper';
 import { getDynamicSubContractorData } from '../store/DynamicsData/Action';
 import { IDynamicSubContractorData } from '../store/DynamicsData/Types/IDynamicData';
 
@@ -127,8 +129,9 @@ const ProjectOverview: React.FC<IProps &
               {...{
                 headers: [
                   {
-                    heading: formatMessage('LABEL_END_CLIENT_NAME'),
-                    subHeading: convertToString(props.enquiryOverview.companyId)
+                    heading: formatMessage('LABEL_END_CUSTOMER_NAME'),
+                    subHeading: convertToString(getFilterElementFromArray(dynamicsContract, 'ContractId',
+                    props.enquiryOverview.contractorId, 'Name') || props.enquiryOverview.otherContractName)
                   },
                   {
                     heading: formatMessage('MESSAGE_PROJECT_NAME'),
