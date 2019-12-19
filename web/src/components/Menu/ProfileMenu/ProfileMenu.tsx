@@ -23,6 +23,7 @@ import Notify from '../../../enums/Notify';
 import { ICurrency } from '../../../store/Lookups/Types/ICurrency';
 import { getDisplayName, getDisplayEmail, logOut, getFirstName } from '../../../helpers/auth-helper';
 import { toast } from 'react-toastify';
+import { formatMessage } from '../../../Translations/connectedIntlProvider';
 
 interface IMapDispatchToProps {
   userPreferencesFormAdd: (
@@ -80,7 +81,7 @@ const ProfileMenu: React.FC<any> = props => {
       : props.userPreferencesFormEdit(userPreferences, event);
   };
 
-  const closePanel = ()=> {
+  const closePanel = () => {
     setMenuVisibility(true);
     makeEditable(false);
   }
@@ -127,7 +128,7 @@ const ProfileMenu: React.FC<any> = props => {
                     aria-expanded="false"
                   >
                     <FontAwesomeIcon className="" icon={faUser} />
-                    <span id="sm_none">{props.displayName && `Hello, ${getFirstName()}`}</span>
+                    <span id="sm_none">{props.displayName && `${formatMessage('TITLE_HELLO')}, ${getFirstName()}`}</span>
                     <span className="down-arrow">
                       <FontAwesomeIcon className="" icon={faAngleDown} />
                     </span>
@@ -145,11 +146,11 @@ const ProfileMenu: React.FC<any> = props => {
                       <div className={`${isEditable ? 'show' : 'hide'}`}>
 
                         <UserProfileForm onSubmitForm={handleEvent}
-                          redirectMenu = {closePanel}
+                          redirectMenu={closePanel}
                           currencies={props.currencies}
                           languages={props.languages}
-                          displayName= {props.displayName}
-                          displayEmail = {props.displayEmail}
+                          displayName={props.displayName}
+                          displayEmail={props.displayEmail}
                         />
                       </div>
 
@@ -170,7 +171,7 @@ const ProfileMenu: React.FC<any> = props => {
                             <i>
                               <FontAwesomeIcon className="" icon={faUser} />
                             </i>
-                            <p className="title_name">preferred language</p>
+                            <p className="title_name">{formatMessage('LABEL_PREFERED_LANGUAGE')}</p>
                             <span className="dsc">{props.languageName}</span>
                           </a>
                         </li>
@@ -179,19 +180,19 @@ const ProfileMenu: React.FC<any> = props => {
                             <i>
                               <FontAwesomeIcon className="" icon={faUser} />
                             </i>
-                            <p className="title_name">preferred currency</p>
+                            <p className="title_name">{formatMessage('LABEL_PREFERED_CURRENCY')}</p>
                             <span className="dsc">{props.currencySymbol}</span>
                           </a>
                         </li>
                       </ul>
                       <div className={`${!isEditable ? 'show' : 'hide'}`}>
 
-                      <div className='link_group'>
-                        <a href="#" onClick={() => makeEditable(!isEditable)}>EDIT</a>
-                        <span>|</span>
-                        <a href="#" onClick={logOut}>SIGN OUT</a>
-                      </div>
-                      
+                        <div className='link_group'>
+                          <a href="#" onClick={() => makeEditable(!isEditable)}>{formatMessage('BUTTON_EDIT')}</a>
+                          <span>|</span>
+                          <a href="#" onClick={logOut}>{formatMessage('BUTTON_SIGNOUT')}</a>
+                        </div>
+
                       </div>
                     </div>
                   </div>
@@ -227,7 +228,7 @@ const mapStateToProps = (state: IState) => {
     notify: state.userPreferences.notify,
     displayName: getDisplayName(),
     displayEmail: getDisplayEmail()
-    }
+  }
 }
 
 const mapDispatchToProps = dispatch => {
@@ -239,7 +240,7 @@ const mapDispatchToProps = dispatch => {
     getUserPreferences: () => dispatch(userPreferencesGet()),
     getAllLanguages: () => dispatch(actions.getAllLanguages()),
     getAllCurrencies: () => dispatch(actions.getAllCurrencies()),
-    resetUserPreferencesState: ()=> dispatch(resetUserPreferencesState())
+    resetUserPreferencesState: () => dispatch(resetUserPreferencesState())
   }
 }
 
