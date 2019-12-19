@@ -32,7 +32,6 @@ import CalculationsSummaryTable from '../../Table/CalculationsSummaryTable';
 import CalculationsSummaryType from '../../../enums/CalculationsSummaryType';
 import ISummaryCalculation from '../../../store/SummaryCalculation/Types/ISummaryCalculation';
 import { dynamicsContract } from '../../TypeAhead/TypeAheadConstantData/dynamicContractData';
-import Currency from '../../../store/Lookups/InitialState/Currency';
 
 
 interface Props {
@@ -53,6 +52,7 @@ interface IMapStateToProps {
   clientDiscountValue:number;
   discountForm:  {} | IDiscountActivity;
   summaryCalculation:ISummaryCalculation;
+  userPreferenceCurrencyId:number;
 }
 
   let DiscountForm: React.FC<Props & IMapStateToProps & InjectedFormProps<IDiscountActivity, Props & IMapStateToProps>> = props => {
