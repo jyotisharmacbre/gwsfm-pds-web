@@ -1,5 +1,4 @@
 import React, { Component, useEffect } from 'react';
-import DiscountTable from '../components/Table/DiscountTable';
 import DiscountForm from '../components/Forms/Discount/DiscountForm';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { IDiscountActivity } from '../store/DiscountForm/Types/IDiscountActivity';
@@ -10,9 +9,27 @@ import * as actions from '../store/rootActions';
 import { connect } from 'react-redux';
 import { IState } from '../store/state';
 import { toast } from 'react-toastify';
-import { useHistory } from 'react-router-dom';
+import { match } from 'react-router-dom';
+import { History } from 'history';
 import { ILookup } from '../store/Lookups/Types/ILookup';
 import { ICurrency } from '../store/Lookups/Types/ICurrency';
+
+interface IProps {
+  match: match<{projectId:string}>;
+  history : History;
+}
+
+interface IMapStateToProps {
+  form: IDiscountActivity;
+  notify: Notify;
+  event: EventType;
+  projectStatus: Array<ILookup>;
+  currencies: Array<ICurrency> | null;
+  currencyId: number;
+  clientName: string;
+  otherClientName: string;
+}
+
 interface IMapDispatchToProps {
   getProjectStatus: () => void;
   discountFormAdd: (
@@ -27,35 +44,17 @@ interface IMapDispatchToProps {
   resetDiscountState: () => void;
   getDiscountData: (projectId: string) => void;
   getAllCurrencies: () => void;
+  getProjectDetail: (projectId: string) => void;
 }
 
-interface IProps {
-  match: any;
-}
-
-interface IMapStateToProps {
-  form: IDiscountActivity;
-  notify: Notify;
-  projectId: string;
-  event: EventType;
-  projectStatus: Array<ILookup>;
-  currencies: Array<ICurrency> | null;
-  currencyId: number;
-  clientName: string;
-  otherClientName: string;
-}
-
-
-  const Discounts: React.FC<IProps &
-  IMapStateToProps &
-  IMapDispatchToProps> = props => {
-    let paramProjectId = props.match.params.projectId;
-    let history = useHistory();
+const Discounts: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = props => {
+    const paramProjectId = props.match.params.projectId;
     useEffect(() => {
       window.scrollTo(0, 0);
       props.getProjectStatus();
       props.getAllCurrencies();
       if (paramProjectId != null && paramProjectId != '') {
+        props.getProjectDetail(paramProjectId);
         props.getDiscountData(paramProjectId);
       }
     }, []);
@@ -64,10 +63,10 @@ interface IMapStateToProps {
       if (props.notify == Notify.success) {
         if (props.event == EventType.next) {
           toast.success('Data Saved Successfully');
-          history.push(`/`);
+          props.history.push(`/`);
         } else if (props.event == EventType.previous) {
           toast.success('Data Saved Successfully');
-          history.push('/Subcontractor');
+          props.history.push('/Subcontractor');
         }
         else if (props.event == EventType.save) {
           toast.success('Data Saved Successfully');
@@ -106,7 +105,6 @@ interface IMapStateToProps {
                 </h1>
                 <p className="text-green"><FormattedMessage id="SUB_TITLE_DISCOUNTS" /></p>
               </div>
-              <DiscountTable></DiscountTable>
               <DiscountForm onNext={handleNext}
               onPrevious={handlePrevious}
               onSave={handleSave}
@@ -114,7 +112,8 @@ interface IMapStateToProps {
               currencies={props.currencies}
               currencyId={props.currencyId} 
               clientName={props.clientName}
-              otherClientName= {props.otherClientName} />
+              otherClientName= {props.otherClientName} 
+              projectId={props.match.params.projectId}/>
             </div>
           </div>
         </div>
@@ -122,8 +121,7 @@ interface IMapStateToProps {
     );
   }
 
-
-  const mapStateToProps = (state: IState) => ({
+const mapStateToProps = (state: IState) => ({
     form: state.discount.form,
     notify: state.discount.notify,
     event: state.discount.event,
@@ -132,21 +130,23 @@ interface IMapStateToProps {
     currencyId: state.project.form.currencyId,
     clientName: state.project.form.companyId,
     otherClientName: state.project.form.otherCompanyName
-  });
-  
-  const mapDispatchToProps = dispatch => {
-    return {
+  })
+
+const mapDispatchToProps = dispatch => {
+  return {
       getProjectStatus: () => dispatch(actions.getProjectStatus()),
       discountFormAdd: (projectId, form, event) =>
         dispatch(actions.discountFormAdd(projectId, form, event)),
       discountFormEdit: (form, event) =>
         dispatch(actions.discountFormEdit(form, event)),
-        resetDiscountState: () =>
+      resetDiscountState: () =>
       dispatch(actions.resetDiscountState()),
       getAllCurrencies: () => dispatch(actions.getAllCurrencies()),
       getDiscountData: (projectId: string) =>
       dispatch(actions.getDiscountData(projectId)),
+      getProjectDetail: projectId =>
+      dispatch(actions.getProjectDetail(projectId)),
     };
-  };
-  
+}
+
   export default connect(mapStateToProps, mapDispatchToProps)(Discounts);

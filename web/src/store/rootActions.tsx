@@ -27,3 +27,5 @@ export {
   getSubContractor,
   resetSubContractorState 
 } from './SubContractor/Actions';
+
+export { setSummaryCalculationState } from './SummaryCalculation/Actions';

@@ -10,8 +10,9 @@ import projectPipelineDetailReducer from './pipeline/Reducer';
 import userServiceReducer from './UserService/Reducer';
 import dynamicDataReducer from './DynamicsData/Reducer';
 import discountFormReducer from './DiscountForm/Reducer';
-
 import preliminaryReducer from './Preliminaries/Reducer';
+import summaryCalculationReducer from './SummaryCalculation/Reducer';
+
 export default combineReducers<IState>({
   form: reducerForm,
   project: projectDetailReducer,
@@ -23,5 +24,6 @@ export default combineReducers<IState>({
   dynamicData: dynamicDataReducer,
   userService: userServiceReducer,
   discount: discountFormReducer,
-  preliminary: preliminaryReducer
+  preliminary: preliminaryReducer,
+  summaryCalculation:summaryCalculationReducer,
 });
