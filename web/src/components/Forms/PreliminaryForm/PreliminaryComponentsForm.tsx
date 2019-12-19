@@ -81,8 +81,8 @@ const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleE
                 </div>
                 </div>
                 </form>
-        <div className="text-right" >
-                  <button type="button" data-test="componentSave" className="text-right btn-sm" onClick={handleSubmit(values=>submitHandler(false,EventType.none,values,index))} >
+        <div className="text-right preliminary_btn" >
+                  <button type="button" data-test="componentSave" className="text-center btn-sm" onClick={handleSubmit(values=>submitHandler(false,EventType.none,values,index))} >
                   <FormattedMessage id="BUTTON_SAVE" />
                   </button>
                 </div>

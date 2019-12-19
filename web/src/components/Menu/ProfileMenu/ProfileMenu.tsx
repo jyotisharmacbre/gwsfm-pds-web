@@ -14,15 +14,18 @@ import {
 
 // @ts-ignore
 import authentication from '@kdpw/msal-b2c-react';
-import { Link } from 'react-router-dom';
+import { Link,useHistory } from 'react-router-dom';
+import { History } from 'history';
 
-export default function ProfileMenu(props: { Name?: string }) {
+export default function ProfileMenu(props: { Name?: string}) {
+  let history=useHistory();
   return (
     <nav className="topbar">
       <div className="container-fluid">
         <div className="row d-flex align-items-center">
           <div className="col-sm-12">
-            <div className="logo">
+             
+            <div className={history.location.pathname=="/" ||history.location.pathname=="/Pipeline"?"d-md-block logo":"logo" } >
               <Link data-test=""
                 to={{
                   pathname: "/"
@@ -31,6 +34,7 @@ export default function ProfileMenu(props: { Name?: string }) {
                 <img src={close_icon} alt="close" />
               </Link>
             </div>
+    
             <ul className="icons-blocks">
               <li id="sm_none">
                 <a href="#">
@@ -114,8 +118,7 @@ export default function ProfileMenu(props: { Name?: string }) {
                 <button
                   type="button"
                   id="sidebarCollapse"
-                  className="navbar-btn"
-                >
+                  className={history.location.pathname=="/" ||history.location.pathname=="/Pipeline"?"navbar-btn d-none":"navbar-btn" } >
                   <span></span>
                   <span></span>
                   <span></span>
