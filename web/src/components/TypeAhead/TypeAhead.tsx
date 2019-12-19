@@ -32,11 +32,9 @@ const formatValue = () => {
 const TypeAhead = ({ name, options, onSearch, DynamicsType, placeholderKey, intl,className, 
     searchText, labelName,validationKey, submitParam,selected, ...props }) => {
 
-    function handleChange(value: any) {
-      if(DynamicsType == "companyId" || DynamicsType=="contractorId"){
-      props.handleOtherFieldChange(value, DynamicsType)
-      };
-      }    
+      function handleChange(value: any) {
+        props.handleOtherFieldChange(value, DynamicsType);
+        }      
  
       const _placeholder = placeholderKey
     ? intl.formatMessage({id:placeholderKey})
