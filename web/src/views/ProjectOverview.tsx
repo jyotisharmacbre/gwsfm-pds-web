@@ -48,7 +48,6 @@ interface IMapStateToProps {
   event: EventType;
   projectScope: string;
   status:number;
-  dynamicsSubContractor: Array<IDynamicSubContractorData>;
 }
 interface IMapDispatchToProps {
   getProjectStatus: () => void;
@@ -69,7 +68,6 @@ interface IMapDispatchToProps {
   changeProjectStatusToBidLost: (projectId: string) => void;
   reactivateProject:(projectId: string) => void;
   setProjectStatus:(status: number) => void;
-  handleGetDynamicSubContractorData: (searchSubContractor: string) => void;
 }
 interface IProps {
   projectId: string;
@@ -164,11 +162,6 @@ const ProjectOverview: React.FC<IProps &
     props.changeProjectStatusToBidLost(props.match.params.projectId);
   }
 
-  
-  const onSearchSubContractor = (values: string) => {
-    props.handleGetDynamicSubContractorData(values);
-  };
-
   return (
     <React.Fragment>
       <Container component="main">
@@ -207,7 +200,6 @@ const ProjectOverview: React.FC<IProps &
               onPrevious={handlePrevious}
               projectstatus={props.projectStatus}
               status={props.status}
-              onSearchSubContractor = {onSearchSubContractor}
             />
           </Grid>
         </Grid>
@@ -224,8 +216,7 @@ const mapStateToProps = (state: IState) => ({
   enquiryOverview: state.project.enquiryOverview,
   event: state.projectOverview.event,
   projectScope: state.project.form.scope,
-  status:state.project.form.status, 
-  dynamicsSubcontractor: state.dynamicData.dynamicsSubcontractor
+  status:state.project.form.status
 });
 
 const mapDispatchToProps = dispatch => {
@@ -250,9 +241,7 @@ const mapDispatchToProps = dispatch => {
     reactivateProject: projectId =>
       dispatch(actions.reactivateProject(projectId)),
     setProjectStatus: status =>
-      dispatch(actions.changeProjectStatus(status)),
-    handleGetDynamicSubContractorData: searchSubContractor =>
-      dispatch(getDynamicSubContractorData(searchSubContractor)),
+      dispatch(actions.changeProjectStatus(status))
   };
 };
 
