@@ -170,11 +170,6 @@ useEffect(() => {
     props.changeProjectStatusToBidLost(props.match.params.projectId);
   }
 
-  
-  const onSearchSubContractor = (values: string) => {
-    props.handleGetDynamicSubContractorData(values);
-  };
-
   return (
     <React.Fragment>
       <Container component="main">
@@ -213,7 +208,6 @@ useEffect(() => {
               onPrevious={handlePrevious}
               projectstatus={props.projectStatus}
               status={props.status}
-              onSearchSubContractor = {onSearchSubContractor}
             />
           </Grid>
         </Grid>

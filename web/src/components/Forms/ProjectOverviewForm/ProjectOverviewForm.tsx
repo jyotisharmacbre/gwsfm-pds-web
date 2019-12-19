@@ -39,35 +39,17 @@ interface Props {
   onPrevious: (data: IProjectAdditionalDetail) => void;
   projectstatus: any;
   status:number;
-  onSearchSubContractor: (value: string) => void;
 }
 
-interface IMapStateToProps {  
-  dynamicsOtherSubContractor: Array<IDynamicsOtherSubContractor>;
-}
-
-let ProjectOverviewForm: React.FC<Props & IMapStateToProps &
-  InjectedFormProps<IProjectAdditionalDetail, Props  & IMapStateToProps>> = props => {
-  const { handleSubmit, initialValues, onSearchSubContractor } = props;
+let ProjectOverviewForm: React.FC<Props  &
+  InjectedFormProps<IProjectAdditionalDetail, Props>> = props => {
+  const { handleSubmit, initialValues } = props;
   const DropdownOptions = projectStatusData.map((status: any, i: number) => (
     <option key={i} value={status.value}>
       {status.label}
     </option>
   ));
   const normalize = value => (value ? parseInt(value) : null);
-
-  const otherDynamicsSubContractor =
-  props.dynamicsOtherSubContractor && props.dynamicsOtherSubContractor.length > 0
-    ? props.dynamicsOtherSubContractor[0].label
-    : '';
-      
-  const getDynamicsSubcontractorDropdown =
-  dynamicsSubcontractorData &&
-  dynamicsSubcontractorData.map((SubContractorData) => {
-    return { 
-    label: SubContractorData.Name,
-    id: SubContractorData.SubContractorId }     
-  }); 
 
   return (
     <div className="container-fluid ">
@@ -81,32 +63,20 @@ let ProjectOverviewForm: React.FC<Props & IMapStateToProps &
             <div className={(props.status==ProjectStatus.BidLost||props.status==ProjectStatus.OnHold)?"link_disabled row":"row"}>
               <div className="col-lg-8">
 
-             <TypeAhead name={getPropertyName(
-                    initialValues,
-                    prop => prop.mainContractor
-                  )}
-                options={getDynamicsSubcontractorDropdown}
-                DynamicsType="SubContractorId"
-                onSearch={ onSearchSubContractor }
-                placeholderKey="PLACEHOLDER_CONTRACTORS_NAME"
-                className="required"
-                labelName="LABEL_MAIN_CONTRACTOR"
-                validationKey="LABEL_MAIN_CONTRACTOR"
-                submitParam = "id"/>
-
-                {otherDynamicsSubContractor === 'Other' && (
-                  <Field
-                    name="otherMainContractor"
+              <Field
+                    name={getPropertyName(
+                      initialValues,
+                      prop => prop.mainContractor
+                    )}
                     type="text"
                     component={PdsFormInput}
                     className="required"
                     validate={[
-                      Validate.required('LABEL_OTHER_MAIN_CONTRACTOR')
+                      Validate.required('LABEL_MAIN_CONTRACTOR')
                     ]}
-                    labelKey="LABEL_OTHER_MAIN_CONTRACTOR"
+                    labelKey="LABEL_MAIN_CONTRACTOR"
                     placeholderKey="PLACEHOLDER_CONTRACTORS_NAME"
                   />
-                )}
                 <Field
                   name={getPropertyName(
                     initialValues,
@@ -703,7 +673,7 @@ const mapStateToProps = (state: IState) => ({
   dynamicsOtherSubContractor: state.dynamicData.dynamicsOtherSubContractor,
 });
 
-const form = reduxForm<IProjectAdditionalDetail, Props & IMapStateToProps>({
+const form = reduxForm<IProjectAdditionalDetail, Props>({
   destroyOnUnmount: false,
   forceUnregisterOnUnmount: false,
   form: 'projectOverviewForm',
