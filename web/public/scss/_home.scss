@@ -104,6 +104,7 @@
 
 .dropdown-menu {
     &.user-dropdown {
+        z-index: 9;
         top: 24px !important;
         padding: 0;
         display: inherit;
@@ -182,6 +183,7 @@
 /*sidebar*/
 
 #sidebar {
+    z-index: 10;
     position: relative;
     min-width: 250px;
     max-width: 250px;

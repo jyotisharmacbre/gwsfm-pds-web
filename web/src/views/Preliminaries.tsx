@@ -170,8 +170,8 @@ const Preliminaries: React.FC<
                     </div>
                   </div>
                   <div className="col-lg-4">
-                    <div className="text-right">
-                      <button type="button" className="active fltRght" onClick={() => handleExpandAllEvent()}>EXPAND ALL</button>
+                    <div className="text-left text-lg-right">
+                      <button type="button" className="active fltRght mb-3 mb-lg-0" onClick={() => handleExpandAllEvent()}>EXPAND ALL</button>
                     </div>
                   </div>
                 </div>

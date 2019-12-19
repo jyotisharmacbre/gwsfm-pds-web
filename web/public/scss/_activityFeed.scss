@@ -88,14 +88,14 @@ h3.feed_head {
         
         top:20px;
         
-        i{
+        svg{
             margin-top: 6px;
             color: #04603f;
         }
         &.close-icon {
             background-color: map-get($colors, red);
             
-            i{
+            svg{
                 color: map-get($colors, whiteColor);
                 margin-top: 7px;              
             }
@@ -103,7 +103,7 @@ h3.feed_head {
         &.check-icon {
             background-color: map-get($colors, lightGreen02);
            
-            i{
+            svg{
                 color: map-get($colors, whiteColor);
                 margin-top: 8px;
                
@@ -238,18 +238,6 @@ h3.feed_head {
     i{
         color: map-get($colors, lightGreen )
     }
-}
-.mrgnrght10
-{
-    margin-right:10px;
-}
-.mrgnlft10
-{
-    margin-left:10px;
-}
-.mrgnt5
-{
-    margin-top:5px;
 }
 
 /* Status Button Ends*/
