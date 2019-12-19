@@ -15,10 +15,10 @@ export const getFirstName = () => {
 
 export const getDisplayEmail = () => {
   const decoded: DecodedToken = decodeToken();
-  return decoded.emails[0];
+  return decoded.emails && decoded.emails.length > 0 ? decoded.emails[0] : '';
 };
 
-export const logOut = () =>{
+export const logOut = () => {
   authentication.signOut();
 }
 
