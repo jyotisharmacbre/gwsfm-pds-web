@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import close_icon from '../../images/logo-black.png';
-import { Link } from 'react-router-dom';
 import * as actions from '../../../store/rootActions';
 import {
   FontAwesomeIcon
@@ -51,6 +50,7 @@ interface IMapStateToProps {
 }
 
 const ProfileMenu: React.FC<any> = props => {
+  let history = useHistory();
   const [showMenu, setMenuVisibility] = useState(false);
   const [isEditable, makeEditable] = useState(false);
 
