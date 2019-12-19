@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import close_icon from '../../images/logo-black.png';
-import { Link } from 'react-router-dom';
 import * as actions from '../../../store/rootActions';
 import {
   FontAwesomeIcon
@@ -13,6 +12,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 // @ts-ignore
+import { Link,useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
 import { userPreferencesGet, userPreferencesFormEdit, userPreferencesFormAdd, resetUserPreferencesState } from '../../../store/UserPreferencesForm/Actions';
@@ -51,6 +51,7 @@ interface IMapStateToProps {
 }
 
 const ProfileMenu: React.FC<any> = props => {
+  let history = useHistory();
   const [showMenu, setMenuVisibility] = useState(false);
   const [isEditable, makeEditable] = useState(false);
 
@@ -90,7 +91,8 @@ const ProfileMenu: React.FC<any> = props => {
       <div className="container-fluid">
         <div className="row d-flex align-items-center">
           <div className="col-sm-12">
-            <div className="logo">
+             
+            <div className={history.location.pathname=="/" ||history.location.pathname=="/Pipeline"?"d-md-block logo":"logo" } >
               <Link data-test=""
                 to={{
                   pathname: "/"
@@ -99,6 +101,7 @@ const ProfileMenu: React.FC<any> = props => {
                 <img src={close_icon} alt="close" />
               </Link>
             </div>
+    
             <ul className="icons-blocks">
               <li id="sm_none">
                 <a href="#">
@@ -199,8 +202,7 @@ const ProfileMenu: React.FC<any> = props => {
                 <button
                   type="button"
                   id="sidebarCollapse"
-                  className="navbar-btn"
-                >
+                  className={history.location.pathname=="/" ||history.location.pathname=="/Pipeline"?"navbar-btn d-none":"navbar-btn" } >
                   <span></span>
                   <span></span>
                   <span></span>

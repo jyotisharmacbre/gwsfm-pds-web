@@ -153,6 +153,9 @@
             min-width: auto;
             padding: 0;
         }
+        .DayPickerKeyboardShortcuts_buttonReset{
+            display: none;
+        }
     }
     .DayPicker_transitionContainer {
         width: 300px !important;
