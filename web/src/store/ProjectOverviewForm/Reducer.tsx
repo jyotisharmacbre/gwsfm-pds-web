@@ -11,7 +11,6 @@ const initialState: IProjectOverviewState = {
     projectAddDetailId: '',
     projectId: '',
     mainContractor: '',
-    otherMainContractor: '',
     enquiryReceivedFrom: '',
     enquiryTypeId: -1,
     creditCheckResult: '',
