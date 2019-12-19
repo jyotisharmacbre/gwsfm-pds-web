@@ -6,11 +6,17 @@ import { LookupItems } from '../../../helpers/constants';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import GridTable from '../../Table/GridTable';
+import { formatMessage } from '../../../Translations/connectedIntlProvider';
+import { injectIntl } from 'react-intl';
+import IReactIntl from '../../../Translations/IReactIntl';
+import Translate from '../../../Translations/translate';
+
 interface Props {
   pipelineValues: any;
   lookupValues: any;
 }
-const ProjectPipelineForm: React.FC<Props> = (props: any) => {
+const ProjectPipelineForm: React.FC<Props & IReactIntl> = (props: any) => {
+
   const { pipelineValues, lookupValues } = props;
   const getPipelineValues = allLookups => {
     let data = pipelineValues.map(function(rowProject) {
@@ -66,52 +72,52 @@ const ProjectPipelineForm: React.FC<Props> = (props: any) => {
 const getTableColumns = () => {
   return [
     {
-      title: 'Project name',
+      title: formatMessage('MESSAGE_PROJECT_NAME'),
       field: 'name',
       customFilterAndSearch: (term: any, rowData: any) =>
         (term = rowData.name.length)
     },
-    { title: 'Owner', field: 'projectOwner' },
+    { title: formatMessage('LABEL_OWNER'), field: 'projectOwner' },
     { title: 'Last Update', field: 'lastModified' },
     {
-      title: 'Client/customer',
+      title: formatMessage('LABEL_CLIENT_CUSTOMER'),
       field: 'contractorId'
     },
     {
-      title: 'Prob of winning',
+      title: formatMessage('LABEL_PROBABILITY_OF_WINING'),
       field: 'probabilityOfWinning'
     },
     {
-      title: 'Status',
+      title: formatMessage('LABEL_STATUS'),
       field: 'status'
     },
     {
-      title: 'Expected start date',
+      title: formatMessage('LABEL_EXPECTED_START_DATE'),
       field: 'commenceDate',
       type: 'date'
     },
     {
-      title: 'Approx value',
+      title: formatMessage('LABEL_APPROX_VALUE'),
       field: 'approxValue'
     },
     {
-      title: 'Contract type',
+      title: formatMessage('LABEL_CONTRACT_TYPE'),
       field: 'contractTypeId'
     },
     {
-      title: 'CMD notifiable',
+      title: formatMessage('LABEL_CMD_NOTIFIABLE'),
       field: 'cdmNotifiable'
     },
     {
-      title: 'Sold margin',
+      title: formatMessage('LABEL_SOLD_MARGIN'),
       field: 'soldmargin'
     },
     {
-      title: 'Weighted TCV',
+      title: formatMessage('LABEL_WEIGHTED_TCV'),
       field: 'weightedTCV'
     },
     {
-      title: 'Rank',
+      title: formatMessage('LABEL_RANK'),
       field: 'rank'
     }
   ];
@@ -120,4 +126,5 @@ const getTableColumns = () => {
 const mapStateToProps = (state: IState) => ({
   initialValues: state.pipelineGrid.pipelineDetails
 });
-export default connect(mapStateToProps)(ProjectPipelineForm);
+
+export default connect(mapStateToProps)(injectIntl(ProjectPipelineForm));
