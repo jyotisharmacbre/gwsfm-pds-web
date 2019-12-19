@@ -1,10 +1,8 @@
 import { ActionType } from './Types/ActionType';
 import { updateObject } from '../../helpers/utility-helper';
 import { IProjectOverviewState } from './Types/IProjectOverviewState';
-import moment from 'moment';
 import Notify from '../../enums/Notify';
 import EventType from '../../enums/EventType';
-import { changeProjectStatusToBidLost } from './Actions';
 
 const initialState: IProjectOverviewState = {
   form: {
