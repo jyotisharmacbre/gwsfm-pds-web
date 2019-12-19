@@ -25,7 +25,6 @@ export const logOut = () => {
 function decodeToken() {
   const token = authentication.getAccessToken();
   const decoded: DecodedToken = jwtDecode(token);
-  console.log("decoded token:", decoded);
   return decoded;
 }
 
