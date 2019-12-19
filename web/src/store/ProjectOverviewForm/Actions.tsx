@@ -189,7 +189,8 @@ export const reactivateProject = (
   };
 };
 export const getAdminDefaultValues = (countryId: number) => {
-  let isLookupSessionExists: boolean = (sessionStorage.getItem("defaultParameters"))?true:false
+  let sessionData:any=sessionStorage.getItem("defaultParameters");
+  let isLookupSessionExists: boolean = JSON.parse(sessionData).length>0?true:false
   return (dispatch: Dispatch) => {
     if(!isLookupSessionExists)
     {
