@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { mount, ShallowWrapper } from 'enzyme';
 import { Provider } from 'react-redux';
 import { store } from '../../../../store';
 import UserProfileForm from '../UserProfileForm';
@@ -64,7 +64,7 @@ describe('UserProfileForm Fields', () => {
   });
 
   describe('Defines form fields', () => {
-    let field: any;
+    let field: ShallowWrapper;
 
     describe('languageId field', () => {
       beforeEach(() => {
