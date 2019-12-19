@@ -60,12 +60,14 @@ const ProjectForm: React.FC<Props &
 
   const otherDynamicsContract =
     props.dynamicsOtherContract.length > 0
-      ? props.dynamicsOtherContract[0].label.split(' ')[0]
+      ? props.dynamicsOtherContract[0].id
       : '';
+
+
 
   const otherDynamicsCompany =
     props.dynamicsOtherCompany.length > 0
-      ? props.dynamicsOtherCompany[0].label
+      ? props.dynamicsOtherCompany[0].id
       : '';
 
       const getFormattedContractId = (customerId: string) => {
@@ -184,7 +186,7 @@ const ProjectForm: React.FC<Props &
                 labelName="LABEL_COMPANY"
                 validationKey="LABEL_COMPANY"
                 submitParam = "id"/>
-                {otherDynamicsCompany === 'Other' && (
+                {otherDynamicsCompany === '0' && (
                   <Field
                     name="otherCompanyName"
                     type="text"
@@ -208,7 +210,7 @@ const ProjectForm: React.FC<Props &
                 validationKey="LABEL_CONTRACT"
                 submitParam = "id"/>
 
-                {otherDynamicsContract === 'Other' && (
+                {otherDynamicsContract === '0' && (
                   <Field
                     name="otherContractName"
                     type="text"
