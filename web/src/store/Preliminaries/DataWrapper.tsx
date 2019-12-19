@@ -2,6 +2,7 @@ import { IPreliminariesComponentDetails } from './Types/IPreliminariesComponentD
 import { IPreliminariesItems } from './Types/IPreliminariesItems';
 import { IPreliminaries } from './Types/IPreliminaries';
 import {IAdminDefaults} from "../ProjectOverviewForm/Types/IAdminDefault"
+import AdminFields from '../../enums/AdminFields';
 
 export const bindUserData = (preliminaryData) => {
     var preliminaryDetails:Array<IPreliminariesComponentDetails>=[];
@@ -13,9 +14,9 @@ export const bindUserData = (preliminaryData) => {
     let adminDefaultData:Array<IAdminDefaults>=(defaultData?JSON.parse(defaultData):[]);
     let defaultGrossMargin:number=0;let labourRate:number=0;let insurranceRate:number=0;
     adminDefaultData.map((x)=>{
-        if(x.name=="Gross_Margin_Perc"){defaultGrossMargin=parseInt(x.value)}
-        if(x.name=="CBRE_Labour_Rate_Perc"){labourRate=parseInt(x.value)}
-        if(x.name=="Insurance_Rate_Perc"){insurranceRate=parseFloat(x.value)}
+        if(x.name==AdminFields.GrossMarginPerc){defaultGrossMargin=parseInt(x.value)}
+        if(x.name==AdminFields.CBRELabourRatePerc){labourRate=parseInt(x.value)}
+        if(x.name==AdminFields.InsuranceRatePerc){insurranceRate=parseFloat(x.value)}
     });
     if(lookupData&&lookupData.length>0)
     {
