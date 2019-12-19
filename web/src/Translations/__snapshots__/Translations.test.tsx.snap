@@ -5,33 +5,3 @@ exports[`ConnectedIntlProvider should return ConnectedIntlProvider 1`] = `"Conne
 exports[`Translation should return formatted message when passing a key 1`] = `"Name is required"`;
 
 exports[`Translation should return formatted message when passing key as FIELD_VALIDATION_KEY 1`] = `"Must have a maximum of 552 characters"`;
-
-exports[`actions should create an action to get locale 1`] = `
-Array [
-  Object {
-    "locale": "en",
-    "type": "GetLocalesSuccess",
-  },
-]
-`;
-
-exports[`locale reducer should handle GET_Locale_Begin 1`] = `
-Object {
-  "locale": "en",
-}
-`;
-
-exports[`locale reducer should handle GET_Locale_Failure 1`] = `
-Object {
-  "error": Object {
-    "success": false,
-  },
-  "locale": "en",
-}
-`;
-
-exports[`locale reducer should handle GET_Locale_Success 1`] = `
-Object {
-  "locale": "fr",
-}
-`;

@@ -1,16 +1,8 @@
 import nock from 'nock';
 import thunk from 'redux-thunk';
-import * as actions from './Actions';
-import localeReducer from './Reducer';
 import { baseURL } from '../client/client';
-import { ILocaleState } from '../session/state';
 import configureMockStore from 'redux-mock-store';
 import ConnectedIntlProvider, { formatMessage } from './connectedIntlProvider';
-import {
-  IGetLocalesSuccessAction,
-  IGetLocalesBeginAction,
-  IGetLocalesFailureAction
-} from './Type';
 import { shallow, mount } from 'enzyme';
 import React from 'react';
 import { Provider } from 'react-redux';
@@ -47,53 +39,6 @@ describe('ConnectedIntlProvider', () => {
 
 });
 
-describe('locale reducer', () => {
-  let initialState: ILocaleState;
-  beforeEach(() => {
-    initialState = {
-      locale: 'en'
-    };
-  });
-
-  it('should handle GET_Locale_Begin', () => {
-    const getLocalesBeginAction: IGetLocalesBeginAction = {
-      type: 'GetLocalesBegin'
-    };
-    expect(localeReducer(undefined, getLocalesBeginAction)).toMatchSnapshot();
-  });
-
-  it('should handle GET_Locale_Success', () => {
-    const getLocalesSuccessAction: IGetLocalesSuccessAction = {
-      type: 'GetLocalesSuccess',
-      locale: 'fr'
-    };
-    expect(
-      localeReducer(initialState, getLocalesSuccessAction)
-    ).toMatchSnapshot();
-  });
-
-  it('should handle GET_Locale_Failure', () => {
-    const getLocalesFailureAction: IGetLocalesFailureAction = {
-      type: 'GetLocalesFailure',
-      error: { success: false }
-    };
-    expect(
-      localeReducer(initialState, getLocalesFailureAction)
-    ).toMatchSnapshot();
-  });
-});
-
-describe('actions', () => {
-  let store;
-  beforeEach(() => {
-    store = mockStore({});
-  });
-
-  it('should create an action to get locale', async () => {
-    await store.dispatch(actions.getLocaleActionCreator());
-    expect(store.getActions()).toMatchSnapshot();
-  });
-});
 
 describe('Translation', () => {
   it('should return formatted message when passing key as FIELD_VALIDATION_KEY', () => {

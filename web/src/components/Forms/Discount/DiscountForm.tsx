@@ -31,6 +31,9 @@ import { dynamicsCompany } from '../../TypeAhead/TypeAheadConstantData/dynamicCo
 import CalculationsSummaryTable from '../../Table/CalculationsSummaryTable';
 import CalculationsSummaryType from '../../../enums/CalculationsSummaryType';
 import ISummaryCalculation from '../../../store/SummaryCalculation/Types/ISummaryCalculation';
+import { dynamicsContract } from '../../TypeAhead/TypeAheadConstantData/dynamicContractData';
+import Currency from '../../../store/Lookups/InitialState/Currency';
+
 
 interface Props {
   onNext: (data: IDiscountActivity) => void;
@@ -62,7 +65,7 @@ interface IMapStateToProps {
                     CurrencyObj,
                     prop => prop.currencyId
                   ),
-                    props.currencyId,
+                    props.currencyId > 0 ? props.currencyId : props.userPreferenceCurrencyId,
                     getPropertyName(
                     CurrencyObj,
                     prop => prop.currencySymbol
@@ -134,7 +137,7 @@ interface IMapStateToProps {
                   </MainTitle>
                   <Field
                   input={{
-                    value: (getFilterElementFromArray(dynamicsCompany,"CompanyId", props.clientName,"Name") || props.otherClientName),
+                    value: (getFilterElementFromArray(dynamicsContract,"CustomerId", props.clientName,"Name") || props.otherClientName),
                     disabled: true
                     }}
                     type="text"
@@ -245,6 +248,7 @@ const mapStateToProps = (state: IState) => ({
   clientDiscountValue:discountSelector(state, 'clientDiscount'),
   discountForm:  getFormValues('DiscountForm')(state),
   summaryCalculation:state.summaryCalculation,
+  userPreferenceCurrencyId: userPreferenceSelector(state, 'currencyId')
 });
 
 const form = reduxForm<IDiscountActivity, Props & IMapStateToProps>({
@@ -253,5 +257,6 @@ const form = reduxForm<IDiscountActivity, Props & IMapStateToProps>({
 })(DiscountForm);
 
 const discountSelector = formValueSelector('DiscountForm');
+const userPreferenceSelector = formValueSelector('UserProfileForm');
 
 export default connect(mapStateToProps)(form);

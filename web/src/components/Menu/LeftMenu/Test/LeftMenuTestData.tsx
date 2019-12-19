@@ -36,11 +36,12 @@ export const form:IProjectDetail={
 }
 export const enquiryOverview:IProject={
   projectName: '',
-  companyId: '',
+  contractorId: '',
   headOfProject: '',
   projectManager: '',
   scope: '',
-  cnNumber: ''
+  cnNumber: '',
+  otherContractName: ''
 }
 export const leftMenuProjectData:IProjectDetailState={
       form: form,

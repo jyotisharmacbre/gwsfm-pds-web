@@ -1,10 +1,9 @@
 import React, { Component, useEffect } from 'react';
 import DiscountForm from '../components/Forms/Discount/DiscountForm';
-import { FormattedMessage, injectIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { IDiscountActivity } from '../store/DiscountForm/Types/IDiscountActivity';
 import EventType from '../enums/EventType';
 import Notify from '../enums/Notify';
-import { IDiscountState } from '../store/DiscountForm/Types/IDiscountState';
 import * as actions from '../store/rootActions';
 import { connect } from 'react-redux';
 import { IState } from '../store/state';
@@ -13,6 +12,7 @@ import { match } from 'react-router-dom';
 import { History } from 'history';
 import { ILookup } from '../store/Lookups/Types/ILookup';
 import { ICurrency } from '../store/Lookups/Types/ICurrency';
+import ProjectStatus from '../enums/ProjectStatus';
 
 interface IProps {
   match: match<{projectId:string}>;
@@ -28,6 +28,7 @@ interface IMapStateToProps {
   currencyId: number;
   clientName: string;
   otherClientName: string;
+  status:number;
 }
 
 interface IMapDispatchToProps {
@@ -49,6 +50,7 @@ interface IMapDispatchToProps {
 
 const Discounts: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = props => {
     const paramProjectId = props.match.params.projectId;
+  
     useEffect(() => {
       window.scrollTo(0, 0);
       props.getProjectStatus();
@@ -96,8 +98,8 @@ const Discounts: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = pro
 
     return (
       <div className="container-fluid">
-        <div className="row">
-          <div className="col-lg-12">
+            <div data-test="dis_row_status" className={(props.status==ProjectStatus.BidLost||props.status==ProjectStatus.OnHold)?"link_disabled row":"row"}> 
+             <div className="col-lg-12">
             <div className="custom-wrap discount_wrap">
               <div className="heading-subtitle">
                 <h1>
@@ -128,12 +130,13 @@ const mapStateToProps = (state: IState) => ({
     projectStatus: state.lookup.projectstatus,
     currencies: state.lookup.currencies,
     currencyId: state.project.form.currencyId,
-    clientName: state.project.form.companyId,
-    otherClientName: state.project.form.otherCompanyName
+    status:state.project.form.status,
+    clientName: state.project.form.contractorId,
+    otherClientName: state.project.form.otherContractName
   })
 
-const mapDispatchToProps = dispatch => {
-  return {
+  const mapDispatchToProps = dispatch => {
+    return {
       getProjectStatus: () => dispatch(actions.getProjectStatus()),
       discountFormAdd: (projectId, form, event) =>
         dispatch(actions.discountFormAdd(projectId, form, event)),

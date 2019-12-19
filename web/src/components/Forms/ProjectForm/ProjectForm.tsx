@@ -60,12 +60,14 @@ const ProjectForm: React.FC<Props &
 
   const otherDynamicsContract =
     props.dynamicsOtherContract.length > 0
-      ? props.dynamicsOtherContract[0].label.split(' ')[0]
+      ? props.dynamicsOtherContract[0].id
       : '';
+
+
 
   const otherDynamicsCompany =
     props.dynamicsOtherCompany.length > 0
-      ? props.dynamicsOtherCompany[0].label
+      ? props.dynamicsOtherCompany[0].id
       : '';
 
       const getFormattedContractId = (customerId: string) => {
@@ -184,7 +186,7 @@ const ProjectForm: React.FC<Props &
                 labelName="LABEL_COMPANY"
                 validationKey="LABEL_COMPANY"
                 submitParam = "id"/>
-                {otherDynamicsCompany === 'Other' && (
+                {otherDynamicsCompany === '0' && (
                   <Field
                     name="otherCompanyName"
                     type="text"
@@ -208,7 +210,7 @@ const ProjectForm: React.FC<Props &
                 validationKey="LABEL_CONTRACT"
                 submitParam = "id"/>
 
-                {otherDynamicsContract === 'Other' && (
+                {otherDynamicsContract === '0' && (
                   <Field
                     name="otherContractName"
                     type="text"
@@ -401,7 +403,7 @@ const ProjectForm: React.FC<Props &
                     CurrencyObj,
                     prop => prop.currencyId
                   ),
-                    props.currencyId,
+                    props.currencyId > 0 ? props.currencyId : props.userPreferenceCurrencyId ,
                     getPropertyName(
                     CurrencyObj,
                     prop => prop.currencySymbol
@@ -464,7 +466,7 @@ const ProjectForm: React.FC<Props &
                       <FormattedMessage id="PLACEHOLDER_FIRST_ASSET">
                         {message => <option value="">{message}</option>}
                       </FormattedMessage>
-                      >{getDropdown(props.projectstatus, LookupType.Asset)}
+                      >{getDropdown(props.projectstatus, LookupType.Asset_Type)}
                     </Field>
                   </div>
 
@@ -479,7 +481,7 @@ const ProjectForm: React.FC<Props &
                       <FormattedMessage id="PLACEHOLDER_SECOND_ASSET">
                         {message => <option value="">{message}</option>}
                       </FormattedMessage>
-                      {getDropdown(props.projectstatus, LookupType.Asset)}
+                      {getDropdown(props.projectstatus, LookupType.Asset_Type)}
                     </Field>
                   </div>
 
@@ -494,7 +496,7 @@ const ProjectForm: React.FC<Props &
                       <FormattedMessage id="PLACEHOLDER_THIRD_ASSET">
                         {message => <option value="">{message}</option>}
                       </FormattedMessage>
-                      {getDropdown(props.projectstatus, LookupType.Asset)}
+                      {getDropdown(props.projectstatus, LookupType.Asset_Type)}
                     </Field>
                   </div>
                 </div>
@@ -523,7 +525,7 @@ const ProjectForm: React.FC<Props &
                     CurrencyObj,
                     prop => prop.currencyId
                   ),
-                    props.currencyId,
+                  props.currencyId > 0 ? props.currencyId : props.userPreferenceCurrencyId,
                     getPropertyName(
                     CurrencyObj,
                     prop => prop.currencySymbol
@@ -583,7 +585,8 @@ const mapStateToProps = (state: IState) => ({
   dynamicsOtherCompany: state.dynamicData.dynamicsOtherCompany,
   currencyId: selector(state, 'currencyId'),
   probabilityOfWinning: selector(state, 'probabilityOfWinning'),
-  approximateValue : selector(state, "approxValue")
+  approximateValue : selector(state, "approxValue"),
+  userPreferenceCurrencyId: userPreferenceSelector(state, 'currencyId')
 });
 
 const form = reduxForm<IProjectDetail, Props>({
@@ -592,5 +595,6 @@ const form = reduxForm<IProjectDetail, Props>({
 })(injectIntl(ProjectForm));
 
 const selector = formValueSelector('ProjectForm');
+const userPreferenceSelector = formValueSelector('UserProfileForm');
 
 export default connect(mapStateToProps)(form);

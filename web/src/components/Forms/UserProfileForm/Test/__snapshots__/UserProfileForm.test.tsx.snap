@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserProfileForm Fields Defines form fields UserProfile form reducer should handle add userPreferences successfully 1`] = `
+Object {
+  "error": null,
+  "event": undefined,
+  "loading": false,
+  "notify": 1,
+  "preferences": Object {
+    "currencyId": 1,
+    "currencyName": "Dollar",
+    "currencySymbol": "$",
+    "languageId": 1,
+    "languageName": "en",
+    "userPreferenceId": "",
+  },
+}
+`;
+
+exports[`UserProfileForm Fields Defines form fields UserProfile form reducer should handle edit userPreferences successfully 1`] = `
+Object {
+  "error": null,
+  "event": undefined,
+  "loading": false,
+  "notify": 1,
+  "preferences": Object {
+    "currencyId": 1,
+    "currencyName": "Dollar",
+    "currencySymbol": "$",
+    "languageId": 1,
+    "languageName": "en",
+    "userPreferenceId": "",
+  },
+}
+`;
+
+exports[`UserProfileForm Fields Defines form fields UserProfile form reducer should handle get getUserPreferences successfully 1`] = `
+Object {
+  "error": null,
+  "event": undefined,
+  "loading": false,
+  "notify": 0,
+  "preferences": Object {
+    "languageId": 2,
+    "languageName": "french",
+  },
+}
+`;
+
+exports[`UserProfileForm Fields Defines form fields UserProfile form reducer should handle userPreferenceUpdateError with and return initialState 1`] = `
+Object {
+  "error": Object {
+    "success": false,
+  },
+  "event": 3,
+  "loading": false,
+  "notify": 2,
+  "preferences": Object {
+    "currencyId": 1,
+    "currencyName": "Dollar",
+    "currencySymbol": "$",
+    "languageId": 1,
+    "languageName": "en",
+    "userPreferenceId": "",
+  },
+}
+`;

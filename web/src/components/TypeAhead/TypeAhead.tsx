@@ -9,11 +9,10 @@ import { Validate } from "../../helpers/fieldValidations";
 import { getDynamicOther } from "../../store/DynamicsData/Action";
 
 const AdaptedTypeahead = ({ input, render, meta, labelName, className, ...rest }) =>{ 
-
 const formatValue = () => {
   let result = '';
   result = input.value != '' ? (rest.options.filter(option => option[rest.submitParam] == input.value)).slice() : '';
- return result;
+  return result;
 }
 
   return(
@@ -33,11 +32,9 @@ const formatValue = () => {
 const TypeAhead = ({ name, options, onSearch, DynamicsType, placeholderKey, intl,className, 
     searchText, labelName,validationKey, submitParam,selected, ...props }) => {
 
-    function handleChange(value: any) {
-      if(DynamicsType === 'contractorId'  || DynamicsType === 'companyId'){
+      function handleChange(value: any) {
         props.handleOtherFieldChange(value, DynamicsType);
-      }
-      }    
+        }      
  
       const _placeholder = placeholderKey
     ? intl.formatMessage({id:placeholderKey})

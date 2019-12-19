@@ -3,6 +3,8 @@ import {store} from '../index';
 import { ActionType } from './Types/ActionType';
 import { Dispatch } from 'redux';
 import { ICurrency } from './Types/ICurrency';
+import { ILanguage } from './Types/ILanguage';
+import { de } from 'date-fns/esm/locale';
 
 const getProjectStatusSuccess = (response: any) => {
   return {
@@ -28,7 +30,7 @@ export const getProjectStatus = () => {
     'Contract_Type',
     'Country',
     'Currency',
-    'Asset',
+    'Asset_Type',
     'Work_Type',
     'Enquiry_Type',
     'Discount_Type',
@@ -60,6 +62,21 @@ const getAllCurrenciesError = (error: any) => {
     payload: error
   };
 };
+
+const getAllLanguagesSuccess = (response: Array<ILanguage>) => {
+  return {
+    type: ActionType.GET_ALL_LANGUAGE_SUCCESS,
+    payload: response
+  };
+};
+
+const getAllLanguagesError = (error: any) => {
+  return {
+    type: ActionType.GET_ALL_LANGUAGE_ERROR,
+    payload: error
+  };
+};
+
 export const getAllCurrencies = (cache:boolean = true) => {
   return (dispatch: Dispatch) => {
     let storeData = store.getState().lookup.currencies;
@@ -75,5 +92,18 @@ export const getAllCurrencies = (cache:boolean = true) => {
         dispatch(getAllCurrenciesError(error));
       });
     }
+  };
+};
+
+export const getAllLanguages = () => { 
+  return (dispatch: Dispatch) => {
+    axios.baseAPI
+      .get('api/LookupData/GetLanguages')
+      .then(response => {       
+        dispatch(getAllLanguagesSuccess(response.data));
+      })
+      .catch(error => {       
+        dispatch(getAllCurrenciesError(error));
+      });
   };
 };

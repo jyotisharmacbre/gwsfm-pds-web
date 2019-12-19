@@ -34,6 +34,14 @@ const projectDetailError = (error: string) => {
     payload: error
   };
 };
+const changeProjectStatusState = (
+  status: number,
+) => {
+  return {
+    type: ActionType.CHANGE_PROJECT_STATUS_STATE,
+    payload: status
+  };
+};
 
 const headers = {
   'Content-Type': 'application/json'
@@ -145,5 +153,10 @@ const setProjectIdDispatch = () => {
 export const setProjectId = (projectId: string) => {
   return (dispatch: Dispatch) => {
     dispatch(setProjectIdDispatch());
+  };
+};
+export const changeProjectStatus = (status: number) => {
+  return (dispatch: Dispatch) => {
+    dispatch(changeProjectStatusState(status));
   };
 };
