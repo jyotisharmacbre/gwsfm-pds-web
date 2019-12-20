@@ -64,6 +64,8 @@ const ProjectPipelineForm: React.FC<Props & IReactIntl> = (props: any) => {
       <GridTable
         columns={getTableColumns()}
         data={getPipelineValues(lookupValues)}
+        sorting={true}
+        className="price-table"
         ActionList={[]}
       />
     </React.Fragment>
