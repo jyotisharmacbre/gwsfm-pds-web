@@ -4,6 +4,7 @@ import { Dispatch } from 'redux';
 import { IProjectAdditionalDetail } from './Types/IProjectAdditionalDetail';
 import moment from 'moment';
 import EventType from '../../enums/EventType';
+import { IProjectOverviewState } from './Types/IProjectOverviewState';
 
 const projectOverviewFormAddSuccess = (
   response: IProjectAdditionalDetail,
@@ -90,10 +91,11 @@ let config = {
 };
 export const projectOverviewFormAdd = (
   projectId: string,
-  data: IProjectAdditionalDetail,
+  data: IProjectOverviewState,
   event: EventType
 ) => {
-  data.projectId = projectId;
+  data.form.projectId = projectId;
+  data.form.projectAdditionalDetail.projectId = projectId;
   return (dispatch: Dispatch) => {
     axios.baseAPI
       .post('api/Projects/additionalDetails', data, config)
@@ -107,7 +109,7 @@ export const projectOverviewFormAdd = (
 };
 
 export const projectOverviewFormEdit = (
-  data: IProjectAdditionalDetail,
+  data: IProjectOverviewState,
   event: EventType
 ) => {
   return (dispatch: Dispatch) => {

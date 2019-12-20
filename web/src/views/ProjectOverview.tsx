@@ -23,6 +23,7 @@ import { getFilterElementFromArray } from '../helpers/utility-helper';
 import ProjectOverviewStatusTab from '../components/HeaderPage/ProjectOverviewStatusTab';
 import { getDynamicSubContractorData } from '../store/DynamicsData/Action';
 import { IDynamicSubContractorData } from '../store/DynamicsData/Types/IDynamicData';
+import { IProjectOverviewDetails } from '../store/ProjectOverviewForm/Types/IProjectOverviewDetails';
 
 const tableHeaders: IGeneralTableHeaderProps[] = [
   { heading: 'End Client Name', subHeading: 'ING' },
@@ -40,7 +41,7 @@ const table: IGeneralTableProps = {
 };
 
 interface IMapStateToProps {
-  form: IProjectAdditionalDetail;
+  form: IProjectOverviewDetails;
   notify: Notify;
   projectId: string;
   projectStatus: Array<ILookup>;
@@ -56,11 +57,11 @@ interface IMapDispatchToProps {
   getProjectStatus: () => void;
   projectOverviewFormAdd: (
     projectId: string,
-    form: IProjectAdditionalDetail,
+    form: IProjectOverviewDetails,
     event: EventType
   ) => void;
   projectOverviewFormEdit: (
-    form: IProjectAdditionalDetail,
+    form: IProjectOverviewDetails,
     event: EventType
   ) => void;
   getAdditionalDetails: (projectId: string) => void;
@@ -129,14 +130,14 @@ useEffect(() => {
  props.setAdminDefaultValues(props.countryId);
   },
 [props.countryId]);
-  const handlePrevious = (data: IProjectAdditionalDetail) => {
-    data.projectAddDetailId == ''
+  const handlePrevious = (data: IProjectOverviewDetails) => {
+    data.projectAdditionalDetail.projectAddDetailId == ''
       ? props.projectOverviewFormAdd(props.match.params.projectId, data, EventType.previous)
       : props.projectOverviewFormEdit(data, EventType.previous);
   };
 
-  const handleNext = (data: IProjectAdditionalDetail) => {
-    data.projectAddDetailId == ''
+  const handleNext = (data: IProjectOverviewDetails) => {
+    data.projectAdditionalDetail.projectAddDetailId == ''
       ? props.projectOverviewFormAdd(props.match.params.projectId, data, EventType.next)
       : props.projectOverviewFormEdit(data, EventType.next);
   };

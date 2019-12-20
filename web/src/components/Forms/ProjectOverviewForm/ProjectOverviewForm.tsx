@@ -33,17 +33,18 @@ import TypeAhead from '../../TypeAhead/TypeAhead';
 import { dynamicsSubcontractorData } from '../../TypeAhead/TypeAheadConstantData/dynamicSubcontractorData';
 import { IDynamicsOtherSubContractor } from '../../../store/DynamicsData/Types/IDynamicData';
 import ProjectStatus from '../../../enums/ProjectStatus';
+import { IProjectOverviewDetails } from '../../../store/ProjectOverviewForm/Types/IProjectOverviewDetails';
 import { formatMessage } from '../../../Translations/connectedIntlProvider';
 
 interface Props {
-  onNext: (data: IProjectAdditionalDetail) => void;
-  onPrevious: (data: IProjectAdditionalDetail) => void;
+  onNext: (data: IProjectOverviewDetails) => void;
+  onPrevious: (data: IProjectOverviewDetails) => void;
   projectstatus: any;
   status:number;
 }
 
 let ProjectOverviewForm: React.FC<Props  &
-  InjectedFormProps<IProjectAdditionalDetail, Props>> = props => {
+  InjectedFormProps<IProjectOverviewDetails, Props>> = props => {
   const { handleSubmit, initialValues } = props;
   const DropdownOptions = projectStatusData.map((status: any, i: number) => (
     <option key={i} value={status.value}>
@@ -65,10 +66,7 @@ let ProjectOverviewForm: React.FC<Props  &
               <div className="col-lg-8">
 
               <Field
-                    name={getPropertyName(
-                      initialValues,
-                      prop => prop.mainContractor
-                    )}
+                    name="projectAdditionalDetail.mainContractor"
                     type="text"
                     component={PdsFormInput}
                     className="required"
@@ -79,10 +77,7 @@ let ProjectOverviewForm: React.FC<Props  &
                     placeholderKey="PLACEHOLDER_CONTRACTORS_NAME"
                   />
                 <Field
-                  name={getPropertyName(
-                    initialValues,
-                    prop => prop.enquiryReceivedFrom
-                  )}
+                  name="projectAdditionalDetail.enquiryReceivedFrom"
                   data-test="enquiryReceivedFrom"
                   type="text"
                   component={PdsFormInput}
@@ -108,10 +103,7 @@ let ProjectOverviewForm: React.FC<Props  &
                         return (
                           <div className="form-check" key={index}>
                             <Field
-                              name={getPropertyName(
-                                initialValues,
-                                prop => prop.enquiryTypeId
-                              )}
+                              name="projectAdditionalDetail.enquiryTypeId"
                               component="input"
                               type="radio"
                               value={+data.lookupKey}
@@ -125,10 +117,7 @@ let ProjectOverviewForm: React.FC<Props  &
                       })}
                 </div>
                 <Field
-                  name={getPropertyName(
-                    initialValues,
-                    prop => prop.creditCheckResult
-                  )}
+                  name="projectAdditionalDetail.creditCheckResult"
                   data-test="creditCheckResult"
                   type="text"
                   component={PdsFormInput}
@@ -142,10 +131,7 @@ let ProjectOverviewForm: React.FC<Props  &
                   placeholderKey="PLACEHOLDER_CREDIT_CHECK_DETAILS"
                 />
                 <Field
-                  name={getPropertyName(
-                    initialValues,
-                    prop => prop.siteAddress
-                  )}
+                  name="projectAdditionalDetail.siteAddress"
                   data-test="siteAddress"
                   type="text"
                   component={PdsFormInput}
@@ -159,20 +145,14 @@ let ProjectOverviewForm: React.FC<Props  &
                   placeholderKey="PLACEHOLDER_ADD_SITE_ADDRESS"
                 />
                 <Field
-                  name={getPropertyName(
-                    initialValues,
-                    prop => prop.cdmNotifiable
-                  )}
+                  name="projectAdditionalDetail.cdmNotifiable"
                   data-test="cdmNotifiable"
                   component={PdsFormButton}
                   buttons={selectionButtons}
                   labelKey="LABEL_CDMNOTIFIABLE"
                 />
                 <Field
-                  name={getPropertyName(
-                    initialValues,
-                    prop => prop.formOfContract
-                  )}
+                  name="projectAdditionalDetail.formOfContract"
                   data-test="formOfContract"
                   type="text"
                   component={PdsFormInput}
@@ -186,7 +166,7 @@ let ProjectOverviewForm: React.FC<Props  &
                   placeholderKey="PLACEHOLDER_FORM_OF_CONTRACT"
                 />
                 <Field
-                  name={getPropertyName(initialValues, prop => prop.retention)}
+                  name="projectAdditionalDetail.retention"
                   data-test="retention"
                   type="text"
                   component={PdsFormInput}
@@ -200,10 +180,7 @@ let ProjectOverviewForm: React.FC<Props  &
                   placeholderKey="PLACEHOLDER_ADD_RETENTION"
                 />
                 <Field
-                  name={getPropertyName(
-                    initialValues,
-                    prop => prop.liquidatedDamages
-                  )}
+                  name="projectAdditionalDetail.liquidatedDamages"
                   data-test="liquidatedDamages"
                   type="text"
                   component={PdsFormInput}
@@ -217,7 +194,7 @@ let ProjectOverviewForm: React.FC<Props  &
                   placeholderKey="PLACEHOLDER_ADD_LIQUIDATED_DAMAGES"
                 />
                 <Field
-                  name={getPropertyName(initialValues, prop => prop.insurance)}
+                  name="projectAdditionalDetail.insurance"
                   data-test="insurance"
                   type="text"
                   component={PdsFormInput}
@@ -236,10 +213,7 @@ let ProjectOverviewForm: React.FC<Props  &
                   </label>
                   <div className="select-wrapper">
                     <Field
-                      name={getPropertyName(
-                        initialValues,
-                        prop => prop.workTypeId
-                      )}
+                      name="projectAdditionalDetailworkTypeId"
                       component={PdsFormSelect}
                       className="required"
                       validate={[Validate.required('MESSAGE_PROJECT_STATUS')]}
@@ -264,14 +238,14 @@ let ProjectOverviewForm: React.FC<Props  &
                         <div className="row">
                           <div className="col-xl-6 mt-2 position-relative manipulate-calendar">
                             <DatePicker
-                              name="commenceDate"
+                              name="projectAdditionalDetail.commenceDate"
                               data-test="commenceDate"
                               labelKey="LABEL_COMMENCE_DATE"
                             />
                           </div>
                           <div className="col-xl-6 mt-2 position-relative manipulate-calendar">
                             <DatePicker
-                              name="completionDate"
+                              name="projectAdditionalDetail.completionDate"
                               data-test="completionDate"
                               labelKey="LABEL_COMPLETION_DATE"
                             />
@@ -280,10 +254,7 @@ let ProjectOverviewForm: React.FC<Props  &
                         <div className="row">
                           <div className="col-xl-12">
                             <Field
-                              name={getPropertyName(
-                                initialValues,
-                                prop => prop.milestones
-                              )}
+                              name="projectAdditionalDetail.milestones"
                               data-test="milestones"
                               labelKey="LABEL_PROJECTMILE_STONES"
                               rows="7"
@@ -305,14 +276,14 @@ let ProjectOverviewForm: React.FC<Props  &
                         <div className="row">
                           <div className="col-xl-6 mt-2 position-relative manipulate-calendar">
                             <DatePicker
-                              name="firstValuationDate"
+                              name="projectAdditionalDetail.firstValuationDate"
                               data-test="firstValuationDate"
                               labelKey="LABEL_FIRST_VALUATION_DATE"
                             />
                           </div>
                           <div className="col-xl-6 mt-2 position-relative manipulate-calendar" >
                             <DatePicker
-                              name="finalAccountDate"
+                              name="projectAdditionalDetail.finalAccountDate"
                               data-test="finalAccountDate"
                               labelKey="LABEL_FIRST_ACCOUNT_DATE"
                             />
@@ -321,10 +292,7 @@ let ProjectOverviewForm: React.FC<Props  &
                         <div className="row">
                           <div className="col-xl-12">
                             <Field
-                              name={getPropertyName(
-                                initialValues,
-                                prop => prop.valuationIntervals
-                              )}
+                              name="projectAdditionalDetail.valuationIntervals"
                               data-test="valuationIntervals"
                               type="text"
                               component={PdsFormInput}
@@ -336,10 +304,7 @@ let ProjectOverviewForm: React.FC<Props  &
                         <div className="row">
                           <div className="col-xl-12">
                             <Field
-                              name={getPropertyName(
-                                initialValues,
-                                prop => prop.paymentTerms
-                              )}
+                              name="projectAdditionalDetail.paymentTerms"
                               data-test="paymentTerms"
                               type="text"
                               component={PdsFormInput}
@@ -352,79 +317,15 @@ let ProjectOverviewForm: React.FC<Props  &
                     </div>
                   </div>
                 </div>
-
                 <Field
-                  name={getPropertyName(
-                    initialValues,
-                    prop => prop.authorizedByHop
-                  )}
-                  data-test="authorizedByHop"
-                  type="text"
-                  component={PdsFormInput}
-                  labelKey="LABEL_AUTHORIZED_BY_HOP"
-                />
-                <div className={'form-group'}>
-                  <label>
-                    <FormattedMessage id="LABEL_PROJECT_BUDGET" />*
-                  </label>
-                  <div className="select-wrapper">
-                    <Field
-                      name={getPropertyName(initialValues, prop => prop.budget)}
-                      component={PdsFormSelect}
-                      validate={[Validate.required('PLACEHOLDER_BUDGET')]}
-                      placeholderKey="PLACEHOLDER_BUDGET"
-                      messageKey="MESSAGE_PROJECT_STATUS"
-                    >
-                      <FormattedMessage id="PLACEHOLDER_BUDGET">
-                        {message => <option value="">{message}</option>}
-                      </FormattedMessage>
-                      {DropdownOptions}
-                    </Field>
-                  </div>
-                </div>
-                <Field
-                  name={getPropertyName(
-                    initialValues,
-                    prop => prop.authorizedBy
-                  )}
-                  data-test="authorizedBy"
-                  type="text"
-                  component={PdsFormInput}
-                  labelKey="LABEL_AUTHORIZED_BY"
-                  placeholderKey="PLACEHOLDER_LABEL"
-                />
-                <Field
-                  name={getPropertyName(
-                    initialValues,
-                    prop => prop.authorizedBySecond
-                  )}
-                  data-test="authorizedBySecond"
-                  type="text"
-                  component={PdsFormInput}
-                  placeholderKey="PLACEHOLDER_LABEL"
-                />
-                <Field
-                  name={getPropertyName(
-                    initialValues,
-                    prop => prop.authorizedByThird
-                  )}
-                  data-test="authorizedByThird"
-                  type="text"
-                  component={PdsFormInput}
-                  placeholderKey="PLACEHOLDER_LABEL"
-                />
-                <Field
-                  name={getPropertyName(
-                    initialValues,
-                    prop => prop.isProjectLive
-                  )}
+                  name="projectAdditionalDetail.isProjectLive"
                   data-test="isProjectLive"
                   component={PdsFormButton}
                   buttons={selectionButtons}
                   labelKey="LABEL_PROJECT_IS_LIVE"
                 />
                 <Field
-                  name={getPropertyName(initialValues, prop => prop.comments)}
+                  name="projectAdditionalDetail.comments"
                   data-test="comments"
                   labelKey="LABEL_COMMENTS"
                   rows="7"
@@ -446,27 +347,7 @@ let ProjectOverviewForm: React.FC<Props  &
                         <label><FormattedMessage id="LABEL_AUTHORISED_BY" /></label>
                         <h6 className="mb-0 d-none d-lg-block"><FormattedMessage id="LABEL_SIGN_OFF_STATUS" /> </h6>
                       </div>
-                      <div className="col-lg-9">
-                          {/* <input className="form-control" type="text" placeholder="" /> */}
-                          <Field
-                            name={getPropertyName(
-                              initialValues,
-                              prop => prop.mainContractor
-                            )}
-                            data-test="mainContractor"
-                            type="text"
-                            component={PdsFormInput}                            
-                            rightSideFixPlaceHolderKey = "FIX_TEXT_HOP"
-                            className="required"
-                            validate={[
-                              Validate.required(''),
-                              Validate.maxLength(1000)
-                            ]}
-                            warn={alphaNumeric}
-                          />
-                      </div>
                       <div className="col-lg-3">
-
                         <div className="approve_state">
                           <span className="icon"><FontAwesomeIcon className="green" icon={faCheckCircle} /></span>
                           <label className='approv_label'><FormattedMessage id="LABEL_APPROVED" /> </label>
@@ -747,7 +628,7 @@ const mapStateToProps = (state: IState) => ({
   dynamicsOtherSubContractor: state.dynamicData.dynamicsOtherSubContractor,
 });
 
-const form = reduxForm<IProjectAdditionalDetail, Props>({
+const form = reduxForm<IProjectOverviewDetails, Props>({
   destroyOnUnmount: false,
   forceUnregisterOnUnmount: false,
   form: 'projectOverviewForm',
