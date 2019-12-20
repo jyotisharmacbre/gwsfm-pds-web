@@ -3,6 +3,17 @@ import { updateObject } from '../../helpers/utility-helper';
 import { IProjectOverviewState } from './Types/IProjectOverviewState';
 import Notify from '../../enums/Notify';
 import EventType from '../../enums/EventType';
+import { IProjectApprovals } from './Types/IProjectApprovals';
+
+export const newProjectApprovals : IProjectApprovals = {
+      projectApprovalId: '',
+      projectId: '',
+      projectApprovalRange: '',
+      approverType: '',
+      approvalStatus: '',
+      userId: '',
+};
+
 
 const initialState: IProjectOverviewState = {
   form:{
@@ -36,16 +47,7 @@ const initialState: IProjectOverviewState = {
       authorizedBySecond: '',
       authorizedByThird: ''
     },
-    projectApprovals: [
-      {
-        projectApprovalId: '',
-        projectId: '',
-        projectApprovalRange: '',
-        approverType: '',
-        approvalStatus: '',
-        userId: ''
-      }
-    ]
+    projectApprovals: []
   },
   error: null,
   loading: false,
