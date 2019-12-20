@@ -316,55 +316,6 @@ let ProjectOverviewForm: React.FC<Props  &
                     </div>
                   </div>
                 </div>
-
-                <Field
-                  name="projectAdditionalDetail.authorizedByHop"
-                  data-test="authorizedByHop"
-                  type="text"
-                  component={PdsFormInput}
-                  labelKey="LABEL_AUTHORIZED_BY_HOP"
-                />
-                <div className={'form-group'}>
-                  <label>
-                    <FormattedMessage id="LABEL_PROJECT_BUDGET" />*
-                  </label>
-                  <div className="select-wrapper">
-                    <Field
-                      name="projectAdditionalDetail.budget"
-                      component={PdsFormSelect}
-                      validate={[Validate.required('PLACEHOLDER_BUDGET')]}
-                      placeholderKey="PLACEHOLDER_BUDGET"
-                      messageKey="MESSAGE_PROJECT_STATUS"
-                    >
-                      <FormattedMessage id="PLACEHOLDER_BUDGET">
-                        {message => <option value="">{message}</option>}
-                      </FormattedMessage>
-                      {DropdownOptions}
-                    </Field>
-                  </div>
-                </div>
-                <Field
-                  name="projectAdditionalDetail.authorizedBy"
-                  data-test="authorizedBy"
-                  type="text"
-                  component={PdsFormInput}
-                  labelKey="LABEL_AUTHORIZED_BY"
-                  placeholderKey="PLACEHOLDER_LABEL"
-                />
-                <Field
-                  name="projectAdditionalDetail.authorizedBySecond"
-                  data-test="authorizedBySecond"
-                  type="text"
-                  component={PdsFormInput}
-                  placeholderKey="PLACEHOLDER_LABEL"
-                />
-                <Field
-                  name="projectAdditionalDetail.authorizedByThird"
-                  data-test="authorizedByThird"
-                  type="text"
-                  component={PdsFormInput}
-                  placeholderKey="PLACEHOLDER_LABEL"
-                />
                 <Field
                   name="projectAdditionalDetail.isProjectLive"
                   data-test="isProjectLive"
