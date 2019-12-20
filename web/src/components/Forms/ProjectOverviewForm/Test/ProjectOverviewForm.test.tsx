@@ -143,10 +143,10 @@ describe('ProjectOverviewForm Fields', () => {
       it('Should renders Retention field', () => {
         expect(field.prop('type')).toBe('text');
       });
-      it('Shows error when Retention is set to blank', () => {
+      it('Should not show error when Retention is set to blank', () => {
         field.simulate('blur');
         const errorBlock = wrapper.find('.text-danger');
-        expect(errorBlock).toHaveLength(1);
+        expect(errorBlock).toHaveLength(0);
       });
     });
     describe('Liquidated Damages field', () => {
@@ -157,10 +157,10 @@ describe('ProjectOverviewForm Fields', () => {
       it('Should renders Liquidated Damages field', () => {
         expect(field.prop('type')).toBe('text');
       });
-      it('Shows error when Liquidated Damages is set to blank', () => {
+      it('Should not show error when Liquidated Damages is set to blank', () => {
         field.simulate('blur');
         const errorBlock = wrapper.find('.text-danger');
-        expect(errorBlock).toHaveLength(1);
+        expect(errorBlock).toHaveLength(0);
       });
     });
     describe('Insurance field', () => {
