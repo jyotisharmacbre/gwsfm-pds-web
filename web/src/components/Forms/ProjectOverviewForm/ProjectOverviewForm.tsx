@@ -33,6 +33,7 @@ import TypeAhead from '../../TypeAhead/TypeAhead';
 import { dynamicsSubcontractorData } from '../../TypeAhead/TypeAheadConstantData/dynamicSubcontractorData';
 import { IDynamicsOtherSubContractor } from '../../../store/DynamicsData/Types/IDynamicData';
 import ProjectStatus from '../../../enums/ProjectStatus';
+import { formatMessage } from '../../../Translations/connectedIntlProvider';
 
 interface Props {
   onNext: (data: IProjectAdditionalDetail) => void;
@@ -299,7 +300,7 @@ let ProjectOverviewForm: React.FC<Props  &
                 <div className="row">
                   <div className="col-xl-10">
                     <div className="form-group">
-                      <label>Project Plan</label>
+                      <label><FormattedMessage id='LABEL_PROJECT_PLAN'></FormattedMessage></label>
                       <div className="calender-wrap">
                         <div className="row">
                           <div className="col-xl-6 mt-2 position-relative manipulate-calendar">
@@ -437,13 +438,13 @@ let ProjectOverviewForm: React.FC<Props  &
               <div className="col-xl-6">
                 <div className="authorised_form_wrap">
                   <h6 className="ml-0">
-                    <FormattedMessage id="TITLE_PROJECT_AUTHORISED" />
+                    <FormattedMessage id="LABEL_PROJECT_AUTHORISED" />
                   </h6>
                   <div className="authorised_form_inner">
                     <div className="row">
                       <div className="col-md-12 d-flex">
                         <label><FormattedMessage id="LABEL_AUTHORISED_BY" /></label>
-                        <h6 className="mb-0 d-none d-lg-block"><FormattedMessage id="TITLE_SIGN_OFF_STATUS" /> </h6>
+                        <h6 className="mb-0 d-none d-lg-block"><FormattedMessage id="LABEL_SIGN_OFF_STATUS" /> </h6>
                       </div>
                       <div className="col-lg-9">
                           {/* <input className="form-control" type="text" placeholder="" /> */}
@@ -474,7 +475,7 @@ let ProjectOverviewForm: React.FC<Props  &
                     </div>
                     <div className="row align-items-stretch">
                       <div className="col-lg-9 col-md-12 d-flex">
-                        <label> Authorised By Up To &#163; 100k</label>
+                        <label>{formatMessage('LABEL_AUTHORISED_BY_UP_TO', {0: '£ 100k' })}</label>
                       </div>
                       <div className="col-lg-9">
                         <div className="form-group">
@@ -491,7 +492,7 @@ let ProjectOverviewForm: React.FC<Props  &
                     </div>
                     <div className="row align-items-stretch">
                       <div className="col-lg-9 col-md-12 d-flex">
-                        <label> Authorised By Up To &#163; 250k</label>
+                        <label> {formatMessage('LABEL_AUTHORISED_BY_UP_TO', {0: '£ 250k' })}</label>
                       </div>
                       <div className="col-lg-9">
                         <div className="form-group">
@@ -508,7 +509,7 @@ let ProjectOverviewForm: React.FC<Props  &
                     </div>
                     <div className="row align-items-stretch">
                       <div className="col-lg-9 col-md-12 d-flex">
-                        <label> Authorised By Up To &#163; 250k</label>
+                        <label>{formatMessage('LABEL_AUTHORISED_BY_UP_TO', {0: '£ 250k' })}</label>
                       </div>
                       <div className="col-lg-9">
                         <div className="form-group">
@@ -525,7 +526,7 @@ let ProjectOverviewForm: React.FC<Props  &
                     </div>
                     <div className="row align-items-stretch">
                       <div className="col-lg-9 col-md-12 d-flex">
-                        <label> Authorised By Up To &#163; 1 Million</label>
+                        <label>{formatMessage('LABEL_AUTHORISED_BY_UP_TO', {0: '£ 1 Million' })}</label>
                       </div>
                       <div className="col-lg-9">
                         <div className="form-group">
@@ -556,7 +557,7 @@ let ProjectOverviewForm: React.FC<Props  &
                     </div>
                     <div className="row align-items-stretch">
                       <div className="col-lg-9 col-md-12 d-flex">
-                        <label> Authorised By Up To &#163; 3 Million</label>
+                        <label> {formatMessage('LABEL_AUTHORISED_BY_UP_TO', {0: '£ 3 Million' })}</label>
                         <label className="right_label"><FormattedMessage id="LABEL_DELEGATE" /> </label>
                       </div>
                       <div className="col-lg-9">
@@ -608,7 +609,7 @@ let ProjectOverviewForm: React.FC<Props  &
                     </div>
                     <div className="row align-items-stretch">
                       <div className="col-lg-9 col-md-12 d-flex">
-                        <label>Over &#163; 3 Million Authority</label></div>
+                          <label>{formatMessage('LABEL_OVER_MILLION', {0: '£ 405'})}</label></div>
                       <div className="col-lg-9">
                         <div className="form-group">
                           <input className="form-control" type="number" placeholder="" />
@@ -624,7 +625,7 @@ let ProjectOverviewForm: React.FC<Props  &
                     </div>
                     <div className="row align-items-stretch">
                       <div className="col-lg-9 col-md-12 d-flex">
-                        <label>Over &#163; 4.5 Million</label>
+                        <label>{formatMessage('LABEL_OVER_MILLION_AUTHORITY', {0: '£ 3'})}</label>
                       </div>
                       <div className="col-lg-9">
                         <div className="form-group">
@@ -643,14 +644,14 @@ let ProjectOverviewForm: React.FC<Props  &
                 </div>
               </div>
               <div className="col-xl-6">
-                  <h3 className="feed_head">Activity Feed</h3>
+                  <h3 className="feed_head"><FormattedMessage id='LABEL_ACTIVITY_FEED'></FormattedMessage></h3>
                   <section className="activity_feed">
                     <div className="feed-block">
                       <div className="feed-block-img feed-icon">
                       <FontAwesomeIcon className="" icon={faUser} />
                       </div>
                       <div className="feed-block-content">
-                        <h2>Approved by <span>John Wick</span></h2>
+                        <h2><FormattedMessage id='LABEL_APPROVED_BY'></FormattedMessage> <span>John Wick</span></h2>
                         <span className="feed-date-time">20/11/2019 | 03:40 AM</span>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto,
                             optio, dolorum provident rerum aut hic quasi placeat iure
@@ -664,7 +665,7 @@ let ProjectOverviewForm: React.FC<Props  &
                       <FontAwesomeIcon className="" icon={faTimes} />
                       </div>
                       <div className="feed-block-content">
-                        <h2>Approved by <span>John Smith</span></h2>
+                        <h2><FormattedMessage id='LABEL_APPROVED_BY'></FormattedMessage> <span>John Smith</span></h2>
                         <span className="feed-date-time">20/11/2019 | 03:40 AM</span>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto,
                             optio, dolorum provident rerum aut hic quasi placeat iure
@@ -678,7 +679,7 @@ let ProjectOverviewForm: React.FC<Props  &
                       <FontAwesomeIcon className="" icon={faUser} />
                       </div>
                       <div className="feed-block-content">
-                        <h2>Approved by <span>John Wick</span></h2>
+                        <h2><FormattedMessage id='LABEL_APPROVED_BY'></FormattedMessage> <span>John Wick</span></h2>
                         <span className="feed-date-time">20/11/2019 | 03:40 AM</span>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto,
                             optio, dolorum provident rerum aut hic quasi placeat iure
@@ -692,7 +693,7 @@ let ProjectOverviewForm: React.FC<Props  &
                       <FontAwesomeIcon className="" icon={faCheck} />
                       </div>
                       <div className="feed-block-content">
-                        <h2>Approved by <span>John Doe</span></h2>
+                        <h2><FormattedMessage id='LABEL_APPROVED_BY'></FormattedMessage> <span>John Doe</span></h2>
                         <span className="feed-date-time">20/11/2019 | 03:40 AM</span>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto,
                             optio, dolorum provident rerum aut hic quasi placeat iure
@@ -706,7 +707,7 @@ let ProjectOverviewForm: React.FC<Props  &
                       <FontAwesomeIcon className="" icon={faUser} />
                       </div>
                       <div className="feed-block-content">
-                        <h2>Approved by <span>John Wick</span></h2>
+                        <h2><FormattedMessage id='LABEL_APPROVED_BY'></FormattedMessage> <span>John Wick</span></h2>
                         <span className="feed-date-time">20/11/2019 | 03:40 AM</span>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto,
                                                         optio, dolorum provident .</p>
