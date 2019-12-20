@@ -188,3 +188,18 @@ export const reactivateProject = (
       });
   };
 };
+export const getAdminDefaultValues = (countryId: number) => {
+  let sessionData:any=sessionStorage.getItem("defaultParameters");
+  let isLookupSessionExists: boolean = JSON.parse(sessionData).length>0?true:false
+  return (dispatch: Dispatch) => {
+    if(!isLookupSessionExists)
+    {
+      axios.baseAPI
+      .get(`api/Admin/getProjectParameters/${countryId}`)
+      .then(response => {
+        sessionStorage.setItem("defaultParameters",JSON.stringify(response.data));
+      })
+      .catch(error => {});
+    }
+    }
+};

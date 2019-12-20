@@ -403,7 +403,7 @@ const ProjectForm: React.FC<Props &
                     CurrencyObj,
                     prop => prop.currencyId
                   ),
-                    props.currencyId,
+                    props.currencyId > 0 ? props.currencyId : props.userPreferenceCurrencyId ,
                     getPropertyName(
                     CurrencyObj,
                     prop => prop.currencySymbol
@@ -525,7 +525,7 @@ const ProjectForm: React.FC<Props &
                     CurrencyObj,
                     prop => prop.currencyId
                   ),
-                    props.currencyId,
+                  props.currencyId > 0 ? props.currencyId : props.userPreferenceCurrencyId,
                     getPropertyName(
                     CurrencyObj,
                     prop => prop.currencySymbol
@@ -585,7 +585,8 @@ const mapStateToProps = (state: IState) => ({
   dynamicsOtherCompany: state.dynamicData.dynamicsOtherCompany,
   currencyId: selector(state, 'currencyId'),
   probabilityOfWinning: selector(state, 'probabilityOfWinning'),
-  approximateValue : selector(state, "approxValue")
+  approximateValue : selector(state, "approxValue"),
+  userPreferenceCurrencyId: userPreferenceSelector(state, 'currencyId')
 });
 
 const form = reduxForm<IProjectDetail, Props>({
@@ -594,5 +595,6 @@ const form = reduxForm<IProjectDetail, Props>({
 })(injectIntl(ProjectForm));
 
 const selector = formValueSelector('ProjectForm');
+const userPreferenceSelector = formValueSelector('UserProfileForm');
 
 export default connect(mapStateToProps)(form);

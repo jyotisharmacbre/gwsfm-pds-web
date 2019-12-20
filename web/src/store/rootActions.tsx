@@ -5,7 +5,8 @@ export {
   resetProjectOverviewState,
   changeProjectStatusToBidLost,
   changeProjectStatusToOnHold,
-  reactivateProject
+  reactivateProject,
+  getAdminDefaultValues
 } from './ProjectOverviewForm/Actions';
 
 export {
