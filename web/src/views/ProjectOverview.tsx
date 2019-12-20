@@ -130,10 +130,9 @@ useEffect(() => {
  props.setAdminDefaultValues(props.countryId);
   },
 [props.countryId]);
-  const handlePrevious = (data: IProjectOverviewDetails) => {
-    data.projectAdditionalDetail.projectAddDetailId == ''
-      ? props.projectOverviewFormAdd(props.match.params.projectId, data, EventType.previous)
-      : props.projectOverviewFormEdit(data, EventType.previous);
+  const handlePrevious = () => {
+    props.history.push(`/Project/${props.match.params.projectId}`);
+
   };
 
   const handleNext = (data: IProjectOverviewDetails) => {

@@ -11,7 +11,7 @@ const DatePicker = props => {
     <div className={'form-group'}>
       {props.labelKey && (
         <label>
-          <FormattedMessage id={props.labelKey} />
+          <FormattedMessage id={props.labelKey} />{props.isRequire?"*":""}
         </label>
       )}
       <Field

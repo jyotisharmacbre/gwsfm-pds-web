@@ -38,7 +38,7 @@ import { formatMessage } from '../../../Translations/connectedIntlProvider';
 
 interface Props {
   onNext: (data: IProjectOverviewDetails) => void;
-  onPrevious: (data: IProjectOverviewDetails) => void;
+  onPrevious: () => void;
   projectstatus: any;
   status:number;
 }
@@ -240,6 +240,7 @@ let ProjectOverviewForm: React.FC<Props  &
                             <DatePicker
                               name="projectAdditionalDetail.commenceDate"
                               data-test="commenceDate"
+                              isRequire={true}
                               labelKey="LABEL_COMMENCE_DATE"
                             />
                           </div>
@@ -247,6 +248,7 @@ let ProjectOverviewForm: React.FC<Props  &
                             <DatePicker
                               name="projectAdditionalDetail.completionDate"
                               data-test="completionDate"
+                              isRequire={true}
                               labelKey="LABEL_COMPLETION_DATE"
                             />
                           </div>
@@ -258,6 +260,8 @@ let ProjectOverviewForm: React.FC<Props  &
                               data-test="milestones"
                               labelKey="LABEL_PROJECTMILE_STONES"
                               rows="7"
+                              className="required"
+                              validate={[Validate.required('LABEL_PROJECTMILE_STONES')]}
                               component={PdsFormTextArea}
                               placeholderKey="PLACEHOLDER_PROJECT_MILESTONES"
                             />
@@ -278,6 +282,7 @@ let ProjectOverviewForm: React.FC<Props  &
                             <DatePicker
                               name="projectAdditionalDetail.firstValuationDate"
                               data-test="firstValuationDate"
+                              isRequire={true}
                               labelKey="LABEL_FIRST_VALUATION_DATE"
                             />
                           </div>
@@ -285,6 +290,7 @@ let ProjectOverviewForm: React.FC<Props  &
                             <DatePicker
                               name="projectAdditionalDetail.finalAccountDate"
                               data-test="finalAccountDate"
+                              isRequire={true}
                               labelKey="LABEL_FIRST_ACCOUNT_DATE"
                             />
                           </div>
@@ -295,6 +301,8 @@ let ProjectOverviewForm: React.FC<Props  &
                               name="projectAdditionalDetail.valuationIntervals"
                               data-test="valuationIntervals"
                               type="text"
+                              className="required"
+                              validate={[Validate.required('LABEL_VALUATION_INTERVALS')]}
                               component={PdsFormInput}
                               labelKey="LABEL_VALUATION_INTERVALS"
                               placeholderKey="PLACEHOLDER_VALUATION_INTERVALS"
@@ -307,6 +315,8 @@ let ProjectOverviewForm: React.FC<Props  &
                               name="projectAdditionalDetail.paymentTerms"
                               data-test="paymentTerms"
                               type="text"
+                              className="required"
+                              validate={[Validate.required('LABEL_PAYMENT_TERMS')]}
                               component={PdsFormInput}
                               labelKey="LABEL_PAYMENT_TERMS"
                               placeholderKey="PLACEHOLDER_PAYMENT_TERMS"
@@ -603,7 +613,7 @@ let ProjectOverviewForm: React.FC<Props  &
               <button
                 className="active mb-4 mt-5"
                 type="button"
-                onClick={handleSubmit(values => props.onPrevious(values))}
+                onClick={()=>props.onPrevious()}
               >
                 <FormattedMessage id="BUTTON_PREVIOUS" />
               </button>
