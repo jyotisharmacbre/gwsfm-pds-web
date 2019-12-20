@@ -37,7 +37,7 @@ interface IMapDispatchToProps {
 const CalculationsSummaryTable:React.FC<Props & IMapStateToProps & IMapDispatchToProps> = props => {
     let initDiscount:ISummaryCalculation = {cost:0,sell:0,margin:0}
     let reduxState = {...initDiscount};
-    
+    let discountState = {...initDiscount};
     React.useEffect(()=>{
       if (props.projectId != '' && props.projectId != undefined && props.projectId != null) {
         if(props.name != CalculationsSummaryType.subContractor)
@@ -57,15 +57,16 @@ const CalculationsSummaryTable:React.FC<Props & IMapStateToProps & IMapDispatchT
         if(props.name != CalculationsSummaryType.preliminary && props.preliminaryState && props.preliminaryState.length > 0){ 
           getPreliminarySummaryCalculation(props.preliminaryState,reduxState);
         }
-        if(props.name != CalculationsSummaryType.discount && props.discountState){ 
-          getDiscountSummaryCalculation(props.discountState,reduxState);
-        }
         if(props.name == CalculationsSummaryType.subContractor && props.subContractor){
             localFormState = getSubContractorSummaryCalculation(props.subContractor,{...reduxState});
+            if(props.discountState)
+              getDiscountSummaryCalculation(props.discountState,localFormState);
             props.setSummaryCalculationState(localFormState);
         }
         if(props.name == CalculationsSummaryType.preliminary && props.preliminary){
           localFormState = getPreliminarySummaryCalculation(props.preliminary,{...reduxState});
+          if(props.discountState) 
+              getDiscountSummaryCalculation(props.discountState,localFormState);
           props.setSummaryCalculationState(localFormState);
         }
         if(props.name == CalculationsSummaryType.discount && props.discount){

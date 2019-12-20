@@ -1,4 +1,5 @@
 import * as axios from '../../client';
+import {store} from '../index';
 import { ActionType } from './Types/ActionType';
 import { Dispatch } from 'redux';
 import { IDiscountActivity } from './Types/IDiscountActivity';
@@ -82,8 +83,12 @@ export const discountFormEdit = (
   };
 };
 
-export const getDiscountData = (projectId: string) => {
+export const getDiscountData = (projectId: string,cache:boolean = true) => {
   return (dispatch: Dispatch) => {
+    let storeProjectId = store.getState().discount.form.projectId;
+    if(cache && storeProjectId && projectId == storeProjectId)
+      dispatch({type:ActionType.DEFAULT});
+    else{
     axios.baseAPI
     .get(`api/Discounts/${projectId}`, { headers: headers })
       .then(response => {
@@ -92,6 +97,7 @@ export const getDiscountData = (projectId: string) => {
       .catch(error => {
         dispatch(getDiscountDataError(error));
       });
+    } 
   };
 };
 

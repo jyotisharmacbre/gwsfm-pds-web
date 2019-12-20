@@ -23,7 +23,7 @@ export const getDiscountSummaryCalculation = (data:IDiscountActivity,state:ISumm
     if(data.supplierTotalDiscount != undefined)
       state.cost = state.cost - data.supplierTotalDiscount;
     if(data.clientDiscount != undefined){
-      state.sell = state.sell - (+calculateClientDiscount(data.discountType,state.sell,data.clientDiscount));
+      state.sell = state.sell - (+calculateClientDiscount(data.discountType,state.cost,data.clientDiscount));
     }
     state.margin = +calculateAverageMargin(state.cost,state.sell)
     return {cost:state.cost,sell:state.sell,margin:state.margin};

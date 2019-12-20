@@ -5,8 +5,8 @@ import {
 import {
   getSubContractorSummaryCalculation,
   getPreliminarySummaryCalculation} from '../CalculationSummary';
-import ISummaryCalculation from '../../store/SummaryCalculation/Types/ISummaryCalculation';
-import {newActivity} from '../../store/SubContractor/InitialState';
+import ISummaryCalculation from '../../../../store/SummaryCalculation/Types/ISummaryCalculation';
+import {newActivity} from '../../../../store/SubContractor/InitialState';
 
 describe('Summary calculation helper run without error', () => {
   
