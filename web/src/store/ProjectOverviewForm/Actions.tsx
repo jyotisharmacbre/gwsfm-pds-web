@@ -5,6 +5,7 @@ import { IProjectAdditionalDetail } from './Types/IProjectAdditionalDetail';
 import moment from 'moment';
 import EventType from '../../enums/EventType';
 import { IProjectOverviewState } from './Types/IProjectOverviewState';
+import { IProjectOverviewDetails } from './Types/IProjectOverviewDetails';
 
 const projectOverviewFormAddSuccess = (
   response: IProjectAdditionalDetail,
@@ -91,11 +92,11 @@ let config = {
 };
 export const projectOverviewFormAdd = (
   projectId: string,
-  data: IProjectOverviewState,
+  data: IProjectOverviewDetails,
   event: EventType
 ) => {
-  data.form.projectId = projectId;
-  data.form.projectAdditionalDetail.projectId = projectId;
+  data.projectId = projectId;
+  data.projectAdditionalDetail.projectId = projectId;
   return (dispatch: Dispatch) => {
     axios.baseAPI
       .post('api/Projects/additionalDetails', data, config)
