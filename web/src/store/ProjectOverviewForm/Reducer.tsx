@@ -3,36 +3,51 @@ import { updateObject } from '../../helpers/utility-helper';
 import { IProjectOverviewState } from './Types/IProjectOverviewState';
 import Notify from '../../enums/Notify';
 import EventType from '../../enums/EventType';
+import { IProjectApprovals } from './Types/IProjectApprovals';
+
+export const newProjectApprovals : IProjectApprovals = {
+      projectApprovalId: '',
+      projectId: '',
+      projectApprovalRange: '',
+      approverType: '',
+      approvalStatus: '',
+      userId: '',
+};
+
 
 const initialState: IProjectOverviewState = {
-  form: {
-    projectAddDetailId: '',
-    projectId: '',
-    mainContractor: '',
-    enquiryReceivedFrom: '',
-    enquiryTypeId: -1,
-    creditCheckResult: '',
-    siteAddress: '',
-    cdmNotifiable: false,
-    formOfContract: '',
-    retention: '',
-    liquidatedDamages: '',
-    insurance: '',
-    workTypeId: -1,
-    commenceDate: new Date().toJSON(),
-    completionDate: new Date().toJSON(),
-    milestones: '',
-    firstValuationDate: new Date().toJSON(),
-    finalAccountDate: new Date().toJSON(),
-    valuationIntervals: '',
-    paymentTerms: '',
-    isProjectLive: false,
-    comments: '',
-    authorizedByHop: '',
-    budget: 1,
-    authorizedBy: '',
-    authorizedBySecond: '',
-    authorizedByThird: ''
+  form:{
+      projectId: '',
+      projectAdditionalDetail: {
+      projectAddDetailId: '',
+      projectId: '',
+      mainContractor: '',
+      enquiryReceivedFrom: '',
+      enquiryTypeId: -1,
+      creditCheckResult: '',
+      siteAddress: '',
+      cdmNotifiable: false,
+      formOfContract: '',
+      retention: '',
+      liquidatedDamages: '',
+      insurance: '',
+      workTypeId: -1,
+      commenceDate: new Date().toJSON(),
+      completionDate: new Date().toJSON(),
+      milestones: '',
+      firstValuationDate: new Date().toJSON(),
+      finalAccountDate: new Date().toJSON(),
+      valuationIntervals: '',
+      paymentTerms: '',
+      isProjectLive: false,
+      comments: '',
+      authorizedByHop: '',
+      budget: 1,
+      authorizedBy: '',
+      authorizedBySecond: '',
+      authorizedByThird: ''
+    },
+    projectApprovals: []
   },
   error: null,
   loading: false,

@@ -4,6 +4,8 @@ import { Dispatch } from 'redux';
 import { IProjectAdditionalDetail } from './Types/IProjectAdditionalDetail';
 import moment from 'moment';
 import EventType from '../../enums/EventType';
+import { IProjectOverviewState } from './Types/IProjectOverviewState';
+import { IProjectOverviewDetails } from './Types/IProjectOverviewDetails';
 
 const projectOverviewFormAddSuccess = (
   response: IProjectAdditionalDetail,
@@ -90,10 +92,11 @@ let config = {
 };
 export const projectOverviewFormAdd = (
   projectId: string,
-  data: IProjectAdditionalDetail,
+  data: IProjectOverviewDetails,
   event: EventType
 ) => {
   data.projectId = projectId;
+  data.projectAdditionalDetail.projectId = projectId;
   return (dispatch: Dispatch) => {
     axios.baseAPI
       .post('api/Projects/additionalDetails', data, config)
@@ -107,7 +110,7 @@ export const projectOverviewFormAdd = (
 };
 
 export const projectOverviewFormEdit = (
-  data: IProjectAdditionalDetail,
+  data: IProjectOverviewState,
   event: EventType
 ) => {
   return (dispatch: Dispatch) => {
@@ -190,7 +193,7 @@ export const reactivateProject = (
 };
 export const getAdminDefaultValues = (countryId: number) => {
   let sessionData:any=sessionStorage.getItem("defaultParameters");
-  let isLookupSessionExists: boolean = sessionData?(JSON.parse(sessionData).length>1?true:false):false;
+  let isLookupSessionExists: boolean = sessionData?(JSON.parse(sessionData).length>0?true:false):false;
   return (dispatch: Dispatch) => {
     if(!isLookupSessionExists)
     {

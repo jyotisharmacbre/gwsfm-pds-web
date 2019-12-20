@@ -68,7 +68,7 @@ describe('ProjectOverviewForm Fields', () => {
     let field: ShallowWrapper;
     describe('Main Contractor field', () => {
       beforeEach(() => {
-        field = wrapper.find('input[name="mainContractor"]').first();
+        field = wrapper.find('input[name="projectAdditionalDetail.mainContractor"]').first();
       });
       it('Should renders Main Contractor field', () => {
         expect(field.prop('type')).toBe('text');
@@ -76,13 +76,13 @@ describe('ProjectOverviewForm Fields', () => {
       it('Shows error when Main Contractor is set to blank', () => {
         field.simulate('blur');
         const errorBlock = wrapper.find('.text-danger');
-        expect(errorBlock).toHaveLength(2);
+        expect(errorBlock).toHaveLength(1);
       }); 
     });
     describe('Enquiry Received From field', () => {
       let field: ShallowWrapper;
       beforeEach(() => {
-        field = wrapper.find('input[name="enquiryReceivedFrom"]').first();
+        field = wrapper.find('input[name="projectAdditionalDetail.enquiryReceivedFrom"]').first();
       });
       it('Should renders Enquiry Received From field', () => {
         expect(field.prop('type')).toBe('text');
@@ -96,7 +96,7 @@ describe('ProjectOverviewForm Fields', () => {
     describe('Credit Check Result field', () => {
       let field: ShallowWrapper;
       beforeEach(() => {
-        field = wrapper.find('input[name="creditCheckResult"]').first();
+        field = wrapper.find('input[name="projectAdditionalDetail.creditCheckResult"]').first();
       });
       it('Should renders Credit Check Result field', () => {
         expect(field.prop('type')).toBe('text');
@@ -110,7 +110,7 @@ describe('ProjectOverviewForm Fields', () => {
     describe('Site Address field', () => {
       let field: ShallowWrapper;
       beforeEach(() => {
-        field = wrapper.find('input[name="siteAddress"]').first();
+        field = wrapper.find('input[name="projectAdditionalDetail.siteAddress"]').first();
       });
       it('Should renders Site Address field', () => {
         expect(field.prop('type')).toBe('text');
@@ -124,7 +124,7 @@ describe('ProjectOverviewForm Fields', () => {
     describe('Form Of Contract field', () => {
       let field: ShallowWrapper;
       beforeEach(() => {
-        field = wrapper.find('input[name="formOfContract"]').first();
+        field = wrapper.find('input[name="projectAdditionalDetail.formOfContract"]').first();
       });
       it('Should renders Form Of Contract field', () => {
         expect(field.prop('type')).toBe('text');
@@ -138,7 +138,7 @@ describe('ProjectOverviewForm Fields', () => {
     describe('Retention field', () => {
       let field: ShallowWrapper;
       beforeEach(() => {
-        field = wrapper.find('input[name="retention"]').first();
+        field = wrapper.find('input[name="projectAdditionalDetail.retention"]').first();
       });
       it('Should renders Retention field', () => {
         expect(field.prop('type')).toBe('text');
@@ -152,7 +152,7 @@ describe('ProjectOverviewForm Fields', () => {
     describe('Liquidated Damages field', () => {
       let field: ShallowWrapper;
       beforeEach(() => {
-        field = wrapper.find('input[name="liquidatedDamages"]').first();
+        field = wrapper.find('input[name="projectAdditionalDetail.liquidatedDamages"]').first();
       });
       it('Should renders Liquidated Damages field', () => {
         expect(field.prop('type')).toBe('text');
@@ -166,7 +166,7 @@ describe('ProjectOverviewForm Fields', () => {
     describe('Insurance field', () => {
       let field: ShallowWrapper;
       beforeEach(() => {
-        field = wrapper.find('input[name="insurance"]').first();
+        field = wrapper.find('input[name="projectAdditionalDetail.insurance"]').first();
       });
       it('Should renders Insurance field', () => {
         expect(field.prop('type')).toBe('text');

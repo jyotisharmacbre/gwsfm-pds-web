@@ -81,6 +81,26 @@ it('should trigger reactivate action handler on click of active button', () => {
     container.simulate("click");
     expect(container.invoke.call.length).toBe(1);
 });
+it('should display reactivate action and status bar in disable state if status is bidlost or onhold', () => {
+  const testProps: any = {
+    status : 4,
+    statusName:"test",
+    onReactivate:jest.fn(),
+    handleBidLost:jest.fn(),
+    handleOnHold:jest.fn()
+  };
+wrapper = mount(
+    <Provider store={store}>
+    <IntlProvider locale="en" messages={translations['en'].messages}>
+    <ProjectOverviewStatusTab {...testProps}/>
+    </IntlProvider>
+    </Provider>
+  );
+  let button=findByTestAtrr(wrapper,"activateButton").first();
+  let container=findByTestAtrr(wrapper,"toggleStatusTab").first();
+  expect(button.length).toBe(1);
+  expect(container.hasClass("link_disabled")).toBe(true);
+});
 });
 
 

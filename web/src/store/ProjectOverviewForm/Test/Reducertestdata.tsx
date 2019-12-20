@@ -3,7 +3,9 @@ import Notify from "../../../enums/Notify";
 import EventType from "../../../enums/EventType";
 
 export const initialState: IProjectOverviewState = {
-    form: {
+  form:{
+    projectId: '',
+    projectAdditionalDetail: {
       projectAddDetailId: '',
       projectId: '',
       mainContractor: '',
@@ -32,6 +34,16 @@ export const initialState: IProjectOverviewState = {
       authorizedBySecond: '',
       authorizedByThird: ''
     },
+    projectApprovals: [
+      {
+        projectApprovalId: '',
+        projectId: '',
+        projectApprovalRange: '',
+        approverType: '',
+        approvalStatus: '',
+        userId: ''
+      }
+    ]},
     error: null,
     loading: false,
     notify: Notify.none,
