@@ -28,7 +28,7 @@ interface IMapStateToProps {
   currencyId: number;
   clientName: string;
   otherClientName: string;
-  status:number;
+  status: number;
 }
 
 interface IMapDispatchToProps {
@@ -58,61 +58,70 @@ const Discounts: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = pro
       if (paramProjectId != null && paramProjectId != '') {
         props.getProjectDetail(paramProjectId);
         props.getDiscountData(paramProjectId);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (props.notify == Notify.success) {
+      if (props.event == EventType.next) {
+        toast.success('Data Saved Successfully');
+        props.history.push(`/`);
+      } else if (props.event == EventType.previous) {
+        toast.success('Data Saved Successfully');
+        props.history.push(`/Subcontractor/${props.match.params.projectId}`);
+      } else if (props.event == EventType.save) {
+        toast.success('Data Saved Successfully');
       }
-    }, []);
+      props.resetDiscountState();
+    }
+  }, [props.notify, props.event]);
 
-    useEffect(() => {
-      if (props.notify == Notify.success) {
-        if (props.event == EventType.next) {
-          toast.success('Data Saved Successfully');
-          props.history.push(`/`);
-        } else if (props.event == EventType.previous) {
-          toast.success('Data Saved Successfully');
-          props.history.push('/Subcontractor');
+  const handlePrevious = (data: IDiscountActivity) => {
+    data.discountId == ''
+      ? props.discountFormAdd(paramProjectId, data, EventType.previous)
+      : props.discountFormEdit(data, EventType.previous);
+  };
+
+  const handleNext = (data: IDiscountActivity) => {
+    data.discountId == ''
+      ? props.discountFormAdd(paramProjectId, data, EventType.next)
+      : props.discountFormEdit(data, EventType.next);
+  };
+
+  const handleSave = (data: IDiscountActivity) => {
+    data.discountId == ''
+      ? props.discountFormAdd(paramProjectId, data, EventType.save)
+      : props.discountFormEdit(data, EventType.save);
+  };
+
+  return (
+    <div className="container-fluid">
+      <div
+        data-test="dis_row_status"
+        className={
+          props.status == ProjectStatus.BidLost ||
+          props.status == ProjectStatus.OnHold
+            ? 'link_disabled row'
+            : 'row'
         }
-        else if (props.event == EventType.save) {
-          toast.success('Data Saved Successfully');
-        }
-        props.resetDiscountState();
-      }
-    }, [props.notify, props.event]);
-
-    const handlePrevious = (data: IDiscountActivity) => {
-      data.discountId == ''
-        ? props.discountFormAdd(paramProjectId, data, EventType.previous)
-        : props.discountFormEdit(data, EventType.previous);
-    };
-  
-    const handleNext = (data: IDiscountActivity) => {
-      data.discountId == ''
-        ? props.discountFormAdd(paramProjectId, data, EventType.next)
-        : props.discountFormEdit(data, EventType.next);
-    };
-
-      
-    const handleSave = (data: IDiscountActivity) => {
-      data.discountId == ''
-        ? props.discountFormAdd(paramProjectId, data, EventType.save)
-        : props.discountFormEdit(data, EventType.save);
-    };
-
-    return (
-      <div className="container-fluid">
-            <div data-test="dis_row_status" className={(props.status==ProjectStatus.BidLost||props.status==ProjectStatus.OnHold)?"link_disabled row":"row"}> 
-             <div className="col-lg-12">
-            <div className="custom-wrap discount_wrap">
-              <div className="heading-subtitle">
-                <h1>
-                  <FormattedMessage id="TITLE_JUSTIFICATION" />
-                </h1>
-                <p className="text-green"><FormattedMessage id="SUB_TITLE_DISCOUNTS" /></p>
-              </div>
-              <DiscountForm onNext={handleNext}
+      >
+        <div className="col-lg-12">
+          <div className="custom-wrap discount_wrap">
+            <div className="heading-subtitle">
+              <h1>
+                <FormattedMessage id="TITLE_JUSTIFICATION" />
+              </h1>
+              <p className="text-green">
+                <FormattedMessage id="SUB_TITLE_DISCOUNTS" />
+              </p>
+            </div>
+            <DiscountForm
+              onNext={handleNext}
               onPrevious={handlePrevious}
               onSave={handleSave}
               projectstatus={props.projectStatus}
               currencies={props.currencies}
-              currencyId={props.currencyId} 
+              currencyId={props.currencyId}
               clientName={props.clientName}
               otherClientName= {props.otherClientName} 
               projectId={props.match.params.projectId}/>
@@ -120,8 +129,9 @@ const Discounts: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = pro
           </div>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
+};
 
 const mapStateToProps = (state: IState) => ({
     form: state.discount.form,

@@ -15,7 +15,7 @@ import { IState } from '../store/state';
 import Notify from '../enums/Notify';
 import EventType from '../enums/EventType';
 import { ILookup } from '../store/Lookups/Types/ILookup';
-import { useHistory } from 'react-router-dom';
+import { History } from 'history';
 import { toast } from 'react-toastify';
 import { formatMessage } from '../Translations/connectedIntlProvider';
 import { dynamicsContract } from '../components/TypeAhead/TypeAheadConstantData/dynamicContractData';
@@ -23,6 +23,7 @@ import { getFilterElementFromArray } from '../helpers/utility-helper';
 import ProjectOverviewStatusTab from '../components/HeaderPage/ProjectOverviewStatusTab';
 import { getDynamicSubContractorData } from '../store/DynamicsData/Action';
 import { IDynamicSubContractorData } from '../store/DynamicsData/Types/IDynamicData';
+import { IProjectOverviewDetails } from '../store/ProjectOverviewForm/Types/IProjectOverviewDetails';
 
 const tableHeaders: IGeneralTableHeaderProps[] = [
   { heading: 'End Client Name', subHeading: 'ING' },
@@ -40,7 +41,7 @@ const table: IGeneralTableProps = {
 };
 
 interface IMapStateToProps {
-  form: IProjectAdditionalDetail;
+  form: IProjectOverviewDetails;
   notify: Notify;
   projectId: string;
   projectStatus: Array<ILookup>;
@@ -48,16 +49,19 @@ interface IMapStateToProps {
   event: EventType;
   projectScope: string;
   status:number;
+  dynamicsSubContractor: Array<IDynamicSubContractorData>;
+  countryId:number;
+  history:History;
 }
 interface IMapDispatchToProps {
   getProjectStatus: () => void;
   projectOverviewFormAdd: (
     projectId: string,
-    form: IProjectAdditionalDetail,
+    form: IProjectOverviewDetails,
     event: EventType
   ) => void;
   projectOverviewFormEdit: (
-    form: IProjectAdditionalDetail,
+    form: IProjectOverviewDetails,
     event: EventType
   ) => void;
   getAdditionalDetails: (projectId: string) => void;
@@ -68,6 +72,8 @@ interface IMapDispatchToProps {
   changeProjectStatusToBidLost: (projectId: string) => void;
   reactivateProject:(projectId: string) => void;
   setProjectStatus:(status: number) => void;
+  handleGetDynamicSubContractorData: (searchSubContractor: string) => void;
+  setAdminDefaultValues:(countryId:number)=>void;
 }
 interface IProps {
   projectId: string;
@@ -77,7 +83,6 @@ interface IProps {
 const ProjectOverview: React.FC<IProps &
   IMapStateToProps &
   IMapDispatchToProps> = props => {
-  let history = useHistory();
   useEffect(() => {
     window.scrollTo(0, 0);
     props.getProjectStatus();
@@ -93,10 +98,10 @@ const ProjectOverview: React.FC<IProps &
     if (props.notify == Notify.success) {
       if (props.event == EventType.next) {
         toast.success('Data Saved Successfully');
-        history.push(`/JustificationAuthorisation/${props.match.params.projectId}`);
+        props.history.push(`/JustificationAuthorisation/${props.match.params.projectId}`);
       } else if (props.event == EventType.previous) {
         toast.success('Data Saved Successfully');
-        history.push(`/Project/${props.match.params.projectId}`);
+        props.history.push(`/Project/${props.match.params.projectId}`);
       }
       props.resetProjectOverviewState();
     }
@@ -121,14 +126,18 @@ const ProjectOverview: React.FC<IProps &
       props.resetProjectOverviewState();
     },
  [props.notify]);
-  const handlePrevious = (data: IProjectAdditionalDetail) => {
-    data.projectAddDetailId == ''
+useEffect(() => {
+ props.setAdminDefaultValues(props.countryId);
+  },
+[props.countryId]);
+  const handlePrevious = (data: IProjectOverviewDetails) => {
+    data.projectAdditionalDetail.projectAddDetailId == ''
       ? props.projectOverviewFormAdd(props.match.params.projectId, data, EventType.previous)
       : props.projectOverviewFormEdit(data, EventType.previous);
   };
 
-  const handleNext = (data: IProjectAdditionalDetail) => {
-    data.projectAddDetailId == ''
+  const handleNext = (data: IProjectOverviewDetails) => {
+    data.projectAdditionalDetail.projectAddDetailId == ''
       ? props.projectOverviewFormAdd(props.match.params.projectId, data, EventType.next)
       : props.projectOverviewFormEdit(data, EventType.next);
   };
@@ -189,7 +198,7 @@ const ProjectOverview: React.FC<IProps &
                 ],
                 content: props.projectScope,
                 editActionClick: () => {
-                  history.push(`/Project/${props.match.params.projectId}`);
+                  props.history.push(`/Project/${props.match.params.projectId}`);
                 }
               }}
             />
@@ -216,7 +225,9 @@ const mapStateToProps = (state: IState) => ({
   enquiryOverview: state.project.enquiryOverview,
   event: state.projectOverview.event,
   projectScope: state.project.form.scope,
-  status:state.project.form.status
+  status:state.project.form.status, 
+  dynamicsSubcontractor: state.dynamicData.dynamicsSubcontractor,
+  countryId: state.project.form.countryId
 });
 
 const mapDispatchToProps = dispatch => {
@@ -241,7 +252,11 @@ const mapDispatchToProps = dispatch => {
     reactivateProject: projectId =>
       dispatch(actions.reactivateProject(projectId)),
     setProjectStatus: status =>
-      dispatch(actions.changeProjectStatus(status))
+      dispatch(actions.changeProjectStatus(status)),
+    handleGetDynamicSubContractorData: searchSubContractor =>
+      dispatch(getDynamicSubContractorData(searchSubContractor)),
+    setAdminDefaultValues: countryId =>
+      dispatch(actions.getAdminDefaultValues(countryId))
   };
 };
 
