@@ -1,5 +1,5 @@
 import { bindUserData,convertIntoDatabaseModel } from '../DataWrapper';
-import {lookupData,preliminariesData,preliminariuserData,newUserData} from "./ReducerTestData";
+import {lookupData,preliminariesData,preliminariuserData,newUserData, defaultAdminData, expectedDataForDefaultValues} from "./ReducerTestData";
 describe('DataWrapper test cases', () => {
     it('should bind preliminaries database data into user format', () => {
      sessionStorage.setItem("lookupData",JSON.stringify(lookupData));
@@ -12,10 +12,16 @@ describe('DataWrapper test cases', () => {
         expect(convertIntoDatabaseModel(preliminariuserData,projectId)).not.toBeNull();
         expect(convertIntoDatabaseModel(preliminariuserData,projectId)).toHaveLength(1);
        });
-       it('should return correct data format,if no preliminary data found', () => {
+    it('should return correct data format if no preliminary data found', () => {
         sessionStorage.setItem("lookupData",JSON.stringify(lookupData));
         expect(bindUserData([])).not.toBeNull();
         expect(bindUserData([])).toMatchObject(newUserData);
+       });
+    it('should return default admin data format if no preliminary data found', () => {
+        sessionStorage.setItem("lookupData",JSON.stringify(lookupData));
+        sessionStorage.setItem("defaultParameters",JSON.stringify(defaultAdminData));
+        expect(bindUserData([])).not.toBeNull();
+        expect(bindUserData([])).toMatchObject(expectedDataForDefaultValues);
        });
   });
       

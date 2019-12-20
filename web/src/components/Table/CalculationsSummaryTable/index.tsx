@@ -63,7 +63,7 @@ const CalculationsSummaryTable:React.FC<Props> = (props:any) => {
     },[props.subContractorState,props.preliminaryState,props.subContractor,props.preliminary]);
 
     return (
-    <div className="col-lg-8 px-0">
+    <div className="col-lg-12 px-0">
         <div className="price-sumry discount_table">
           <div className="inner-block">
             <table className="price-table">

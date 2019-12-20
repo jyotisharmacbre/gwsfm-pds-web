@@ -19,7 +19,7 @@ import FontawsomeFree from '@fortawesome/free-solid-svg-icons';
 import FontawsomeReact, {
   FontAwesomeIcon
 } from '@fortawesome/react-fontawesome';
-import { faCheckCircle, faClock, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
+import { faCheckCircle, faClock, faExclamationTriangle, faUser, faTimes, faCheck } from '@fortawesome/free-solid-svg-icons';
 
 
 import {
@@ -32,21 +32,18 @@ import IReactIntl from '../../../Translations/IReactIntl';
 import TypeAhead from '../../TypeAhead/TypeAhead';
 import { dynamicsSubcontractorData } from '../../TypeAhead/TypeAheadConstantData/dynamicSubcontractorData';
 import { IDynamicsOtherSubContractor } from '../../../store/DynamicsData/Types/IDynamicData';
+import ProjectStatus from '../../../enums/ProjectStatus';
 
 interface Props {
   onNext: (data: IProjectAdditionalDetail) => void;
   onPrevious: (data: IProjectAdditionalDetail) => void;
   projectstatus: any;
-  onSearchSubContractor: (value: string) => void;
+  status:number;
 }
 
-interface IMapStateToProps {  
-  dynamicsOtherSubContractor: Array<IDynamicsOtherSubContractor>;
-}
-
-let ProjectOverviewForm: React.FC<Props & IMapStateToProps &
-  InjectedFormProps<IProjectAdditionalDetail, Props  & IMapStateToProps>> = props => {
-  const { handleSubmit, initialValues, onSearchSubContractor } = props;
+let ProjectOverviewForm: React.FC<Props  &
+  InjectedFormProps<IProjectAdditionalDetail, Props>> = props => {
+  const { handleSubmit, initialValues } = props;
   const DropdownOptions = projectStatusData.map((status: any, i: number) => (
     <option key={i} value={status.value}>
       {status.label}
@@ -54,21 +51,8 @@ let ProjectOverviewForm: React.FC<Props & IMapStateToProps &
   ));
   const normalize = value => (value ? parseInt(value) : null);
 
-  const otherDynamicsSubContractor =
-  props.dynamicsOtherSubContractor && props.dynamicsOtherSubContractor.length > 0
-    ? props.dynamicsOtherSubContractor[0].label
-    : '';
-      
-  const getDynamicsSubcontractorDropdown =
-  dynamicsSubcontractorData &&
-  dynamicsSubcontractorData.map((SubContractorData) => {
-    return { 
-    label: SubContractorData.Name,
-    id: SubContractorData.SubContractorId }     
-  }); 
-
   return (
-    <div className="container-fluid">
+    <div className="container-fluid ">
       <div className="row">
         <div className="col-lg-12 col-sm-12">
           <form
@@ -76,35 +60,23 @@ let ProjectOverviewForm: React.FC<Props & IMapStateToProps &
             noValidate={true}
             data-test="projectOverviewForm"
           >
-            <div className="row">
+            <div className={(props.status==ProjectStatus.BidLost||props.status==ProjectStatus.OnHold)?"link_disabled row":"row"}>
               <div className="col-lg-8">
 
-             <TypeAhead name={getPropertyName(
-                    initialValues,
-                    prop => prop.mainContractor
-                  )}
-                options={getDynamicsSubcontractorDropdown}
-                DynamicsType="SubContractorId"
-                onSearch={ onSearchSubContractor }
-                placeholderKey="PLACEHOLDER_CONTRACTORS_NAME"
-                className="required"
-                labelName="LABEL_MAIN_CONTRACTOR"
-                validationKey="LABEL_MAIN_CONTRACTOR"
-                submitParam = "id"/>
-
-                {otherDynamicsSubContractor === 'Other' && (
-                  <Field
-                    name="otherMainContractor"
+              <Field
+                    name={getPropertyName(
+                      initialValues,
+                      prop => prop.mainContractor
+                    )}
                     type="text"
                     component={PdsFormInput}
                     className="required"
                     validate={[
-                      Validate.required('LABEL_OTHER_MAIN_CONTRACTOR')
+                      Validate.required('LABEL_MAIN_CONTRACTOR')
                     ]}
-                    labelKey="LABEL_OTHER_MAIN_CONTRACTOR"
+                    labelKey="LABEL_MAIN_CONTRACTOR"
                     placeholderKey="PLACEHOLDER_CONTRACTORS_NAME"
                   />
-                )}
                 <Field
                   name={getPropertyName(
                     initialValues,
@@ -337,7 +309,7 @@ let ProjectOverviewForm: React.FC<Props & IMapStateToProps &
                               labelKey="LABEL_FIRST_VALUATION_DATE"
                             />
                           </div>
-                          <div className="col-xl-6 mt-2 position-relative manipulate-calendar">
+                          <div className="col-xl-6 mt-2 position-relative manipulate-calendar" >
                             <DatePicker
                               name="finalAccountDate"
                               data-test="finalAccountDate"
@@ -461,7 +433,7 @@ let ProjectOverviewForm: React.FC<Props & IMapStateToProps &
               </div>
             </div>
             {/* AUTHORISED SECTION */}
-            <div className="row">
+            <div className={(props.status==ProjectStatus.BidLost||props.status==ProjectStatus.OnHold)?"link_disabled row":"row"}>
               <div className="col-xl-6">
                 <div className="authorised_form_wrap">
                   <h6 className="ml-0">
@@ -670,6 +642,79 @@ let ProjectOverviewForm: React.FC<Props & IMapStateToProps &
                   </div>
                 </div>
               </div>
+              <div className="col-xl-6">
+                  <h3 className="feed_head">Activity Feed</h3>
+                  <section className="activity_feed">
+                    <div className="feed-block">
+                      <div className="feed-block-img feed-icon">
+                      <FontAwesomeIcon className="" icon={faUser} />
+                      </div>
+                      <div className="feed-block-content">
+                        <h2>Approved by <span>John Wick</span></h2>
+                        <span className="feed-date-time">20/11/2019 | 03:40 AM</span>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto,
+                            optio, dolorum provident rerum aut hic quasi placeat iure
+                            tempora laudantium ipsa ad debitis unde? Iste voluptatibus minus
+                                                        veritatis qui ut.</p>
+
+                      </div>
+                    </div>
+                    <div className="feed-block">
+                      <div className="feed-block-img close-icon">
+                      <FontAwesomeIcon className="" icon={faTimes} />
+                      </div>
+                      <div className="feed-block-content">
+                        <h2>Approved by <span>John Smith</span></h2>
+                        <span className="feed-date-time">20/11/2019 | 03:40 AM</span>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto,
+                            optio, dolorum provident rerum aut hic quasi placeat iure
+                            tempora laudantium ipsa ad debitis unde? Iste voluptatibus minus
+                                                        veritatis qui ut.</p>
+
+                      </div>
+                    </div>
+                    <div className="feed-block">
+                      <div className="feed-block-img feed-icon">
+                      <FontAwesomeIcon className="" icon={faUser} />
+                      </div>
+                      <div className="feed-block-content">
+                        <h2>Approved by <span>John Wick</span></h2>
+                        <span className="feed-date-time">20/11/2019 | 03:40 AM</span>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto,
+                            optio, dolorum provident rerum aut hic quasi placeat iure
+                            tempora laudantium ipsa ad debitis unde? Iste voluptatibus minus
+                                                        veritatis qui ut.</p>
+
+                      </div>
+                    </div>
+                    <div className="feed-block">
+                      <div className="feed-block-img check-icon">
+                      <FontAwesomeIcon className="" icon={faCheck} />
+                      </div>
+                      <div className="feed-block-content">
+                        <h2>Approved by <span>John Doe</span></h2>
+                        <span className="feed-date-time">20/11/2019 | 03:40 AM</span>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto,
+                            optio, dolorum provident rerum aut hic quasi placeat iure
+                            tempora laudantium ipsa ad debitis unde? Iste voluptatibus minus
+                                                        veritatis qui ut.</p>
+
+                      </div>
+                    </div>
+                    <div className="feed-block">
+                      <div className="feed-block-img feed-icon">
+                      <FontAwesomeIcon className="" icon={faUser} />
+                      </div>
+                      <div className="feed-block-content">
+                        <h2>Approved by <span>John Wick</span></h2>
+                        <span className="feed-date-time">20/11/2019 | 03:40 AM</span>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto,
+                                                        optio, dolorum provident .</p>
+
+                      </div>
+                    </div>
+                  </section>
+                </div>
             </div>
 
             <div className="mr-35 d-flex justify-content-between mb-4">
@@ -701,7 +746,7 @@ const mapStateToProps = (state: IState) => ({
   dynamicsOtherSubContractor: state.dynamicData.dynamicsOtherSubContractor,
 });
 
-const form = reduxForm<IProjectAdditionalDetail, Props & IMapStateToProps>({
+const form = reduxForm<IProjectAdditionalDetail, Props>({
   destroyOnUnmount: false,
   forceUnregisterOnUnmount: false,
   form: 'projectOverviewForm',

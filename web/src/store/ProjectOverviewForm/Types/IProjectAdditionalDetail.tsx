@@ -2,7 +2,6 @@ export interface IProjectAdditionalDetail {
   projectAddDetailId: string;
   projectId: string;
   mainContractor: string;
-  otherMainContractor: string;
   enquiryReceivedFrom: string;
   enquiryTypeId: number;
   creditCheckResult: string;

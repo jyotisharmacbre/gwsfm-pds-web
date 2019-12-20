@@ -218,33 +218,33 @@ input[type='number']::-webkit-outer-spin-button {
   margin: 0 !important;
 }
 
-button[type='submit'],
-button[type='button'] {
-  background-color: #006a4d;
-  border: 0;
-  font-weight: 600;
-  padding: 12px 20px 10px;
-  font-size: 16px;
-  min-width: 160px;
-  border: 2px solid map-get($colors, darkGreen);
-  text-align: center;
-  letter-spacing: 2px;
-  @include borderRadius(5px);
-  color: map-get($colors, whiteColor);
-  cursor: pointer;
-  &:hover,
-  &.active {
-    color: map-get($colors, darkGreen);
+button[type="submit"],
+button[type="button"] {
+    background-color: #006a4d;
+    border: 0;
+    font-weight: 600;
+    padding: 12px 20px 10px;
+    font-size: 16px;
+    min-width: 160px;
     border: 2px solid map-get($colors, darkGreen);
-    background-color: transparent;
-  }
-  @include mdScreen {
-    padding: 12px 25px;
-  }
-  @include smScreen {
-    padding: 8px 15px;
-    font-size: 14px;
-  }
+    text-align: center;
+    letter-spacing: 2px;
+    @include borderRadius(5px);
+    color: map-get($colors, whiteColor);
+    cursor: pointer;
+    &:hover,
+    &.active {
+        color: map-get($colors, darkGreen);
+        border: 2px solid map-get($colors, darkGreen);
+        background-color: transparent;
+    }
+    @include mdScreen {
+        padding: 10px 25px;
+    }
+    @include smScreen {
+        padding: 8px 15px;
+        font-size: 14px;
+    }
 }
 
 .width-100 {
@@ -331,17 +331,19 @@ button[type='button'] {
     }
 }
 
+
 /*custom modal*/
+
 .custom_modal {
     background: rgba(0, 0, 0, 0.5);
-    &.modal{
-        &.show{
-            .modal-dialog{
+    &.modal {
+        &.show {
+            .modal-dialog {
                 max-width: 300px;
                 margin: 1.75rem auto;
                 padding: 10px;
             }
-            .modal-content{
+            .modal-content {
                 border: 0;
                 padding: 15px;
                 .modal-header {
@@ -349,7 +351,7 @@ button[type='button'] {
                     border: 0;
                 }
                 .modal-title {
-                    color: map-get($colors , grey03 );
+                    color: map-get($colors, grey03);
                     font-size: 14px;
                     font-weight: 600;
                     margin-bottom: 6px;
@@ -357,7 +359,8 @@ button[type='button'] {
                 .modal-body {
                     padding: 0;
                     font-size: 11px;
-                    color: map-get($colors , grey03 );;
+                    color: map-get($colors, grey03);
+                    ;
                     font-weight: 400;
                 }
             }
@@ -371,7 +374,31 @@ button[type='button'] {
                 }
             }
         }
-    } 
+    }
+}
+
+.button-type {
+    background: map-get($colors, whiteColor) !important;
+    border: 1px solid map-get($colors, grey06) !important;
+    @include borderRadius(2px);
+    color: map-get($colors, grey06) !important;
+    padding: 8px 25px !important;
+    font-size: 13px !important;
+    line-height: normal !important;
+    margin-right: 8px !important;
+    font-weight: normal !important;
+    min-width: 0 !important;
+    cursor: pointer !important;
+    border-radius: 0 !important;
+    letter-spacing: inherit !important;
+    &:focus {
+        outline: none !important;
+    }
+    &.active {
+        background: map-get($colors, lightGreen02) !important;
+        color: map-get($colors, whiteColor) !important;
+        border: 1px solid map-get($colors, lightGreen02) !important;
+    }
 }
 .DashboardGrid {
     width: 90%;
