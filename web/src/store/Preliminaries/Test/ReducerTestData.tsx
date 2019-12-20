@@ -1,5 +1,6 @@
 import { IPreliminaries } from "../Types/IPreliminaries";
 import { IPreliminariesComponentDetails } from "../Types/IPreliminariesComponentDetails";
+import { IAdminDefaults } from "../../ProjectOverviewForm/Types/IAdminDefault";
 
 export const lookupData: any = [
     {lookupId: 1,
@@ -63,6 +64,47 @@ export const newUserData: Array<IPreliminariesComponentDetails>= [
         hourRate: 0,
         totalCost: 0,
         grossMargin: 0,
+        comments: ''
+      }
+    ]
+  }
+
+];
+export const defaultAdminData:Array<IAdminDefaults>=[
+  {
+    projectParameterId: 1,
+    countryId: 1,
+    name: "CBRE_Labour_Rate_Perc",
+    value: "70"
+  },
+  {
+    projectParameterId: 2,
+    countryId: 1,
+    name: "Insurance_Rate_Perc",
+    value: "1.4"
+  },
+  {
+    projectParameterId: 3,
+    countryId: 1,
+    name: "Gross_Margin_Perc",
+    value: "15"
+  }
+]
+export const expectedDataForDefaultValues: Array<IPreliminariesComponentDetails>= [
+  
+  {
+    componentId: '1',
+    componentName: 'H&S File Production',
+    items: [
+      {
+        itemId: '1',
+        itemName: 'Sub-Contractor',
+        preliminaryId:'',
+        nameOfSupplier: '',
+        noOfHours: 0,
+        hourRate: 70,
+        totalCost: 0,
+        grossMargin: 15,
         comments: ''
       }
     ]

@@ -36,6 +36,8 @@
 .card-header {
     background-color: map-get($colors , grey05);
     border: 0;
+    padding: 10px 22px 5px 20px;
+    position: relative;
     cursor: pointer;
     &:before {
         display: block;
@@ -44,12 +46,20 @@
         background-color: map-get($colors, lightGreen02);
         width: 3px;
         left: 0;
-        height: 21px;
+        height: 26px;
     }
     svg {
-        font-size: 22px;
+        font-size: 28px;
          float: right;  
          color: map-get($colors , darkGreen );
+         position: absolute;
+         right: 40px;
+         top: 0;
+         bottom: 0;
+         margin: auto 0;
+         @include mdScreen {
+             right: 25px;
+         }
          &.active {
             @include transition(all ease 0.2s);
             @include transform(rotate(180deg));
@@ -68,13 +78,22 @@
     //     left: 0;
     //     height: 21px;
     // }
+    .card-link {
+        font-size: 22px;
+        color: map-get($colors , grey01 );
+        line-height: 30px;
+        @include smScreen {
+            font-size: 18px;
+        }
+    }
 }
 .card-body {
     .table {
         th {
             background-color: map-get($colors, Green03);
             color: map-get($colors, grey03);
-            font-weight: 500;
+            font-weight: 600;
+            padding: 5px;
             font-size: 12px;
         }
         tr:first-child {
@@ -85,7 +104,8 @@
         td {
             font-size: 12px;
             border: 0;
-            padding: 0.25rem;
+            padding: 2px;
+            font-weight: 500;
             background-color: transparent;
             &:first-child{
                 white-space: nowrap;
@@ -133,4 +153,61 @@
 .show
 {
     display:block!important;
+}
+
+form{
+    &.preliminary-form-1 {
+        .form-group {
+            margin: 0;
+            span {
+                top: 4px !important;
+                left: 4px !important;
+                color: #495057 !important;
+                font-weight: 600;
+            }
+        }
+        .form-control {
+            padding: 6px;
+        }
+        .table-responsive {
+            overflow-y: auto;
+        }
+        table {
+            margin-bottom: 10px;
+            input {
+                width: 100% !important;
+                @include lgScreen {
+                    width: auto !important;
+                }
+                &:disabled+span {
+                    color: rgb(169, 178, 181) !important;
+                }
+            }
+            td {
+                &:nth-child(3),
+                &:nth-child(4){
+                    width: 100px;
+                }
+                &:nth-child(5),
+                &:nth-child(6),
+                &:nth-child(7){
+                    width: 140px;
+                }
+                &:nth-child(2){
+                    width: 180px;
+                }
+            }
+        }
+        .price-sumry {
+            margin-bottom: 0;
+        }
+        .card-body {
+            padding-bottom: 0;
+        }
+    }
+}
+
+.preliminary_btn {
+    margin-right: 14px;
+    margin-bottom: 12px;
 }

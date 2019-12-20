@@ -19,7 +19,7 @@ import FontawsomeFree from '@fortawesome/free-solid-svg-icons';
 import FontawsomeReact, {
   FontAwesomeIcon
 } from '@fortawesome/react-fontawesome';
-import { faCheckCircle, faClock, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
+import { faCheckCircle, faClock, faExclamationTriangle, faUser, faTimes, faCheck } from '@fortawesome/free-solid-svg-icons';
 
 
 import {
@@ -571,7 +571,80 @@ let ProjectOverviewForm: React.FC<Props  &
                     </div>
                   </div>
                 </div>
-              </div> 
+              </div>
+              <div className="col-xl-6">
+                  <h3 className="feed_head">Activity Feed</h3>
+                  <section className="activity_feed">
+                    <div className="feed-block">
+                      <div className="feed-block-img feed-icon">
+                      <FontAwesomeIcon className="" icon={faUser} />
+                      </div>
+                      <div className="feed-block-content">
+                        <h2>Approved by <span>John Wick</span></h2>
+                        <span className="feed-date-time">20/11/2019 | 03:40 AM</span>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto,
+                            optio, dolorum provident rerum aut hic quasi placeat iure
+                            tempora laudantium ipsa ad debitis unde? Iste voluptatibus minus
+                                                        veritatis qui ut.</p>
+
+                      </div>
+                    </div>
+                    <div className="feed-block">
+                      <div className="feed-block-img close-icon">
+                      <FontAwesomeIcon className="" icon={faTimes} />
+                      </div>
+                      <div className="feed-block-content">
+                        <h2>Approved by <span>John Smith</span></h2>
+                        <span className="feed-date-time">20/11/2019 | 03:40 AM</span>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto,
+                            optio, dolorum provident rerum aut hic quasi placeat iure
+                            tempora laudantium ipsa ad debitis unde? Iste voluptatibus minus
+                                                        veritatis qui ut.</p>
+
+                      </div>
+                    </div>
+                    <div className="feed-block">
+                      <div className="feed-block-img feed-icon">
+                      <FontAwesomeIcon className="" icon={faUser} />
+                      </div>
+                      <div className="feed-block-content">
+                        <h2>Approved by <span>John Wick</span></h2>
+                        <span className="feed-date-time">20/11/2019 | 03:40 AM</span>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto,
+                            optio, dolorum provident rerum aut hic quasi placeat iure
+                            tempora laudantium ipsa ad debitis unde? Iste voluptatibus minus
+                                                        veritatis qui ut.</p>
+
+                      </div>
+                    </div>
+                    <div className="feed-block">
+                      <div className="feed-block-img check-icon">
+                      <FontAwesomeIcon className="" icon={faCheck} />
+                      </div>
+                      <div className="feed-block-content">
+                        <h2>Approved by <span>John Doe</span></h2>
+                        <span className="feed-date-time">20/11/2019 | 03:40 AM</span>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto,
+                            optio, dolorum provident rerum aut hic quasi placeat iure
+                            tempora laudantium ipsa ad debitis unde? Iste voluptatibus minus
+                                                        veritatis qui ut.</p>
+
+                      </div>
+                    </div>
+                    <div className="feed-block">
+                      <div className="feed-block-img feed-icon">
+                      <FontAwesomeIcon className="" icon={faUser} />
+                      </div>
+                      <div className="feed-block-content">
+                        <h2>Approved by <span>John Wick</span></h2>
+                        <span className="feed-date-time">20/11/2019 | 03:40 AM</span>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto,
+                                                        optio, dolorum provident .</p>
+
+                      </div>
+                    </div>
+                  </section>
+                </div>
             </div>
 
             <div className="mr-35 d-flex justify-content-between mb-4">

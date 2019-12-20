@@ -16,6 +16,7 @@ import { IUserPreferences } from '../../../store/UserPreferencesForm/Types/IUser
 import { ICurrency } from '../../../store/Lookups/Types/ICurrency';
 import EventType from '../../../enums/EventType';
 import { ILanguage } from '../../../store/Lookups/Types/ILanguage';
+import { formatMessage } from '../../../Translations/connectedIntlProvider';
 
 interface Props {
   onSubmitForm: (data: IUserPreferences, event: EventType) => void;
@@ -52,7 +53,7 @@ let UserProfileForm: React.FC<Props &
                 <i>
                   <FontAwesomeIcon className="" icon={faUser} />
                 </i>
-                <p className="title_name">preferred language</p>
+                <p className="title_name">{formatMessage('LABEL_PREFERED_LANGUAGE')}</p>
                 <Field
                   name="languageId"
                   component={PdsFormSelect}
@@ -82,7 +83,7 @@ let UserProfileForm: React.FC<Props &
                 <i>
                   <FontAwesomeIcon className="" icon={faUser} />
                 </i>
-                <p className="title_name">preferred currency</p>
+                <p className="title_name">{formatMessage('LABEL_PREFERED_CURRENCY')}</p>
                 <Field
                   name="currencyId"
                   component={PdsFormSelect}
@@ -113,7 +114,7 @@ let UserProfileForm: React.FC<Props &
           <div className='link_group'>
             <a href="#" data-test="save" onClick={handleSubmit(values => props.onSubmitForm(values))}><FormattedMessage id="BUTTON_SAVE" /></a>
             <span>|</span>
-            <a href="#" data-test="cancel" onClick={redirectMenu}>Cancel</a>
+            <a href="#" data-test="cancel" onClick={redirectMenu}>{formatMessage('BUTTON_CANCEL')}</a>
           </div>
 
           {/* END EDIT FORM SECTION */}

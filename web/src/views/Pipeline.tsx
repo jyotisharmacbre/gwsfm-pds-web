@@ -7,6 +7,7 @@ import { IProjectPipelineGrid } from '../store/pipeline/Types/IProjectPipelineGr
 import { ILookup } from '../store/Lookups/Types/ILookup';
 import { getProjectStatus } from '../store/Lookups/Actions';
 import Notify from '../enums/Notify';
+import { formatMessage } from '../Translations/connectedIntlProvider';
 interface IMapDispatchToProps {
   projectPipelineGridDetail: () => void;
   getLookups: () => void;
@@ -29,7 +30,7 @@ const ProjectPipeline: React.FC<IMapStateToProps &
         <div className="col-lg-12">
           <div className="custom-wrap">
             <div className="top_Title">
-              <h2>Current Pipeline</h2>
+              <h2>{formatMessage('TITLE_CURRENT_PIPELINE')}</h2>
             </div>
 
             <div className="table-grid-wrap price-sumry">

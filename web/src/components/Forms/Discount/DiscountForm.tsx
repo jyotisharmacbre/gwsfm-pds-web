@@ -26,6 +26,7 @@ import PdsFormRadio from '../../PdsFormHandlers/PdsFormRadio';
 import { IDiscountActivity } from '../../../store/DiscountForm/Types/IDiscountActivity';
 import { dynamicsCompany } from '../../TypeAhead/TypeAheadConstantData/dynamicCompanyData';
 import { dynamicsContract } from '../../TypeAhead/TypeAheadConstantData/dynamicContractData';
+import Currency from '../../../store/Lookups/InitialState/Currency';
 
 
 interface Props {
@@ -44,7 +45,8 @@ interface Props {
   InjectedFormProps<IDiscountActivity, Props>> = (props: any) => {
   const { handleSubmit, initialValues, discountTypeValue } = props;
   const normalize = value => (value ? parseInt(value) : null);
-
+  const CurrencyObj = new Currency();
+  
   return (
     <div className="container-fluid">
       <div className=" row">
@@ -167,7 +169,18 @@ interface Props {
                       .filter(
                         element => element.lookupItem == LookupType.Discount_Type
                       ), discountTypeValue,
-                      getFilterElementFromArray(props.currencies,"currencyId", props.currencyId,"currencySymbol")                      
+                      getFilterElementFromArray(
+                        props.currencies,
+                        getPropertyName(
+                        CurrencyObj,
+                        prop => prop.currencyId
+                      ),
+                      props.currencyId > 0 ? props.currencyId : props.userPreferenceCurrencyId,
+                        getPropertyName(
+                        CurrencyObj,
+                        prop => prop.currencySymbol
+                      )
+                      )                     
                     )}
                   />
                   <label className="w-100 mb-0">
@@ -217,6 +230,7 @@ interface Props {
 const mapStateToProps = (state: IState) => ({
   initialValues: state.discount.form,
   discountTypeValue: discountSelector(state, 'discountType'),
+  userPreferenceCurrencyId: userPreferenceSelector(state, 'currencyId')
 });
 
 const form = reduxForm<IDiscountActivity, Props>({
@@ -225,5 +239,6 @@ const form = reduxForm<IDiscountActivity, Props>({
 })(injectIntl(DiscountForm));
 
 const discountSelector = formValueSelector('DiscountForm');
+const userPreferenceSelector = formValueSelector('UserProfileForm');
 
 export default connect(mapStateToProps)(form);
