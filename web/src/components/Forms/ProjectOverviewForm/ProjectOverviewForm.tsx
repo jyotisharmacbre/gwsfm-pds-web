@@ -170,9 +170,7 @@ let ProjectOverviewForm: React.FC<Props  &
                   data-test="retention"
                   type="text"
                   component={PdsFormInput}
-                  className="required"
                   validate={[
-                    Validate.required('LABEL_RETENTION'),
                     Validate.maxLength(1000)
                   ]}
                   warn={alphaNumeric}
@@ -184,9 +182,7 @@ let ProjectOverviewForm: React.FC<Props  &
                   data-test="liquidatedDamages"
                   type="text"
                   component={PdsFormInput}
-                  className="required"
                   validate={[
-                    Validate.required('LABEL_LIQUIDATED_DAMAGES'),
                     Validate.maxLength(1000)
                   ]}
                   warn={alphaNumeric}
