@@ -109,12 +109,14 @@ interface IMapStateToProps {
                   <Field
                   name="supplierTotalDiscount"
                     type="text"
-                    className="width-120"
+                    className="width-120 pl-20"
                     component={PdsFormInput}
                     validate={[Validate.maxLength(15)]}
                     messageKey="MESSAGE_TOTAL_DISCOUNT"
                     labelKey="LABEL_TOTAL_DISCOUNT"
                     normalize={normalize}
+                    currency={currencySymbol}
+                    divPosition="relative"
                   />
                   <Field
                   name="supplierComments"
@@ -184,7 +186,7 @@ interface IMapStateToProps {
                   <Field
                   name="clientDiscount"
                     type="text"
-                    className="width-250 pl-30"
+                    className="width-120 pl-20"
                     component={PdsFormInput}
                     validate={[Validate.maxLength(15)]}
                     messageKey="MESSAGE_DISCOUNT"
@@ -197,6 +199,7 @@ interface IMapStateToProps {
                       ), discountTypeValue,
                       currencySymbol                     
                     )}
+                    divPosition="relative"
                   />
                   <label className="w-100 mb-0">
                      <FormattedMessage id='LABEL_SUB_TOTAL_DISCOUNTS'></FormattedMessage>

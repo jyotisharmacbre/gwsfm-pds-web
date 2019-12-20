@@ -129,7 +129,6 @@ const Discounts: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = pro
           </div>
         </div>
       </div>
-    </div>
   );
 };
 
