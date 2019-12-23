@@ -1,16 +1,20 @@
 /* Activity Feed*/
 h3.feed_head {
-    font-size: 1rem;
+    font-size: 14px;
+    font-weight: 700;
+    color: #333333;
 }
 .activity_feed {
     position: relative;
+    max-height: 700px;
+    overflow-y: scroll;
     
     &:before {
         content: '';
         position: absolute;
         top: 20px;
         left: 34px;
-        height: calc(100% - 90px);
+        height: calc(100% - 98px);
         width: 2px;
         background: map-get($colors, grey06);
         z-index: 9;
@@ -36,7 +40,10 @@ h3.feed_head {
     .feed-block-content {
         position: relative;
         margin-left: 0px;               
-        padding: 1em 1em 1em 3em;
+        padding: 1.8em 1em 1em 3em;
+        @include mdScreen {
+            padding: 1.8em 1em 1em 2.4em;
+        }
         
        
         &:before {
@@ -51,11 +58,15 @@ h3.feed_head {
             border-right: 7px solid map-get($colors, whiteColor );
         }
         h2 {
-            color: map-get($colors, grey03 );
-           font-size: 1.1rem;
-           font-weight: 500;
+            color: #333333;
+            font-size: 14px;
+            font-weight: 700;
            span {
-            color: map-get($colors, lightGreen );
+            color: #4cbe7f;
+           }
+           i {
+            font-style: inherit;
+            font-weight: 500;
            }
         }
         p {
@@ -68,9 +79,15 @@ h3.feed_head {
             padding: .8em 0;
             opacity: .7;
             position: absolute;
-            top: 0;
+            top: 16px;
             right: 20px;
             font-size: 0.875rem;
+            @include mdScreen {
+                width: 100%;
+                position: relative;
+                top: 0;
+                padding: 3px 20px 5px;
+            }
         }
 
        
