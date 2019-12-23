@@ -7,6 +7,8 @@ import { IProjectDashboardGrid } from '../store/Dashboard/Types/IProjectDashboar
 import { projectDashboardGridDetail } from '../store/Dashboard/Action';
 import { ILookup } from '../store/Lookups/Types/ILookup';
 import { getProjectStatus } from '../store/rootActions';
+import { formatMessage } from '../Translations/connectedIntlProvider';
+import { getDisplayName } from '../helpers/auth-helper';
 interface IMapDispatchToProps {
   dashboardGridDetail: () => void;
   getLookups: () => void;
@@ -29,18 +31,18 @@ const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = props => {
             <div className="custom-wrap">
               <div className="row align-items-center">
                 <div className="col-xl-6">
-                  <h1 className="mb-0">Welcome Usersame Surname</h1>
+                  <h1 className="mb-0">{formatMessage('TITLE_WELCOME')} {getDisplayName() && getDisplayName()}</h1>
                 </div>
                 <div className="col-xl-6">
                   <div className="mr-35 three-btn justify-content-xl-end justify-content-lg-start pb-0">
                     <Link to="/Pipeline">
                       <button name="save" className="active mr-3" type="button">
-                        PIPELINE
+                      {formatMessage('BUTTON_PIPELINE')}
                       </button>
                     </Link>
                     <Link to="/Project">
                       <button type="button" name="next">
-                        CREATE NEW PROJECT
+                      {formatMessage('BUTTON_CREATE_NEW_PROJ')}
                       </button>
                     </Link>
                   </div>
