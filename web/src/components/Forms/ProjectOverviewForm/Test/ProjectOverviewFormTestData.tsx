@@ -3,48 +3,54 @@ import Notify from '../../../../enums/Notify';
 import EventType from '../../../../enums/EventType';
 
 export const initialState: IProjectOverviewState = {
-  form:{
+  form: {
     projectId: '',
     projectAdditionalDetail: {
-    projectAddDetailId: '',
-    projectId: '',
-    mainContractor: '',
-    enquiryReceivedFrom: '',
-    enquiryTypeId: 1,
-    creditCheckResult: '',
-    siteAddress: '',
-    cdmNotifiable: false,
-    formOfContract: '',
-    retention: '',
-    liquidatedDamages: '',
-    insurance: '',
-    workTypeId: -1,
-    commenceDate: 'date',
-    completionDate: 'date',
-    milestones: '',
-    firstValuationDate: 'date',
-    finalAccountDate: 'date',
-    valuationIntervals: '',
-    paymentTerms: '',
-    isProjectLive: false,
-    comments: '',
-    authorizedByHop: '',
-    budget: 1,
-    authorizedBy: '',
-    authorizedBySecond: '',
-    authorizedByThird: ''
-  },
-  projectApprovals: [
-    {
-      projectApprovalId: '',
+      projectAddDetailId: '',
       projectId: '',
-      projectApprovalRange: '',
-      approverType: '',
-      approvalStatus: '',
-      userId: ''
-    }
-  ]
-},
+      mainContractor: '',
+      enquiryReceivedFrom: '',
+      enquiryTypeId: 1,
+      creditCheckResult: '',
+      siteAddress: '',
+      cdmNotifiable: false,
+      formOfContract: '',
+      retention: '',
+      liquidatedDamages: '',
+      insurance: '',
+      workTypeId: -1,
+      commenceDate: 'date',
+      completionDate: 'date',
+      milestones: '',
+      firstValuationDate: 'date',
+      finalAccountDate: 'date',
+      valuationIntervals: '',
+      paymentTerms: '',
+      isProjectLive: false,
+      comments: '',
+      authorizedByHop: '',
+      budget: 1,
+      authorizedBy: '',
+      authorizedBySecond: '',
+      authorizedByThird: '',
+      projectRisk1: '',
+      projectRisk2: '',
+      projectRisk3: '',
+      projectRiskControlMeasure1: '',
+      projectRiskControlMeasure2: '',
+      projectRiskControlMeasure3: ''
+    },
+    projectApprovals: [
+      {
+        projectApprovalId: '',
+        projectId: '',
+        projectApprovalRange: '',
+        approverType: '',
+        approvalStatus: '',
+        userId: ''
+      }
+    ]
+  },
   error: null,
   loading: false,
   notify: Notify.none,
@@ -52,48 +58,54 @@ export const initialState: IProjectOverviewState = {
 };
 
 export const getProjectOverviewData: IProjectOverviewState = {
-  form:{
+  form: {
     projectId: '1',
     projectAdditionalDetail: {
-    projectAddDetailId: '1',
-    projectId: '1',
-    mainContractor: '1',
-    enquiryReceivedFrom: '',
-    enquiryTypeId: 1,
-    creditCheckResult: '',
-    siteAddress: '',
-    cdmNotifiable: false,
-    formOfContract: '',
-    retention: '',
-    liquidatedDamages: '',
-    insurance: '',
-    workTypeId: -1,
-    commenceDate: 'date',
-    completionDate: 'date',
-    milestones: '',
-    firstValuationDate: 'date',
-    finalAccountDate: 'date',
-    valuationIntervals: '',
-    paymentTerms: '',
-    isProjectLive: false,
-    comments: '',
-    authorizedByHop: '',
-    budget: 1,
-    authorizedBy: '',
-    authorizedBySecond: '',
-    authorizedByThird: ''
-  },  
-  projectApprovals: [
-    {
-      projectApprovalId: '',
-      projectId: '',
-      projectApprovalRange: '',
-      approverType: '',
-      approvalStatus: '',
-      userId: ''
-    }
-  ]
-},
+      projectAddDetailId: '1',
+      projectId: '1',
+      mainContractor: '1',
+      enquiryReceivedFrom: '',
+      enquiryTypeId: 1,
+      creditCheckResult: '',
+      siteAddress: '',
+      cdmNotifiable: false,
+      formOfContract: '',
+      retention: '',
+      liquidatedDamages: '',
+      insurance: '',
+      workTypeId: -1,
+      commenceDate: 'date',
+      completionDate: 'date',
+      milestones: '',
+      firstValuationDate: 'date',
+      finalAccountDate: 'date',
+      valuationIntervals: '',
+      paymentTerms: '',
+      isProjectLive: false,
+      comments: '',
+      authorizedByHop: '',
+      budget: 1,
+      authorizedBy: '',
+      authorizedBySecond: '',
+      authorizedByThird: '',
+      projectRisk1: '',
+      projectRisk2: '',
+      projectRisk3: '',
+      projectRiskControlMeasure1: '',
+      projectRiskControlMeasure2: '',
+      projectRiskControlMeasure3: ''
+    },
+    projectApprovals: [
+      {
+        projectApprovalId: '',
+        projectId: '',
+        projectApprovalRange: '',
+        approverType: '',
+        approvalStatus: '',
+        userId: ''
+      }
+    ]
+  },
   error: null,
   loading: false,
   notify: Notify.none,
