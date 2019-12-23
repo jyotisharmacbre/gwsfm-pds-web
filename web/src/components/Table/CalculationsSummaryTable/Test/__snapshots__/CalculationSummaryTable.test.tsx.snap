@@ -1,7 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`calculation summary component tests should match the snapshot 1`] = `ReactWrapper {}`;
-
 exports[`should calculation summary component renders without error should match the snapshot 1`] = `ReactWrapper {}`;
-
-exports[`should calculation summary component, calculate the cost, margin and sell correctly should match the snapshot 1`] = `ReactWrapper {}`;
