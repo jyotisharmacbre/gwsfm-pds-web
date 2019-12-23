@@ -171,9 +171,7 @@ let ProjectOverviewForm: React.FC<Props &
                     data-test="retention"
                     type="text"
                     component={PdsFormInput}
-                    className="required"
                     validate={[
-                      Validate.required('LABEL_RETENTION'),
                       Validate.maxLength(1000)
                     ]}
                     warn={alphaNumeric}
@@ -185,9 +183,7 @@ let ProjectOverviewForm: React.FC<Props &
                     data-test="liquidatedDamages"
                     type="text"
                     component={PdsFormInput}
-                    className="required"
                     validate={[
-                      Validate.required('LABEL_LIQUIDATED_DAMAGES'),
                       Validate.maxLength(1000)
                     ]}
                     warn={alphaNumeric}
@@ -241,7 +237,7 @@ let ProjectOverviewForm: React.FC<Props &
                             <DatePicker
                               name="projectAdditionalDetail.commenceDate"
                               data-test="commenceDate"
-                              isRequire={true}
+                              className="required"
                               labelKey="LABEL_COMMENCE_DATE"
                             />
                           </div>
@@ -249,7 +245,7 @@ let ProjectOverviewForm: React.FC<Props &
                             <DatePicker
                               name="projectAdditionalDetail.completionDate"
                               data-test="completionDate"
-                              isRequire={true}
+                              className="required"
                               labelKey="LABEL_COMPLETION_DATE"
                             />
                           </div>
@@ -283,7 +279,7 @@ let ProjectOverviewForm: React.FC<Props &
                             <DatePicker
                               name="projectAdditionalDetail.firstValuationDate"
                               data-test="firstValuationDate"
-                              isRequire={true}
+                              className="required"
                               labelKey="LABEL_FIRST_VALUATION_DATE"
                             />
                           </div>
@@ -291,7 +287,7 @@ let ProjectOverviewForm: React.FC<Props &
                             <DatePicker
                               name="projectAdditionalDetail.finalAccountDate"
                               data-test="finalAccountDate"
-                              isRequire={true}
+                              className="required"
                               labelKey="LABEL_FIRST_ACCOUNT_DATE"
                             />
                           </div>
@@ -641,7 +637,7 @@ let ProjectOverviewForm: React.FC<Props &
                 <button
                   className="active mb-4 mt-5"
                   type="button"
-                  onClick={handleSubmit(values => props.onPrevious(values))}
+                  onClick={()=>props.onPrevious()}
                 >
                   <FormattedMessage id="BUTTON_PREVIOUS" />
                 </button>
