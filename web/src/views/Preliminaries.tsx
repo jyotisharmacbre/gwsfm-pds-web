@@ -128,7 +128,7 @@ const Preliminaries: React.FC<
     else { toast.error('No data changed to save.'); }
   };
   const handlePrevious = () => {
-    props.history.push(`/Project/${props.match.params.projectId}`);
+    props.history.push(`/JustificationAuthorisation/${props.match.params.projectId}`);
   };
 
   return (

@@ -3,7 +3,7 @@ import Notify from "../../../enums/Notify";
 import EventType from "../../../enums/EventType";
 
 export const initialState: IProjectOverviewState = {
-  form:{
+  form: {
     projectId: '',
     projectAdditionalDetail: {
       projectAddDetailId: '',
@@ -32,7 +32,13 @@ export const initialState: IProjectOverviewState = {
       budget: 1,
       authorizedBy: '',
       authorizedBySecond: '',
-      authorizedByThird: ''
+      authorizedByThird: '',
+      projectRisk1: '',
+      projectRisk2: '',
+      projectRisk3: '',
+      projectRiskControlMeasure1: '',
+      projectRiskControlMeasure2: '',
+      projectRiskControlMeasure3: ''
     },
     projectApprovals: [
       {
@@ -43,9 +49,10 @@ export const initialState: IProjectOverviewState = {
         approvalStatus: '',
         userId: ''
       }
-    ]},
-    error: null,
-    loading: false,
-    notify: Notify.none,
-    event: EventType.none
-  };
+    ]
+  },
+  error: null,
+  loading: false,
+  notify: Notify.none,
+  event: EventType.none
+};
