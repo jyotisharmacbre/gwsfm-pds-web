@@ -665,7 +665,9 @@ let ProjectOverviewForm: React.FC<Props &
                   </section>
                 </div>
               </div>
-
+              <div>
+                <ProjectOverviewGrid/>
+                </div>
               <div className="row">
                 <div className="col-lg-4">
                   <ProjectOverviewRiskForm
@@ -692,6 +694,7 @@ let ProjectOverviewForm: React.FC<Props &
                   ></ProjectOverviewRiskForm>
                 </div>
               </div>
+             
 
               <div className="mr-35 d-flex justify-content-between mb-4">
                 <button
@@ -713,6 +716,7 @@ let ProjectOverviewForm: React.FC<Props &
             </form>
           </div>
         </div>
+      </div>
       </div>
     );
   };
