@@ -77,7 +77,7 @@ describe('ProjectOverviewForm Fields', () => {
         field.simulate('blur');
         const errorBlock = wrapper.find('.text-danger');
         expect(errorBlock).toHaveLength(1);
-      }); 
+      });
     });
     describe('Enquiry Received From field', () => {
       let field: ShallowWrapper;
@@ -143,10 +143,10 @@ describe('ProjectOverviewForm Fields', () => {
       it('Should renders Retention field', () => {
         expect(field.prop('type')).toBe('text');
       });
-      it('Shows error when Retention is set to blank', () => {
+      it('Should not show error when Retention is set to blank', () => {
         field.simulate('blur');
         const errorBlock = wrapper.find('.text-danger');
-        expect(errorBlock).toHaveLength(1);
+        expect(errorBlock).toHaveLength(0);
       });
     });
     describe('Liquidated Damages field', () => {
@@ -157,10 +157,10 @@ describe('ProjectOverviewForm Fields', () => {
       it('Should renders Liquidated Damages field', () => {
         expect(field.prop('type')).toBe('text');
       });
-      it('Shows error when Liquidated Damages is set to blank', () => {
+      it('Should not show error when Liquidated Damages is set to blank', () => {
         field.simulate('blur');
         const errorBlock = wrapper.find('.text-danger');
-        expect(errorBlock).toHaveLength(1);
+        expect(errorBlock).toHaveLength(0);
       });
     });
     describe('Insurance field', () => {
@@ -225,6 +225,24 @@ describe('ProjectOverviewForm Fields', () => {
           projectOverviewFormReducer(initialState, getProjectDetailError)
         ).toMatchSnapshot();
       });
+    });
+    describe('Project Risk form fields', () => {
+      for (let fieldCount = 1; fieldCount <= 3; fieldCount++) {
+        it(`Should renders ProjectRisk${fieldCount} field`, () => {
+          let field = wrapper.find(`input[name="projectAdditionalDetail.projectRisk${fieldCount}"]`).first();
+          expect(field.prop('type')).toBe('text');
+
+        });
+      }
+    });
+
+    describe('Project Risk Control Measure form fields', () => {
+      for (let fieldCount = 1; fieldCount <= 3; fieldCount++) {
+        it(`Should renders ProjectRiskControlMeasure${fieldCount} field`, () => {
+          let field = wrapper.find(`input[name="projectAdditionalDetail.projectRiskControlMeasure${fieldCount}"]`).first();
+          expect(field.prop('type')).toBe('text');
+        });
+      }
     });
   });
 });
