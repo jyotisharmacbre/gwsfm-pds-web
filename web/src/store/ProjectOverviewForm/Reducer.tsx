@@ -16,9 +16,9 @@ export const newProjectApprovals : IProjectApprovals = {
 
 
 const initialState: IProjectOverviewState = {
-  form:{
-      projectId: '',
-      projectAdditionalDetail: {
+  form: {
+    projectId: '',
+    projectAdditionalDetail: {
       projectAddDetailId: '',
       projectId: '',
       mainContractor: '',
@@ -45,7 +45,13 @@ const initialState: IProjectOverviewState = {
       budget: 1,
       authorizedBy: '',
       authorizedBySecond: '',
-      authorizedByThird: ''
+      authorizedByThird: '',
+      projectRisk1: '',
+      projectRisk2: '',
+      projectRisk3: '',
+      projectRiskControlMeasure1: '',
+      projectRiskControlMeasure2: '',
+      projectRiskControlMeasure3: ''
     },
     projectApprovals: []
   },
@@ -125,7 +131,7 @@ const changeProjectStatusToOnHoldError = (oldState, action) => {
 const reactivateProjectSuccess = (oldState, action) => {
   return updateObject(oldState, {
     notify: Notify.success,
-    event:EventType.save
+    event: EventType.save
   });
 };
 const reactivateProjectError = (oldState, action) => {
@@ -148,20 +154,20 @@ const projectOverviewFormReducer = (oldState = initialState, action) => {
       return getAdditionalDetailsError(oldState, action);
     case ActionType.RESET_PROJECT_OVERVIEW_STATE:
       return resetProjectOverviewState(oldState, action);
-      case ActionType.RESET_PROJECT_OVERVIEW_STATE:
+    case ActionType.RESET_PROJECT_OVERVIEW_STATE:
       return resetProjectOverviewState(oldState, action);
-      case ActionType.CHANGE_PROJECT_STATUS_TO_BID_LOST_SUCCESS:
+    case ActionType.CHANGE_PROJECT_STATUS_TO_BID_LOST_SUCCESS:
       return changeProjectStatusToBidLostSuccess(oldState, action);
-      case ActionType.CHANGE_PROJECT_STATUS_TO_BID_LOST_ERROR:
-        return changeProjectStatusToBidLostError(oldState, action);
-      case ActionType.CHANGE_PROJECT_STATUS_TO_ON_HOLD_SUCCESS:
-        return changeProjectStatusToOnHoldSuccess(oldState, action);
-      case ActionType.CHANGE_PROJECT_STATUS_TO_ON_HOLD_ERROR:
-        return changeProjectStatusToOnHoldError(oldState, action);
-      case ActionType.REACTIVATE_PROJECT_SUCCESS:
-        return reactivateProjectSuccess(oldState, action);
-      case ActionType.REACTIVATE_PROJECT_ERROR:
-        return reactivateProjectError(oldState, action);
+    case ActionType.CHANGE_PROJECT_STATUS_TO_BID_LOST_ERROR:
+      return changeProjectStatusToBidLostError(oldState, action);
+    case ActionType.CHANGE_PROJECT_STATUS_TO_ON_HOLD_SUCCESS:
+      return changeProjectStatusToOnHoldSuccess(oldState, action);
+    case ActionType.CHANGE_PROJECT_STATUS_TO_ON_HOLD_ERROR:
+      return changeProjectStatusToOnHoldError(oldState, action);
+    case ActionType.REACTIVATE_PROJECT_SUCCESS:
+      return reactivateProjectSuccess(oldState, action);
+    case ActionType.REACTIVATE_PROJECT_ERROR:
+      return reactivateProjectError(oldState, action);
     default:
       return oldState;
   }

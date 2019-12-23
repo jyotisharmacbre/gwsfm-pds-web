@@ -26,4 +26,10 @@ export interface IProjectAdditionalDetail {
   authorizedBy: string;
   authorizedBySecond: string;
   authorizedByThird: string;
+  projectRisk1: string;
+  projectRisk2: string;
+  projectRisk3: string;
+  projectRiskControlMeasure1: string;
+  projectRiskControlMeasure2: string;
+  projectRiskControlMeasure3: string;
 }

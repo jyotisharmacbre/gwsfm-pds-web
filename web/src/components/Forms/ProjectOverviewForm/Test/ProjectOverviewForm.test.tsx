@@ -77,7 +77,7 @@ describe('ProjectOverviewForm Fields', () => {
         field.simulate('blur');
         const errorBlock = wrapper.find('.text-danger');
         expect(errorBlock).toHaveLength(1);
-      }); 
+      });
     });
     describe('Enquiry Received From field', () => {
       let field: ShallowWrapper;
@@ -225,6 +225,24 @@ describe('ProjectOverviewForm Fields', () => {
           projectOverviewFormReducer(initialState, getProjectDetailError)
         ).toMatchSnapshot();
       });
+    });
+    describe('Project Risk form fields', () => {
+      for (let fieldCount = 1; fieldCount <= 3; fieldCount++) {
+        it(`Should renders ProjectRisk${fieldCount} field`, () => {
+          let field = wrapper.find(`input[name="projectAdditionalDetail.projectRisk${fieldCount}"]`).first();
+          expect(field.prop('type')).toBe('text');
+
+        });
+      }
+    });
+
+    describe('Project Risk Control Measure form fields', () => {
+      for (let fieldCount = 1; fieldCount <= 3; fieldCount++) {
+        it(`Should renders ProjectRiskControlMeasure${fieldCount} field`, () => {
+          let field = wrapper.find(`input[name="projectAdditionalDetail.projectRiskControlMeasure${fieldCount}"]`).first();
+          expect(field.prop('type')).toBe('text');
+        });
+      }
     });
   });
 });

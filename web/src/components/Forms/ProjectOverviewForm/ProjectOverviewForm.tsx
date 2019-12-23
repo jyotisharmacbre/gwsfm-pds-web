@@ -35,37 +35,38 @@ import { IDynamicsOtherSubContractor } from '../../../store/DynamicsData/Types/I
 import ProjectStatus from '../../../enums/ProjectStatus';
 import { IProjectOverviewDetails } from '../../../store/ProjectOverviewForm/Types/IProjectOverviewDetails';
 import { formatMessage } from '../../../Translations/connectedIntlProvider';
+import ProjectOverviewRiskForm from './ProjectOverviewRiskForm';
 
 interface Props {
   onNext: (data: IProjectOverviewDetails) => void;
   onPrevious: () => void;
   projectstatus: any;
-  status:number;
+  status: number;
 }
 
-let ProjectOverviewForm: React.FC<Props  &
+let ProjectOverviewForm: React.FC<Props &
   InjectedFormProps<IProjectOverviewDetails, Props>> = props => {
-  const { handleSubmit, initialValues } = props;
-  const DropdownOptions = projectStatusData.map((status: any, i: number) => (
-    <option key={i} value={status.value}>
-      {status.label}
-    </option>
-  ));
-  const normalize = value => (value ? parseInt(value) : null);
+    const { handleSubmit, initialValues } = props;
+    const DropdownOptions = projectStatusData.map((status: any, i: number) => (
+      <option key={i} value={status.value}>
+        {status.label}
+      </option>
+    ));
+    const normalize = value => (value ? parseInt(value) : null);
 
-  return (
-    <div className="container-fluid ">
-      <div className="row">
-        <div className="col-lg-12 col-sm-12">
-          <form
-            className="project-overview-form"
-            noValidate={true}
-            data-test="projectOverviewForm"
-          >
-            <div className={(props.status==ProjectStatus.BidLost||props.status==ProjectStatus.OnHold)?"link_disabled row":"row"}>
-              <div className="col-lg-8">
+    return (
+      <div className="container-fluid ">
+        <div className="row">
+          <div className="col-lg-12 col-sm-12">
+            <form
+              className="project-overview-form"
+              noValidate={true}
+              data-test="projectOverviewForm"
+            >
+              <div className={(props.status == ProjectStatus.BidLost || props.status == ProjectStatus.OnHold) ? "link_disabled row" : "row"}>
+                <div className="col-lg-8">
 
-              <Field
+                  <Field
                     name="projectAdditionalDetail.mainContractor"
                     type="text"
                     component={PdsFormInput}
@@ -76,153 +77,157 @@ let ProjectOverviewForm: React.FC<Props  &
                     labelKey="LABEL_MAIN_CONTRACTOR"
                     placeholderKey="PLACEHOLDER_CONTRACTORS_NAME"
                   />
-                <Field
-                  name="projectAdditionalDetail.enquiryReceivedFrom"
-                  data-test="enquiryReceivedFrom"
-                  type="text"
-                  component={PdsFormInput}
-                  className="required"
-                  validate={[
-                    Validate.required('LABEL_ENQUIRY_RECEIVED_FROM'),
-                    Validate.maxLength(1000)
-                  ]}
-                  warn={alphaNumeric}
-                  labelKey="LABEL_ENQUIRY_RECEIVED_FROM"
-                  placeholderKey="PLACEHOLDER_ENQUIRY_SENDER_NAME"
-                />
-                <div className="form-group">
-                  <label>
-                    <FormattedMessage id="LABEL_TYPE_OF_ENQUIRY" />*
+                  <Field
+                    name="projectAdditionalDetail.enquiryReceivedFrom"
+                    data-test="enquiryReceivedFrom"
+                    type="text"
+                    component={PdsFormInput}
+                    className="required"
+                    validate={[
+                      Validate.required('LABEL_ENQUIRY_RECEIVED_FROM'),
+                      Validate.maxLength(1000)
+                    ]}
+                    warn={alphaNumeric}
+                    labelKey="LABEL_ENQUIRY_RECEIVED_FROM"
+                    placeholderKey="PLACEHOLDER_ENQUIRY_SENDER_NAME"
+                  />
+                  <div className="form-group">
+                    <label>
+                      <FormattedMessage id="LABEL_TYPE_OF_ENQUIRY" />*
                   </label>
-                  {props.projectstatus &&
-                    props.projectstatus
-                      .filter(
-                        element => element.lookupItem == LookupType.Enquiry_Type
-                      )
-                      .map((data, index) => {
-                        return (
-                          <div className="form-check" key={index}>
-                            <Field
-                              name="projectAdditionalDetail.enquiryTypeId"
-                              component="input"
-                              type="radio"
-                              value={+data.lookupKey}
-                              normalize={normalize}
-                            />
-                            <label className="form-check-label">
-                              <FormattedMessage id={data.description} />
-                            </label>
-                          </div>
-                        );
-                      })}
-                </div>
-                <Field
-                  name="projectAdditionalDetail.creditCheckResult"
-                  data-test="creditCheckResult"
-                  type="text"
-                  component={PdsFormInput}
-                  className="required"
-                  validate={[
-                    Validate.required('LABEL_CREDIT_CHECK_RESULT'),
-                    Validate.maxLength(1000)
-                  ]}
-                  warn={alphaNumeric}
-                  labelKey="LABEL_CREDIT_CHECK_RESULT"
-                  placeholderKey="PLACEHOLDER_CREDIT_CHECK_DETAILS"
-                />
-                <Field
-                  name="projectAdditionalDetail.siteAddress"
-                  data-test="siteAddress"
-                  type="text"
-                  component={PdsFormInput}
-                  className="required"
-                  validate={[
-                    Validate.required('LABEL_SITE_ADDRESS'),
-                    Validate.maxLength(1000)
-                  ]}
-                  warn={alphaNumeric}
-                  labelKey="LABEL_SITE_ADDRESS"
-                  placeholderKey="PLACEHOLDER_ADD_SITE_ADDRESS"
-                />
-                <Field
-                  name="projectAdditionalDetail.cdmNotifiable"
-                  data-test="cdmNotifiable"
-                  component={PdsFormButton}
-                  buttons={selectionButtons}
-                  labelKey="LABEL_CDMNOTIFIABLE"
-                />
-                <Field
-                  name="projectAdditionalDetail.formOfContract"
-                  data-test="formOfContract"
-                  type="text"
-                  component={PdsFormInput}
-                  className="required"
-                  validate={[
-                    Validate.required('LABEL_FORM_OF_CONTRACT'),
-                    Validate.maxLength(1000)
-                  ]}
-                  warn={alphaNumeric}
-                  labelKey="LABEL_FORM_OF_CONTRACT"
-                  placeholderKey="PLACEHOLDER_FORM_OF_CONTRACT"
-                />
-                <Field
-                  name="projectAdditionalDetail.retention"
-                  data-test="retention"
-                  type="text"
-                  component={PdsFormInput}
-                  validate={[
-                    Validate.maxLength(1000)
-                  ]}
-                  warn={alphaNumeric}
-                  labelKey="LABEL_RETENTION"
-                  placeholderKey="PLACEHOLDER_ADD_RETENTION"
-                />
-                <Field
-                  name="projectAdditionalDetail.liquidatedDamages"
-                  data-test="liquidatedDamages"
-                  type="text"
-                  component={PdsFormInput}
-                  validate={[
-                    Validate.maxLength(1000)
-                  ]}
-                  warn={alphaNumeric}
-                  labelKey="LABEL_LIQUIDATED_DAMAGES"
-                  placeholderKey="PLACEHOLDER_ADD_LIQUIDATED_DAMAGES"
-                />
-                <Field
-                  name="projectAdditionalDetail.insurance"
-                  data-test="insurance"
-                  type="text"
-                  component={PdsFormInput}
-                  className="required"
-                  validate={[
-                    Validate.required('LABEL_INSURANCE'),
-                    Validate.maxLength(1000)
-                  ]}
-                  warn={alphaNumeric}
-                  labelKey="LABEL_INSURANCE"
-                  placeholderKey="PLACEHOLDER_ADD_INSURANCE"
-                />
-                <div className={'form-group'}>
-                  <label>
-                    <FormattedMessage id="LABEL_WORK_TYPE" />*
-                  </label>
-                  <div className="select-wrapper">
-                    <Field
-                      name="projectAdditionalDetailworkTypeId"
-                      component={PdsFormSelect}
-                      className="required"
-                      validate={[Validate.required('MESSAGE_PROJECT_STATUS')]}
-                      placeholderKey="PLACEHOLDER_WORK_TYPES"
-                      messageKey="MESSAGE_PROJECT_STATUS"
-                    >
-                      <FormattedMessage id="PLACEHOLDER_WORK_TYPES">
-                        {message => <option value="">{message}</option>}
-                      </FormattedMessage>
-                      {getDropdown(props.projectstatus, LookupType.Work_Type)}
-                    </Field>
+                    {props.projectstatus &&
+                      props.projectstatus
+                        .filter(
+                          element => element.lookupItem == LookupType.Enquiry_Type
+                        )
+                        .map((data, index) => {
+                          return (
+                            <div className="form-check" key={index}>
+                              <Field
+                                name="projectAdditionalDetail.enquiryTypeId"
+                                component="input"
+                                type="radio"
+                                value={+data.lookupKey}
+                                normalize={normalize}
+                              />
+                              <label className="form-check-label">
+                                <FormattedMessage id={data.description} />
+                              </label>
+                            </div>
+                          );
+                        })}
                   </div>
-                </div>
+                  <Field
+                    name="projectAdditionalDetail.creditCheckResult"
+                    data-test="creditCheckResult"
+                    type="text"
+                    component={PdsFormInput}
+                    className="required"
+                    validate={[
+                      Validate.required('LABEL_CREDIT_CHECK_RESULT'),
+                      Validate.maxLength(1000)
+                    ]}
+                    warn={alphaNumeric}
+                    labelKey="LABEL_CREDIT_CHECK_RESULT"
+                    placeholderKey="PLACEHOLDER_CREDIT_CHECK_DETAILS"
+                  />
+                  <Field
+                    name="projectAdditionalDetail.siteAddress"
+                    data-test="siteAddress"
+                    type="text"
+                    component={PdsFormInput}
+                    className="required"
+                    validate={[
+                      Validate.required('LABEL_SITE_ADDRESS'),
+                      Validate.maxLength(1000)
+                    ]}
+                    warn={alphaNumeric}
+                    labelKey="LABEL_SITE_ADDRESS"
+                    placeholderKey="PLACEHOLDER_ADD_SITE_ADDRESS"
+                  />
+                  <Field
+                    name="projectAdditionalDetail.cdmNotifiable"
+                    data-test="cdmNotifiable"
+                    component={PdsFormButton}
+                    buttons={selectionButtons}
+                    labelKey="LABEL_CDMNOTIFIABLE"
+                  />
+                  <Field
+                    name="projectAdditionalDetail.formOfContract"
+                    data-test="formOfContract"
+                    type="text"
+                    component={PdsFormInput}
+                    className="required"
+                    validate={[
+                      Validate.required('LABEL_FORM_OF_CONTRACT'),
+                      Validate.maxLength(1000)
+                    ]}
+                    warn={alphaNumeric}
+                    labelKey="LABEL_FORM_OF_CONTRACT"
+                    placeholderKey="PLACEHOLDER_FORM_OF_CONTRACT"
+                  />
+                  <Field
+                    name="projectAdditionalDetail.retention"
+                    data-test="retention"
+                    type="text"
+                    component={PdsFormInput}
+                    className="required"
+                    validate={[
+                      Validate.required('LABEL_RETENTION'),
+                      Validate.maxLength(1000)
+                    ]}
+                    warn={alphaNumeric}
+                    labelKey="LABEL_RETENTION"
+                    placeholderKey="PLACEHOLDER_ADD_RETENTION"
+                  />
+                  <Field
+                    name="projectAdditionalDetail.liquidatedDamages"
+                    data-test="liquidatedDamages"
+                    type="text"
+                    component={PdsFormInput}
+                    className="required"
+                    validate={[
+                      Validate.required('LABEL_LIQUIDATED_DAMAGES'),
+                      Validate.maxLength(1000)
+                    ]}
+                    warn={alphaNumeric}
+                    labelKey="LABEL_LIQUIDATED_DAMAGES"
+                    placeholderKey="PLACEHOLDER_ADD_LIQUIDATED_DAMAGES"
+                  />
+                  <Field
+                    name="projectAdditionalDetail.insurance"
+                    data-test="insurance"
+                    type="text"
+                    component={PdsFormInput}
+                    className="required"
+                    validate={[
+                      Validate.required('LABEL_INSURANCE'),
+                      Validate.maxLength(1000)
+                    ]}
+                    warn={alphaNumeric}
+                    labelKey="LABEL_INSURANCE"
+                    placeholderKey="PLACEHOLDER_ADD_INSURANCE"
+                  />
+                  <div className={'form-group'}>
+                    <label>
+                      <FormattedMessage id="LABEL_WORK_TYPE" />*
+                  </label>
+                    <div className="select-wrapper">
+                      <Field
+                        name="projectAdditionalDetailworkTypeId"
+                        component={PdsFormSelect}
+                        className="required"
+                        validate={[Validate.required('MESSAGE_PROJECT_STATUS')]}
+                        placeholderKey="PLACEHOLDER_WORK_TYPES"
+                        messageKey="MESSAGE_PROJECT_STATUS"
+                      >
+                        <FormattedMessage id="PLACEHOLDER_WORK_TYPES">
+                          {message => <option value="">{message}</option>}
+                        </FormattedMessage>
+                        {getDropdown(props.projectstatus, LookupType.Work_Type)}
+                      </Field>
+                    </div>
+                  </div>
 
                 <div className="row">
                   <div className="col-xl-10">
@@ -535,7 +540,7 @@ let ProjectOverviewForm: React.FC<Props  &
                   <section className="activity_feed">
                     <div className="feed-block">
                       <div className="feed-block-img feed-icon">
-                      <FontAwesomeIcon className="" icon={faUser} />
+                        <FontAwesomeIcon className="" icon={faUser} />
                       </div>
                       <div className="feed-block-content">
                         <h2><FormattedMessage id='LABEL_APPROVED_BY'></FormattedMessage> <span>John Wick</span></h2>
@@ -549,7 +554,7 @@ let ProjectOverviewForm: React.FC<Props  &
                     </div>
                     <div className="feed-block">
                       <div className="feed-block-img close-icon">
-                      <FontAwesomeIcon className="" icon={faTimes} />
+                        <FontAwesomeIcon className="" icon={faTimes} />
                       </div>
                       <div className="feed-block-content">
                         <h2><FormattedMessage id='LABEL_APPROVED_BY'></FormattedMessage> <span>John Smith</span></h2>
@@ -563,7 +568,7 @@ let ProjectOverviewForm: React.FC<Props  &
                     </div>
                     <div className="feed-block">
                       <div className="feed-block-img feed-icon">
-                      <FontAwesomeIcon className="" icon={faUser} />
+                        <FontAwesomeIcon className="" icon={faUser} />
                       </div>
                       <div className="feed-block-content">
                         <h2><FormattedMessage id='LABEL_APPROVED_BY'></FormattedMessage> <span>John Wick</span></h2>
@@ -577,7 +582,7 @@ let ProjectOverviewForm: React.FC<Props  &
                     </div>
                     <div className="feed-block">
                       <div className="feed-block-img check-icon">
-                      <FontAwesomeIcon className="" icon={faCheck} />
+                        <FontAwesomeIcon className="" icon={faCheck} />
                       </div>
                       <div className="feed-block-content">
                         <h2><FormattedMessage id='LABEL_APPROVED_BY'></FormattedMessage> <span>John Doe</span></h2>
@@ -591,7 +596,7 @@ let ProjectOverviewForm: React.FC<Props  &
                     </div>
                     <div className="feed-block">
                       <div className="feed-block-img feed-icon">
-                      <FontAwesomeIcon className="" icon={faUser} />
+                        <FontAwesomeIcon className="" icon={faUser} />
                       </div>
                       <div className="feed-block-content">
                         <h2><FormattedMessage id='LABEL_APPROVED_BY'></FormattedMessage> <span>John Wick</span></h2>
@@ -603,34 +608,61 @@ let ProjectOverviewForm: React.FC<Props  &
                     </div>
                   </section>
                 </div>
-            </div>
+              </div>
 
-            <div className="mr-35 d-flex justify-content-between mb-4">
-              <button
-                className="active mb-4 mt-5"
-                type="button"
-                onClick={()=>props.onPrevious()}
-              >
-                <FormattedMessage id="BUTTON_PREVIOUS" />
-              </button>
-              <button
-                type="button"
-                name="next"
-                onClick={handleSubmit(values => props.onNext(values))}
-                className="mb-4 mt-5 mr-0"
-              >
-                <FormattedMessage id="BUTTON_NEXT" />
-              </button>
-            </div>
-          </form>
+              <div className="row">
+                <div className="col-lg-4">
+                  <ProjectOverviewRiskForm
+                    riskName="projectAdditionalDetail.projectRisk1"
+                    riskLabelName="LABEL_PROJECT_RISK_1"
+                    riskControlMeasureName="projectAdditionalDetail.projectRiskControlMeasure1"
+                    riskControlMeasureLabelName="LABEL_RISK_1_CONTROL_MEASURE"
+                  ></ProjectOverviewRiskForm>
+                </div>
+                <div className="col-lg-4">
+                  <ProjectOverviewRiskForm
+                    riskName="projectAdditionalDetail.projectRisk2"
+                    riskLabelName="LABEL_PROJECT_RISK_2"
+                    riskControlMeasureName="projectAdditionalDetail.projectRiskControlMeasure2"
+                    riskControlMeasureLabelName="LABEL_RISK_2_CONTROL_MEASURE"
+                  ></ProjectOverviewRiskForm>
+                </div>
+                <div className="col-lg-4">
+                  <ProjectOverviewRiskForm
+                    riskName="projectAdditionalDetail.projectRisk3"
+                    riskLabelName="LABEL_PROJECT_RISK_3"
+                    riskControlMeasureName="projectAdditionalDetail.projectRiskControlMeasure3"
+                    riskControlMeasureLabelName="LABEL_RISK_3_CONTROL_MEASURE"
+                  ></ProjectOverviewRiskForm>
+                </div>
+              </div>
+
+              <div className="mr-35 d-flex justify-content-between mb-4">
+                <button
+                  className="active mb-4 mt-5"
+                  type="button"
+                  onClick={handleSubmit(values => props.onPrevious(values))}
+                >
+                  <FormattedMessage id="BUTTON_PREVIOUS" />
+                </button>
+                <button
+                  type="button"
+                  name="next"
+                  onClick={handleSubmit(values => props.onNext(values))}
+                  className="mb-4 mt-5 mr-0"
+                >
+                  <FormattedMessage id="BUTTON_NEXT" />
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
-  );
-};
+    );
+  };
 
 const mapStateToProps = (state: IState) => ({
-  initialValues: state.projectOverview.form,  
+  initialValues: state.projectOverview.form,
   dynamicsOtherSubContractor: state.dynamicData.dynamicsOtherSubContractor,
 });
 
