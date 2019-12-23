@@ -39,7 +39,7 @@ import ProjectOverviewRiskForm from './ProjectOverviewRiskForm';
 
 interface Props {
   onNext: (data: IProjectOverviewDetails) => void;
-  onPrevious: (data: IProjectOverviewDetails) => void;
+  onPrevious: () => void;
   projectstatus: any;
   status: number;
 }
@@ -171,9 +171,7 @@ let ProjectOverviewForm: React.FC<Props &
                     data-test="retention"
                     type="text"
                     component={PdsFormInput}
-                    className="required"
                     validate={[
-                      Validate.required('LABEL_RETENTION'),
                       Validate.maxLength(1000)
                     ]}
                     warn={alphaNumeric}
@@ -185,9 +183,7 @@ let ProjectOverviewForm: React.FC<Props &
                     data-test="liquidatedDamages"
                     type="text"
                     component={PdsFormInput}
-                    className="required"
                     validate={[
-                      Validate.required('LABEL_LIQUIDATED_DAMAGES'),
                       Validate.maxLength(1000)
                     ]}
                     warn={alphaNumeric}
@@ -229,303 +225,313 @@ let ProjectOverviewForm: React.FC<Props &
                     </div>
                   </div>
 
-                  <div className="row">
-                    <div className="col-xl-10">
-                      <div className="form-group">
-                        <label>
-                          <FormattedMessage id="LABEL_PROJECT_PLAN" />
-                        </label>
-                        <div className="calender-wrap">
-                          <div className="row">
-                            <div className="col-xl-6 mt-2 position-relative manipulate-calendar">
-                              <DatePicker
-                                name="projectAdditionalDetail.commenceDate"
-                                data-test="commenceDate"
-                                labelKey="LABEL_COMMENCE_DATE"
-                              />
-                            </div>
-                            <div className="col-xl-6 mt-2 position-relative manipulate-calendar">
-                              <DatePicker
-                                name="projectAdditionalDetail.completionDate"
-                                data-test="completionDate"
-                                labelKey="LABEL_COMPLETION_DATE"
-                              />
-                            </div>
+                <div className="row">
+                  <div className="col-xl-10">
+                    <div className="form-group">
+                      <label>
+                        <FormattedMessage id="LABEL_PROJECT_PLAN" />
+                      </label>
+                      <div className="calender-wrap">
+                        <div className="row">
+                          <div className="col-xl-6 mt-2 position-relative manipulate-calendar">
+                            <DatePicker
+                              name="projectAdditionalDetail.commenceDate"
+                              data-test="commenceDate"
+                              className="required"
+                              labelKey="LABEL_COMMENCE_DATE"
+                            />
                           </div>
-                          <div className="row">
-                            <div className="col-xl-12">
-                              <Field
-                                name="projectAdditionalDetail.milestones"
-                                data-test="milestones"
-                                labelKey="LABEL_PROJECTMILE_STONES"
-                                rows="7"
-                                component={PdsFormTextArea}
-                                placeholderKey="PLACEHOLDER_PROJECT_MILESTONES"
-                              />
-                            </div>
+                          <div className="col-xl-6 mt-2 position-relative manipulate-calendar">
+                            <DatePicker
+                              name="projectAdditionalDetail.completionDate"
+                              data-test="completionDate"
+                              className="required"
+                              labelKey="LABEL_COMPLETION_DATE"
+                            />
+                          </div>
+                        </div>
+                        <div className="row">
+                          <div className="col-xl-12">
+                            <Field
+                              name="projectAdditionalDetail.milestones"
+                              data-test="milestones"
+                              labelKey="LABEL_PROJECTMILE_STONES"
+                              rows="7"
+                              className="required"
+                              validate={[Validate.required('LABEL_PROJECTMILE_STONES')]}
+                              component={PdsFormTextArea}
+                              placeholderKey="PLACEHOLDER_PROJECT_MILESTONES"
+                            />
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
+                </div>
 
-                  <div className="row">
-                    <div className="col-xl-10">
-                      <div className="form-group">
-                        <label><FormattedMessage id='LABEL_PROJECT_PLAN'></FormattedMessage></label>
-                        <div className="calender-wrap">
-                          <div className="row">
-                            <div className="col-xl-6 mt-2 position-relative manipulate-calendar">
-                              <DatePicker
-                                name="projectAdditionalDetail.firstValuationDate"
-                                data-test="firstValuationDate"
-                                labelKey="LABEL_FIRST_VALUATION_DATE"
-                              />
-                            </div>
-                            <div className="col-xl-6 mt-2 position-relative manipulate-calendar" >
-                              <DatePicker
-                                name="projectAdditionalDetail.finalAccountDate"
-                                data-test="finalAccountDate"
-                                labelKey="LABEL_FIRST_ACCOUNT_DATE"
-                              />
-                            </div>
+                <div className="row">
+                  <div className="col-xl-10">
+                    <div className="form-group">
+                      <label><FormattedMessage id='LABEL_PROJECT_PLAN'></FormattedMessage></label>
+                      <div className="calender-wrap">
+                        <div className="row">
+                          <div className="col-xl-6 mt-2 position-relative manipulate-calendar">
+                            <DatePicker
+                              name="projectAdditionalDetail.firstValuationDate"
+                              data-test="firstValuationDate"
+                              className="required"
+                              labelKey="LABEL_FIRST_VALUATION_DATE"
+                            />
                           </div>
-                          <div className="row">
-                            <div className="col-xl-12">
-                              <Field
-                                name="projectAdditionalDetail.valuationIntervals"
-                                data-test="valuationIntervals"
-                                type="text"
-                                component={PdsFormInput}
-                                labelKey="LABEL_VALUATION_INTERVALS"
-                                placeholderKey="PLACEHOLDER_VALUATION_INTERVALS"
-                              />
-                            </div>
+                          <div className="col-xl-6 mt-2 position-relative manipulate-calendar" >
+                            <DatePicker
+                              name="projectAdditionalDetail.finalAccountDate"
+                              data-test="finalAccountDate"
+                              className="required"
+                              labelKey="LABEL_FIRST_ACCOUNT_DATE"
+                            />
                           </div>
-                          <div className="row">
-                            <div className="col-xl-12">
-                              <Field
-                                name="projectAdditionalDetail.paymentTerms"
-                                data-test="paymentTerms"
-                                type="text"
-                                component={PdsFormInput}
-                                labelKey="LABEL_PAYMENT_TERMS"
-                                placeholderKey="PLACEHOLDER_PAYMENT_TERMS"
-                              />
-                            </div>
+                        </div>
+                        <div className="row">
+                          <div className="col-xl-12">
+                            <Field
+                              name="projectAdditionalDetail.valuationIntervals"
+                              data-test="valuationIntervals"
+                              type="text"
+                              className="required"
+                              validate={[Validate.required('LABEL_VALUATION_INTERVALS')]}
+                              component={PdsFormInput}
+                              labelKey="LABEL_VALUATION_INTERVALS"
+                              placeholderKey="PLACEHOLDER_VALUATION_INTERVALS"
+                            />
+                          </div>
+                        </div>
+                        <div className="row">
+                          <div className="col-xl-12">
+                            <Field
+                              name="projectAdditionalDetail.paymentTerms"
+                              data-test="paymentTerms"
+                              type="text"
+                              className="required"
+                              validate={[Validate.required('LABEL_PAYMENT_TERMS')]}
+                              component={PdsFormInput}
+                              labelKey="LABEL_PAYMENT_TERMS"
+                              placeholderKey="PLACEHOLDER_PAYMENT_TERMS"
+                            />
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <Field
-                    name="projectAdditionalDetail.isProjectLive"
-                    data-test="isProjectLive"
-                    component={PdsFormButton}
-                    buttons={selectionButtons}
-                    labelKey="LABEL_PROJECT_IS_LIVE"
-                  />
-                  <Field
-                    name="projectAdditionalDetail.comments"
-                    data-test="comments"
-                    labelKey="LABEL_COMMENTS"
-                    rows="7"
-                    component={PdsFormTextArea}
-                    placeholderKey="PLACEHOLDER_ADDITIONAL_COMMENTS"
-                  />
+                </div>
+                <Field
+                  name="projectAdditionalDetail.isProjectLive"
+                  data-test="isProjectLive"
+                  component={PdsFormButton}
+                  buttons={selectionButtons}
+                  labelKey="LABEL_PROJECT_IS_LIVE"
+                />
+                <Field
+                  name="projectAdditionalDetail.comments"
+                  data-test="comments"
+                  labelKey="LABEL_COMMENTS"
+                  rows="7"
+                  component={PdsFormTextArea}
+                  placeholderKey="PLACEHOLDER_ADDITIONAL_COMMENTS"
+                />
+              </div>
+            </div>
+            {/* AUTHORISED SECTION */}
+            <div className={(props.status==ProjectStatus.BidLost||props.status==ProjectStatus.OnHold)?"link_disabled row":"row"}>
+              <div className="col-xl-6">
+                <div className="authorised_form_wrap">
+                  <h6 className="ml-0">
+                    <FormattedMessage id="LABEL_PROJECT_AUTHORISED" />
+                  </h6>
+                  <div className="authorised_form_inner">
+                    <div className="row">
+                      <div className="col-md-12 d-flex">
+                        <label><FormattedMessage id="LABEL_AUTHORISED_BY" /></label>
+                        <h6 className="mb-0 d-none d-lg-block"><FormattedMessage id="LABEL_SIGN_OFF_STATUS" /> </h6>
+                      </div>
+                      <div className="col-lg-3">
+                        <div className="approve_state">
+                          <span className="icon"><FontAwesomeIcon className="green" icon={faCheckCircle} /></span>
+                          <label className='approv_label'><FormattedMessage id="LABEL_APPROVED" /> </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="row align-items-stretch">
+                      <div className="col-lg-9 col-md-12 d-flex">
+                        <label>{formatMessage('LABEL_AUTHORISED_BY_UP_TO', {0: '£ 100k' })}</label>
+                      </div>
+                      <div className="col-lg-9">
+                        <div className="form-group">
+                          <input className="form-control" type="number" placeholder="" />
+                          <span className="right_fix_txt"><FormattedMessage id="FIX_TEXT_AGM" /></span>
+                        </div>
+                      </div>
+                      <div className="col-lg-3">
+                        <div className="approve_state">
+                          <span className="icon"><FontAwesomeIcon className="green" icon={faCheckCircle} /></span>
+                          <label className='approv_label'><FormattedMessage id="LABEL_APPROVED" /> </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="row align-items-stretch">
+                      <div className="col-lg-9 col-md-12 d-flex">
+                        <label> {formatMessage('LABEL_AUTHORISED_BY_UP_TO', {0: '£ 250k' })}</label>
+                      </div>
+                      <div className="col-lg-9">
+                        <div className="form-group">
+                          <input className="form-control" type="number" placeholder="" />
+                          <span className="right_fix_txt"><FormattedMessage id="FIX_TEXT_COM" /> </span>
+                        </div>
+                      </div>
+                      <div className="col-lg-3">
+                        <div className="approve_state">
+                          <span className="icon"><FontAwesomeIcon className="orange" icon={faClock} /></span>
+                          <label className="approv_label"><FormattedMessage id="LABEL_PENDING" /> </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="row align-items-stretch">
+                      <div className="col-lg-9 col-md-12 d-flex">
+                        <label>{formatMessage('LABEL_AUTHORISED_BY_UP_TO', {0: '£ 250k' })}</label>
+                      </div>
+                      <div className="col-lg-9">
+                        <div className="form-group">
+                          <input className="form-control" type="number" placeholder="" />
+                          <span className="right_fix_txt"><FormattedMessage id="FIX_TEXT_BUL" /> </span>
+                        </div>
+                      </div>
+                      <div className="col-lg-3">
+                        <div className="approve_state">
+                          <span className="icon"><FontAwesomeIcon className="orange" icon={faClock} /></span>
+                          <label className='approv_label'><FormattedMessage id="LABEL_PENDING" /> </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="row align-items-stretch">
+                      <div className="col-lg-9 col-md-12 d-flex">
+                        <label>{formatMessage('LABEL_AUTHORISED_BY_UP_TO', {0: '£ 1 Million' })}</label>
+                      </div>
+                      <div className="col-lg-9">
+                        <div className="form-group">
+                          <input className="form-control" type="number" placeholder="" />
+                          <span className="right_fix_txt"><FormattedMessage id="FIX_TEXT_DPD" /> </span>
+                        </div>
+                      </div>
+                      <div className="col-lg-3">
+                        <div className="approve_state">
+                          <span className="icon"><FontAwesomeIcon className="orange" icon={faExclamationTriangle} /></span>
+                          <label className='approv_label'><FormattedMessage id="LABEL_RESPONSE_AWAITED" /> </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="row align-items-stretch">
+                      <div className="col-lg-9">
+                        <div className="form-group">
+                          <input className="form-control" type="number" placeholder="" />
+                          <span className="right_fix_txt"><FormattedMessage id="FIX_TEXT_DMD" /> </span>
+                        </div>
+                      </div>
+                      <div className="col-lg-3">
+                        <div className="approve_state">
+                          <span className="icon"><FontAwesomeIcon className="orange" icon={faExclamationTriangle} /></span>
+                          <label className='approv_label'><FormattedMessage id="LABEL_RESPONSE_AWAITED" /> </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="row align-items-stretch">
+                      <div className="col-lg-9 col-md-12 d-flex">
+                        <label> {formatMessage('LABEL_AUTHORISED_BY_UP_TO', {0: '£ 3 Million' })}</label>
+                        <label className="right_label"><FormattedMessage id="LABEL_DELEGATE" /> </label>
+                      </div>
+                      <div className="col-lg-9">
+                        <div className="form-group">
+                          <input className="form-control" type="number" placeholder="" />
+                          <span className="right_fix_txt"><FormattedMessage id="FIX_TEXT_DOFP" /> </span>
+                        </div>
+                      </div>
+                      <div className="col-lg-3">
+                        <div className="approve_state">
+                          <span className="icon"><FontAwesomeIcon className="orange" icon={faExclamationTriangle} /></span>
+                          <label className='approv_label'><FormattedMessage id="LABEL_RESPONSE_AWAITED" /> </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="row align-items-stretch">
+                      <div className="col-lg-9 col-md-12 d-flex">
+                        <label className="right_label"><FormattedMessage id="LABEL_DELEGATE" /> </label>
+                      </div>
+                      <div className="col-lg-9">
+                        <div className="form-group">
+                          <input className="form-control" type="number" placeholder="" />
+                          <span className="right_fix_txt"><FormattedMessage id="FIX_TEXT_PCOMM" /> </span>
+                        </div>
+                      </div>
+                      <div className="col-lg-3">
+                        <div className="approve_state">
+                          <span className="icon"><FontAwesomeIcon className="orange" icon={faExclamationTriangle} /></span>
+                          <label className='approv_label'><FormattedMessage id="LABEL_RESPONSE_AWAITED" /></label>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="row align-items-stretch">
+                      <div className="col-lg-9 col-md-12 d-flex">
+                        <label className="right_label"><FormattedMessage id="LABEL_DELEGATE" /></label>
+                      </div>
+                      <div className="col-lg-9">
+                        <div className="form-group">
+                          <input className="form-control" type="number" placeholder="" />
+                          <span className="right_fix_txt"><FormattedMessage id="FIX_TEXT_COO_UK_FD" /> </span>
+                        </div>
+                      </div>
+                      <div className="col-lg-3">
+                        <div className="approve_state">
+                          <span className="icon"><FontAwesomeIcon className="orange" icon={faExclamationTriangle} /></span>
+                          <label className='approv_label'><FormattedMessage id="LABEL_RESPONSE_AWAITED" /></label>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="row align-items-stretch">
+                      <div className="col-lg-9 col-md-12 d-flex">
+                          <label>{formatMessage('LABEL_OVER_MILLION', {0: '£ 405'})}</label></div>
+                      <div className="col-lg-9">
+                        <div className="form-group">
+                          <input className="form-control" type="number" placeholder="" />
+                          <span className="right_fix_txt"><FormattedMessage id="FIX_TEXT_CEO_GROUP_FD" /> </span>
+                        </div>
+                      </div>
+                      <div className="col-lg-3">
+                        <div className="approve_state">
+                          <span className="icon"><FontAwesomeIcon className="green" icon={faCheckCircle} /></span>
+                          <label className='approv_label'><FormattedMessage id="LABEL_APPROVED" /></label>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="row align-items-stretch">
+                      <div className="col-lg-9 col-md-12 d-flex">
+                        <label>{formatMessage('LABEL_OVER_MILLION_AUTHORITY', {0: '£ 3'})}</label>
+                      </div>
+                      <div className="col-lg-9">
+                        <div className="form-group">
+                          <input className="form-control" type="number" placeholder="" />
+                          <span className="right_fix_txt"><FormattedMessage id="FIX_TEXT_CBRE_REGULATIONS" /></span>
+                        </div>
+                      </div>
+                      <div className="col-lg-3">
+                        <div className="approve_state">
+                          <span className="icon"><FontAwesomeIcon className="green" icon={faCheckCircle} /></span>
+                          <label className='approv_label'><FormattedMessage id="LABEL_APPROVED" /></label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-              {/* AUTHORISED SECTION */}
-              <div className={(props.status == ProjectStatus.BidLost || props.status == ProjectStatus.OnHold) ? "link_disabled row" : "row"}>
-                <div className="col-xl-6">
-                  <div className="authorised_form_wrap">
-                    <h6 className="ml-0">
-                      <FormattedMessage id="LABEL_PROJECT_AUTHORISED" />
-                    </h6>
-                    <div className="authorised_form_inner">
-                      <div className="row">
-                        <div className="col-md-12 d-flex">
-                          <label><FormattedMessage id="LABEL_AUTHORISED_BY" /></label>
-                          <h6 className="mb-0 d-none d-lg-block"><FormattedMessage id="LABEL_SIGN_OFF_STATUS" /> </h6>
-                        </div>
-                        <div className="col-lg-3">
-                          <div className="approve_state">
-                            <span className="icon"><FontAwesomeIcon className="green" icon={faCheckCircle} /></span>
-                            <label className='approv_label'><FormattedMessage id="LABEL_APPROVED" /> </label>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="row align-items-stretch">
-                        <div className="col-lg-9 col-md-12 d-flex">
-                          <label>{formatMessage('LABEL_AUTHORISED_BY_UP_TO', { 0: '£ 100k' })}</label>
-                        </div>
-                        <div className="col-lg-9">
-                          <div className="form-group">
-                            <input className="form-control" type="number" placeholder="" />
-                            <span className="right_fix_txt"><FormattedMessage id="FIX_TEXT_AGM" /></span>
-                          </div>
-                        </div>
-                        <div className="col-lg-3">
-                          <div className="approve_state">
-                            <span className="icon"><FontAwesomeIcon className="green" icon={faCheckCircle} /></span>
-                            <label className='approv_label'><FormattedMessage id="LABEL_APPROVED" /> </label>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="row align-items-stretch">
-                        <div className="col-lg-9 col-md-12 d-flex">
-                          <label> {formatMessage('LABEL_AUTHORISED_BY_UP_TO', { 0: '£ 250k' })}</label>
-                        </div>
-                        <div className="col-lg-9">
-                          <div className="form-group">
-                            <input className="form-control" type="number" placeholder="" />
-                            <span className="right_fix_txt"><FormattedMessage id="FIX_TEXT_COM" /> </span>
-                          </div>
-                        </div>
-                        <div className="col-lg-3">
-                          <div className="approve_state">
-                            <span className="icon"><FontAwesomeIcon className="orange" icon={faClock} /></span>
-                            <label className="approv_label"><FormattedMessage id="LABEL_PENDING" /> </label>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="row align-items-stretch">
-                        <div className="col-lg-9 col-md-12 d-flex">
-                          <label>{formatMessage('LABEL_AUTHORISED_BY_UP_TO', { 0: '£ 250k' })}</label>
-                        </div>
-                        <div className="col-lg-9">
-                          <div className="form-group">
-                            <input className="form-control" type="number" placeholder="" />
-                            <span className="right_fix_txt"><FormattedMessage id="FIX_TEXT_BUL" /> </span>
-                          </div>
-                        </div>
-                        <div className="col-lg-3">
-                          <div className="approve_state">
-                            <span className="icon"><FontAwesomeIcon className="orange" icon={faClock} /></span>
-                            <label className='approv_label'><FormattedMessage id="LABEL_PENDING" /> </label>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="row align-items-stretch">
-                        <div className="col-lg-9 col-md-12 d-flex">
-                          <label>{formatMessage('LABEL_AUTHORISED_BY_UP_TO', { 0: '£ 1 Million' })}</label>
-                        </div>
-                        <div className="col-lg-9">
-                          <div className="form-group">
-                            <input className="form-control" type="number" placeholder="" />
-                            <span className="right_fix_txt"><FormattedMessage id="FIX_TEXT_DPD" /> </span>
-                          </div>
-                        </div>
-                        <div className="col-lg-3">
-                          <div className="approve_state">
-                            <span className="icon"><FontAwesomeIcon className="orange" icon={faExclamationTriangle} /></span>
-                            <label className='approv_label'><FormattedMessage id="LABEL_RESPONSE_AWAITED" /> </label>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="row align-items-stretch">
-                        <div className="col-lg-9">
-                          <div className="form-group">
-                            <input className="form-control" type="number" placeholder="" />
-                            <span className="right_fix_txt"><FormattedMessage id="FIX_TEXT_DMD" /> </span>
-                          </div>
-                        </div>
-                        <div className="col-lg-3">
-                          <div className="approve_state">
-                            <span className="icon"><FontAwesomeIcon className="orange" icon={faExclamationTriangle} /></span>
-                            <label className='approv_label'><FormattedMessage id="LABEL_RESPONSE_AWAITED" /> </label>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="row align-items-stretch">
-                        <div className="col-lg-9 col-md-12 d-flex">
-                          <label> {formatMessage('LABEL_AUTHORISED_BY_UP_TO', { 0: '£ 3 Million' })}</label>
-                          <label className="right_label"><FormattedMessage id="LABEL_DELEGATE" /> </label>
-                        </div>
-                        <div className="col-lg-9">
-                          <div className="form-group">
-                            <input className="form-control" type="number" placeholder="" />
-                            <span className="right_fix_txt"><FormattedMessage id="FIX_TEXT_DOFP" /> </span>
-                          </div>
-                        </div>
-                        <div className="col-lg-3">
-                          <div className="approve_state">
-                            <span className="icon"><FontAwesomeIcon className="orange" icon={faExclamationTriangle} /></span>
-                            <label className='approv_label'><FormattedMessage id="LABEL_RESPONSE_AWAITED" /> </label>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="row align-items-stretch">
-                        <div className="col-lg-9 col-md-12 d-flex">
-                          <label className="right_label"><FormattedMessage id="LABEL_DELEGATE" /> </label>
-                        </div>
-                        <div className="col-lg-9">
-                          <div className="form-group">
-                            <input className="form-control" type="number" placeholder="" />
-                            <span className="right_fix_txt"><FormattedMessage id="FIX_TEXT_PCOMM" /> </span>
-                          </div>
-                        </div>
-                        <div className="col-lg-3">
-                          <div className="approve_state">
-                            <span className="icon"><FontAwesomeIcon className="orange" icon={faExclamationTriangle} /></span>
-                            <label className='approv_label'><FormattedMessage id="LABEL_RESPONSE_AWAITED" /></label>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="row align-items-stretch">
-                        <div className="col-lg-9 col-md-12 d-flex">
-                          <label className="right_label"><FormattedMessage id="LABEL_DELEGATE" /></label>
-                        </div>
-                        <div className="col-lg-9">
-                          <div className="form-group">
-                            <input className="form-control" type="number" placeholder="" />
-                            <span className="right_fix_txt"><FormattedMessage id="FIX_TEXT_COO_UK_FD" /> </span>
-                          </div>
-                        </div>
-                        <div className="col-lg-3">
-                          <div className="approve_state">
-                            <span className="icon"><FontAwesomeIcon className="orange" icon={faExclamationTriangle} /></span>
-                            <label className='approv_label'><FormattedMessage id="LABEL_RESPONSE_AWAITED" /></label>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="row align-items-stretch">
-                        <div className="col-lg-9 col-md-12 d-flex">
-                          <label>{formatMessage('LABEL_OVER_MILLION', { 0: '£ 405' })}</label></div>
-                        <div className="col-lg-9">
-                          <div className="form-group">
-                            <input className="form-control" type="number" placeholder="" />
-                            <span className="right_fix_txt"><FormattedMessage id="FIX_TEXT_CEO_GROUP_FD" /> </span>
-                          </div>
-                        </div>
-                        <div className="col-lg-3">
-                          <div className="approve_state">
-                            <span className="icon"><FontAwesomeIcon className="green" icon={faCheckCircle} /></span>
-                            <label className='approv_label'><FormattedMessage id="LABEL_APPROVED" /></label>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="row align-items-stretch">
-                        <div className="col-lg-9 col-md-12 d-flex">
-                          <label>{formatMessage('LABEL_OVER_MILLION_AUTHORITY', { 0: '£ 3' })}</label>
-                        </div>
-                        <div className="col-lg-9">
-                          <div className="form-group">
-                            <input className="form-control" type="number" placeholder="" />
-                            <span className="right_fix_txt"><FormattedMessage id="FIX_TEXT_CBRE_REGULATIONS" /></span>
-                          </div>
-                        </div>
-                        <div className="col-lg-3">
-                          <div className="approve_state">
-                            <span className="icon"><FontAwesomeIcon className="green" icon={faCheckCircle} /></span>
-                            <label className='approv_label'><FormattedMessage id="LABEL_APPROVED" /></label>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-xl-6">
+              <div className="col-xl-6">
                   <h3 className="feed_head"><FormattedMessage id='LABEL_ACTIVITY_FEED'></FormattedMessage></h3>
                   <section className="activity_feed">
                     <div className="feed-block">
@@ -631,7 +637,7 @@ let ProjectOverviewForm: React.FC<Props &
                 <button
                   className="active mb-4 mt-5"
                   type="button"
-                  onClick={handleSubmit(values => props.onPrevious(values))}
+                  onClick={()=>props.onPrevious()}
                 >
                   <FormattedMessage id="BUTTON_PREVIOUS" />
                 </button>
