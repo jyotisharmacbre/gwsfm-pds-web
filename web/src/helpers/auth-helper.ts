@@ -15,7 +15,11 @@ export const getFirstName = () => {
 
 export const getDisplayEmail = () => {
   const decoded: DecodedToken = decodeToken();
-  return "rishav.mittal@cbre.com";
+  return decoded.email ?
+    decoded.email :
+    decoded.emails && decoded.emails.length > 0 ?
+      decoded.emails[0] :
+      '';
 };
 
 export const logOut = () => {
