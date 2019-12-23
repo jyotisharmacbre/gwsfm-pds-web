@@ -66,95 +66,92 @@ const PricingSummary:React.FC<Props & IMapStateToProps & IMapDispatchToProps> = 
     },[props.discountState]);
 
     return (
-    <div className="col-lg-12 px-0">
-        <div className="price-sumry discount_table">
-          <div className="inner-block">
-            <table className="price-table">
-              <thead>
-                <tr>
-                  <th></th>
-                  <th><FormattedMessage id='T_HEADING_TOTAL_COST'></FormattedMessage>({props.currencySymbol}) </th>
-                  <th><FormattedMessage id='T_HEADING_TOTAL_MARGIN'></FormattedMessage> </th>
-                  <th><FormattedMessage id='T_HEADING_TOTAL_SELL'></FormattedMessage>({props.currencySymbol}) </th>
-                </tr>
-              </thead>
-              <tbody>
-                {props.showPreliminary ? <tr data-test='preliminary-data'>
-                  <td>
-                    <span data-test='total-cost-summary'>Preliminary</span></td>
-                  <td>
-                    <span data-test='total-margin-summary'>
-                      {props.currencySymbol}{preliminaryData.cost}
-                    </span>
-                  </td>
-                  <td>
-                    <span data-test='gross-margin-summary'>
-                      {preliminaryData.margin}
-                    </span>
-                    (%)
-                  </td>
-                  <td>
-                    {props.currencySymbol}
-                    <span data-test='total-sell-summary'>
-                      {preliminaryData.sell}
-                    </span>
-                  </td>
-                </tr>
-                :null}
-
-                {props.showSubContractor ? <tr data-test='sub-contractor-data'>
-                  <td>
-                    <span>Sub Contractor</span></td>
-                  <td>
-                  {props.currencySymbol}
-                    <span data-test='sub-contractor-cost'>
-                      {subContractorData.cost}
-                    </span>
-                  </td>
-                  <td>
-                    <span data-test='sub-contractor-margin'>
-                      {subContractorData.margin}
-                    </span>
-                    (%)
-                  </td>
-                  <td>
-                    {props.currencySymbol}
-                    <span data-test='sub-contractor-sell'>
-                      {subContractorData.sell}
-                    </span>
-                  </td>
-                </tr>
-                :null}
-
-               {props.showDiscount ? <tr data-test='discount-data'>
-                  <td>
-                    <span data-test='total-cost-summary'>Discount</span></td>
-                  <td>
-                    <span data-test='total-margin-summary'>
-                      {props.currencySymbol}{props.discountState.supplierTotalDiscount}
-                    </span>
-                  </td>
-                  <td>
-                    
-                  </td>
-                  <td>
-                    {props.currencySymbol}
-                    <span data-test='total-sell-summary'>
-                    {props.discountState && 
-                    calculateClientDiscount(
-                      props.discountState.discountType,
-                      props.summaryCalculation.cost,
-                      props.discountState.clientDiscount as number)}
-                    </span>
-                  </td>
-                </tr>
-                :null}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    );
+                    <div className="price-sumry">
+                        <label>Pricing Summary</label>
+                        <div className="inner-block">
+                            <table className="price-table">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Cost (&#163;)</th>
+                                        <th>Margin (%)</th>
+                                        <th>Sell (&#163;)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {props.showPreliminary ?
+                                    <tr data-test='preliminary-data'>
+                                        <td>Preliminaries</td>
+                                        <td>{props.currencySymbol}
+                                        <span data-test='total-margin-summary'>
+                                          {preliminaryData.cost}
+                                        </span>
+                                        </td>
+                                        <td>
+                                        <span data-test='gross-margin-summary'>
+                                          {preliminaryData.margin}
+                                        </span>
+                                        (%)</td>
+                                        <td>{props.currencySymbol}
+                                        <span data-test='total-sell-summary'>
+                                          {preliminaryData.sell}
+                                        </span>
+                                        </td>
+                                    </tr>
+                                    :null}
+                                    {props.showSubContractor ?
+                                    <tr data-test='sub-contractor-data'>
+                                        <td>Subcontractors</td>
+                                        <td>{props.currencySymbol}
+                                        <span data-test='sub-contractor-cost'>
+                                          {subContractorData.cost}
+                                        </span>
+                                        </td>
+                                        <td><span data-test='sub-contractor-margin'>
+                                            {subContractorData.margin}
+                                          </span>(%)
+                                        </td>
+                                        <td>{props.currencySymbol}
+                                        <span data-test='sub-contractor-sell'>
+                                          {subContractorData.sell}
+                                        </span>
+                                        </td>
+                                    </tr>
+                                    :null}
+                                    {props.showDiscount ? 
+                                    <React.Fragment>
+                                    <tr><th></th><th></th><th></th><th></th></tr>
+                                    <tr data-test='discount-data'>
+                                        <td>Disount</td>
+                                        <td>Sub-Contractor</td>
+                                        <td></td>
+                                        <td>Customer (%)</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>{props.currencySymbol}
+                                          <span data-test='sub-contractor-discount'>
+                                            {props.discountState.supplierTotalDiscount}
+                                          </span>
+                                        </td>
+                                        <td></td>
+                                        <td>{props.currencySymbol}
+                                          <span data-test='customer-discount'>
+                                            {props.discountState && 
+                                              calculateClientDiscount(
+                                              props.discountState.discountType,
+                                              props.summaryCalculation.cost,
+                                              props.discountState.clientDiscount as number)}
+                                          </span>
+                                        </td>
+                                    </tr>
+                                    </React.Fragment>
+                                    :null}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+ );
 }
 
 const mapDispatchToProps = dispatch => {

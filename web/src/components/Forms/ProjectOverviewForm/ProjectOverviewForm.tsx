@@ -34,8 +34,7 @@ import TypeAhead from '../../TypeAhead/TypeAhead';
 import { dynamicsSubcontractorData } from '../../TypeAhead/TypeAheadConstantData/dynamicSubcontractorData';
 import { IDynamicsOtherSubContractor } from '../../../store/DynamicsData/Types/IDynamicData';
 import ProjectStatus from '../../../enums/ProjectStatus';
-import ProjectActivity from '../ProjectActivities/ProjectActivity'; 
-import ProjectOverviewGrid from "../../Table/ProjectOverviewGrid";
+import ProjectActivity from '../ProjectActivities/ProjectActivity';
 import { IProjectOverviewDetails } from '../../../store/ProjectOverviewForm/Types/IProjectOverviewDetails';
 import { formatMessage } from '../../../Translations/connectedIntlProvider';
 import CalculationsSummaryType from '../../../enums/CalculationsSummaryType';
@@ -670,7 +669,7 @@ let ProjectOverviewForm: React.FC<Props &
                 </div>
                </div>
               <div className="row">
-              <div className="col-xl-10">
+              <div className="col-xl-12">
               <PricingSummary
                   projectId={props.projectId}
                   currencySymbol='$'
