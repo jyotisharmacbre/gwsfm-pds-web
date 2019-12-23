@@ -1,9 +1,9 @@
-import { calculateSell, calculateAverageMargin,calculateClientDiscount} from '../../../helpers/formulas';
-import {ISubContractorActivity} from '../../../store/SubContractor/Types/ISubContractorActivity';
-import ISummaryCalculation from '../../../store/SummaryCalculation/Types/ISummaryCalculation';
-import {IPreliminariesComponentDetails} from '../../../store/Preliminaries/Types/IPreliminariesComponentDetails';
-import {IPreliminariesItems} from '../../../store/Preliminaries/Types/IPreliminariesItems';
-import {IDiscountActivity} from '../../../store/DiscountForm/Types/IDiscountActivity';
+import { calculateSell, calculateAverageMargin,calculateClientDiscount} from './formulas';
+import {ISubContractorActivity} from '../store/SubContractor/Types/ISubContractorActivity';
+import ISummaryCalculation from '../store/SummaryCalculation/Types/ISummaryCalculation';
+import {IPreliminariesComponentDetails} from '../store/Preliminaries/Types/IPreliminariesComponentDetails';
+import {IPreliminariesItems} from '../store/Preliminaries/Types/IPreliminariesItems';
+import {IDiscountActivity} from '../store/DiscountForm/Types/IDiscountActivity';
 
 export const getPreliminarySummaryCalculation = (data:Array<IPreliminariesComponentDetails>,state:ISummaryCalculation) => {
         if(data.length >0)

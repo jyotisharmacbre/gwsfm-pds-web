@@ -1,12 +1,12 @@
 import React from 'react';
 import {
   calculateSell,
-  calculateAverageMargin} from '../../../../helpers/formulas';
+  calculateAverageMargin} from '../formulas';
 import {
   getSubContractorSummaryCalculation,
-  getPreliminarySummaryCalculation} from '../CalculationSummary';
-import ISummaryCalculation from '../../../../store/SummaryCalculation/Types/ISummaryCalculation';
-import {newActivity} from '../../../../store/SubContractor/InitialState';
+  getPreliminarySummaryCalculation} from '../pricing-calculation-helper';
+import ISummaryCalculation from '../../store/SummaryCalculation/Types/ISummaryCalculation';
+import {newActivity} from '../../store/SubContractor/InitialState';
 
 describe('Summary calculation helper run without error', () => {
   

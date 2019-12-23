@@ -5,7 +5,7 @@ import * as actions from '../../../store/rootActions';
 import {ISubContractorActivity} from '../../../store/SubContractor/Types/ISubContractorActivity';
 import CalculationsSummaryType from '../../../enums/CalculationsSummaryType'; 
 import { calculateSell, calculateAverageMargin} from '../../../helpers/formulas';
-import { getSubContractorSummaryCalculation, getPreliminarySummaryCalculation, getDiscountSummaryCalculation} from './CalculationSummary';
+import { getSubContractorSummaryCalculation, getPreliminarySummaryCalculation, getDiscountSummaryCalculation} from '../../../helpers/pricing-calculation-helper';
 import ISummaryCalculation from '../../../store/SummaryCalculation/Types/ISummaryCalculation';
 import {IPreliminariesComponentDetails} from '../../../store/Preliminaries/Types/IPreliminariesComponentDetails';
 import { FormattedMessage } from 'react-intl';
@@ -37,7 +37,6 @@ interface IMapDispatchToProps {
 const CalculationsSummaryTable:React.FC<Props & IMapStateToProps & IMapDispatchToProps> = props => {
     let initDiscount:ISummaryCalculation = {cost:0,sell:0,margin:0}
     let reduxState = {...initDiscount};
-    let discountState = {...initDiscount};
     React.useEffect(()=>{
       if (props.projectId != '' && props.projectId != undefined && props.projectId != null) {
         if(props.name != CalculationsSummaryType.subContractor)
@@ -72,6 +71,11 @@ const CalculationsSummaryTable:React.FC<Props & IMapStateToProps & IMapDispatchT
         if(props.name == CalculationsSummaryType.discount && props.discount){
           localFormState = getDiscountSummaryCalculation(props.discount as IDiscountActivity,{...reduxState});
           props.setSummaryCalculationState(localFormState);
+        }
+        if(props.name == CalculationsSummaryType.other){
+          if(props.discountState) 
+              getDiscountSummaryCalculation(props.discountState,reduxState);
+          props.setSummaryCalculationState(reduxState);
         }
     },[props.subContractorState,props.preliminaryState,props.discountState,props.subContractor,props.preliminary,props.discount]);
 

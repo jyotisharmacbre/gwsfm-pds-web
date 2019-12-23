@@ -57,6 +57,7 @@ interface IMapDispatchToProps {
   getUserService: () => void;
   handleProjectDetailsSubmit: (form: IProjectDetail, event: EventType) => void;
   handleProjectDetailsEdit: (form: IProjectDetail, event: EventType) => void;
+  resetProjectDetailStateToInitial:() => void;
 }
 
 interface IProps {
@@ -72,6 +73,9 @@ const Project: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = props
     let paramProjectId = props.match.params.projectId;
     if (paramProjectId != null && paramProjectId != '') {
       props.getProjectDetail(paramProjectId);
+    }
+    else{
+      props.resetProjectDetailStateToInitial();
     }
   }, []);
 
@@ -158,7 +162,8 @@ const mapDispatchToProps = dispatch => {
       dispatch(getDynamicContractData(searchContract)),
     handleGetDynamicCompanyData: searchCompany =>
       dispatch(getDynamicCompanyData(searchCompany)),
-    handleGetuserServiceData: search => dispatch(getUserService(search))
+    handleGetuserServiceData: search => dispatch(getUserService(search)),
+    resetProjectDetailStateToInitial: () => dispatch(actions.resetProjectDetailStateToInitial())
   };
 };
 

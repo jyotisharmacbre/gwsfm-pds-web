@@ -20,7 +20,7 @@ import FontawsomeReact, {
   FontAwesomeIcon
 } from '@fortawesome/react-fontawesome';
 import { faCheckCircle, faClock, faExclamationTriangle, faUser, faTimes, faCheck } from '@fortawesome/free-solid-svg-icons';
-
+import CalculationsSummaryTable from '../../Table/CalculationsSummaryTable';
 
 import {
   projectStatusData,
@@ -35,12 +35,15 @@ import { IDynamicsOtherSubContractor } from '../../../store/DynamicsData/Types/I
 import ProjectStatus from '../../../enums/ProjectStatus';
 import { IProjectOverviewDetails } from '../../../store/ProjectOverviewForm/Types/IProjectOverviewDetails';
 import { formatMessage } from '../../../Translations/connectedIntlProvider';
+import CalculationsSummaryType from '../../../enums/CalculationsSummaryType';
+import PricingSummary from './PricingSummary';
 
 interface Props {
   onNext: (data: IProjectOverviewDetails) => void;
   onPrevious: (data: IProjectOverviewDetails) => void;
   projectstatus: any;
   status:number;
+  projectId:string;
 }
 
 let ProjectOverviewForm: React.FC<Props  &
@@ -597,8 +600,25 @@ let ProjectOverviewForm: React.FC<Props  &
                     </div>
                   </section>
                 </div>
+            
+            
             </div>
 
+            <div className="row">
+              <div className="col-xl-10">
+              <PricingSummary
+                  projectId={props.projectId}
+                  currencySymbol='$'
+                  showPreliminary = {true}
+                  showSubContractor = {true}
+                  showDiscount = {true}
+                  />
+                <CalculationsSummaryTable
+                  name={CalculationsSummaryType.other}
+                  projectId={props.projectId}
+                  currencySymbol='$'/>
+              </div>
+            </div>
             <div className="mr-35 d-flex justify-content-between mb-4">
               <button
                 className="active mb-4 mt-5"

@@ -160,3 +160,17 @@ export const changeProjectStatus = (status: number) => {
     dispatch(changeProjectStatusState(status));
   };
 };
+
+
+const resetProjectDetailStateToInitialDispatch = () => {
+  return {
+    type: ActionType.RESET_PROJECT_DETAIL_STATE_TO_INITIAL
+  };
+};
+
+export const resetProjectDetailStateToInitial = () => {
+  return (dispatch: Dispatch) => {
+    dispatch(resetProjectDetailStateToInitialDispatch());
+  };
+};
+

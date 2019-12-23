@@ -5,8 +5,8 @@ import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { IntlProvider } from 'react-intl';
 import translations from '../../../../Translations/translation';
-import CalculationsSummaryTable from '../index';
-import CalculationsSummaryType from '../../../../enums/CalculationsSummaryType'; 
+import PricingSumary from '../PricingSummary';
+
 import {initialState as subContractorInitialState,newActivity} from '../../../../store/SubContractor/InitialState';
 import {initialState as preliminariesInitialState} from '../../../../store/Preliminaries/InitialState';
 import {findByTestAtrr,checkProps} from '../../../../helpers/test-helper';
@@ -36,7 +36,7 @@ const mountCalculationSummaryTable=(props)=>{
     wrapper = mount(
         <Provider store={store}>
         <IntlProvider locale="en" messages={translations['en'].messages}>
-          <CalculationsSummaryTable {...props}/>
+          <PricingSumary {...props}/>
         </IntlProvider>
       </Provider>
     );
@@ -45,9 +45,10 @@ const mountCalculationSummaryTable=(props)=>{
 
 describe('should calculation summary component renders without error', () => {
   let Props = {
-    name:CalculationsSummaryType.preliminary,
-    preliminary:[],
-    currencySymbol:'$'
+    currencySymbol:'$',
+    showPreliminary:true,
+    showSubContractor:true,
+    showDiscount:true
   }
   beforeEach(() => {
     setUpStore();
@@ -61,45 +62,49 @@ describe('should calculation summary component renders without error', () => {
     expect(wrapper).toMatchSnapshot();
   });  
 
-  it('should Not throw a warning for proptypes', () => {
-      const expectedProps = {
-        name: [],
-       preliminary: [],
-        currencySymbol: ''
-      };
-      const propsError = checkProps(CalculationsSummaryTable, expectedProps);
-      expect(propsError).toBeUndefined();
+  it('should calculate the pricing summary correctly for sub contractor row', () => {
+      let subContractorState = {...subContractorInitialState};
+      subContractorState.form.activities.push({...newActivity});
+      subContractorState.form.activities[0].totalCost = 100;
+      subContractorState.form.activities[0].grossMargin = 20;
+      subContractorState.form.activities[1].totalCost = 100;
+      subContractorState.form.activities[1].grossMargin = 20;
+      setUpStore();
+      mountCalculationSummaryTable(Props);
+      expect(findByTestAtrr(wrapper,'sub-contractor-cost').text()).toEqual('200');
+      expect(findByTestAtrr(wrapper,'sub-contractor-margin').text()).toEqual('40');
+      expect(findByTestAtrr(wrapper,'sub-contractor-sell').text()).toEqual('250');
+  });
+
+ it('should render the preliminary row', () => {
+      expect(findByTestAtrr(wrapper,'preliminary-data')).toHaveLength(1);
+    });
+
+    it('should not render the preliminary row', () => {
+      Props.showPreliminary = false;
+      mountCalculationSummaryTable(Props);
+      expect(findByTestAtrr(wrapper,'preliminary-data')).toHaveLength(0);
+    });
+
+    it('should render the sub contractor row', () => {
+      expect(findByTestAtrr(wrapper,'sub-contractor-data')).toHaveLength(1);
+    });
+
+    it('should not render the contractor row', () => {
+      Props.showSubContractor = false;
+      mountCalculationSummaryTable(Props);
+      expect(findByTestAtrr(wrapper,'sub-contractor-data')).toHaveLength(0);
+    });
+
+    it('should render the discount row', () => {
+      expect(findByTestAtrr(wrapper,'discount-data')).toHaveLength(1);
+    });
+
+    it('should not render the discount row', () => {
+      Props.showDiscount = false;
+      mountCalculationSummaryTable(Props);
+      expect(findByTestAtrr(wrapper,'discount-data')).toHaveLength(0);
     });
     
 });
 
-
-describe('should calculation summary component, calculate the cost, margin and sell correctly', () => {
-  let Props = {
-    name:CalculationsSummaryType.preliminary,
-    preliminary:[],
-    currencySymbol:'$'
-  }
-  it('should calculate the pricing summary correctly, if discount is Zero', () => {
-      let subContractorState = {...subContractorInitialState};
-      subContractorState.form.activities[0].totalCost = 100;
-      subContractorState.form.activities[0].grossMargin = 20;
-      let discountState = {...discountInitialState};
-      discountState.form.clientDiscount = 0;
-      discountState.form.supplierTotalDiscount = 0;
-      setUpStore();
-      mountCalculationSummaryTable(Props);
-      expect(store.getState().summaryCalculation).toEqual({ cost: 100, sell: 125, margin: 20 });
-  });
-it('should calculate the pricing summary correctly after applying discount', () => {
-      let subContractorState = {...subContractorInitialState};
-      subContractorState.form.activities[0].totalCost = 100;
-      subContractorState.form.activities[0].grossMargin = 20;
-      let discountState = {...discountInitialState};
-      discountState.form.clientDiscount = 10;
-      discountState.form.supplierTotalDiscount = 10;
-      setUpStore();
-      mountCalculationSummaryTable(Props);
-      expect(store.getState().summaryCalculation).toEqual({ cost: 90, sell: 116, margin: 22.41 });
-  });
-});
