@@ -28,7 +28,7 @@ let DashboardActionApprovalForm: React.FC<
         columns={getTableColumns()}
         data={getActionApprovalValues(lookupValues, props.showValues)}
         sorting={false}
-        className="DashboardGrid"
+        className="price-table home_screen_table"
         ActionList={[]}
       />
     </React.Fragment>
