@@ -120,7 +120,7 @@ const LeftMenu: React.FC<IMapStateToProps> = props => {
           <Link to="/">review &amp; submit</Link>
         </li>
         <li className={isDisable?"":"link_disabled"}>
-          <Link to="/">review &amp; approve</Link>
+          <Link to="/ReviewApprove">review &amp; approve</Link>
         </li>
         <li className={isDisable?"":"link_disabled"}>
           <Link to="/">Logout</Link>
