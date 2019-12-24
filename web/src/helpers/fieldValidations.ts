@@ -32,6 +32,9 @@ export const alphaNumeric = value =>
     : undefined;
 
 export const Validate = {
+  require: message => value =>
+    fieldValidationRequired(value, message)
+  ,
   required: memoize(message => value =>
     fieldValidationRequired(value, message)
   ),
