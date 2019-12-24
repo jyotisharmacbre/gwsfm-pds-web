@@ -3,6 +3,8 @@ import { FieldArray} from 'redux-form';
 import { FormattedMessage } from 'react-intl';
 import PreliminaryItemsForm from './PreliminaryItemsForm';
 import EventType from '../../../enums/EventType';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleUp } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
   submitHandler: (
@@ -16,10 +18,11 @@ interface Props {
       ) => void;
       prelimData:any;
       handleSubmit:any;
+      currencySymbol:string;
       
 }  
 
-const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleEvent,prelimData}) => (
+const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleEvent,prelimData,currencySymbol}) => (
 
   <div>
   {fields.map((member, index) => (
@@ -33,7 +36,9 @@ const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleE
             >
               <a className="card-link" >{prelimData[index].componentName}</a>
              
-              <span className="fas fa-angle-up" aria-hidden="true"></span>
+              <span aria-hidden="true">
+              <FontAwesomeIcon className="active" icon={faAngleUp} />
+              </span>
             </div>
             <div
                id={"collapse_"+prelimData[index].componentId}
@@ -45,19 +50,19 @@ const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleE
             onSubmit={handleSubmit}
             noValidate={true}
           >
-                <div className="card-body">
-            <div className="table-responsive">
+                <div className="card-body pt-0">
+            <div className="table-responsive price-sumry mt-0">
               <table className="table table-bordered">
                 <thead>
                   <tr>
-                    <th><FormattedMessage id="ITEM" /></th>
-                    <th><FormattedMessage id="NAME_OF_SUPPLIER" /></th>
-                    <th><FormattedMessage id="NO_OF_HOURS" /></th>
-                    <th><FormattedMessage id="HOUR_RATE" /></th>
-                    <th><FormattedMessage id="TOTAL_COST" /></th>
-                    <th><FormattedMessage id="GROSS_MARGIN" /></th>
-                    <th><FormattedMessage id="TOTAL_SELL" /></th>
-                    <th><FormattedMessage id="COMMENTS" /></th>
+                    <th><FormattedMessage id="T_HEADING_ITEM" /></th>
+                    <th><FormattedMessage id="T_HEADING_NAME_OF_SUPPLIER" /></th>
+                    <th><FormattedMessage id="T_HEADING_NO_OF_HOURS" /></th>
+                    <th><FormattedMessage id="T_HEADING_HOUR_RATE" /></th>
+                    <th><FormattedMessage id="T_HEADING_TOTAL_COST" /></th>
+                    <th><FormattedMessage id="T_HEADING_GROSS_MARGIN" /></th>
+                    <th><FormattedMessage id="T_HEADING_TOTAL_SELL" /></th>
+                    <th><FormattedMessage id="T_HEADING_COMMENTS" /></th>
                   </tr>
                 </thead>
                 
@@ -68,7 +73,7 @@ const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleE
               componentIndex={index}
               currencies={[]}
               currencyId={0}
-              currencySymbol={"$"}
+              currencySymbol={currencySymbol}
               key={index}
             />
            
@@ -76,8 +81,8 @@ const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleE
                 </div>
                 </div>
                 </form>
-        <div className="text-right" >
-                  <button type="button" data-test="componentSave" className="text-right btn-sm" onClick={handleSubmit(values=>submitHandler(false,EventType.none,values,index))} >
+        <div className="text-right preliminary_btn" >
+                  <button type="button" data-test="componentSave" className="text-center btn-sm" onClick={handleSubmit(values=>submitHandler(false,EventType.none,values,index))} >
                   <FormattedMessage id="BUTTON_SAVE" />
                   </button>
                 </div>

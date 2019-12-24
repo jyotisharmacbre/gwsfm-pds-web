@@ -1,3 +1,10 @@
+.orange {
+    color: map-get($colors , orange );
+}
+.green {
+    color: map-get($colors , lightGreen02 );
+}
+
 /*
  * project info details
  */
@@ -6,13 +13,21 @@
     color: map-get($colors , grey03 );
     font-size: 14px;
     text-transform: capitalize;
-    padding: 15px;
+    padding: 20px 25px;
+    margin-bottom: 30px;
     @include borderRadius(3px);
+    @include mdScreen {
+        padding: 20px 15px;
+    }
     .edit-btn {
         height: fit-content;
         margin-top: 7px;
         padding: 6px 25px 3px;
         border-width: 1px;
+        min-width: auto;
+        background: transparent;
+        color: #006a4d;
+        border-radius: 2px;
         &:focus {
             outline: none;
         }
@@ -28,23 +43,15 @@
         font-weight: 300;
         margin-bottom: 0;
     }
-    ul {
-        list-style: none;
-        padding: 0;
-        margin: 0 0 8px 0;
-        li {
-            position: relative;
-            padding-left: 15px;
-            margin-bottom: 5px;
-            &:before {
-                content: '';
-                position: absolute;
-                width: 8px;
-                height: 8px;
-                background: map-get($colors , darkGreen );
-                left: 0px;
-                top: 6px;
-            }
+    .hr {
+        border-top: 1px solid #c7ced3;
+        display: block;
+        margin: 10px 0 10px;
+    }
+    .project-info-desc {
+        p {
+            line-height: 16px;
+            font-size: 12px;
         }
     }
 }
@@ -60,6 +67,14 @@
  }
  .calender-wrap {
     background: map-get($colors , grey05 );
+    padding: 2px 15px 15px 15px;
+    .row {
+        &:last-child {
+            .form-group {
+                margin-bottom: 0;
+            }
+        }
+    }
 }
 
 /*
@@ -124,14 +139,97 @@
 .manipulate-calendar{
     .date-picker-wrap {
         position: relative;
+        display: flex;
+        align-items: center;
         .SingleDatePicker_picker {
             top: 41px !important;
             right: -37px !important;
             width: 300px!important;
             left: auto !important;
         }
+        .SingleDatePickerInput_calendarIcon {
+            background: transparent;
+            border: 0;
+            min-width: auto;
+            padding: 0;
+        }
+        .DayPickerKeyboardShortcuts_buttonReset{
+            display: none;
+        }
     }
     .DayPicker_transitionContainer {
         width: 300px !important;
     }
 }
+
+/*authorised form */
+.authorised_form_wrap {
+    h6 {
+        font-size: 14px;
+        font-weight: 700;
+        color: map-get($colors , grey004 );
+        margin-left: -16px;
+    }
+    .authorised_form_inner {
+        background: map-get($colors , grey05 );
+        padding: 30px;
+        }
+        label {
+            color: map-get($colors , grey004 );
+            line-height: 16px;
+            width: 80%;
+            padding-right: 10px;
+        }
+        .form-group {
+            .right_fix_txt {
+                font-size: 11px;
+                position: absolute;
+                right: 10px;
+                top: calc(100% - 28px);
+                color: map-get($colors , grey001 );
+            }
+            .form-control {
+                border: 1px solid map-get($colors , grey001 );
+                padding-right: 65px;
+            }
+        }
+        .approve_state {
+            display: flex;
+            align-items: center;
+            height: 100%;
+            padding-bottom: 25px;
+            .icon {
+                margin-right: 10px;
+                svg {
+                    width: 13px;
+                    height: 13px;
+                }
+            }
+            .approv_label {
+                color: map-get($colors , grey005 ) !important;
+                font-size: 13px;
+                text-transform: capitalize;
+                font-weight: 500;
+                margin-bottom: 0;
+            }
+        }
+        .right_label {
+            color: map-get($colors , lightGreen02 );
+            width: 20%;
+            text-align: right;
+            padding: 0;
+            margin-left: auto;
+        }
+    }
+    .link_disabled {
+        pointer-events:none; 
+        opacity:0.6;         
+    }
+    .mrgnlft10
+    {
+        margin-left:10px;
+    }
+    .btm4em
+    {
+        bottom:4em;
+    }

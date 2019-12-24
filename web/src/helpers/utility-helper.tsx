@@ -3,7 +3,6 @@ import {ISubContractorActivity} from '../store/SubContractor/Types/ISubContracto
 import IDiscountCalculation from '../models/IDiscountCalculation';
 import {IPreliminariesComponentDetails} from '../store/Preliminaries/Types/IPreliminariesComponentDetails';
 import {IPreliminariesItems} from '../store/Preliminaries/Types/IPreliminariesItems';
-
 export const updateObject = (oldState, updatedProperties) => {
   return {
     ...oldState,
@@ -41,29 +40,13 @@ export const getDropdown = (data, value) => {
 export const getRadioOptions = (data, value) => {
   let result =
     data &&
-    data.map((status: any, i: number) => {
-      
+    data.map((status: any, i: number) => {      
       if (status.lookupItem == value) {
-        console.log(status, "Items")
         return status;
       }
     });
   return result;
 };
-
-
-
-export const getCurrencySymbol = (currencies, currencyId) => {
-  let symbol = '';
-  let filter;
-  if (currencies) {
-    filter = currencies.find(element => element.currencyId == currencyId);
-    if (filter != null && filter != undefined) symbol = filter.currencySymbol;
-  }
-  return symbol;
-};
-
-
 
 export const getDiscountTypeValue = (data, value, currency) =>{
 let result = data && data.map((dataValue: any, i: number) => {
@@ -80,6 +63,7 @@ let result = data && data.map((dataValue: any, i: number) => {
 })
 return result;
 }
+
 export const normalizeToNumber = value => (
   value = +value
 )
@@ -109,7 +93,7 @@ export const calculateAverageMargin = (totalCost:number,totalSell:number) =>{
   return averageMargin.toFixed(2);
 }
 
-export const getSubContractorDiscountValue = (data:Array<ISubContractorActivity>,state:IDiscountCalculation) => {
+export const getSubContractorSummaryCalculation = (data:Array<ISubContractorActivity>,state:IDiscountCalculation) => {
         data.map((element:ISubContractorActivity)=>{
             state.cost = state.cost + (+element.totalCost);
             state.sell = state.sell + (+calculateSell(element.totalCost,element.grossMargin));
@@ -137,4 +121,31 @@ export const getPreliminarySummaryCalculation = (data:Array<IPreliminariesCompon
           })
         }
         return {cost:state.cost,sell:state.sell,margin:state.margin};  
+}
+export const restrictMinus = (value:number) => {
+  if(value < 0) {
+    return 0
+  } else {
+    return value
+  }
+}
+
+export const isValidGUID=(stringToTest:string)=>
+{
+  var regexGuid = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
+    return regexGuid.test(stringToTest);
+}
+export const maxLimit = (value: number) =>{
+  if(value<0){
+    return 0
+  } else if (value>100){
+    return 100
+  } else {
+    return value
+  }
+}
+
+
+export const calculateRank = (probabilityOfWinning:number,approximateValue:number) =>{ 
+  return probabilityOfWinning * approximateValue;
 }

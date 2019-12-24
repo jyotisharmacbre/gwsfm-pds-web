@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Subcontractor component test cases should match the snapshot 1`] = `ReactWrapper {}`;

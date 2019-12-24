@@ -38,6 +38,7 @@ export const currencies: Array<ICurrency>= [
 ];
 export const lookupState:ILookupState={
   currencies:currencies,
+  languages: [],
   projectstatus: [],
   error: null
 }
@@ -67,16 +68,20 @@ export const projectDetail:IProjectDetailState={
     thirdAssetWorkedOn: 0,
     comment: '',
     otherCompanyName: '',
-  otherContractName: ''
-    
+  otherContractName: '',
+    divisionId : '',
+    businessUnitId: '',
+    weightedTCV: 0,
+  soldMargin: 0
   },
   enquiryOverview: {
     projectName: '',
-    companyId: '1',
+    contractorId: '1',
     headOfProject: '',
     projectManager: '',
     scope: '',
-    cnNumber: '1'
+    cnNumber: '1',
+    otherContractName: ''
   },
   error: null,
   loading: false,

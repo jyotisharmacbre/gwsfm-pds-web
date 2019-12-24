@@ -6,7 +6,6 @@ import { FormattedMessage } from 'react-intl';
 const PdsFormRadio: React.FC = (field: any) => {
   const errorClass = `${field.meta.error && field.meta.touched ? 'error' : ''}`;
   const normalize = value => (value ? parseInt(value) : null);
-  console.log(field.data, "field")
   return (
     <div className="form-group">
       {field.labelKey && (

@@ -15,22 +15,21 @@ import { toast } from 'react-toastify';
 import { ICurrency } from '../store/Lookups/Types/ICurrency';
 import {
   getDynamicContractData,
-  getDynamicCompanyData
+  getDynamicCompanyData,
+  getDynamicSubContractorData
 } from '../store/DynamicsData/Action';
 import {
   IDynamicContractData,
   IDynamicCompanyData
 } from '../store/DynamicsData/Types/IDynamicData';
 import {
-  IAdPOData,
-  IAdHOPData,
-  IAdPMData
+  IUserServiceData
 } from '../store/UserService/Types/IUserService';
 import {
-  getUserServiceHOP,
-  getUserServicePO,
-  getUserServicePM
+  getUserService
 } from '../store/UserService/Action';
+import ProjectStatus from '../enums/ProjectStatus';
+import { getUserPreferences } from '../services/lookup.service';
 
 interface IMapStateToProps {
   notify: Notify;
@@ -40,35 +39,39 @@ interface IMapStateToProps {
   projectStatus: Array<ILookup>;
   dynamicsContract: Array<IDynamicContractData>;
   dynamicsCompany: Array<IDynamicCompanyData>;
-  adHOPData: Array<IAdHOPData>;
-  adPOData: Array<IAdPOData>;
-  adPMData: Array<IAdPMData>;
+  userServiceData: Array<IUserServiceData>;
+  status:number;
 }
 
 interface IMapDispatchToProps {
   handleGetDynamicContractData: (searchContract: string) => void;
   handleGetDynamicCompanyData: (searchCompany: string) => void;
-  handleGetADHOPData: (searchHOP: string) => void;
-  handleGetADPOData: (searchPO: string) => void;
-  handleGetADPMData: (searchPM: string) => void;
+  handleGetuserServiceData: (searchText: string) => void;
   getProjectStatus: () => void;
   getProjectDetail: (projectId: string) => void;
   resetProjectDetailState: () => void;
   getAllCurrencies: () => void;
   getDynamicContractData: () => void;
   getDynamicCompanyData: () => void;
+  getDynamicSubContractorData: () => void;
+  getUserService: () => void;
   handleProjectDetailsSubmit: (form: IProjectDetail, event: EventType) => void;
   handleProjectDetailsEdit: (form: IProjectDetail, event: EventType) => void;
 }
 
-const Project: React.FC<IMapStateToProps & IMapDispatchToProps> = props => {
+interface IProps {
+  match: any;
+} 
+
+const Project: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = props => {
   let history = useHistory();
   useEffect(() => {
     window.scrollTo(0, 0);
     props.getProjectStatus();
     props.getAllCurrencies();
-    if (props.projectId != null && props.projectId != '') {
-      props.getProjectDetail(props.projectId);
+    let paramProjectId = props.match.params.projectId;
+    if (paramProjectId != null && paramProjectId != '') {
+      props.getProjectDetail(paramProjectId);
     }
   }, []);
 
@@ -77,7 +80,7 @@ const Project: React.FC<IMapStateToProps & IMapDispatchToProps> = props => {
       if (props.event == EventType.next) {
         toast.success('Data Saved Successfully');
         history.push({
-          pathname: `/projectoverview/${props.projectId}`
+          pathname: `/projectOverview/${props.projectId}`
         })
       } else if (props.event == EventType.save) {
         toast.success('Data Saved Successfully');
@@ -105,19 +108,12 @@ const Project: React.FC<IMapStateToProps & IMapDispatchToProps> = props => {
     props.handleGetDynamicCompanyData(values);
   };
 
-  const onSearchHOP = (values: any) => {
-    props.handleGetADHOPData(values);
-  };
-
-  const onSearchPO = (values: any) => {
-    props.handleGetADPOData(values);
-  };
-
-  const onSearchPM = (values: any) => {
-    props.handleGetADPMData(values);
+  const onSearchUserService = (values: any) => {
+    props.handleGetuserServiceData(values);
   };
 
   return (
+    <div className={(props.status==ProjectStatus.BidLost||props.status==ProjectStatus.OnHold)?"link_disabled":""}>
     <ProjectForm
       onSave={handleSave}
       onNext={handleNext}
@@ -125,13 +121,10 @@ const Project: React.FC<IMapStateToProps & IMapDispatchToProps> = props => {
       onSearchContract={onSearchContract}
       onSearchCompany={onSearchCompany}
       projectstatus={props.projectStatus}
-      onSearchHOP={onSearchHOP}
-      onSearchPO={onSearchPO}
-      onSearchPM={onSearchPM}
-      adHOPData={props.adHOPData}
-      adPOData={props.adPOData}
-      adPMData={props.adPMData}
+      onSearchUserService={onSearchUserService}
+      userServiceData = {props.userServiceData}
     />
+    </div>
   );
 };
 
@@ -140,13 +133,13 @@ const mapStateToProps = (state: IState) => {
     projectStatus: state.lookup.projectstatus,
     dynamicsContract: state.dynamicData.dynamicsContract,
     dynamicsCompany: state.dynamicData.dynamicsCompany,
-    adHOPData: state.adData.ADhopData,
-    adPOData: state.adData.ADpoData,
-    adPMData: state.adData.ADpmData,
+    userServiceData: state.userService.userServiceData,
     notify: state.project.notify,
     event: state.project.event,
     projectId: state.project.form.projectId,
-    currencies: state.lookup.currencies
+    currencies: state.lookup.currencies,
+    status:state.project.form.status
+
   };
 };
 
@@ -165,9 +158,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(getDynamicContractData(searchContract)),
     handleGetDynamicCompanyData: searchCompany =>
       dispatch(getDynamicCompanyData(searchCompany)),
-    handleGetADHOPData: searchHOP => dispatch(getUserServiceHOP(searchHOP)),
-    handleGetADPOData: searchPO => dispatch(getUserServicePO(searchPO)),
-    handleGetADPMData: searchPM => dispatch(getUserServicePM(searchPM))
+    handleGetuserServiceData: search => dispatch(getUserService(search))
   };
 };
 

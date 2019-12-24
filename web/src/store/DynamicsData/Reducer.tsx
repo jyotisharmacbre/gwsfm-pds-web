@@ -7,7 +7,9 @@ const initialState: IDynamicDataState = {
   dynamicsContract: [],
   error: null,
   dynamicsOtherCompany: [],
-  dynamicsOtherContract: []
+  dynamicsOtherContract: [],
+  dynamicsSubcontractor: [],
+  dynamicsOtherSubContractor: []
 };
 
 const getDynamicContractSuccess = (oldState, action) => {
@@ -36,6 +38,19 @@ const getDynamicCompanyError = (oldState, action) => {
   });
 };
 
+const getDynamicSubContractorSuccess = (oldState, action) => {
+  return updateObject(oldState, {
+    error: null,
+    dynamicsSubcontractor: action.payload
+  });
+};
+
+const getDynamicSubContractorError = (oldState, action) => {
+  return updateObject(oldState, {
+    error: action.payload
+  });
+};
+
 const getDynamicContractOther = (oldState, action) => {
   return updateObject(oldState, {
     dynamicsOtherContract: action.payload
@@ -45,6 +60,12 @@ const getDynamicContractOther = (oldState, action) => {
 const getDynamicCompanyOther = (oldState, action) => {
   return updateObject(oldState, {
     dynamicsOtherCompany: action.payload
+  });
+};
+
+const getDynamicSubContractorOther = (oldState, action) => {
+  return updateObject(oldState, {
+    dynamicsOtherSubContractor: action.payload
   });
 };
 
@@ -62,6 +83,12 @@ const dynamicDataReducer = (oldState = initialState, action) => {
       return getDynamicContractOther(oldState, action);
     case ActionType.DYNAMIC_OTHER_COMPANY_SUCCESS:
       return getDynamicCompanyOther(oldState, action);
+    case ActionType.DYNAMIC_SUB_CONTRACTOR_DATA_GET_SUCCESS:
+      return getDynamicSubContractorSuccess(oldState, action);
+    case ActionType.DYNAMIC_SUB_CONTRACTOR_DATA_GET_ERROR:
+       return getDynamicSubContractorError(oldState, action);
+    case ActionType.DYNAMIC_OTHER_SUB_CONTRACTOR_SUCCESS:
+      return getDynamicSubContractorOther(oldState, action);
     default:
       return oldState;
   }

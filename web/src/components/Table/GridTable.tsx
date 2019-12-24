@@ -1,16 +1,19 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
-import { ITableProps } from '../../props/AppProps';
-const GridTable: React.FC<ITableProps> = props => {
+import { IGridTableProps } from '../../props/AppProps';
+const GridTable: React.FC<IGridTableProps> = props => {
   return (
-    <table className="price-table">
+    <table className={props.className}>
       <thead>
         <tr>
           {props.columns.map(x => (
             <th>
               {x.title}
-              <FontAwesomeIcon className="active" icon={faArrowDown} />
+
+              {props.sorting ? (
+                <FontAwesomeIcon className="active" icon={faArrowDown} />
+              ) : null}
             </th>
           ))}
         </tr>

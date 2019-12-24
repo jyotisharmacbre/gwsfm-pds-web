@@ -4,6 +4,8 @@ import { Dispatch } from 'redux';
 import { IProjectAdditionalDetail } from './Types/IProjectAdditionalDetail';
 import moment from 'moment';
 import EventType from '../../enums/EventType';
+import { IProjectOverviewState } from './Types/IProjectOverviewState';
+import { IProjectOverviewDetails } from './Types/IProjectOverviewDetails';
 
 const projectOverviewFormAddSuccess = (
   response: IProjectAdditionalDetail,
@@ -44,6 +46,45 @@ const getAdditionalDetailsError = (error: string) => {
     payload: error
   };
 };
+const changeProjectStatusToBidLostSuccess = (response: any) => {
+  return {
+    type: ActionType.CHANGE_PROJECT_STATUS_TO_BID_LOST_SUCCESS,
+    payload: response
+  };
+};
+
+const changeProjectStatusToBidLostError = (error: string) => {
+  return {
+    type: ActionType.CHANGE_PROJECT_STATUS_TO_BID_LOST_ERROR,
+    payload: error
+  };
+};
+const changeProjectStatusToOnHoldSuccess = (response: any) => {
+  return {
+    type: ActionType.CHANGE_PROJECT_STATUS_TO_ON_HOLD_SUCCESS,
+    payload: response
+  };
+};
+
+const changeProjectStatusToOnHoldError = (error: string) => {
+  return {
+    type: ActionType.CHANGE_PROJECT_STATUS_TO_ON_HOLD_ERROR,
+    payload: error
+  };
+};
+const reactivateProjectSuccess = (response: any) => {
+  return {
+    type: ActionType.REACTIVATE_PROJECT_SUCCESS,
+    payload: response
+  };
+};
+
+const reactivateProjectError = (error: string) => {
+  return {
+    type: ActionType.REACTIVATE_PROJECT_ERROR,
+    payload: error
+  };
+};
 let config = {
   headers: {
     'Content-Type': 'application/json'
@@ -51,10 +92,11 @@ let config = {
 };
 export const projectOverviewFormAdd = (
   projectId: string,
-  data: IProjectAdditionalDetail,
+  data: IProjectOverviewDetails,
   event: EventType
 ) => {
   data.projectId = projectId;
+  data.projectAdditionalDetail.projectId = projectId;
   return (dispatch: Dispatch) => {
     axios.baseAPI
       .post('api/Projects/additionalDetails', data, config)
@@ -68,7 +110,7 @@ export const projectOverviewFormAdd = (
 };
 
 export const projectOverviewFormEdit = (
-  data: IProjectAdditionalDetail,
+  data: IProjectOverviewState,
   event: EventType
 ) => {
   return (dispatch: Dispatch) => {
@@ -106,4 +148,61 @@ export const resetProjectOverviewState = () => {
   return (dispatch: Dispatch) => {
     dispatch(resetProjectOverviewStateDispatch());
   };
+};
+export const changeProjectStatusToBidLost = (
+  projectId: string
+) => {
+  return (dispatch: Dispatch) => {
+    axios.baseAPI
+      .put(`api/Projects/${projectId}/bidlost`, config)
+      .then(response => {
+        dispatch(changeProjectStatusToBidLostSuccess(response.data));
+      })
+      .catch(error => {
+        dispatch(changeProjectStatusToBidLostError(error));
+      });
+  };
+};
+export const changeProjectStatusToOnHold = (
+  projectId: string
+) => {
+  return (dispatch: Dispatch) => {
+    axios.baseAPI
+      .put(`api/Projects/${projectId}/onHold`, config)
+      .then(response => {
+        dispatch(changeProjectStatusToOnHoldSuccess(response.data));
+      })
+      .catch(error => {
+        dispatch(changeProjectStatusToOnHoldError(error));
+      });
+  };
+};
+export const reactivateProject = (
+  projectId: string
+) => {
+  return (dispatch: Dispatch) => {
+    axios.baseAPI
+      .put(`api/Projects/${projectId}/reactivate`, config)
+      .then(response => {
+        dispatch(reactivateProjectSuccess(response.data));
+      })
+      .catch(error => {
+        dispatch(reactivateProjectError(error));
+      });
+  };
+};
+export const getAdminDefaultValues = (countryId: number) => {
+  let sessionData:any=sessionStorage.getItem("defaultParameters");
+  let isLookupSessionExists: boolean = sessionData?(JSON.parse(sessionData).length>0?true:false):false;
+  return (dispatch: Dispatch) => {
+    if(!isLookupSessionExists)
+    {
+      axios.baseAPI
+      .get(`api/Admin/getProjectParameters/${countryId}`)
+      .then(response => {
+        sessionStorage.setItem("defaultParameters",JSON.stringify(response.data));
+      })
+      .catch(error => {});
+    }
+    }
 };

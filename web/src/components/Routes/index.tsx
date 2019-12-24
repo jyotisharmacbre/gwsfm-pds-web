@@ -10,23 +10,25 @@ import Discounts from '../../views/Discounts';
 import Subcontractor from '../../views/Subcontractor';
 
 import Preliminaries from '../../views/Preliminaries';
+import ReviewApprove from '../../views/ReviewApprove';
 const Routes: React.FC = props => {
   return (
     <Switch>
       <Route exact path="/" component={Dashboard} />
       <Route path="/Pipeline" component={Pipeline} />
-      <Route path="/Project" component={Project} />
+      <Route path="/Project/:projectId?" component={Project} />
       <Route path="/Notifications" component={Notifications} />
       <Route path="/ProjectOverview/:projectId" component={ProjectOverview} />
       <Route path="/Discounts/:projectId" component={Discounts} />
       <Route path="/Subcontractor/:projectId" component={Subcontractor} />
       <Route
-        path="/JustificationAuthorisation"
+        path="/JustificationAuthorisation/:projectId"
         component={JustificationAuthorisation}
       />
-      <Route path="/Preliminaries/:projectId?" component={Preliminaries} />
-     
-         <Route path="/Subcontractor/:projectId?" component={Subcontractor} />
+      <Route path="/Preliminaries/:projectId" component={Preliminaries} />
+
+      <Route path="/Subcontractor/:projectId" component={Subcontractor} />
+      <Route path="/ReviewApprove" component={ReviewApprove} />
     </Switch>
   );
 };

@@ -1,7 +1,8 @@
 import {
   IDynamicCompanyData,
   IDynamicContractData,
-  IDynamicOther
+  IDynamicOther,
+  IDynamicSubContractorData
 } from './IDynamicData';
 
 export interface IDynamicDataState {
@@ -10,4 +11,6 @@ export interface IDynamicDataState {
   error: string | null;
   dynamicsOtherContract: Array<IDynamicOther>;
   dynamicsOtherCompany: Array<IDynamicOther>;
+  dynamicsSubcontractor: Array<IDynamicSubContractorData>;
+  dynamicsOtherSubContractor: Array<IDynamicOther>;
 }

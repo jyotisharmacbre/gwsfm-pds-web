@@ -68,7 +68,7 @@ describe('ProjectOverviewForm Fields', () => {
     let field: ShallowWrapper;
     describe('Main Contractor field', () => {
       beforeEach(() => {
-        field = wrapper.find('input[name="mainContractor"]').first();
+        field = wrapper.find('input[name="projectAdditionalDetail.mainContractor"]').first();
       });
       it('Should renders Main Contractor field', () => {
         expect(field.prop('type')).toBe('text');
@@ -82,7 +82,7 @@ describe('ProjectOverviewForm Fields', () => {
     describe('Enquiry Received From field', () => {
       let field: ShallowWrapper;
       beforeEach(() => {
-        field = wrapper.find('input[name="enquiryReceivedFrom"]').first();
+        field = wrapper.find('input[name="projectAdditionalDetail.enquiryReceivedFrom"]').first();
       });
       it('Should renders Enquiry Received From field', () => {
         expect(field.prop('type')).toBe('text');
@@ -93,24 +93,10 @@ describe('ProjectOverviewForm Fields', () => {
         expect(errorBlock).toHaveLength(1);
       });
     });
-    describe('Potential Customer field', () => {
-      let field: ShallowWrapper;
-      beforeEach(() => {
-        field = wrapper.find('input[name="potentialCustomer"]').first();
-      });
-      it('Should renders Potential Customer field', () => {
-        expect(field.prop('type')).toBe('text');
-      });
-      it('Shows error when Potential Customer is set to blank', () => {
-        field.simulate('blur');
-        const errorBlock = wrapper.find('.text-danger');
-        expect(errorBlock).toHaveLength(1);
-      });
-    });
     describe('Credit Check Result field', () => {
       let field: ShallowWrapper;
       beforeEach(() => {
-        field = wrapper.find('input[name="creditCheckResult"]').first();
+        field = wrapper.find('input[name="projectAdditionalDetail.creditCheckResult"]').first();
       });
       it('Should renders Credit Check Result field', () => {
         expect(field.prop('type')).toBe('text');
@@ -124,7 +110,7 @@ describe('ProjectOverviewForm Fields', () => {
     describe('Site Address field', () => {
       let field: ShallowWrapper;
       beforeEach(() => {
-        field = wrapper.find('input[name="siteAddress"]').first();
+        field = wrapper.find('input[name="projectAdditionalDetail.siteAddress"]').first();
       });
       it('Should renders Site Address field', () => {
         expect(field.prop('type')).toBe('text');
@@ -138,7 +124,7 @@ describe('ProjectOverviewForm Fields', () => {
     describe('Form Of Contract field', () => {
       let field: ShallowWrapper;
       beforeEach(() => {
-        field = wrapper.find('input[name="formOfContract"]').first();
+        field = wrapper.find('input[name="projectAdditionalDetail.formOfContract"]').first();
       });
       it('Should renders Form Of Contract field', () => {
         expect(field.prop('type')).toBe('text');
@@ -152,35 +138,35 @@ describe('ProjectOverviewForm Fields', () => {
     describe('Retention field', () => {
       let field: ShallowWrapper;
       beforeEach(() => {
-        field = wrapper.find('input[name="retention"]').first();
+        field = wrapper.find('input[name="projectAdditionalDetail.retention"]').first();
       });
       it('Should renders Retention field', () => {
         expect(field.prop('type')).toBe('text');
       });
-      it('Shows error when Retention is set to blank', () => {
+      it('Should not show error when Retention is set to blank', () => {
         field.simulate('blur');
         const errorBlock = wrapper.find('.text-danger');
-        expect(errorBlock).toHaveLength(1);
+        expect(errorBlock).toHaveLength(0);
       });
     });
     describe('Liquidated Damages field', () => {
       let field: ShallowWrapper;
       beforeEach(() => {
-        field = wrapper.find('input[name="liquidatedDamages"]').first();
+        field = wrapper.find('input[name="projectAdditionalDetail.liquidatedDamages"]').first();
       });
       it('Should renders Liquidated Damages field', () => {
         expect(field.prop('type')).toBe('text');
       });
-      it('Shows error when Liquidated Damages is set to blank', () => {
+      it('Should not show error when Liquidated Damages is set to blank', () => {
         field.simulate('blur');
         const errorBlock = wrapper.find('.text-danger');
-        expect(errorBlock).toHaveLength(1);
+        expect(errorBlock).toHaveLength(0);
       });
     });
     describe('Insurance field', () => {
       let field: ShallowWrapper;
       beforeEach(() => {
-        field = wrapper.find('input[name="insurance"]').first();
+        field = wrapper.find('input[name="projectAdditionalDetail.insurance"]').first();
       });
       it('Should renders Insurance field', () => {
         expect(field.prop('type')).toBe('text');
@@ -239,6 +225,24 @@ describe('ProjectOverviewForm Fields', () => {
           projectOverviewFormReducer(initialState, getProjectDetailError)
         ).toMatchSnapshot();
       });
+    });
+    describe('Project Risk form fields', () => {
+      for (let fieldCount = 1; fieldCount <= 3; fieldCount++) {
+        it(`Should renders ProjectRisk${fieldCount} field`, () => {
+          let field = wrapper.find(`input[name="projectAdditionalDetail.projectRisk${fieldCount}"]`).first();
+          expect(field.prop('type')).toBe('text');
+
+        });
+      }
+    });
+
+    describe('Project Risk Control Measure form fields', () => {
+      for (let fieldCount = 1; fieldCount <= 3; fieldCount++) {
+        it(`Should renders ProjectRiskControlMeasure${fieldCount} field`, () => {
+          let field = wrapper.find(`input[name="projectAdditionalDetail.projectRiskControlMeasure${fieldCount}"]`).first();
+          expect(field.prop('type')).toBe('text');
+        });
+      }
     });
   });
 });

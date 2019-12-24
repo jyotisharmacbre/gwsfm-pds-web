@@ -1,17 +1,60 @@
 import React from 'react';
-import clsx from 'clsx';
-import { injectIntl } from 'react-intl';
-import Translate from '../../../Translations/translate';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import cbre_icon from '../../images/logo-black.png';
 import upload_icon from '../../images/upload-icon.jpg';
+import { IState } from '../../../store/state';
+import { connect } from 'react-redux';
+import { isValidGUID } from '../../../helpers/utility-helper';
 
-const LeftMenu: React.FC = (props: any) => {
+interface IMapStateToProps {
+  projectId: string;
+}
+const LeftMenu: React.FC<IMapStateToProps> = props => {
+  let urlProjectId:string="";
+  let activeClass:string="";
+  let links:Array<string>=["project","projectoverview","justificationauthorisation","preliminaries","subcontractor","discounts"]
+  let history=useHistory();
+  const getGUID=()=>{
+    history.location.pathname.split('/').forEach((data)=>{
+      if(isValidGUID(data)){
+        urlProjectId=data
+        return;
+      }
+    })
+    return urlProjectId;
+  }
+  const getUrlPathName=()=>{
+    history.location.pathname.split('/').forEach((data)=>{
+      if(links.includes(data.toLowerCase())){
+        activeClass=data
+        return;
+      }
+    })
+    return activeClass;
+  }
+   urlProjectId=props.projectId?props.projectId:getGUID();
+   activeClass=activeClass?activeClass:getUrlPathName().toLowerCase();
+  let isDisable:boolean=(urlProjectId&&urlProjectId!="undefined")
+  ?true:false;
+
+  const disableEnableMenu=(value:string)=>{
+    return activeClass==value?"active":""
+  }
+  const disableEnableSubActiveClass=(value:string)=>{
+    return activeClass==value?"subactive":""
+  }
+
   return (
     <nav id="sidebar">
       <div className="sidebar-header">
         <div id="sm_none" className="logo">
-          <img src={cbre_icon} alt="CBRE PDS" />
+        <Link data-test=""
+            to={{
+              pathname: "/"
+            }}
+          >
+            <img src={cbre_icon} alt="CBRE PDS" />
+          </Link>
         </div>
         <div className="cross-menu">
           MENU
@@ -24,31 +67,36 @@ const LeftMenu: React.FC = (props: any) => {
       </div>
 
       <ul id="homeMenu" className="list-unstyled components">
-        <p className="upload mb-0">
+        {/* <p className="upload mb-0">
           <img src={upload_icon} alt="upload icon" />
           upload library
-        </p>
-        <li className="active">
-          <Link
+        </p> */}
+        <li className={disableEnableMenu("project")}>
+          <Link data-test="ProjectLink"
             to={{
-              pathname: '/Project'
+              pathname: '/Project/'+urlProjectId
             }}
           >
             customer enquiry
           </Link>
         </li>
-        <li>
-          <Link
+        <li data-test="ProjectOverviewLink" className={isDisable?(disableEnableMenu("projectoverview")):"link_disabled"}>
+          <Link data-test="ProjectOverviewPath"
             to={{
-              pathname: '/ProjectOverview'
+              pathname: '/ProjectOverview/'+urlProjectId
             }}
           >
             project overview
           </Link>
         </li>
-        <li className="">
+        <li className={isDisable?
+          (disableEnableMenu("justificationauthorisation")
+          ||disableEnableMenu("preliminaries")
+          ||disableEnableMenu("subcontractor")
+          ||disableEnableMenu("discounts")):
+          "link_disabled"}>
           <Link
-            to="/JustificationAuthorisation"
+            to={"/JustificationAuthorisation/"+urlProjectId}
             data-target="#homeSubmenu"
             data-toggle="collapse"
             aria-expanded="true"
@@ -57,24 +105,24 @@ const LeftMenu: React.FC = (props: any) => {
             justification &amp; authorisation
           </Link>
           <ul className="collapse list-unstyled show" id="homeSubmenu">
-            <li className="subactive">
-              <Link to="/preliminaries">preliminaries</Link>
+            <li className={disableEnableSubActiveClass("preliminaries")}>
+              <Link to={"/preliminaries/"+urlProjectId}>preliminaries</Link>
             </li>
-            <li>
-              <Link to="/Subcontractor">subcontractors</Link>
+            <li className={disableEnableSubActiveClass("subcontractor")}>
+              <Link to={"/Subcontractor/"+urlProjectId}>subcontractors</Link>
             </li>
-            <li>
-              <Link to="/Discounts">discounts </Link>
+            <li className={disableEnableSubActiveClass("discounts")}>
+              <Link to={"/Discounts/"+urlProjectId}>discounts </Link>
             </li>
           </ul>
         </li>
-        <li>
+        <li className={isDisable?"":"link_disabled"}>
           <Link to="/">review &amp; submit</Link>
         </li>
-        <li>
-          <Link to="/">review &amp; approve</Link>
+        <li className={isDisable?"":"link_disabled"}>
+          <Link to="/ReviewApprove">review &amp; approve</Link>
         </li>
-        <li>
+        <li className={isDisable?"":"link_disabled"}>
           <Link to="/">Logout</Link>
         </li>
       </ul>
@@ -82,4 +130,11 @@ const LeftMenu: React.FC = (props: any) => {
   );
 };
 
-export default injectIntl(LeftMenu);
+const mapStateToProps = (state: IState) => {
+  return {
+    projectId: state.project.form.projectId
+  };
+};
+export default connect(
+  mapStateToProps
+)(LeftMenu);

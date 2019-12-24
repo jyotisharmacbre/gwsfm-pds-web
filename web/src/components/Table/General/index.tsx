@@ -6,44 +6,40 @@ import { IGeneralTableProps } from './props';
 
 const GeneralTable: React.FC<IGeneralTableProps> = props => {
   return (
-    <React.Fragment>
-      <table className={'general-table'}>
-        <thead>
-          <tr>
+
+    <div className="project-info-block">
+      <div className="row">
+        <div className="col-md-12">
+          <div className="row">
+
             {props.headers.map(h => {
               return (
-                <th key={h.heading}>
-                  <label className="general-table-title">
-                    {h.heading}
-                    <br /> <span>{h.subHeading}</span>
-                  </label>
-                </th>
-              );
+                <div className="col-xl-2 col-lg-4 col-md-6 col-6 mb-3 m-xl-0">
+                  <label>{h.heading}</label>
+                  <p>{h.subHeading}</p>
+                </div>)
             })}
-            <th>
-              <IconButton color="primary" onClick={props.editActionClick}>
-                <Create />
-              </IconButton>
-            </th>
-          </tr>
-          <tr>
-            <th colSpan={props.headers.length + 1}>
-              <Divider />
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              Scope of Work:
-              <ul className="listitems">
-                <li>{props.content}</li>
-              </ul>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </React.Fragment>
+
+            <div className="col-xl-2 col-lg-4 col-md-6 col-6 mb-3 m-xl-0 d-flex justify-content-start justify-content-xl-end">
+              <div className="d-flex justify-content-between">
+                <button type="submit" className="edit-btn" onClick={props.editActionClick}>EDIT</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="hr"></div>
+      <div className="row">
+        <div className="col-lg-12">
+          <div className="project-info-desc">
+            <label>Project Scope</label>
+            <p>
+              {props.content}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 

@@ -1,162 +1,84 @@
-import { Grid } from '@material-ui/core';
-import React from 'react';
-import { injectIntl } from 'react-intl';
-import CardContainer from '../components/CardContainer/CardContainer';
-import MultipleChart from '../components/Charts/MultipleCharts';
-import PreferredChart from '../components/Charts/PreferredChart';
-import RunRateChart from '../components/Charts/RunRateChart';
-import HeaderPage from '../components/HeaderPage/HeaderPage';
-import Table from '../components/Table/Simple/Table';
-import { IBtnActionProps } from '../props/AppProps';
-import IReactIntl from '../Translations/IReactIntl';
-import Translate from '../Translations/translate';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import Pipeline from '../views/Pipeline';
-
-class Dashboard extends React.Component<IReactIntl> {
-  GetButtons() {
-    const action1: IBtnActionProps = {
-      Title: 'Create A New Project',
-      Icon: 'create',
-      Color: 'primary',
-      LinkTo: '/Project'
-    };
-    const action2: IBtnActionProps = {
-      Title: 'Pipeline',
-      Icon: 'pipeline',
-      Color: 'secondary',
-      LinkTo: '/Pipeline'
-    };
-    return [action1, action2];
-  }
-
-  viewAll: IBtnActionProps = {
-    Title: 'View All',
-    Icon: '',
-    Color: 'secondary',
-    LinkTo: '/Pipeline'
-  };
-
-  createTableColumns() {
-    return [
-      {
-        title: 'Name',
-        field: 'name',
-        customFilterAndSearch: (term: any, rowData: any) =>
-          (term = rowData.name.length)
-      },
-      { title: 'Updated By', field: 'updatedby' },
-      { title: 'Date', field: 'date', type: 'date' },
-      {
-        title: 'Status',
-        field: 'status',
-        lookup: { 1: 'Draft', 2: 'Submitted', 3: 'Completed' }
-      }
-    ];
-  }
-
-  getTableData() {
-    return [
-      {
-        name: 'Russel street road works',
-        updatedby: 'Stacy Salter',
-        date: new Date('07/21/1987'),
-        status: 1
-      },
-      {
-        name: 'London Bridge aqueduct planning',
-        updatedby: 'Hame Moore',
-        date: new Date('07/21/1987'),
-        status: 1
-      },
-      {
-        name: '51 Southwark street refilling',
-        updatedby: 'Lucy Benner',
-        date: new Date('07/21/1987'),
-        status: 2
-      },
-      {
-        name: 'Church street reviewing',
-        updatedby: 'Imran Khan',
-        date: new Date('07/21/1987'),
-        status: 3
-      },
-      {
-        name: 'Russel street road works',
-        updatedby: 'Jacy Lue',
-        date: new Date('07/21/1987'),
-        status: 1
-      },
-      {
-        name: 'Gregory Nash approval',
-        updatedby: 'Stirlin Archer',
-        date: new Date('07/21/1987'),
-        status: 3
-      }
-    ];
-  }
-  render() {
-    return (
-      <div>
-        <HeaderPage
-          Title={Translate.getLabel(this.props, 'overview')}
-          ActionList={this.GetButtons()}
-        />
-        <Link to="/Pipeline">
-          <button type="submit">Pipeline</button>
-        </Link>
-        <CardContainer Title={Translate.getLabel(this.props, 'yourProject')}>
-          <Table
-            columns={this.createTableColumns()}
-            data={this.getTableData()}
-            ActionList={[this.viewAll]}
-          />
-        </CardContainer>
-        <Grid container spacing={2}>
-          <Grid item container spacing={2}>
-            <Grid item xs={12} sm={12} lg={6} md={6}>
-              <CardContainer
-                Title={Translate.getLabel(this.props, 'preferred')}
-              >
-                <PreferredChart Preferred={4} NotPreferred={6} />
-              </CardContainer>
-            </Grid>
-            <Grid item xs={12} sm={12} lg={6} md={6}>
-              <CardContainer Title={Translate.getLabel(this.props, 'runRate')}>
-                <RunRateChart
-                  ICE={56}
-                  JandA={12}
-                  BidSubmitted={30}
-                  OrderReceived={20}
-                  InProgress={24}
-                  Completed={20}
-                />
-              </CardContainer>
-            </Grid>
-          </Grid>
-          <Grid item container spacing={2}>
-            <Grid item xs={12} sm={12} lg={12} md={12}>
-              <CardContainer
-                Title={Translate.getLabel(this.props, 'analytics')}
-              >
-                <MultipleChart
-                  ProjectTotal={200}
-                  ICE={50}
-                  Rejected={60}
-                  JandA={49}
-                  LostProjects={30}
-                  OrderReceived={20}
-                  OnHoldProject={15}
-                  InProgress={24}
-                  Completed={20}
-                />
-              </CardContainer>
-            </Grid>
-          </Grid>
-        </Grid>
-      </div>
-    );
-  }
+import { connect } from 'react-redux';
+import { IState } from '../store/state';
+import DashboardActionApprovalForm from '../components/Forms/Dashboard/ApprovalActionForm/DashboardActionApprovalForm';
+import { IProjectDashboardGrid } from '../store/Dashboard/Types/IProjectDashboardGrid';
+import { projectDashboardGridDetail } from '../store/Dashboard/Action';
+import { ILookup } from '../store/Lookups/Types/ILookup';
+import { getProjectStatus } from '../store/rootActions';
+import { formatMessage } from '../Translations/connectedIntlProvider';
+import { getDisplayName } from '../helpers/auth-helper';
+interface IMapDispatchToProps {
+  dashboardGridDetail: () => void;
+  getLookups: () => void;
 }
+interface IMapStateToProps {
+  dashboardGridValues: Array<IProjectDashboardGrid>;
+  valuesCount: number;
+  lookupDetails: Array<ILookup>;
+}
+const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = props => {
+  useEffect(() => {
+    props.getLookups();
+    props.dashboardGridDetail();
+  }, []);
+  return (
+    <div>
+      <div className="container">
+        <div className="row">
+          <div className="col-xl-12">
+            <div className="custom-wrap">
+              <div className="row align-items-center">
+                <div className="col-xl-6">
+                  <h1 className="top_Title2">
+                    {formatMessage('TITLE_WELCOME')}{' '}
+                    {getDisplayName() && getDisplayName()}
+                  </h1>
+                </div>
+                <div className="col-xl-6">
+                  <div className="mr-35 three-btn justify-content-xl-end justify-content-lg-start pb-0">
+                    <Link to="/Pipeline">
+                      <button name="save" className="active mr-3" type="button">
+                        {formatMessage('BUTTON_PIPELINE')}
+                      </button>
+                    </Link>
+                    <Link to="/Project">
+                      <button type="button" name="next">
+                        {formatMessage('BUTTON_CREATE_NEW_PROJ')}
+                      </button>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="table-grid-wrap price-sumry">
+            <DashboardActionApprovalForm
+              actionApprovalValues={props.dashboardGridValues}
+              showValues={props.valuesCount}
+              lookupValues={props.lookupDetails}
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
-export default injectIntl(Dashboard);
+const mapStateToProps = (state: IState) => ({
+  valuesCount: 5,
+  lookupDetails: state.lookup.projectstatus,
+  dashboardGridValues: state.dashboardGrid.actionApprovalDetails
+});
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getLookups: () => dispatch(getProjectStatus()),
+    dashboardGridDetail: () => dispatch(projectDashboardGridDetail())
+  };
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Dashboard);

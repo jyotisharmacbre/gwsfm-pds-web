@@ -1,42 +1,59 @@
 import { ActionType } from './Types/ActionType';
 import { updateObject } from '../../helpers/utility-helper';
 import { IProjectOverviewState } from './Types/IProjectOverviewState';
-import moment from 'moment';
 import Notify from '../../enums/Notify';
 import EventType from '../../enums/EventType';
+import { IProjectApprovals } from './Types/IProjectApprovals';
+
+export const newProjectApprovals : IProjectApprovals = {
+      projectApprovalId: '',
+      projectId: '',
+      projectApprovalRange: '',
+      approverType: '',
+      approvalStatus: '',
+      userId: '',
+};
+
 
 const initialState: IProjectOverviewState = {
   form: {
-    projectAddDetailId: '',
     projectId: '',
-    mainContractor: '',
-    otherMainContractor: '',
-    enquiryReceivedFrom: '',
-    potentialCustomer: '',
-    otherPotentialCustomer: '',
-    enquiryTypeId: -1,
-    creditCheckResult: '',
-    siteAddress: '',
-    cdmNotifiable: false,
-    formOfContract: '',
-    retention: '',
-    liquidatedDamages: '',
-    insurance: '',
-    workTypeId: -1,
-    commenceDate: new Date().toJSON(),
-    completionDate: new Date().toJSON(),
-    milestones: '',
-    firstValuationDate: new Date().toJSON(),
-    finalAccountDate: new Date().toJSON(),
-    valuationIntervals: '',
-    paymentTerms: '',
-    isProjectLive: false,
-    comments: '',
-    authorizedByHop: '',
-    budget: 1,
-    authorizedBy: '',
-    authorizedBySecond: '',
-    authorizedByThird: ''
+    projectAdditionalDetail: {
+      projectAddDetailId: '',
+      projectId: '',
+      mainContractor: '',
+      enquiryReceivedFrom: '',
+      enquiryTypeId: -1,
+      creditCheckResult: '',
+      siteAddress: '',
+      cdmNotifiable: false,
+      formOfContract: '',
+      retention: '',
+      liquidatedDamages: '',
+      insurance: '',
+      workTypeId: -1,
+      commenceDate: new Date().toJSON(),
+      completionDate: new Date().toJSON(),
+      milestones: '',
+      firstValuationDate: new Date().toJSON(),
+      finalAccountDate: new Date().toJSON(),
+      valuationIntervals: '',
+      paymentTerms: '',
+      isProjectLive: false,
+      comments: '',
+      authorizedByHop: '',
+      budget: 1,
+      authorizedBy: '',
+      authorizedBySecond: '',
+      authorizedByThird: '',
+      projectRisk1: '',
+      projectRisk2: '',
+      projectRisk3: '',
+      projectRiskControlMeasure1: '',
+      projectRiskControlMeasure2: '',
+      projectRiskControlMeasure3: ''
+    },
+    projectApprovals: []
   },
   error: null,
   loading: false,
@@ -91,6 +108,37 @@ const resetProjectOverviewState = (oldState, action) => {
     event: EventType.none
   });
 };
+const changeProjectStatusToBidLostSuccess = (oldState, action) => {
+  return updateObject(oldState, {
+    notify: Notify.success
+  });
+};
+const changeProjectStatusToBidLostError = (oldState, action) => {
+  return updateObject(oldState, {
+    notify: Notify.error
+  });
+};
+const changeProjectStatusToOnHoldSuccess = (oldState, action) => {
+  return updateObject(oldState, {
+    notify: Notify.success
+  });
+};
+const changeProjectStatusToOnHoldError = (oldState, action) => {
+  return updateObject(oldState, {
+    notify: Notify.error
+  });
+};
+const reactivateProjectSuccess = (oldState, action) => {
+  return updateObject(oldState, {
+    notify: Notify.success,
+    event: EventType.save
+  });
+};
+const reactivateProjectError = (oldState, action) => {
+  return updateObject(oldState, {
+    notify: Notify.error
+  });
+};
 
 const projectOverviewFormReducer = (oldState = initialState, action) => {
   switch (action.type) {
@@ -106,6 +154,20 @@ const projectOverviewFormReducer = (oldState = initialState, action) => {
       return getAdditionalDetailsError(oldState, action);
     case ActionType.RESET_PROJECT_OVERVIEW_STATE:
       return resetProjectOverviewState(oldState, action);
+    case ActionType.RESET_PROJECT_OVERVIEW_STATE:
+      return resetProjectOverviewState(oldState, action);
+    case ActionType.CHANGE_PROJECT_STATUS_TO_BID_LOST_SUCCESS:
+      return changeProjectStatusToBidLostSuccess(oldState, action);
+    case ActionType.CHANGE_PROJECT_STATUS_TO_BID_LOST_ERROR:
+      return changeProjectStatusToBidLostError(oldState, action);
+    case ActionType.CHANGE_PROJECT_STATUS_TO_ON_HOLD_SUCCESS:
+      return changeProjectStatusToOnHoldSuccess(oldState, action);
+    case ActionType.CHANGE_PROJECT_STATUS_TO_ON_HOLD_ERROR:
+      return changeProjectStatusToOnHoldError(oldState, action);
+    case ActionType.REACTIVATE_PROJECT_SUCCESS:
+      return reactivateProjectSuccess(oldState, action);
+    case ActionType.REACTIVATE_PROJECT_ERROR:
+      return reactivateProjectError(oldState, action);
     default:
       return oldState;
   }

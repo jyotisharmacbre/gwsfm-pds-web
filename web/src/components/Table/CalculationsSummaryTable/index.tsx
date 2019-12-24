@@ -7,7 +7,7 @@ import CalculationsSummaryType from '../../../enums/CalculationsSummaryType';
 import {
   calculateSell,
   calculateAverageMargin,
-  getSubContractorDiscountValue,
+  getSubContractorSummaryCalculation,
   getPreliminarySummaryCalculation} 
 from '../../../helpers/utility-helper';
 import IDiscountCalculation from '../../../models/IDiscountCalculation';
@@ -19,7 +19,7 @@ interface Props {
     subContractor?:Array<ISubContractorActivity>;
     preliminary?:Array<IPreliminariesComponentDetails>;
     name:CalculationsSummaryType;
-    currencySymbol?:string;
+    currencySymbol:string;
 }
 
 interface IMapStateToProps {
@@ -34,41 +34,36 @@ interface IMapDispatchToProps {
 
 const CalculationsSummaryTable:React.FC<Props> = (props:any) => {
     let initDiscount:IDiscountCalculation = {cost:0,sell:0,margin:0}
-    const [reduxState,setReduxState] = React.useState<IDiscountCalculation>({...initDiscount});
+    let reduxState = {...initDiscount};
     const [formState,setFormState] = React.useState<IDiscountCalculation>({...initDiscount});
     
     React.useEffect(()=>{
-      if (props.projectId != '') {
+      if (props.projectId != '' && props.projectId != undefined && props.projectId != null) {
         props.getSubContractor(props.projectId);
         props.getPreliminaryDetails(props.projectId);
       }
     },[]);
 
     React.useEffect(()=>{
-        let localReduxState:IDiscountCalculation = {...initDiscount}; 
+        let localFormState:IDiscountCalculation = {...initDiscount};
         if(props.name != CalculationsSummaryType.subContractor && props.subContractorState){
-        getSubContractorDiscountValue(props.subContractorState,localReduxState);
+          getSubContractorSummaryCalculation(props.subContractorState,reduxState);
         }
-        if(props.name != CalculationsSummaryType.preliminary && props.preliminaryState){
-        getPreliminarySummaryCalculation(props.preliminaryState,localReduxState);
-        }
-        setReduxState(localReduxState);
-    },[props.subContractorState,props.preliminaryState]);
-
-    React.useEffect(()=>{
+        if(props.name != CalculationsSummaryType.preliminary && props.preliminaryState && props.preliminaryState.length > 0){ 
+          getPreliminarySummaryCalculation(props.preliminaryState,reduxState);
+        } 
         if(props.name == CalculationsSummaryType.subContractor && props.subContractor){
-        setFormState(getSubContractorDiscountValue(props.subContractor,{...reduxState}));
+            localFormState = getSubContractorSummaryCalculation(props.subContractor,{...reduxState});
+            setFormState(localFormState);
         }
-    },[props.subContractor]);
-    
-    React.useEffect(()=>{
         if(props.name == CalculationsSummaryType.preliminary && props.preliminary){
-        setFormState(getPreliminarySummaryCalculation(props.preliminary,{...reduxState}));
+          localFormState = getPreliminarySummaryCalculation(props.preliminary,{...reduxState});
+          setFormState(localFormState);
         }
-    },[props.preliminary]);
-    
+    },[props.subContractorState,props.preliminaryState,props.subContractor,props.preliminary]);
+
     return (
-    <div className="col-lg-8 px-0">
+    <div className="col-lg-12 px-0">
         <div className="price-sumry discount_table">
           <div className="inner-block">
             <table className="price-table">
@@ -82,10 +77,25 @@ const CalculationsSummaryTable:React.FC<Props> = (props:any) => {
               </thead>
               <tbody>
                 <tr>
-                  <td>{props.currencySymbol}{formState.cost}</td>
-                  <td>{calculateAverageMargin(formState.cost,formState.sell)}(%)</td>
-                  <td>{props.currencySymbol}{(formState.sell-formState.cost).toFixed(2)}</td>
-                  <td>{props.currencySymbol}{formState.sell.toFixed(2)}</td>
+                  <td>{props.currencySymbol}
+                    <span data-test='total-cost-summary'>{formState.cost}</span></td>
+                  <td>
+                    <span data-test='total-margin-summary'>
+                      {calculateAverageMargin(formState.cost,formState.sell)}
+                    </span>
+                    (%)
+                  </td>
+                  <td>{props.currencySymbol}
+                    <span data-test='gross-margin-summary'>
+                      {(formState.sell-formState.cost).toFixed(2)}
+                    </span>
+                  </td>
+                  <td>
+                    {props.currencySymbol}
+                    <span data-test='total-sell-summary'>
+                      {formState.sell.toFixed(2)}
+                    </span>
+                  </td>
                 </tr>
               </tbody>
             </table>

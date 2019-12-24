@@ -1,6 +1,5 @@
 import React,{useEffect} from 'react';
 import { connect } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import SubcontractorForm from '../components/Forms/Subcontractor/SubcontractorForm';
 import { ISubContractor } from '../store/SubContractor/Types/ISubContractor';
 import * as actions from '../store/rootActions';
@@ -8,11 +7,16 @@ import { IState } from '../store/state';
 import EventType from '../enums/EventType';
 import { toast } from 'react-toastify';
 import Notify from '../enums/Notify';
-import {getFilterElementFromArray} from '../helpers/utility-helper';
+import {getPropertyName,getFilterElementFromArray} from '../helpers/utility-helper';
 import { ICurrency } from '../store/Lookups/Types/ICurrency';
 import { FormattedMessage } from 'react-intl';
+import Currency from '../store/Lookups/InitialState/Currency';
+import ProjectStatus from '../enums/ProjectStatus';
+import {History} from "history";
+
 interface IProps {
   match: any;
+  history:History;
 } 
 
 interface IMapStateToProps {
@@ -21,6 +25,7 @@ interface IMapStateToProps {
   event: EventType;
   currencyId:number,
   currencies: Array<ICurrency> | null;
+  status:number;
 }
 
 interface IMapDispatchToProps {
@@ -30,6 +35,7 @@ interface IMapDispatchToProps {
     event: EventType
   ) => void;
   subContractorFormEdit: (
+    projectId:string,
     form: ISubContractor,
     event: EventType
   ) => void;
@@ -40,8 +46,8 @@ interface IMapDispatchToProps {
 }
 
 const Subcontractor: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = props => {
-  let history = useHistory();
   let paramProjectId:string = '';
+  const CurrencyObj = new Currency();
   const [currencySymbol,setCurrencySymbol] = React.useState('$');
   
   useEffect(() => {
@@ -58,7 +64,18 @@ const Subcontractor: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> =
   useEffect(() => {
     if(props.currencyId>0 && props.currencies){
       setCurrencySymbol(
-        getFilterElementFromArray(props.currencies,"currencyId",props.currencyId,"currencySymbol")
+        getFilterElementFromArray(
+                        props.currencies,
+                        getPropertyName(
+                        CurrencyObj,
+                        prop => prop.currencyId
+                      ),
+                        props.currencyId,
+                        getPropertyName(
+                        CurrencyObj,
+                        prop => prop.currencySymbol
+                      )
+                      )
       )
     }
   }, [props.currencyId,props.currencies]);
@@ -67,10 +84,10 @@ const Subcontractor: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> =
     if (props.notify == Notify.success) {
       if (props.event == EventType.next) {
         toast.success('Data Saved Successfully');
-        history.push(`/Discounts/${props.match.params.projectId}`);
+        props.history.push(`/Discounts/${props.match.params.projectId}`);
       } else if (props.event == EventType.previous) {
         toast.success('Data Saved Successfully');
-        history.push('/');
+        props.history.push(`/preliminaries/${props.match.params.projectId}`);
       }
       else if (props.event == EventType.save) {
         toast.success('Data Saved Successfully');
@@ -80,16 +97,15 @@ const Subcontractor: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> =
   }, [props.notify, props.event]);
 
   const handleEvent= (data: ISubContractor,event:EventType) => {
-    console.log(data);
     paramProjectId = props.match.params.projectId;
     data.activities[0].subContrActivityId == ''
       ? props.subContractorFormAdd(paramProjectId, data, event)
-      : props.subContractorFormEdit(data, event);
+      : props.subContractorFormEdit(paramProjectId,data, event);
   }; 
 
   return (
     <div className="container-fluid">
-        <div className="row">
+           <div data-test="sub_row_status" className={(props.status==ProjectStatus.BidLost||props.status==ProjectStatus.OnHold)?"link_disabled row":"row"}>
           <div className="col-lg-12">
             <div className="custom-wrap">
               <div className="heading-subtitle">
@@ -102,7 +118,7 @@ const Subcontractor: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> =
                 <p className="text-green"> <FormattedMessage id='PAGE_SUB_TITLE'></FormattedMessage></p>
               </div>
             {currencySymbol != '' ? <SubcontractorForm
-              projectId={paramProjectId}
+              projectId={props.match.params.projectId}
               onSubmitForm={handleEvent}
               currencySymbol={currencySymbol}
             />:null}
@@ -118,15 +134,17 @@ const mapStateToProps = (state: IState) => ({
   notify: state.subContractor.notify,
   event: state.subContractor.event,
   currencyId:state.project.form.currencyId,
-  currencies: state.lookup.currencies
+  currencies: state.lookup.currencies,
+  status:state.project.form.status
+
 });
 
 const mapDispatchToProps = dispatch => {
   return {
     subContractorFormAdd: (projectId, form, event) =>
       dispatch(actions.subContractorFormAdd(projectId, form, event)),
-    subContractorFormEdit: (form, event) =>
-      dispatch(actions.subContractorFormEdit(form, event)),
+    subContractorFormEdit: (projectId,form, event) =>
+      dispatch(actions.subContractorFormEdit(projectId,form, event)),
     getProjectDetail: projectId =>
       dispatch(actions.getProjectDetail(projectId)),
     getSubContractor: projectId =>

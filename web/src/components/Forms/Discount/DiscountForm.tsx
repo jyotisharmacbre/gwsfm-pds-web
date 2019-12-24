@@ -16,7 +16,7 @@ import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { LookupType } from '../../../store/Lookups/Types/LookupType';
-import { getDropdown, getPropertyName, getDiscountTypeValue, getCurrencySymbol, getRadioOptions, getFilterElementFromArray } from '../../../helpers/utility-helper';
+import { getDropdown, getPropertyName, getDiscountTypeValue, getRadioOptions, getFilterElementFromArray } from '../../../helpers/utility-helper';
 import PdsFormTypeAhead from '../../PdsFormHandlers/PdsFormTypeAhead';
 import { IProjectDetail } from '../../../store/CustomerEnquiryForm/Types/IProjectDetail';
 import { ICurrency } from '../../../store/Lookups/Types/ICurrency';
@@ -25,6 +25,8 @@ import { MainTitle } from '../../Title/Title';
 import PdsFormRadio from '../../PdsFormHandlers/PdsFormRadio';
 import { IDiscountActivity } from '../../../store/DiscountForm/Types/IDiscountActivity';
 import { dynamicsCompany } from '../../TypeAhead/TypeAheadConstantData/dynamicCompanyData';
+import { dynamicsContract } from '../../TypeAhead/TypeAheadConstantData/dynamicContractData';
+import Currency from '../../../store/Lookups/InitialState/Currency';
 
 
 interface Props {
@@ -43,7 +45,8 @@ interface Props {
   InjectedFormProps<IDiscountActivity, Props>> = (props: any) => {
   const { handleSubmit, initialValues, discountTypeValue } = props;
   const normalize = value => (value ? parseInt(value) : null);
-
+  const CurrencyObj = new Currency();
+  
   return (
     <div className="container-fluid">
       <div className=" row">
@@ -108,7 +111,7 @@ interface Props {
                   </MainTitle>
                   <Field
                   input={{
-                    value: (getFilterElementFromArray(dynamicsCompany,"CompanyId", props.clientName,"Name") || props.otherClientName),
+                    value: (getFilterElementFromArray(dynamicsContract,"CustomerId", props.clientName,"Name") || props.otherClientName),
                     disabled: true
                     }}
                     type="text"
@@ -132,8 +135,7 @@ interface Props {
                     <FormattedMessage id="LABEL_DISCOUNT_TYPE" />
                   </label>
                  {props.projectstatus &&
-                    props.projectstatus
-                      .filter(
+                    props.projectstatus.filter(
                         element => element.lookupItem == LookupType.Discount_Type
                       )
                       .map((data, index) => {
@@ -163,14 +165,22 @@ interface Props {
                     labelKey="LABEL_DISCOUNT"
                     placeholderKey="PLACEHOLDER_DISCOUNT"
                     normalize={normalize}
-                    discountBind = {getDiscountTypeValue([
-                      { lookupKey: 1, description: 'Percent (%)'},
-                      { lookupKey: 2, description: 'Value (#)'}
-                    ], discountTypeValue,
-                      getCurrencySymbol(
-                      props.currencies,
-                      props.currencyId
-                    )
+                    discountBind = {getDiscountTypeValue(props.projectstatus && props.projectstatus
+                      .filter(
+                        element => element.lookupItem == LookupType.Discount_Type
+                      ), discountTypeValue,
+                      getFilterElementFromArray(
+                        props.currencies,
+                        getPropertyName(
+                        CurrencyObj,
+                        prop => prop.currencyId
+                      ),
+                      props.currencyId > 0 ? props.currencyId : props.userPreferenceCurrencyId,
+                        getPropertyName(
+                        CurrencyObj,
+                        prop => prop.currencySymbol
+                      )
+                      )                     
                     )}
                   />
                   <label className="w-100 mb-0">
@@ -220,6 +230,7 @@ interface Props {
 const mapStateToProps = (state: IState) => ({
   initialValues: state.discount.form,
   discountTypeValue: discountSelector(state, 'discountType'),
+  userPreferenceCurrencyId: userPreferenceSelector(state, 'currencyId')
 });
 
 const form = reduxForm<IDiscountActivity, Props>({
@@ -228,5 +239,6 @@ const form = reduxForm<IDiscountActivity, Props>({
 })(injectIntl(DiscountForm));
 
 const discountSelector = formValueSelector('DiscountForm');
+const userPreferenceSelector = formValueSelector('UserProfileForm');
 
 export default connect(mapStateToProps)(form);

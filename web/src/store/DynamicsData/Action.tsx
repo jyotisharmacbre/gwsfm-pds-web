@@ -1,11 +1,6 @@
 import * as axios from '../../client';
 import { ActionType } from './Types/ActionType';
 import { Dispatch } from 'redux';
-import {
-  getADhopOther,
-  getADpoOther,
-  getADpmOther
-} from '../UserService/Action';
 
 const getDynamicContractSuccess = (response: any) => {
   return {
@@ -49,6 +44,34 @@ const getDynamicCompanyOtherSuccess = (response: any) => {
   };
 };
 
+const getDynamicSubContractorSuccess = (response: any) => {
+  return {
+    type: ActionType.DYNAMIC_SUB_CONTRACTOR_DATA_GET_SUCCESS,
+    payload: response
+  };
+};
+
+const getDynamicSubContractorError = (error: any) => {
+  return {
+    type: ActionType.DYNAMIC_SUB_CONTRACTOR_DATA_GET_ERROR,
+    payload: error
+  };
+};
+
+
+const getDynamicSubContractorOtherSuccess = (response: any) => {
+  return {
+    type: ActionType.DYNAMIC_OTHER_SUB_CONTRACTOR_SUCCESS,
+    payload: response
+  };
+};
+
+const getDefaultSuccess = (response: any) => {
+  return {
+    type: ActionType.DYNAMIC_OTHER_DEFAULT_SUCCESS
+  };
+};
+
 let config = {
   headers: {
     'Content-Type': 'application/json'
@@ -59,7 +82,7 @@ export const getDynamicContractData = (searchContract: string) => {
   return (dispatch: Dispatch) => {
     axios.baseAPI
       .get(
-        `/api/DynamicsLookup/getContracts/${searchContract}?topCount=50
+        `/api/ERPLookup/getContractsAndCustomers/${searchContract}?topCount=50
       `,
         config
       )
@@ -89,6 +112,23 @@ export const getDynamicCompanyData = (searchCompany: string) => {
   };
 };
 
+export const getDynamicSubContractorData = (searchSubContractor: string) => {
+  return (dispatch: Dispatch) => {
+    axios.baseAPI
+      .get(
+        `/api/DynamicsLookup/getSubContractors/${searchSubContractor}?topCount=50
+      `,
+        config
+      )
+      .then(response => {
+        dispatch(getDynamicSubContractorSuccess(response.data));
+      })
+      .catch(error => {
+        dispatch(getDynamicSubContractorError(error));
+      });
+  };
+};
+
 export const getDynamicOther = (data: any, type: string) => {
   switch (type) {
     case 'contractorId':
@@ -99,17 +139,14 @@ export const getDynamicOther = (data: any, type: string) => {
       return (dispatch: Dispatch) => {
         dispatch(getDynamicCompanyOtherSuccess(data));
       };
-    case 'headOfProject':
-      return (dispatch: Dispatch) => {
-        dispatch(getADhopOther(data));
-      };
-    case 'projectOwner':
-      return (dispatch: Dispatch) => {
-        dispatch(getADpoOther(data));
-      };
-    case 'projectManager':
-      return (dispatch: Dispatch) => {
-        dispatch(getADpmOther(data));
-      };
+    case 'SubContractorId':
+    return (dispatch: Dispatch) => {
+      dispatch(getDynamicSubContractorOtherSuccess(data));
+    };
+      default:
+        return (dispatch: Dispatch) => {
+          dispatch(getDefaultSuccess(data));
+        };
   }
 };
+

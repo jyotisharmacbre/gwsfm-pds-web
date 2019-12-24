@@ -17,12 +17,19 @@
             padding-left: 0;
         }
     }
+    .col-lg-4 {
+        &:last-child {
+            .card_wrap {
+                margin-bottom: 0;
+            }
+        }
+    }
 }
 
 .card_wrap {
     background: map-get($colors , whiteColor );
     @include borderRadius (3px);
-    padding: 20px; 
+    padding: 28px 20px 0px 20px; 
     @include boxShadow(0 0 13px rgba(0, 0, 0, 0.1));
     margin: 10px 0;
     height: 100%;
@@ -30,7 +37,7 @@
         height: auto;
     }
     @include lgScreen {
-        padding: 20px 15px;
+        padding: 20px 15px 10px;
     }
     .tick_wrap {
         position: absolute;
@@ -57,18 +64,26 @@
     .card {
         text-align: center;
         border: 0;
-        padding: 0 10px 15px;
-        .card-title {
+        padding: 0 15px 8px 15px;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        background: map-get($colors , whiteColor );
+        @include lgScreen {
+            padding: 0 5px 8px 5px;
+        }
+        .title {
             font-size: 24px;
             color: map-get($colors , darkGreen );
             font-weight: 600;
             @include lgScreen {
-                margin-top: 15px;
+                margin-top: 0;
             }
         }
-        .card-text {
-            color: map-get($colors , grey11 );
-            font-size: 16px;
+        .text {
+            color: map-get($colors , grey002 );
+            font-size: 14px;
+            margin-bottom: 0;
         }
     }
 }

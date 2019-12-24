@@ -2,7 +2,7 @@ import React from 'react';
 import { Field, formValueSelector } from 'redux-form';
 import PdsFormInput from '../../PdsFormHandlers/PdsFormInput';
 import { Validate, alphaNumeric, onlyNumber } from '../../../helpers/fieldValidations';
-import { getFilterElementFromArray,calculateCost,calculateSell} from '../../../helpers/utility-helper';
+import { calculateCost,calculateSell, restrictMinus} from '../../../helpers/utility-helper';
 import { IState } from '../../../store/state';
 import { connect } from 'react-redux';
 import { ICurrency } from '../../../store/Lookups/Types/ICurrency';
@@ -24,7 +24,6 @@ const PreliminaryItemsForm:React.FC<Props>
     props.preliminaryData[props.componentIndex].items[index].totalCost=(props.preliminaryData[props.componentIndex].items[index].noOfHours*props.preliminaryData[props.componentIndex].items[index].hourRate);
   }
   const{fields,itemDetail,componentIndex,currencies,currencyId,currencySymbol,preliminaryData}=props;
-  const currencySymbols:string=getFilterElementFromArray(props.currencies,"currencyId",props.currencyId,"currencySymbol");
 
   return (
   <tbody>
@@ -37,6 +36,7 @@ const PreliminaryItemsForm:React.FC<Props>
                         input={{disabled: true} }
                         data-test="nameOfSupplier"
                         type="text"
+                        className="width-120 mb-0"
                         component={PdsFormInput}
                         validate={[
                             Validate.maxLength(1000),
@@ -58,12 +58,13 @@ const PreliminaryItemsForm:React.FC<Props>
                   name={`${member}.noOfHours`}
                   type="number"
                  input={{ disabled: true}}
-                  component={PdsFormInput}
+                 component={PdsFormInput}
                   className="width-120 pl-20 required "
                   validate={[
                     Validate.maxLength(15),
                     onlyNumber
                   ]}
+                  normalize={restrictMinus}
                   divPosition="relative"
                 />:<Field
                 name={`${member}.noOfHours`}
@@ -74,6 +75,7 @@ const PreliminaryItemsForm:React.FC<Props>
                   Validate.maxLength(15),
                   onlyNumber
                 ]}
+                normalize={restrictMinus}
                 divPosition="relative"
               />}
     </td>
@@ -81,26 +83,28 @@ const PreliminaryItemsForm:React.FC<Props>
                 {(props.itemDetail.items[index].itemId=="1"||props.itemDetail.items[index].itemId=="2")?<Field
                   name={`${member}.hourRate`}
                   type="number"
-                 input={{ disabled: true}}
+                  normalize={restrictMinus}                 
+                  input={{ disabled: true}}
                   component={PdsFormInput}
-                  className="width-120 pl-20 required "
+                  className="width-120 pl-20 required currency"
                   validate={[
                     Validate.maxLength(15),
                     onlyNumber
                   ]}
-                  currency={currencySymbols}
+                  currency={currencySymbol}
                   divPosition="relative"
                   placeholderKey=""
                 />:<Field
                 name={`${member}.hourRate`}
                 type="number"
                 component={PdsFormInput}
-                className="width-120 pl-20 required "
+                normalize={restrictMinus}
+                className="width-120 pl-20 required currency"
                 validate={[
                   Validate.maxLength(15),
                   onlyNumber
                 ]}
-                currency={currencySymbols}
+                currency={currencySymbol}
                 divPosition="relative"
                 placeholderKey=""
               />}
@@ -110,28 +114,30 @@ const PreliminaryItemsForm:React.FC<Props>
                   name={`${member}.totalCost`}
                   type="number"
                   component={PdsFormInput}
-                  className="width-120 pl-20 required"
+                  normalize={restrictMinus}
+                  className="width-120 pl-20 required currency"
                   validate={[
                     Validate.maxLength(15),
                     onlyNumber
                   ]}
-                  currency={currencySymbols}
+                  currency={currencySymbol}
                   divPosition="relative"
                 />:<Field
                 name={`${member}.totalCost`}
                 type="number"
+                normalize={restrictMinus}
                 input={{
                   value:calculateCost(props.preliminaryData[props.componentIndex].items[index].noOfHours,props.preliminaryData[props.componentIndex].items[index].hourRate),
                   disabled: true,
                   onchange:updateCost(index)
                   }}
                 component={PdsFormInput}
-                className="width-120 pl-20 required"
+                className="width-120 pl-20 required currency"
                 validate={[
                   Validate.maxLength(15),
                   onlyNumber
                 ]}
-                currency={currencySymbols}
+                currency={currencySymbol}
                 divPosition="relative"
               />}
     </td>
@@ -139,8 +145,9 @@ const PreliminaryItemsForm:React.FC<Props>
     <Field
                   name={`${member}.grossMargin`}
                   type="number"
+                  normalize={restrictMinus}
                   component={PdsFormInput}
-                  className="width-120 pl-20 required"
+                  className="width-120 pl-20 required currency"
                   validate={[
                     Validate.maxLength(15),
                     onlyNumber
@@ -158,12 +165,12 @@ const PreliminaryItemsForm:React.FC<Props>
                      disabled: true 
                     }}
                    component={PdsFormInput}
-                  className="width-120 pl-20 required"
+                  className="width-120 pl-20 required currency"
                   validate={[
                     Validate.maxLength(15),
                     onlyNumber
                   ]}
-                  currency={currencySymbols}
+                  currency={currencySymbol}
                   divPosition="relative"
                 />
     </td>

@@ -2,10 +2,7 @@ export interface IProjectAdditionalDetail {
   projectAddDetailId: string;
   projectId: string;
   mainContractor: string;
-  otherMainContractor: string;
   enquiryReceivedFrom: string;
-  potentialCustomer: string;
-  otherPotentialCustomer: string;
   enquiryTypeId: number;
   creditCheckResult: string;
   siteAddress: string;
@@ -29,4 +26,10 @@ export interface IProjectAdditionalDetail {
   authorizedBy: string;
   authorizedBySecond: string;
   authorizedByThird: string;
+  projectRisk1: string;
+  projectRisk2: string;
+  projectRisk3: string;
+  projectRiskControlMeasure1: string;
+  projectRiskControlMeasure2: string;
+  projectRiskControlMeasure3: string;
 }
