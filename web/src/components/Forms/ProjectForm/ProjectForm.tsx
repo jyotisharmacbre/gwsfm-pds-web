@@ -117,7 +117,11 @@ const ProjectForm: React.FC<Props &
                   type="text"
                   component={PdsFormInput}
                   className="required"
-                  validate={[
+                  validate={
+                    /*To do: Have to replace it with consistent solution.
+                    Currently, This field is using "require"(no memoize) insted of "required"(with memoize),
+                    It is in use to change the state of "required" error message on language change*/
+                    [
                     Validate.require('LABEL_PROJECT'),
                     Validate.maxLength(1000)
                   ]}
