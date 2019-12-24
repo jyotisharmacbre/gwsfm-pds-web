@@ -1,10 +1,13 @@
 import React from 'react';
 import { faLightbulb, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { confirmAlert } from '../Popup/CustomModalPopup';
+
+
 import { injectIntl, FormattedMessage } from 'react-intl';
-import IReactIntl from '../../Translations/IReactIntl';
-import ProjectStatus from '../../enums/ProjectStatus';
+
+import { confirmAlert } from '../../Popup/CustomModalPopup';
+import IReactIntl from '../../../Translations/IReactIntl';
+import ProjectStatus from '../../../enums/ProjectStatus';
 
 interface IProps {
     status: number;
@@ -30,7 +33,7 @@ const ProjectOverviewStatusTab: React.FC<IProps & IReactIntl> = props => {
     }
     return (
 
-        <div className="col-md-6 float-right btm4em">
+        <div className="col-md-6 float-right">
             <div className="activate_status_box">
                 {(props.status == ProjectStatus.BidLost || props.status == ProjectStatus.OnHold) ? <div className="status-dropdown-btn toggle mrgnrght10 mrgnt5">
                     <span>
@@ -86,6 +89,7 @@ const ProjectOverviewStatusTab: React.FC<IProps & IReactIntl> = props => {
                 </div>
             </div>
         </div>
+
     )
 
 }
