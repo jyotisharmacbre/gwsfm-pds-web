@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import { match } from 'react-router-dom';
 import { History } from 'history';
 import CalculationsSummaryTable from '../components/Table/CalculationsSummaryTable';
@@ -10,7 +10,11 @@ interface IProps {
 	history: History;
 }
 
-const ReviewApprove: React.FC<IProps> = (props: IProps) => {
+const ReviewSubmit: React.FC<IProps> = (props: IProps) => {
+	useEffect(() => {
+      window.scrollTo(0, 0);
+    }, []);
+
 	const redirect = (module: string) => {
 		return props.history.push(`/${module}/${props.match.params.projectId}`);
 	};
@@ -20,7 +24,7 @@ const ReviewApprove: React.FC<IProps> = (props: IProps) => {
 				<div className="col-lg-12">
 					<div className="custom-wrap">
 						<div className="heading-subtitle">
-							<h1>Review &#38; Approve</h1>
+							<h1>Review &#38; Submit</h1>
 						</div>
 						<div className="custom_block">
 							<h4>Customer Enquiry</h4>
@@ -173,4 +177,4 @@ const ReviewApprove: React.FC<IProps> = (props: IProps) => {
 	);
 };
 
-export default ReviewApprove;
+export default ReviewSubmit;

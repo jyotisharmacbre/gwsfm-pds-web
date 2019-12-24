@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { MemoryRouter } from 'react-router-dom';
-import ReviewApprove from '../ReviewApprove';
+import ReviewSubmit from '../ReviewSubmit';
 import { findByTestAtrr, checkProps } from '../../helpers/test-helper';
 import { IntlProvider } from 'react-intl';
 import translations from '../../Translations/translation';
@@ -10,12 +10,12 @@ describe('review and approve component test cases', () => {
 	let wrapper: any;
 	const history = { push: jest.fn() };
 	beforeEach(() => {
-		wrapper = shallow(<ReviewApprove history={history} match={{ params: { projectId: 1 } }} />);
+		wrapper = shallow(<ReviewSubmit history={history} match={{ params: { projectId: 1 } }} />);
 	});
 
 	it('defines the component', () => {
 		expect(wrapper).toBeDefined();
-	});
+	});  
 
 	it('should match the snapshot', () => {
 		expect(wrapper).toMatchSnapshot();

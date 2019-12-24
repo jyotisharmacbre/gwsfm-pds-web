@@ -65,7 +65,7 @@ const Discounts: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = pro
     if (props.notify == Notify.success) {
       if (props.event == EventType.next) {
         toast.success('Data Saved Successfully');
-        props.history.push(`/ReviewApprove/${props.match.params.projectId}`);
+        props.history.push(`/ReviewSubmit/${props.match.params.projectId}`);
       } else if (props.event == EventType.previous) {
         toast.success('Data Saved Successfully');
         props.history.push(`/Subcontractor/${props.match.params.projectId}`);

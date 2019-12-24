@@ -10,7 +10,7 @@ import Discounts from '../../views/Discounts';
 import Subcontractor from '../../views/Subcontractor';
 
 import Preliminaries from '../../views/Preliminaries';
-import ReviewApprove from '../../views/ReviewApprove';
+import ReviewSubmit from '../../views/ReviewSubmit';
 const Routes: React.FC = props => {
   return (
     <Switch>
@@ -28,7 +28,7 @@ const Routes: React.FC = props => {
       <Route path="/Preliminaries/:projectId" component={Preliminaries} />
 
       <Route path="/Subcontractor/:projectId" component={Subcontractor} />
-      <Route path="/ReviewApprove/:projectId" component={ReviewApprove} />
+      <Route path="/ReviewSubmit/:projectId" component={ReviewSubmit} />
     </Switch>
   );
 };
