@@ -13,9 +13,9 @@ const subContractorFormAddSuccess = (oldState, action) => {
     loading: false,
     notify: Notify.success,
     event: action.event,
-    form: updateObject(oldState.form, 
-      updateObject(oldState.form.activities,action.payload)
-    )
+    form: updateObject(oldState.form, {
+      activities:action.payload
+    })
   });
 };
 
@@ -24,7 +24,10 @@ const subContractorFormEditSuccess = (oldState, action) => {
     error: null,
     loading: false,
     notify: Notify.success,
-    event: action.event
+    event: action.event,
+    form: updateObject(oldState.form, {
+      activities:action.payload
+    })
   });
 };
 

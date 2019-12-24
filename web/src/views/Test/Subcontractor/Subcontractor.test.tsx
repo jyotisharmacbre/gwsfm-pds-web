@@ -11,6 +11,8 @@ import { initialState } from '../../../store/Preliminaries/InitialState';
 import { initialState as subcontractorInitialState} from '../../../store/SubContractor/InitialState';
 import { lookUpInitialState, customerEnquiryInitialState } from '../Preliminaries/PreliminariesTestData';
 import Notify from '../../../enums/Notify';
+import {initialState as discountInitialState} from '../../../store/DiscountForm/InitialState';
+import {initialState as summaryCalculationState} from '../../../store/SummaryCalculation/InitialState';
 const mockStore = configureStore([]);
 let store;
 let wrapper;
@@ -19,7 +21,9 @@ const setUpStore=(initialState,lookUpInitialState,customerEnquiryInitialState,su
     preliminary: initialState,
     lookup: lookUpInitialState,
     project: customerEnquiryInitialState,
-    subContractor:subcontractorInitialState
+    subContractor:subcontractorInitialState,
+    discount:discountInitialState,
+    summaryCalculation:summaryCalculationState,
 });
 store.dispatch=jest.fn();
 }
@@ -58,7 +62,7 @@ describe('Subcontractor component test cases', () => {
   it('defines the component', () => {
     expect(wrapper).toBeDefined();
   }); 
-
+ 
   it('should match the snapshot', () => {
     expect(wrapper).toMatchSnapshot();
   });

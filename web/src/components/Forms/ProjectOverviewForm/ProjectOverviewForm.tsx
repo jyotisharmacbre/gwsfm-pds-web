@@ -19,6 +19,7 @@ import FontawsomeFree from '@fortawesome/free-solid-svg-icons';
 import FontawsomeReact, {
   FontAwesomeIcon
 } from '@fortawesome/react-fontawesome';
+import CalculationsSummaryTable from '../../Table/CalculationsSummaryTable';
 import { faCheckCircle, faClock, faExclamationTriangle, faUser, faTimes, faCheck, faDownload } from '@fortawesome/free-solid-svg-icons';
 
 
@@ -33,17 +34,19 @@ import TypeAhead from '../../TypeAhead/TypeAhead';
 import { dynamicsSubcontractorData } from '../../TypeAhead/TypeAheadConstantData/dynamicSubcontractorData';
 import { IDynamicsOtherSubContractor } from '../../../store/DynamicsData/Types/IDynamicData';
 import ProjectStatus from '../../../enums/ProjectStatus';
-import ProjectActivity from '../ProjectActivities/ProjectActivity'; 
-import ProjectOverviewGrid from "../../Table/ProjectOverviewGrid";
+import ProjectActivity from '../ProjectActivities/ProjectActivity';
 import { IProjectOverviewDetails } from '../../../store/ProjectOverviewForm/Types/IProjectOverviewDetails';
 import { formatMessage } from '../../../Translations/connectedIntlProvider';
+import CalculationsSummaryType from '../../../enums/CalculationsSummaryType';
+import PricingSummaryTable from '../../Table/PricingSummaryTable';
 import ProjectOverviewRiskForm from './ProjectOverviewRiskForm';
 
 interface Props {
   onNext: (data: IProjectOverviewDetails) => void;
   onPrevious: () => void;
   projectstatus: any;
-  status: number;
+  status:number;
+  projectId:string;
 }
 
 let ProjectOverviewForm: React.FC<Props &
@@ -610,10 +613,21 @@ let ProjectOverviewForm: React.FC<Props &
                     </div>
                   </section>
                 </div>
+               </div>
+              <div className="row">
+              <div className="col-xl-12">
+              <PricingSummaryTable
+                  projectId={props.projectId}
+                  showPreliminary = {true}
+                  showSubContractor = {true}
+                  showDiscount = {true}
+                  />
+                <CalculationsSummaryTable
+                  name={CalculationsSummaryType.other}
+                  projectId={props.projectId}
+                />
               </div>
-              <div>
-                <ProjectOverviewGrid/>
-                </div>
+            </div>
               <div className="row">
                 <div className="col-lg-4">
                   <ProjectOverviewRiskForm

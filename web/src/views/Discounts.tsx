@@ -1,5 +1,4 @@
 import React, { Component, useEffect } from 'react';
-import DiscountTable from '../components/Table/DiscountTable';
 import DiscountForm from '../components/Forms/Discount/DiscountForm';
 import { FormattedMessage } from 'react-intl';
 import { IDiscountActivity } from '../store/DiscountForm/Types/IDiscountActivity';
@@ -9,32 +8,20 @@ import * as actions from '../store/rootActions';
 import { connect } from 'react-redux';
 import { IState } from '../store/state';
 import { toast } from 'react-toastify';
+import { match } from 'react-router-dom';
 import { History } from 'history';
 import { ILookup } from '../store/Lookups/Types/ILookup';
 import { ICurrency } from '../store/Lookups/Types/ICurrency';
 import ProjectStatus from '../enums/ProjectStatus';
-interface IMapDispatchToProps {
-  getProjectStatus: () => void;
-  discountFormAdd: (
-    projectId: string,
-    form: IDiscountActivity,
-    event: EventType
-  ) => void;
-  discountFormEdit: (form: IDiscountActivity, event: EventType) => void;
-  resetDiscountState: () => void;
-  getDiscountData: (projectId: string) => void;
-  getAllCurrencies: () => void;
-}
 
 interface IProps {
-  match: any;
-  history: History;
+  match: match<{projectId:string}>;
+  history : History;
 }
 
 interface IMapStateToProps {
   form: IDiscountActivity;
   notify: Notify;
-  projectId: string;
   event: EventType;
   projectStatus: Array<ILookup>;
   currencies: Array<ICurrency> | null;
@@ -44,16 +31,33 @@ interface IMapStateToProps {
   status: number;
 }
 
-const Discounts: React.FC<
-  IProps & IMapStateToProps & IMapDispatchToProps
-> = props => {
-  let paramProjectId = props.match.params.projectId;
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    props.getProjectStatus();
-    props.getAllCurrencies();
-    if (paramProjectId != null && paramProjectId != '') {
-      props.getDiscountData(paramProjectId);
+interface IMapDispatchToProps {
+  getProjectStatus: () => void;
+  discountFormAdd: (
+    projectId: string,
+    form: IDiscountActivity,
+    event: EventType
+  ) => void;
+  discountFormEdit: (
+    form: IDiscountActivity,
+    event: EventType
+  ) => void;
+  resetDiscountState: () => void;
+  getDiscountData: (projectId: string) => void;
+  getAllCurrencies: () => void;
+  getProjectDetail: (projectId: string) => void;
+}
+
+const Discounts: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = props => {
+    const paramProjectId = props.match.params.projectId;
+  
+    useEffect(() => {
+      window.scrollTo(0, 0);
+      props.getProjectStatus();
+      props.getAllCurrencies();
+      if (paramProjectId != null && paramProjectId != '') {
+        props.getProjectDetail(paramProjectId);
+        props.getDiscountData(paramProjectId);
     }
   }, []);
 
@@ -61,7 +65,7 @@ const Discounts: React.FC<
     if (props.notify == Notify.success) {
       if (props.event == EventType.next) {
         toast.success('Data Saved Successfully');
-        props.history.push(`/`);
+        props.history.push(`/ReviewSubmit/${props.match.params.projectId}`);
       } else if (props.event == EventType.previous) {
         toast.success('Data Saved Successfully');
         props.history.push(`/Subcontractor/${props.match.params.projectId}`);
@@ -111,7 +115,6 @@ const Discounts: React.FC<
                 <FormattedMessage id="SUB_TITLE_DISCOUNTS" />
               </p>
             </div>
-            <DiscountTable></DiscountTable>
             <DiscountForm
               onNext={handleNext}
               onPrevious={handlePrevious}
@@ -120,42 +123,42 @@ const Discounts: React.FC<
               currencies={props.currencies}
               currencyId={props.currencyId}
               clientName={props.clientName}
-              otherClientName={props.otherClientName}
-            />
+              otherClientName= {props.otherClientName} 
+              projectId={props.match.params.projectId}/>
+            </div>
           </div>
         </div>
       </div>
-    </div>
   );
 };
 
 const mapStateToProps = (state: IState) => ({
-  form: state.discount.form,
-  notify: state.discount.notify,
-  event: state.discount.event,
-  projectStatus: state.lookup.projectstatus,
-  currencies: state.lookup.currencies,
-  currencyId: state.project.form.currencyId,
-  status: state.project.form.status,
-  clientName: state.project.form.contractorId,
-  otherClientName: state.project.form.otherContractName
-});
+    form: state.discount.form,
+    notify: state.discount.notify,
+    event: state.discount.event,
+    projectStatus: state.lookup.projectstatus,
+    currencies: state.lookup.currencies,
+    currencyId: state.project.form.currencyId,
+    status:state.project.form.status,
+    clientName: state.project.form.contractorId,
+    otherClientName: state.project.form.otherContractName
+  })
 
-const mapDispatchToProps = dispatch => {
-  return {
-    getProjectStatus: () => dispatch(actions.getProjectStatus()),
-    discountFormAdd: (projectId, form, event) =>
-      dispatch(actions.discountFormAdd(projectId, form, event)),
-    discountFormEdit: (form, event) =>
-      dispatch(actions.discountFormEdit(form, event)),
-    resetDiscountState: () => dispatch(actions.resetDiscountState()),
-    getAllCurrencies: () => dispatch(actions.getAllCurrencies()),
-    getDiscountData: (projectId: string) =>
-      dispatch(actions.getDiscountData(projectId))
-  };
-};
+  const mapDispatchToProps = dispatch => {
+    return {
+      getProjectStatus: () => dispatch(actions.getProjectStatus()),
+      discountFormAdd: (projectId, form, event) =>
+        dispatch(actions.discountFormAdd(projectId, form, event)),
+      discountFormEdit: (form, event) =>
+        dispatch(actions.discountFormEdit(form, event)),
+      resetDiscountState: () =>
+      dispatch(actions.resetDiscountState()),
+      getAllCurrencies: () => dispatch(actions.getAllCurrencies()),
+      getDiscountData: (projectId: string) =>
+      dispatch(actions.getDiscountData(projectId)),
+      getProjectDetail: projectId =>
+      dispatch(actions.getProjectDetail(projectId)),
+    };
+}
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Discounts);
+  export default connect(mapStateToProps, mapDispatchToProps)(Discounts);

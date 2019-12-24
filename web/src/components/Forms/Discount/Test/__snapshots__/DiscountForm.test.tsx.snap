@@ -25,18 +25,7 @@ exports[`DiscountForm Fields Defines form fields should handle edit discount suc
 Object {
   "error": null,
   "event": undefined,
-  "form": Object {
-    "clientComments": "Test",
-    "clientDiscount": 1,
-    "clientState": "Test",
-    "discountId": "",
-    "discountType": 1,
-    "projectId": "123",
-    "supplierComments": "Test",
-    "supplierName": "Test",
-    "supplierState": "Test",
-    "supplierTotalDiscount": 1,
-  },
+  "form": undefined,
   "loading": false,
   "notify": 1,
 }

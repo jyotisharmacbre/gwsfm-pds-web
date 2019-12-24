@@ -32,7 +32,7 @@ let SubcontractorForm: React.FC<
       projectId={props.projectId}
       name={CalculationsSummaryType.subContractor} 
       subContractor={props.subContractorForm}
-      currencySymbol={props.currencySymbol}/>
+      />
       <FieldArray 
       name="activities" 
       component={SubContractorActivityForm}

@@ -10,6 +10,10 @@ import { Provider } from 'react-redux';
 import { lookUpInitialState, customerEnquiryInitialState } from '../Preliminaries/PreliminariesTestData';
 import { discountInitialState } from './DiscountTestData';
 import Notify from '../../../enums/Notify';
+import {initialState as summaryCalculationState} from '../../../store/SummaryCalculation/InitialState';
+import { initialState as subcontractorInitialState} from '../../../store/SubContractor/InitialState';
+import { initialState as preliminaryInitialState } from '../../../store/Preliminaries/InitialState';
+
 const mockStore = configureStore([]);
 let store;
 let wrapper;
@@ -17,8 +21,10 @@ const setUpStore=(lookUpInitialState,customerEnquiryInitialState)=>{
     store= mockStore({
     discount: discountInitialState,
     lookup: lookUpInitialState,
-    project: customerEnquiryInitialState
-    
+    project: customerEnquiryInitialState,
+    subContractor:subcontractorInitialState,
+    summaryCalculation:summaryCalculationState,
+    preliminary: preliminaryInitialState 
 });
 store.dispatch=jest.fn();
 }
