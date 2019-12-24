@@ -1,6 +1,16 @@
 import React from 'react';
+import { match } from 'react-router-dom';
+import { History } from 'history';
 
-const ReviewApprove = () => {
+interface IProps {
+  match: match<{projectId:string}>;
+  history : History;
+}
+
+const ReviewApprove: React.FC<IProps> = (props: IProps) => {
+    const redirect = (module:string) => {
+        return props.history.push(`/${module}/${props.match.params.projectId}`);
+    };
     return (
         <div className="container-fluid">
             <div className="row">
@@ -124,6 +134,7 @@ const ReviewApprove = () => {
                                 type="button"
                                 name="next"
                                 className="active"
+                                onClick={() => redirect('Discounts')}
                             >
                                 PREVIOUS
                             </button>

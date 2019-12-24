@@ -61,7 +61,7 @@ const Discounts: React.FC<
     if (props.notify == Notify.success) {
       if (props.event == EventType.next) {
         toast.success('Data Saved Successfully');
-        props.history.push(`/`);
+        props.history.push(`/ReviewApprove/${props.match.params.projectId}`);
       } else if (props.event == EventType.previous) {
         toast.success('Data Saved Successfully');
         props.history.push(`/Subcontractor/${props.match.params.projectId}`);
