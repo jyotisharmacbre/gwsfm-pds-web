@@ -155,18 +155,7 @@ const Preliminaries: React.FC<
                       projectId={props.match.params.projectId}
                       name={CalculationsSummaryType.preliminary} 
                       preliminary={props.preliminaryForm}
-                      currencySymbol={getFilterElementFromArray(
-                        props.currencies,
-                        getPropertyName(
-                        CurrencyObj,
-                        prop => prop.currencyId
-                      ),
-                        props.currencyId,
-                        getPropertyName(
-                        CurrencyObj,
-                        prop => prop.currencySymbol
-                      )
-                      )}/>
+                      />
                     </div>
                   </div>
                   <div className="col-lg-4">

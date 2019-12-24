@@ -10,6 +10,7 @@ import userServiceReducer from './UserService/Reducer';
 import dynamicDataReducer from './DynamicsData/Reducer';
 import discountFormReducer from './DiscountForm/Reducer';
 import preliminaryReducer from './Preliminaries/Reducer';
+import summaryCalculationReducer from './SummaryCalculation/Reducer';
 import DashboardGridDetailReducer from './Dashboard/Reducer';
 import userPreferencesFormReducer from './UserPreferencesForm/Reducer';
 
@@ -24,6 +25,7 @@ export default combineReducers<IState>({
   userService: userServiceReducer,
   discount: discountFormReducer,
   preliminary: preliminaryReducer,
+  summaryCalculation:summaryCalculationReducer,
   dashboardGrid: DashboardGridDetailReducer,
   userPreferences: userPreferencesFormReducer
 });

@@ -1,4 +1,5 @@
 import * as axios from '../../client';
+import {store} from '../index';
 import { ActionType } from './Types/ActionType';
 import { Dispatch } from 'redux';
 import { IProjectDetail } from './Types/IProjectDetail';
@@ -113,16 +114,21 @@ const getProjectDetailError = (error: string) => {
   };
 };
 
-export const getProjectDetail = (projectId: string) => {
+export const getProjectDetail = (projectId: string,cache:boolean = true) => {
   return (dispatch: Dispatch) => {
-    axios.baseAPI
+    let storeProjectId = store.getState().project.form.projectId;
+    if(cache && storeProjectId && projectId == storeProjectId)
+      dispatch({type:ActionType.DEFAULT});
+    else{
+     axios.baseAPI
       .get(`api/Projects/${projectId}/customerEnquiry`)
       .then(response => {
         dispatch(getProjectDetailSuccess(response.data));
       })
       .catch(error => {
         dispatch(getProjectDetailError(error));
-      });
+      }); 
+    }
   };
 };
 
@@ -154,3 +160,17 @@ export const changeProjectStatus = (status: number) => {
     dispatch(changeProjectStatusState(status));
   };
 };
+
+
+const resetProjectDetailStateToInitialDispatch = () => {
+  return {
+    type: ActionType.RESET_PROJECT_DETAIL_STATE_TO_INITIAL
+  };
+};
+
+export const resetProjectDetailStateToInitial = () => {
+  return (dispatch: Dispatch) => {
+    dispatch(resetProjectDetailStateToInitialDispatch());
+  };
+};
+

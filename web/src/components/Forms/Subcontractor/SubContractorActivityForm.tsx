@@ -25,7 +25,7 @@ import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import {newActivity} from '../../../store/SubContractor/InitialState';
 import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
-import {calculateSell} from '../../../helpers/utility-helper';
+import {calculateSell} from '../../../helpers/formulas';
 import { confirmAlert } from '../../Popup/CustomModalPopup';
 
 interface Props {

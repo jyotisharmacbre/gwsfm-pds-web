@@ -3,7 +3,8 @@ import {
   Field,
   reduxForm,
   InjectedFormProps,
-  formValueSelector
+  formValueSelector,
+  getFormValues
 } from 'redux-form';
 import PdsFormInput from '../../PdsFormHandlers/PdsFormInput';
 import PdsFormTextArea from '../../PdsFormHandlers/PdsFormTextArea';
@@ -15,18 +16,22 @@ import {
 import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
 import { FormattedMessage, injectIntl } from 'react-intl';
-import { LookupType } from '../../../store/Lookups/Types/LookupType';
+import { LookupType } from '../../../store/Lookups/Types/LookupType'; 
 import { getDropdown, getPropertyName, getDiscountTypeValue, getRadioOptions, getFilterElementFromArray } from '../../../helpers/utility-helper';
+import { calculateClientDiscount } from '../../../helpers/formulas';
 import PdsFormTypeAhead from '../../PdsFormHandlers/PdsFormTypeAhead';
 import { IProjectDetail } from '../../../store/CustomerEnquiryForm/Types/IProjectDetail';
 import { ICurrency } from '../../../store/Lookups/Types/ICurrency';
+import Currency from '../../../store/Lookups/InitialState/Currency';
 import IReactIntl from '../../../Translations/IReactIntl';
 import { MainTitle } from '../../Title/Title';
 import PdsFormRadio from '../../PdsFormHandlers/PdsFormRadio';
 import { IDiscountActivity } from '../../../store/DiscountForm/Types/IDiscountActivity';
 import { dynamicsCompany } from '../../TypeAhead/TypeAheadConstantData/dynamicCompanyData';
+import CalculationsSummaryTable from '../../Table/CalculationsSummaryTable';
+import CalculationsSummaryType from '../../../enums/CalculationsSummaryType';
+import ISummaryCalculation from '../../../store/SummaryCalculation/Types/ISummaryCalculation';
 import { dynamicsContract } from '../../TypeAhead/TypeAheadConstantData/dynamicContractData';
-import Currency from '../../../store/Lookups/InitialState/Currency';
 
 
 interface Props {
@@ -38,17 +43,42 @@ interface Props {
   currencyId: any;
   clientName: string;
   otherClientName: string;
+  projectId:string;
 }
 
-  let DiscountForm: React.FC<Props &
-  IReactIntl &
-  InjectedFormProps<IDiscountActivity, Props>> = (props: any) => {
+interface IMapStateToProps {
+  initialValues: IDiscountActivity;
+  discountTypeValue: number;
+  clientDiscountValue:number;
+  discountForm:  {} | IDiscountActivity;
+  summaryCalculation:ISummaryCalculation;
+  userPreferenceCurrencyId:number;
+}
+
+  let DiscountForm: React.FC<Props & IMapStateToProps & InjectedFormProps<IDiscountActivity, Props & IMapStateToProps>> = props => {
   const { handleSubmit, initialValues, discountTypeValue } = props;
   const normalize = value => (value ? parseInt(value) : null);
   const CurrencyObj = new Currency();
+  const currencySymbol = getFilterElementFromArray(
+                    props.currencies,
+                    getPropertyName(
+                    CurrencyObj,
+                    prop => prop.currencyId
+                  ),
+                    props.currencyId > 0 ? props.currencyId : props.userPreferenceCurrencyId,
+                    getPropertyName(
+                    CurrencyObj,
+                    prop => prop.currencySymbol
+                  )
+  );
   
   return (
     <div className="container-fluid">
+      <CalculationsSummaryTable
+        projectId={props.projectId}
+        name={CalculationsSummaryType.discount} 
+        discount={props.discountForm}
+        />
       <div className=" row">
         <div className="col-lg-12 col-sm-12">
           <div className="Discountforms_wrap">
@@ -79,17 +109,15 @@ interface Props {
                   <Field
                   name="supplierTotalDiscount"
                     type="text"
-                    className="width-120"
+                    className="width-120 pl-20"
                     component={PdsFormInput}
                     validate={[Validate.maxLength(15)]}
                     messageKey="MESSAGE_TOTAL_DISCOUNT"
                     labelKey="LABEL_TOTAL_DISCOUNT"
                     normalize={normalize}
+                    currency={currencySymbol}
+                    divPosition="relative"
                   />
-                  <label className="w-100 mb-0">
-                      <FormattedMessage id='LABEL_SUB_TOTAL_DISCOUNTS'></FormattedMessage>
-                    </label>
-                    <label className="m-0 mb-4">&#163;2,000.00</label>
                   <Field
                   name="supplierComments"
                     rows={7}
@@ -158,7 +186,7 @@ interface Props {
                   <Field
                   name="clientDiscount"
                     type="text"
-                    className="width-250 pl-30"
+                    className="width-120 pl-20"
                     component={PdsFormInput}
                     validate={[Validate.maxLength(15)]}
                     messageKey="MESSAGE_DISCOUNT"
@@ -169,24 +197,14 @@ interface Props {
                       .filter(
                         element => element.lookupItem == LookupType.Discount_Type
                       ), discountTypeValue,
-                      getFilterElementFromArray(
-                        props.currencies,
-                        getPropertyName(
-                        CurrencyObj,
-                        prop => prop.currencyId
-                      ),
-                      props.currencyId > 0 ? props.currencyId : props.userPreferenceCurrencyId,
-                        getPropertyName(
-                        CurrencyObj,
-                        prop => prop.currencySymbol
-                      )
-                      )                     
+                      currencySymbol                     
                     )}
+                    divPosition="relative"
                   />
                   <label className="w-100 mb-0">
                      <FormattedMessage id='LABEL_SUB_TOTAL_DISCOUNTS'></FormattedMessage>
                     </label>
-                    <label className="m-0 mb-4">&#163;2,000.00</label>
+                    <label className="m-0 mb-4">{currencySymbol}{calculateClientDiscount(discountTypeValue,props.summaryCalculation.cost,props.clientDiscountValue)}</label>
                   <Field
                   name="clientComments"
                     rows={7}
@@ -230,13 +248,16 @@ interface Props {
 const mapStateToProps = (state: IState) => ({
   initialValues: state.discount.form,
   discountTypeValue: discountSelector(state, 'discountType'),
+  clientDiscountValue:discountSelector(state, 'clientDiscount'),
+  discountForm:  getFormValues('DiscountForm')(state),
+  summaryCalculation:state.summaryCalculation,
   userPreferenceCurrencyId: userPreferenceSelector(state, 'currencyId')
 });
 
-const form = reduxForm<IDiscountActivity, Props>({
+const form = reduxForm<IDiscountActivity, Props & IMapStateToProps>({
   form: 'DiscountForm',
   enableReinitialize: true
-})(injectIntl(DiscountForm));
+})(DiscountForm);
 
 const discountSelector = formValueSelector('DiscountForm');
 const userPreferenceSelector = formValueSelector('UserProfileForm');
