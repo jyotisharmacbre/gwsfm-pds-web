@@ -38,7 +38,7 @@ import ProjectActivity from '../ProjectActivities/ProjectActivity';
 import { IProjectOverviewDetails } from '../../../store/ProjectOverviewForm/Types/IProjectOverviewDetails';
 import { formatMessage } from '../../../Translations/connectedIntlProvider';
 import CalculationsSummaryType from '../../../enums/CalculationsSummaryType';
-import PricingSummary from './PricingSummary';
+import PricingSummaryTable from '../../Table/PricingSummaryTable';
 import ProjectOverviewRiskForm from './ProjectOverviewRiskForm';
 
 interface Props {
@@ -670,9 +670,8 @@ let ProjectOverviewForm: React.FC<Props &
                </div>
               <div className="row">
               <div className="col-xl-12">
-              <PricingSummary
+              <PricingSummaryTable
                   projectId={props.projectId}
-                  currencySymbol='$'
                   showPreliminary = {true}
                   showSubContractor = {true}
                   showDiscount = {true}
@@ -680,7 +679,7 @@ let ProjectOverviewForm: React.FC<Props &
                 <CalculationsSummaryTable
                   name={CalculationsSummaryType.other}
                   projectId={props.projectId}
-                  currencySymbol='$'/>
+                />
               </div>
             </div>
               <div className="row">

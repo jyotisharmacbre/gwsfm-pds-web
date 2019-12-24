@@ -17,6 +17,8 @@ import subContractorReducer from '../../../../store/SubContractor/Reducer';
 import discountFormReducer from '../../../../store/DiscountForm/Reducer';
 import preliminaryReducer from '../../../../store/Preliminaries/Reducer';
 import summaryCalculationReducer from '../../../../store/SummaryCalculation/Reducer';
+import lookupReducer from '../../../../store/Lookups/Reducer';
+import projectDetailReducer from '../../../../store/CustomerEnquiryForm/Reducer';
 
 let wrapper: any;
 let store;
@@ -28,7 +30,9 @@ const setUpStore=()=>{
       subContractor: subContractorReducer,
       discount: discountFormReducer,
       preliminary: preliminaryReducer,
-      summaryCalculation:summaryCalculationReducer
+      summaryCalculation:summaryCalculationReducer,
+      project:projectDetailReducer,
+      lookup: lookupReducer,
     }));
 };
 
@@ -47,7 +51,6 @@ describe('should calculation summary component renders without error', () => {
   let Props = {
     name:CalculationsSummaryType.preliminary,
     preliminary:[],
-    currencySymbol:'$'
   }
   beforeEach(() => {
     setUpStore();
@@ -64,8 +67,7 @@ describe('should calculation summary component renders without error', () => {
   it('should Not throw a warning for proptypes', () => {
       const expectedProps = {
         name: [],
-       preliminary: [],
-        currencySymbol: ''
+       preliminary: []
       };
       const propsError = checkProps(CalculationsSummaryTable, expectedProps);
       expect(propsError).toBeUndefined();
@@ -77,8 +79,7 @@ describe('should calculation summary component renders without error', () => {
 describe('should calculation summary component, calculate the cost, margin and sell correctly', () => {
   let Props = {
     name:CalculationsSummaryType.preliminary,
-    preliminary:[],
-    currencySymbol:'$'
+    preliminary:[]
   }
   it('should calculate the pricing summary correctly, if discount is Zero', () => {
       let subContractorState = {...subContractorInitialState};
@@ -91,15 +92,28 @@ describe('should calculation summary component, calculate the cost, margin and s
       mountCalculationSummaryTable(Props);
       expect(store.getState().summaryCalculation).toEqual({ cost: 100, sell: 125, margin: 20 });
   });
-it('should calculate the pricing summary correctly after applying discount', () => {
+it('should calculate the pricing summary correctly after applying discount in percentage', () => {
       let subContractorState = {...subContractorInitialState};
       subContractorState.form.activities[0].totalCost = 100;
       subContractorState.form.activities[0].grossMargin = 20;
       let discountState = {...discountInitialState};
+      discountState.form.discountType = 1;
       discountState.form.clientDiscount = 10;
       discountState.form.supplierTotalDiscount = 10;
       setUpStore();
       mountCalculationSummaryTable(Props);
-      expect(store.getState().summaryCalculation).toEqual({ cost: 90, sell: 116, margin: 22.41 });
+      expect(store.getState().summaryCalculation).toEqual({ cost: 90, sell: 103.5, margin: 20 });
+  });
+  it('should calculate the pricing summary correctly after applying discount in value', () => {
+      let subContractorState = {...subContractorInitialState};
+      subContractorState.form.activities[0].totalCost = 100;
+      subContractorState.form.activities[0].grossMargin = 20;
+      let discountState = {...discountInitialState};
+      discountState.form.discountType = 2;
+      discountState.form.clientDiscount = 10;
+      discountState.form.supplierTotalDiscount = 10;
+      setUpStore();
+      mountCalculationSummaryTable(Props);
+      expect(store.getState().summaryCalculation).toEqual({ cost: 90, sell: 102.5, margin: 20 });
   });
 });

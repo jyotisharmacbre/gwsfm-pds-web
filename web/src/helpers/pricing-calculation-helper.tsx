@@ -12,9 +12,9 @@ export const getPreliminarySummaryCalculation = (data:Array<IPreliminariesCompon
             details.items.map((element:IPreliminariesItems)=>{
             state.cost = state.cost + (+element.totalCost);
             state.sell = state.sell + (+calculateSell(element.totalCost,element.grossMargin));
-            state.margin = state.margin + (+element.grossMargin);
           })
           })
+          state.margin = +calculateAverageMargin(state.cost,state.sell);
         }
         return {cost:state.cost,sell:state.sell,margin:state.margin};  
 }
@@ -22,10 +22,11 @@ export const getPreliminarySummaryCalculation = (data:Array<IPreliminariesCompon
 export const getDiscountSummaryCalculation = (data:IDiscountActivity,state:ISummaryCalculation) => {
     if(data.supplierTotalDiscount != undefined)
       state.cost = state.cost - data.supplierTotalDiscount;
+    state.sell = +calculateSell(state.cost,state.margin);  
     if(data.clientDiscount != undefined){
       state.sell = state.sell - (+calculateClientDiscount(data.discountType,state.cost,data.clientDiscount));
     }
-    state.margin = +calculateAverageMargin(state.cost,state.sell)
+    //state.margin = +calculateAverageMargin(state.cost,state.sell)
     return {cost:state.cost,sell:state.sell,margin:state.margin};
 }
 
@@ -33,7 +34,7 @@ export const getSubContractorSummaryCalculation = (data:Array<ISubContractorActi
         data.map((element:ISubContractorActivity)=>{
             state.cost = state.cost + (+element.totalCost);
             state.sell = state.sell + (+calculateSell(element.totalCost,element.grossMargin));
-            state.margin = state.margin + (+element.grossMargin);
         })
+        state.margin = +calculateAverageMargin(state.cost,state.sell);
     return {cost:state.cost,sell:state.sell,margin:state.margin};
 }

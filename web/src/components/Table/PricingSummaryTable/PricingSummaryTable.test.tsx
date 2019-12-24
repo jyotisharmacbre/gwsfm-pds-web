@@ -4,19 +4,21 @@ import { applyMiddleware, createStore, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { IntlProvider } from 'react-intl';
-import translations from '../../../../Translations/translation';
-import PricingSumary from '../PricingSummary';
+import translations from '../../../Translations/translation';
+import PricingSumaryTable from './index';
 
-import {initialState as subContractorInitialState,newActivity} from '../../../../store/SubContractor/InitialState';
-import {initialState as preliminariesInitialState} from '../../../../store/Preliminaries/InitialState';
-import {findByTestAtrr,checkProps} from '../../../../helpers/test-helper';
-import {initialState as discountInitialState} from '../../../../store/DiscountForm/InitialState';
-import {initialState as summaryCalculationState} from '../../../../store/SummaryCalculation/InitialState';
+import {initialState as subContractorInitialState,newActivity} from '../../../store/SubContractor/InitialState';
+import {initialState as preliminariesInitialState} from '../../../store/Preliminaries/InitialState';
+import {findByTestAtrr,checkProps} from '../../../helpers/test-helper';
+import {initialState as discountInitialState} from '../../../store/DiscountForm/InitialState';
+import {initialState as summaryCalculationState} from '../../../store/SummaryCalculation/InitialState';
 
-import subContractorReducer from '../../../../store/SubContractor/Reducer';
-import discountFormReducer from '../../../../store/DiscountForm/Reducer';
-import preliminaryReducer from '../../../../store/Preliminaries/Reducer';
-import summaryCalculationReducer from '../../../../store/SummaryCalculation/Reducer';
+import subContractorReducer from '../../../store/SubContractor/Reducer';
+import discountFormReducer from '../../../store/DiscountForm/Reducer';
+import preliminaryReducer from '../../../store/Preliminaries/Reducer';
+import summaryCalculationReducer from '../../../store/SummaryCalculation/Reducer';
+import lookupReducer from '../../../store/Lookups/Reducer';
+import projectDetailReducer from '../../../store/CustomerEnquiryForm/Reducer';
 
 let wrapper: any;
 let store;
@@ -28,7 +30,9 @@ const setUpStore=()=>{
       subContractor: subContractorReducer,
       discount: discountFormReducer,
       preliminary: preliminaryReducer,
-      summaryCalculation:summaryCalculationReducer
+      summaryCalculation:summaryCalculationReducer,
+      project:projectDetailReducer,
+      lookup: lookupReducer,
     }));
 };
 
@@ -36,7 +40,7 @@ const mountCalculationSummaryTable=(props)=>{
     wrapper = mount(
         <Provider store={store}>
         <IntlProvider locale="en" messages={translations['en'].messages}>
-          <PricingSumary {...props}/>
+          <PricingSumaryTable {...props}/>
         </IntlProvider>
       </Provider>
     );
@@ -45,7 +49,6 @@ const mountCalculationSummaryTable=(props)=>{
 
 describe('should calculation summary component renders without error', () => {
   let Props = {
-    currencySymbol:'$',
     showPreliminary:true,
     showSubContractor:true,
     showDiscount:true
@@ -72,7 +75,7 @@ describe('should calculation summary component renders without error', () => {
       setUpStore();
       mountCalculationSummaryTable(Props);
       expect(findByTestAtrr(wrapper,'sub-contractor-cost').text()).toEqual('200');
-      expect(findByTestAtrr(wrapper,'sub-contractor-margin').text()).toEqual('40');
+      expect(findByTestAtrr(wrapper,'sub-contractor-margin').text()).toEqual('20');
       expect(findByTestAtrr(wrapper,'sub-contractor-sell').text()).toEqual('250');
   });
 
