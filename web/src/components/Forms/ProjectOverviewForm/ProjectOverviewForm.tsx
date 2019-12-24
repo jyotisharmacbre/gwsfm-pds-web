@@ -65,62 +65,8 @@ let ProjectOverviewForm: React.FC<Props &
           <div className="col-lg-12 col-sm-12">
             {/* 20-dec-2019 */}
             <div className="custom-wrap">
-              <div className="row align-items-center mb-3">
-                <div className="col-lg-6">
-                  <h1 className="mb-2">Project Overview</h1>
-                </div>
-                <div className="col-lg-6 d-flex justify-content-xl-end justify-content-start">
-                  <button
-                    className="download_pdf_btn"
-                    type="button"
-                  ><FontAwesomeIcon className="" icon={faDownload} /> DOWNLOAD PDF
-                  </button>
-                </div>
-              </div>
-              <div className="project-info-block">
-                <div className="row">
-                  <div className="col-md-12">
-                    <div className="row">
-                      <div className="col-xl-2 col-lg-4 col-md-6 col-6 mb-3 m-xl-0">
-                        <label>End Client Name</label>
-                        <p>Mr. Client Name</p>
-                      </div>
-                      <div className="col-xl-2 col-lg-4 col-md-6 col-6 mb-3 m-xl-0">
-                        <label>Project Name</label>
-                        <p>The Project Name</p>
-                      </div>
-                      <div className="col-xl-2 col-lg-4 col-md-6 col-6 mb-3 m-xl-0">
-                        <label>Project ID</label>
-                        <p>PDS12345#</p>
-                      </div>
-                      <div className="col-xl-2 col-lg-4 col-md-6 col-6 mb-3 m-xl-0">
-                        <label>Project Manager</label>
-                        <p>Manager Name</p>
-                      </div>
-                      <div className="col-xl-2 col-lg-4 col-md-6 col-6 mb-3 m-xl-0">
-                        <label>CN Number</label>
-                        <p>651684654684</p>
-                      </div>
-                      <div className="col-xl-2 col-lg-4 col-md-6 col-6 mb-3 m-xl-0 d-flex justify-content-start justify-content-xl-end">
-                        <div className="d-flex justify-content-between">
-                          <button type="submit" className="edit-btn">EDIT</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="hr"></div>
-                <div className="row">
-                  <div className="col-lg-12">
-                    <div className="project-info-desc">
-                      <label>Project Scope</label>
-                      <p>
-                        It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              
+            
               <form
                 className="project-overview-form"
                 noValidate={true}

@@ -24,6 +24,8 @@ import ProjectOverviewStatusTab from '../components/HeaderPage/ProjectOverviewSt
 import { getDynamicSubContractorData } from '../store/DynamicsData/Action';
 import { IDynamicSubContractorData } from '../store/DynamicsData/Types/IDynamicData';
 import { IProjectOverviewDetails } from '../store/ProjectOverviewForm/Types/IProjectOverviewDetails';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faDownload } from '@fortawesome/free-solid-svg-icons';
 
 const tableHeaders: IGeneralTableHeaderProps[] = [
   { heading: 'End Client Name', subHeading: 'ING' },
@@ -173,7 +175,8 @@ useEffect(() => {
   return (
     <React.Fragment>
       <Container component="main">
-        <HeaderPage Title={formatMessage('TITLE_PROJECT_OVERVIEW')} ActionList={[]} />
+        
+       <HeaderPage Title={formatMessage('TITLE_PROJECT_OVERVIEW')} ActionList={[]} /> 
         <ProjectOverviewStatusTab status={props.status} statusName={getProjectStatusName()} onReactivate={handleReactivateEvent} handleOnHold={handleOnHoldEvent} handleBidLost={handleBidLostEvent}/>
         <Grid spacing={3} container>
           <Grid item xs={12} sm={12}>
