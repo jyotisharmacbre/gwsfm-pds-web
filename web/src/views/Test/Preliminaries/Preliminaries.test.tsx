@@ -10,6 +10,9 @@ import { Provider } from 'react-redux';
 import { initialState } from '../../../store/Preliminaries/InitialState';
 import { initialState as subcontractorInitialState} from '../../../store/SubContractor/InitialState';
 import { preliminariesData, lookUpInitialState, customerEnquiryInitialState } from './PreliminariesTestData';
+import {initialState as discountInitialState} from '../../../store/DiscountForm/InitialState';
+import {initialState as summaryCalculationState} from '../../../store/SummaryCalculation/InitialState';
+
 const mockStore = configureStore([]);
 let store;
 let wrapper;
@@ -18,7 +21,9 @@ const setUpStore=(initialState,lookUpInitialState,customerEnquiryInitialState,su
     preliminary: initialState,
     lookup: lookUpInitialState,
     project: customerEnquiryInitialState,
-    subContractor:subcontractorInitialState
+    subContractor:subcontractorInitialState,
+    discount:discountInitialState,
+    summaryCalculation:summaryCalculationState,
 });
 store.dispatch=jest.fn();
 }
@@ -55,7 +60,7 @@ describe('Preliminaries component test cases', () => {
     setUpStore(initialState,lookUpInitialState,customerEnquiryInitialState,subcontractorInitialState);
     mountPreliminaryComponent(Props);
   });
-  
+   
   it('defines the component', () => {
     expect(wrapper).toBeDefined();
   }); 

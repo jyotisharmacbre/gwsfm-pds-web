@@ -1,27 +1,9 @@
 import { ActionType } from './Types/ActionType';
 import { updateObject } from '../../helpers/utility-helper';
-import { IDiscountState } from './Types/IDiscountState';
 import Notify from '../../enums/Notify';
 import EventType from '../../enums/EventType';
+import {initialState } from './InitialState';
 
-const initialState: IDiscountState = {
-  form: {
-    discountId: '',
-    projectId: '',
-    supplierName: '',
-    supplierState: '',
-    supplierTotalDiscount: undefined,
-    supplierComments: '',
-    clientState: '',
-    discountType: 1,
-    clientDiscount: undefined,
-    clientComments: ''
-  },
-  error: null,
-  loading: false,
-  notify: Notify.none,
-  event: EventType.none
-};
 
 const discountFormAddSuccess = (oldState, action) => {
   return updateObject(oldState, {
@@ -38,7 +20,8 @@ const discountFormEditSuccess = (oldState, action) => {
     error: null,
     loading: false,
     notify: Notify.success,
-    event: action.event
+    event: action.event,
+    form: action.payload
   });
 };
 

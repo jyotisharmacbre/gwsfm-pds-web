@@ -1,4 +1,5 @@
 import * as axios from '../../client';
+import {store} from '../index';
 import { ActionType } from './Types/ActionType';
 import { Dispatch } from 'redux';
 import { IProjectAdditionalDetail } from '../ProjectOverviewForm/Types/IProjectAdditionalDetail';
@@ -93,8 +94,12 @@ export const subContractorFormEdit = (
   };
 };
 
-export const getSubContractor = (projectId: string) => {
+export const getSubContractor = (projectId: string,cache:boolean = true) => {
   return (dispatch: Dispatch) => {
+    let storeProjectId = store.getState().subContractor.form.activities[0].projectId;
+    if(cache && storeProjectId && projectId == storeProjectId)
+      dispatch({type:'DEFAULT'});
+    else{
     axios.baseAPI
       .get(`api/SubContractor/${projectId}/activities`, config)
       .then(response => {
@@ -103,6 +108,7 @@ export const getSubContractor = (projectId: string) => {
       .catch(error => {
         dispatch(getSubContractorError(error));
       });
+    }
   };
 };
 
