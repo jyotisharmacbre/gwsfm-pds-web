@@ -173,13 +173,11 @@ useEffect(() => {
   }
 
   return (
-    <React.Fragment>
       <Container component="main">
         
        <HeaderPage Title={formatMessage('TITLE_PROJECT_OVERVIEW')} ActionList={[]} /> 
         <ProjectOverviewStatusTab status={props.status} statusName={getProjectStatusName()} onReactivate={handleReactivateEvent} handleOnHold={handleOnHoldEvent} handleBidLost={handleBidLostEvent}/>
-        <Grid spacing={3} container>
-          <Grid item xs={12} sm={12}>
+          
             <GeneralTable
               {...{
                 headers: [
@@ -204,18 +202,13 @@ useEffect(() => {
                 }
               }}
             />
-          </Grid>
-          <Grid item xs={12} sm={12}>
             <ProjectOverviewForm
               onNext={handleNext}
               onPrevious={handlePrevious}
               projectstatus={props.projectStatus}
               status={props.status}
             />
-          </Grid>
-        </Grid>
       </Container>
-    </React.Fragment>
   );
 };
 

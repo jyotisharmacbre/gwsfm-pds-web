@@ -8,15 +8,15 @@ export function MainTitle(props: any) {
   return (
     <div className="row align-items-center mb-3">
                 <div className="col-lg-6">
-                  <h1 className="mb-2">{props.children}</h1>
+                  <h2 className="mb-2">{props.children}</h2>
                 </div>
-                <div className="col-lg-6 d-flex justify-content-xl-end justify-content-start">
+                {/* <div className="col-lg-6 d-flex justify-content-xl-end justify-content-start">
                   <button
                     className="download_pdf_btn"
                     type="button"
                   ><FontAwesomeIcon className="" icon={faDownload} /> DOWNLOAD PDF
                   </button>
-                </div>
+                </div> */}
               </div>
     
   );
