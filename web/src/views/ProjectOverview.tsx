@@ -19,7 +19,7 @@ import { History } from 'history';
 import { toast } from 'react-toastify';
 import { formatMessage } from '../Translations/connectedIntlProvider';
 import { dynamicsContract } from '../components/TypeAhead/TypeAheadConstantData/dynamicContractData';
-import { getFilterElementFromArray } from '../helpers/utility-helper';
+import { getFilterElementFromArray,getClassNameForProjectStatus } from '../helpers/utility-helper';
 import ProjectOverviewStatusTab from '../components/HeaderPage/ProjectOverviewStatusTab';
 import { getDynamicSubContractorData } from '../store/DynamicsData/Action';
 import { IDynamicSubContractorData } from '../store/DynamicsData/Types/IDynamicData';
@@ -88,9 +88,9 @@ const ProjectOverview: React.FC<IProps &
   useEffect(() => {
     window.scrollTo(0, 0);
     props.getProjectStatus();
-    props.getProjectDetail(props.match.params.projectId);
-    let paramProjectId = props.projectId == '' ? props.match.params.projectId : props.projectId;
+    let paramProjectId = props.match.params.projectId;
     if (paramProjectId != null && paramProjectId != '') {
+      props.getProjectDetail(paramProjectId);
       props.getAdditionalDetails(paramProjectId);
       props.getEnquiryOverview(paramProjectId);
     }
@@ -177,7 +177,7 @@ useEffect(() => {
         
        <HeaderPage Title={formatMessage('TITLE_PROJECT_OVERVIEW')} ActionList={[]} /> 
         <ProjectOverviewStatusTab status={props.status} statusName={getProjectStatusName()} onReactivate={handleReactivateEvent} handleOnHold={handleOnHoldEvent} handleBidLost={handleBidLostEvent}/>
-          
+            <div className={getClassNameForProjectStatus(props.status)}>
             <GeneralTable
               {...{
                 headers: [
@@ -202,6 +202,7 @@ useEffect(() => {
                 }
               }}
             />
+            </div>
             <ProjectOverviewForm
               onNext={handleNext}
               onPrevious={handlePrevious}

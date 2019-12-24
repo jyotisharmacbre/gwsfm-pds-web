@@ -1,17 +1,24 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
+import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import ReviewSubmit from '../ReviewSubmit';
 import { findByTestAtrr, checkProps } from '../../helpers/test-helper';
 import { IntlProvider } from 'react-intl';
 import translations from '../../Translations/translation';
-
+import {store} from '../../store';
 describe('review and approve component test cases', () => {
 	let wrapper: any;
 	const history = { push: jest.fn() };
 	beforeEach(() => {
-		wrapper = shallow(<ReviewSubmit history={history} match={{ params: { projectId: 1 } }} />);
-	});
+	wrapper = mount(
+        <Provider store={store}>
+        <IntlProvider locale="en" messages={translations['en'].messages}>
+        <ReviewSubmit  history={history} match={{ params: { projectId: 1 } }} />
+        </IntlProvider>
+        </Provider>
+      );
+    });
 
 	it('defines the component', () => {
 		expect(wrapper).toBeDefined();

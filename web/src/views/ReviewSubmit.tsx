@@ -1,23 +1,55 @@
-import React,{useEffect} from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 import { match } from 'react-router-dom';
 import { History } from 'history';
 import CalculationsSummaryTable from '../components/Table/CalculationsSummaryTable';
 import PricingSummaryTable from '../components/Table/PricingSummaryTable';
 import CalculationsSummaryType from '../enums/CalculationsSummaryType';
+import * as actions from '../store/rootActions';
+import { toast } from 'react-toastify';
+import {getClassNameForProjectStatus} from '../helpers/utility-helper';
+import { IState } from '../store/state';
 
 interface IProps {
 	match: match<{ projectId: string }>;
 	history: History;
 }
 
-const ReviewSubmit: React.FC<IProps> = (props: IProps) => {
+interface IMapStateToProps {
+  status:number;
+}
+
+interface IMapDispatchToProps {
+  getProjectDetail: (projectId: string) => void;
+}
+
+const ReviewSubmit: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = props => {
 	useEffect(() => {
-      window.scrollTo(0, 0);
+		window.scrollTo(0, 0);
+		props.getProjectDetail(props.match.params.projectId);
     }, []);
 
 	const redirect = (module: string) => {
 		return props.history.push(`/${module}/${props.match.params.projectId}`);
 	};
+
+	const updateProjectStatusToInReview = () => {
+		actions.updateProjectStatusToInReview(
+			props.match.params.projectId,
+			updateProjectStatusToInReviewSuccess,
+			updateProjectStatusToInReviewError
+		);
+	};
+
+	const updateProjectStatusToInReviewSuccess = (data) => {
+		toast.success('Submitted Successfully');
+		props.history.push('/');
+	};
+
+	const updateProjectStatusToInReviewError = (data) => {
+		toast.success('Some error occured');
+	};
+
 	return (
 		<div className="container-fluid" data-test="review-approve-component">
 			<div className="row">
@@ -150,7 +182,7 @@ const ReviewSubmit: React.FC<IProps> = (props: IProps) => {
 								</div>
 							</div>
 						</div>
-						<div className="three-btn">
+						<div className={`${getClassNameForProjectStatus(props.status)} three-btn`}>
 							<button
 								data-test="previous-button"
 								type="button"
@@ -159,15 +191,11 @@ const ReviewSubmit: React.FC<IProps> = (props: IProps) => {
 							>
 								PREVIOUS
 							</button>
-							{/* <button
-                                type="button"
-                                name="next"
-                                className="ml-auto"
-                            >
-                                QUERY
-                            </button> */}
-							<button type="button" name="next">
-								APPROVE
+							<button onClick={updateProjectStatusToInReview} 
+							type="button" 
+							name="next"
+							>
+								SUBMIT
 							</button>
 						</div>
 					</div>
@@ -177,4 +205,15 @@ const ReviewSubmit: React.FC<IProps> = (props: IProps) => {
 	);
 };
 
-export default ReviewSubmit;
+const mapStateToProps = (state: IState) => ({
+  status:state.project.form.status
+});
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getProjectDetail: projectId =>
+      dispatch(actions.getProjectDetail(projectId))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ReviewSubmit);
