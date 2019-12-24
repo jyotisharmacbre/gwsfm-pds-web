@@ -89,6 +89,33 @@ export const getAllCurrencies = () => {
   };
 };
 
+const getAllCountriesSuccess = (response: Array<ICurrency>) => {
+  return {
+    type: ActionType.GET_ALL_COUNTRIES_SUCCESS,
+    payload: response
+  };
+};
+
+const getAllCountriesError = (error: any) => {
+  return {
+    type: ActionType.GET_ALL_CURRENCIES_ERROR,
+    payload: error
+  };
+};
+
+export const getAllContries = () => {
+  return (dispatch: Dispatch) => {
+    axios.baseAPI
+      .get('/api/LookupData/Countries')
+      .then(response => {
+        dispatch(getAllCountriesSuccess(response.data));
+      })
+      .catch(error => {
+        dispatch(getAllCountriesError(error));
+      });
+  };
+};
+
 export const getAllLanguages = () => { 
   return (dispatch: Dispatch) => {
     axios.baseAPI
