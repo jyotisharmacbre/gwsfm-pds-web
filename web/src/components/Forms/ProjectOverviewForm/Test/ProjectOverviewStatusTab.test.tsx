@@ -3,11 +3,11 @@
 import React from 'react';
 import { mount} from 'enzyme';
 import { Provider } from 'react-redux';
-import {findByTestAtrr} from '../../helpers/test-helper';
 import { IntlProvider } from 'react-intl';
-import translations from '../../Translations/translation';
 import configureStore from 'redux-mock-store';
-import ProjectOverviewStatusTab from './ProjectOverviewStatusTab';
+import translations from '../../../../Translations/translation';
+import ProjectOverviewStatusTab from '../ProjectOverviewStatusTab';
+import { findByTestAtrr } from '../../../../helpers/test-helper';
 const props: any = {
     status : 1,
     statusName:"test",
