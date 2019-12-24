@@ -211,6 +211,7 @@ useEffect(() => {
               onPrevious={handlePrevious}
               projectstatus={props.projectStatus}
               status={props.status}
+              projectId={props.match.params.projectId}
             />
           </Grid>
         </Grid>

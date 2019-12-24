@@ -122,6 +122,11 @@ const changeProjectStatus=(oldState, action) => {
   });
 };
 
+const resetProjectDetailStateToInitial = (oldState, action) => {
+  return initialState;
+};
+
+
 const projectDetailReducer = (oldState = initialState, action) => {
   switch (action.type) {
     case ActionType.PROJECT_ADD:
@@ -142,8 +147,10 @@ const projectDetailReducer = (oldState = initialState, action) => {
       return resetProjectDetailState(oldState, action);
     case ActionType.SET_PROJECT_ID_STATE:
       return setProjectId(oldState, action);
-      case ActionType.CHANGE_PROJECT_STATUS_STATE:
+    case ActionType.CHANGE_PROJECT_STATUS_STATE:
       return changeProjectStatus(oldState, action);
+    case ActionType.RESET_PROJECT_DETAIL_STATE_TO_INITIAL:
+      return resetProjectDetailStateToInitial(oldState, action);
     default:
       return oldState;
   }

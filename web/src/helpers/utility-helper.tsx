@@ -1,8 +1,10 @@
 import React from 'react';
 import {ISubContractorActivity} from '../store/SubContractor/Types/ISubContractorActivity';
-import IDiscountCalculation from '../models/IDiscountCalculation';
+import ISummaryCalculation from '../store/SummaryCalculation/Types/ISummaryCalculation';
 import {IPreliminariesComponentDetails} from '../store/Preliminaries/Types/IPreliminariesComponentDetails';
 import {IPreliminariesItems} from '../store/Preliminaries/Types/IPreliminariesItems';
+import {IDiscountActivity} from '../store/DiscountForm/Types/IDiscountActivity';
+
 export const updateObject = (oldState, updatedProperties) => {
   return {
     ...oldState,
@@ -17,11 +19,13 @@ export const getPropertyName = (obj, expression) => {
   });
   return expression(res)();
 };
+
 export const getLookupDescription = (allLookups, lookupKey, lookupItem) => {
   return allLookups.find(
     lk => lk.lookupItem === lookupItem && lk.lookupKey === lookupKey.toString()
   ).description;
 };
+
 export const getDropdown = (data, value) => {
   let result =
     data &&
@@ -78,50 +82,6 @@ export const getFilterElementFromArray = (array:any, property:string,value:numbe
   return element;
 }; 
 
-export const calculateSell = (cost:number,margin:number) =>{
-  let sell =0;
-  let divide = (1- margin/100);
-  if(divide != 0)
-  sell = cost / divide;
-  return sell.toFixed(2);
-}
-
-export const calculateAverageMargin = (totalCost:number,totalSell:number) =>{
-  let averageMargin =0;
-  if(totalSell > 0 && totalCost > 0)
-  averageMargin = ((totalSell-totalCost) / totalSell)  * 100
-  return averageMargin.toFixed(2);
-}
-
-export const getSubContractorSummaryCalculation = (data:Array<ISubContractorActivity>,state:IDiscountCalculation) => {
-        data.map((element:ISubContractorActivity)=>{
-            state.cost = state.cost + (+element.totalCost);
-            state.sell = state.sell + (+calculateSell(element.totalCost,element.grossMargin));
-            state.margin = state.margin + (+element.grossMargin);
-        })
-    return {cost:state.cost,sell:state.sell,margin:state.margin};
-}
-
-export const calculateCost = (noOfHours:number,hourRate:number) =>{
-  let totalCost =0;
-  if(noOfHours > 0 && hourRate > 0)
-  totalCost=noOfHours*hourRate;
-  return totalCost.toFixed(2);
-}
-
-export const getPreliminarySummaryCalculation = (data:Array<IPreliminariesComponentDetails>,state:IDiscountCalculation) => {
-        if(data.length >0)
-        {
-          data.map((details:IPreliminariesComponentDetails)=>{
-            details.items.map((element:IPreliminariesItems)=>{
-            state.cost = state.cost + (+element.totalCost);
-            state.sell = state.sell + (+calculateSell(element.totalCost,element.grossMargin));
-            state.margin = state.margin + (+element.grossMargin);
-          })
-          })
-        }
-        return {cost:state.cost,sell:state.sell,margin:state.margin};  
-}
 export const restrictMinus = (value:number) => {
   if(value < 0) {
     return 0
@@ -135,6 +95,7 @@ export const isValidGUID=(stringToTest:string)=>
   var regexGuid = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
     return regexGuid.test(stringToTest);
 }
+
 export const maxLimit = (value: number) =>{
   if(value<0){
     return 0
@@ -145,7 +106,7 @@ export const maxLimit = (value: number) =>{
   }
 }
 
-
 export const calculateRank = (probabilityOfWinning:number,approximateValue:number) =>{ 
   return probabilityOfWinning * approximateValue;
 }
+

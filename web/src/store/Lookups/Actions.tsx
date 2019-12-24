@@ -1,4 +1,5 @@
 import * as axios from '../../client';
+import {store} from '../index';
 import { ActionType } from './Types/ActionType';
 import { Dispatch } from 'redux';
 import { ICurrency } from './Types/ICurrency';
@@ -76,8 +77,12 @@ const getAllLanguagesError = (error: any) => {
   };
 };
 
-export const getAllCurrencies = () => {
+export const getAllCurrencies = (cache:boolean = true) => {
   return (dispatch: Dispatch) => {
+    let storeData = store.getState().lookup.currencies;
+    if(cache && storeData && storeData.length > 0)
+      dispatch({type:ActionType.DEFAULT});
+    else{
     axios.baseAPI
       .get('api/LookupData/GetAllCurrencies')
       .then(response => {
@@ -86,6 +91,7 @@ export const getAllCurrencies = () => {
       .catch(error => {
         dispatch(getAllCurrenciesError(error));
       });
+    }
   };
 };
 

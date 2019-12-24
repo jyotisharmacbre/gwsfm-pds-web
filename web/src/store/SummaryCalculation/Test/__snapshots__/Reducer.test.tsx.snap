@@ -2,12 +2,8 @@
 
 exports[`Sub Contractor Reducer should handle add sub contractor successfully 1`] = `
 Object {
-  "error": null,
-  "event": undefined,
-  "form": Object {
-    "activities": undefined,
-  },
-  "loading": false,
-  "notify": 1,
+  "cost": 0,
+  "margin": 0,
+  "sell": 0,
 }
 `;
