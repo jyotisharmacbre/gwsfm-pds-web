@@ -656,7 +656,7 @@ let ProjectOverviewForm: React.FC<Props &
               </div>
              
 
-              <div className="mr-35 d-flex justify-content-between mb-4">
+              <div className={`${getClassNameForProjectStatus(props.status)} mr-35 d-flex justify-content-between mb-4`}>
                 <button
                   className="active mb-4 mt-5"
                   type="button"

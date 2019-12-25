@@ -5,6 +5,7 @@ import { Dispatch } from 'redux';
 import { IProjectDetail } from './Types/IProjectDetail';
 import { IProject } from './Types/IProject';
 import EventType from '../../enums/EventType';
+import { isProjectStateInReview } from '../store-helper';
 
 const projectDetailAddSuccess = (response: IProjectDetail, event: EventType) => {
 	return {
@@ -41,27 +42,35 @@ const headers = {
 
 export const projectDetailAdd = (data: IProjectDetail, event: EventType) => {
 	return (dispatch: Dispatch) => {
-		axios.baseAPI
-			.post('/api/Projects/customerEnquiry', data, { headers: headers })
-			.then((response) => {
-				dispatch(projectDetailAddSuccess(response.data, event));
-			})
-			.catch((error) => {
-				dispatch(projectDetailError(error));
-			});
+		if (isProjectStateInReview()) {
+			dispatch(projectDetailError('error'));
+		} else {
+			axios.baseAPI
+				.post('/api/Projects/customerEnquiry', data, { headers: headers })
+				.then((response) => {
+					dispatch(projectDetailAddSuccess(response.data, event));
+				})
+				.catch((error) => {
+					dispatch(projectDetailError(error));
+				});
+		}
 	};
 };
 
 export const projectDetailEdit = (data: IProjectDetail, event: EventType) => {
 	return (dispatch: Dispatch) => {
-		axios.baseAPI
-			.put('/api/Projects/updatecustomerEnquiry', data, { headers: headers })
-			.then((response) => {
-				dispatch(projectDetailEditSuccess(response.data, event));
-			})
-			.catch((error) => {
-				dispatch(projectDetailError(error));
-			});
+		if (isProjectStateInReview()) {
+			dispatch(projectDetailError('error'));
+		} else {
+			axios.baseAPI
+				.put('/api/Projects/updatecustomerEnquiry', data, { headers: headers })
+				.then((response) => {
+					dispatch(projectDetailEditSuccess(response.data, event));
+				})
+				.catch((error) => {
+					dispatch(projectDetailError(error));
+				});
+		}
 	};
 };
 
@@ -165,12 +174,14 @@ export const resetProjectDetailStateToInitial = () => {
 };
 
 export const updateProjectStatusToInReview = (projectId: string, success, error) => {
-	axios.baseAPI
-		.put(`/api/Projects/${projectId}/inReview`, null, { headers: headers })
-		.then((response) => {
-			success(response.data);
-		})
-		.catch((error) => {
-			error(error);
-		});
+	if (!isProjectStateInReview()) {
+		axios.baseAPI
+			.put(`/api/Projects/${projectId}/inReview`, null, { headers: headers })
+			.then((response) => {
+				success(response.data);
+			})
+			.catch((error) => {
+				error(error);
+			});
+	}
 };

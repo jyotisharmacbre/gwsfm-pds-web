@@ -3,6 +3,8 @@ import { ActionType } from './Types/ActionType';
 import { Dispatch } from 'redux';
 import { IPreliminaries } from './Types/IPreliminaries';
 import EventType from '../../enums/EventType';
+import { isProjectStateInReview } from '../store-helper';
+
 const preliminaryAddSuccess = (response: any, event: EventType) => {
   return {
     type: ActionType.PRELIMINARY_ADD_SUCCESS,
@@ -54,6 +56,9 @@ export const preliminaryAdd = (
   event: EventType
 ) => {
   return (dispatch: Dispatch) => {
+    if (isProjectStateInReview()) {
+			dispatch(preliminaryAddError('error'));
+		} else {
     axios.baseAPI
       .post(
        'api/Preliminaries/preliminaryDetails',
@@ -66,6 +71,7 @@ export const preliminaryAdd = (
       .catch(error => {
         dispatch(preliminaryAddError(error));
       });
+    }
   };
 };
 
@@ -74,6 +80,9 @@ export const preliminaryEdit = (
   event: EventType
 ) => {
   return (dispatch: Dispatch) => {
+    if (isProjectStateInReview()) {
+			dispatch(preliminaryEditError('error'));
+		} else {
     axios.baseAPI
       .put(
         'api/Preliminaries/preliminaryDetails',
@@ -86,6 +95,7 @@ export const preliminaryEdit = (
       .catch(error => {
         dispatch(preliminaryEditError(error));
       });
+    }
   };
 };
 
