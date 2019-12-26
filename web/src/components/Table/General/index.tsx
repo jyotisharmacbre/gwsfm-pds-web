@@ -9,24 +9,31 @@ const GeneralTable: React.FC<IGeneralTableProps> = props => {
 
     <div className="project-info-block">
       <div className="row">
-        <div className="col-md-12">
+        <div className="col-lg-10">
           <div className="row">
-
             {props.headers.map(h => {
               return (
-                <div className="col-xl-2 col-lg-4 col-md-6 col-6 mb-3 m-xl-0">
+                <div className="col-lg-3 col-md-6 col-6 mb-3 m-xl-0">
                   <label>{h.heading}</label>
                   <p>{h.subHeading}</p>
                 </div>)
             })}
-
-            <div className="col-xl-2 col-lg-4 col-md-6 col-6 mb-3 m-xl-0 d-flex justify-content-start justify-content-xl-end">
-              <div className="d-flex justify-content-between">
+          </div>
+        </div>
+        <div className="col-lg-2">
+          <div className="row">
+            <div className="col-lg-12 mb-lg-2 d-none d-lg-block text-right">
+              <div className="">
                 <button type="submit" className="edit-btn" onClick={props.editActionClick}>EDIT</button>
               </div>
             </div>
           </div>
         </div>
+
+        {/* <div className="col-md-12">
+
+
+        </div> */}
       </div>
       <div className="hr"></div>
       <div className="row">
@@ -36,6 +43,11 @@ const GeneralTable: React.FC<IGeneralTableProps> = props => {
             <p>
               {props.content}
             </p>
+          </div>
+        </div>
+        <div className="col-lg-12 mt-2 m-xl-0 d-block d-lg-none">
+          <div className="d-flex justify-content-between">
+            <button type="submit" className="edit-btn">EDIT</button>
           </div>
         </div>
       </div>
