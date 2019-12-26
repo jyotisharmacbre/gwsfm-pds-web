@@ -19,7 +19,7 @@ import {
   getDynamicSubContractorData
 } from '../store/DynamicsData/Action';
 import {
-  IDynamicContractData,
+  IDynamicContractCustomerData,
   IDynamicCompanyData
 } from '../store/DynamicsData/Types/IDynamicData';
 import {
@@ -37,7 +37,7 @@ interface IMapStateToProps {
   projectId: string;
   currencies: Array<ICurrency> | null;
   projectStatus: Array<ILookup>;
-  dynamicsContract: Array<IDynamicContractData>;
+  dynamicsContract: Array<IDynamicContractCustomerData>;
   dynamicsCompany: Array<IDynamicCompanyData>;
   userServiceData: Array<IUserServiceData>;
   status:number;
@@ -127,6 +127,8 @@ const Project: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = props
       projectstatus={props.projectStatus}
       onSearchUserService={onSearchUserService}
       userServiceData = {props.userServiceData}
+      dynamicsContractCustomerData = {props.dynamicsContract}
+      dynamicsCompany = {props.dynamicsCompany}
     />
     </div>
   );
@@ -143,7 +145,6 @@ const mapStateToProps = (state: IState) => {
     projectId: state.project.form.projectId,
     currencies: state.lookup.currencies,
     status:state.project.form.status
-
   };
 };
 

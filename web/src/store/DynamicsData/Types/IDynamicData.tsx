@@ -1,10 +1,12 @@
-export interface IDynamicContractData {
-  id: string;
-  name: string;
+export interface IDynamicContractCustomerData {
+  contractId: string;
+  contractName: string;
+  customerId: string;
+  customerName: string;
 }
 
 export interface IDynamicCompanyData {
-  id: string;
+  companyId: string;
   name: string;
 }
 
@@ -19,5 +21,6 @@ export interface IDynamicOther {
 }
 
 export interface IDynamicsOtherSubContractor {
-  label: string, id: string
+  label: string;
+  id: string;
 }
