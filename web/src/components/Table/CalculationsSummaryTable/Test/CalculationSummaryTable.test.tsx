@@ -102,7 +102,7 @@ it('should calculate the pricing summary correctly after applying discount in pe
       discountState.form.supplierTotalDiscount = 10;
       setUpStore();
       mountCalculationSummaryTable(Props);
-      expect(store.getState().summaryCalculation).toEqual({ cost: 90, sell: 103.5, margin: 20 });
+      expect(store.getState().summaryCalculation).toEqual({ cost: 90, sell: 112.5, margin: 20 });
   });
   it('should calculate the pricing summary correctly after applying discount in value', () => {
       let subContractorState = {...subContractorInitialState};
@@ -114,6 +114,6 @@ it('should calculate the pricing summary correctly after applying discount in pe
       discountState.form.supplierTotalDiscount = 10;
       setUpStore();
       mountCalculationSummaryTable(Props);
-      expect(store.getState().summaryCalculation).toEqual({ cost: 90, sell: 102.5, margin: 20 });
+      expect(store.getState().summaryCalculation).toEqual({ cost: 90, sell: 115, margin: 21.74 });
   });
 });
