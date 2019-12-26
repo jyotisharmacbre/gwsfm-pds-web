@@ -175,9 +175,9 @@ const ProjectOverview: React.FC<IProps &
           <div className="col-lg-12 col-sm-12">
             {/* 20-dec-2019 */}
             <div className="custom-wrap">
-              <div className="row align-items-center mb-3 mt-md-4 mt-2">
+              <div className="row align-items-center my-3 my-lg-4 pb-2">
                 <div className="col-lg-6">
-                  <h1 className="mb-2 mt-0">{formatMessage('TITLE_PROJECT_OVERVIEW')}</h1>
+                  <h1 className="m-0">{formatMessage('TITLE_PROJECT_OVERVIEW')}</h1>
                 </div>
                 <ProjectOverviewStatusTab status={props.status} statusName={getProjectStatusName()} onReactivate={handleReactivateEvent} handleOnHold={handleOnHoldEvent} handleBidLost={handleBidLostEvent} />
               </div>
@@ -196,7 +196,6 @@ const ProjectOverview: React.FC<IProps &
                       heading: formatMessage('MESSAGE_PROJECT_NAME'),
                       subHeading: props.enquiryOverview.projectName
                     },
-                    { heading: formatMessage('LABEL_PROJECT_ID'), subHeading: props.projectId },
                     {
                       heading: formatMessage('LABEL_CN_NUMBER'),
                       subHeading: convertToString(props.enquiryOverview.cnNumber)
