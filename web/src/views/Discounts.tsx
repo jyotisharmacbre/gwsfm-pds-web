@@ -13,6 +13,7 @@ import { History } from 'history';
 import { ILookup } from '../store/Lookups/Types/ILookup';
 import { ICurrency } from '../store/Lookups/Types/ICurrency';
 import ProjectStatus from '../enums/ProjectStatus';
+import { IDynamicContractCustomerData } from '../store/DynamicsData/Types/IDynamicData';
 
 interface IProps {
   match: match<{projectId:string}>;
@@ -29,6 +30,7 @@ interface IMapStateToProps {
   customerName: string;
   otherCustomerName: string;
   status: number;
+  dynamicsContractCustomerData: Array<IDynamicContractCustomerData>;
 }
 
 interface IMapDispatchToProps {
@@ -124,7 +126,8 @@ const Discounts: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = pro
               currencyId={props.currencyId}
               customerName={props.customerName}
               otherCustomerName= {props.otherCustomerName} 
-              projectId={props.match.params.projectId}/>
+              projectId={props.match.params.projectId}
+              dynamicsContractCustomerData={props.dynamicsContractCustomerData}/>
             </div>
           </div>
         </div>
@@ -141,7 +144,8 @@ const mapStateToProps = (state: IState) => ({
     currencyId: state.project.form.currencyId,
     status:state.project.form.status,
     customerName: state.project.form.contractorId,
-    otherCustomerName: state.project.form.otherContractName
+    otherCustomerName: state.project.form.otherContractName,    
+    dynamicsContractCustomerData: state.dynamicData.dynamicsContract
   })
 
   const mapDispatchToProps = dispatch => {

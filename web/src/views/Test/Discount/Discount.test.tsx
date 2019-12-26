@@ -7,7 +7,7 @@ import translations from '../../../Translations/translation';
 import EventType from '../../../enums/EventType';
 import configureStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
-import { lookUpInitialState, customerEnquiryInitialState } from '../Preliminaries/PreliminariesTestData';
+import { lookUpInitialState, customerEnquiryInitialState, dynamicsInitialState } from '../Preliminaries/PreliminariesTestData';
 import { discountInitialState } from './DiscountTestData';
 import Notify from '../../../enums/Notify';
 import {initialState as summaryCalculationState} from '../../../store/SummaryCalculation/InitialState';
@@ -17,6 +17,7 @@ import { initialState as preliminaryInitialState } from '../../../store/Prelimin
 const mockStore = configureStore([]);
 let store;
 let wrapper;
+
 const setUpStore=(lookUpInitialState,customerEnquiryInitialState)=>{
     store= mockStore({
     discount: discountInitialState,
@@ -24,7 +25,8 @@ const setUpStore=(lookUpInitialState,customerEnquiryInitialState)=>{
     project: customerEnquiryInitialState,
     subContractor:subcontractorInitialState,
     summaryCalculation:summaryCalculationState,
-    preliminary: preliminaryInitialState 
+    preliminary: preliminaryInitialState,
+    dynamicData: dynamicsInitialState
 });
 store.dispatch=jest.fn();
 }
@@ -46,8 +48,8 @@ describe('Discount component test cases', () => {
   projectStatus: [],
   currencies: [],
   currencyId: 1,
-  clientName: "test",
-  otherClientName: "test",
+  customerName: "test",
+  otherCustomerName: "test",
   status:1,
   match: {params: {projectId: 1}},
   history:{ push: jest.fn() },

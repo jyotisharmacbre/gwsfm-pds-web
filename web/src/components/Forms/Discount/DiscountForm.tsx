@@ -43,6 +43,7 @@ interface Props {
   customerName: string;
   otherCustomerName: string;
   projectId:string;
+  dynamicsContractCustomerData: Array<IDynamicContractCustomerData>;
 }
 
 interface IMapStateToProps {
@@ -52,7 +53,6 @@ interface IMapStateToProps {
   discountForm:  {} | IDiscountActivity;
   summaryCalculation:ISummaryCalculation;
   userPreferenceCurrencyId:number;
-  dynamicsContractCustomerData: Array<IDynamicContractCustomerData>;
 }
 
   let DiscountForm: React.FC<Props & IMapStateToProps & InjectedFormProps<IDiscountActivity, Props & IMapStateToProps>> = props => {
@@ -251,8 +251,7 @@ const mapStateToProps = (state: IState) => ({
   clientDiscountValue:discountSelector(state, 'clientDiscount'),
   discountForm:  getFormValues('DiscountForm')(state),
   summaryCalculation:state.summaryCalculation,
-  userPreferenceCurrencyId: userPreferenceSelector(state, 'currencyId'),
-  dynamicsContractCustomerData: state.dynamicData.dynamicsContract
+  userPreferenceCurrencyId: userPreferenceSelector(state, 'currencyId')
 });
 
 const form = reduxForm<IDiscountActivity, Props & IMapStateToProps>({
