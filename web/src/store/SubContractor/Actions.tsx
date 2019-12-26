@@ -6,8 +6,8 @@ import { IProjectAdditionalDetail } from '../ProjectOverviewForm/Types/IProjectA
 import moment from 'moment';
 import EventType from '../../enums/EventType';
 import { ISubContractor } from './Types/ISubContractor';
-import { isProjectStateInReview,isDataExists } from '../store-helper';
-import {getDefaultState} from '../Common/Action';
+import { isProjectStateInReview, isDataExists } from '../store-helper';
+import { getDefaultState } from '../Common/Action';
 
 const subContractorFormAddSuccess = (response: ISubContractor, event: EventType) => {
 	return {
@@ -52,56 +52,50 @@ let config = {
 };
 export const subContractorFormAdd = (projectId: string, data: ISubContractor, event: EventType) => {
 	return (dispatch: Dispatch) => {
-		if (!isProjectStateInReview()) {
-			data.activities.map((element) => {
-				element.projectId = projectId;
+		if (isProjectStateInReview()) dispatch(subContractorFormError('error'));
+		data.activities.map((element) => {
+			element.projectId = projectId;
+		});
+		axios.baseAPI
+			.post('api/SubContractor/activities', data.activities, config)
+			.then((response) => {
+				dispatch(subContractorFormAddSuccess(response.data, event));
+			})
+			.catch((error) => {
+				dispatch(subContractorFormError(error));
 			});
-			axios.baseAPI
-				.post('api/SubContractor/activities', data.activities, config)
-				.then((response) => {
-					dispatch(subContractorFormAddSuccess(response.data, event));
-				})
-				.catch((error) => {
-					dispatch(subContractorFormError(error));
-				});
-		}
-		dispatch(subContractorFormError('error'));
 	};
 };
 
 export const subContractorFormEdit = (projectId: string, data: ISubContractor, event: EventType) => {
 	return (dispatch: Dispatch) => {
-		if (!isProjectStateInReview()) {
-			data.activities.map((element) => {
-				element.projectId = projectId;
+		if (isProjectStateInReview()) dispatch(subContractorFormError('error'));
+		data.activities.map((element) => {
+			element.projectId = projectId;
+		});
+		axios.baseAPI
+			.put('api/SubContractor/activities', data.activities, config)
+			.then((response) => {
+				dispatch(subContractorFormEditSuccess(response.data, event));
+			})
+			.catch((error) => {
+				dispatch(subContractorFormError(error));
 			});
-			axios.baseAPI
-				.put('api/SubContractor/activities', data.activities, config)
-				.then((response) => {
-					dispatch(subContractorFormEditSuccess(response.data, event));
-				})
-				.catch((error) => {
-					dispatch(subContractorFormError(error));
-				});
-		}
-		dispatch(subContractorFormError('error'));
 	};
 };
 
 export const getSubContractor = (projectId: string, cache: boolean = true) => {
 	return (dispatch: Dispatch) => {
 		let storeProjectId = store.getState().subContractor.form.activities[0].projectId;
-		if (isDataExists(cache,storeProjectId,projectId)) dispatch(getDefaultState());
-		else {
-			axios.baseAPI
-				.get(`api/SubContractor/${projectId}/activities`, config)
-				.then((response) => {
-					dispatch(getSubContractorSuccess(response.data));
-				})
-				.catch((error) => {
-					dispatch(getSubContractorError(error));
-				});
-		}
+		if (isDataExists(cache, storeProjectId, projectId)) dispatch(getDefaultState());
+		axios.baseAPI
+			.get(`api/SubContractor/${projectId}/activities`, config)
+			.then((response) => {
+				dispatch(getSubContractorSuccess(response.data));
+			})
+			.catch((error) => {
+				dispatch(getSubContractorError(error));
+			});
 	};
 };
 

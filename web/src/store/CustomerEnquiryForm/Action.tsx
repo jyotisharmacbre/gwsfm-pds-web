@@ -5,8 +5,8 @@ import { Dispatch } from 'redux';
 import { IProjectDetail } from './Types/IProjectDetail';
 import { IProject } from './Types/IProject';
 import EventType from '../../enums/EventType';
-import { isProjectStateInReview,isDataExists } from '../store-helper';
-import {getDefaultState} from '../Common/Action';
+import { isProjectStateInReview, isDataExists } from '../store-helper';
+import { getDefaultState } from '../Common/Action';
 const projectDetailAddSuccess = (response: IProjectDetail, event: EventType) => {
 	return {
 		type: ActionType.PROJECT_ADD,
@@ -42,34 +42,29 @@ const headers = {
 
 export const projectDetailAdd = (data: IProjectDetail, event: EventType) => {
 	return (dispatch: Dispatch) => {
-		if (isProjectStateInReview()) {
-			dispatch(projectDetailError('error'));
-		} else {
-			axios.baseAPI
-				.post('/api/Projects/customerEnquiry', data, { headers: headers })
-				.then((response) => {
-					dispatch(projectDetailAddSuccess(response.data, event));
-				})
-				.catch((error) => {
-					dispatch(projectDetailError(error));
-				});
-		}
+		if (isProjectStateInReview()) dispatch(projectDetailError('error'));
+		axios.baseAPI
+			.post('/api/Projects/customerEnquiry', data, { headers: headers })
+			.then((response) => {
+				dispatch(projectDetailAddSuccess(response.data, event));
+			})
+			.catch((error) => {
+				dispatch(projectDetailError(error));
+			});
 	};
 };
 
 export const projectDetailEdit = (data: IProjectDetail, event: EventType) => {
 	return (dispatch: Dispatch) => {
-		if (!isProjectStateInReview()) {
-			axios.baseAPI
-				.put('/api/Projects/updatecustomerEnquiry', data, { headers: headers })
-				.then((response) => {
-					dispatch(projectDetailEditSuccess(response.data, event));
-				})
-				.catch((error) => {
-					dispatch(projectDetailError(error));
-				});
-		}
-		dispatch(projectDetailError('error'));
+		if (isProjectStateInReview()) dispatch(projectDetailError('error'));
+		axios.baseAPI
+			.put('/api/Projects/updatecustomerEnquiry', data, { headers: headers })
+			.then((response) => {
+				dispatch(projectDetailEditSuccess(response.data, event));
+			})
+			.catch((error) => {
+				dispatch(projectDetailError(error));
+			});
 	};
 };
 
@@ -117,17 +112,15 @@ const getProjectDetailError = (error: string) => {
 export const getProjectDetail = (projectId: string, cache: boolean = true) => {
 	return (dispatch: Dispatch) => {
 		let storeProjectId = store.getState().project.form.projectId;
-		if (isDataExists(cache,storeProjectId,projectId)) dispatch(getDefaultState());
-		else {
-			axios.baseAPI
-				.get(`api/Projects/${projectId}/customerEnquiry`)
-				.then((response) => {
-					dispatch(getProjectDetailSuccess(response.data));
-				})
-				.catch((error) => {
-					dispatch(getProjectDetailError(error));
-				});
-		}
+		if (isDataExists(cache, storeProjectId, projectId)) dispatch(getDefaultState());
+		axios.baseAPI
+			.get(`api/Projects/${projectId}/customerEnquiry`)
+			.then((response) => {
+				dispatch(getProjectDetailSuccess(response.data));
+			})
+			.catch((error) => {
+				dispatch(getProjectDetailError(error));
+			});
 	};
 };
 
@@ -173,15 +166,13 @@ export const resetProjectDetailStateToInitial = () => {
 };
 
 export const updateProjectStatusToInReview = (projectId: string, success, error) => {
-	if (!isProjectStateInReview()) {
-		axios.baseAPI
-			.put(`/api/Projects/${projectId}/inReview`, null, { headers: headers })
-			.then((response) => {
-				success(response.data);
-			})
-			.catch((error) => {
-				error(error);
-			});
-	}
-	error('error');
+	if (isProjectStateInReview()) error('error');
+	axios.baseAPI
+		.put(`/api/Projects/${projectId}/inReview`, null, { headers: headers })
+		.then((response) => {
+			success(response.data);
+		})
+		.catch((error) => {
+			error(error);
+		});
 };

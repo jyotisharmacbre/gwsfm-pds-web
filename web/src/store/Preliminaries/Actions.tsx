@@ -53,33 +53,29 @@ let config = {
 };
 export const preliminaryAdd = (preliminaryDetails: Array<IPreliminaries>, event: EventType) => {
 	return (dispatch: Dispatch) => {
-		if (!isProjectStateInReview()) {
-			axios.baseAPI
-				.post('api/Preliminaries/preliminaryDetails', preliminaryDetails, config)
-				.then((response) => {
-					dispatch(preliminaryAddSuccess(response, event));
-				})
-				.catch((error) => {
-					dispatch(preliminaryAddError(error));
-				});
-		}
-    dispatch(preliminaryAddError('error'));
+		if (isProjectStateInReview()) dispatch(preliminaryAddError('error'));
+		axios.baseAPI
+			.post('api/Preliminaries/preliminaryDetails', preliminaryDetails, config)
+			.then((response) => {
+				dispatch(preliminaryAddSuccess(response, event));
+			})
+			.catch((error) => {
+				dispatch(preliminaryAddError(error));
+			});
 	};
 };
 
 export const preliminaryEdit = (preliminaryDetails: Array<IPreliminaries>, event: EventType) => {
 	return (dispatch: Dispatch) => {
-		if (!isProjectStateInReview()) {
-			axios.baseAPI
-				.put('api/Preliminaries/preliminaryDetails', preliminaryDetails, config)
-				.then((response) => {
-					dispatch(preliminaryEditSuccess(response, event));
-				})
-				.catch((error) => {
-					dispatch(preliminaryEditError(error));
-				});
-		}
-		dispatch(preliminaryEditError('error'));
+		if (isProjectStateInReview()) dispatch(preliminaryEditError('error'));
+		axios.baseAPI
+			.put('api/Preliminaries/preliminaryDetails', preliminaryDetails, config)
+			.then((response) => {
+				dispatch(preliminaryEditSuccess(response, event));
+			})
+			.catch((error) => {
+				dispatch(preliminaryEditError(error));
+			});
 	};
 };
 

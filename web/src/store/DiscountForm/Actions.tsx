@@ -4,8 +4,8 @@ import { ActionType } from './Types/ActionType';
 import { Dispatch } from 'redux';
 import { IDiscountActivity } from './Types/IDiscountActivity';
 import EventType from '../../enums/EventType';
-import { isProjectStateInReview,isDataExists } from '../store-helper';
-import {getDefaultState} from '../Common/Action';
+import { isProjectStateInReview, isDataExists } from '../store-helper';
+import { getDefaultState } from '../Common/Action';
 
 const discountFormAddSuccess = (response: IDiscountActivity, event: EventType) => {
 	return {
@@ -50,51 +50,45 @@ const headers = {
 
 export const discountFormAdd = (projectId: string, data: IDiscountActivity, event: EventType) => {
 	return (dispatch: Dispatch) => {
-		if (!isProjectStateInReview()) {
-			data.projectId = projectId;
-			axios.baseAPI
-				.post('/api/Discounts/adddiscount', data, { headers: headers })
-				.then((response) => {
-					dispatch(discountFormAddSuccess(response.data, event));
-				})
-				.catch((error) => {
-					dispatch(discountFormError(error));
-				});
-		}
-		dispatch(discountFormError('error'));
+		if (isProjectStateInReview()) dispatch(discountFormError('error'));
+		data.projectId = projectId;
+		axios.baseAPI
+			.post('/api/Discounts/adddiscount', data, { headers: headers })
+			.then((response) => {
+				dispatch(discountFormAddSuccess(response.data, event));
+			})
+			.catch((error) => {
+				dispatch(discountFormError(error));
+			});
 	};
 };
 
 export const discountFormEdit = (data: IDiscountActivity, event: EventType) => {
 	return (dispatch: Dispatch) => {
-		if (!isProjectStateInReview()) {
-			axios.baseAPI
-				.put('/api/Discounts/UpdateDiscount', data, { headers: headers })
-				.then((response) => {
-					dispatch(discountFormEditSuccess(response.data, event));
-				})
-				.catch((error) => {
-					dispatch(discountFormError(error));
-				});
-		}
-		dispatch(discountFormError('error'));
+		if (isProjectStateInReview()) dispatch(discountFormError('error'));
+		axios.baseAPI
+			.put('/api/Discounts/UpdateDiscount', data, { headers: headers })
+			.then((response) => {
+				dispatch(discountFormEditSuccess(response.data, event));
+			})
+			.catch((error) => {
+				dispatch(discountFormError(error));
+			});
 	};
 };
 
 export const getDiscountData = (projectId: string, cache: boolean = true) => {
 	return (dispatch: Dispatch) => {
 		let storeProjectId = store.getState().discount.form.projectId;
-		if (isDataExists(cache,storeProjectId,projectId)) dispatch(getDefaultState());
-		else {
-			axios.baseAPI
-				.get(`api/Discounts/${projectId}`, { headers: headers })
-				.then((response) => {
-					dispatch(getDiscountDataSuccess(response.data));
-				})
-				.catch((error) => {
-					dispatch(getDiscountDataError(error));
-				});
-		}
+		if (isDataExists(cache, storeProjectId, projectId)) dispatch(getDefaultState());
+		axios.baseAPI
+			.get(`api/Discounts/${projectId}`, { headers: headers })
+			.then((response) => {
+				dispatch(getDiscountDataSuccess(response.data));
+			})
+			.catch((error) => {
+				dispatch(getDiscountDataError(error));
+			});
 	};
 };
 

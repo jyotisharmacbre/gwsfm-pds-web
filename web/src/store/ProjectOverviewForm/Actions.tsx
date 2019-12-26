@@ -90,40 +90,36 @@ let config = {
 };
 export const projectOverviewFormAdd = (projectId: string, data: IProjectOverviewDetails, event: EventType) => {
 	return (dispatch: Dispatch) => {
-		if (!isProjectStateInReview()) {
-			data.projectId = projectId;
-			data.projectAdditionalDetail.projectId = projectId;
-			axios.baseAPI
-				.post('api/Projects/additionalDetails', data, config)
-				.then((response) => {
-					dispatch(projectOverviewFormAddSuccess(response.data, event));
-				})
-				.catch((error) => {
-					dispatch(projectOverviewFormError(error));
-				});
-		}
-		dispatch(projectOverviewFormError('error'));
+		if (isProjectStateInReview()) dispatch(projectOverviewFormError('error'));
+		data.projectId = projectId;
+		data.projectAdditionalDetail.projectId = projectId;
+		axios.baseAPI
+			.post('api/Projects/additionalDetails', data, config)
+			.then((response) => {
+				dispatch(projectOverviewFormAddSuccess(response.data, event));
+			})
+			.catch((error) => {
+				dispatch(projectOverviewFormError(error));
+			});
 	};
 };
 
 export const projectOverviewFormEdit = (data: IProjectOverviewState, event: EventType) => {
 	return (dispatch: Dispatch) => {
-		if (!isProjectStateInReview()) {
-			axios.baseAPI
-				.put('api/Projects/additionalDetails', data, config)
-				.then((response) => {
-					dispatch(projectOverviewFormEditSuccess(response.data, event));
-				})
-				.catch((error) => {
-					dispatch(projectOverviewFormError(error));
-				});
-		}
-		dispatch(projectOverviewFormError('error'));
+		if (isProjectStateInReview()) dispatch(projectOverviewFormError('error'));
+		axios.baseAPI
+			.put('api/Projects/additionalDetails', data, config)
+			.then((response) => {
+				dispatch(projectOverviewFormEditSuccess(response.data, event));
+			})
+			.catch((error) => {
+				dispatch(projectOverviewFormError(error));
+			});
 	};
 };
 
 export const getAdditionalDetails = (projectId: string) => {
-	return (dispatch: Dispatch) => { 
+	return (dispatch: Dispatch) => {
 		axios.baseAPI
 			.get(`api/Projects/${projectId}/additionalDetails`, config)
 			.then((response) => {
