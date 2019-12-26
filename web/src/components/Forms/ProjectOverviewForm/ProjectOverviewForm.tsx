@@ -652,9 +652,9 @@ let ProjectOverviewForm: React.FC<Props &
               </div>
              
 
-              <div className="mr-35 d-flex justify-content-between mb-4">
+              <div className="mr-35 d-flex two-side-btn">
                 <button
-                  className="active mb-4 mt-5"
+                  className="active mb-4 mt-0"
                   type="button"
                   onClick={()=>props.onPrevious()}
                 >
@@ -664,7 +664,7 @@ let ProjectOverviewForm: React.FC<Props &
                   type="button"
                   name="next"
                   onClick={handleSubmit(values => props.onNext(values))}
-                  className="mb-4 mt-5 mr-0"
+                  className="mb-4 mt-0 mr-0"
                 >
                   <FormattedMessage id="BUTTON_NEXT" />
                 </button>
