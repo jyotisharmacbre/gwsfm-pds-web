@@ -19,7 +19,7 @@ import { History } from 'history';
 import { toast } from 'react-toastify';
 import { formatMessage } from '../Translations/connectedIntlProvider';
 import { dynamicsContract } from '../components/TypeAhead/TypeAheadConstantData/dynamicContractData';
-import { getFilterElementFromArray } from '../helpers/utility-helper';
+import { getFilterElementFromArray,getClassNameForProjectStatus } from '../helpers/utility-helper';
 import ProjectOverviewStatusTab from '../components/Forms/ProjectOverviewForm/ProjectOverviewStatusTab';
 import { getDynamicSubContractorData } from '../store/DynamicsData/Action';
 import { IDynamicSubContractorData } from '../store/DynamicsData/Types/IDynamicData';
@@ -85,29 +85,30 @@ interface IProps {
 const ProjectOverview: React.FC<IProps &
   IMapStateToProps &
   IMapDispatchToProps> = props => {
-    useEffect(() => {
-      window.scrollTo(0, 0);
-      props.getProjectStatus();
-      props.getProjectDetail(props.match.params.projectId);
-      let paramProjectId = props.projectId == '' ? props.match.params.projectId : props.projectId;
-      if (paramProjectId != null && paramProjectId != '') {
-        props.getAdditionalDetails(paramProjectId);
-        props.getEnquiryOverview(paramProjectId);
-      }
-    }, []);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    props.getProjectStatus();
+    let paramProjectId = props.match.params.projectId;
+    if (paramProjectId != null && paramProjectId != '') {
+      props.getProjectDetail(paramProjectId);
+      props.getAdditionalDetails(paramProjectId);
+      props.getEnquiryOverview(paramProjectId);
+    }
+  }, []);
 
-    useEffect(() => {
-      if (props.notify == Notify.success) {
-        if (props.event == EventType.next) {
-          toast.success('Data Saved Successfully');
-          props.history.push(`/JustificationAuthorisation/${props.match.params.projectId}`);
-        } else if (props.event == EventType.previous) {
-          toast.success('Data Saved Successfully');
-          props.history.push(`/Project/${props.match.params.projectId}`);
-        }
-        props.resetProjectOverviewState();
+  useEffect(() => {
+    if (props.notify == Notify.success) {
+      if (props.event == EventType.next) {
+        toast.success('Data Saved Successfully');
+        props.history.push(`/JustificationAuthorisation/${props.match.params.projectId}`);
+      } else if (props.event == EventType.previous) {
+        toast.success('Data Saved Successfully');
+        props.history.push(`/Project/${props.match.params.projectId}`);
       }
-    }, [props.notify, props.event]);
+      props.resetProjectOverviewState();
+    }
+  }, [props.notify, props.event]);
+   
     useEffect(() => {
       if (props.notify == Notify.success) {
         if (props.event == EventType.save) {
@@ -125,6 +126,7 @@ const ProjectOverview: React.FC<IProps &
       props.resetProjectOverviewState();
     },
       [props.notify]);
+      
     useEffect(() => {
       props.setAdminDefaultValues(props.countryId);
     },
