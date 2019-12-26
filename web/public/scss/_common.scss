@@ -336,6 +336,7 @@ button[type="button"] {
     @include mdScreen {
         flex-wrap: wrap;
         justify-content: center;
+        padding: 20px 0;
     }
     button {
         margin-right: 20px;

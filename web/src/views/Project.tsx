@@ -30,6 +30,8 @@ import {
 } from '../store/UserService/Action';
 import ProjectStatus from '../enums/ProjectStatus';
 import { ICountry } from '../store/Lookups/Types/ICountry';
+import { getUserPreferences } from '../services/lookup.service';
+import {getClassNameForProjectStatus} from '../helpers/utility-helper';
 
 interface IMapStateToProps {
   notify: Notify;
@@ -120,7 +122,7 @@ const Project: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = props
   };
 
   return (
-    <div className={(props.status==ProjectStatus.BidLost||props.status==ProjectStatus.OnHold)?"link_disabled":""}>
+    <div className={getClassNameForProjectStatus(props.status)}>
     <ProjectForm
       onSave={handleSave}
       onNext={handleNext}

@@ -22,12 +22,16 @@
     .edit-btn {
         height: fit-content;
         margin-top: 7px;
+        border-width: 1px !important;
         padding: 6px 25px 3px;
         border-width: 1px;
         min-width: auto;
         background: transparent;
         color: #006a4d;
         border-radius: 2px;
+        @include mdScreen {
+            padding: 6px 16px 3px;
+        }
         &:focus {
             outline: none;
         }

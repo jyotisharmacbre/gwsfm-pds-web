@@ -6,6 +6,7 @@ import { ICurrency } from './Types/ICurrency';
 import { ILanguage } from './Types/ILanguage';
 import { de } from 'date-fns/esm/locale';
 import { ICountry } from './Types/ICountry';
+import {getDefaultState} from '../Common/Action';
 
 const getProjectStatusSuccess = (response: any) => {
   return {
@@ -82,7 +83,7 @@ export const getAllCurrencies = (cache:boolean = true) => {
   return (dispatch: Dispatch) => {
     let storeData = store.getState().lookup.currencies;
     if(cache && storeData && storeData.length > 0)
-      dispatch({type:ActionType.DEFAULT});
+      dispatch(getDefaultState());
     else{
     axios.baseAPI
       .get('api/LookupData/GetAllCurrencies')

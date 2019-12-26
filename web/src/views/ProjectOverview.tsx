@@ -19,8 +19,8 @@ import { History } from 'history';
 import { toast } from 'react-toastify';
 import { formatMessage } from '../Translations/connectedIntlProvider';
 import { dynamicsContract } from '../components/TypeAhead/TypeAheadConstantData/dynamicContractData';
-import { getFilterElementFromArray } from '../helpers/utility-helper';
-import ProjectOverviewStatusTab from '../components/HeaderPage/ProjectOverviewStatusTab';
+import { getFilterElementFromArray,getClassNameForProjectStatus } from '../helpers/utility-helper';
+import ProjectOverviewStatusTab from '../components/Forms/ProjectOverviewForm/ProjectOverviewStatusTab';
 import { getDynamicSubContractorData } from '../store/DynamicsData/Action';
 import { IDynamicSubContractorData } from '../store/DynamicsData/Types/IDynamicData';
 import { IProjectOverviewDetails } from '../store/ProjectOverviewForm/Types/IProjectOverviewDetails';
@@ -50,10 +50,10 @@ interface IMapStateToProps {
   enquiryOverview: IProject;
   event: EventType;
   projectScope: string;
-  status:number;
+  status: number;
   dynamicsSubContractor: Array<IDynamicSubContractorData>;
-  countryId:number;
-  history:History;
+  countryId: number;
+  history: History;
 }
 interface IMapDispatchToProps {
   getProjectStatus: () => void;
@@ -72,10 +72,10 @@ interface IMapDispatchToProps {
   getProjectDetail: (projectId: string) => void;
   changeProjectStatusToOnHold: (projectId: string) => void;
   changeProjectStatusToBidLost: (projectId: string) => void;
-  reactivateProject:(projectId: string) => void;
-  setProjectStatus:(status: number) => void;
+  reactivateProject: (projectId: string) => void;
+  setProjectStatus: (status: number) => void;
   handleGetDynamicSubContractorData: (searchSubContractor: string) => void;
-  setAdminDefaultValues:(countryId:number)=>void;
+  setAdminDefaultValues: (countryId: number) => void;
 }
 interface IProps {
   projectId: string;
@@ -88,9 +88,9 @@ const ProjectOverview: React.FC<IProps &
   useEffect(() => {
     window.scrollTo(0, 0);
     props.getProjectStatus();
-    props.getProjectDetail(props.match.params.projectId);
-    let paramProjectId = props.projectId == '' ? props.match.params.projectId : props.projectId;
+    let paramProjectId = props.match.params.projectId;
     if (paramProjectId != null && paramProjectId != '') {
+      props.getProjectDetail(paramProjectId);
       props.getAdditionalDetails(paramProjectId);
       props.getEnquiryOverview(paramProjectId);
     }
@@ -108,110 +108,123 @@ const ProjectOverview: React.FC<IProps &
       props.resetProjectOverviewState();
     }
   }, [props.notify, props.event]);
-  useEffect(() => {
-    if (props.notify == Notify.success) {
-      if (props.event == EventType.save) 
-      {
-        toast.success('Project reactivated successfully');
-        props.getProjectDetail(props.match.params.projectId);
-      }
-      else
-      {
-        toast.success('Project status changed successfully');
+   
+    useEffect(() => {
+      if (props.notify == Notify.success) {
+        if (props.event == EventType.save) {
+          toast.success('Project reactivated successfully');
+          props.getProjectDetail(props.match.params.projectId);
+        }
+        else {
+          toast.success('Project status changed successfully');
 
-      }
-        
-      } else if (props.notify == Notify.error) 
-      {
+        }
+
+      } else if (props.notify == Notify.error) {
         toast.error('Error occured.Please contact administrator');
       }
       props.resetProjectOverviewState();
     },
- [props.notify]);
-useEffect(() => {
- props.setAdminDefaultValues(props.countryId);
-  },
-[props.countryId]);
-  const handlePrevious = () => {
-    props.history.push(`/Project/${props.match.params.projectId}`);
+      [props.notify]);
+      
+    useEffect(() => {
+      props.setAdminDefaultValues(props.countryId);
+    },
+      [props.countryId]);
+    const handlePrevious = () => {
+      props.history.push(`/Project/${props.match.params.projectId}`);
 
-  };
+    };
 
-  const handleNext = (data: IProjectOverviewDetails) => {
-    data.projectAdditionalDetail.projectAddDetailId == ''
-      ? props.projectOverviewFormAdd(props.match.params.projectId, data, EventType.next)
-      : props.projectOverviewFormEdit(data, EventType.next);
-  };
-  const convertToString = id => {
-    let data = '';
-    if (id != null && id != undefined) data = id.toString();
-    return data;
-  };
-  const getProjectStatusName=()=>{
-    let projectStatusData:Array<ILookup>=[];
-    if(props.projectStatus.length>0)
-    {
-       projectStatusData=props.projectStatus.filter((data)=>{return (data.lookupItem=="Project_Status"&&data.lookupKey==props.status)});
+    const handleNext = (data: IProjectOverviewDetails) => {
+      data.projectAdditionalDetail.projectAddDetailId == ''
+        ? props.projectOverviewFormAdd(props.match.params.projectId, data, EventType.next)
+        : props.projectOverviewFormEdit(data, EventType.next);
+    };
+    const convertToString = id => {
+      let data = '';
+      if (id != null && id != undefined) data = id.toString();
+      return data;
+    };
+    const getProjectStatusName = () => {
+      let projectStatusData: Array<ILookup> = [];
+      if (props.projectStatus.length > 0) {
+        projectStatusData = props.projectStatus.filter((data) => { return (data.lookupItem == "Project_Status" && data.lookupKey == props.status) });
+      }
+      else if (sessionStorage.getItem("lookupData")) {
+        let lookupData: any = sessionStorage.getItem("lookupData");
+        projectStatusData = JSON.parse(lookupData).filter((data) => { return (data.lookupItem == "Project_Status" && data.lookupKey == props.status) });
+      }
+      return (projectStatusData.length > 0 ? projectStatusData[0].description : "")
     }
-    else if(sessionStorage.getItem("lookupData"))
-    {
-      let lookupData:any=sessionStorage.getItem("lookupData");
-      projectStatusData=JSON.parse(lookupData).filter((data)=>{return (data.lookupItem=="Project_Status"&&data.lookupKey==props.status)});
+    const handleReactivateEvent = () => {
+      props.reactivateProject(props.match.params.projectId);
     }
-    return (projectStatusData.length>0?projectStatusData[0].description:"")
-  }
-  const handleReactivateEvent=()=>{
-    props.reactivateProject(props.match.params.projectId);
-  }
-  const handleOnHoldEvent=()=>{
-    props.setProjectStatus(6);
-    props.changeProjectStatusToOnHold(props.match.params.projectId);
-  }
-  const handleBidLostEvent=()=>{
-    props.setProjectStatus(4);
-    props.changeProjectStatusToBidLost(props.match.params.projectId);
-  }
+    const handleOnHoldEvent = () => {
+      props.setProjectStatus(6);
+      props.changeProjectStatusToOnHold(props.match.params.projectId);
+    }
+    const handleBidLostEvent = () => {
+      props.setProjectStatus(4);
+      props.changeProjectStatusToBidLost(props.match.params.projectId);
+    }
 
-  return (
-      <Container component="main">
-        
-       <HeaderPage Title={formatMessage('TITLE_PROJECT_OVERVIEW')} ActionList={[]} /> 
-        <ProjectOverviewStatusTab status={props.status} statusName={getProjectStatusName()} onReactivate={handleReactivateEvent} handleOnHold={handleOnHoldEvent} handleBidLost={handleBidLostEvent}/>
-          
-            <GeneralTable
-              {...{
-                headers: [
-                  {
-                    heading: formatMessage('LABEL_END_CUSTOMER_NAME'),
-                    subHeading: convertToString(getFilterElementFromArray(dynamicsContract, 'ContractId',
-                    props.enquiryOverview.contractorId, 'Name') || props.enquiryOverview.otherContractName)
-                  },
-                  {
-                    heading: formatMessage('MESSAGE_PROJECT_NAME'),
-                    subHeading: props.enquiryOverview.projectName
-                  },
-                  { heading: formatMessage('LABEL_PROJECT_ID'), subHeading: props.projectId },
-                  {
-                    heading: formatMessage('LABEL_CN_NUMBER'),
-                    subHeading: convertToString(props.enquiryOverview.cnNumber)
+    return (
+      <div className="container-fluid ">
+        <div className="row">
+          <div className="col-lg-12 col-sm-12">
+            {/* 20-dec-2019 */}
+            <div className="custom-wrap">
+              <div className="row align-items-center my-3 my-lg-4 pb-2">
+                <div className="col-lg-6">
+                  <h1 className="m-0">{formatMessage('TITLE_PROJECT_OVERVIEW')}</h1>
+                </div>
+                <ProjectOverviewStatusTab status={props.status} statusName={getProjectStatusName()} onReactivate={handleReactivateEvent} handleOnHold={handleOnHoldEvent} handleBidLost={handleBidLostEvent} />
+              </div>
+              
+              
+
+              <GeneralTable
+                {...{
+                  headers: [
+                    {
+                      heading: formatMessage('LABEL_END_CUSTOMER_NAME'),
+                      subHeading: convertToString(getFilterElementFromArray(dynamicsContract, 'ContractId',
+                        props.enquiryOverview.contractorId, 'Name') || props.enquiryOverview.otherContractName)
+                    },
+                    {
+                      heading: formatMessage('MESSAGE_PROJECT_NAME'),
+                      subHeading: props.enquiryOverview.projectName
+                    },
+                    {
+                      heading: formatMessage('MESSAGE_PROJECT_MANAGER'),
+                      subHeading: props.enquiryOverview.projectManager
+                    },
+                    {
+                      heading: formatMessage('LABEL_CN_NUMBER'),
+                      subHeading: convertToString(props.enquiryOverview.cnNumber)
+                    }
+                  ],
+                  content: props.projectScope,
+                  editActionClick: () => {
+                    props.history.push(`/Project/${props.match.params.projectId}`);
                   }
-                ],
-                content: props.projectScope,
-                editActionClick: () => {
-                  props.history.push(`/Project/${props.match.params.projectId}`);
-                }
-              }}
-            />
-            <ProjectOverviewForm
-              onNext={handleNext}
-              onPrevious={handlePrevious}
-              projectstatus={props.projectStatus}
-              status={props.status}
-              projectId={props.match.params.projectId}
-            />
-      </Container>
-  );
-};
+                }}
+              />
+              <ProjectOverviewForm
+                onNext={handleNext}
+                onPrevious={handlePrevious}
+                projectstatus={props.projectStatus}
+                status={props.status}
+                projectId={props.match.params.projectId}
+              />
+
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
 
 const mapStateToProps = (state: IState) => ({
   form: state.projectOverview.form,
@@ -221,7 +234,7 @@ const mapStateToProps = (state: IState) => ({
   enquiryOverview: state.project.enquiryOverview,
   event: state.projectOverview.event,
   projectScope: state.project.form.scope,
-  status:state.project.form.status, 
+  status: state.project.form.status,
   dynamicsSubcontractor: state.dynamicData.dynamicsSubcontractor,
   countryId: state.project.form.countryId
 });

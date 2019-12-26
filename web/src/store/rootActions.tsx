@@ -16,7 +16,8 @@ export {
   resetProjectDetailState,
   projectDetailEdit,
   changeProjectStatus,
-  resetProjectDetailStateToInitial
+  resetProjectDetailStateToInitial,
+  updateProjectStatusToInReview
 } from './CustomerEnquiryForm/Action';
 
 export { getProjectStatus, getAllCurrencies, getAllLanguages, getAllContries } from './Lookups/Actions';

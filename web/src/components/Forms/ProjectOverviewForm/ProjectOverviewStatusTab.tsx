@@ -1,10 +1,13 @@
 import React from 'react';
 import { faLightbulb, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { confirmAlert } from '../Popup/CustomModalPopup';
+
+
 import { injectIntl, FormattedMessage } from 'react-intl';
-import IReactIntl from '../../Translations/IReactIntl';
-import ProjectStatus from '../../enums/ProjectStatus';
+
+import { confirmAlert } from '../../Popup/CustomModalPopup';
+import IReactIntl from '../../../Translations/IReactIntl';
+import ProjectStatus from '../../../enums/ProjectStatus';
 
 interface IProps {
     status: number;
@@ -30,7 +33,7 @@ const ProjectOverviewStatusTab: React.FC<IProps & IReactIntl> = props => {
     }
     return (
 
-        <div className="col-md-6 float-right btm4em">
+        <div className="col-md-6 mt-4 mt-lg-0 d-flex justify-content-start justify-content-lg-end">
             <div className="activate_status_box">
                 {(props.status == ProjectStatus.BidLost || props.status == ProjectStatus.OnHold) ? <div className="status-dropdown-btn toggle mrgnrght10 mrgnt5">
                     <span>
@@ -51,7 +54,7 @@ const ProjectOverviewStatusTab: React.FC<IProps & IReactIntl> = props => {
                     <div className="status-dropdown">
                         <div className="status-dropdown-btn toggle">
 
-                            <span data-test="toggleStatusTab" id="toggleStatusTab" className={(props.status == ProjectStatus.BidLost || props.status == ProjectStatus.OnHold) ? "dropdown-placeholder link_disabled" : "dropdown-placeholder"} onClick={() => handleToggleStatusTab()}>Status:&nbsp; <strong>{props.statusName}
+                            <span data-test="toggleStatusTab" id="toggleStatusTab" className={(props.status == ProjectStatus.BidLost || props.status == ProjectStatus.OnHold) ? "dropdown-placeholder link_disabled p-0" : "dropdown-placeholder p-0"} onClick={() => handleToggleStatusTab()}>Status:&nbsp; <strong>{props.statusName}
                             </strong>{(props.status != ProjectStatus.BidLost && props.status != ProjectStatus.OnHold) ? <FontAwesomeIcon className="active mrgnlft10" icon={faPencilAlt} /> : null}
                             </span>
                         </div>
@@ -86,6 +89,7 @@ const ProjectOverviewStatusTab: React.FC<IProps & IReactIntl> = props => {
                 </div>
             </div>
         </div>
+
     )
 
 }
