@@ -13,6 +13,8 @@ import { lookUpInitialState, customerEnquiryInitialState } from '../Preliminarie
 import Notify from '../../../enums/Notify';
 import {initialState as discountInitialState} from '../../../store/DiscountForm/InitialState';
 import {initialState as summaryCalculationState} from '../../../store/SummaryCalculation/InitialState';
+import ProjectStatus from '../../../enums/ProjectStatus';
+
 const mockStore = configureStore([]);
 let store;
 let wrapper;
@@ -70,12 +72,22 @@ describe('Subcontractor component test cases', () => {
     let container=findByTestAtrr(wrapper,"sub_row_status").first();
     expect(container.hasClass("row")).toBe(true);
   });
+   it('should enable the form when state is not InReview', () => {
+		expect(wrapper.find('.link_disabled').length).toEqual(0);
+	});
   it('should make subcontractor element into readonly if project status is not bidlost or onhold', () => {
-    customerEnquiryInitialState.form.status=4;
-    setUpStore(initialState,lookUpInitialState,customerEnquiryInitialState,subcontractorInitialState);
+    let data = { ...customerEnquiryInitialState };
+    data.form.status = ProjectStatus.BidLost;
+    setUpStore(initialState,lookUpInitialState,data,subcontractorInitialState);
     mountPreliminaryComponent(Props);
     let container=findByTestAtrr(wrapper,"sub_row_status").first();
     expect(container.hasClass("link_disabled")).toBe(true);
   });
-
+it('should disable the form when state is InReview', () => {
+		let data = { ...customerEnquiryInitialState };
+		data.form.status = ProjectStatus.InReview;
+		setUpStore(initialState,lookUpInitialState,data,subcontractorInitialState);
+		mountPreliminaryComponent(Props);
+    expect(wrapper.find('.link_disabled').length).toBeGreaterThan(0);
+	});
 }); 

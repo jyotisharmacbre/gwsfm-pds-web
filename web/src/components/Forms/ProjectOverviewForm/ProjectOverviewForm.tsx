@@ -11,7 +11,7 @@ import { selectionButtons } from '../../../helpers/constants';
 import { enquiryTypeData } from '../../../helpers/dropDownFormValues';
 import { IState } from '../../../store/state';
 import { IProjectAdditionalDetail } from '../../../store/ProjectOverviewForm/Types/IProjectAdditionalDetail';
-import { getPropertyName, getDropdown } from '../../../helpers/utility-helper';
+import { getPropertyName, getDropdown,getClassNameForProjectStatus } from '../../../helpers/utility-helper';
 import { LookupType } from '../../../store/Lookups/Types/LookupType';
 import EventType from '../../../enums/EventType';
 import FontawsomeSvg from '@fortawesome/fontawesome-svg-core';
@@ -68,7 +68,7 @@ let ProjectOverviewForm: React.FC<Props &
                 noValidate={true}
                 data-test="projectOverviewForm"
               >
-                <div className={(props.status == ProjectStatus.BidLost || props.status == ProjectStatus.OnHold) ? "link_disabled row" : "row"}>
+                <div className={`${getClassNameForProjectStatus(props.status)} row`}>
                   <div className="col-lg-8">
 
                   <Field
@@ -347,7 +347,7 @@ let ProjectOverviewForm: React.FC<Props &
               </div>
             </div>
             {/* AUTHORISED SECTION */}
-            <div className={(props.status==ProjectStatus.BidLost||props.status==ProjectStatus.OnHold)?"link_disabled row":"row"}>
+            <div className={`${getClassNameForProjectStatus(props.status)} row`}>
               <div className="col-xl-6">
                 <div className="authorised_form_wrap">
                   <h6 className="ml-0">
@@ -624,7 +624,7 @@ let ProjectOverviewForm: React.FC<Props &
                 />
               </div>
             </div>
-              <div className="row">
+              <div className={`${getClassNameForProjectStatus(props.status)} row`}>
                 <div className="col-lg-4">
                   <ProjectOverviewRiskForm
                     riskName="projectAdditionalDetail.projectRisk1"
@@ -652,7 +652,7 @@ let ProjectOverviewForm: React.FC<Props &
               </div>
              
 
-              <div className="mr-35 d-flex two-side-btn">
+              <div className={`${getClassNameForProjectStatus(props.status)} mr-35 d-flex two-side-btn`}>
                 <button
                   className="active mb-4 mt-0"
                   type="button"

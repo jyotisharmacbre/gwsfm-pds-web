@@ -14,7 +14,7 @@ import { FormattedMessage } from 'react-intl';
 import EventType from '../enums/EventType';
 import CalculationsSummaryTable from '../components/Table/CalculationsSummaryTable';
 import CalculationsSummaryType from '../enums/CalculationsSummaryType';
-import { getPropertyName,getFilterElementFromArray } from '../helpers/utility-helper';
+import { getPropertyName,getFilterElementFromArray,getClassNameForProjectStatus } from '../helpers/utility-helper';
 import { formValueSelector } from 'redux-form';
 import Currency from '../store/Lookups/InitialState/Currency';
 import ProjectStatus from '../enums/ProjectStatus';
@@ -133,7 +133,7 @@ const Preliminaries: React.FC<
 
   return (
     <div className="container-fluid">
-      <div data-test="pre_row_status" className={(props.status==ProjectStatus.BidLost||props.status==ProjectStatus.OnHold)?"link_disabled row":"row"}>
+      <div data-test="pre_row_status"  className={`${getClassNameForProjectStatus(props.status)} row`}>
         <div className="col-lg-12">
           <form className="custom-wrap">
             <div className="heading-subtitle">
