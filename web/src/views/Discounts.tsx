@@ -13,6 +13,7 @@ import { History } from 'history';
 import { ILookup } from '../store/Lookups/Types/ILookup';
 import { ICurrency } from '../store/Lookups/Types/ICurrency';
 import ProjectStatus from '../enums/ProjectStatus';
+import { getClassNameForProjectStatus } from '../helpers/utility-helper';
 
 interface IProps {
   match: match<{projectId:string}>;
@@ -65,7 +66,7 @@ const Discounts: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = pro
     if (props.notify == Notify.success) {
       if (props.event == EventType.next) {
         toast.success('Data Saved Successfully');
-        props.history.push(`/`);
+        props.history.push(`/ReviewSubmit/${props.match.params.projectId}`);
       } else if (props.event == EventType.previous) {
         toast.success('Data Saved Successfully');
         props.history.push(`/Subcontractor/${props.match.params.projectId}`);
@@ -98,13 +99,7 @@ const Discounts: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = pro
     <div className="container-fluid">
       <div
         data-test="dis_row_status"
-        className={
-          props.status == ProjectStatus.BidLost ||
-          props.status == ProjectStatus.OnHold
-            ? 'link_disabled row'
-            : 'row'
-        }
-      >
+        className={`${getClassNameForProjectStatus(props.status)} row`}>
         <div className="col-lg-12">
           <div className="custom-wrap discount_wrap">
             <div className="heading-subtitle">
