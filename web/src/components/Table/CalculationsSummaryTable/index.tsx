@@ -83,7 +83,7 @@ const CalculationsSummaryTable:React.FC<Props & IMapStateToProps & IMapDispatchT
           getSubContractorSummaryCalculation(props.subContractorState,reduxState);
         }
         if(props.name != CalculationsSummaryType.preliminary && props.preliminaryState && props.preliminaryState.length > 0){ 
-          getPreliminarySummaryCalculation(props.preliminaryState,reduxState);
+          getPreliminarySummaryCalculation(props.preliminaryState,reduxState); 
         }
         if(props.name == CalculationsSummaryType.subContractor && props.subContractor){
             localFormState = getSubContractorSummaryCalculation(props.subContractor,{...reduxState});
