@@ -5,8 +5,8 @@ import { Dispatch } from 'redux';
 import { IProjectDetail } from './Types/IProjectDetail';
 import { IProject } from './Types/IProject';
 import EventType from '../../enums/EventType';
-import { isProjectStateInReview } from '../store-helper';
-
+import { isProjectStateInReview,isDataExists } from '../store-helper';
+import {getDefaultState} from '../Common/Action';
 const projectDetailAddSuccess = (response: IProjectDetail, event: EventType) => {
 	return {
 		type: ActionType.PROJECT_ADD,
@@ -59,9 +59,7 @@ export const projectDetailAdd = (data: IProjectDetail, event: EventType) => {
 
 export const projectDetailEdit = (data: IProjectDetail, event: EventType) => {
 	return (dispatch: Dispatch) => {
-		if (isProjectStateInReview()) {
-			dispatch(projectDetailError('error'));
-		} else {
+		if (!isProjectStateInReview()) {
 			axios.baseAPI
 				.put('/api/Projects/updatecustomerEnquiry', data, { headers: headers })
 				.then((response) => {
@@ -71,6 +69,7 @@ export const projectDetailEdit = (data: IProjectDetail, event: EventType) => {
 					dispatch(projectDetailError(error));
 				});
 		}
+		dispatch(projectDetailError('error'));
 	};
 };
 
@@ -118,7 +117,7 @@ const getProjectDetailError = (error: string) => {
 export const getProjectDetail = (projectId: string, cache: boolean = true) => {
 	return (dispatch: Dispatch) => {
 		let storeProjectId = store.getState().project.form.projectId;
-		if (cache && storeProjectId && projectId == storeProjectId) dispatch({ type: ActionType.DEFAULT });
+		if (isDataExists(cache,storeProjectId,projectId)) dispatch(getDefaultState());
 		else {
 			axios.baseAPI
 				.get(`api/Projects/${projectId}/customerEnquiry`)
@@ -184,4 +183,5 @@ export const updateProjectStatusToInReview = (projectId: string, success, error)
 				error(error);
 			});
 	}
+	error('error');
 };

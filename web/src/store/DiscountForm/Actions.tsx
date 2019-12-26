@@ -4,7 +4,8 @@ import { ActionType } from './Types/ActionType';
 import { Dispatch } from 'redux';
 import { IDiscountActivity } from './Types/IDiscountActivity';
 import EventType from '../../enums/EventType';
-import { isProjectStateInReview } from '../store-helper';
+import { isProjectStateInReview,isDataExists } from '../store-helper';
+import {getDefaultState} from '../Common/Action';
 
 const discountFormAddSuccess = (response: IDiscountActivity, event: EventType) => {
 	return {
@@ -49,9 +50,7 @@ const headers = {
 
 export const discountFormAdd = (projectId: string, data: IDiscountActivity, event: EventType) => {
 	return (dispatch: Dispatch) => {
-		if (isProjectStateInReview()) {
-			dispatch(discountFormError('error'));
-		} else {
+		if (!isProjectStateInReview()) {
 			data.projectId = projectId;
 			axios.baseAPI
 				.post('/api/Discounts/adddiscount', data, { headers: headers })
@@ -62,14 +61,13 @@ export const discountFormAdd = (projectId: string, data: IDiscountActivity, even
 					dispatch(discountFormError(error));
 				});
 		}
+		dispatch(discountFormError('error'));
 	};
 };
 
 export const discountFormEdit = (data: IDiscountActivity, event: EventType) => {
 	return (dispatch: Dispatch) => {
-		if (isProjectStateInReview()) {
-			dispatch(discountFormError('error'));
-		} else {
+		if (!isProjectStateInReview()) {
 			axios.baseAPI
 				.put('/api/Discounts/UpdateDiscount', data, { headers: headers })
 				.then((response) => {
@@ -79,13 +77,14 @@ export const discountFormEdit = (data: IDiscountActivity, event: EventType) => {
 					dispatch(discountFormError(error));
 				});
 		}
+		dispatch(discountFormError('error'));
 	};
 };
 
 export const getDiscountData = (projectId: string, cache: boolean = true) => {
 	return (dispatch: Dispatch) => {
 		let storeProjectId = store.getState().discount.form.projectId;
-		if (cache && storeProjectId && projectId == storeProjectId) dispatch({ type: ActionType.DEFAULT });
+		if (isDataExists(cache,storeProjectId,projectId)) dispatch(getDefaultState());
 		else {
 			axios.baseAPI
 				.get(`api/Discounts/${projectId}`, { headers: headers })

@@ -6,7 +6,8 @@ import { IProjectAdditionalDetail } from '../ProjectOverviewForm/Types/IProjectA
 import moment from 'moment';
 import EventType from '../../enums/EventType';
 import { ISubContractor } from './Types/ISubContractor';
-import { isProjectStateInReview } from '../store-helper';
+import { isProjectStateInReview,isDataExists } from '../store-helper';
+import {getDefaultState} from '../Common/Action';
 
 const subContractorFormAddSuccess = (response: ISubContractor, event: EventType) => {
 	return {
@@ -51,9 +52,7 @@ let config = {
 };
 export const subContractorFormAdd = (projectId: string, data: ISubContractor, event: EventType) => {
 	return (dispatch: Dispatch) => {
-		if (isProjectStateInReview()) {
-			dispatch(subContractorFormError('error'));
-		} else {
+		if (!isProjectStateInReview()) {
 			data.activities.map((element) => {
 				element.projectId = projectId;
 			});
@@ -66,14 +65,13 @@ export const subContractorFormAdd = (projectId: string, data: ISubContractor, ev
 					dispatch(subContractorFormError(error));
 				});
 		}
+		dispatch(subContractorFormError('error'));
 	};
 };
 
 export const subContractorFormEdit = (projectId: string, data: ISubContractor, event: EventType) => {
 	return (dispatch: Dispatch) => {
-		if (isProjectStateInReview()) {
-			dispatch(subContractorFormError('error')); 
-		} else {
+		if (!isProjectStateInReview()) {
 			data.activities.map((element) => {
 				element.projectId = projectId;
 			});
@@ -86,13 +84,14 @@ export const subContractorFormEdit = (projectId: string, data: ISubContractor, e
 					dispatch(subContractorFormError(error));
 				});
 		}
+		dispatch(subContractorFormError('error'));
 	};
 };
 
 export const getSubContractor = (projectId: string, cache: boolean = true) => {
 	return (dispatch: Dispatch) => {
 		let storeProjectId = store.getState().subContractor.form.activities[0].projectId;
-		if (cache && storeProjectId && projectId == storeProjectId) dispatch({ type: 'DEFAULT' });
+		if (isDataExists(cache,storeProjectId,projectId)) dispatch(getDefaultState());
 		else {
 			axios.baseAPI
 				.get(`api/SubContractor/${projectId}/activities`, config)

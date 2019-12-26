@@ -90,9 +90,7 @@ let config = {
 };
 export const projectOverviewFormAdd = (projectId: string, data: IProjectOverviewDetails, event: EventType) => {
 	return (dispatch: Dispatch) => {
-		if (isProjectStateInReview()) {
-			dispatch(projectOverviewFormError('error'));
-		} else {
+		if (!isProjectStateInReview()) {
 			data.projectId = projectId;
 			data.projectAdditionalDetail.projectId = projectId;
 			axios.baseAPI
@@ -104,14 +102,13 @@ export const projectOverviewFormAdd = (projectId: string, data: IProjectOverview
 					dispatch(projectOverviewFormError(error));
 				});
 		}
+		dispatch(projectOverviewFormError('error'));
 	};
 };
 
 export const projectOverviewFormEdit = (data: IProjectOverviewState, event: EventType) => {
 	return (dispatch: Dispatch) => {
-		if (isProjectStateInReview()) {
-			dispatch(projectOverviewFormError('error'));
-		} else {
+		if (!isProjectStateInReview()) {
 			axios.baseAPI
 				.put('api/Projects/additionalDetails', data, config)
 				.then((response) => {
@@ -121,11 +118,12 @@ export const projectOverviewFormEdit = (data: IProjectOverviewState, event: Even
 					dispatch(projectOverviewFormError(error));
 				});
 		}
+		dispatch(projectOverviewFormError('error'));
 	};
 };
 
 export const getAdditionalDetails = (projectId: string) => {
-	return (dispatch: Dispatch) => {
+	return (dispatch: Dispatch) => { 
 		axios.baseAPI
 			.get(`api/Projects/${projectId}/additionalDetails`, config)
 			.then((response) => {

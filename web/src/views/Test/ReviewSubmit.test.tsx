@@ -80,6 +80,6 @@ describe('review and approve component test cases', () => {
 		data.form.status = ProjectStatus.InReview;
 		setUpStore(data);
 		mountComponent();
-		expect(wrapper.find('.link_disabled').length).toEqual(1);
+		expect(wrapper.find('.link_disabled').length).toBeGreaterThan(0);
 	});
 });
