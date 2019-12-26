@@ -144,6 +144,78 @@ Object {
 }
 `;
 
+exports[`Lookup reducer should handle GET_ALL_LANGUAGES_ERROR 1`] = `
+Object {
+  "countries": Array [
+    Object {
+      "code": "AFG",
+      "countryId": 1,
+      "isoAlpha2Code": "AF",
+      "name": "fghanistan",
+    },
+  ],
+  "currencies": Array [
+    Object {
+      "currencyId": 4,
+      "currencyName": "AED",
+      "currencySymbol": "",
+    },
+  ],
+  "error": undefined,
+  "languages": Array [
+    Object {
+      "languageID": 1,
+      "name": "English",
+      "shortName": "en",
+    },
+  ],
+  "projectstatus": Array [
+    Object {
+      "description": "Initial Customer Inquiry",
+      "lookupId": 1,
+      "lookupItem": "Project_Status",
+      "lookupKey": 1,
+    },
+  ],
+}
+`;
+
+exports[`Lookup reducer should handle GET_ALL_LANGUAGES_SUCCESS 1`] = `
+Object {
+  "countries": Array [
+    Object {
+      "code": "AFG",
+      "countryId": 1,
+      "isoAlpha2Code": "AF",
+      "name": "fghanistan",
+    },
+  ],
+  "currencies": Array [
+    Object {
+      "currencyId": 4,
+      "currencyName": "AED",
+      "currencySymbol": "",
+    },
+  ],
+  "error": null,
+  "languages": Array [
+    Object {
+      "languageID": 1,
+      "name": "English",
+      "shortName": "en",
+    },
+  ],
+  "projectstatus": Array [
+    Object {
+      "description": "Initial Customer Inquiry",
+      "lookupId": 1,
+      "lookupItem": "Project_Status",
+      "lookupKey": 1,
+    },
+  ],
+}
+`;
+
 exports[`Lookup reducer should handle LOOKUP_PROJECT_STATUS_GET_SUCCESS successfully 1`] = `
 Object {
   "countries": Array [

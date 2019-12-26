@@ -3,7 +3,31 @@ import { ActionType } from '../../../store/Lookups/Types/ActionType';
 import { ILookupState } from '../Types/ILookupState';
 import lookupReducer from '../Reducer';
 import { currencies, countries, projectstatus, languages } from './lookupData';
+import { getProjectStatus, getAllContries, getAllCurrencies, getAllLanguages} from '../Actions';
+import nock from 'nock';
+import { baseURL } from '../../../client/client';
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
 
+const middlewares = [thunk];
+const mockStore = configureMockStore(middlewares);
+
+nock(baseURL)
+  .post('/api/LookupData/GetLookupsByIds')
+  .reply(200, projectstatus);
+
+nock(baseURL)
+  .get('/api/LookupData/GetAllCurrencies')
+  .reply(200, currencies);
+
+nock(baseURL)
+  .get('/api/LookupData/Countries')
+  .reply(200, countries);
+
+nock(baseURL)
+  .get('/api/LookupData/GetLanguages')
+  .reply(200, languages);
+  
 const initialState: ILookupState = {
   projectstatus,
   currencies,
@@ -12,7 +36,13 @@ const initialState: ILookupState = {
   error: null
 };
 
+let store = mockStore();
+
 describe('Lookup reducer', () => {
+  beforeEach(()=>{
+    store.dispatch=jest.fn(); 
+  })
+
   it('should handle default action', () => {
     const defaultAction: any = {
       type: ActionType.DEFAULT
@@ -85,5 +115,45 @@ describe('Lookup reducer', () => {
     expect(
       lookupReducer(initialState, getCountriesErrorAction)
     ).toMatchSnapshot();
+  });
+
+  it('should handle GET_ALL_LANGUAGES_SUCCESS', () => {
+    const getLanguagesSuccessAction: any = {
+      type: ActionType.GET_ALL_LANGUAGE_SUCCESS,
+      payload: languages
+    };
+    expect(
+      lookupReducer(initialState, getLanguagesSuccessAction)
+    ).toMatchSnapshot();
+  });
+
+  it('should handle GET_ALL_LANGUAGES_ERROR', () => {
+    const getLanguagesErrorAction: any = {
+      type: ActionType.GET_ALL_LANGUAGE_ERROR,
+      error: { success: false }
+    };
+    expect(
+      lookupReducer(initialState, getLanguagesErrorAction)
+    ).toMatchSnapshot();
+  });
+
+  it('should handle getProjectStatus successfully',async () => {
+    await getProjectStatus()(store.dispatch);
+    expect(store.dispatch).toHaveBeenCalled;
+  });
+
+  it('should handle getAllLanguages successfully',async () => {
+   await getAllLanguages()(store.dispatch);
+    expect(store.dispatch).toHaveBeenCalled;
+  });
+
+  it('should handle getAllCurrencies successfully',async () => {
+    await getAllCurrencies()(store.dispatch);
+    expect(store.dispatch).toHaveBeenCalled;
+  });
+
+  it('should handle getAllContries successfully',async () => {
+    await getAllContries()(store.dispatch);
+    expect(store.dispatch).toHaveBeenCalled;
   });
 });

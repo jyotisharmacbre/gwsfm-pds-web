@@ -5,6 +5,7 @@ import { Dispatch } from 'redux';
 import { ICurrency } from './Types/ICurrency';
 import { ILanguage } from './Types/ILanguage';
 import { de } from 'date-fns/esm/locale';
+import { ICountry } from './Types/ICountry';
 
 const getProjectStatusSuccess = (response: any) => {
   return {
@@ -95,7 +96,7 @@ export const getAllCurrencies = (cache:boolean = true) => {
   };
 };
 
-const getAllCountriesSuccess = (response: Array<ICurrency>) => {
+const getAllCountriesSuccess = (response: Array<ICountry>) => {
   return {
     type: ActionType.GET_ALL_COUNTRIES_SUCCESS,
     payload: response
