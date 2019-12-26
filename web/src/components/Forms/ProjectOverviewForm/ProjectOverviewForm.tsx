@@ -60,11 +60,7 @@ let ProjectOverviewForm: React.FC<Props &
     const normalize = value => (value ? parseInt(value) : null);
 
     return (
-      <div className="container-fluid ">
-        <div className="row">
-          <div className="col-lg-12 col-sm-12">
-            {/* 20-dec-2019 */}
-            <div className="custom-wrap">
+      
               
             
               <form
@@ -674,10 +670,6 @@ let ProjectOverviewForm: React.FC<Props &
                 </button>
               </div>
             </form>
-          </div>
-        </div>
-      </div>
-      </div>
     );
   };
 

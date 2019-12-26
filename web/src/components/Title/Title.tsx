@@ -6,13 +6,13 @@ import { faDownload } from '@fortawesome/free-solid-svg-icons';
 
 export function MainTitle(props: any) {
   return (
-    <div className="row align-items-center mb-3">
-                <div className="col-lg-6">
-                  <h1 className="mb-2">{props.children}</h1>
-                </div>
-               
-              </div>
-    
+    <div className="row align-items-center mb-3 mt-md-4 mt-2">
+      <div className="col-lg-6">
+        <h1 className="mb-2 mt-0">{props.children}</h1>
+      </div>
+
+    </div>
+
   );
 }
 
