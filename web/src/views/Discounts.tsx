@@ -26,8 +26,8 @@ interface IMapStateToProps {
   projectStatus: Array<ILookup>;
   currencies: Array<ICurrency> | null;
   currencyId: number;
-  clientName: string;
-  otherClientName: string;
+  customerName: string;
+  otherCustomerName: string;
   status: number;
 }
 
@@ -122,8 +122,8 @@ const Discounts: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = pro
               projectstatus={props.projectStatus}
               currencies={props.currencies}
               currencyId={props.currencyId}
-              clientName={props.clientName}
-              otherClientName= {props.otherClientName} 
+              customerName={props.customerName}
+              otherCustomerName= {props.otherCustomerName} 
               projectId={props.match.params.projectId}/>
             </div>
           </div>
@@ -140,8 +140,8 @@ const mapStateToProps = (state: IState) => ({
     currencies: state.lookup.currencies,
     currencyId: state.project.form.currencyId,
     status:state.project.form.status,
-    clientName: state.project.form.contractorId,
-    otherClientName: state.project.form.otherContractName
+    customerName: state.project.form.contractorId,
+    otherCustomerName: state.project.form.otherContractName
   })
 
   const mapDispatchToProps = dispatch => {

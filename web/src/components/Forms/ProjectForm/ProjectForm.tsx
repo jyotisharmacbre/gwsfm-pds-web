@@ -81,23 +81,20 @@ const ProjectForm: React.FC<Props &
       ? props.dynamicsOtherCompany[0].id
       : '';
 
-  const getFormattedContractId = (customerId: string) => {
-    return customerId === '0' ? '' : `(${customerId}), `;
+  const getFormattedCustomerId = (customerId: string) => {
+    return customerId === '' ? '' : `- ${customerId})`;
   };
 
-  const getFormattedCompanyId = (companyId: string) => {
-    return companyId === '' ? '' : `(${companyId})`;
+  const getFormattedCustomer = (customerName: string, customerId: string) => {
+    return ( `${customerName === '' ? '' : `(${customerName}`} ${getFormattedCustomerId(customerId)}`)    
   };
 
-  const getDynamicsContractDropdown =
+    const getDynamicsContractDropdown =
     dynamicsContractCustomerData &&
     dynamicsContractCustomerData.map((ContractData: any) => {
       return {
-        label: `${ContractData.contractName}${getFormattedContractId(
-          ContractData.contractId
-        )}${
-          ContractData.customerName === '' ? '' : ContractData.customerName
-        }${getFormattedCompanyId(ContractData.customerId)}`,
+        label: `${ContractData.contractName} ${ContractData.contractId === '0' ? '' : `- ${ContractData.contractId}`}
+        ${getFormattedCustomer(ContractData.customerName, ContractData.customerId)}`,
         id: ContractData.contractId
       };
     });

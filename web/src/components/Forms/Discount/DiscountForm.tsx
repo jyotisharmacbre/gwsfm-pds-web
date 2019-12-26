@@ -27,11 +27,10 @@ import IReactIntl from '../../../Translations/IReactIntl';
 import { MainTitle } from '../../Title/Title';
 import PdsFormRadio from '../../PdsFormHandlers/PdsFormRadio';
 import { IDiscountActivity } from '../../../store/DiscountForm/Types/IDiscountActivity';
-import { dynamicsCompany } from '../../TypeAhead/TypeAheadConstantData/dynamicCompanyData';
 import CalculationsSummaryTable from '../../Table/CalculationsSummaryTable';
 import CalculationsSummaryType from '../../../enums/CalculationsSummaryType';
 import ISummaryCalculation from '../../../store/SummaryCalculation/Types/ISummaryCalculation';
-import { dynamicsContract } from '../../TypeAhead/TypeAheadConstantData/dynamicContractData';
+import { IDynamicContractCustomerData } from '../../../store/DynamicsData/Types/IDynamicData';
 
 
 interface Props {
@@ -41,8 +40,8 @@ interface Props {
   projectstatus: any;
   currencies: Array<ICurrency> | null;
   currencyId: any;
-  clientName: string;
-  otherClientName: string;
+  customerName: string;
+  otherCustomerName: string;
   projectId:string;
 }
 
@@ -53,6 +52,7 @@ interface IMapStateToProps {
   discountForm:  {} | IDiscountActivity;
   summaryCalculation:ISummaryCalculation;
   userPreferenceCurrencyId:number;
+  dynamicsContractCustomerData: Array<IDynamicContractCustomerData>;
 }
 
   let DiscountForm: React.FC<Props & IMapStateToProps & InjectedFormProps<IDiscountActivity, Props & IMapStateToProps>> = props => {
@@ -139,7 +139,7 @@ interface IMapStateToProps {
                   </MainTitle>
                   <Field
                   input={{
-                    value: (getFilterElementFromArray(dynamicsContract,"CustomerId", props.clientName,"Name") || props.otherClientName),
+                    value: (getFilterElementFromArray(props.dynamicsContractCustomerData,"contractId", props.customerName,"customerName") || props.otherCustomerName),
                     disabled: true
                     }}
                     type="text"
@@ -251,7 +251,8 @@ const mapStateToProps = (state: IState) => ({
   clientDiscountValue:discountSelector(state, 'clientDiscount'),
   discountForm:  getFormValues('DiscountForm')(state),
   summaryCalculation:state.summaryCalculation,
-  userPreferenceCurrencyId: userPreferenceSelector(state, 'currencyId')
+  userPreferenceCurrencyId: userPreferenceSelector(state, 'currencyId'),
+  dynamicsContractCustomerData: state.dynamicData.dynamicsContract
 });
 
 const form = reduxForm<IDiscountActivity, Props & IMapStateToProps>({
