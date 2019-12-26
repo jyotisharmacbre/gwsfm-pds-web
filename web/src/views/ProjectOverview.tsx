@@ -18,7 +18,7 @@ import { ILookup } from '../store/Lookups/Types/ILookup';
 import { History } from 'history';
 import { toast } from 'react-toastify';
 import { formatMessage } from '../Translations/connectedIntlProvider';
-import { getFilterElementFromArray } from '../helpers/utility-helper';
+import { getFilterElementFromArray,getClassNameForProjectStatus } from '../helpers/utility-helper';
 import ProjectOverviewStatusTab from '../components/Forms/ProjectOverviewForm/ProjectOverviewStatusTab';
 import { getDynamicSubContractorData } from '../store/DynamicsData/Action';
 import { IDynamicSubContractorData, IDynamicContractCustomerData } from '../store/DynamicsData/Types/IDynamicData';
@@ -85,29 +85,30 @@ interface IProps {
 const ProjectOverview: React.FC<IProps &
   IMapStateToProps &
   IMapDispatchToProps> = props => {
-    useEffect(() => {
-      window.scrollTo(0, 0);
-      props.getProjectStatus();
-      props.getProjectDetail(props.match.params.projectId);
-      let paramProjectId = props.projectId == '' ? props.match.params.projectId : props.projectId;
-      if (paramProjectId != null && paramProjectId != '') {
-        props.getAdditionalDetails(paramProjectId);
-        props.getEnquiryOverview(paramProjectId);
-      }
-    }, []);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    props.getProjectStatus();
+    let paramProjectId = props.match.params.projectId;
+    if (paramProjectId != null && paramProjectId != '') {
+      props.getProjectDetail(paramProjectId);
+      props.getAdditionalDetails(paramProjectId);
+      props.getEnquiryOverview(paramProjectId);
+    }
+  }, []);
 
-    useEffect(() => {
-      if (props.notify == Notify.success) {
-        if (props.event == EventType.next) {
-          toast.success('Data Saved Successfully');
-          props.history.push(`/JustificationAuthorisation/${props.match.params.projectId}`);
-        } else if (props.event == EventType.previous) {
-          toast.success('Data Saved Successfully');
-          props.history.push(`/Project/${props.match.params.projectId}`);
-        }
-        props.resetProjectOverviewState();
+  useEffect(() => {
+    if (props.notify == Notify.success) {
+      if (props.event == EventType.next) {
+        toast.success('Data Saved Successfully');
+        props.history.push(`/JustificationAuthorisation/${props.match.params.projectId}`);
+      } else if (props.event == EventType.previous) {
+        toast.success('Data Saved Successfully');
+        props.history.push(`/Project/${props.match.params.projectId}`);
       }
-    }, [props.notify, props.event]);
+      props.resetProjectOverviewState();
+    }
+  }, [props.notify, props.event]);
+   
     useEffect(() => {
       if (props.notify == Notify.success) {
         if (props.event == EventType.save) {
@@ -125,6 +126,7 @@ const ProjectOverview: React.FC<IProps &
       props.resetProjectOverviewState();
     },
       [props.notify]);
+      
     useEffect(() => {
       props.setAdminDefaultValues(props.countryId);
     },
@@ -173,9 +175,9 @@ const ProjectOverview: React.FC<IProps &
           <div className="col-lg-12 col-sm-12">
             {/* 20-dec-2019 */}
             <div className="custom-wrap">
-              <div className="row align-items-center mb-3 mt-md-4 mt-2">
+              <div className="row align-items-center my-3 my-lg-4 pb-2">
                 <div className="col-lg-6">
-                  <h1 className="mb-2 mt-0">{formatMessage('TITLE_PROJECT_OVERVIEW')}</h1>
+                  <h1 className="m-0">{formatMessage('TITLE_PROJECT_OVERVIEW')}</h1>
                 </div>
                 <ProjectOverviewStatusTab status={props.status} statusName={getProjectStatusName()} onReactivate={handleReactivateEvent} handleOnHold={handleOnHoldEvent} handleBidLost={handleBidLostEvent} />
               </div>
@@ -194,7 +196,6 @@ const ProjectOverview: React.FC<IProps &
                       heading: formatMessage('MESSAGE_PROJECT_NAME'),
                       subHeading: props.enquiryOverview.projectName
                     },
-                    { heading: formatMessage('LABEL_PROJECT_ID'), subHeading: props.projectId },
                     {
                       heading: formatMessage('LABEL_CN_NUMBER'),
                       subHeading: convertToString(props.enquiryOverview.cnNumber)

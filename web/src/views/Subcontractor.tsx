@@ -7,7 +7,7 @@ import { IState } from '../store/state';
 import EventType from '../enums/EventType';
 import { toast } from 'react-toastify';
 import Notify from '../enums/Notify';
-import {getPropertyName,getFilterElementFromArray} from '../helpers/utility-helper';
+import {getPropertyName,getFilterElementFromArray,getClassNameForProjectStatus} from '../helpers/utility-helper';
 import { ICurrency } from '../store/Lookups/Types/ICurrency';
 import { FormattedMessage } from 'react-intl';
 import Currency from '../store/Lookups/InitialState/Currency';
@@ -104,7 +104,7 @@ const Subcontractor: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> =
 
   return (
     <div className="container-fluid">
-           <div data-test="sub_row_status" className={(props.status==ProjectStatus.BidLost||props.status==ProjectStatus.OnHold)?"link_disabled row":"row"}>
+           <div data-test="sub_row_status" className={`${getClassNameForProjectStatus(props.status)} row`}>
           <div className="col-lg-12">
             <div className="custom-wrap">
               <div className="heading-subtitle">
