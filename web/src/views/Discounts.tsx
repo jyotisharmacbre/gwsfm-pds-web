@@ -13,6 +13,7 @@ import { History } from 'history';
 import { ILookup } from '../store/Lookups/Types/ILookup';
 import { ICurrency } from '../store/Lookups/Types/ICurrency';
 import ProjectStatus from '../enums/ProjectStatus';
+import { IDynamicContractCustomerData } from '../store/DynamicsData/Types/IDynamicData';
 import { getClassNameForProjectStatus } from '../helpers/utility-helper';
 
 interface IProps {
@@ -27,10 +28,10 @@ interface IMapStateToProps {
   projectStatus: Array<ILookup>;
   currencies: Array<ICurrency> | null;
   currencyId: number;
-  clientName: string;
-  otherClientName: string;
+  customerName: string;
+  otherCustomerName: string;
   status: number;
-
+  dynamicsContractCustomerData: Array<IDynamicContractCustomerData>;
 }
 
 interface IMapDispatchToProps {
@@ -73,7 +74,6 @@ const Discounts: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = pro
         toast.success('Data Saved Successfully');
         props.history.push(`/ReviewSubmit/${props.match.params.projectId}`);
       } else if (props.event == EventType.previous) {
-        toast.success('Data Saved Successfully');
         props.history.push(`/Subcontractor/${props.match.params.projectId}`);
       } else if (props.event == EventType.save) {
         toast.success('Data Saved Successfully');
@@ -82,10 +82,8 @@ const Discounts: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = pro
     }
   }, [props.notify, props.event]);
 
-  const handlePrevious = (data: IDiscountActivity) => {
-    data.discountId == ''
-      ? props.discountFormAdd(paramProjectId, data, EventType.previous)
-      : props.discountFormEdit(data, EventType.previous);
+  const handlePrevious = () => {
+    props.history.push(`/Subcontractor/${props.match.params.projectId}`);
   };
 
   const handleNext = (data: IDiscountActivity) => {
@@ -122,10 +120,10 @@ const Discounts: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = pro
               projectstatus={props.projectStatus}
               currencies={props.currencies}
               currencyId={props.currencyId}
-              clientName={props.clientName}
-              otherClientName= {props.otherClientName} 
+              customerName={props.customerName}
+              otherCustomerName= {props.otherCustomerName} 
               projectId={props.match.params.projectId}
-              />
+              dynamicsContractCustomerData={props.dynamicsContractCustomerData}/>
             </div>
           </div>
         </div>
@@ -141,8 +139,9 @@ const mapStateToProps = (state: IState) => ({
     currencies: state.lookup.currencies,
     currencyId: state.project.form.currencyId,
     status:state.project.form.status,
-    clientName: state.project.form.contractorId,
-    otherClientName: state.project.form.otherContractName,
+    customerName: state.project.form.contractorId,
+    otherCustomerName: state.project.form.otherContractName,    
+    dynamicsContractCustomerData: state.dynamicData.dynamicsContract
   })
 
   const mapDispatchToProps = dispatch => {

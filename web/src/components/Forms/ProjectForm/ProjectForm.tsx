@@ -21,19 +21,28 @@ import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { LookupType } from '../../../store/Lookups/Types/LookupType';
-import { getPropertyName,getDropdown, getFilterElementFromArray, normalizeToNumber, maxLimit, calculateRank } from '../../../helpers/utility-helper';
+import {
+  getPropertyName,
+  getDropdown,
+  getFilterElementFromArray,
+  normalizeToNumber,
+  maxLimit,
+  calculateRank
+} from '../../../helpers/utility-helper';
 import PdsFormTypeAhead from '../../PdsFormHandlers/PdsFormTypeAhead';
 import { IProjectDetail } from '../../../store/CustomerEnquiryForm/Types/IProjectDetail';
 import { ICurrency } from '../../../store/Lookups/Types/ICurrency';
 import Currency from '../../../store/Lookups/InitialState/Currency';
 import IReactIntl from '../../../Translations/IReactIntl';
 import TypeAhead from '../../TypeAhead/TypeAhead';
-import { dynamicsContract } from '../../TypeAhead/TypeAheadConstantData/dynamicContractData';
-import { dynamicsCompany } from '../../TypeAhead/TypeAheadConstantData/dynamicCompanyData';
 import { dynamicsDivisions } from '../../../helpers/dynamicsDivisionData';
 import { dynamicBusinessUnits } from '../../../helpers/dynamicBusinessData';
 import { IUserServiceData } from '../../../store/UserService/Types/IUserService';
 import { any } from 'prop-types';
+import {
+  IDynamicContractCustomerData,
+  IDynamicCompanyData
+} from '../../../store/DynamicsData/Types/IDynamicData';
 import { ICountry } from '../../../store/Lookups/Types/ICountry';
 
 interface Props {
@@ -45,6 +54,8 @@ interface Props {
   onSearchCompany: (value: any) => void;
   onSearchUserService: (value: any) => void;
   userServiceData: Array<IUserServiceData>;
+  dynamicsContractCustomerData: Array<IDynamicContractCustomerData>;
+  dynamicsCompany: Array<IDynamicCompanyData>
   countries: Array<ICountry> | null;
 }
 
@@ -57,7 +68,9 @@ const ProjectForm: React.FC<Props &
     onSearchContract,
     onSearchCompany,
     onSearchUserService,
-    userServiceData
+    userServiceData,
+    dynamicsContractCustomerData,
+    dynamicsCompany
   } = props;
 
   const otherDynamicsContract =
@@ -65,44 +78,59 @@ const ProjectForm: React.FC<Props &
       ? props.dynamicsOtherContract[0].id
       : '';
 
-
-
   const otherDynamicsCompany =
     props.dynamicsOtherCompany.length > 0
       ? props.dynamicsOtherCompany[0].id
       : '';
 
-      const getFormattedContractId = (customerId: string) => {
-        return (customerId=== '0' ? '' : `(${customerId}), `)
-      }
-    
-      const getFormattedCompanyId = (companyId: string) => {
-        return (companyId=== '' ? '' : `(${companyId})`)
-      }
-    
-   const getDynamicsContractDropdown =
-      dynamicsContract &&
-      dynamicsContract.map((ContractData: any) => {
-        return { 
-        label: `${ContractData.ContractName}${getFormattedContractId(ContractData.ContractId)}${ContractData.Name === '' ? '' : ContractData.Name}${getFormattedCompanyId(ContractData.CustomerId)}`,
-        id: ContractData.ContractId }     
-      }); 
-    
-  const getDynamicsCompanyDropdown =
-  dynamicsCompany &&
-  dynamicsCompany.map((CompanyData: any) => {
-    return { label: CompanyData.Name, id: CompanyData.CompanyId };
-  });
-  const getUserServiceDropdown =
-  userServiceData &&
-  userServiceData.filter(user => user.firstname && user.lastName).map((UserServiceData: any) => {
-    return { label: `${UserServiceData.firstname} ${UserServiceData.lastName} (${UserServiceData.email === null ? 'NA' : UserServiceData.email})`,
-     id: UserServiceData.id,
-      email: UserServiceData.email
-    };
-  });
+  const getFormattedCustomerId = (customerId: string) => {
+    return customerId === '' ? '' : `- ${customerId}`;
+  };
 
-    const CurrencyObj = new Currency();
+  const getFormattedCustomer = (customerName: string, customerId: string) => {
+    return ( `${customerName === '' ? '' : `${customerName}`} ${getFormattedCustomerId(customerId)}`)    
+  };
+
+  const getFormattedContractId = (contractId: string) => {
+    return contractId === '0' ? '' : `- ${contractId})`;
+  };
+
+  const getFormattedContract = (contractName: string, contractId: string) => {
+    return ( `${contractName === 'Other' ? `${contractName}` :  `(${contractName}`} 
+    ${getFormattedContractId(contractId)}` )
+  };
+
+    const getDynamicsContractDropdown =
+    dynamicsContractCustomerData &&
+    dynamicsContractCustomerData.map((ContractData: any) => {
+      return {
+        label: (`${getFormattedCustomer(ContractData.customerName, ContractData.customerId)}
+        ${getFormattedContract(ContractData.contractName,ContractData.contractId)}`).trim(),
+        id: ContractData.contractId
+      };
+    });
+
+  const getDynamicsCompanyDropdown =
+    dynamicsCompany &&
+    dynamicsCompany.map((CompanyData: any) => {
+      return { label: CompanyData.name, id: CompanyData.companyId };
+    });
+
+  const getUserServiceDropdown =
+    userServiceData &&
+    userServiceData
+      .filter(user => user.firstname && user.lastName)
+      .map((UserServiceData: any) => {
+        return {
+          label: `${UserServiceData.firstname} ${UserServiceData.lastName} (${
+            UserServiceData.email === null ? 'NA' : UserServiceData.email
+          })`,
+          id: UserServiceData.id,
+          email: UserServiceData.email
+        };
+      });
+
+  const CurrencyObj = new Currency();
 
   return (
     <div className="container-fluid">
@@ -124,9 +152,10 @@ const ProjectForm: React.FC<Props &
                     Currently, This field is using "require"(no memoize) insted of "required"(with memoize),
                     It is in use to change the state of "required" error message on language change*/
                     [
-                    Validate.require('LABEL_PROJECT'),
-                    Validate.maxLength(1000)
-                  ]}
+                      Validate.require('LABEL_PROJECT'),
+                      Validate.maxLength(1000)
+                    ]
+                  }
                   messageKey="MESSAGE_PROJECT_NAME"
                   labelKey="LABEL_PROJECT"
                   placeholderKey="PLACEHOLDER_PROJECT_NAME"
@@ -136,20 +165,15 @@ const ProjectForm: React.FC<Props &
                     <FormattedMessage id="LABEL_DIVISION" />
                   </label>
                   <div className="select-wrapper">
-                    <Field
-                      name="divisionId"
-                      component={PdsFormSelect}
-                    >
+                    <Field name="divisionId" component={PdsFormSelect}>
                       <FormattedMessage id="PLACEHOLDER_DIVISION">
                         {message => <option value="">{message}</option>}
                       </FormattedMessage>
-                      
+
                       {dynamicsDivisions &&
                         dynamicsDivisions.map((data: any, i: number) => {
                           return (
-                            <option
-                              value={data.DivisionId}
-                            >
+                            <option value={data.DivisionId}>
                               {data.Description}
                             </option>
                           );
@@ -163,19 +187,14 @@ const ProjectForm: React.FC<Props &
                     <FormattedMessage id="LABEL_BUSINESS_UNIT" />
                   </label>
                   <div className="select-wrapper">
-                    <Field
-                      name="businessUnitId"
-                      component={PdsFormSelect}
-                    >
+                    <Field name="businessUnitId" component={PdsFormSelect}>
                       <FormattedMessage id="PLACEHOLDER_BUSINESS_UNIT">
                         {message => <option value="">{message}</option>}
                       </FormattedMessage>
                       {dynamicBusinessUnits &&
                         dynamicBusinessUnits.map((data: any, i: number) => {
                           return (
-                            <option
-                              value={data.BusinessUnitId}
-                            >
+                            <option value={data.BusinessUnitId}>
                               {data.Description}
                             </option>
                           );
@@ -183,15 +202,17 @@ const ProjectForm: React.FC<Props &
                     </Field>
                   </div>
                 </div>
-                <TypeAhead name="companyId"
-                options={getDynamicsCompanyDropdown}
-                DynamicsType="companyId"
-                onSearch={onSearchCompany}
-                placeholderKey="PLACEHOLDER_COMPANY_NAME"
-                className="required"
-                labelName="LABEL_COMPANY"
-                validationKey="LABEL_COMPANY"
-                submitParam = "id"/>
+                <TypeAhead
+                  name="companyId"
+                  options={getDynamicsCompanyDropdown}
+                  DynamicsType="companyId"
+                  onSearch={onSearchCompany}
+                  placeholderKey="PLACEHOLDER_COMPANY_NAME"
+                  className="required"
+                  labelName="LABEL_COMPANY"
+                  validationKey="LABEL_COMPANY"
+                  submitParam="id"
+                />
                 {otherDynamicsCompany === '0' && (
                   <Field
                     name="otherCompanyName"
@@ -206,15 +227,17 @@ const ProjectForm: React.FC<Props &
                     placeholderKey="PLACEHOLDER_COMPANY_NAME"
                   />
                 )}
-                <TypeAhead name="contractorId"
-                options={getDynamicsContractDropdown}
-                DynamicsType="contractorId"
-                onSearch={onSearchContract}
-                placeholderKey="PLACEHOLDER_CONTRACT"
-                className="required"
-                labelName="LABEL_CONTRACT"
-                validationKey="LABEL_CONTRACT"
-                submitParam = "id"/>
+                <TypeAhead
+                  name="contractorId"
+                  options={getDynamicsContractDropdown}
+                  DynamicsType="contractorId"
+                  onSearch={onSearchContract}
+                  placeholderKey="PLACEHOLDER_CONTRACT"
+                  className="required"
+                  labelName="LABEL_CONTRACT"
+                  validationKey="LABEL_CONTRACT"
+                  submitParam="id"
+                />
 
                 {otherDynamicsContract === '0' && (
                   <Field
@@ -231,36 +254,41 @@ const ProjectForm: React.FC<Props &
                   />
                 )}
 
-<TypeAhead name="headOfProject"
-                options={getUserServiceDropdown}
-                DynamicsType="headOfProject"
-                onSearch={onSearchUserService}
-                placeholderKey="PLACEHOLDER_HEAD_OF_PROJECT_NAME"
-                className="required"
-                labelName="LABEL_HEAD_OF_PROJECT"
-                validationKey="LABEL_HEAD_OF_PROJECT"
-                submitParam = "email"/>
+                <TypeAhead
+                  name="headOfProject"
+                  options={getUserServiceDropdown}
+                  DynamicsType="headOfProject"
+                  onSearch={onSearchUserService}
+                  placeholderKey="PLACEHOLDER_HEAD_OF_PROJECT_NAME"
+                  className="required"
+                  labelName="LABEL_HEAD_OF_PROJECT"
+                  validationKey="LABEL_HEAD_OF_PROJECT"
+                  submitParam="email"
+                />
 
-<TypeAhead name="projectOwner"
-                options={getUserServiceDropdown}
-                DynamicsType="projectOwner"
-                onSearch={onSearchUserService}
-                placeholderKey="PLACEHOLDER_PROJECT_OWNER_NAME"
-                className="required"
-                labelName="LABEL_PROJECT_OWNER"
-                validationKey="LABEL_PROJECT_OWNER"
-                submitParam = "email"/>
+                <TypeAhead
+                  name="projectOwner"
+                  options={getUserServiceDropdown}
+                  DynamicsType="projectOwner"
+                  onSearch={onSearchUserService}
+                  placeholderKey="PLACEHOLDER_PROJECT_OWNER_NAME"
+                  className="required"
+                  labelName="LABEL_PROJECT_OWNER"
+                  validationKey="LABEL_PROJECT_OWNER"
+                  submitParam="email"
+                />
 
-
-<TypeAhead name="projectManager"
-                options={getUserServiceDropdown}
-                DynamicsType="projectManager"
-                onSearch={onSearchUserService}
-                placeholderKey="PLACEHOLDER_PROJECT_MANAGER"
-                className="required"
-                labelName="LABEL_PROJECT_MANAGER"
-                validationKey="LABEL_PROJECT_MANAGER"
-                submitParam = "email"/>
+                <TypeAhead
+                  name="projectManager"
+                  options={getUserServiceDropdown}
+                  DynamicsType="projectManager"
+                  onSearch={onSearchUserService}
+                  placeholderKey="PLACEHOLDER_PROJECT_MANAGER"
+                  className="required"
+                  labelName="LABEL_PROJECT_MANAGER"
+                  validationKey="LABEL_PROJECT_MANAGER"
+                  submitParam="email"
+                />
 
                 <Field
                   name="pmHasExperience"
@@ -277,16 +305,14 @@ const ProjectForm: React.FC<Props &
                   validate={[
                     Validate.required('LABEL_PROJECT_SCOPE'),
                     Validate.maxLength(5000)
-                  ]}             
+                  ]}
                   labelKey="LABEL_PROJECT_SCOPE"
                 />
                 <Field
                   name="cnNumber"
                   type="text"
                   component={PdsFormInput}
-                  validate={[
-                    Validate.maxLength(25)
-                  ]}  
+                  validate={[Validate.maxLength(25)]}
                   labelKey="LABEL_CN_NUMBER"
                   placeholderKey="PLACEHOLDER_CN_NUMBER"
                 />
@@ -312,10 +338,16 @@ const ProjectForm: React.FC<Props &
                 </div>
 
                 <div className={'form-group'}>
-                  <label><FormattedMessage id='LABEL_TYPE_OF_ENGAGEMENT'></FormattedMessage></label>
+                  <label>
+                    <FormattedMessage id="LABEL_TYPE_OF_ENGAGEMENT"></FormattedMessage>
+                  </label>
                   <div className="select-wrapper">
-                    <Field name="engagementId" component={PdsFormSelect} normalize={normalizeToNumber}>                    
-                    <FormattedMessage id="PLACEHOLDER_TYPE_OF_ENGAGEMENT">
+                    <Field
+                      name="engagementId"
+                      component={PdsFormSelect}
+                      normalize={normalizeToNumber}
+                    >
+                      <FormattedMessage id="PLACEHOLDER_TYPE_OF_ENGAGEMENT">
                         {message => <option value="">{message}</option>}
                       </FormattedMessage>
                       {getDropdown(
@@ -400,7 +432,7 @@ const ProjectForm: React.FC<Props &
                     onlyNumber
                   ]}
                   messageKey="MESSAGE_PROBABILITYOFWINING"
-                  normalize = {maxLimit}
+                  normalize={maxLimit}
                 />
 
                 <Field
@@ -415,15 +447,11 @@ const ProjectForm: React.FC<Props &
                   ]}
                   currency={getFilterElementFromArray(
                     props.currencies,
-                    getPropertyName(
-                    CurrencyObj,
-                    prop => prop.currencyId
-                  ),
-                    props.currencyId > 0 ? props.currencyId : props.userPreferenceCurrencyId ,
-                    getPropertyName(
-                    CurrencyObj,
-                    prop => prop.currencySymbol
-                  )
+                    getPropertyName(CurrencyObj, prop => prop.currencyId),
+                    props.currencyId > 0
+                      ? props.currencyId
+                      : props.userPreferenceCurrencyId,
+                    getPropertyName(CurrencyObj, prop => prop.currencySymbol)
                   )}
                   divPosition="relative"
                   labelKey="LABEL_APPROXIMATE_VALUE"
@@ -521,44 +549,41 @@ const ProjectForm: React.FC<Props &
                   type="number"
                   component={PdsFormInput}
                   labelKey="LABEL_SOLID_MARGIN"
-                  className="pl-30 width-288"  
-                  discountBind = "%"
-                  validate={[
-                    Validate.maxLength(3)
-                  ]}
-                  normalize = {maxLimit}
+                  className="pl-30 width-288"
+                  discountBind="%"
+                  validate={[Validate.maxLength(3)]}
+                  normalize={maxLimit}
                 />
 
-<Field
+                <Field
                   name="weightedTCV"
                   type="number"
                   component={PdsFormInput}
                   labelKey="LABEL_WEIGHTED_TCV"
-                  className="pl-20 width-288"   
+                  className="pl-20 width-288"
                   currency={getFilterElementFromArray(
                     props.currencies,
-                    getPropertyName(
-                    CurrencyObj,
-                    prop => prop.currencyId
-                  ),
-                  props.currencyId > 0 ? props.currencyId : props.userPreferenceCurrencyId,
-                    getPropertyName(
-                    CurrencyObj,
-                    prop => prop.currencySymbol
-                  )
-                  )}   
+                    getPropertyName(CurrencyObj, prop => prop.currencyId),
+                    props.currencyId > 0
+                      ? props.currencyId
+                      : props.userPreferenceCurrencyId,
+                    getPropertyName(CurrencyObj, prop => prop.currencySymbol)
+                  )}
                 />
 
-<Field
+                <Field
                   name={'rank'}
                   type="text"
                   labelKey="LABEL_RANK"
                   input={{
-                    value:calculateRank(props.probabilityOfWinning, props.approximateValue),
-                     disabled: true 
-                    }}
-                   component={PdsFormInput}
-                   className= "static-field"
+                    value: calculateRank(
+                      props.probabilityOfWinning,
+                      props.approximateValue
+                    ),
+                    disabled: true
+                  }}
+                  component={PdsFormInput}
+                  className="static-field"
                 />
 
                 <Field
@@ -602,7 +627,7 @@ const mapStateToProps = (state: IState) => ({
   currencyId: selector(state, 'currencyId'),
   countryId: selector(state, 'countryId'),
   probabilityOfWinning: selector(state, 'probabilityOfWinning'),
-  approximateValue : selector(state, "approxValue"),
+  approximateValue: selector(state, 'approxValue'),
   userPreferenceCurrencyId: userPreferenceSelector(state, 'currencyId')
 });
 

@@ -18,11 +18,10 @@ import { ILookup } from '../store/Lookups/Types/ILookup';
 import { History } from 'history';
 import { toast } from 'react-toastify';
 import { formatMessage } from '../Translations/connectedIntlProvider';
-import { dynamicsContract } from '../components/TypeAhead/TypeAheadConstantData/dynamicContractData';
 import { getFilterElementFromArray,getClassNameForProjectStatus } from '../helpers/utility-helper';
 import ProjectOverviewStatusTab from '../components/Forms/ProjectOverviewForm/ProjectOverviewStatusTab';
 import { getDynamicSubContractorData } from '../store/DynamicsData/Action';
-import { IDynamicSubContractorData } from '../store/DynamicsData/Types/IDynamicData';
+import { IDynamicSubContractorData, IDynamicContractCustomerData } from '../store/DynamicsData/Types/IDynamicData';
 import { IProjectOverviewDetails } from '../store/ProjectOverviewForm/Types/IProjectOverviewDetails';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
@@ -54,6 +53,7 @@ interface IMapStateToProps {
   dynamicsSubContractor: Array<IDynamicSubContractorData>;
   countryId: number;
   history: History;
+  dynamicsContractCustomerData: Array<IDynamicContractCustomerData>;
 }
 interface IMapDispatchToProps {
   getProjectStatus: () => void;
@@ -189,8 +189,8 @@ const ProjectOverview: React.FC<IProps &
                   headers: [
                     {
                       heading: formatMessage('LABEL_END_CUSTOMER_NAME'),
-                      subHeading: convertToString(getFilterElementFromArray(dynamicsContract, 'ContractId',
-                        props.enquiryOverview.contractorId, 'Name') || props.enquiryOverview.otherContractName)
+                      subHeading: convertToString(getFilterElementFromArray(props.dynamicsContractCustomerData, 'contractId',
+                        props.enquiryOverview.contractorId, 'customerName') || props.enquiryOverview.otherContractName)
                     },
                     {
                       heading: formatMessage('MESSAGE_PROJECT_NAME'),
@@ -236,7 +236,8 @@ const mapStateToProps = (state: IState) => ({
   projectScope: state.project.form.scope,
   status: state.project.form.status,
   dynamicsSubcontractor: state.dynamicData.dynamicsSubcontractor,
-  countryId: state.project.form.countryId
+  countryId: state.project.form.countryId,
+  dynamicsContractCustomerData: state.dynamicData.dynamicsContract
 });
 
 const mapDispatchToProps = dispatch => {
