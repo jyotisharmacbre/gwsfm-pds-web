@@ -28,8 +28,8 @@ import { getSubContractorSummaryCalculation, getPreliminarySummaryCalculation } 
 
 interface Props {
   onNext: (data: IDiscountActivity) => void;
-  onPrevious: (data: IDiscountActivity) => void;
   onSave: (data: IDiscountActivity) => void;
+  onPrevious: () => void;
   projectstatus: any;
   currencies: Array<ICurrency> | null;
   currencyId: any;
@@ -243,7 +243,7 @@ let DiscountForm: React.FC<
 									className="active mb-4 mt-5"
 									type="button"
 									name="previous"
-									onClick={handleSubmit((values) => props.onPrevious(values))}
+									onClick={()=>props.onPrevious()}
 								>
 									<FormattedMessage id="BUTTON_PREVIOUS" />
 								</button>

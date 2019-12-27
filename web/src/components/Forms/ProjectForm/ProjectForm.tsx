@@ -96,15 +96,16 @@ const ProjectForm: React.FC<Props &
   };
 
   const getFormattedContract = (contractName: string, contractId: string) => {
-    return ( `(${contractName} ${getFormattedContractId(contractId)}`)    
+    return ( `${contractName === 'Other' ? `${contractName}` :  `(${contractName}`} 
+    ${getFormattedContractId(contractId)}` )
   };
 
     const getDynamicsContractDropdown =
     dynamicsContractCustomerData &&
     dynamicsContractCustomerData.map((ContractData: any) => {
       return {
-        label: `${getFormattedCustomer(ContractData.customerName, ContractData.customerId)}
-        ${getFormattedContract(ContractData.contractName,ContractData.contractId)}`,
+        label: (`${getFormattedCustomer(ContractData.customerName, ContractData.customerId)}
+        ${getFormattedContract(ContractData.contractName,ContractData.contractId)}`).trim(),
         id: ContractData.contractId
       };
     });

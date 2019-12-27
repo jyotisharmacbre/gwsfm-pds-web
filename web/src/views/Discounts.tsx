@@ -74,7 +74,6 @@ const Discounts: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = pro
         toast.success('Data Saved Successfully');
         props.history.push(`/ReviewSubmit/${props.match.params.projectId}`);
       } else if (props.event == EventType.previous) {
-        toast.success('Data Saved Successfully');
         props.history.push(`/Subcontractor/${props.match.params.projectId}`);
       } else if (props.event == EventType.save) {
         toast.success('Data Saved Successfully');
@@ -83,10 +82,8 @@ const Discounts: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = pro
     }
   }, [props.notify, props.event]);
 
-  const handlePrevious = (data: IDiscountActivity) => {
-    data.discountId == ''
-      ? props.discountFormAdd(paramProjectId, data, EventType.previous)
-      : props.discountFormEdit(data, EventType.previous);
+  const handlePrevious = () => {
+    props.history.push(`/Subcontractor/${props.match.params.projectId}`);
   };
 
   const handleNext = (data: IDiscountActivity) => {
