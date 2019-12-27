@@ -43,6 +43,7 @@ import {
   IDynamicContractCustomerData,
   IDynamicCompanyData
 } from '../../../store/DynamicsData/Types/IDynamicData';
+import { ICountry } from '../../../store/Lookups/Types/ICountry';
 
 interface Props {
   projectstatus: any;
@@ -54,7 +55,8 @@ interface Props {
   onSearchUserService: (value: any) => void;
   userServiceData: Array<IUserServiceData>;
   dynamicsContractCustomerData: Array<IDynamicContractCustomerData>;
-  dynamicsCompany: Array<IDynamicCompanyData>;
+  dynamicsCompany: Array<IDynamicCompanyData>
+  countries: Array<ICountry> | null;
 }
 
 const ProjectForm: React.FC<Props &
@@ -363,7 +365,17 @@ const ProjectForm: React.FC<Props &
                       <FormattedMessage id="PLACEHOLDER_COUNTRY">
                         {message => <option value="">{message}</option>}
                       </FormattedMessage>
-                      {getDropdown(props.projectstatus, LookupType.Country)}
+                      {props.countries &&
+                        props.countries.map((data: ICountry, i: number) => {
+                          return (
+                            <option
+                              key={data.countryId}
+                              value={data.countryId}
+                            >
+                              {data.name}
+                            </option>
+                          );
+                        })}
                     </Field>
                   </div>
                 </div>
@@ -604,6 +616,7 @@ const mapStateToProps = (state: IState) => ({
   dynamicsOtherContract: state.dynamicData.dynamicsOtherContract,
   dynamicsOtherCompany: state.dynamicData.dynamicsOtherCompany,
   currencyId: selector(state, 'currencyId'),
+  countryId: selector(state, 'countryId'),
   probabilityOfWinning: selector(state, 'probabilityOfWinning'),
   approximateValue: selector(state, 'approxValue'),
   userPreferenceCurrencyId: userPreferenceSelector(state, 'currencyId')
