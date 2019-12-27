@@ -1,0 +1,67 @@
+.RS_custom_block,
+.RS_project_block {
+    background: #fff;
+    border-radius: 5px;
+    margin-top: 15px;
+    margin-bottom: 24px;
+    .RS_custom_inner,
+    .RS_project_inner {
+        padding: 25px;
+        ul {
+            padding: 0 0 0 5px;
+            margin: 0;
+            list-style: none;
+            li {
+                margin-bottom: 25px;
+                &:last-child {
+                    margin-bottom: 15px;
+                }
+                span {
+                    font-size: 14px;
+                    font-weight: 700;
+                    color: #006a4d;
+                    text-transform: capitalize;
+                }
+            }
+        }
+        .scope_block,
+        .plan_block {
+            ul {
+                padding: 0;
+                list-style: square;
+                li {
+                    font-size: 14px;
+                    color: #526061;
+                    margin-left: 18px;
+                    margin-bottom: 0;
+                }
+                label {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+    .comment_block {
+        margin-top: 20px;
+        margin-bottom: 15px;
+    }
+    h4 {
+        background: #006a4d;
+        border-radius: 5px 5px 0 0;
+        color: #fff;
+        padding: 15px 15px 15px 20px;
+        font-size: 16px;
+    }
+    h5 {
+        font-size: 14px;
+        font-weight: 700;
+        color: #006a4d;
+        text-transform: capitalize;
+    }
+    p {
+        color: #526061;
+        font-size: 14px;
+        font-weight: 500;
+        margin-bottom: 0;
+    }
+}

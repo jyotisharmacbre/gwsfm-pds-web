@@ -253,7 +253,8 @@ button[type="button"] {
     color: map-get($colors, whiteColor);
     cursor: pointer;
     &:hover,
-    &.active {
+    &.active,
+    &:focus {
         color: map-get($colors, darkGreen);
         border: 2px solid map-get($colors, darkGreen);
         background-color: transparent;

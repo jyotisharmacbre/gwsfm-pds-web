@@ -192,14 +192,14 @@
     @include transition(all 0.6s cubic-bezier(0, 0.4, 0.58, 1));
     transform-origin: center left;
     @include mdScreen {
-        min-width: 300px;
-        max-width: 300px;
+        min-width: 250px;
+        max-width: 250px;
     }
     @include smScreen {
-        margin-left: -300px;
+        margin-left: -250px;
     }
     &.active {
-        margin-left: -300px;
+        margin-left: -250px;
         transform: rotateY(100deg);
         @include smScreen {
             margin-left: 0;
