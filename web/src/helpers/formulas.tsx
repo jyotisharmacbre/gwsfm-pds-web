@@ -1,3 +1,10 @@
+export const calculateTotalSum = (...values) =>{
+  let total =0;
+  debugger;
+  for(let i=0;i<values.length;i++)
+      total += values[i];;
+  return total;
+}
 export const calculateCost = (noOfHours:number,hourRate:number) =>{
   let totalCost =0;
   if(noOfHours > 0 && hourRate > 0)
