@@ -5,6 +5,7 @@ import upload_icon from '../../images/upload-icon.jpg';
 import { IState } from '../../../store/state';
 import { connect } from 'react-redux';
 import { isValidGUID } from '../../../helpers/utility-helper';
+import { FormattedMessage } from 'react-intl';
 
 interface IMapStateToProps {
   projectId: string;
@@ -77,7 +78,7 @@ const LeftMenu: React.FC<IMapStateToProps> = props => {
               pathname: '/Project/'+urlProjectId
             }}
           >
-            customer enquiry
+           <FormattedMessage id='HEADING_CUSTOMER_ENQUIRY'></FormattedMessage>
           </Link>
         </li>
         <li data-test="ProjectOverviewLink" className={isDisable?(disableEnableMenu("projectoverview")):"link_disabled"}>
@@ -86,7 +87,7 @@ const LeftMenu: React.FC<IMapStateToProps> = props => {
               pathname: '/ProjectOverview/'+urlProjectId
             }}
           >
-            project overview
+            <FormattedMessage id='TITLE_PROJECT_OVERVIEW'></FormattedMessage>
           </Link>
         </li>
         <li className={isDisable?
@@ -102,31 +103,31 @@ const LeftMenu: React.FC<IMapStateToProps> = props => {
             aria-expanded="true"
             className="dropdown-toggle collapsed"
           >
-            justification &amp; authorisation
+           <FormattedMessage id='TITLE_JUSTIFICATION'></FormattedMessage>
           </Link>
           <ul className="collapse list-unstyled show" id="homeSubmenu">
             <li className={disableEnableSubActiveClass("preliminaries")}>
-              <Link to={"/preliminaries/"+urlProjectId}>preliminaries</Link>
+              <Link to={"/preliminaries/"+urlProjectId}><FormattedMessage id='TITLE_PRELIMINARIES'></FormattedMessage></Link>
             </li>
             <li className={disableEnableSubActiveClass("subcontractor")}>
-              <Link to={"/Subcontractor/"+urlProjectId}>subcontractors</Link>
+              <Link to={"/Subcontractor/"+urlProjectId}><FormattedMessage id='TITLE_SUBCONTRACTORS'></FormattedMessage></Link>
             </li>
             <li className={disableEnableSubActiveClass("discounts")}>
-              <Link to={"/Discounts/"+urlProjectId}>discounts </Link>
+              <Link to={"/Discounts/"+urlProjectId}><FormattedMessage id='TITLE_DISCOUNTS'></FormattedMessage> </Link>
             </li>
           </ul>
         </li>
         <li className={isDisable?"":"link_disabled"}>
           <Link to={{
               pathname: '/ReviewSubmit/'+urlProjectId
-            }}>review &amp; submit</Link>
+            }}><FormattedMessage id='TITLE_REVIEW_SUBMIT' ></FormattedMessage></Link>
         </li>
         <li className={isDisable?"":"link_disabled"}>
           <Link to="/"      
-          >review &amp; approve</Link>
+          ><FormattedMessage id='TITLE_REVIEW_APPROVE'></FormattedMessage></Link>
         </li>
         <li className={isDisable?"":"link_disabled"}>
-          <Link to="/">Logout</Link>
+          <Link to="/"><FormattedMessage id='TITLE_LOGOUT'></FormattedMessage></Link>
         </li>
       </ul>
     </nav>
