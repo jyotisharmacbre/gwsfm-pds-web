@@ -87,7 +87,7 @@ const LeftMenu: React.FC<IMapStateToProps> = props => {
               pathname: '/ProjectOverview/'+urlProjectId
             }}
           >
-            <FormattedMessage id='TITLE_PROJECT_OVERVIEW'></FormattedMessage>
+            <FormattedMessage id='MENU_PROJECT_OVERVIEW'></FormattedMessage>
           </Link>
         </li>
         <li className={isDisable?
@@ -103,31 +103,31 @@ const LeftMenu: React.FC<IMapStateToProps> = props => {
             aria-expanded="true"
             className="dropdown-toggle collapsed"
           >
-           <FormattedMessage id='TITLE_JUSTIFICATION'></FormattedMessage>
+           <FormattedMessage id='MENU_JUSTIFICATION'></FormattedMessage>
           </Link>
           <ul className="collapse list-unstyled show" id="homeSubmenu">
             <li className={disableEnableSubActiveClass("preliminaries")}>
-              <Link to={"/preliminaries/"+urlProjectId}><FormattedMessage id='TITLE_PRELIMINARIES'></FormattedMessage></Link>
+              <Link to={"/preliminaries/"+urlProjectId}><FormattedMessage id='MENU_PRELIMINARIES'></FormattedMessage></Link>
             </li>
             <li className={disableEnableSubActiveClass("subcontractor")}>
-              <Link to={"/Subcontractor/"+urlProjectId}><FormattedMessage id='TITLE_SUBCONTRACTORS'></FormattedMessage></Link>
+              <Link to={"/Subcontractor/"+urlProjectId}><FormattedMessage id='MENU_SUBCONTRACTORS'></FormattedMessage></Link>
             </li>
             <li className={disableEnableSubActiveClass("discounts")}>
-              <Link to={"/Discounts/"+urlProjectId}><FormattedMessage id='TITLE_DISCOUNTS'></FormattedMessage> </Link>
+              <Link to={"/Discounts/"+urlProjectId}><FormattedMessage id='MENU_DISCOUNTS'></FormattedMessage> </Link>
             </li>
           </ul>
         </li>
         <li className={isDisable?"":"link_disabled"}>
           <Link to={{
               pathname: '/ReviewSubmit/'+urlProjectId
-            }}><FormattedMessage id='TITLE_REVIEW_SUBMIT' ></FormattedMessage></Link>
+            }}><FormattedMessage id='MENU_REVIEW_SUBMIT' ></FormattedMessage></Link>
         </li>
         <li className={isDisable?"":"link_disabled"}>
           <Link to="/"      
-          ><FormattedMessage id='TITLE_REVIEW_APPROVE'></FormattedMessage></Link>
+          ><FormattedMessage id='MENU_REVIEW_APPROVE'></FormattedMessage></Link>
         </li>
         <li className={isDisable?"":"link_disabled"}>
-          <Link to="/"><FormattedMessage id='TITLE_LOGOUT'></FormattedMessage></Link>
+          <Link to="/"><FormattedMessage id='MENU_LOGOUT'></FormattedMessage></Link>
         </li>
       </ul>
     </nav>
