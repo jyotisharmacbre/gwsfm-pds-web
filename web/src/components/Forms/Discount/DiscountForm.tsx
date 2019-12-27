@@ -2,49 +2,41 @@ import React, { useState, useEffect } from 'react';
 import { Field, reduxForm, InjectedFormProps, formValueSelector, getFormValues } from 'redux-form';
 import PdsFormInput from '../../PdsFormHandlers/PdsFormInput';
 import PdsFormTextArea from '../../PdsFormHandlers/PdsFormTextArea';
-import { Validate, alphaNumeric, onlyNumber } from '../../../helpers/fieldValidations';
+import { Validate } from '../../../helpers/fieldValidations';
 import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { LookupType } from '../../../store/Lookups/Types/LookupType';
 import {
-	getDropdown,
 	getPropertyName,
 	getDiscountTypeValue,
-	getRadioOptions,
 	getFilterElementFromArray
 } from '../../../helpers/utility-helper';
 import { calculateClientDiscount, calculateTotalSum } from '../../../helpers/formulas';
-import PdsFormTypeAhead from '../../PdsFormHandlers/PdsFormTypeAhead';
-import { IProjectDetail } from '../../../store/CustomerEnquiryForm/Types/IProjectDetail';
 import { ICurrency } from '../../../store/Lookups/Types/ICurrency';
 import Currency from '../../../store/Lookups/InitialState/Currency';
-import IReactIntl from '../../../Translations/IReactIntl';
 import { MainTitle } from '../../Title/Title';
-import PdsFormRadio from '../../PdsFormHandlers/PdsFormRadio';
 import { IDiscountActivity } from '../../../store/DiscountForm/Types/IDiscountActivity';
-import { dynamicsCompany } from '../../TypeAhead/TypeAheadConstantData/dynamicCompanyData';
 import CalculationsSummaryTable from '../../Table/CalculationsSummaryTable';
 import CalculationsSummaryType from '../../../enums/CalculationsSummaryType';
 import ISummaryCalculation from '../../../store/SummaryCalculation/Types/ISummaryCalculation';
-import { dynamicsContract } from '../../TypeAhead/TypeAheadConstantData/dynamicContractData';
+import { IDynamicContractCustomerData } from '../../../store/DynamicsData/Types/IDynamicData';
 import { ISubContractorActivity } from '../../../store/SubContractor/Types/ISubContractorActivity';
 import { IPreliminariesComponentDetails } from '../../../store/Preliminaries/Types/IPreliminariesComponentDetails';
-import {
-	getSubContractorSummaryCalculation,
-	getPreliminarySummaryCalculation
-} from '../../../helpers/pricing-calculation-helper';
+import { getSubContractorSummaryCalculation, getPreliminarySummaryCalculation } from '../../../helpers/pricing-calculation-helper';
+
 
 interface Props {
-	onNext: (data: IDiscountActivity) => void;
-	onPrevious: (data: IDiscountActivity) => void;
-	onSave: (data: IDiscountActivity) => void;
-	projectstatus: any;
-	currencies: Array<ICurrency> | null;
-	currencyId: any;
-	clientName: string;
-	otherClientName: string;
-	projectId: string;
+  onNext: (data: IDiscountActivity) => void;
+  onSave: (data: IDiscountActivity) => void;
+  onPrevious: () => void;
+  projectstatus: any;
+  currencies: Array<ICurrency> | null;
+  currencyId: any;
+  customerName: string;
+  otherCustomerName: string;
+  projectId:string;
+  dynamicsContractCustomerData: Array<IDynamicContractCustomerData>;
 }
 
 interface IMapStateToProps {
@@ -158,22 +150,17 @@ let DiscountForm: React.FC<
 										<FormattedMessage id="TITLE_CLIENT_DISCOUNT" />
 									</MainTitle>
 									<Field
-										input={{
-											value:
-												getFilterElementFromArray(
-													dynamicsContract,
-													'CustomerId',
-													props.clientName,
-													'Name'
-												) || props.otherClientName,
-											disabled: true
-										}}
-										type="text"
-										component={PdsFormInput}
-										labelKey="LABEL_CLIENT"
-										messageKey="LABEL_CLIENT"
-										placeholderKey="PLACEHOLDER_ENTER_CLIENT_NAME"
-									/>
+                  input={{
+                    value: (getFilterElementFromArray(props.dynamicsContractCustomerData,"contractId", props.customerName,"customerName") || props.otherCustomerName),
+                    disabled: true
+                    }}
+                    type="text"
+                    component={PdsFormInput}
+                   
+                    labelKey="LABEL_CLIENT"
+                    messageKey="LABEL_CLIENT"
+                    placeholderKey="PLACEHOLDER_ENTER_CLIENT_NAME"
+                  />
 									<Field
 										name="clientState"
 										type="text"
@@ -256,7 +243,7 @@ let DiscountForm: React.FC<
 									className="active mb-4 mt-5"
 									type="button"
 									name="previous"
-									onClick={handleSubmit((values) => props.onPrevious(values))}
+									onClick={()=>props.onPrevious()}
 								>
 									<FormattedMessage id="BUTTON_PREVIOUS" />
 								</button>

@@ -120,4 +120,11 @@ export const lookUpInitialState: ILookupState = {
     enquiryOverviewError: null
   };
 
+  
+export const dynamicsInitialState = {
+  contractId: "",
+  contractName: "",
+  customerId: "",
+  customerName: ""
+}
 
