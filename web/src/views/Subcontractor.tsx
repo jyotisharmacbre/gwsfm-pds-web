@@ -116,11 +116,11 @@ const Subcontractor: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> =
                 </h1>
                 <p className="text-green"> <FormattedMessage id='PAGE_SUB_TITLE'></FormattedMessage></p>
               </div>
-            {currencySymbol != '' ? <SubcontractorForm
+            <SubcontractorForm
               projectId={props.match.params.projectId}
               onSubmitForm={handleEvent}
               currencySymbol={currencySymbol}
-            />:null}
+            />
           </div>
         </div>
       </div>
