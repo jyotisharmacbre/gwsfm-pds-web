@@ -20,7 +20,7 @@ export {
   updateProjectStatusToInReview
 } from './CustomerEnquiryForm/Action';
 
-export { getProjectStatus, getAllCurrencies, getAllLanguages } from './Lookups/Actions';
+export { getProjectStatus, getAllCurrencies, getAllLanguages, getAllContries } from './Lookups/Actions';
 export {
   preliminaryAdd,
   preliminaryEdit,
