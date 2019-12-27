@@ -54,7 +54,7 @@ const ProjectOverviewStatusTab: React.FC<IProps & IReactIntl> = props => {
                     <div className="status-dropdown">
                         <div className="status-dropdown-btn toggle">
 
-                            <span data-test="toggleStatusTab" id="toggleStatusTab" className={(props.status == ProjectStatus.BidLost || props.status == ProjectStatus.OnHold) ? "dropdown-placeholder link_disabled" : "dropdown-placeholder"} onClick={() => handleToggleStatusTab()}>Status:&nbsp; <strong>{props.statusName}
+                            <span data-test="toggleStatusTab" id="toggleStatusTab" className={(props.status == ProjectStatus.BidLost || props.status == ProjectStatus.OnHold) ? "dropdown-placeholder link_disabled p-0" : "dropdown-placeholder p-0"} onClick={() => handleToggleStatusTab()}>Status:&nbsp; <strong>{props.statusName}
                             </strong>{(props.status != ProjectStatus.BidLost && props.status != ProjectStatus.OnHold) ? <FontAwesomeIcon className="active mrgnlft10" icon={faPencilAlt} /> : null}
                             </span>
                         </div>

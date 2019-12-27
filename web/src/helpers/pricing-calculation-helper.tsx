@@ -22,11 +22,11 @@ export const getPreliminarySummaryCalculation = (data:Array<IPreliminariesCompon
 export const getDiscountSummaryCalculation = (data:IDiscountActivity,state:ISummaryCalculation) => {
     if(data.supplierTotalDiscount != undefined)
       state.cost = state.cost - data.supplierTotalDiscount;
-    state.sell = +calculateSell(state.cost,state.margin);  
+    //state.sell = +calculateSell(state.cost,state.margin);  
     if(data.clientDiscount != undefined){
-      state.sell = state.sell - (+calculateClientDiscount(data.discountType,state.cost,data.clientDiscount));
+      state.sell = state.sell - (+calculateClientDiscount(data.discountType,state.sell,data.clientDiscount));
     }
-    //state.margin = +calculateAverageMargin(state.cost,state.sell)
+    state.margin = +calculateAverageMargin(state.cost,state.sell)
     return {cost:state.cost,sell:state.sell,margin:state.margin};
 }
 

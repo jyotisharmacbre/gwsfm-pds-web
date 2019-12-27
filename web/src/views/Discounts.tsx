@@ -49,6 +49,8 @@ interface IMapDispatchToProps {
   getDiscountData: (projectId: string) => void;
   getAllCurrencies: () => void;
   getProjectDetail: (projectId: string) => void;
+  getSubContractor: (projectId:string) => void;
+    getPreliminaryDetails: (projectId: string) => void;
 }
 
 const Discounts: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = props => {
@@ -61,6 +63,8 @@ const Discounts: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = pro
       if (paramProjectId != null && paramProjectId != '') {
         props.getProjectDetail(paramProjectId);
         props.getDiscountData(paramProjectId);
+        props.getSubContractor(paramProjectId);
+        props.getPreliminaryDetails(paramProjectId);
     }
   }, []);
 
@@ -157,6 +161,10 @@ const mapStateToProps = (state: IState) => ({
       dispatch(actions.getDiscountData(projectId)),
       getProjectDetail: projectId =>
       dispatch(actions.getProjectDetail(projectId)),
+      getSubContractor: (projectId:string) =>
+        dispatch(actions.getSubContractor(projectId)),
+    getPreliminaryDetails: (projectId: string) =>
+      dispatch(actions.getPreliminaryDetails(projectId)),
     };
 }
 

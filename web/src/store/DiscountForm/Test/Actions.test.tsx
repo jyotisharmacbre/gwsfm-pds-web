@@ -11,7 +11,7 @@ const setUpStore = (initialState) => {
 		discount: initialState
 	});
 };
-describe('add user redux', () => {
+describe('discount for actions', () => {
 	beforeEach(() => {
 		setUpStore(initialState);
 		reduxStore.clearActions();

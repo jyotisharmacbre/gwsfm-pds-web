@@ -197,6 +197,10 @@ const ProjectOverview: React.FC<IProps &
                       subHeading: props.enquiryOverview.projectName
                     },
                     {
+                      heading: formatMessage('MESSAGE_PROJECT_MANAGER'),
+                      subHeading: props.enquiryOverview.projectManager
+                    },
+                    {
                       heading: formatMessage('LABEL_CN_NUMBER'),
                       subHeading: convertToString(props.enquiryOverview.cnNumber)
                     }
