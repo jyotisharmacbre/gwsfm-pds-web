@@ -67,6 +67,7 @@ export const preliminariesData:any =
 }
 export const lookUpInitialState: ILookupState = {
     projectstatus: [],
+    countries: [],
     languages: [],
     currencies: null,
     error: null
@@ -119,4 +120,11 @@ export const lookUpInitialState: ILookupState = {
     enquiryOverviewError: null
   };
 
+  
+export const dynamicsInitialState = {
+  contractId: "",
+  contractName: "",
+  customerId: "",
+  customerName: ""
+}
 

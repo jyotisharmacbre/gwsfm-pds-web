@@ -38,6 +38,7 @@ export const currencies: Array<ICurrency>= [
 ];
 export const lookupState:ILookupState={
   currencies:currencies,
+  countries: [],
   languages: [],
   projectstatus: [],
   error: null

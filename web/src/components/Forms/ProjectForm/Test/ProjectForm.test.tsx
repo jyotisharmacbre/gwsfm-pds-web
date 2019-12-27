@@ -161,6 +161,28 @@ describe('ProjectForm Fields', () => {
       });
     });
 
+    describe('country field', () => {
+      beforeEach(() => {
+        field = wrapper.find('select[name="countryId"]').first();
+        wrapper.setProps({
+          countries: [
+            { countryId: 1, name: 'India', code: 'IND', isoAlpha2Code: 'IN' }
+          ],
+          countryId: 1
+        });
+      });
+      
+      it('Should renders countryId field', () => {
+        expect(field.render());
+      });
+      it('Shows error when countryId is set to blank', () => {
+        field.simulate('blur');
+        const errorBlock = wrapper.find('.text-danger');
+        expect(errorBlock).toHaveLength(1);
+      });
+    });
+
+
     describe('FirstAssetWorkedOn field', () => {
       beforeEach(() => {
         field = wrapper.find('select[name="firstAssetWorkedOn"]').first();

@@ -5,6 +5,7 @@ import { Dispatch } from 'redux';
 import { ICurrency } from './Types/ICurrency';
 import { ILanguage } from './Types/ILanguage';
 import { de } from 'date-fns/esm/locale';
+import { ICountry } from './Types/ICountry';
 import {getDefaultState} from '../Common/Action';
 
 const getProjectStatusSuccess = (response: any) => {
@@ -93,6 +94,33 @@ export const getAllCurrencies = (cache:boolean = true) => {
         dispatch(getAllCurrenciesError(error));
       });
     }
+  };
+};
+
+const getAllCountriesSuccess = (response: Array<ICountry>) => {
+  return {
+    type: ActionType.GET_ALL_COUNTRIES_SUCCESS,
+    payload: response
+  };
+};
+
+const getAllCountriesError = (error: any) => {
+  return {
+    type: ActionType.GET_ALL_CURRENCIES_ERROR,
+    payload: error
+  };
+};
+
+export const getAllContries = () => {
+  return (dispatch: Dispatch) => {
+    axios.baseAPI
+      .get('/api/LookupData/Countries')
+      .then(response => {
+        dispatch(getAllCountriesSuccess(response.data));
+      })
+      .catch(error => {
+        dispatch(getAllCountriesError(error));
+      });
   };
 };
 

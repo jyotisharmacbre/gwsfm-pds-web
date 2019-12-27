@@ -19,7 +19,7 @@ import {
   getDynamicSubContractorData
 } from '../store/DynamicsData/Action';
 import {
-  IDynamicContractData,
+  IDynamicContractCustomerData,
   IDynamicCompanyData
 } from '../store/DynamicsData/Types/IDynamicData';
 import {
@@ -29,6 +29,7 @@ import {
   getUserService
 } from '../store/UserService/Action';
 import ProjectStatus from '../enums/ProjectStatus';
+import { ICountry } from '../store/Lookups/Types/ICountry';
 import { getUserPreferences } from '../services/lookup.service';
 import {getClassNameForProjectStatus} from '../helpers/utility-helper';
 
@@ -38,10 +39,11 @@ interface IMapStateToProps {
   projectId: string;
   currencies: Array<ICurrency> | null;
   projectStatus: Array<ILookup>;
-  dynamicsContract: Array<IDynamicContractData>;
+  dynamicsContract: Array<IDynamicContractCustomerData>;
   dynamicsCompany: Array<IDynamicCompanyData>;
   userServiceData: Array<IUserServiceData>;
   status:number;
+  countries: Array<ICountry> | null;
 }
 
 interface IMapDispatchToProps {
@@ -52,6 +54,7 @@ interface IMapDispatchToProps {
   getProjectDetail: (projectId: string) => void;
   resetProjectDetailState: () => void;
   getAllCurrencies: () => void;
+  getAllCountries: () => void;
   getDynamicContractData: () => void;
   getDynamicCompanyData: () => void;
   getDynamicSubContractorData: () => void;
@@ -71,6 +74,7 @@ const Project: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = props
     window.scrollTo(0, 0);
     props.getProjectStatus();
     props.getAllCurrencies();
+    props.getAllCountries();
     let paramProjectId = props.match.params.projectId;
     if (paramProjectId != null && paramProjectId != '') {
       props.getProjectDetail(paramProjectId);
@@ -128,6 +132,9 @@ const Project: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = props
       projectstatus={props.projectStatus}
       onSearchUserService={onSearchUserService}
       userServiceData = {props.userServiceData}
+      dynamicsContractCustomerData = {props.dynamicsContract}
+      dynamicsCompany = {props.dynamicsCompany}
+      countries={props.countries}
     />
     </div>
   );
@@ -143,8 +150,8 @@ const mapStateToProps = (state: IState) => {
     event: state.project.event,
     projectId: state.project.form.projectId,
     currencies: state.lookup.currencies,
-    status:state.project.form.status
-
+    status:state.project.form.status,
+    countries: state.lookup.countries,
   };
 };
 
@@ -159,6 +166,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(actions.getProjectDetail(projectId)),
     resetProjectDetailState: () => dispatch(actions.resetProjectDetailState()),
     getAllCurrencies: () => dispatch(actions.getAllCurrencies()),
+    getAllCountries: () => dispatch(actions.getAllContries()),
     handleGetDynamicContractData: searchContract =>
       dispatch(getDynamicContractData(searchContract)),
     handleGetDynamicCompanyData: searchCompany =>

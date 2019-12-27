@@ -2,7 +2,6 @@ export enum LookupType {
   Currency = 'Currency',
   Project_Status = 'Project_Status',
   Engagement_Type = 'Engagement_Type',
-  Country = 'Country',
   Contract_Type = 'Contract_Type',
   Asset_Type = 'Asset_Type',
   Work_Type = 'Work_Type',
