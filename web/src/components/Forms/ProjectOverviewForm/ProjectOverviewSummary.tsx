@@ -38,13 +38,6 @@ const ProjectOverviewSummary: React.FC<IProps> = (props) => {
 		[ props.projectOverview, props.lookUpData ]
 	);
 
-	useEffect(
-		() => {
-			if (props.projectOverview.projectId) console.log('projectOverview', props.projectOverview);
-		},
-		[ props.projectOverview ]
-	);
-
 	return (
 		<div className="RS_custom_block">
 			<h4>Project Overview</h4>

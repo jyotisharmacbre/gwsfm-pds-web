@@ -42,7 +42,6 @@ export const getUserServiceCallback = (search: string, success, failure) => {
 	axios.userServiceAPI
 		.get(`/api/users/getListOfUsers/${search}`, config)
 		.then((response) => {
-			console.log('GET DATA SUCCESS');
 			success(response.data);
 		})
 		.catch((error) => {

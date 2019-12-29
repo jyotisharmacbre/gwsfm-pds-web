@@ -31,7 +31,6 @@ const PricingSummaryTable: React.FC<Props> = (props) => {
 	useEffect(() => {
 		if(props.subContractor && props.subContractor[0].projectId)
 		{
-			console.log('totalCost',props.subContractor[0].totalCost)
 			setSubContractorData(getSubContractorSummaryCalculation(props.subContractor));
 		}
    }, [props.subContractor]);
