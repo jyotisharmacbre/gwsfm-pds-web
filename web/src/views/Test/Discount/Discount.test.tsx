@@ -10,7 +10,6 @@ import { Provider } from 'react-redux';
 import { lookUpInitialState, customerEnquiryInitialState, dynamicsInitialState } from '../Preliminaries/PreliminariesTestData';
 import { discountInitialState } from './DiscountTestData';
 import Notify from '../../../enums/Notify';
-import { initialState as summaryCalculationState } from '../../../store/SummaryCalculation/InitialState';
 import { initialState as subcontractorInitialState } from '../../../store/SubContractor/InitialState';
 import { initialState as preliminaryInitialState } from '../../../store/Preliminaries/InitialState';
 import ProjectStatus from '../../../enums/ProjectStatus';
@@ -25,7 +24,6 @@ const setUpStore=(lookUpInitialState,customerEnquiryInitialState)=>{
     lookup: lookUpInitialState,
     project: customerEnquiryInitialState,
     subContractor:subcontractorInitialState,
-    summaryCalculation:summaryCalculationState,
     preliminary: preliminaryInitialState,
     dynamicData: dynamicsInitialState
 });

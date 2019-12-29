@@ -7,36 +7,34 @@ import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { LookupType } from '../../../store/Lookups/Types/LookupType';
-import {
-	getPropertyName,
-	getDiscountTypeValue,
-	getFilterElementFromArray
-} from '../../../helpers/utility-helper';
+import { getPropertyName, getDiscountTypeValue, getFilterElementFromArray } from '../../../helpers/utility-helper';
 import { calculateClientDiscount, calculateTotalSum } from '../../../helpers/formulas';
 import { ICurrency } from '../../../store/Lookups/Types/ICurrency';
 import Currency from '../../../store/Lookups/InitialState/Currency';
 import { MainTitle } from '../../Title/Title';
 import { IDiscountActivity } from '../../../store/DiscountForm/Types/IDiscountActivity';
 import CalculationsSummaryTable from '../../Table/CalculationsSummaryTable';
-import CalculationsSummaryType from '../../../enums/CalculationsSummaryType';
-import ISummaryCalculation from '../../../store/SummaryCalculation/Types/ISummaryCalculation';
+import ISummaryCalculation from '../../../models/ISummaryCalculation';
+import IPricing from '../../../models/IPricing';
 import { IDynamicContractCustomerData } from '../../../store/DynamicsData/Types/IDynamicData';
 import { ISubContractorActivity } from '../../../store/SubContractor/Types/ISubContractorActivity';
 import { IPreliminariesComponentDetails } from '../../../store/Preliminaries/Types/IPreliminariesComponentDetails';
-import { getSubContractorSummaryCalculation, getPreliminarySummaryCalculation } from '../../../helpers/pricing-calculation-helper';
-
+import {
+	getSubContractorSummaryCalculation,
+	getPreliminarySummaryCalculation
+} from '../../../helpers/pricing-calculation-helper';
 
 interface Props {
-  onNext: (data: IDiscountActivity) => void;
-  onSave: (data: IDiscountActivity) => void;
-  onPrevious: () => void;
-  projectstatus: any;
-  currencies: Array<ICurrency> | null;
-  currencyId: any;
-  customerName: string;
-  otherCustomerName: string;
-  projectId:string;
-  dynamicsContractCustomerData: Array<IDynamicContractCustomerData>;
+	onNext: (data: IDiscountActivity) => void;
+	onSave: (data: IDiscountActivity) => void;
+	onPrevious: () => void;
+	projectstatus: any;
+	currencies: Array<ICurrency> | null;
+	currencyId: any;
+	customerName: string;
+	otherCustomerName: string;
+	projectId: string;
+	dynamicsContractCustomerData: Array<IDynamicContractCustomerData>;
 }
 
 interface IMapStateToProps {
@@ -55,19 +53,36 @@ let DiscountForm: React.FC<
 	const { handleSubmit, initialValues, discountTypeValue } = props;
 	const normalize = (value) => (value ? parseInt(value) : null);
 	const CurrencyObj = new Currency();
-	let initDiscount: ISummaryCalculation = { cost: 0, sell: 0, margin: 0 };
-	const [ subContractorCalc, setSubContractorCalc ] = useState<ISummaryCalculation>({ ...initDiscount });
-	const [ preliminaryCalc, setPreliminaryCalc ] = useState<ISummaryCalculation>({ ...initDiscount });
-	const currencySymbol = getFilterElementFromArray(
-		props.currencies,
-		getPropertyName(CurrencyObj, (prop) => prop.currencyId),
-		props.currencyId > 0 ? props.currencyId : props.userPreferenceCurrencyId,
-		getPropertyName(CurrencyObj, (prop) => prop.currencySymbol)
+	const [ currencySymbol, setCurrencySymbol ] = useState<string>('');
+	let initDiscount: IPricing = { cost: 0, sell: 0, margin: 0 };
+	const [ subContractorCalc, setSubContractorCalc ] = useState<IPricing>({ ...initDiscount });
+	const [ preliminaryCalc, setPreliminaryCalc ] = useState<IPricing>({ ...initDiscount });
+	// const currencySymbol = getFilterElementFromArray(
+	// 	props.currencies,
+	// 	getPropertyName(CurrencyObj, (prop) => prop.currencyId),
+	// 	props.currencyId > 0 ? props.currencyId : props.userPreferenceCurrencyId,
+	// 	getPropertyName(CurrencyObj, (prop) => prop.currencySymbol)
+	// );
+	useEffect(
+		() => {
+			if (props.currencyId > 0 && props.currencies) {
+				setCurrencySymbol(
+					getFilterElementFromArray(
+						props.currencies,
+						getPropertyName(CurrencyObj, (prop) => prop.currencyId),
+						props.currencyId,
+						getPropertyName(CurrencyObj, (prop) => prop.currencySymbol)
+					)
+				);
+			}
+		},
+		[ props.currencyId, props.currencies ]
 	);
+
 	useEffect(
 		() => {
 			if (props.subContractorState) {
-				setSubContractorCalc(getSubContractorSummaryCalculation(props.subContractorState, {...initDiscount}));
+				setSubContractorCalc(getSubContractorSummaryCalculation(props.subContractorState));
 			}
 		},
 		[ props.subContractorState ]
@@ -76,7 +91,7 @@ let DiscountForm: React.FC<
 	useEffect(
 		() => {
 			if (props.preliminaryState && props.preliminaryState.length > 0) {
-				setPreliminaryCalc(getPreliminarySummaryCalculation(props.preliminaryState, {...initDiscount}));
+				setPreliminaryCalc(getPreliminarySummaryCalculation(props.preliminaryState));
 			}
 		},
 		[ props.preliminaryState ]
@@ -85,9 +100,10 @@ let DiscountForm: React.FC<
 	return (
 		<div className="container-fluid">
 			<CalculationsSummaryTable
-				projectId={props.projectId}
-				name={CalculationsSummaryType.discount}
+				preliminary={props.preliminaryState}
+				subContractor={props.subContractorState}
 				discount={props.discountForm}
+				currencySymbol={currencySymbol}
 			/>
 			<div className=" row">
 				<div className="col-lg-12 col-sm-12">
@@ -150,17 +166,22 @@ let DiscountForm: React.FC<
 										<FormattedMessage id="TITLE_CLIENT_DISCOUNT" />
 									</MainTitle>
 									<Field
-                  input={{
-                    value: (getFilterElementFromArray(props.dynamicsContractCustomerData,"contractId", props.customerName,"customerName") || props.otherCustomerName),
-                    disabled: true
-                    }}
-                    type="text"
-                    component={PdsFormInput}
-                   
-                    labelKey="LABEL_CLIENT"
-                    messageKey="LABEL_CLIENT"
-                    placeholderKey="PLACEHOLDER_ENTER_CLIENT_NAME"
-                  />
+										input={{
+											value:
+												getFilterElementFromArray(
+													props.dynamicsContractCustomerData,
+													'contractId',
+													props.customerName,
+													'customerName'
+												) || props.otherCustomerName,
+											disabled: true
+										}}
+										type="text"
+										component={PdsFormInput}
+										labelKey="LABEL_CLIENT"
+										messageKey="LABEL_CLIENT"
+										placeholderKey="PLACEHOLDER_ENTER_CLIENT_NAME"
+									/>
 									<Field
 										name="clientState"
 										type="text"
@@ -221,7 +242,7 @@ let DiscountForm: React.FC<
 										{currencySymbol}
 										{calculateClientDiscount(
 											discountTypeValue,
-											calculateTotalSum(subContractorCalc.sell,preliminaryCalc.sell),
+											calculateTotalSum(subContractorCalc.sell, preliminaryCalc.sell),
 											props.clientDiscountValue
 										)}
 									</label>
@@ -243,7 +264,7 @@ let DiscountForm: React.FC<
 									className="active mb-4 mt-5"
 									type="button"
 									name="previous"
-									onClick={()=>props.onPrevious()}
+									onClick={() => props.onPrevious()}
 								>
 									<FormattedMessage id="BUTTON_PREVIOUS" />
 								</button>

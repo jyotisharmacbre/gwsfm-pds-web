@@ -13,6 +13,8 @@ import { FormattedMessage } from 'react-intl';
 import Currency from '../store/Lookups/InitialState/Currency';
 import ProjectStatus from '../enums/ProjectStatus';
 import {History} from "history";
+import { IPreliminariesComponentDetails } from '../store/Preliminaries/Types/IPreliminariesComponentDetails';
+import { IDiscountActivity } from '../store/DiscountForm/Types/IDiscountActivity';
 
 interface IProps {
   match: any;
@@ -26,6 +28,8 @@ interface IMapStateToProps {
   currencyId:number,
   currencies: Array<ICurrency> | null;
   status:number;
+  preliminaryState: Array<IPreliminariesComponentDetails>;
+	discountState: IDiscountActivity;
 }
 
 interface IMapDispatchToProps {
@@ -43,6 +47,8 @@ interface IMapDispatchToProps {
   getProjectDetail: (projectId: string) => void;
   resetSubContractorState: () => void;
   getAllCurrencies:() => void;
+  getPreliminaryDetails: (projectId: string) => void;
+	getDiscountData: (projectId: string) => void;
 }
 
 const Subcontractor: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = props => {
@@ -57,6 +63,8 @@ const Subcontractor: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> =
     if (paramProjectId != null && paramProjectId != '') {
       props.getProjectDetail(paramProjectId);
       props.getSubContractor(paramProjectId);
+      props.getPreliminaryDetails(paramProjectId);
+		props.getDiscountData(paramProjectId);
     }
   }, []);
 
@@ -120,6 +128,8 @@ const Subcontractor: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> =
               projectId={props.match.params.projectId}
               onSubmitForm={handleEvent}
               currencySymbol={currencySymbol}
+              preliminaryState={props.preliminaryState}
+              discountState={props.discountState}
             />
           </div>
         </div>
@@ -134,7 +144,9 @@ const mapStateToProps = (state: IState) => ({
   event: state.subContractor.event,
   currencyId:state.project.form.currencyId,
   currencies: state.lookup.currencies,
-  status:state.project.form.status
+  status:state.project.form.status,
+  preliminaryState: state.preliminary.preliminaryDetails,
+	discountState: state.discount.form,
 
 });
 
@@ -150,7 +162,9 @@ const mapDispatchToProps = dispatch => {
       dispatch(actions.getSubContractor(projectId)),
     resetSubContractorState: () =>
       dispatch(actions.resetSubContractorState()),
-    getAllCurrencies: () => dispatch(actions.getAllCurrencies())
+    getAllCurrencies: () => dispatch(actions.getAllCurrencies()),
+    getPreliminaryDetails: (projectId: string) => dispatch(actions.getPreliminaryDetails(projectId)),
+		getDiscountData: (projectId: string) => dispatch(actions.getDiscountData(projectId)),
     };
 };
 

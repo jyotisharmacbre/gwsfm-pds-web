@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`Sub Contractor Reducer should handle add sub contractor successfully 1`] = `
-Object {
-  "cost": 0,
-  "margin": 0,
-  "sell": 0,
-}
-`;
