@@ -47,12 +47,18 @@ export const initialState: IProjectOverviewState = {
         projectApprovalRange: '',
         approverType: '',
         approvalStatus: '',
-        userId: ''
+        userId: '',
+        approvalStatusDescription: '',
+        projectApprovalRangeDescription: '',
+        approverTypeDescription: '',
+        showRangeLabel: true
+
       }
     ]
   },
   error: null,
   loading: false,
   notify: Notify.none,
-  event: EventType.none
+  event: EventType.none,
+  initialStateSetForProjectApprovals: false
 };

@@ -18,13 +18,19 @@ import { ILookup } from '../store/Lookups/Types/ILookup';
 import { History } from 'history';
 import { toast } from 'react-toastify';
 import { formatMessage } from '../Translations/connectedIntlProvider';
-import { getFilterElementFromArray,getClassNameForProjectStatus } from '../helpers/utility-helper';
+import { getFilterElementFromArray, getClassNameForProjectStatus, getPropertyName } from '../helpers/utility-helper';
 import ProjectOverviewStatusTab from '../components/Forms/ProjectOverviewForm/ProjectOverviewStatusTab';
 import { getDynamicSubContractorData } from '../store/DynamicsData/Action';
 import { IDynamicSubContractorData, IDynamicContractCustomerData } from '../store/DynamicsData/Types/IDynamicData';
 import { IProjectOverviewDetails } from '../store/ProjectOverviewForm/Types/IProjectOverviewDetails';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
+import { IUserServiceData } from '../store/UserService/Types/IUserService';
+import { getUserService } from '../store/UserService/Action';
+import Currency from '../store/Lookups/InitialState/Currency';
+import { ICurrency } from '../store/Lookups/Types/ICurrency';
+import { LookupType } from '../store/Lookups/Types/LookupType';
+
 
 const tableHeaders: IGeneralTableHeaderProps[] = [
   { heading: 'End Client Name', subHeading: 'ING' },
@@ -41,11 +47,17 @@ const table: IGeneralTableProps = {
   }
 };
 
+const lookupKeyList: string[] = [
+  LookupType.Project_Approval_Range,
+  LookupType.Project_Approval_Sign_Off_Status,
+  LookupType.Project_Approver_Type
+];
 interface IMapStateToProps {
   form: IProjectOverviewDetails;
   notify: Notify;
   projectId: string;
   projectStatus: Array<ILookup>;
+  lookups: Array<ILookup>;
   enquiryOverview: IProject;
   event: EventType;
   projectScope: string;
@@ -53,10 +65,16 @@ interface IMapStateToProps {
   dynamicsSubContractor: Array<IDynamicSubContractorData>;
   countryId: number;
   history: History;
+  userServiceData: Array<IUserServiceData>;
+  currencyId: number,
+  currencies: Array<ICurrency> | null;
   dynamicsContractCustomerData: Array<IDynamicContractCustomerData>;
+  initialStateSetForProjectApprovals: boolean;
 }
 interface IMapDispatchToProps {
   getProjectStatus: () => void;
+  getLookups: () => void;
+  setupPojectApprovalsInitialData: (lookupdata, currencySymbol, projectId) => void;
   projectOverviewFormAdd: (
     projectId: string,
     form: IProjectOverviewDetails,
@@ -76,6 +94,8 @@ interface IMapDispatchToProps {
   setProjectStatus: (status: number) => void;
   handleGetDynamicSubContractorData: (searchSubContractor: string) => void;
   setAdminDefaultValues: (countryId: number) => void;
+  handleGetuserServiceData: (searchText: string) => void;
+  getAllCurrencies: () => void;
 }
 interface IProps {
   projectId: string;
@@ -85,30 +105,34 @@ interface IProps {
 const ProjectOverview: React.FC<IProps &
   IMapStateToProps &
   IMapDispatchToProps> = props => {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    props.getProjectStatus();
-    let paramProjectId = props.match.params.projectId;
-    if (paramProjectId != null && paramProjectId != '') {
-      props.getProjectDetail(paramProjectId);
-      props.getAdditionalDetails(paramProjectId);
-      props.getEnquiryOverview(paramProjectId);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (props.notify == Notify.success) {
-      if (props.event == EventType.next) {
-        toast.success('Data Saved Successfully');
-        props.history.push(`/JustificationAuthorisation/${props.match.params.projectId}`);
-      } else if (props.event == EventType.previous) {
-        toast.success('Data Saved Successfully');
-        props.history.push(`/Project/${props.match.params.projectId}`);
+    const CurrencyObj = new Currency();
+    useEffect(() => {
+      console.log(props.lookups);
+      window.scrollTo(0, 0);
+      props.getProjectStatus();
+      props.getAllCurrencies();
+      props.getLookups();
+      props.getProjectDetail(props.match.params.projectId);
+      let paramProjectId = props.projectId == '' ? props.match.params.projectId : props.projectId;
+      if (paramProjectId != null && paramProjectId != '') {
+        props.getProjectDetail(paramProjectId);
+        props.getEnquiryOverview(paramProjectId);
       }
-      props.resetProjectOverviewState();
-    }
-  }, [props.notify, props.event]);
-   
+    }, []);
+
+    useEffect(() => {
+      if (props.notify == Notify.success) {
+        if (props.event == EventType.next) {
+          toast.success('Data Saved Successfully');
+          props.history.push(`/JustificationAuthorisation/${props.match.params.projectId}`);
+        } else if (props.event == EventType.previous) {
+          toast.success('Data Saved Successfully');
+          props.history.push(`/Project/${props.match.params.projectId}`);
+        }
+        props.resetProjectOverviewState();
+      }
+    }, [props.notify, props.event]);
+
     useEffect(() => {
       if (props.notify == Notify.success) {
         if (props.event == EventType.save) {
@@ -126,7 +150,7 @@ const ProjectOverview: React.FC<IProps &
       props.resetProjectOverviewState();
     },
       [props.notify]);
-      
+
     useEffect(() => {
       props.setAdminDefaultValues(props.countryId);
     },
@@ -135,6 +159,33 @@ const ProjectOverview: React.FC<IProps &
       props.history.push(`/Project/${props.match.params.projectId}`);
 
     };
+
+    useEffect(() => {
+      if (props.currencyId > 0 && props.currencies && props.currencies.length > 0 && props.lookups.length > 0) {
+        let currency = getFilterElementFromArray(
+          props.currencies,
+          getPropertyName(
+            CurrencyObj,
+            prop => prop.currencyId
+          ),
+          props.currencyId,
+          getPropertyName(
+            CurrencyObj,
+            prop => prop.currencySymbol
+          )
+        );
+
+        props.setupPojectApprovalsInitialData(props.lookups, currency, props.match.params.projectId);
+      }
+    }, [props.lookups, props.currencyId, props.currencies]);
+
+
+    useEffect(() => {
+      if (props.form.projectApprovals.length > 0)
+        props.getAdditionalDetails(props.match.params.projectId);
+
+    }, [props.initialStateSetForProjectApprovals]);
+
 
     const handleNext = (data: IProjectOverviewDetails) => {
       data.projectAdditionalDetail.projectAddDetailId == ''
@@ -168,7 +219,9 @@ const ProjectOverview: React.FC<IProps &
       props.setProjectStatus(4);
       props.changeProjectStatusToBidLost(props.match.params.projectId);
     }
-
+    const onSearchUserService = (values: any) => {
+      props.handleGetuserServiceData(values);
+    };
     return (
       <div className="container-fluid ">
         <div className="row">
@@ -181,8 +234,8 @@ const ProjectOverview: React.FC<IProps &
                 </div>
                 <ProjectOverviewStatusTab status={props.status} statusName={getProjectStatusName()} onReactivate={handleReactivateEvent} handleOnHold={handleOnHoldEvent} handleBidLost={handleBidLostEvent} />
               </div>
-              
-              
+
+
 
               <GeneralTable
                 {...{
@@ -215,8 +268,11 @@ const ProjectOverview: React.FC<IProps &
                 onNext={handleNext}
                 onPrevious={handlePrevious}
                 projectstatus={props.projectStatus}
+                lookups={props.lookups}
                 status={props.status}
                 projectId={props.match.params.projectId}
+                onSearchUserService={onSearchUserService}
+                userServiceData={props.userServiceData}
               />
 
             </div>
@@ -231,18 +287,26 @@ const mapStateToProps = (state: IState) => ({
   notify: state.projectOverview.notify,
   projectId: state.project.form.projectId,
   projectStatus: state.lookup.projectstatus,
+  lookups: state.lookup.lookups,
   enquiryOverview: state.project.enquiryOverview,
   event: state.projectOverview.event,
   projectScope: state.project.form.scope,
   status: state.project.form.status,
   dynamicsSubcontractor: state.dynamicData.dynamicsSubcontractor,
   countryId: state.project.form.countryId,
-  dynamicsContractCustomerData: state.dynamicData.dynamicsContract
+  userServiceData: state.userService.userServiceData,
+  currencyId: state.project.form.currencyId,
+  currencies: state.lookup.currencies,
+  dynamicsContractCustomerData: state.dynamicData.dynamicsContract,
+  initialStateSetForProjectApprovals: state.projectOverview.initialStateSetForProjectApprovals
 });
 
 const mapDispatchToProps = dispatch => {
   return {
     getProjectStatus: () => dispatch(actions.getProjectStatus()),
+    getLookups: () => dispatch(actions.getLookupsByLookupItems(lookupKeyList)),
+    setupPojectApprovalsInitialData: (lookupdata, currencySymbol, projectId) =>
+      dispatch(actions.setupPojectApprovalsInitialData(lookupdata, currencySymbol, projectId)),
     projectOverviewFormAdd: (projectId, form, event) =>
       dispatch(actions.projectOverviewFormAdd(projectId, form, event)),
     projectOverviewFormEdit: (form, event) =>
@@ -266,7 +330,11 @@ const mapDispatchToProps = dispatch => {
     handleGetDynamicSubContractorData: searchSubContractor =>
       dispatch(getDynamicSubContractorData(searchSubContractor)),
     setAdminDefaultValues: countryId =>
-      dispatch(actions.getAdminDefaultValues(countryId))
+      dispatch(actions.getAdminDefaultValues(countryId)),
+    handleGetuserServiceData: search =>
+      dispatch(getUserService(search)),
+    getAllCurrencies: () => dispatch(actions.getAllCurrencies())
+
   };
 };
 

@@ -9,4 +9,5 @@ export interface IProjectOverviewState {
   loading: boolean;
   notify: Notify;
   event: EventType;
+  initialStateSetForProjectApprovals: boolean;
 }

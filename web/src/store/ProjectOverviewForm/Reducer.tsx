@@ -1,65 +1,27 @@
 import { ActionType } from './Types/ActionType';
 import { updateObject } from '../../helpers/utility-helper';
-import { IProjectOverviewState } from './Types/IProjectOverviewState';
 import Notify from '../../enums/Notify';
 import EventType from '../../enums/EventType';
 import { IProjectApprovals } from './Types/IProjectApprovals';
+import { initialState } from './InitialState';
+import { setupInitialApprovalData } from './DataWrapper';
 
-export const newProjectApprovals : IProjectApprovals = {
-      projectApprovalId: '',
-      projectId: '',
-      projectApprovalRange: '',
-      approverType: '',
-      approvalStatus: '',
-      userId: '',
+
+export const newProjectApprovals: IProjectApprovals = {
+  projectApprovalId: '',
+  projectId: '',
+  projectApprovalRange: '',
+  approverType: '',
+  approvalStatus: '',
+  userId: '',
+  approvalStatusDescription: '',
+  projectApprovalRangeDescription: '',
+  approverTypeDescription: '',
+  showRangeLabel: true
 };
 
 
-const initialState: IProjectOverviewState = {
-  form: {
-    projectId: '',
-    projectAdditionalDetail: {
-      projectAddDetailId: '',
-      projectId: '',
-      mainContractor: '',
-      enquiryReceivedFrom: '',
-      enquiryTypeId: -1,
-      creditCheckResult: '',
-      siteAddress: '',
-      cdmNotifiable: false,
-      formOfContract: '',
-      retention: '',
-      liquidatedDamages: '',
-      insurance: '',
-      workTypeId: -1,
-      commenceDate: new Date().toJSON(),
-      completionDate: new Date().toJSON(),
-      milestones: '',
-      firstValuationDate: new Date().toJSON(),
-      finalAccountDate: new Date().toJSON(),
-      valuationIntervals: '',
-      paymentTerms: '',
-      isProjectLive: false,
-      comments: '',
-      authorizedByHop: '',
-      budget: 1,
-      authorizedBy: '',
-      authorizedBySecond: '',
-      authorizedByThird: '',
-      projectRisk1: '',
-      projectRisk2: '',
-      projectRisk3: '',
-      projectRiskControlMeasure1: '',
-      projectRiskControlMeasure2: '',
-      projectRiskControlMeasure3: ''
-    },
-    projectApprovals: []
-  },
-  error: null,
-  loading: false,
-  notify: Notify.none,
-  event: EventType.none
-};
+
 
 const projectOverviewFormAddSuccess = (oldState, action) => {
   return updateObject(oldState, {
@@ -68,6 +30,14 @@ const projectOverviewFormAddSuccess = (oldState, action) => {
     notify: Notify.success,
     event: action.event,
     form: updateObject(oldState.form, action.payload)
+  });
+};
+
+const setupPojectApprovalsInitialData = (oldState, action) => {
+  return updateObject(oldState, {
+    notify: Notify.none,
+    form: updateObject(oldState.form, { projectApprovals: setupInitialApprovalData(action.payload) }),
+    initialStateSetForProjectApprovals: true
   });
 };
 
@@ -89,6 +59,11 @@ const projectOverviewFormError = (oldState, action) => {
 };
 
 const getAdditionalDetailsSuccess = (oldState, action) => {
+  let updatedApproverList = oldState.form.projectApprovals.map(item => {
+    let savedApproverItem = action.payload.projectApprovals.find(x => x.approverType === item.approverType);
+    return savedApproverItem ? { ...item, ...savedApproverItem } : item;
+  });
+  action.payload.projectApprovals = updatedApproverList;
   return updateObject(oldState, {
     form: updateObject(oldState.form, action.payload)
   });
@@ -168,6 +143,8 @@ const projectOverviewFormReducer = (oldState = initialState, action) => {
       return reactivateProjectSuccess(oldState, action);
     case ActionType.REACTIVATE_PROJECT_ERROR:
       return reactivateProjectError(oldState, action);
+    case ActionType.BIND_PROJECT_APPROVAL_INITIAL_DATA:
+      return setupPojectApprovalsInitialData(oldState, action);
     default:
       return oldState;
   }
