@@ -19,7 +19,7 @@ interface Props {
 	projectId: string;
 	onSubmitForm: (data: ISubContractor, event: EventType) => void;
 	currencySymbol: string;
-  preliminaryState: Array<IPreliminariesComponentDetails>;
+	preliminaryState: Array<IPreliminariesComponentDetails>;
 	discountState: IDiscountActivity;
 }
 

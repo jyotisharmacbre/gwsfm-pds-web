@@ -35,10 +35,7 @@ const preliminaryGetSuccess = (oldState, action) => {
   });
 };
 const preliminaryGetError = (oldState, action) => {
-  return updateObject(oldState, {
-    notify: Notify.error,
-    event:action.event
-  });
+  return initialState;
 };
 const preliminaryReducer = (oldState = initialState, action) => {
   switch (action.type) {

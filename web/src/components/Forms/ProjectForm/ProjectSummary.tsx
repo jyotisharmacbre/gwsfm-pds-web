@@ -21,13 +21,14 @@ const ProjectSummary: React.FC<IProps> = (props) => {
 					(element) =>
 						element.lookupItem == LookupType.Project_Status && element.lookupKey == props.project.status
 				);
-				if (filterStatus) setProjectStatus(filterStatus[0].description);
+				if (filterStatus  && filterStatus[0]) setProjectStatus(filterStatus[0].description);
 				let filterEngagementType = props.lookUpData.filter(
 					(element) =>
 						element.lookupItem == LookupType.Engagement_Type &&
 						element.lookupKey == props.project.engagementId
 				);
-				if (filterEngagementType) setTypeOfEngagement(filterEngagementType[0].description);
+				if (filterEngagementType && filterEngagementType[0]) 
+					setTypeOfEngagement(filterEngagementType[0].description);
 			}
 		},
 		[ props.project, props.lookUpData ]
@@ -41,7 +42,7 @@ const ProjectSummary: React.FC<IProps> = (props) => {
 						<ul>
 							<li>
 								<span>Company</span>
-								<p>{props.company}</p>
+								<p data-test='company'>{props.company}</p>
 							</li>
 						</ul>
 					</div>
@@ -49,7 +50,7 @@ const ProjectSummary: React.FC<IProps> = (props) => {
 						<ul>
 							<li>
 								<span>Head of Project</span>
-								<p>{props.headOfProject}</p>
+								<p data-test='head-of-project'>{props.headOfProject}</p>
 							</li>
 						</ul>
 					</div>

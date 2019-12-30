@@ -172,7 +172,6 @@ const ReviewSubmit: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = 
 							projectManager={projectManager}
 						/>
 						<ProjectOverviewSummary
-							project={props.project}
 							projectOverview={props.projectOverview}
 							lookUpData={props.projectStatus}
 							company={companyName}
