@@ -41,7 +41,7 @@ const ProjectSummary: React.FC<IProps> = (props) => {
 						<ul>
 							<li>
 								<span>Company</span>
-								<p>{props.company}</p>
+								<p data-test='company'>{props.company}</p>
 							</li>
 						</ul>
 					</div>
@@ -49,7 +49,7 @@ const ProjectSummary: React.FC<IProps> = (props) => {
 						<ul>
 							<li>
 								<span>Head of Project</span>
-								<p>{props.headOfProject}</p>
+								<p data-test='head-of-project'>{props.headOfProject}</p>
 							</li>
 						</ul>
 					</div>
