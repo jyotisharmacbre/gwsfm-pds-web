@@ -38,13 +38,9 @@ export const getUserService = (search: string) => {
 	};
 };
 
-export const getListOfUsers = (search: string, success, failure) => {
+export const getUserServiceCallback = (search: string, success, failure) => {
 	axios.userServiceAPI
-		.get(
-			`/api/users/getListOfUsers/${search}
-    `,
-			config
-		)
+		.get(`/api/users/getListOfUsers/${search}`, config)
 		.then((response) => {
 			success(response.data);
 		})

@@ -1,13 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import HeaderPage from '../components/HeaderPage/HeaderPage';
 import GeneralTable from '../components/Table/General';
 import { Grid, Container } from '@material-ui/core';
 import ProjectOverviewForm from '../components/Forms/ProjectOverviewForm/ProjectOverviewForm';
-import {
-  IGeneralTableHeaderProps,
-  IGeneralTableProps
-} from '../components/Table/General/props';
+import { IGeneralTableHeaderProps, IGeneralTableProps } from '../components/Table/General/props';
 import * as actions from '../store/rootActions';
 import { IProjectAdditionalDetail } from '../store/ProjectOverviewForm/Types/IProjectAdditionalDetail';
 import { IProject } from '../store/CustomerEnquiryForm/Types/IProject';
@@ -25,26 +22,28 @@ import { IDynamicSubContractorData, IDynamicContractCustomerData } from '../stor
 import { IProjectOverviewDetails } from '../store/ProjectOverviewForm/Types/IProjectOverviewDetails';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
+import { ICurrency } from '../store/Lookups/Types/ICurrency';
+import Currency from '../store/Lookups/InitialState/Currency';
+import { ISubContractorActivity } from '../store/SubContractor/Types/ISubContractorActivity';
+import { IPreliminariesComponentDetails } from '../store/Preliminaries/Types/IPreliminariesComponentDetails';
+import { IDiscountActivity } from '../store/DiscountForm/Types/IDiscountActivity';
+import { IProjectDetail } from '../store/CustomerEnquiryForm/Types/IProjectDetail';
 import { IUserServiceData } from '../store/UserService/Types/IUserService';
 import { getUserService } from '../store/UserService/Action';
-import Currency from '../store/Lookups/InitialState/Currency';
-import { ICurrency } from '../store/Lookups/Types/ICurrency';
 import { LookupType } from '../store/Lookups/Types/LookupType';
-
-
 const tableHeaders: IGeneralTableHeaderProps[] = [
-  { heading: 'End Client Name', subHeading: 'ING' },
-  { heading: 'Project Name', subHeading: 'Building Maintainance' },
-  { heading: 'Project ID', subHeading: 'ING65956' },
-  { heading: 'CN Number', subHeading: 'ING89855' }
+	{ heading: 'End Client Name', subHeading: 'ING' },
+	{ heading: 'Project Name', subHeading: 'Building Maintainance' },
+	{ heading: 'Project ID', subHeading: 'ING65956' },
+	{ heading: 'CN Number', subHeading: 'ING89855' }
 ];
 
 const table: IGeneralTableProps = {
-  headers: tableHeaders,
-  content: 'Working on new structure of a building with lighting',
-  editActionClick: () => {
-    alert('You clicked me');
-  }
+	headers: tableHeaders,
+	content: 'Working on new structure of a building with lighting',
+	editActionClick: () => {
+		alert('You clicked me');
+	}
 };
 
 const lookupKeyList: string[] = [
@@ -53,111 +52,124 @@ const lookupKeyList: string[] = [
   LookupType.Project_Approver_Type
 ];
 interface IMapStateToProps {
-  form: IProjectOverviewDetails;
-  notify: Notify;
-  projectId: string;
-  projectStatus: Array<ILookup>;
-  lookups: Array<ILookup>;
-  enquiryOverview: IProject;
-  event: EventType;
-  projectScope: string;
-  status: number;
-  dynamicsSubContractor: Array<IDynamicSubContractorData>;
-  countryId: number;
-  history: History;
-  userServiceData: Array<IUserServiceData>;
-  currencyId: number,
-  currencies: Array<ICurrency> | null;
-  dynamicsContractCustomerData: Array<IDynamicContractCustomerData>;
-  initialStateSetForProjectApprovals: boolean;
+	form: IProjectOverviewDetails;
+	project: IProjectDetail;
+	notify: Notify;
+	projectStatus: Array<ILookup>;
+	enquiryOverview: IProject;
+	event: EventType;
+	dynamicsSubContractor: Array<IDynamicSubContractorData>;
+	history: History;
+	dynamicsContractCustomerData: Array<IDynamicContractCustomerData>;
+	subContractorState: Array<ISubContractorActivity>;
+	preliminaryState: Array<IPreliminariesComponentDetails>;
+	discountState: IDiscountActivity;
+    currencies: Array<ICurrency> | null;
+    initialStateSetForProjectApprovals: boolean;
+    lookups: Array<ILookup>;
 }
 interface IMapDispatchToProps {
-  getProjectStatus: () => void;
-  getLookups: () => void;
-  setupPojectApprovalsInitialData: (lookupdata, currencySymbol, projectId) => void;
-  projectOverviewFormAdd: (
-    projectId: string,
-    form: IProjectOverviewDetails,
-    event: EventType
-  ) => void;
-  projectOverviewFormEdit: (
-    form: IProjectOverviewDetails,
-    event: EventType
-  ) => void;
-  getAdditionalDetails: (projectId: string) => void;
-  getEnquiryOverview: (projectId: string) => void;
-  resetProjectOverviewState: () => void;
-  getProjectDetail: (projectId: string) => void;
-  changeProjectStatusToOnHold: (projectId: string) => void;
-  changeProjectStatusToBidLost: (projectId: string) => void;
-  reactivateProject: (projectId: string) => void;
-  setProjectStatus: (status: number) => void;
-  handleGetDynamicSubContractorData: (searchSubContractor: string) => void;
-  setAdminDefaultValues: (countryId: number) => void;
-  handleGetuserServiceData: (searchText: string) => void;
-  getAllCurrencies: () => void;
+	getProjectStatus: () => void;
+	projectOverviewFormAdd: (projectId: string, form: IProjectOverviewDetails, event: EventType) => void;
+	projectOverviewFormEdit: (form: IProjectOverviewDetails, event: EventType) => void;
+	getAdditionalDetails: (projectId: string) => void;
+	getEnquiryOverview: (projectId: string) => void;
+	resetProjectOverviewState: () => void;
+	getProjectDetail: (projectId: string) => void;
+	changeProjectStatusToOnHold: (projectId: string) => void;
+	changeProjectStatusToBidLost: (projectId: string) => void;
+	reactivateProject: (projectId: string) => void;
+	setProjectStatus: (status: number) => void;
+	handleGetDynamicSubContractorData: (searchSubContractor: string) => void;
+	setAdminDefaultValues: (countryId: number) => void;
+	getSubContractor: (projectId: string) => void;
+	getPreliminaryDetails: (projectId: string) => void;
+	getDiscountData: (projectId: string) => void;
+    getAllCurrencies: () => void;
+    getLookups: () => void;
+    setupPojectApprovalsInitialData: (lookupdata, currencySymbol, projectId) => void;
+
 }
 interface IProps {
-  projectId: string;
-  match: any;
+	projectId: string;
+	match: any;
 }
 
-const ProjectOverview: React.FC<IProps &
-  IMapStateToProps &
-  IMapDispatchToProps> = props => {
-    const CurrencyObj = new Currency();
-    useEffect(() => {
-      window.scrollTo(0, 0);
-      props.getProjectStatus();
-      props.getAllCurrencies();
-      props.getLookups();
-      props.getProjectDetail(props.match.params.projectId);
-      let paramProjectId = props.projectId == '' ? props.match.params.projectId : props.projectId;
-      if (paramProjectId != null && paramProjectId != '') {
-        props.getProjectDetail(paramProjectId);
-        props.getEnquiryOverview(paramProjectId);
-      }
-    }, []);
+const ProjectOverview: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = (props) => {
+	const projectId = props.match.params.projectId;
+	const CurrencyObj = new Currency();
+	const [ currencySymbol, setCurrencySymbol ] = useState<string>('');
+	useEffect(() => {
+		window.scrollTo(0, 0);
+        props.getAllCurrencies();
+        props.getLookups();
+		props.getProjectStatus();
+		props.getProjectDetail(projectId);
+		props.getAdditionalDetails(projectId);
+		props.getEnquiryOverview(projectId);
+		props.getSubContractor(projectId);
+		props.getPreliminaryDetails(projectId);
+		props.getDiscountData(projectId);
+	}, []);
 
-    useEffect(() => {
-      if (props.notify == Notify.success) {
-        if (props.event == EventType.next) {
-          toast.success('Data Saved Successfully');
-          props.history.push(`/JustificationAuthorisation/${props.match.params.projectId}`);
-        } else if (props.event == EventType.previous) {
-          toast.success('Data Saved Successfully');
-          props.history.push(`/Project/${props.match.params.projectId}`);
-        }
-        props.resetProjectOverviewState();
-      }
-    }, [props.notify, props.event]);
+	useEffect(
+		() => {
+			if (props.project.currencyId > 0 && props.currencies) {
+				setCurrencySymbol(
+					getFilterElementFromArray(
+						props.currencies,
+						getPropertyName(CurrencyObj, (prop) => prop.currencyId),
+						props.project.currencyId,
+						getPropertyName(CurrencyObj, (prop) => prop.currencySymbol)
+					)
+				);
+			}
+		},
+		[ props.project.currencyId, props.currencies ]
+	);
 
-    useEffect(() => {
-      if (props.notify == Notify.success) {
-        if (props.event == EventType.save) {
-          toast.success('Project reactivated successfully');
-          props.getProjectDetail(props.match.params.projectId);
-        }
-        else {
-          toast.success('Project status changed successfully');
+	useEffect(
+		() => {
+			if (props.notify == Notify.success) {
+				if (props.event == EventType.next) {
+					toast.success('Data Saved Successfully');
+					props.history.push(`/JustificationAuthorisation/${props.match.params.projectId}`);
+				} else if (props.event == EventType.previous) {
+					toast.success('Data Saved Successfully');
+					props.history.push(`/Project/${props.match.params.projectId}`);
+				}
+				props.resetProjectOverviewState();
+			}
+		},
+		[ props.notify, props.event ]
+	);
 
-        }
+	useEffect(
+		() => {
+			if (props.notify == Notify.success) {
+				if (props.event == EventType.save) {
+					toast.success('Project reactivated successfully');
+					props.getProjectDetail(props.match.params.projectId);
+				} else {
+					toast.success('Project status changed successfully');
+				}
+			} else if (props.notify == Notify.error) {
+				toast.error('Error occured.Please contact administrator');
+			}
+			props.resetProjectOverviewState();
+		},
+		[ props.notify ]
+	);
 
-      } else if (props.notify == Notify.error) {
-        toast.error('Error occured.Please contact administrator');
-      }
-      props.resetProjectOverviewState();
-    },
-      [props.notify]);
-
-    useEffect(() => {
-      props.setAdminDefaultValues(props.countryId);
-    },
-      [props.countryId]);
-    const handlePrevious = () => {
-      props.history.push(`/Project/${props.match.params.projectId}`);
-
-    };
+	useEffect(
+		() => {
+			props.setAdminDefaultValues(props.project.countryId);
+		},
+		[ props.project.countryId ]
+	);
+	const handlePrevious = () => {
+		props.history.push(`/Project/${props.match.params.projectId}`);
+	};
 
     useEffect(() => {
       if (props.currencyId > 0 && props.currencies && props.currencies.length > 0 && props.lookups.length > 0) {
@@ -270,7 +282,11 @@ const ProjectOverview: React.FC<IProps &
                 lookups={props.lookups}
                 status={props.status}
                 projectId={props.match.params.projectId}
-                getListOfUsers={actions.getListOfUsers}
+                            getListOfUsers={actions.getListOfUsers}
+                            subContractorState={props.subContractorState}
+                            preliminaryState={props.preliminaryState}
+                            discountState={props.discountState}
+                            currencySymbol={currencySymbol}
               />
 
             </div>
@@ -281,59 +297,49 @@ const ProjectOverview: React.FC<IProps &
   };
 
 const mapStateToProps = (state: IState) => ({
-  form: state.projectOverview.form,
-  notify: state.projectOverview.notify,
-  projectId: state.project.form.projectId,
-  projectStatus: state.lookup.projectstatus,
-  lookups: state.lookup.lookups,
-  enquiryOverview: state.project.enquiryOverview,
-  event: state.projectOverview.event,
-  projectScope: state.project.form.scope,
-  status: state.project.form.status,
-  dynamicsSubcontractor: state.dynamicData.dynamicsSubcontractor,
-  countryId: state.project.form.countryId,
-  userServiceData: state.userService.userServiceData,
-  currencyId: state.project.form.currencyId,
-  currencies: state.lookup.currencies,
-  dynamicsContractCustomerData: state.dynamicData.dynamicsContract,
-  initialStateSetForProjectApprovals: state.projectOverview.initialStateSetForProjectApprovals
+	form: state.projectOverview.form,
+	project: state.project.form,
+	notify: state.projectOverview.notify,
+	projectStatus: state.lookup.projectstatus,
+	enquiryOverview: state.project.enquiryOverview,
+	event: state.projectOverview.event,
+	dynamicsSubcontractor: state.dynamicData.dynamicsSubcontractor,
+	dynamicsContractCustomerData: state.dynamicData.dynamicsContract,
+	subContractorState: state.subContractor.form.activities,
+	preliminaryState: state.preliminary.preliminaryDetails,
+	discountState: state.discount.form,
+    currencies: state.lookup.currencies,
+    lookups: state.lookup.lookups,
+    initialStateSetForProjectApprovals: state.projectOverview.initialStateSetForProjectApprovals
+
 });
 
-const mapDispatchToProps = dispatch => {
-  return {
-    getProjectStatus: () => dispatch(actions.getProjectStatus()),
-    getLookups: () => dispatch(actions.getLookupsByLookupItems(lookupKeyList)),
-    setupPojectApprovalsInitialData: (lookupdata, currencySymbol, projectId) =>
-      dispatch(actions.setupPojectApprovalsInitialData(lookupdata, currencySymbol, projectId)),
-    projectOverviewFormAdd: (projectId, form, event) =>
-      dispatch(actions.projectOverviewFormAdd(projectId, form, event)),
-    projectOverviewFormEdit: (form, event) =>
-      dispatch(actions.projectOverviewFormEdit(form, event)),
-    getAdditionalDetails: projectId =>
-      dispatch(actions.getAdditionalDetails(projectId)),
-    getEnquiryOverview: projectId =>
-      dispatch(actions.getEnquiryOverview(projectId)),
-    resetProjectOverviewState: () =>
-      dispatch(actions.resetProjectOverviewState()),
-    getProjectDetail: projectId =>
-      dispatch(actions.getProjectDetail(projectId)),
-    changeProjectStatusToOnHold: projectId =>
-      dispatch(actions.changeProjectStatusToOnHold(projectId)),
-    changeProjectStatusToBidLost: projectId =>
-      dispatch(actions.changeProjectStatusToBidLost(projectId)),
-    reactivateProject: projectId =>
-      dispatch(actions.reactivateProject(projectId)),
-    setProjectStatus: status =>
-      dispatch(actions.changeProjectStatus(status)),
-    handleGetDynamicSubContractorData: searchSubContractor =>
-      dispatch(getDynamicSubContractorData(searchSubContractor)),
-    setAdminDefaultValues: countryId =>
-      dispatch(actions.getAdminDefaultValues(countryId)),
-    handleGetuserServiceData: search =>
-      dispatch(getUserService(search)),
-    getAllCurrencies: () => dispatch(actions.getAllCurrencies())
-
-  };
+const mapDispatchToProps = (dispatch) => {
+	return {
+		getProjectStatus: () => dispatch(actions.getProjectStatus()),
+		projectOverviewFormAdd: (projectId, form, event) =>
+			dispatch(actions.projectOverviewFormAdd(projectId, form, event)),
+		projectOverviewFormEdit: (form, event) => dispatch(actions.projectOverviewFormEdit(form, event)),
+		getAdditionalDetails: (projectId) => dispatch(actions.getAdditionalDetails(projectId)),
+		getEnquiryOverview: (projectId) => dispatch(actions.getEnquiryOverview(projectId)),
+		resetProjectOverviewState: () => dispatch(actions.resetProjectOverviewState()),
+		getProjectDetail: (projectId) => dispatch(actions.getProjectDetail(projectId)),
+		changeProjectStatusToOnHold: (projectId) => dispatch(actions.changeProjectStatusToOnHold(projectId)),
+		changeProjectStatusToBidLost: (projectId) => dispatch(actions.changeProjectStatusToBidLost(projectId)),
+		reactivateProject: (projectId) => dispatch(actions.reactivateProject(projectId)),
+		setProjectStatus: (status) => dispatch(actions.changeProjectStatus(status)),
+		handleGetDynamicSubContractorData: (searchSubContractor) =>
+			dispatch(getDynamicSubContractorData(searchSubContractor)),
+		setAdminDefaultValues: (countryId) => dispatch(actions.getAdminDefaultValues(countryId)),
+		getSubContractor: (projectId: string) => dispatch(actions.getSubContractor(projectId)),
+		getPreliminaryDetails: (projectId: string) => dispatch(actions.getPreliminaryDetails(projectId)),
+		getDiscountData: (projectId: string) => dispatch(actions.getDiscountData(projectId)),
+		getAllCurrencies: () => dispatch(actions.getAllCurrencies()),
+		 setupPojectApprovalsInitialData: (lookupdata, currencySymbol, projectId) =>
+			handleGetuserServiceData: search =>
+dispatch(getUserService(search)),
+	getLookups: () => dispatch(actions.getLookupsByLookupItems(lookupKeyList))
+	};
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectOverview);

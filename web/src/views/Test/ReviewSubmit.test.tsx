@@ -1,5 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import {store} from '../../store';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
@@ -9,7 +10,6 @@ import { IntlProvider } from 'react-intl';
 import translations from '../../Translations/translation';
 import configureStore from 'redux-mock-store';
 import { initialState as projectInitialState } from '../../store/CustomerEnquiryForm/InitialState';
-import { initialState as summaryCalculationState } from '../../store/SummaryCalculation/InitialState';
 import { initialState as subContractorState } from '../../store/SubContractor/InitialState';
 import { initialState as preliminaryState } from '../../store/Preliminaries/InitialState';
 import { initialState as discountState } from '../../store/DiscountForm/InitialState';
@@ -17,18 +17,17 @@ import ProjectStatus from '../../enums/ProjectStatus';
 
 const history = { push: jest.fn() };
 const mockStore = configureStore([ thunk ]);
-let store;
+// let store;
 let wrapper;
-const setUpStore = (projectState) => {
-	store = mockStore({
-		project: projectState,
-		summaryCalculation: summaryCalculationState,
-		subContractor: subContractorState,
-		preliminary: preliminaryState,
-		discount: discountState,
-		lookup: { currencies: [] }
-	});
-};
+// const setUpStore = (projectState) => {
+// 	store = mockStore({
+// 		project: projectState,
+// 		subContractor: subContractorState,
+// 		preliminary: preliminaryState,
+// 		discount: discountState,
+// 		lookup: { currencies: [] }
+// 	});
+// };
 
 const mountComponent = () => {
 	wrapper = mount(
@@ -42,7 +41,7 @@ const mountComponent = () => {
 
 describe('review and approve component test cases', () => {
 	beforeEach(() => {
-		setUpStore(projectInitialState);
+		//setUpStore(projectInitialState);
 		mountComponent();
 	});
 
@@ -76,10 +75,10 @@ describe('review and approve component test cases', () => {
 	});
 
 	it('should disable the submit button when state is InReview', () => {
-		let data = { ...projectInitialState };
-		data.form.status = ProjectStatus.InReview;
-		setUpStore(data);
+		// let data = { ...projectInitialState };
+		 projectInitialState.form.status = ProjectStatus.InReview;
+		// setUpStore(data);
 		mountComponent();
 		expect(wrapper.find('.link_disabled').length).toBeGreaterThan(0);
-	});
+	}); 
 });

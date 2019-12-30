@@ -39,12 +39,12 @@ import ProjectStatus from '../../../enums/ProjectStatus';
 import ProjectActivity from '../ProjectActivities/ProjectActivity';
 import { IProjectOverviewDetails } from '../../../store/ProjectOverviewForm/Types/IProjectOverviewDetails';
 import { formatMessage } from '../../../Translations/connectedIntlProvider';
-import CalculationsSummaryType from '../../../enums/CalculationsSummaryType';
 import PricingSummaryTable from '../../Table/PricingSummaryTable';
 import ProjectOverviewRiskForm from './ProjectOverviewRiskForm';
+import { ISubContractorActivity } from '../../../store/SubContractor/Types/ISubContractorActivity';
+import { IPreliminariesComponentDetails } from '../../../store/Preliminaries/Types/IPreliminariesComponentDetails';
+import { IDiscountActivity } from '../../../store/DiscountForm/Types/IDiscountActivity';
 import ProjectApprovalForm from './ProjectApprovalForm';
-
-import { IUserServiceData } from '../../../store/UserService/Types/IUserService';
 
 interface Props {
 	onNext: (data: IProjectOverviewDetails) => void;
@@ -52,8 +52,12 @@ interface Props {
 	projectstatus: any;
 	status: number;
 	projectId: string;
-	lookups: any;
-	getListOfUsers: (value: any, success: any, failure: any) => void;
+	subContractorState: Array<ISubContractorActivity>;
+	preliminaryState: Array<IPreliminariesComponentDetails>;
+	discountState: IDiscountActivity;
+    currencySymbol: string;
+    lookups: any;
+    getListOfUsers: (value: any, success: any, failure: any) => void;
 }
 
 let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDetails, Props>> = (props) => {
@@ -474,12 +478,19 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 			<div className="row">
 				<div className="col-xl-12">
 					<PricingSummaryTable
-						projectId={props.projectId}
-						showPreliminary={true}
-						showSubContractor={true}
-						showDiscount={true}
+						data-test="pricing-summary"
+						preliminary={props.preliminaryState}
+						subContractor={props.subContractorState}
+						discount={props.discountState}
+						currencySymbol={props.currencySymbol}
 					/>
-					<CalculationsSummaryTable name={CalculationsSummaryType.other} projectId={props.projectId} />
+					<CalculationsSummaryTable
+						data-test="calculation-summary"
+						preliminary={props.preliminaryState}
+						subContractor={props.subContractorState}
+						discount={props.discountState}
+						currencySymbol={props.currencySymbol}
+					/>
 				</div>
 			</div>
 			<div className={`${getClassNameForProjectStatus(props.status)} row`}>
