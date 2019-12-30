@@ -25,13 +25,13 @@ const ProjectOverviewSummary: React.FC<IProps> = (props) => {
 						element.lookupItem == LookupType.Enquiry_Type &&
 						element.lookupKey == props.projectOverview.projectAdditionalDetail.enquiryTypeId
 				);
-				if (filterEnquiryType) setEnquiryType(filterEnquiryType[0].description);
+				if (filterEnquiryType && filterEnquiryType[0]) setEnquiryType(filterEnquiryType[0].description);
 				let filterWorkType = props.lookUpData.filter(
 					(element) =>
 						element.lookupItem == LookupType.Work_Type &&
 						element.lookupKey == props.projectOverview.projectAdditionalDetail.workTypeId
 				);
-				if (filterWorkType) setWorkType(filterWorkType[0].description);
+				if (filterWorkType && filterWorkType[0]) setWorkType(filterWorkType[0].description);
 			}
 		},
 		[ props.projectOverview, props.lookUpData ]
