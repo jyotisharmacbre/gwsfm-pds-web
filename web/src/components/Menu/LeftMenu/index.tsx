@@ -12,7 +12,7 @@ interface IMapStateToProps {
 const LeftMenu: React.FC<IMapStateToProps> = props => {
   let urlProjectId:string="";
   let activeClass:string="";
-  let links:Array<string>=["project","projectoverview","justificationauthorisation","preliminaries","subcontractor","discounts"]
+  let links:Array<string>=["project","projectoverview","justificationauthorisation","preliminaries","subcontractor","discounts","reviewsubmit"]
   let history=useHistory();
   const getGUID=()=>{
     history.location.pathname.split('/').forEach((data)=>{
@@ -116,7 +116,7 @@ const LeftMenu: React.FC<IMapStateToProps> = props => {
             </li>
           </ul>
         </li>
-        <li className={isDisable?"":"link_disabled"}>
+        <li className={isDisable?(disableEnableMenu("reviewsubmit")):"link_disabled"}>
           <Link to={{
               pathname: '/ReviewSubmit/'+urlProjectId
             }}>review &amp; submit</Link>

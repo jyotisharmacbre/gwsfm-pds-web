@@ -1,10 +1,6 @@
 import React from 'react';
-import { ISubContractorActivity } from '../store/SubContractor/Types/ISubContractorActivity';
-import ISummaryCalculation from '../store/SummaryCalculation/Types/ISummaryCalculation';
-import { IPreliminariesComponentDetails } from '../store/Preliminaries/Types/IPreliminariesComponentDetails';
-import { IPreliminariesItems } from '../store/Preliminaries/Types/IPreliminariesItems';
-import { IDiscountActivity } from '../store/DiscountForm/Types/IDiscountActivity';
 import ProjectStatus from '../enums/ProjectStatus';
+import moment from 'moment';
 
 export const updateObject = (oldState, updatedProperties) => {
 	return {
@@ -121,4 +117,8 @@ export const getClassNameForProjectStatus = (projectStatus: ProjectStatus) => {
 	)
 		className = 'link_disabled';
 	return className;
+};
+
+export const convertDate = (date:string) => {
+	return moment(date).format('DD/MM/YYYY');
 };
