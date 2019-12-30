@@ -27,7 +27,8 @@ const ProjectSummary: React.FC<IProps> = (props) => {
 						element.lookupItem == LookupType.Engagement_Type &&
 						element.lookupKey == props.project.engagementId
 				);
-				if (filterEngagementType) setTypeOfEngagement(filterEngagementType[0].description);
+				if (filterEngagementType && filterEngagementType[0]) 
+					setTypeOfEngagement(filterEngagementType[0].description);
 			}
 		},
 		[ props.project, props.lookUpData ]

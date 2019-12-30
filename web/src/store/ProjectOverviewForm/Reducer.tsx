@@ -48,11 +48,7 @@ const getAdditionalDetailsSuccess = (oldState, action) => {
 };
 
 const getAdditionalDetailsError = (oldState, action) => {
-  return updateObject(oldState, {
-    error: action.error,
-    loading: false,
-    notify: Notify.error
-  });
+  return initialState;
 };
 
 const resetProjectOverviewState = (oldState, action) => {
