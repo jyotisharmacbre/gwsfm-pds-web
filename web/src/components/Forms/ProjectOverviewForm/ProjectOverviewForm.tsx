@@ -209,7 +209,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						</label>
 						<div className="select-wrapper">
 							<Field
-								name="projectAdditionalDetailworkTypeId"
+								name="projectAdditionalDetail.workTypeId"
 								component={PdsFormSelect}
 								className="required"
 								validate={[ Validate.required('MESSAGE_PROJECT_STATUS') ]}

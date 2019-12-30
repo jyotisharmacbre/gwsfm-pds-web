@@ -21,14 +21,25 @@ export {
   updateProjectStatusToInReview
 } from './CustomerEnquiryForm/Action';
 
-export { getProjectStatus, getAllCurrencies, getAllLanguages, getAllContries, getLookupsByLookupItems } from './Lookups/Actions';
+export {
+  getProjectStatus,
+  getAllCurrencies,
+  getAllLanguages,
+  getAllContries,
+  getLookupsByLookupItems
+} from './Lookups/Actions';
 export {
   preliminaryAdd,
   preliminaryEdit,
   getPreliminaryDetails
 } from './Preliminaries/Actions';
 
-export { discountFormAdd, discountFormEdit, resetDiscountState, getDiscountData } from './DiscountForm/Actions'
+export {
+  discountFormAdd,
+  discountFormEdit,
+  resetDiscountState,
+  getDiscountData
+} from './DiscountForm/Actions';
 export {
   subContractorFormAdd,
   subContractorFormEdit,
@@ -36,9 +47,7 @@ export {
   resetSubContractorState
 } from './SubContractor/Actions';
 
-export {
-  userPreferencesFormEdit,
-} from './UserPreferencesForm/Actions';
+export { userPreferencesFormEdit } from './UserPreferencesForm/Actions';
 
 export {
   getDynamicContractData,
@@ -47,9 +56,4 @@ export {
   getDynamicOther
 } from './DynamicsData/Action';
 
-export {
-  getUserService,
-  getUserServiceCallback
-} from './UserService/Action';
-
-export { getListOfUsers } from './UserService/Action';
+export { getUserService, getUserServiceCallback } from './UserService/Action';

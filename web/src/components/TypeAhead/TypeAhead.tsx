@@ -1,51 +1,66 @@
-import React,{useState,useEffect} from "react";
-import { connect } from "react-redux";
-import {
-  Field
-} from 'redux-form';
-import { AsyncTypeahead } from "react-bootstrap-typeahead";
+import React from 'react';
+import { connect } from 'react-redux';
+import { Field } from 'redux-form';
+import { AsyncTypeahead } from 'react-bootstrap-typeahead';
 import { FormattedMessage, injectIntl } from 'react-intl';
-import { Validate } from "../../helpers/fieldValidations";
-import { getDynamicOther } from "../../store/DynamicsData/Action";
+import { Validate } from '../../helpers/fieldValidations';
+import { getDynamicOther } from '../../store/DynamicsData/Action';
 
-const AdaptedTypeahead = ({ input, render, meta, labelName, className, ...rest }) => {
-    const [init,setInit] = useState<boolean>(false);
-
-    useEffect(() => {
-      if(!init && input.value){
-        setInit(true);
-        rest.onSearch(input.value);
-      }
-    }, [input.value]);
+const AdaptedTypeahead = ({
+  input,
+  render,
+  meta,
+  labelName,
+  className,
+  ...rest
+}) => {
   const formatValue = () => {
     let result = '';
-    result = input.value != '' ? (rest.options.filter(option => option[rest.submitParam] == input.value)).slice() : '';
+    result =
+      input.value != ''
+        ? rest.options
+            .filter(option => option[rest.submitParam] == input.value)
+            .slice()
+        : '';
     return result;
-  }
+  };
 
   return (
     <div className={'form-group'}>
-    {input.value}
-      {
-        labelName &&
+      {labelName && (
         <label>
           <FormattedMessage id={labelName} defaultMessage={labelName} />
           {className && className.split(' ').includes('required') ? '*' : ''}
         </label>
-      }
-      <AsyncTypeahead {...input} {...rest}
+      )}
+      <AsyncTypeahead
+        {...input}
+        {...rest}
         minLength={3}
-        selected={formatValue()}
+        defaultSelected={formatValue()}
       />
-      {meta.error && meta.touched && <span className="text-danger">{meta.error}</span>}
+      {meta.error && meta.touched && (
+        <span className="text-danger">{meta.error}</span>
+      )}
     </div>
-  )
+  );
 };
 
-
-const TypeAhead = ({ name, options, onSearch, DynamicsType, placeholderKey, intl, className,
-  searchText, labelName, validationKey, submitParam, selected, ...props }) => {
-
+const TypeAhead = ({
+  name,
+  options,
+  onSearch,
+  DynamicsType,
+  placeholderKey,
+  intl,
+  className,
+  searchText,
+  labelName,
+  validationKey,
+  submitParam,
+  selected,
+  ...props
+}) => {
   function handleChange(value: any) {
     props.handleOtherFieldChange(value, DynamicsType);
   }
@@ -54,10 +69,10 @@ const TypeAhead = ({ name, options, onSearch, DynamicsType, placeholderKey, intl
     ? intl.formatMessage({ id: placeholderKey })
     : placeholderKey;
 
-  const normalizingValue = value => (value.length > 0 ? value[0][submitParam] : "");
+  const normalizingValue = value =>
+    value.length > 0 ? value[0][submitParam] : '';
 
-
-    return (
+  return (
     <Field
       filterBy={() => true}
       name={name}
@@ -73,9 +88,7 @@ const TypeAhead = ({ name, options, onSearch, DynamicsType, placeholderKey, intl
       labelName={labelName}
       normalize={normalizingValue}
       submitParam={submitParam}
-      validate={validationKey && [
-        Validate.required(validationKey)]
-      }
+      validate={validationKey && [Validate.required(validationKey)]}
     />
   );
 };
@@ -87,8 +100,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(injectIntl(TypeAhead));
-
+export default connect(null, mapDispatchToProps)(injectIntl(TypeAhead));
