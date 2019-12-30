@@ -40,3 +40,5 @@ export { setSummaryCalculationState } from './SummaryCalculation/Actions';
 export {
   userPreferencesFormEdit,
 } from './UserPreferencesForm/Actions';
+
+export {getListOfUsers} from './UserService/Action';

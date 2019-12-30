@@ -107,7 +107,6 @@ const ProjectOverview: React.FC<IProps &
   IMapDispatchToProps> = props => {
     const CurrencyObj = new Currency();
     useEffect(() => {
-      console.log(props.lookups);
       window.scrollTo(0, 0);
       props.getProjectStatus();
       props.getAllCurrencies();
@@ -271,8 +270,7 @@ const ProjectOverview: React.FC<IProps &
                 lookups={props.lookups}
                 status={props.status}
                 projectId={props.match.params.projectId}
-                onSearchUserService={onSearchUserService}
-                userServiceData={props.userServiceData}
+                getListOfUsers={actions.getListOfUsers}
               />
 
             </div>

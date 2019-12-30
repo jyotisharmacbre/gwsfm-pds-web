@@ -33,7 +33,8 @@ export const setupInitialApprovalData = (payload) => {
             projectApprovalRangeDescription:
                 approverRange && approverRange.length > 0 ?
                     approverRange[0].description.replace('{CurrencySymbol}', currencySymbol).toString() : '',
-            showRangeLabel: !initialApprovalData.some(x => approveRangeMapping && x.projectApprovalRange == approveRangeMapping.range)
+            showRangeLabel: !initialApprovalData.some(x => approveRangeMapping && x.projectApprovalRange == approveRangeMapping.range),
+            userId:''
         };
 
         initialApprovalData.push(approval);

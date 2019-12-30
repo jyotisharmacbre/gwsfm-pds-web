@@ -1,22 +1,21 @@
 import React from 'react';
 import { IUserServiceData } from '../../../store/UserService/Types/IUserService';
-import TypeAhead from '../../TypeAhead/TypeAhead';
+import NewTypeAhead from '../../TypeAhead/NewTypeAhead';
 import { IState } from '../../../store/state';
 import { formValueSelector } from 'redux-form';
 import { connect } from 'react-redux';
 
 interface IProps {
     fields: any;
-    onSearchUserService: (value: any) => void;
-    userServiceData: Array<IUserServiceData>;
     getUserServiceDropdown: any;
+    getListOfUsers:(value:any,success:any,failure:any) => void;
 }
 
 const ProjectApprovalForm: React.FC<IProps> = props => {
     const {
         fields,
-        onSearchUserService,
-        getUserServiceDropdown
+        getUserServiceDropdown,
+        getListOfUsers
     } = props;
 
 
@@ -31,10 +30,11 @@ const ProjectApprovalForm: React.FC<IProps> = props => {
             </div> */}
                     <div className="col-lg-9">
                         <div className="form-group">
-                            <TypeAhead name={`${member}.userId`}
-                                options={getUserServiceDropdown}
+                            <NewTypeAhead 
+                                name={`${member}.userId`}
+                                onSearch={getListOfUsers}
+                                formatData={getUserServiceDropdown}
                                 DynamicsType={fields.get(index).approverTypeDescription}
-                                onSearch={onSearchUserService}
                                 labelName={fields.get(index).showRangeLabel ? fields.get(index).projectApprovalRangeDescription : null}
                                 submitParam="email" />
                             <span className="right_fix_txt">{fields.get(index).approverTypeDescription}</span>

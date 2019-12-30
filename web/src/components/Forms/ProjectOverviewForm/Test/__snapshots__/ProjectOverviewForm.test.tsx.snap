@@ -45,15 +45,20 @@ Object {
     "projectApprovals": Array [
       Object {
         "approvalStatus": "",
+        "approvalStatusDescription": "",
         "approverType": "",
+        "approverTypeDescription": "",
         "projectApprovalId": "",
         "projectApprovalRange": "",
+        "projectApprovalRangeDescription": "",
         "projectId": "",
+        "showRangeLabel": true,
         "userId": "",
       },
     ],
     "projectId": "",
   },
+  "initialStateSetForProjectApprovals": false,
   "loading": false,
   "notify": 2,
 }
@@ -102,15 +107,20 @@ Object {
     "projectApprovals": Array [
       Object {
         "approvalStatus": "",
+        "approvalStatusDescription": "",
         "approverType": "",
+        "approverTypeDescription": "",
         "projectApprovalId": "",
         "projectApprovalRange": "",
+        "projectApprovalRangeDescription": "",
         "projectId": "",
+        "showRangeLabel": true,
         "userId": "",
       },
     ],
     "projectId": "",
   },
+  "initialStateSetForProjectApprovals": false,
   "loading": false,
   "notify": 1,
 }
@@ -159,15 +169,20 @@ Object {
     "projectApprovals": Array [
       Object {
         "approvalStatus": "",
+        "approvalStatusDescription": "",
         "approverType": "",
+        "approverTypeDescription": "",
         "projectApprovalId": "",
         "projectApprovalRange": "",
+        "projectApprovalRangeDescription": "",
         "projectId": "",
+        "showRangeLabel": true,
         "userId": "",
       },
     ],
     "projectId": "",
   },
+  "initialStateSetForProjectApprovals": false,
   "loading": false,
   "notify": 1,
 }
