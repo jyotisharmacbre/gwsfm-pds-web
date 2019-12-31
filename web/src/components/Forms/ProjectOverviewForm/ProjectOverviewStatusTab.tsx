@@ -8,6 +8,7 @@ import { injectIntl, FormattedMessage } from 'react-intl';
 import { confirmAlert } from '../../Popup/CustomModalPopup';
 import IReactIntl from '../../../Translations/IReactIntl';
 import ProjectStatus from '../../../enums/ProjectStatus';
+import { activeMocks } from 'nock/types';
 
 interface IProps {
     status: number;
@@ -16,6 +17,9 @@ interface IProps {
     handleBidLost: () => void;
     handleOnHold: () => void;
 }
+
+
+
 
 const ProjectOverviewStatusTab: React.FC<IProps & IReactIntl> = props => {
     const handleToggleStatusTab = () => {
@@ -31,10 +35,24 @@ const ProjectOverviewStatusTab: React.FC<IProps & IReactIntl> = props => {
             }
         }
     }
+    const activateStatus = () => {
+    var element: any = document.getElementById('activaty_btn');
+    if (element != null) {
+        var isClassExists = element.classList.contains('active');
+        if (isClassExists) {
+            //element.classList.add('');
+            element.classList.remove('active');
+        } else {
+            //element.classList.remove('active');
+            element.classList.add('active');
+        }
+    }
+};
+    
     return (
 
         <div className="col-md-6 mt-4 mt-lg-0 d-flex justify-content-start justify-content-lg-end">
-            <div className="activate_status_box">
+            <div id="activaty_btn" className="activate_status_box" onClick={() => activateStatus()}>
                 {(props.status == ProjectStatus.BidLost || props.status == ProjectStatus.OnHold) ? <div className="status-dropdown-btn toggle mrgnrght10 mrgnt5">
                     <span>
 

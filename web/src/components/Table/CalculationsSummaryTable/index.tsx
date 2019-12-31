@@ -8,7 +8,7 @@ import { calculateSell, calculateAverageMargin} from '../../../helpers/formulas'
 import { getSubContractorSummaryCalculation, getPreliminarySummaryCalculation, getDiscountSummaryCalculation} from '../../../helpers/pricing-calculation-helper';
 import ISummaryCalculation from '../../../store/SummaryCalculation/Types/ISummaryCalculation';
 import {IPreliminariesComponentDetails} from '../../../store/Preliminaries/Types/IPreliminariesComponentDetails';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import {IDiscountActivity} from '../../../store/DiscountForm/Types/IDiscountActivity'; 
 import { ICurrency } from '../../../store/Lookups/Types/ICurrency';
 import Currency from '../../../store/Lookups/InitialState/Currency';
@@ -20,6 +20,7 @@ interface Props {
     preliminary?:Array<IPreliminariesComponentDetails>;
     discount?: {} | IDiscountActivity;
     name:CalculationsSummaryType;
+    intl: any;
 } 
 
 interface IMapStateToProps {
@@ -109,10 +110,10 @@ const CalculationsSummaryTable:React.FC<Props & IMapStateToProps & IMapDispatchT
     },[props.subContractorState,props.preliminaryState,props.discountState,props.subContractor,props.preliminary,props.discount]);
 
     return (
-    <div className="col-lg-12 px-0">
+    <div className="col-lg-9 px-0">
         <div className="price-sumry discount_table">
           <div className="inner-block">
-            <table className="price-table">
+            <table className="price-table table_responsive">
               <thead>
                 <tr>
                   <th><FormattedMessage id='T_HEADING_TOTAL_COST'></FormattedMessage> </th>
@@ -123,20 +124,20 @@ const CalculationsSummaryTable:React.FC<Props & IMapStateToProps & IMapDispatchT
               </thead>
               <tbody>
                 <tr>
-                  <td>{currencySymbol}
+                  <td data-column={props.intl.formatMessage({id:'T_HEADING_TOTAL_COST'})}>{currencySymbol}
                     <span data-test='total-cost-summary'>{props.summaryCalculation.cost}</span></td>
-                  <td>
+                  <td data-column={props.intl.formatMessage({id:'T_HEADING_TOTAL_MARGIN'})}>
                     <span data-test='total-margin-summary'>
                       {calculateAverageMargin(props.summaryCalculation.cost,props.summaryCalculation.sell)}
                     </span>
                     (%)
                   </td>
-                  <td>{currencySymbol}
+                  <td data-column={props.intl.formatMessage({id:'T_HEADING_GROSS_MARGIN'})}>{currencySymbol}
                     <span data-test='gross-margin-summary'>
                       {(props.summaryCalculation.sell-props.summaryCalculation.cost).toFixed(2)}
                     </span>
                   </td>
-                  <td>
+                  <td data-column={props.intl.formatMessage({id:'T_HEADING_TOTAL_SELL'})}>
                     {currencySymbol}
                     <span data-test='total-sell-summary'>
                       {props.summaryCalculation.sell.toFixed(2)}
@@ -176,4 +177,5 @@ const mapStateToProps = (state: IState) => ({
   currencies: state.lookup.currencies
 });
 
-export default connect(mapStateToProps,mapDispatchToProps)(CalculationsSummaryTable);
+export default connect(mapStateToProps,mapDispatchToProps)
+            (injectIntl(CalculationsSummaryTable));

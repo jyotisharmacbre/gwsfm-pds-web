@@ -4,7 +4,7 @@ import React from 'react';
 import { IGridTableProps } from '../../props/AppProps';
 const GridTable: React.FC<IGridTableProps> = props => {
   return (
-    <table className={props.className}>
+    <table className={`${props.className} table_responsive`}>
       <thead>
         <tr>
           {props.columns.map(x => (
@@ -22,7 +22,7 @@ const GridTable: React.FC<IGridTableProps> = props => {
         {props.data.map(x => (
           <tr>
             {props.columns.map(yy => (
-              <td>{x[yy.field]}</td>
+              <td data-column={yy.title}>{x[yy.field]}</td>
             ))}
           </tr>
         ))}

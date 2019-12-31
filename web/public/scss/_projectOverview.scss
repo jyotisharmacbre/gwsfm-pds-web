@@ -237,3 +237,79 @@
     {
         bottom:4em;
     }
+
+    /*activate status*/
+    .activate_status_box {
+        &.active {
+            .status_btn {
+                .status-dropdown {
+                    .status-dropdown-btn {
+                        background: #fff;
+                        border-radius: 5px 5px 0 0;
+                        box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.04);
+                        .dropdown-placeholder {
+                            color: #171c1b;
+                            svg {
+                                margin-left: 10px;
+                                font-size: 10px;
+                                margin-top: 2px;
+                                color: #6DD400;
+                            }
+                        }
+                    }
+                }
+                .status-dropdown-menu {
+                    top: 33px;
+                    right: 0;
+                    width: 120%;
+                    border-radius: 5px;
+                    z-index: 3;
+                    border: 0;
+                    box-shadow: 0px 0px 8px rgba(183, 183, 183, 0.35);
+                    background-color: #ffffff;
+                    @include smScreen {
+                        right: auto;
+                    }
+                    p {
+                        padding: 10px 15px;
+                        font-size: 13px;
+                        font-weight: 700;
+                        margin: 0;
+                        color: #171c1b;
+                    }
+                    .status-dropdown-item {
+                        .mrgnlft10 {
+                            margin-left: 0;
+                        }
+                        a {
+                            padding: 7px 15px;
+                            color: #171c1b;
+                            font-size: 13px;
+                        }
+                    }
+                }
+            } 
+        }
+    }
+
+    /*Risk Card*/
+    .risk_card_block {
+        .row {
+            .col-lg-4{
+                &:last-child {
+                    .risk_card {
+                        @include mdScreen{
+                            margin-bottom: 0;
+                            border: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .risk_card {
+        @include mdScreen {
+            border-bottom: 1px solid #006a4d;
+            margin-bottom: 15px;
+        }
+    }

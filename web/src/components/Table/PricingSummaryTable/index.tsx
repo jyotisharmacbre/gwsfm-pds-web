@@ -104,7 +104,7 @@ const PricingSummaryTable: React.FC<Props & IMapStateToProps & IMapDispatchToPro
 		<div className="price-sumry">
 			<label>Pricing Summary</label>
 			<div className="inner-block">
-				<table className="price-table">
+				<table className="price-table table_responsive">
 					<thead>
 						<tr>
 							<th />
@@ -116,16 +116,16 @@ const PricingSummaryTable: React.FC<Props & IMapStateToProps & IMapDispatchToPro
 					<tbody>
 						{props.showPreliminary ? (
 							<tr data-test="preliminary-data">
-								<td>Preliminaries</td>
-								<td>
+								<td data-column="&nbsp;">Preliminaries</td>
+								<td data-column={`Cost (${currencySymbol})`}>
 									{currencySymbol}
 									<span data-test="total-margin-summary">{preliminaryData.cost}</span>
 								</td>
-								<td>
+								<td data-column={`Margin (%)`}>
 									<span data-test="gross-margin-summary">{preliminaryData.margin}</span>
 									(%)
 								</td>
-								<td>
+								<td data-column={`Sell (${currencySymbol})`}>
 									{currencySymbol}
 									<span data-test="total-sell-summary">{preliminaryData.sell}</span>
 								</td>
@@ -133,15 +133,15 @@ const PricingSummaryTable: React.FC<Props & IMapStateToProps & IMapDispatchToPro
 						) : null}
 						{props.showSubContractor ? (
 							<tr data-test="sub-contractor-data">
-								<td>Subcontractors</td>
-								<td>
+								<td data-column="&nbsp;">Subcontractors</td>
+								<td data-column={`Cost (${currencySymbol})`}>
 									{currencySymbol}
 									<span data-test="sub-contractor-cost">{subContractorData.cost}</span>
 								</td>
-								<td>
+								<td data-column={`Margin (%)`}>
 									<span data-test="sub-contractor-margin">{subContractorData.margin}</span>(%)
 								</td>
-								<td>
+								<td data-column={`Sell (${currencySymbol})`}>
 									{currencySymbol}
 									<span data-test="sub-contractor-sell">{subContractorData.sell}</span>
 								</td>
@@ -150,16 +150,13 @@ const PricingSummaryTable: React.FC<Props & IMapStateToProps & IMapDispatchToPro
 						{props.showDiscount ? (
 							<React.Fragment>
 								<tr>
-									<th />
-									<th />
-									<th />
-									<th />
+									<br/>
 								</tr>
 								<tr data-test="discount-data">
-									<td>Disount</td>
-									<td>Sub-Contractor</td>
-									<td />
-									<td>
+									<td data-column="&nbsp;">Disount</td>
+									<td data-column={`Cost (${currencySymbol})`}>Sub-Contractor</td>
+									<td data-column={`Margin (%)`}>&nbsp;</td>
+									<td data-column={`Sell (${currencySymbol})`}>
 										Customer{' '}
 										{props.discountState.discountType == 1 ? (
 											`(${props.discountState.clientDiscount}%)`
@@ -167,15 +164,16 @@ const PricingSummaryTable: React.FC<Props & IMapStateToProps & IMapDispatchToPro
 									</td>
 								</tr>
 								<tr>
-									<td />
-									<td>
+									<td data-column="&nbsp;">&nbsp;</td>
+									<td data-column={`Cost (${currencySymbol})`}>
 										{currencySymbol}
 										<span data-test="sub-contractor-discount">
 											{props.discountState.supplierTotalDiscount}
 										</span>
+										&nbsp;
 									</td>
-									<td />
-									<td>
+									<td data-column="Margin (%)">&nbsp;</td>
+									<td data-column={`Sell (${currencySymbol})`} >
 										{currencySymbol}
 										<span data-test="customer-discount">
 											{props.discountState &&

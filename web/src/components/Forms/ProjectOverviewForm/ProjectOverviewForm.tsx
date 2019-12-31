@@ -624,6 +624,7 @@ let ProjectOverviewForm: React.FC<Props &
                 />
               </div>
             </div>
+              <div className="risk_card_block">
               <div className={`${getClassNameForProjectStatus(props.status)} row`}>
                 <div className="col-lg-4">
                   <ProjectOverviewRiskForm
@@ -641,6 +642,7 @@ let ProjectOverviewForm: React.FC<Props &
                     riskControlMeasureLabelName="LABEL_RISK_2_CONTROL_MEASURE"
                   ></ProjectOverviewRiskForm>
                 </div>
+                
                 <div className="col-lg-4">
                   <ProjectOverviewRiskForm
                     riskName="projectAdditionalDetail.projectRisk3"
@@ -649,6 +651,7 @@ let ProjectOverviewForm: React.FC<Props &
                     riskControlMeasureLabelName="LABEL_RISK_3_CONTROL_MEASURE"
                   ></ProjectOverviewRiskForm>
                 </div>
+              </div>
               </div>
              
 
