@@ -53,7 +53,9 @@ export {
   getDynamicContractData,
   getDynamicCompanyData,
   getDynamicSubContractorData,
-  getDynamicOther
+  getDynamicOther,
+  getListOfCompanies,
+  getListOfContract
 } from './DynamicsData/Action';
 
 export { getUserService, getUserServiceCallback } from './UserService/Action';
