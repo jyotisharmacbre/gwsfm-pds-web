@@ -122,6 +122,7 @@ const ProjectOverview: React.FC<IProps &
   const projectId = props.match.params.projectId;
   const CurrencyObj = new Currency();
   const [currencySymbol, setCurrencySymbol] = useState<string>('');
+  const [customerName, setCustomerName] = useState<string>('');
   useEffect(() => {
     window.scrollTo(0, 0);
     props.getAllCurrencies();
@@ -210,7 +211,25 @@ const ProjectOverview: React.FC<IProps &
     if (props.form.projectApprovals.length > 0)
       props.getAdditionalDetails(props.match.params.projectId);
   }, [props.initialStateSetForProjectApprovals]);
+  useEffect(() => {
+    if(props.enquiryOverview.contractorId){
+      actions.getListOfContract(props.enquiryOverview.contractorId,getListOfContractSuccess,failure)
+    }
+    setCustomerName(props.enquiryOverview.otherContractName);
+  }, [props.enquiryOverview]);
 
+const getListOfContractSuccess = (response) => {
+  setCustomerName(getFilterElementFromArray(
+                        response,
+                        'contractId',
+                        props.enquiryOverview.contractorId,
+                        'customerName'
+                      )
+  )
+}
+const failure = (error) => {
+
+}
   const handleNext = (data: IProjectOverviewDetails) => {
     data.projectAdditionalDetail.projectAddDetailId == ''
       ? props.projectOverviewFormAdd(
@@ -285,14 +304,7 @@ const ProjectOverview: React.FC<IProps &
                 headers: [
                   {
                     heading: formatMessage('LABEL_END_CUSTOMER_NAME'),
-                    subHeading: convertToString(
-                      getFilterElementFromArray(
-                        props.dynamicsContractCustomerData,
-                        'contractId',
-                        props.enquiryOverview.contractorId,
-                        'customerName'
-                      ) || props.enquiryOverview.otherContractName
-                    )
+                    subHeading: customerName
                   },
                   {
                     heading: formatMessage('MESSAGE_PROJECT_NAME'),
