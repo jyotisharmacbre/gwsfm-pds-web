@@ -1,5 +1,5 @@
 import * as axios from '../../client';
-import {store} from '../index';
+import { store } from '../index';
 import { ActionType } from './Types/ActionType';
 import { Dispatch } from 'redux';
 import { ICurrency } from './Types/ICurrency';
@@ -22,6 +22,19 @@ const getProjectStatusError = (error: any) => {
   };
 };
 
+const getLookupsByLookupItemsSuccess = (response: any) => {
+  return {
+    type: ActionType.LOOKUPS_GET_SUCCESS,
+    payload: response
+  };
+};
+
+const getLookupsByLookupItemsError = (error: any) => {
+  return {
+    type: ActionType.LOOKUPS_GET_ERROR,
+    payload: error
+  };
+};
 const headers = {
   'Content-Type': 'application/json'
 };
@@ -51,6 +64,21 @@ export const getProjectStatus = () => {
   };
 };
 
+export const getLookupsByLookupItems = (lookupItems: string[]) => {
+  return (dispatch: Dispatch) => {
+    axios.baseAPI
+      .post('api/LookupData/GetLookupsByIds', lookupItems, { headers: headers })
+      .then(response => {
+        dispatch(getLookupsByLookupItemsSuccess(response.data));
+      })
+      .catch(error => {
+        dispatch(getLookupsByLookupItemsError(error));
+      });
+  };
+};
+
+
+
 const getAllCurrenciesSuccess = (response: Array<ICurrency>) => {
   return {
     type: ActionType.GET_ALL_CURRENCIES_SUCCESS,
@@ -79,7 +107,7 @@ const getAllLanguagesError = (error: any) => {
   };
 };
 
-export const getAllCurrencies = (cache:boolean = true) => {
+export const getAllCurrencies = (cache: boolean = true) => {
   return (dispatch: Dispatch) => {
     let storeData = store.getState().lookup.currencies;
     if(cache && storeData && storeData.length > 0)
@@ -128,10 +156,10 @@ export const getAllLanguages = () => {
   return (dispatch: Dispatch) => {
     axios.baseAPI
       .get('api/LookupData/GetLanguages')
-      .then(response => {       
+      .then(response => {
         dispatch(getAllLanguagesSuccess(response.data));
       })
-      .catch(error => {       
+      .catch(error => {
         dispatch(getAllCurrenciesError(error));
       });
   };

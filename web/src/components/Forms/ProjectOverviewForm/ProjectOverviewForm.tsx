@@ -1,5 +1,5 @@
 import React from 'react';
-import { Field, reduxForm, InjectedFormProps } from 'redux-form';
+import { Field, reduxForm, InjectedFormProps, FieldArray } from 'redux-form';
 import { connect } from 'react-redux';
 import PdsFormInput from '../../PdsFormHandlers/PdsFormInput';
 import PdsFormSelect from '../../PdsFormHandlers/PdsFormSelect';
@@ -44,6 +44,7 @@ import ProjectOverviewRiskForm from './ProjectOverviewRiskForm';
 import { ISubContractorActivity } from '../../../store/SubContractor/Types/ISubContractorActivity';
 import { IPreliminariesComponentDetails } from '../../../store/Preliminaries/Types/IPreliminariesComponentDetails';
 import { IDiscountActivity } from '../../../store/DiscountForm/Types/IDiscountActivity';
+import ProjectApprovalForm from './ProjectApprovalForm';
 
 interface Props {
 	onNext: (data: IProjectOverviewDetails) => void;
@@ -55,15 +56,32 @@ interface Props {
 	preliminaryState: Array<IPreliminariesComponentDetails>;
 	discountState: IDiscountActivity;
 	currencySymbol: string;
+	lookups: any;
+	getListOfUsers: (value: any, success: any, failure: any) => void;
 }
 
 let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDetails, Props>> = (props) => {
-	const { handleSubmit, initialValues } = props;
+	const { handleSubmit, initialValues, getListOfUsers } = props;
 	const DropdownOptions = projectStatusData.map((status: any, i: number) => (
 		<option key={i} value={status.value}>
 			{status.label}
 		</option>
 	));
+
+	const formatUserData = (data) => {
+		let returnValue: any = [];
+		if (data && data.length > 0) {
+			data.filter((user) => user.firstname && user.lastName).map((data: any) => {
+				returnValue.push({
+					label: `${data.firstname} ${data.lastName} (${data.email === null ? 'NA' : data.email})`,
+					id: data.id,
+					email: data.email
+				});
+			});
+		}
+		return returnValue;
+	};
+
 	const normalize = (value) => (value ? parseInt(value) : null);
 
 	return (
@@ -75,7 +93,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						type="text"
 						component={PdsFormInput}
 						className="required"
-						validate={[ Validate.required('LABEL_MAIN_CONTRACTOR') ]}
+						validate={[Validate.required('LABEL_MAIN_CONTRACTOR')]}
 						labelKey="LABEL_MAIN_CONTRACTOR"
 						placeholderKey="PLACEHOLDER_CONTRACTORS_NAME"
 					/>
@@ -85,7 +103,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						type="text"
 						component={PdsFormInput}
 						className="required"
-						validate={[ Validate.required('LABEL_ENQUIRY_RECEIVED_FROM'), Validate.maxLength(1000) ]}
+						validate={[Validate.required('LABEL_ENQUIRY_RECEIVED_FROM'), Validate.maxLength(1000)]}
 						warn={alphaNumeric}
 						labelKey="LABEL_ENQUIRY_RECEIVED_FROM"
 						placeholderKey="PLACEHOLDER_ENQUIRY_SENDER_NAME"
@@ -120,7 +138,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						type="text"
 						component={PdsFormInput}
 						className="required"
-						validate={[ Validate.required('LABEL_CREDIT_CHECK_RESULT'), Validate.maxLength(1000) ]}
+						validate={[Validate.required('LABEL_CREDIT_CHECK_RESULT'), Validate.maxLength(1000)]}
 						warn={alphaNumeric}
 						labelKey="LABEL_CREDIT_CHECK_RESULT"
 						placeholderKey="PLACEHOLDER_CREDIT_CHECK_DETAILS"
@@ -131,7 +149,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						type="text"
 						component={PdsFormInput}
 						className="required"
-						validate={[ Validate.required('LABEL_SITE_ADDRESS'), Validate.maxLength(1000) ]}
+						validate={[Validate.required('LABEL_SITE_ADDRESS'), Validate.maxLength(1000)]}
 						warn={alphaNumeric}
 						labelKey="LABEL_SITE_ADDRESS"
 						placeholderKey="PLACEHOLDER_ADD_SITE_ADDRESS"
@@ -149,7 +167,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						type="text"
 						component={PdsFormInput}
 						className="required"
-						validate={[ Validate.required('LABEL_FORM_OF_CONTRACT'), Validate.maxLength(1000) ]}
+						validate={[Validate.required('LABEL_FORM_OF_CONTRACT'), Validate.maxLength(1000)]}
 						warn={alphaNumeric}
 						labelKey="LABEL_FORM_OF_CONTRACT"
 						placeholderKey="PLACEHOLDER_FORM_OF_CONTRACT"
@@ -159,7 +177,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						data-test="retention"
 						type="text"
 						component={PdsFormInput}
-						validate={[ Validate.maxLength(1000) ]}
+						validate={[Validate.maxLength(1000)]}
 						warn={alphaNumeric}
 						labelKey="LABEL_RETENTION"
 						placeholderKey="PLACEHOLDER_ADD_RETENTION"
@@ -169,7 +187,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						data-test="liquidatedDamages"
 						type="text"
 						component={PdsFormInput}
-						validate={[ Validate.maxLength(1000) ]}
+						validate={[Validate.maxLength(1000)]}
 						warn={alphaNumeric}
 						labelKey="LABEL_LIQUIDATED_DAMAGES"
 						placeholderKey="PLACEHOLDER_ADD_LIQUIDATED_DAMAGES"
@@ -180,7 +198,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						type="text"
 						component={PdsFormInput}
 						className="required"
-						validate={[ Validate.required('LABEL_INSURANCE'), Validate.maxLength(1000) ]}
+						validate={[Validate.required('LABEL_INSURANCE'), Validate.maxLength(1000)]}
 						warn={alphaNumeric}
 						labelKey="LABEL_INSURANCE"
 						placeholderKey="PLACEHOLDER_ADD_INSURANCE"
@@ -194,7 +212,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 								name="projectAdditionalDetail.workTypeId"
 								component={PdsFormSelect}
 								className="required"
-								validate={[ Validate.required('MESSAGE_PROJECT_STATUS') ]}
+								validate={[Validate.required('MESSAGE_PROJECT_STATUS')]}
 								placeholderKey="PLACEHOLDER_WORK_TYPES"
 								messageKey="MESSAGE_PROJECT_STATUS"
 							>
@@ -239,7 +257,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 												labelKey="LABEL_PROJECTMILE_STONES"
 												rows="7"
 												className="required"
-												validate={[ Validate.required('LABEL_PROJECTMILE_STONES') ]}
+												validate={[Validate.required('LABEL_PROJECTMILE_STONES')]}
 												component={PdsFormTextArea}
 												placeholderKey="PLACEHOLDER_PROJECT_MILESTONES"
 											/>
@@ -282,7 +300,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 												data-test="valuationIntervals"
 												type="text"
 												className="required"
-												validate={[ Validate.required('LABEL_VALUATION_INTERVALS') ]}
+												validate={[Validate.required('LABEL_VALUATION_INTERVALS')]}
 												component={PdsFormInput}
 												labelKey="LABEL_VALUATION_INTERVALS"
 												placeholderKey="PLACEHOLDER_VALUATION_INTERVALS"
@@ -296,7 +314,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 												data-test="paymentTerms"
 												type="text"
 												className="required"
-												validate={[ Validate.required('LABEL_PAYMENT_TERMS') ]}
+												validate={[Validate.required('LABEL_PAYMENT_TERMS')]}
 												component={PdsFormInput}
 												labelKey="LABEL_PAYMENT_TERMS"
 												placeholderKey="PLACEHOLDER_PAYMENT_TERMS"
@@ -332,260 +350,12 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 							<FormattedMessage id="LABEL_PROJECT_AUTHORISED" />
 						</h6>
 						<div className="authorised_form_inner">
-							<div className="row">
-								<div className="col-md-12 d-flex">
-									<label>
-										<FormattedMessage id="LABEL_AUTHORISED_BY" />
-									</label>
-									<h6 className="mb-0 d-none d-lg-block">
-										<FormattedMessage id="LABEL_SIGN_OFF_STATUS" />{' '}
-									</h6>
-								</div>
-								<div className="col-lg-3">
-									<div className="approve_state">
-										<span className="icon">
-											<FontAwesomeIcon className="green" icon={faCheckCircle} />
-										</span>
-										<label className="approv_label">
-											<FormattedMessage id="LABEL_APPROVED" />{' '}
-										</label>
-									</div>
-								</div>
-							</div>
-							<div className="row align-items-stretch">
-								<div className="col-lg-9 col-md-12 d-flex">
-									<label>{formatMessage('LABEL_AUTHORISED_BY_UP_TO', { 0: '£ 100k' })}</label>
-								</div>
-								<div className="col-lg-9">
-									<div className="form-group">
-										<input className="form-control" type="number" placeholder="" />
-										<span className="right_fix_txt">
-											<FormattedMessage id="FIX_TEXT_AGM" />
-										</span>
-									</div>
-								</div>
-								<div className="col-lg-3">
-									<div className="approve_state">
-										<span className="icon">
-											<FontAwesomeIcon className="green" icon={faCheckCircle} />
-										</span>
-										<label className="approv_label">
-											<FormattedMessage id="LABEL_APPROVED" />{' '}
-										</label>
-									</div>
-								</div>
-							</div>
-							<div className="row align-items-stretch">
-								<div className="col-lg-9 col-md-12 d-flex">
-									<label> {formatMessage('LABEL_AUTHORISED_BY_UP_TO', { 0: '£ 250k' })}</label>
-								</div>
-								<div className="col-lg-9">
-									<div className="form-group">
-										<input className="form-control" type="number" placeholder="" />
-										<span className="right_fix_txt">
-											<FormattedMessage id="FIX_TEXT_COM" />{' '}
-										</span>
-									</div>
-								</div>
-								<div className="col-lg-3">
-									<div className="approve_state">
-										<span className="icon">
-											<FontAwesomeIcon className="orange" icon={faClock} />
-										</span>
-										<label className="approv_label">
-											<FormattedMessage id="LABEL_PENDING" />{' '}
-										</label>
-									</div>
-								</div>
-							</div>
-							<div className="row align-items-stretch">
-								<div className="col-lg-9 col-md-12 d-flex">
-									<label>{formatMessage('LABEL_AUTHORISED_BY_UP_TO', { 0: '£ 250k' })}</label>
-								</div>
-								<div className="col-lg-9">
-									<div className="form-group">
-										<input className="form-control" type="number" placeholder="" />
-										<span className="right_fix_txt">
-											<FormattedMessage id="FIX_TEXT_BUL" />{' '}
-										</span>
-									</div>
-								</div>
-								<div className="col-lg-3">
-									<div className="approve_state">
-										<span className="icon">
-											<FontAwesomeIcon className="orange" icon={faClock} />
-										</span>
-										<label className="approv_label">
-											<FormattedMessage id="LABEL_PENDING" />{' '}
-										</label>
-									</div>
-								</div>
-							</div>
-							<div className="row align-items-stretch">
-								<div className="col-lg-9 col-md-12 d-flex">
-									<label>{formatMessage('LABEL_AUTHORISED_BY_UP_TO', { 0: '£ 1 Million' })}</label>
-								</div>
-								<div className="col-lg-9">
-									<div className="form-group">
-										<input className="form-control" type="number" placeholder="" />
-										<span className="right_fix_txt">
-											<FormattedMessage id="FIX_TEXT_DPD" />{' '}
-										</span>
-									</div>
-								</div>
-								<div className="col-lg-3">
-									<div className="approve_state">
-										<span className="icon">
-											<FontAwesomeIcon className="orange" icon={faExclamationTriangle} />
-										</span>
-										<label className="approv_label">
-											<FormattedMessage id="LABEL_RESPONSE_AWAITED" />{' '}
-										</label>
-									</div>
-								</div>
-							</div>
-							<div className="row align-items-stretch">
-								<div className="col-lg-9">
-									<div className="form-group">
-										<input className="form-control" type="number" placeholder="" />
-										<span className="right_fix_txt">
-											<FormattedMessage id="FIX_TEXT_DMD" />{' '}
-										</span>
-									</div>
-								</div>
-								<div className="col-lg-3">
-									<div className="approve_state">
-										<span className="icon">
-											<FontAwesomeIcon className="orange" icon={faExclamationTriangle} />
-										</span>
-										<label className="approv_label">
-											<FormattedMessage id="LABEL_RESPONSE_AWAITED" />{' '}
-										</label>
-									</div>
-								</div>
-							</div>
-							<div className="row align-items-stretch">
-								<div className="col-lg-9 col-md-12 d-flex">
-									<label> {formatMessage('LABEL_AUTHORISED_BY_UP_TO', { 0: '£ 3 Million' })}</label>
-									<label className="right_label">
-										<FormattedMessage id="LABEL_DELEGATE" />{' '}
-									</label>
-								</div>
-								<div className="col-lg-9">
-									<div className="form-group">
-										<input className="form-control" type="number" placeholder="" />
-										<span className="right_fix_txt">
-											<FormattedMessage id="FIX_TEXT_DOFP" />{' '}
-										</span>
-									</div>
-								</div>
-								<div className="col-lg-3">
-									<div className="approve_state">
-										<span className="icon">
-											<FontAwesomeIcon className="orange" icon={faExclamationTriangle} />
-										</span>
-										<label className="approv_label">
-											<FormattedMessage id="LABEL_RESPONSE_AWAITED" />{' '}
-										</label>
-									</div>
-								</div>
-							</div>
-							<div className="row align-items-stretch">
-								<div className="col-lg-9 col-md-12 d-flex">
-									<label className="right_label">
-										<FormattedMessage id="LABEL_DELEGATE" />{' '}
-									</label>
-								</div>
-								<div className="col-lg-9">
-									<div className="form-group">
-										<input className="form-control" type="number" placeholder="" />
-										<span className="right_fix_txt">
-											<FormattedMessage id="FIX_TEXT_PCOMM" />{' '}
-										</span>
-									</div>
-								</div>
-								<div className="col-lg-3">
-									<div className="approve_state">
-										<span className="icon">
-											<FontAwesomeIcon className="orange" icon={faExclamationTriangle} />
-										</span>
-										<label className="approv_label">
-											<FormattedMessage id="LABEL_RESPONSE_AWAITED" />
-										</label>
-									</div>
-								</div>
-							</div>
-							<div className="row align-items-stretch">
-								<div className="col-lg-9 col-md-12 d-flex">
-									<label className="right_label">
-										<FormattedMessage id="LABEL_DELEGATE" />
-									</label>
-								</div>
-								<div className="col-lg-9">
-									<div className="form-group">
-										<input className="form-control" type="number" placeholder="" />
-										<span className="right_fix_txt">
-											<FormattedMessage id="FIX_TEXT_COO_UK_FD" />{' '}
-										</span>
-									</div>
-								</div>
-								<div className="col-lg-3">
-									<div className="approve_state">
-										<span className="icon">
-											<FontAwesomeIcon className="orange" icon={faExclamationTriangle} />
-										</span>
-										<label className="approv_label">
-											<FormattedMessage id="LABEL_RESPONSE_AWAITED" />
-										</label>
-									</div>
-								</div>
-							</div>
-							<div className="row align-items-stretch">
-								<div className="col-lg-9 col-md-12 d-flex">
-									<label>{formatMessage('LABEL_OVER_MILLION', { 0: '£ 405' })}</label>
-								</div>
-								<div className="col-lg-9">
-									<div className="form-group">
-										<input className="form-control" type="number" placeholder="" />
-										<span className="right_fix_txt">
-											<FormattedMessage id="FIX_TEXT_CEO_GROUP_FD" />{' '}
-										</span>
-									</div>
-								</div>
-								<div className="col-lg-3">
-									<div className="approve_state">
-										<span className="icon">
-											<FontAwesomeIcon className="green" icon={faCheckCircle} />
-										</span>
-										<label className="approv_label">
-											<FormattedMessage id="LABEL_APPROVED" />
-										</label>
-									</div>
-								</div>
-							</div>
-							<div className="row align-items-stretch">
-								<div className="col-lg-9 col-md-12 d-flex">
-									<label>{formatMessage('LABEL_OVER_MILLION_AUTHORITY', { 0: '£ 3' })}</label>
-								</div>
-								<div className="col-lg-9">
-									<div className="form-group">
-										<input className="form-control" type="number" placeholder="" />
-										<span className="right_fix_txt">
-											<FormattedMessage id="FIX_TEXT_CBRE_REGULATIONS" />
-										</span>
-									</div>
-								</div>
-								<div className="col-lg-3">
-									<div className="approve_state">
-										<span className="icon">
-											<FontAwesomeIcon className="green" icon={faCheckCircle} />
-										</span>
-										<label className="approv_label">
-											<FormattedMessage id="LABEL_APPROVED" />
-										</label>
-									</div>
-								</div>
-							</div>
+							<FieldArray
+								name="projectApprovals"
+								component={ProjectApprovalForm}
+								formatUserData={formatUserData}
+								getListOfUsers={getListOfUsers}
+							/>
 						</div>
 					</div>
 				</div>
@@ -679,20 +449,20 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 			<div className="row">
 				<div className="col-xl-12">
 					<PricingSummaryTable
-									data-test="pricing-summary"
-									preliminary={props.preliminaryState}
-									subContractor={props.subContractorState}
-									discount={props.discountState}
-									currencySymbol={props.currencySymbol}
-								/>
-								<CalculationsSummaryTable
-									data-test="calculation-summary"
-									preliminary={props.preliminaryState}
-									subContractor={props.subContractorState}
-									discount={props.discountState}
-									currencySymbol={props.currencySymbol}
-								/>
-        </div>
+						data-test="pricing-summary"
+						preliminary={props.preliminaryState}
+						subContractor={props.subContractorState}
+						discount={props.discountState}
+						currencySymbol={props.currencySymbol}
+					/>
+					<CalculationsSummaryTable
+						data-test="calculation-summary"
+						preliminary={props.preliminaryState}
+						subContractor={props.subContractorState}
+						discount={props.discountState}
+						currencySymbol={props.currencySymbol}
+					/>
+				</div>
 			</div>
 			<div className={`${getClassNameForProjectStatus(props.status)} row`}>
 				<div className="col-lg-4">

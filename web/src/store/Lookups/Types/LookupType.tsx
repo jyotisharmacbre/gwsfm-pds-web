@@ -6,5 +6,8 @@ export enum LookupType {
   Asset_Type = 'Asset_Type',
   Work_Type = 'Work_Type',
   Enquiry_Type = 'Enquiry_Type',
-  Discount_Type = 'Discount_Type'
+  Discount_Type = 'Discount_Type',
+  Project_Approval_Range = 'Project_Approval_Range',
+  Project_Approval_Sign_Off_Status = 'Project_Approval_Sign_Off_Status',
+  Project_Approver_Type = 'Project_Approver_Type',
 }

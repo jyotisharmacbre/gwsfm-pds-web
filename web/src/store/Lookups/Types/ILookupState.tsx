@@ -5,6 +5,7 @@ import { ICountry } from './ICountry';
 
 export interface ILookupState {
   projectstatus: Array<ILookup>;
+  lookups: Array<ILookup>;
   currencies: Array<ICurrency> | null;
   languages: Array<ILanguage> | null;
   countries: Array<ICountry> | null;
