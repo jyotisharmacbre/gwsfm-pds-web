@@ -67,7 +67,9 @@ const getAdditionalDetailsSuccess = (oldState, action) => {
 };
 
 const getAdditionalDetailsError = (oldState, action) => {
-  return initialState;
+  let state = { ...initialState };
+  state.form.projectApprovals = oldState.form.projectApprovals;
+  return state;
 };
 
 const resetProjectOverviewState = (oldState, action) => {
