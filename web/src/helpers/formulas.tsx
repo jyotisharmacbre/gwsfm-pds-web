@@ -1,6 +1,5 @@
 export const calculateTotalSum = (...values) =>{
   let total =0;
-  debugger;
   for(let i=0;i<values.length;i++)
       total += values[i];;
   return total;

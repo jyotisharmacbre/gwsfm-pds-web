@@ -1,104 +1,36 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import { IState } from '../../../store/state';
-import * as actions from '../../../store/rootActions';
 import { ISubContractorActivity } from '../../../store/SubContractor/Types/ISubContractorActivity';
-import CalculationsSummaryType from '../../../enums/CalculationsSummaryType';
-import { calculateSell, calculateAverageMargin } from '../../../helpers/formulas';
 import {
 	getSubContractorSummaryCalculation,
-	getPreliminarySummaryCalculation,
-	getDiscountSummaryCalculation
-} from '../../../helpers/pricing-calculation-helper';
-import ISummaryCalculation from '../../../store/SummaryCalculation/Types/ISummaryCalculation';
+	getPreliminarySummaryCalculation} from '../../../helpers/pricing-calculation-helper';
+import IPricing from '../../../models/IPricing';
 import { IPreliminariesComponentDetails } from '../../../store/Preliminaries/Types/IPreliminariesComponentDetails';
-import { FormattedMessage } from 'react-intl';
 import { IDiscountActivity } from '../../../store/DiscountForm/Types/IDiscountActivity';
 import { calculateClientDiscount,calculateTotalSum } from '../../../helpers/formulas';
-import { ICurrency } from '../../../store/Lookups/Types/ICurrency';
-import Currency from '../../../store/Lookups/InitialState/Currency';
-import { getPropertyName, getFilterElementFromArray } from '../../../helpers/utility-helper';
 
 interface Props {
-	projectId?: string;
-	showPreliminary?: boolean;
-	showSubContractor?: boolean;
-	showDiscount?: boolean;
+	preliminary?: Array<IPreliminariesComponentDetails>;
+	subContractor?: Array<ISubContractorActivity>;
+	discount?: IDiscountActivity;
+    currencySymbol:string;
 }
 
-interface IMapStateToProps {
-	summaryCalculation: ISummaryCalculation;
-	subContractorState: Array<ISubContractorActivity>;
-	preliminaryState: Array<IPreliminariesComponentDetails>;
-	discountState: IDiscountActivity;
-	currencyId: number;
-	currencies: Array<ICurrency> | null;
-}
-
-interface IMapDispatchToProps {
-	getSubContractor: (projectId: string) => void;
-	getPreliminaryDetails: (projectId: string) => void;
-	getDiscountData: (projectId: string) => void;
-	getAllCurrencies: () => void;
-	getProjectDetail: (projectId: string) => void;
-}
-
-const PricingSummaryTable: React.FC<Props & IMapStateToProps & IMapDispatchToProps> = (props) => {
-	let initDiscount: ISummaryCalculation = { cost: 0, sell: 0, margin: 0 };
+const PricingSummaryTable: React.FC<Props> = (props) => {
+	let initDiscount: IPricing = { cost: 0, sell: 0, margin: 0 };
 	const [ subContractorData, setSubContractorData ] = useState({ ...initDiscount });
 	const [ preliminaryData, setPreliminaryData ] = useState({ ...initDiscount });
-	const [ discountData, setDiscountData ] = useState({ ...initDiscount });
-	const CurrencyObj = new Currency();
-	const [ currencySymbol, setCurrencySymbol ] = useState<string>('');
+	
+	useEffect(() => {
+		if(props.subContractor)
+		{
+			setSubContractorData(getSubContractorSummaryCalculation(props.subContractor));
+		}
+   }, [props.subContractor]);
 
 	useEffect(() => {
-		props.getAllCurrencies();
-		if (props.projectId != '' && props.projectId != undefined && props.projectId != null) {
-			props.getProjectDetail(props.projectId);
-			if (props.showSubContractor) props.getSubContractor(props.projectId);
-			if (props.showPreliminary) props.getPreliminaryDetails(props.projectId);
-			if (props.showDiscount) props.getDiscountData(props.projectId);
-		}
-	}, []);
-
-	useEffect(
-		() => {
-			if (props.currencyId > 0 && props.currencies) {
-				setCurrencySymbol(
-					getFilterElementFromArray(
-						props.currencies,
-						getPropertyName(CurrencyObj, (prop) => prop.currencyId),
-						props.currencyId,
-						getPropertyName(CurrencyObj, (prop) => prop.currencySymbol)
-					)
-				);
-			}
-		},
-		[ props.currencyId, props.currencies ]
-	);
-
-	useEffect(
-		() => {
-			if (props.subContractorState)
-				setSubContractorData(getSubContractorSummaryCalculation(props.subContractorState, { ...initDiscount }));
-		},
-		[ props.subContractorState ]
-	);
-
-	useEffect(
-		() => {
-			if (props.preliminaryState && props.preliminaryState.length > 0)
-				setPreliminaryData(getPreliminarySummaryCalculation(props.preliminaryState, { ...initDiscount }));
-		},
-		[ props.preliminaryState ]
-	);
-
-	useEffect(
-		() => {
-			if (props.discountState) setDiscountData(getDiscountSummaryCalculation(props.discountState, discountData));
-		},
-		[ props.discountState ]
-	);
+		if(props.preliminary && props.preliminary.length > 0)
+            setPreliminaryData(getPreliminarySummaryCalculation(props.preliminary));
+    }, [props.preliminary]);
 
 	return (
 		<div className="price-sumry">
@@ -108,79 +40,79 @@ const PricingSummaryTable: React.FC<Props & IMapStateToProps & IMapDispatchToPro
 					<thead>
 						<tr>
 							<th />
-							<th>Cost ({currencySymbol})</th>
+							<th>Cost ({props.currencySymbol})</th>
 							<th>Margin (%)</th>
-							<th>Sell ({currencySymbol})</th>
+							<th>Sell ({props.currencySymbol})</th>
 						</tr>
 					</thead>
 					<tbody>
-						{props.showPreliminary ? (
+						{props.preliminary ? (
 							<tr data-test="preliminary-data">
 								<td data-column="&nbsp;">Preliminaries</td>
-								<td data-column={`Cost (${currencySymbol})`}>
-									{currencySymbol}
+                                <td data-column={`Cost (${props.currencySymbol})`}>
+                                    {props.currencySymbol}
 									<span data-test="total-margin-summary">{preliminaryData.cost}</span>
 								</td>
 								<td data-column={`Margin (%)`}>
 									<span data-test="gross-margin-summary">{preliminaryData.margin}</span>
 									(%)
 								</td>
-								<td data-column={`Sell (${currencySymbol})`}>
-									{currencySymbol}
+                                <td data-column={`Sell (${props.currencySymbol})`}>
+                                    {props.currencySymbol}
 									<span data-test="total-sell-summary">{preliminaryData.sell}</span>
 								</td>
 							</tr>
 						) : null}
-						{props.showSubContractor ? (
+						{props.subContractor ? (
 							<tr data-test="sub-contractor-data">
 								<td data-column="&nbsp;">Subcontractors</td>
-								<td data-column={`Cost (${currencySymbol})`}>
-									{currencySymbol}
+                                <td data-column={`Cost (${props.currencySymbol})`}>
+                                    {props.currencySymbol}
 									<span data-test="sub-contractor-cost">{subContractorData.cost}</span>
 								</td>
 								<td data-column={`Margin (%)`}>
 									<span data-test="sub-contractor-margin">{subContractorData.margin}</span>(%)
 								</td>
-								<td data-column={`Sell (${currencySymbol})`}>
-									{currencySymbol}
+                                <td data-column={`Sell (${props.currencySymbol})`}>
+                                    {props.currencySymbol}
 									<span data-test="sub-contractor-sell">{subContractorData.sell}</span>
 								</td>
 							</tr>
 						) : null}
-						{props.showDiscount ? (
+						{props.discount ? (
 							<React.Fragment>
 								<tr>
 									<br/>
 								</tr>
 								<tr data-test="discount-data">
 									<td data-column="&nbsp;">Disount</td>
-									<td data-column={`Cost (${currencySymbol})`}>Sub-Contractor</td>
+                                    <td data-column={`Cost (${props.currencySymbol})`}>Sub-Contractor</td>
 									<td data-column={`Margin (%)`}>&nbsp;</td>
-									<td data-column={`Sell (${currencySymbol})`}>
+                                    <td data-column={`Sell (${props.currencySymbol})`}>
 										Customer{' '}
-										{props.discountState.discountType == 1 ? (
-											`(${props.discountState.clientDiscount}%)`
+										{props.discount.discountType == 1 ? (
+											`(${props.discount.clientDiscount}%)`
 										) : null}
 									</td>
 								</tr>
 								<tr>
 									<td data-column="&nbsp;">&nbsp;</td>
-									<td data-column={`Cost (${currencySymbol})`}>
-										{currencySymbol}
+                                    <td data-column={`Cost (${props.currencySymbol})`}>
+                                        {props.currencySymbol}
 										<span data-test="sub-contractor-discount">
-											{props.discountState.supplierTotalDiscount}
+											{props.discount.supplierTotalDiscount}
 										</span>
 										&nbsp;
 									</td>
 									<td data-column="Margin (%)">&nbsp;</td>
-									<td data-column={`Sell (${currencySymbol})`} >
-										{currencySymbol}
+                                    <td data-column={`Sell (${props.currencySymbol})`} >
+                                        {props.currencySymbol}
 										<span data-test="customer-discount">
-											{props.discountState &&
+											{props.discount &&
 												calculateClientDiscount(
-													props.discountState.discountType,
+													props.discount.discountType,
 													calculateTotalSum(subContractorData.sell, preliminaryData.sell),
-													props.discountState.clientDiscount as number
+													props.discount.clientDiscount as number
 												)}
 										</span>
 									</td>
@@ -194,23 +126,5 @@ const PricingSummaryTable: React.FC<Props & IMapStateToProps & IMapDispatchToPro
 	);
 };
 
-const mapDispatchToProps = (dispatch) => {
-	return {
-		getSubContractor: (projectId: string) => dispatch(actions.getSubContractor(projectId)),
-		getPreliminaryDetails: (projectId: string) => dispatch(actions.getPreliminaryDetails(projectId)),
-		getDiscountData: (projectId: string) => dispatch(actions.getDiscountData(projectId)),
-		getAllCurrencies: () => dispatch(actions.getAllCurrencies()),
-		getProjectDetail: (projectId) => dispatch(actions.getProjectDetail(projectId))
-	};
-};
 
-const mapStateToProps = (state: IState) => ({
-	summaryCalculation: state.summaryCalculation,
-	subContractorState: state.subContractor.form.activities,
-	preliminaryState: state.preliminary.preliminaryDetails,
-	discountState: state.discount.form,
-	currencyId: state.project.form.currencyId,
-	currencies: state.lookup.currencies
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(PricingSummaryTable);
+export default PricingSummaryTable;

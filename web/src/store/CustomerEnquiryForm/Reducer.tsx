@@ -52,9 +52,7 @@ const getProjectDetailSuccess = (oldState, action) => {
 };
 
 const getProjectDetailError = (oldState, action) => {
-  return updateObject(oldState, {
-    error: action.error
-  });
+  return initialState;
 };
 
 const resetProjectDetailState = (oldState, action) => {
@@ -78,7 +76,6 @@ const changeProjectStatus=(oldState, action) => {
 const resetProjectDetailStateToInitial = (oldState, action) => {
   return initialState;
 };
-
 
 const projectDetailReducer = (oldState = initialState, action) => {
   switch (action.type) {

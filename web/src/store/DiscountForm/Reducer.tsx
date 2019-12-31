@@ -49,11 +49,7 @@ const getdiscountDataSuccess = (oldState, action) => {
 };
 
 const getdiscountDataError = (oldState, action) => {
-  return updateObject(oldState, {
-    error: action.error,
-    loading: false,
-    notify: Notify.error
-  });
+  return initialState;
 };
 
 

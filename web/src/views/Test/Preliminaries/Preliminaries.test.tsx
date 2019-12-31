@@ -11,7 +11,6 @@ import { initialState } from '../../../store/Preliminaries/InitialState';
 import { initialState as subcontractorInitialState } from '../../../store/SubContractor/InitialState';
 import { preliminariesData, lookUpInitialState, customerEnquiryInitialState } from './PreliminariesTestData';
 import { initialState as discountInitialState } from '../../../store/DiscountForm/InitialState';
-import { initialState as summaryCalculationState } from '../../../store/SummaryCalculation/InitialState';
 import ProjectStatus from '../../../enums/ProjectStatus';
 
 const mockStore = configureStore([]);
@@ -24,7 +23,6 @@ const setUpStore = (initialState, lookUpInitialState, customerEnquiryInitialStat
 		project: customerEnquiryInitialState,
 		subContractor: subcontractorInitialState,
 		discount: discountInitialState,
-		summaryCalculation: summaryCalculationState
 	});
 	store.dispatch = jest.fn();
 };
