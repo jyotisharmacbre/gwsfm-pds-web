@@ -135,6 +135,9 @@ const Project: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = props
       dynamicsContractCustomerData = {props.dynamicsContract}
       dynamicsCompany = {props.dynamicsCompany}
       countries={props.countries}
+      getListOfUsers={actions.getUserServiceCallback}
+      getListOfCompanies={actions.getListOfCompanies}
+      getListOfContract={actions.getListOfContract}
     />
     </div>
   );

@@ -119,221 +119,235 @@ interface IProps {
 const ProjectOverview: React.FC<IProps &
   IMapStateToProps &
   IMapDispatchToProps> = props => {
-  const projectId = props.match.params.projectId;
-  const CurrencyObj = new Currency();
-  const [currencySymbol, setCurrencySymbol] = useState<string>('');
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    props.getAllCurrencies();
-    props.getLookups();
-    props.getProjectStatus();
-    props.getProjectDetail(projectId);
-    props.getAdditionalDetails(projectId);
-    props.getEnquiryOverview(projectId);
-    props.getSubContractor(projectId);
-    props.getPreliminaryDetails(projectId);
-    props.getDiscountData(projectId);
-  }, []);
+    const projectId = props.match.params.projectId;
+    const CurrencyObj = new Currency();
+    const [currencySymbol, setCurrencySymbol] = useState<string>('');
+    const [customerName, setCustomerName] = useState<string>('');
+    useEffect(() => {
+      window.scrollTo(0, 0);
+      props.getAllCurrencies();
+      props.getLookups();
+      props.getProjectStatus();
+      props.getProjectDetail(projectId);
+      props.getAdditionalDetails(projectId);
+      props.getEnquiryOverview(projectId);
+      props.getSubContractor(projectId);
+      props.getPreliminaryDetails(projectId);
+      props.getDiscountData(projectId);
+    }, []);
 
-  useEffect(() => {
-    if (props.project.currencyId > 0 && props.currencies) {
-      setCurrencySymbol(
-        getFilterElementFromArray(
+    useEffect(() => {
+      if (props.project.currencyId > 0 && props.currencies) {
+        setCurrencySymbol(
+          getFilterElementFromArray(
+            props.currencies,
+            getPropertyName(CurrencyObj, prop => prop.currencyId),
+            props.project.currencyId,
+            getPropertyName(CurrencyObj, prop => prop.currencySymbol)
+          )
+        );
+      }
+    }, [props.project.currencyId, props.currencies]);
+
+    useEffect(() => {
+      if (props.notify == Notify.success) {
+        if (props.event == EventType.next) {
+          toast.success('Data Saved Successfully');
+          props.history.push(
+            `/JustificationAuthorisation/${props.match.params.projectId}`
+          );
+        } else if (props.event == EventType.previous) {
+          toast.success('Data Saved Successfully');
+          props.history.push(`/Project/${props.match.params.projectId}`);
+        }
+        props.resetProjectOverviewState();
+      }
+    }, [props.notify, props.event]);
+
+    useEffect(() => {
+      if (props.notify == Notify.success) {
+        if (props.event == EventType.save) {
+          toast.success('Project reactivated successfully');
+          props.getProjectDetail(props.match.params.projectId);
+        } else {
+          toast.success('Project status changed successfully');
+        }
+      } else if (props.notify == Notify.error) {
+        toast.error('Error occured.Please contact administrator');
+      }
+      props.resetProjectOverviewState();
+    }, [props.notify]);
+
+    useEffect(() => {
+      props.setAdminDefaultValues(props.project.countryId);
+    }, [props.project.countryId]);
+    const handlePrevious = () => {
+      props.history.push(`/Project/${props.match.params.projectId}`);
+    };
+
+    useEffect(() => {
+      if (
+        props.project.currencyId > 0 &&
+        props.currencies &&
+        props.currencies.length > 0 &&
+        props.lookups.length > 0
+      ) {
+        let currency = getFilterElementFromArray(
           props.currencies,
           getPropertyName(CurrencyObj, prop => prop.currencyId),
           props.project.currencyId,
           getPropertyName(CurrencyObj, prop => prop.currencySymbol)
-        )
-      );
-    }
-  }, [props.project.currencyId, props.currencies]);
-
-  useEffect(() => {
-    if (props.notify == Notify.success) {
-      if (props.event == EventType.next) {
-        toast.success('Data Saved Successfully');
-        props.history.push(
-          `/JustificationAuthorisation/${props.match.params.projectId}`
         );
-      } else if (props.event == EventType.previous) {
-        toast.success('Data Saved Successfully');
-        props.history.push(`/Project/${props.match.params.projectId}`);
+
+        props.setupPojectApprovalsInitialData(
+          props.lookups,
+          currency,
+          props.match.params.projectId
+        );
       }
-      props.resetProjectOverviewState();
-    }
-  }, [props.notify, props.event]);
+    }, [props.lookups, props.project.currencyId, props.currencies]);
 
-  useEffect(() => {
-    if (props.notify == Notify.success) {
-      if (props.event == EventType.save) {
-        toast.success('Project reactivated successfully');
-        props.getProjectDetail(props.match.params.projectId);
-      } else {
-        toast.success('Project status changed successfully');
+    useEffect(() => {
+      if (props.form.projectApprovals.length > 0)
+        props.getAdditionalDetails(props.match.params.projectId);
+    }, [props.initialStateSetForProjectApprovals]);
+    useEffect(() => {
+      if (props.enquiryOverview.contractorId) {
+        if (props.enquiryOverview.contractorId === '0')
+          setCustomerName(props.enquiryOverview.otherContractName);
+        else
+          actions.getListOfContract(props.enquiryOverview.contractorId, getListOfContractSuccess, failure);
       }
-    } else if (props.notify == Notify.error) {
-      toast.error('Error occured.Please contact administrator');
+    }, [props.enquiryOverview]);
+
+    const getListOfContractSuccess = (response) => {
+      setCustomerName(getFilterElementFromArray(
+        response,
+        'contractId',
+        props.enquiryOverview.contractorId,
+        'customerName'
+      )
+      )
     }
-    props.resetProjectOverviewState();
-  }, [props.notify]);
+    const failure = (error) => {
 
-  useEffect(() => {
-    props.setAdminDefaultValues(props.project.countryId);
-  }, [props.project.countryId]);
-  const handlePrevious = () => {
-    props.history.push(`/Project/${props.match.params.projectId}`);
-  };
-
-  useEffect(() => {
-    if (
-      props.project.currencyId > 0 &&
-      props.currencies &&
-      props.currencies.length > 0 &&
-      props.lookups.length > 0
-    ) {
-      let currency = getFilterElementFromArray(
-        props.currencies,
-        getPropertyName(CurrencyObj, prop => prop.currencyId),
-        props.project.currencyId,
-        getPropertyName(CurrencyObj, prop => prop.currencySymbol)
-      );
-
-      props.setupPojectApprovalsInitialData(
-        props.lookups,
-        currency,
-        props.match.params.projectId
-      );
     }
-  }, [props.lookups, props.project.currencyId, props.currencies]);
-
-  useEffect(() => {
-    if (props.form.projectApprovals.length > 0)
-      props.getAdditionalDetails(props.match.params.projectId);
-  }, [props.initialStateSetForProjectApprovals]);
-
-  const handleNext = (data: IProjectOverviewDetails) => {
-    data.projectAdditionalDetail.projectAddDetailId == ''
-      ? props.projectOverviewFormAdd(
+    const handleNext = (data: IProjectOverviewDetails) => {
+      data.projectAdditionalDetail.projectAddDetailId == ''
+        ? props.projectOverviewFormAdd(
           props.match.params.projectId,
           data,
           EventType.next
         )
-      : props.projectOverviewFormEdit(data, EventType.next);
-  };
-  const convertToString = id => {
-    let data = '';
-    if (id != null && id != undefined) data = id.toString();
-    return data;
-  };
-  const getProjectStatusName = () => {
-    let projectStatusData: Array<ILookup> = [];
-    if (props.projectStatus.length > 0) {
-      projectStatusData = props.projectStatus.filter(data => {
-        return (
-          data.lookupItem == 'Project_Status' &&
-          data.lookupKey == props.project.status
-        );
-      });
-    } else if (sessionStorage.getItem('lookupData')) {
-      let lookupData: any = sessionStorage.getItem('lookupData');
-      projectStatusData = JSON.parse(lookupData).filter(data => {
-        return (
-          data.lookupItem == 'Project_Status' &&
-          data.lookupKey == props.project.status
-        );
-      });
-    }
-    return projectStatusData.length > 0 ? projectStatusData[0].description : '';
-  };
-  const handleReactivateEvent = () => {
-    props.reactivateProject(props.match.params.projectId);
-  };
-  const handleOnHoldEvent = () => {
-    props.setProjectStatus(6);
-    props.changeProjectStatusToOnHold(props.match.params.projectId);
-  };
-  const handleBidLostEvent = () => {
-    props.setProjectStatus(4);
-    props.changeProjectStatusToBidLost(props.match.params.projectId);
-  };
-  const onSearchUserService = (values: any) => {
-    props.handleGetuserServiceData(values);
-  };
-  return (
-    <div className="container-fluid ">
-      <div className="row">
-        <div className="col-lg-12 col-sm-12">
-          {/* 20-dec-2019 */}
-          <div className="custom-wrap">
-            <div className="row align-items-center my-3 my-lg-4 pb-2">
-              <div className="col-lg-6">
-                <h1 className="m-0">
-                  {formatMessage('TITLE_PROJECT_OVERVIEW')}
-                </h1>
+        : props.projectOverviewFormEdit(data, EventType.next);
+    };
+    const convertToString = id => {
+      let data = '';
+      if (id != null && id != undefined) data = id.toString();
+      return data;
+    };
+    const getProjectStatusName = () => {
+      let projectStatusData: Array<ILookup> = [];
+      if (props.projectStatus.length > 0) {
+        projectStatusData = props.projectStatus.filter(data => {
+          return (
+            data.lookupItem == 'Project_Status' &&
+            data.lookupKey == props.project.status
+          );
+        });
+      } else if (sessionStorage.getItem('lookupData')) {
+        let lookupData: any = sessionStorage.getItem('lookupData');
+        projectStatusData = JSON.parse(lookupData).filter(data => {
+          return (
+            data.lookupItem == 'Project_Status' &&
+            data.lookupKey == props.project.status
+          );
+        });
+      }
+      return projectStatusData.length > 0 ? projectStatusData[0].description : '';
+    };
+    const handleReactivateEvent = () => {
+      props.reactivateProject(props.match.params.projectId);
+    };
+    const handleOnHoldEvent = () => {
+      props.setProjectStatus(6);
+      props.changeProjectStatusToOnHold(props.match.params.projectId);
+    };
+    const handleBidLostEvent = () => {
+      props.setProjectStatus(4);
+      props.changeProjectStatusToBidLost(props.match.params.projectId);
+    };
+    const onSearchUserService = (values: any) => {
+      props.handleGetuserServiceData(values);
+    };
+    return (
+      <div className="container-fluid ">
+        <div className="row">
+          <div className="col-lg-12 col-sm-12">
+            {/* 20-dec-2019 */}
+            <div className="custom-wrap">
+              <div className="row align-items-center my-3 my-lg-4 pb-2">
+                <div className="col-lg-6">
+                  <h1 className="m-0">
+                    {formatMessage('TITLE_PROJECT_OVERVIEW')}
+                  </h1>
+                </div>
+                <ProjectOverviewStatusTab
+                  status={props.project.status}
+                  statusName={getProjectStatusName()}
+                  onReactivate={handleReactivateEvent}
+                  handleOnHold={handleOnHoldEvent}
+                  handleBidLost={handleBidLostEvent}
+                />
               </div>
-              <ProjectOverviewStatusTab
+
+              <GeneralTable
+                {...{
+                  headers: [
+                    {
+                      heading: formatMessage('LABEL_END_CUSTOMER_NAME'),
+                      subHeading: customerName
+                    },
+                    {
+                      heading: formatMessage('MESSAGE_PROJECT_NAME'),
+                      subHeading: props.enquiryOverview.projectName
+                    },
+                    {
+                      heading: formatMessage('MESSAGE_PROJECT_MANAGER'),
+                      subHeading: props.enquiryOverview.projectManager
+                    },
+                    {
+                      heading: formatMessage('LABEL_CN_NUMBER'),
+                      subHeading: convertToString(props.enquiryOverview.cnNumber)
+                    }
+                  ],
+                  content: props.project.scope,
+                  editActionClick: () => {
+                    props.history.push(
+                      `/Project/${props.match.params.projectId}`
+                    );
+                  }
+                }}
+              />
+              <ProjectOverviewForm
+                onNext={handleNext}
+                onPrevious={handlePrevious}
+                projectstatus={props.projectStatus}
+                lookups={props.lookups}
                 status={props.project.status}
-                statusName={getProjectStatusName()}
-                onReactivate={handleReactivateEvent}
-                handleOnHold={handleOnHoldEvent}
-                handleBidLost={handleBidLostEvent}
+                projectId={props.match.params.projectId}
+                getListOfUsers={actions.getUserServiceCallback}
+                subContractorState={props.subContractorState}
+                preliminaryState={props.preliminaryState}
+                discountState={props.discountState}
+                currencySymbol={currencySymbol}
               />
             </div>
-
-            <GeneralTable
-              {...{
-                headers: [
-                  {
-                    heading: formatMessage('LABEL_END_CUSTOMER_NAME'),
-                    subHeading: convertToString(
-                      getFilterElementFromArray(
-                        props.dynamicsContractCustomerData,
-                        'contractId',
-                        props.enquiryOverview.contractorId,
-                        'customerName'
-                      ) || props.enquiryOverview.otherContractName
-                    )
-                  },
-                  {
-                    heading: formatMessage('MESSAGE_PROJECT_NAME'),
-                    subHeading: props.enquiryOverview.projectName
-                  },
-                  {
-                    heading: formatMessage('MESSAGE_PROJECT_MANAGER'),
-                    subHeading: props.enquiryOverview.projectManager
-                  },
-                  {
-                    heading: formatMessage('LABEL_CN_NUMBER'),
-                    subHeading: convertToString(props.enquiryOverview.cnNumber)
-                  }
-                ],
-                content: props.project.scope,
-                editActionClick: () => {
-                  props.history.push(
-                    `/Project/${props.match.params.projectId}`
-                  );
-                }
-              }}
-            />
-            <ProjectOverviewForm
-              onNext={handleNext}
-              onPrevious={handlePrevious}
-              projectstatus={props.projectStatus}
-              lookups={props.lookups}
-              status={props.project.status}
-              projectId={props.match.params.projectId}
-              getListOfUsers={actions.getUserServiceCallback}
-              subContractorState={props.subContractorState}
-              preliminaryState={props.preliminaryState}
-              discountState={props.discountState}
-              currencySymbol={currencySymbol}
-            />
           </div>
         </div>
       </div>
-    </div>
-  );
-};
+    );
+  };
 
 const mapStateToProps = (state: IState) => ({
   form: state.projectOverview.form,
