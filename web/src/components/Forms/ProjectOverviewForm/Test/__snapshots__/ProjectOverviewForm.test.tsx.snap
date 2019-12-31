@@ -231,15 +231,20 @@ Object {
     "projectApprovals": Array [
       Object {
         "approvalStatus": "",
+        "approvalStatusDescription": "",
         "approverType": "",
+        "approverTypeDescription": "",
         "projectApprovalId": "",
         "projectApprovalRange": "",
+        "projectApprovalRangeDescription": "",
         "projectId": "",
+        "showRangeLabel": true,
         "userId": "",
       },
     ],
     "projectId": "1",
   },
+  "initialStateSetForProjectApprovals": false,
   "loading": false,
   "notify": 0,
 }
