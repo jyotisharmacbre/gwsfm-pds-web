@@ -48,11 +48,7 @@ const getSubContractorSuccess = (oldState, action) => {
 };
 
 const getSubContractorError = (oldState, action) => {
-  return updateObject(oldState, {
-    error: action.error,
-    loading: false,
-    notify: Notify.error
-  });
+  return initialState;
 };
 
 const resetSubContractorState = (oldState, action) => {

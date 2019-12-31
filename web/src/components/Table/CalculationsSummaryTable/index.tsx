@@ -33,7 +33,7 @@ const CalculationsSummaryTable: React.FC<Props> = (props) => {
 	const [ preliminaryData, setPreliminaryData ] = useState({ ...initPricing });
 	useEffect(
 		() => {
-			if (props.subContractor && props.subContractor[0].projectId) {
+			if (props.subContractor) {
 				setSubContractorData(getSubContractorSummaryCalculation(props.subContractor));
 			}
 		},

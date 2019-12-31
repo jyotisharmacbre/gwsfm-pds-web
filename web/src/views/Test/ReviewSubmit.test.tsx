@@ -17,18 +17,7 @@ import ProjectStatus from '../../enums/ProjectStatus';
 
 const history = { push: jest.fn() };
 const mockStore = configureStore([ thunk ]);
-// let store;
 let wrapper;
-// const setUpStore = (projectState) => {
-// 	store = mockStore({
-// 		project: projectState,
-// 		subContractor: subContractorState,
-// 		preliminary: preliminaryState,
-// 		discount: discountState,
-// 		lookup: { currencies: [] }
-// 	});
-// };
-
 const mountComponent = () => {
 	wrapper = mount(
 		<Provider store={store}>

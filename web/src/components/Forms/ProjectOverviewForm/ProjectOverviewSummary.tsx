@@ -6,7 +6,6 @@ import { IProjectOverviewDetails } from '../../../store/ProjectOverviewForm/Type
 import { convertDate } from '../../../helpers/utility-helper';
 
 interface IProps {
-	project: IProjectDetail;
 	projectOverview: IProjectOverviewDetails;
 	lookUpData: Array<ILookup>;
 	company: string;
@@ -26,13 +25,13 @@ const ProjectOverviewSummary: React.FC<IProps> = (props) => {
 						element.lookupItem == LookupType.Enquiry_Type &&
 						element.lookupKey == props.projectOverview.projectAdditionalDetail.enquiryTypeId
 				);
-				if (filterEnquiryType) setEnquiryType(filterEnquiryType[0].description);
+				if (filterEnquiryType && filterEnquiryType[0]) setEnquiryType(filterEnquiryType[0].description);
 				let filterWorkType = props.lookUpData.filter(
 					(element) =>
 						element.lookupItem == LookupType.Work_Type &&
 						element.lookupKey == props.projectOverview.projectAdditionalDetail.workTypeId
 				);
-				if (filterWorkType) setWorkType(filterWorkType[0].description);
+				if (filterWorkType && filterWorkType[0]) setWorkType(filterWorkType[0].description);
 			}
 		},
 		[ props.projectOverview, props.lookUpData ]
@@ -47,7 +46,7 @@ const ProjectOverviewSummary: React.FC<IProps> = (props) => {
 						<ul>
 							<li>
 								<span>Main Contractor</span>
-								<p>{props.projectOverview.projectAdditionalDetail.mainContractor}</p>
+								<p data-test='main-contractor'>{props.projectOverview.projectAdditionalDetail.mainContractor}</p>
 							</li>
 						</ul>
 					</div>
@@ -55,7 +54,7 @@ const ProjectOverviewSummary: React.FC<IProps> = (props) => {
 						<ul>
 							<li>
 								<span>Enquiry Received From</span>
-								<p>{props.projectOverview.projectAdditionalDetail.enquiryReceivedFrom}</p>
+								<p data-test='enquiry-reveived-form'>{props.projectOverview.projectAdditionalDetail.enquiryReceivedFrom}</p>
 							</li>
 						</ul>
 					</div>
@@ -63,7 +62,7 @@ const ProjectOverviewSummary: React.FC<IProps> = (props) => {
 						<ul>
 							<li>
 								<span>Liquidated Damages</span>
-								<p>{props.projectOverview.projectAdditionalDetail.liquidatedDamages}</p>
+								<p data-test='liquidated-damages'>{props.projectOverview.projectAdditionalDetail.liquidatedDamages}</p>
 							</li>
 						</ul>
 					</div>
@@ -73,7 +72,7 @@ const ProjectOverviewSummary: React.FC<IProps> = (props) => {
 						<ul>
 							<li>
 								<span>Type of Enquiry</span>
-								<p>{enquiryType}</p>
+								<p data-test='enquiry-type'>{enquiryType}</p>
 							</li>
 						</ul>
 					</div>
@@ -81,7 +80,7 @@ const ProjectOverviewSummary: React.FC<IProps> = (props) => {
 						<ul>
 							<li>
 								<span>Work Type</span>
-								<p>{workType}</p>
+								<p data-test='work-type'>{workType}</p>
 							</li>
 						</ul>
 					</div>
@@ -89,7 +88,7 @@ const ProjectOverviewSummary: React.FC<IProps> = (props) => {
 						<ul>
 							<li>
 								<span>Credit Check Result</span>
-								<p>{props.projectOverview.projectAdditionalDetail.creditCheckResult}</p>
+								<p data-test='credit-check-result'>{props.projectOverview.projectAdditionalDetail.creditCheckResult}</p>
 							</li>
 						</ul>
 					</div>
@@ -99,7 +98,7 @@ const ProjectOverviewSummary: React.FC<IProps> = (props) => {
 						<ul>
 							<li>
 								<span>Insurance</span>
-								<p>{props.projectOverview.projectAdditionalDetail.insurance}</p>
+								<p data-test='insurance'>{props.projectOverview.projectAdditionalDetail.insurance}</p>
 							</li>
 						</ul>
 					</div>
@@ -107,7 +106,7 @@ const ProjectOverviewSummary: React.FC<IProps> = (props) => {
 						<ul>
 							<li>
 								<span>Site Address</span>
-								<p>{props.projectOverview.projectAdditionalDetail.siteAddress}</p>
+								<p data-test='site-address'>{props.projectOverview.projectAdditionalDetail.siteAddress}</p>
 							</li>
 						</ul>
 					</div>
@@ -115,7 +114,7 @@ const ProjectOverviewSummary: React.FC<IProps> = (props) => {
 						<ul>
 							<li>
 								<span>Form of Contract</span>
-								<p>{props.projectOverview.projectAdditionalDetail.formOfContract}</p>
+								<p data-test='form-of-contract'>{props.projectOverview.projectAdditionalDetail.formOfContract}</p>
 							</li>
 						</ul>
 					</div>

@@ -253,7 +253,7 @@ const ProjectForm: React.FC<Props &
                     placeholderKey="PLACEHOLDER_CONTRACT"
                   />
                 )}
-
+               
                 <TypeAhead
                   name="headOfProject"
                   options={getUserServiceDropdown}
