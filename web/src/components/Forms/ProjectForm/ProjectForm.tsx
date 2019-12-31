@@ -83,7 +83,7 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 		return `${contractName === 'Other' ? `${contractName}` : `(${contractName}`} 
     ${getFormattedContractId(contractId)}`;
 	};
- 
+
 	const getDynamicsContractDropdown =
 		dynamicsContractCustomerData &&
 		dynamicsContractCustomerData.map((ContractData: any) => {
@@ -93,8 +93,8 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 					(ContractData.contractName === 'Other'
 						? ContractData.contractName
 						: '(' +
-							ContractData.contractName +
-							(ContractData.contractId === '0' ? '' : '-' + ContractData.contractId + ')'))).trim(),
+						ContractData.contractName +
+						(ContractData.contractId === '0' ? '' : '-' + ContractData.contractId + ')'))).trim(),
 				id: ContractData.contractId
 			};
 		});
@@ -122,8 +122,8 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 					(ContractData.contractName === 'Other'
 						? ContractData.contractName
 						: '(' +
-							ContractData.contractName +
-							(ContractData.contractId === '0' ? '' : '-' + ContractData.contractId + ')'))).trim(),
+						ContractData.contractName +
+						(ContractData.contractId === '0' ? '' : '-' + ContractData.contractId + ')'))).trim(),
 				id: ContractData.contractId
 			});
 		});
@@ -175,7 +175,7 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 									validate={/*To do: Have to replace it with consistent solution.
                       Currently, This field is using "require"(no memoize) insted of "required"(with memoize),
                       It is in use to change the state of "required" error message on language change*/
-									[ Validate.require('LABEL_PROJECT'), Validate.maxLength(1000) ]}
+										[Validate.require('LABEL_PROJECT'), Validate.maxLength(1000)]}
 									messageKey="MESSAGE_PROJECT_NAME"
 									labelKey="LABEL_PROJECT"
 									placeholderKey="PLACEHOLDER_PROJECT_NAME"
@@ -216,18 +216,6 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 										</Field>
 									</div>
 								</div>
-								{/* {props.initialValues.companyId} */}
-								{/* <TypeAhead
-									name="companyId"
-									options={getDynamicsCompanyDropdown}
-									DynamicsType="companyId"
-									onSearch={onSearchCompany}
-									placeholderKey="PLACEHOLDER_COMPANY_NAME"
-									className="required"
-									labelName="LABEL_COMPANY"
-									validationKey="LABEL_COMPANY"
-									submitParam="id"
-								/> */}
 								<NewTypeAhead
 									name="companyId"
 									onSearch={props.getListOfCompanies}
@@ -239,13 +227,13 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 									validationKey="LABEL_COMPANY"
 									submitParam="id"
 								/>
-								{otherDynamicsCompany === '0' && (
+								{props.companyId === '0' && (
 									<Field
 										name="otherCompanyName"
 										type="text"
 										component={PdsFormInput}
 										className="required"
-										validate={[ Validate.required('LABEL_COMPANY'), Validate.maxLength(1000) ]}
+										validate={[Validate.required('LABEL_COMPANY'), Validate.maxLength(1000)]}
 										labelKey="LABEL_OTHER_COMPANY"
 										placeholderKey="PLACEHOLDER_COMPANY_NAME"
 									/>
@@ -261,13 +249,13 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 									validationKey="LABEL_CONTRACT"
 									submitParam="id"
 								/>
-								{otherDynamicsContract === '0' && (
+								{props.contractorId === '0' && (
 									<Field
 										name="otherContractName"
 										type="text"
 										component={PdsFormInput}
 										className="required"
-										validate={[ Validate.required('LABEL_CONTRACT'), Validate.maxLength(1000) ]}
+										validate={[Validate.required('LABEL_CONTRACT'), Validate.maxLength(1000)]}
 										labelKey="LABEL_OTHER_CONTRACT"
 										placeholderKey="PLACEHOLDER_CONTRACT"
 									/>
@@ -317,14 +305,14 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 									rows="7"
 									component={PdsFormTextArea}
 									className="required"
-									validate={[ Validate.required('LABEL_PROJECT_SCOPE'), Validate.maxLength(5000) ]}
+									validate={[Validate.required('LABEL_PROJECT_SCOPE'), Validate.maxLength(5000)]}
 									labelKey="LABEL_PROJECT_SCOPE"
 								/>
 								<Field
 									name="cnNumber"
 									type="text"
 									component={PdsFormInput}
-									validate={[ Validate.maxLength(25) ]}
+									validate={[Validate.maxLength(25)]}
 									labelKey="LABEL_CN_NUMBER"
 									placeholderKey="PLACEHOLDER_CN_NUMBER"
 								/>
@@ -542,7 +530,7 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 									labelKey="LABEL_SOLID_MARGIN"
 									className="pl-30 width-288"
 									discountBind="%"
-									validate={[ Validate.maxLength(3) ]}
+									validate={[Validate.maxLength(3)]}
 									normalize={maxLimit}
 								/>
 
@@ -608,6 +596,8 @@ const mapStateToProps = (state: IState) => ({
 	dynamicsOtherCompany: state.dynamicData.dynamicsOtherCompany,
 	currencyId: selector(state, 'currencyId'),
 	countryId: selector(state, 'countryId'),
+	contractorId: selector(state, 'contractorId'),
+	companyId: selector(state, 'companyId'),
 	probabilityOfWinning: selector(state, 'probabilityOfWinning'),
 	approximateValue: selector(state, 'approxValue'),
 	userPreferenceCurrencyId: userPreferenceSelector(state, 'currencyId')
