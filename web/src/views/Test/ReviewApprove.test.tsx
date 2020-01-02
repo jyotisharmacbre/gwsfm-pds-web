@@ -4,7 +4,7 @@ import {store} from '../../store';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
-import ReviewSubmit from '../ReviewSubmit';
+import ReviewApprove from '../ReviewApprove';
 import { findByTestAtrr, checkProps } from '../../helpers/test-helper';
 import { IntlProvider } from 'react-intl';
 import translations from '../../Translations/translation';
@@ -22,7 +22,7 @@ const mountComponent = () => {
 	wrapper = mount(
 		<Provider store={store}>
 			<IntlProvider locale="en" messages={translations['en'].messages}>
-				<ReviewSubmit history={history} match={{ params: { projectId: 1 } }} />
+				<ReviewApprove history={history} match={{ params: { projectId: 1 } }} />
 			</IntlProvider>
 		</Provider>
 	);
@@ -44,10 +44,10 @@ describe('review and approve component test cases', () => {
 		expect(findByTestAtrr(wrapper, 'review-approve-component')).toBeDefined();
 	});
 
-	it('should redirect to discount page on previous button click', () => {
+	it('should redirect to review & submit page on previous button click', () => {
 		const button = findByTestAtrr(wrapper, 'previous-button');
 		button.simulate('click');
-		expect(history.push).toHaveBeenLastCalledWith('/Discounts/1');
+		expect(history.push).toHaveBeenLastCalledWith('/ReviewSubmit/1');
 	});
 
 	it('should renders the pricing summary component', () => {
@@ -58,12 +58,12 @@ describe('review and approve component test cases', () => {
 		expect(findByTestAtrr(wrapper, 'calculation-summary')).toBeDefined();
 	});
 
-	it('should enable the submit button when state is not InReview', () => {
+	it('should enable the form when state is not InReview', () => {
 		expect(wrapper.find('.link_disabled').length).toEqual(0);
 	});
 
-	it('should disable the submit button when state is InReview', () => {
-		projectInitialState.form.status = ProjectStatus.InReview;
+	it('should disable the form when state is InReview', () => {
+		 projectInitialState.form.status = ProjectStatus.InReview;
 		mountComponent();
 		expect(wrapper.find('.link_disabled').length).toBeGreaterThan(0);
 	}); 

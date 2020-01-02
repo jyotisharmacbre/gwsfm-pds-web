@@ -8,7 +8,6 @@ import * as actions from '../store/rootActions';
 import { toast } from 'react-toastify';
 import { getClassNameForProjectStatus, getPropertyName, getFilterElementFromArray } from '../helpers/utility-helper';
 import { IState } from '../store/state';
-import { FormattedMessage } from 'react-intl';
 import ProjectSummary from '../components/Forms/ProjectForm/ProjectSummary';
 import ProjectOverviewSummary from '../components/Forms/ProjectOverviewForm/ProjectOverviewSummary';
 import { IProjectDetail } from '../store/CustomerEnquiryForm/Types/IProjectDetail';
@@ -46,7 +45,7 @@ interface IMapDispatchToProps {
 	getProjectStatus: () => void;
 }
 
-const ReviewSubmit: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = (props) => {
+const ReviewApprove: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = (props) => {
 	const CurrencyObj = new Currency();
 	const [ currencySymbol, setCurrencySymbol ] = useState<string>('');
 	const projectId = props.match.params.projectId;
@@ -82,30 +81,13 @@ const ReviewSubmit: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = 
 		return props.history.push(`/${module}/${props.match.params.projectId}`);
 	};
 
-	const updateProjectStatusToInReview = () => {
-		actions.updateProjectStatusToInReview(
-			props.match.params.projectId,
-			updateProjectStatusToInReviewSuccess,
-			updateProjectStatusToInReviewError
-		);
-	};
-
-	const updateProjectStatusToInReviewSuccess = (data) => {
-		toast.success('Submitted Successfully');
-		props.history.push('/');
-	};
-
-	const updateProjectStatusToInReviewError = (data) => {
-		toast.error('Some error occured');
-	};
-
 	return (
 		<div className="container-fluid" data-test="review-approve-component">
 			<div className="row">
 				<div className="col-lg-12">
 					<div className="custom-wrap">
 						<div className="heading-subtitle">
-							<h1>Review &#38; Submit</h1>
+							<h1>Review &#38; Approve</h1>
 						</div>
 						<ProjectSummary
 							project={props.project}
@@ -139,12 +121,15 @@ const ReviewSubmit: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = 
 								data-test="previous-button"
 								type="button"
 								className="active"
-								onClick={() => redirect('Discounts')}
+								onClick={() => redirect('ReviewSubmit')}
 							>
-								<FormattedMessage id='BUTTON_PREVIOUS'></FormattedMessage>
+								PREVIOUS
 							</button>
-							<button onClick={updateProjectStatusToInReview} type="button" name="next">
-							<FormattedMessage id='BUTTON_SUBMIT'></FormattedMessage>
+                            <button type="button">
+								QUERY
+							</button>
+							<button type="button" name="next">
+								APPROVE
 							</button>
 						</div>
 					</div>
@@ -176,4 +161,4 @@ const mapDispatchToProps = (dispatch) => {
 	};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ReviewSubmit);
+export default connect(mapStateToProps, mapDispatchToProps)(ReviewApprove);

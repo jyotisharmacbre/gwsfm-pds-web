@@ -8,10 +8,6 @@ import { convertDate } from '../../../helpers/utility-helper';
 interface IProps {
 	projectOverview: IProjectOverviewDetails;
 	lookUpData: Array<ILookup>;
-	company: string;
-	headOfProject: string;
-	projectOwner: string;
-	projectManager: string;
 }
 const ProjectOverviewSummary: React.FC<IProps> = (props) => {
 	const [ projectStatus, setProjectStatus ] = useState<string>('');
