@@ -170,12 +170,15 @@ h3.feed_head {
                 position: relative;
                 width: 100%;
                 letter-spacing: 0;
-                color: map-get($colors , grey10 );
+                color: #171c1b;
                 padding-right: 20px;
                 i{
                     position: absolute;
                     right:0;
 
+                }
+                svg {
+                    color: #526061;
                 }
             }
         }

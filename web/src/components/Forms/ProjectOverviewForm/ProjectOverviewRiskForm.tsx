@@ -11,7 +11,7 @@ interface IProps {
 
 const ProjectOverviewRiskForm: React.FC<IProps> = props => {
     return (
-        <div>
+        <div className="risk_card">
             <Field
                 name={props.riskName}
                 data-test="riskName"

@@ -171,7 +171,7 @@ const Preliminaries: React.FC<
             <div className="row">
               <div className="col-lg-12">
                 <div className="row">
-                  <div className="col-lg-8">
+                  <div className="col-lg-9">
                     <div className="table-responsive">
                       <CalculationsSummaryTable
                         preliminary={props.preliminaryForm}
@@ -181,7 +181,7 @@ const Preliminaries: React.FC<
                       />
                     </div>
                   </div>
-                  <div className="col-lg-4">
+                  <div className="col-lg-3">
                     <div className="text-left text-lg-right">
                       <button type="button" className="active fltRght mb-3 mb-lg-0" onClick={() => handleExpandAllEvent()}>EXPAND ALL</button>
                     </div>

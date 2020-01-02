@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import { IState } from '../../../store/state';
-import * as actions from '../../../store/rootActions';
 import { ISubContractorActivity } from '../../../store/SubContractor/Types/ISubContractorActivity';
-import { calculateTotalSum, calculateSell, calculateAverageMargin } from '../../../helpers/formulas';
 import {
 	getSubContractorSummaryCalculation,
 	getPreliminarySummaryCalculation,
@@ -12,17 +8,14 @@ import {
 import ISummaryCalculation from '../../../models/ISummaryCalculation';
 import IPricing from '../../../models/IPricing';
 import { IPreliminariesComponentDetails } from '../../../store/Preliminaries/Types/IPreliminariesComponentDetails';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import { IDiscountActivity } from '../../../store/DiscountForm/Types/IDiscountActivity';
-import { ICurrency } from '../../../store/Lookups/Types/ICurrency';
-import Currency from '../../../store/Lookups/InitialState/Currency';
-import { getPropertyName, getFilterElementFromArray } from '../../../helpers/utility-helper';
-
 interface Props {
 	subContractor?: Array<ISubContractorActivity>;
 	preliminary?: Array<IPreliminariesComponentDetails>;
 	discount?: {} | IDiscountActivity;
-	currencySymbol: string;
+    currencySymbol: string;
+    intl: any;
 }
 
 const CalculationsSummaryTable: React.FC<Props> = (props) => {
@@ -86,22 +79,25 @@ const CalculationsSummaryTable: React.FC<Props> = (props) => {
 						</thead>
 						<tbody>
 							<tr>
-								<td>
-									{props.currencySymbol}
-									<span data-test="total-cost-summary">{summaryCalculation.cost}</span>
-								</td>
-								<td>
-									<span data-test="total-margin-summary">{summaryCalculation.margin}</span>
-									(%)
-								</td>
-								<td>
-									{props.currencySymbol}
-									<span data-test="gross-margin-summary">{summaryCalculation.grossMargin}</span>
-								</td>
-								<td>
-									{props.currencySymbol}
-									<span data-test="total-sell-summary">{summaryCalculation.sell.toFixed(2)}</span>
-								</td>
+								<td data-column={props.intl.formatMessage({ id: 'T_HEADING_TOTAL_COST' })}>{props.currencySymbol}
+                                    <span data-test='total-cost-summary'>{summaryCalculation.cost}</span></td>
+                                <td data-column={props.intl.formatMessage({ id: 'T_HEADING_TOTAL_MARGIN' })}>
+                                    <span data-test='total-margin-summary'>
+                                        {summaryCalculation.margin}
+                                    </span>
+                                    (%)
+                  </td>
+                                <td data-column={props.intl.formatMessage({ id: 'T_HEADING_GROSS_MARGIN' })}>{props.currencySymbol}
+                                    <span data-test='gross-margin-summary'>
+                                        {summaryCalculation.grossMargin}
+                                    </span>
+                                </td>
+                                <td data-column={props.intl.formatMessage({ id: 'T_HEADING_TOTAL_SELL' })}>
+                                    {props.currencySymbol}
+                                    <span data-test='total-sell-summary'>
+                                        {summaryCalculation.sell.toFixed(2)}
+                                    </span>
+                                </td>
 							</tr>
 						</tbody>
 					</table>
@@ -111,4 +107,4 @@ const CalculationsSummaryTable: React.FC<Props> = (props) => {
 	);
 };
 
-export default CalculationsSummaryTable;
+export default injectIntl(CalculationsSummaryTable);

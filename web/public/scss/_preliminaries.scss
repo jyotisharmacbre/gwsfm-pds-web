@@ -32,6 +32,10 @@
     border: 0; 
     margin-bottom: 8px;
     background-color: map-get($colors , grey05);
+    button[type="button"] {
+        min-width: auto;
+        padding: 6px 15px;
+    }
 }
 .card-header {
     background-color: map-get($colors , grey05);
@@ -49,7 +53,7 @@
         height: 26px;
     }
     svg {
-        font-size: 28px;
+        font-size: 22px;
          float: right;  
          color: map-get($colors , darkGreen );
          position: absolute;
@@ -99,6 +103,7 @@
         tr:first-child {
             td {
                 font-size: 12px;
+                width: 200px;
             }
         }
         td {
