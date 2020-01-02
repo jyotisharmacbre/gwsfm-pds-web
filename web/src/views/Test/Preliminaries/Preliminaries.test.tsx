@@ -12,7 +12,6 @@ import { initialState as subcontractorInitialState } from '../../../store/SubCon
 import { preliminariesData, lookUpInitialState, customerEnquiryInitialState } from './PreliminariesTestData';
 import { initialState as discountInitialState } from '../../../store/DiscountForm/InitialState';
 import ProjectStatus from '../../../enums/ProjectStatus';
-import Notify from '../../../enums/Notify';
 
 const mockStore = configureStore([]);
 let store;

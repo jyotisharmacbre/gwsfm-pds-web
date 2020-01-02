@@ -2,7 +2,6 @@ import Notify from "../../../enums/Notify";
 import EventType from "../../../enums/EventType";
 import { ILookupState } from "../../../store/Lookups/Types/ILookupState";
 import { IProjectDetailState } from "../../../store/CustomerEnquiryForm/Types/IProjectDetailState";
-import { IUserPreferencesState } from "../../../store/UserPreferencesForm/Types/IUserPreferencesState";
 export const preliminariesData: any =
 {
   preliminary: {
