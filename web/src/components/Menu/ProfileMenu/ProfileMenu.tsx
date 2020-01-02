@@ -54,6 +54,7 @@ const ProfileMenu: React.FC<any> = props => {
   let history = useHistory();
   const [showMenu, setMenuVisibility] = useState(false);
   const [isEditable, makeEditable] = useState(false);
+  
 
   useEffect(() => {
     props.getUserPreferences();
@@ -86,6 +87,14 @@ const ProfileMenu: React.FC<any> = props => {
     makeEditable(false);
   }
 
+  const hideMenuOnBlur= (event)=> {
+    if (!event.currentTarget.contains(event.relatedTarget)) {
+      !makeEditable && setMenuVisibility(false);
+  }
+  }
+
+
+  
   return (
     <nav className="topbar">
       <div className="container-fluid">
@@ -117,7 +126,7 @@ const ProfileMenu: React.FC<any> = props => {
                 </a>
               </li>
               <li>
-                <div className="dropdown show">
+                <div className="dropdown show" onBlur={hideMenuOnBlur}>
                   <a
                     onClick={() => setMenuVisibility(!showMenu)}
                     className="btn btn-secondary dropdown-toggle p-0"
