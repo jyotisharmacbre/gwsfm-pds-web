@@ -8,10 +8,10 @@ const initialState: IProjectDashboardGridState = {
   actionApprovalDetails: [
     {
       name: '',
-      updatedBy: '',
-      updatedDate: '',
-      projectStatus: 2,
-      projectID: ''
+      modifiedBy: '',
+      modifiedOn: '',
+      approvalStatus: 1,
+      projectId: ''
     }
   ],
   error: null

@@ -15,7 +15,19 @@ const getUserServiceError = (error: any) => {
 		payload: error
 	};
 };
+const getUserNamesForEmailsServiceSuccess = (response: any) => {
+  return {
+    type: ActionType.USER_NAMES_FOR_EMAILSSERVICE_GET_SUCCESS,
+    payload: response
+  };
+};
 
+const getUserNamesForEmailsServiceError = (error: any) => {
+  return {
+    type: ActionType.USER_NAMES_FOR_EMAILS_SERVICE_GET_ERROR,
+    payload: error
+  };
+};
 let config = {
 	headers: {
 		'Content-Type': 'application/json'
@@ -47,4 +59,21 @@ export const getUserServiceCallback = (search: string, success, failure) => {
 		.catch((error) => {
 			failure(error);
 		});
+};
+export const getUserNamesForEmailsService = (data: any) => {
+  return (dispatch: Dispatch) => {
+    axios.userServiceAPI
+      .post(
+        `/api/users/getusernamesforemailids
+    `,
+        data,
+        config
+      )
+      .then(response => {
+        dispatch(getUserNamesForEmailsServiceSuccess(response.data));
+      })
+      .catch(error => {
+        dispatch(getUserNamesForEmailsServiceError(error));
+      });
+  };
 };
