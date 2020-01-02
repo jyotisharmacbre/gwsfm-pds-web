@@ -86,6 +86,12 @@ const ProfileMenu: React.FC<any> = props => {
     makeEditable(false);
   }
 
+  const handleBlur = (e) => {
+    if (!e.currentTarget.contains(e.relatedTarget)) {
+      !isEditable && setMenuVisibility(false);
+    }
+  }
+
   return (
     <nav className="topbar">
       <div className="container-fluid">
@@ -116,7 +122,7 @@ const ProfileMenu: React.FC<any> = props => {
                   </i>
                 </a>
               </li>
-              <li>
+              <li onBlur={handleBlur}>
                 <div className="dropdown show">
                   <a
                     onClick={() => setMenuVisibility(!showMenu)}
@@ -188,7 +194,7 @@ const ProfileMenu: React.FC<any> = props => {
                       <div className={`${!isEditable ? 'show' : 'hide'}`}>
 
                         <div className='link_group'>
-                          <a href="#" onClick={() => makeEditable(!isEditable)}>{formatMessage('BUTTON_EDIT')}</a>
+                          <a href="#" onClick={() => makeEditable(true)}>{formatMessage('BUTTON_EDIT')}</a>
                           <span>|</span>
                           <a href="#" onClick={logOut}>{formatMessage('BUTTON_SIGNOUT')}</a>
                         </div>
