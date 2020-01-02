@@ -6,8 +6,8 @@ import Notify from '../../../../enums/Notify';
 import EventType from '../../../../enums/EventType';
 
 
-export const preliminariuserData: Array<IPreliminariesComponentDetails>= [
-  
+export const preliminariuserData: Array<IPreliminariesComponentDetails> = [
+
   {
     componentId: '1',
     componentName: 'H&S File Production',
@@ -15,7 +15,7 @@ export const preliminariuserData: Array<IPreliminariesComponentDetails>= [
       {
         itemId: '1',
         itemName: 'Sub-Contractor',
-        preliminaryId:'48315d81-3495-4904-b3ab-010966e27c31',
+        preliminaryId: '48315d81-3495-4904-b3ab-010966e27c31',
         nameOfSupplier: 'test',
         noOfHours: 0,
         hourRate: 0,
@@ -27,24 +27,25 @@ export const preliminariuserData: Array<IPreliminariesComponentDetails>= [
   }
 
 ];
-export const currencies: Array<ICurrency>= [
-  
+export const currencies: Array<ICurrency> = [
+
   {
     currencyId: 1,
     currencyName: 'en',
-    currencySymbol:"$"
+    currencySymbol: "$"
   }
 
 ];
-export const lookupState:ILookupState={
-  currencies:currencies,
+export const lookupState: ILookupState = {
+  currencies: currencies,
   countries: [],
   languages: [],
   projectstatus: [],
+  lookups: [],
   error: null
 }
 
-export const projectDetail:IProjectDetailState={
+export const projectDetail: IProjectDetailState = {
   form: {
     projectId: '',
     name: '',
@@ -69,11 +70,11 @@ export const projectDetail:IProjectDetailState={
     thirdAssetWorkedOn: 0,
     comment: '',
     otherCompanyName: '',
-  otherContractName: '',
-    divisionId : '',
+    otherContractName: '',
+    divisionId: '',
     businessUnitId: '',
     weightedTCV: 0,
-  soldMargin: 0
+    soldMargin: 0
   },
   enquiryOverview: {
     projectName: '',

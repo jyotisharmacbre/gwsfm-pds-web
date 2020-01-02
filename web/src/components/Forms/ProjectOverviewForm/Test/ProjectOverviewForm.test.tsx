@@ -190,7 +190,7 @@ describe('ProjectOverviewForm Fields', () => {
       it('should handle get get additional details successfully', () => {
         const getAdditionalDetailsAction: any = {
           type: ActionType.GET_ADDITIONALS_DETAILS_SUCCESS,
-          payload: { projectId: '1' }
+          payload: { projectId: '1', projectApprovals: [] }
         };
         expect(
           projectOverviewFormReducer(initialState, getAdditionalDetailsAction)

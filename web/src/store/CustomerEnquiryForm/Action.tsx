@@ -112,7 +112,9 @@ const getProjectDetailError = (error: string) => {
 export const getProjectDetail = (projectId: string, cache: boolean = true) => {
 	return (dispatch: Dispatch) => {
 		let storeProjectId = store.getState().project.form.projectId;
-		if (isDataExists(cache, storeProjectId, projectId)) dispatch(getDefaultState());
+		if (isDataExists(cache, storeProjectId, projectId)) {
+			dispatch(getDefaultState());
+		}
 		axios.baseAPI
 			.get(`api/Projects/${projectId}/customerEnquiry`)
 			.then((response) => {

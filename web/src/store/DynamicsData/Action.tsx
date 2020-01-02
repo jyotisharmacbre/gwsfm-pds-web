@@ -150,3 +150,35 @@ export const getDynamicOther = (data: any, type: string) => {
   }
 };
 
+
+export const getListOfCompanies = (searchCompany: string,success,failure) => {
+    axios.baseAPI
+      .get(
+        `/api/ERPLookup/getCompanies/${searchCompany}?topCount=50
+      `,
+        config
+      )
+      .then(response => {
+        success(response.data);
+      })
+      .catch(error => {
+        failure(error);
+      });
+  
+};
+
+export const getListOfContract = (searchContract: string,success,failure) => {
+    axios.baseAPI
+      .get(
+        `/api/ERPLookup/getContractsAndCustomers/${searchContract}?topCount=50
+      `,
+        config
+      )
+      .then(response => {
+        success(response.data);
+      })
+      .catch(error => {
+        failure(error);
+      });
+};
+
