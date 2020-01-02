@@ -8,6 +8,7 @@ import * as actions from '../store/rootActions';
 import { toast } from 'react-toastify';
 import { getClassNameForProjectStatus, getPropertyName, getFilterElementFromArray } from '../helpers/utility-helper';
 import { IState } from '../store/state';
+import { FormattedMessage } from 'react-intl';
 import ProjectSummary from '../components/Forms/ProjectForm/ProjectSummary';
 import ProjectOverviewSummary from '../components/Forms/ProjectOverviewForm/ProjectOverviewSummary';
 import { IProjectDetail } from '../store/CustomerEnquiryForm/Types/IProjectDetail';
@@ -205,10 +206,10 @@ const ReviewSubmit: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = 
 								className="active"
 								onClick={() => redirect('Discounts')}
 							>
-								PREVIOUS
+								<FormattedMessage id='BUTTON_PREVIOUS'></FormattedMessage>
 							</button>
 							<button onClick={updateProjectStatusToInReview} type="button" name="next">
-								SUBMIT
+							<FormattedMessage id='BUTTON_SUBMIT'></FormattedMessage>
 							</button>
 						</div>
 					</div>
