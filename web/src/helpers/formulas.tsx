@@ -28,7 +28,6 @@ export const calculateSell = (cost:number,margin:number) =>{
 
 
 export const calculateClientDiscount = (discountType:number,cost:number,value:number) => {
-    debugger;
     if(value == undefined)
       return 0;  
     else if(discountType == 2)
