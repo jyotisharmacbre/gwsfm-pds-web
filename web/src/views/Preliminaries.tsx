@@ -33,7 +33,6 @@ interface IMapStateToProps {
   history:History;
   subContractorState: Array<ISubContractorActivity>;
   discountState: IDiscountActivity;
-  preferedLangUpdateNotify: Notify;
 }
 interface IMapDispatchToProps {
   preliminaryAdd: (
@@ -106,13 +105,6 @@ const Preliminaries: React.FC<
       props.getPreliminaryDetails(paramProjectId);
     }
   }, [props.lookupData]);
-
-  useEffect(() => {
-   if(props.preferedLangUpdateNotify == Notify.success)
-   {
-    props.getProjectStatus();    
-   }
-  }, [props.preferedLangUpdateNotify]);
 
   const handleExpandAllEvent = () => {
     var element: any = document.getElementsByClassName('expandAll');
@@ -243,8 +235,7 @@ const mapStateToProps = (state: IState) => {
     status:state.project.form.status,
     preliminaryForm: selector(state, 'preliminaryDetails'),
     subContractorState: state.subContractor.form.activities,
-    discountState: state.discount.form,
-    preferedLangUpdateNotify: state.userPreferences.notify
+    discountState: state.discount.form
   };
 };
 

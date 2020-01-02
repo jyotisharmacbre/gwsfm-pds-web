@@ -132,19 +132,3 @@ export const dynamicsInitialState = {
   customerId: "",
   customerName: ""
 };
-
-export const initialUserPreferencesState: IUserPreferencesState = {
-	preferences: {  
-	userPreferenceId: '',
-	languageId: 1,
-	languageName: 'en',
-	currencyId: 1,
-	currencySymbol: '$',
-	currencyName: 'Dollar'
-	},
-	error: null,
-	loading: false,
-	notify: Notify.success,
-	event: EventType.none
-  };
-

@@ -9,7 +9,7 @@ import configureStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import { initialState } from '../../../store/Preliminaries/InitialState';
 import { initialState as subcontractorInitialState } from '../../../store/SubContractor/InitialState';
-import { preliminariesData, lookUpInitialState, customerEnquiryInitialState, initialUserPreferencesState } from './PreliminariesTestData';
+import { preliminariesData, lookUpInitialState, customerEnquiryInitialState } from './PreliminariesTestData';
 import { initialState as discountInitialState } from '../../../store/DiscountForm/InitialState';
 import ProjectStatus from '../../../enums/ProjectStatus';
 import Notify from '../../../enums/Notify';
@@ -23,8 +23,7 @@ const setUpStore = (initialState, lookUpInitialState, customerEnquiryInitialStat
 		lookup: lookUpInitialState,
 		project: customerEnquiryInitialState,
 		subContractor: subcontractorInitialState,
-		discount: discountInitialState,
-		userPreferences: initialUserPreferencesState
+		discount: discountInitialState
 	});
 	store.dispatch = jest.fn();
 };
@@ -48,7 +47,6 @@ describe('Preliminaries component test cases', () => {
 		currencyId: 1,
 		status: 1,
 		preliminaryForm: preliminariesData,
-		preferedLangUpdateNotify: Notify.none,
 		history: { push: jest.fn() },
 		preliminaryAdd: jest.fn(),
 		preliminaryEdit: jest.fn(),
