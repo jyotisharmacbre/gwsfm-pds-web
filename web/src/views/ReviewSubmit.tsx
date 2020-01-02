@@ -12,8 +12,6 @@ import { FormattedMessage } from 'react-intl';
 import ProjectSummary from '../components/Forms/ProjectForm/ProjectSummary';
 import ProjectOverviewSummary from '../components/Forms/ProjectOverviewForm/ProjectOverviewSummary';
 import { IProjectDetail } from '../store/CustomerEnquiryForm/Types/IProjectDetail';
-import { IDynamicContractCustomerData, IDynamicCompanyData } from '../store/DynamicsData/Types/IDynamicData';
-import Company from '../store/DynamicsData/InitialState/Company';
 import { ICurrency } from '../store/Lookups/Types/ICurrency';
 import Currency from '../store/Lookups/InitialState/Currency';
 import { ISubContractorActivity } from '../store/SubContractor/Types/ISubContractorActivity';
@@ -36,7 +34,6 @@ interface IMapStateToProps {
 	preliminaryState: Array<IPreliminariesComponentDetails>;
 	discountState: IDiscountActivity;
 	currencies: Array<ICurrency> | null;
-	dynamicsCompany: Array<IDynamicCompanyData>;
 }
 
 interface IMapDispatchToProps {
@@ -46,20 +43,14 @@ interface IMapDispatchToProps {
 	getAllCurrencies: () => void;
 	getProjectDetail: (projectId: string) => void;
 	getAdditionalDetails: (projectId: string) => void;
-	handleGetDynamicCompanyData: (searchCompany: string) => void;
 	getProjectStatus: () => void;
 }
 
 const ReviewSubmit: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = (props) => {
 	const CurrencyObj = new Currency();
 	const [ currencySymbol, setCurrencySymbol ] = useState<string>('');
-	const companyObj = new Company();
 	const projectId = props.match.params.projectId;
-	const [ companyName, setCompanyName ] = useState<string>('');
-	const [ headOfProject, setHeadOfProject ] = useState<string>('');
-	const [ projectOwner, setProjectOwner ] = useState<string>('');
-	const [ projectManager, setProjectManager ] = useState<string>('');
-
+	
 	useEffect(() => {
 		window.scrollTo(0, 0);
 		props.getAllCurrencies();
@@ -70,21 +61,6 @@ const ReviewSubmit: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = 
 		props.getPreliminaryDetails(projectId);
 		props.getDiscountData(projectId);
 	}, []);
-
-	useEffect(
-		() => {
-			if (props.project.projectId) {
-				props.handleGetDynamicCompanyData(props.project.companyId);
-				if (props.project.headOfProject)
-					actions.getUserServiceCallback(props.project.headOfProject, headofProjectSuccess, failure);
-				if (props.project.projectOwner)
-					actions.getUserServiceCallback(props.project.projectOwner, projectOwnerSuccess, failure);
-				if (props.project.projectManager)
-					actions.getUserServiceCallback(props.project.projectManager, projectManagerSuccess, failure);
-			}
-		},
-		[ props.project ]
-	);
 
 	useEffect(
 		() => {
@@ -101,39 +77,6 @@ const ReviewSubmit: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = 
 		},
 		[ props.project.currencyId, props.currencies ]
 	);
-
-	useEffect(
-		() => {
-			if (props.dynamicsCompany && props.dynamicsCompany.length > 0) {
-				setCompanyName(
-					getFilterElementFromArray(
-						props.dynamicsCompany,
-						getPropertyName(companyObj, (prop) => prop.companyId),
-						props.project.companyId,
-						getPropertyName(companyObj, (prop) => prop.name)
-					)
-				);
-			}
-		},
-		[ props.dynamicsCompany ]
-	);
-
-	const headofProjectSuccess = (response) => {
-		let filter = response.find((ele) => ele.email == props.project.headOfProject);
-		setHeadOfProject(filter.lastName + ' ' + filter.firstname);
-	};
-
-	const projectOwnerSuccess = (response) => {
-		let filter = response.find((ele) => ele.email == props.project.projectOwner);
-		setProjectOwner(filter.lastName + ' ' + filter.firstname);
-	};
-	const projectManagerSuccess = (response) => {
-		let filter = response.find((ele) => ele.email == props.project.projectManager);
-		setProjectManager(filter.lastName + ' ' + filter.firstname);
-	};
-	const failure = (error) => {
-		toast.error('Some error occured');
-	};
 
 	const redirect = (module: string) => {
 		return props.history.push(`/${module}/${props.match.params.projectId}`);
@@ -167,18 +110,10 @@ const ReviewSubmit: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = 
 						<ProjectSummary
 							project={props.project}
 							lookUpData={props.projectStatus}
-							company={companyName}
-							headOfProject={headOfProject}
-							projectOwner={projectOwner}
-							projectManager={projectManager}
 						/>
 						<ProjectOverviewSummary
 							projectOverview={props.projectOverview}
 							lookUpData={props.projectStatus}
-							company={companyName}
-							headOfProject={headOfProject}
-							projectOwner={projectOwner}
-							projectManager={projectManager}
 						/>
 						<div className="row">
 							<div className="col-xl-9">
@@ -226,7 +161,6 @@ const mapStateToProps = (state: IState) => ({
 	preliminaryState: state.preliminary.preliminaryDetails,
 	discountState: state.discount.form,
 	currencies: state.lookup.currencies,
-	dynamicsCompany: state.dynamicData.dynamicsCompany,
 	projectOverview: state.projectOverview.form
 });
 
@@ -238,7 +172,6 @@ const mapDispatchToProps = (dispatch) => {
 		getDiscountData: (projectId: string) => dispatch(actions.getDiscountData(projectId)),
 		getAllCurrencies: () => dispatch(actions.getAllCurrencies()),
 		getProjectDetail: (projectId) => dispatch(actions.getProjectDetail(projectId)),
-		handleGetDynamicCompanyData: (searchCompany) => dispatch(actions.getDynamicCompanyData(searchCompany)),
 		getAdditionalDetails: (projectId) => dispatch(actions.getAdditionalDetails(projectId))
 	};
 };
