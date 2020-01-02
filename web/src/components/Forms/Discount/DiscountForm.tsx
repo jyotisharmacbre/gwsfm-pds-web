@@ -99,21 +99,23 @@ let DiscountForm: React.FC<
 
 	return (
 		<div className="container-fluid">
+			<div className="row">
 			<CalculationsSummaryTable
 				preliminary={props.preliminaryState}
 				subContractor={props.subContractorState}
 				discount={props.discountForm}
 				currencySymbol={currencySymbol}
 			/>
+			</div>
 			<div className=" row">
 				<div className="col-lg-12 col-sm-12">
 					<div className="Discountforms_wrap">
 						<form className="custom-wrap p-0" noValidate={true}>
 							<div className="row">
 								<div className="col-lg-8">
-									<MainTitle>
+									<h2>
 										<FormattedMessage id="TITLE_SUBCONTRACTOR_DISCOUNT" />
-									</MainTitle>
+									</h2>
 									<Field
 										name="supplierName"
 										type="text"
@@ -162,9 +164,9 @@ let DiscountForm: React.FC<
 							</div>
 							<div className="row">
 								<div className="col-lg-8">
-									<MainTitle>
+									<h2>
 										<FormattedMessage id="TITLE_CLIENT_DISCOUNT" />
-									</MainTitle>
+										</h2>
 									<Field
 										input={{
 											value:
@@ -259,9 +261,9 @@ let DiscountForm: React.FC<
 							</div>
 							<div className="hr_line mb-0 mt-4" />
 
-							<div className="mr-35 d-flex justify-content-between mb-4">
+							<div className="mr-35 three-btn">
 								<button
-									className="active mb-4 mt-5"
+									className="active"
 									type="button"
 									name="previous"
 									onClick={() => props.onPrevious()}
@@ -269,7 +271,7 @@ let DiscountForm: React.FC<
 									<FormattedMessage id="BUTTON_PREVIOUS" />
 								</button>
 								<button
-									className="active mb-4 mt-5"
+									className="active ml-auto"
 									type="button"
 									name="save"
 									style={{ marginLeft: '35%' }}
@@ -280,7 +282,7 @@ let DiscountForm: React.FC<
 								<button
 									type="button"
 									name="next"
-									className="mb-4 mt-5 mr-0"
+									className=""
 									onClick={handleSubmit((values) => props.onNext(values))}
 								>
 									<FormattedMessage id="BUTTON_NEXT" />
