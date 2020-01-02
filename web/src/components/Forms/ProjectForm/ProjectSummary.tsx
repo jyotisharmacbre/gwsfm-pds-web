@@ -84,9 +84,7 @@ const ProjectSummary: React.FC<IProps> = (props) => {
 	const failure = (error) => {
 		toast.error('Some error occured');
 	};
-
-		
-
+	
 	return (
 		<div className="RS_custom_block">
 			<h4>Customer Enquiry</h4>
