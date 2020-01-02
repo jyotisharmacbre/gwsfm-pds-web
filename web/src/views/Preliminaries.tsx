@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect,useState } from 'react';
 import { connect } from 'react-redux';
 import { IState } from '../store/state';
 import { IPreliminariesComponentDetails } from '../store/Preliminaries/Types/IPreliminariesComponentDetails';
@@ -13,12 +13,14 @@ import { ICurrency } from '../store/Lookups/Types/ICurrency';
 import { FormattedMessage } from 'react-intl';
 import EventType from '../enums/EventType';
 import CalculationsSummaryTable from '../components/Table/CalculationsSummaryTable';
-import CalculationsSummaryType from '../enums/CalculationsSummaryType';
 import { getPropertyName,getFilterElementFromArray,getClassNameForProjectStatus } from '../helpers/utility-helper';
 import { formValueSelector } from 'redux-form';
 import Currency from '../store/Lookups/InitialState/Currency';
 import ProjectStatus from '../enums/ProjectStatus';
 import { History } from 'history';
+import { ISubContractorActivity } from '../store/SubContractor/Types/ISubContractorActivity';
+import { IDiscountActivity } from '../store/DiscountForm/Types/IDiscountActivity';
+
 interface IMapStateToProps {
   preliminaryDetails: Array<IPreliminariesComponentDetails>;
   lookupData: Array<ILookup>;
@@ -30,6 +32,8 @@ interface IMapStateToProps {
   status:number;
   preliminaryForm:Array<IPreliminariesComponentDetails>;
   history:History;
+  subContractorState: Array<ISubContractorActivity>;
+	discountState: IDiscountActivity;
 }
 interface IMapDispatchToProps {
   preliminaryAdd: (
@@ -45,6 +49,8 @@ interface IMapDispatchToProps {
   getAllCurrencies: () => void;
   getProjectStatus: () => void;
   getProjectDetail: (projectId: string) => void;
+  getSubContractor: (projectId: string) => void;
+	getDiscountData: (projectId: string) => void;
 }
 
 const Preliminaries: React.FC<
@@ -52,6 +58,7 @@ const Preliminaries: React.FC<
 > = props => {
   let paramProjectId: string = '';
   const CurrencyObj = new Currency();
+  const [ currencySymbol, setCurrencySymbol ] = useState<string>('');
   let isLookupSessionExists: boolean = (sessionStorage.getItem("lookupData") != null && sessionStorage.getItem("lookupData") != undefined && sessionStorage.getItem("lookupData") != "")
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -76,6 +83,21 @@ const Preliminaries: React.FC<
     }
 
   }, [props.notify, props.event]);
+  useEffect(
+		() => {
+			if (props.currencyId > 0 && props.currencies) {
+				setCurrencySymbol(
+					getFilterElementFromArray(
+						props.currencies,
+						getPropertyName(CurrencyObj, (prop) => prop.currencyId),
+						props.currencyId,
+						getPropertyName(CurrencyObj, (prop) => prop.currencySymbol)
+					)
+				);
+			}
+		},
+		[ props.currencyId, props.currencies ]
+	);
   useEffect(() => {
     if (paramProjectId != null && paramProjectId != '' && paramProjectId != undefined && isLookupSessionExists) {
       props.getPreliminaryDetails(paramProjectId);
@@ -149,16 +171,17 @@ const Preliminaries: React.FC<
             <div className="row">
               <div className="col-lg-12">
                 <div className="row">
-                  <div className="col-lg-8">
+                  <div className="col-lg-9">
                     <div className="table-responsive">
                       <CalculationsSummaryTable
-                      projectId={props.match.params.projectId}
-                      name={CalculationsSummaryType.preliminary} 
-                      preliminary={props.preliminaryForm}
+                        preliminary={props.preliminaryForm}
+                        subContractor={props.subContractorState}
+                        discount={props.discountState}
+                        currencySymbol={currencySymbol}
                       />
                     </div>
                   </div>
-                  <div className="col-lg-4">
+                  <div className="col-lg-3">
                     <div className="text-left text-lg-right">
                       <button type="button" className="active fltRght mb-3 mb-lg-0" onClick={() => handleExpandAllEvent()}>EXPAND ALL</button>
                     </div>
@@ -206,7 +229,9 @@ const mapStateToProps = (state: IState) => {
     currencyId: state.project.form.currencyId,
     event: state.preliminary.event,
     status:state.project.form.status,
-    preliminaryForm: selector(state, 'preliminaryDetails')
+    preliminaryForm: selector(state, 'preliminaryDetails'),
+    subContractorState: state.subContractor.form.activities,
+	  discountState: state.discount.form,
   };
 };
 
@@ -221,7 +246,9 @@ const mapDispatchToProps = dispatch => {
     getPreliminaryDetails: (projectId: string) =>
       dispatch(actions.getPreliminaryDetails(projectId)),
     getAllCurrencies: () => dispatch(actions.getAllCurrencies()),
-    getProjectStatus: () => dispatch(actions.getProjectStatus())
+    getProjectStatus: () => dispatch(actions.getProjectStatus()),
+    getSubContractor: (projectId: string) => dispatch(actions.getSubContractor(projectId)),
+		getDiscountData: (projectId: string) => dispatch(actions.getDiscountData(projectId)),
   };
 };
 

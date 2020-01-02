@@ -99,7 +99,7 @@ export const getDynamicCompanyData = (searchCompany: string) => {
   return (dispatch: Dispatch) => {
     axios.baseAPI
       .get(
-        `/api/DynamicsLookup/getCompanies/${searchCompany}?topCount=50
+        `/api/ERPLookup/getCompanies/${searchCompany}?topCount=50
       `,
         config
       )
@@ -116,7 +116,7 @@ export const getDynamicSubContractorData = (searchSubContractor: string) => {
   return (dispatch: Dispatch) => {
     axios.baseAPI
       .get(
-        `/api/DynamicsLookup/getSubContractors/${searchSubContractor}?topCount=50
+        `/api/ERPLookup/getSubContractors/${searchSubContractor}?topCount=50
       `,
         config
       )
@@ -148,5 +148,37 @@ export const getDynamicOther = (data: any, type: string) => {
           dispatch(getDefaultSuccess(data));
         };
   }
+};
+
+
+export const getListOfCompanies = (searchCompany: string,success,failure) => {
+    axios.baseAPI
+      .get(
+        `/api/ERPLookup/getCompanies/${searchCompany}?topCount=50
+      `,
+        config
+      )
+      .then(response => {
+        success(response.data);
+      })
+      .catch(error => {
+        failure(error);
+      });
+  
+};
+
+export const getListOfContract = (searchContract: string,success,failure) => {
+    axios.baseAPI
+      .get(
+        `/api/ERPLookup/getContractsAndCustomers/${searchContract}?topCount=50
+      `,
+        config
+      )
+      .then(response => {
+        success(response.data);
+      })
+      .catch(error => {
+        failure(error);
+      });
 };
 

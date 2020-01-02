@@ -431,3 +431,50 @@ button[type="button"] {
     text-align: center;
     border-radius: 10px;
 }
+
+/*table responsive*/
+@include mdScreen {
+  .table_responsive {
+    width: 100%;
+    display: block;
+    overflow-x: hidden !important;
+    thead,
+    tbody,
+    th,
+    td,
+    tr {
+      display: block;
+    }
+    thead {
+      tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+      }
+    }
+    tr {
+      border-bottom: solid 1px #cad0d8;
+      background: transparent;
+
+      &:nth-child(odd) {
+        background-color: #e8ecf3;
+      }
+      td {
+        border: none !important;
+        position: relative;
+        padding-left: 50% !important;
+        background-color: transparent !important;
+        &:before {
+          position: absolute;
+          top: 6px;
+          left: 10px;
+          width: 45%;
+          padding-right: 10px;
+          white-space: nowrap;
+          content: attr(data-column);
+          font-weight: 700;
+        }
+      }
+    }
+  }
+}

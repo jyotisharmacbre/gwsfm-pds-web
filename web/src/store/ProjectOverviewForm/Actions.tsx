@@ -7,6 +7,7 @@ import EventType from '../../enums/EventType';
 import { IProjectOverviewState } from './Types/IProjectOverviewState';
 import { IProjectOverviewDetails } from './Types/IProjectOverviewDetails';
 import { isProjectStateInReview } from '../store-helper';
+import { ILookup } from '../Lookups/Types/ILookup';
 
 const projectOverviewFormAddSuccess = (response: IProjectAdditionalDetail, event: EventType) => {
 	return {
@@ -83,6 +84,13 @@ const reactivateProjectError = (error: string) => {
 		payload: error
 	};
 };
+
+export const setupPojectApprovalsInitialData = (lookupdata: Array<ILookup>, currencySymbol: string, projectId: string) => {
+  return (dispatch: Dispatch) => {
+    dispatch({ type: ActionType.BIND_PROJECT_APPROVAL_INITIAL_DATA, payload: { lookupdata, currencySymbol, projectId } });
+
+  };
+}
 let config = {
 	headers: {
 		'Content-Type': 'application/json'

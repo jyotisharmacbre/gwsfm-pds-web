@@ -5,6 +5,7 @@ import moment from 'moment';
 
 const initialState: ILookupState = {
   projectstatus: [],
+  lookups: [],
   currencies: null,
   languages: null,
   countries: null,
@@ -25,6 +26,19 @@ const getProjectStatusError = (oldState, action) => {
   });
 };
 
+const getLookupsSuccess = (oldState, action) => {
+  // sessionStorage.setItem("lookupApprovalData", JSON.stringify(action.payload));
+  return updateObject(oldState, {
+    error: null,
+    lookups: action.payload
+  });
+};
+
+const getLookupsError = (oldState, action) => {
+  return updateObject(oldState, {
+    error: action.payload
+  });
+};
 const getAllCurrenciesSuccess = (oldState, action) => {
   return updateObject(oldState, {
     currencies: action.payload,
@@ -70,6 +84,10 @@ const lookupReducer = (oldState = initialState, action) => {
       return getProjectStatusSuccess(oldState, action);
     case ActionType.LOOKUP_PROJECT_STATUS_GET_ERROR:
       return getProjectStatusError(oldState, action);
+    case ActionType.LOOKUPS_GET_SUCCESS:
+      return getLookupsSuccess(oldState, action);
+    case ActionType.LOOKUPS_GET_ERROR:
+      return getLookupsError(oldState, action);
     case ActionType.GET_ALL_CURRENCIES_SUCCESS:
       return getAllCurrenciesSuccess(oldState, action);
     case ActionType.GET_ALL_CURRENCIES_ERROR:
