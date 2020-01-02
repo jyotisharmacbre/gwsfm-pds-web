@@ -20,7 +20,6 @@ import ProjectStatus from '../enums/ProjectStatus';
 import { History } from 'history';
 import { ISubContractorActivity } from '../store/SubContractor/Types/ISubContractorActivity';
 import { IDiscountActivity } from '../store/DiscountForm/Types/IDiscountActivity';
-
 interface IMapStateToProps {
   preliminaryDetails: Array<IPreliminariesComponentDetails>;
   lookupData: Array<ILookup>;
@@ -33,7 +32,8 @@ interface IMapStateToProps {
   preliminaryForm:Array<IPreliminariesComponentDetails>;
   history:History;
   subContractorState: Array<ISubContractorActivity>;
-	discountState: IDiscountActivity;
+  discountState: IDiscountActivity;
+  preferedLangUpdateNotify: Notify;
 }
 interface IMapDispatchToProps {
   preliminaryAdd: (
@@ -60,6 +60,8 @@ const Preliminaries: React.FC<
   const CurrencyObj = new Currency();
   const [ currencySymbol, setCurrencySymbol ] = useState<string>('');
   let isLookupSessionExists: boolean = (sessionStorage.getItem("lookupData") != null && sessionStorage.getItem("lookupData") != undefined && sessionStorage.getItem("lookupData") != "")
+
+ 
   useEffect(() => {
     window.scrollTo(0, 0);
     paramProjectId=props.match.params.projectId;
@@ -99,10 +101,21 @@ const Preliminaries: React.FC<
 		[ props.currencyId, props.currencies ]
 	);
   useEffect(() => {
+    const paramProjectId = props.match.params.projectId;
     if (paramProjectId != null && paramProjectId != '' && paramProjectId != undefined && isLookupSessionExists) {
       props.getPreliminaryDetails(paramProjectId);
     }
   }, [props.lookupData]);
+
+  useEffect(() => {
+   if(props.preferedLangUpdateNotify == Notify.success)
+   {
+    props.getProjectStatus();
+    
+   }
+
+  }, [props.preferedLangUpdateNotify]);
+
   const handleExpandAllEvent = () => {
     var element: any = document.getElementsByClassName('expandAll');
     for (let i = 0; i < element.length; i++) {
@@ -110,6 +123,7 @@ const Preliminaries: React.FC<
       element[i].classList.add('show');
     }
   };
+
   const handleToggle = (id: string) => {
     var element: any = document.getElementById('collapse_' + id);
     if (element != null) {
@@ -183,7 +197,7 @@ const Preliminaries: React.FC<
                   </div>
                   <div className="col-lg-3">
                     <div className="text-left text-lg-right">
-                      <button type="button" className="active fltRght mb-3 mb-lg-0" onClick={() => handleExpandAllEvent()}>EXPAND ALL</button>
+                      <button type="button" className="active fltRght mb-3 mb-lg-0" onClick={() => handleExpandAllEvent()}><FormattedMessage id="BUTTON_EXPAND_ALL"></FormattedMessage></button>
                     </div>
                   </div>
                 </div>
@@ -231,7 +245,8 @@ const mapStateToProps = (state: IState) => {
     status:state.project.form.status,
     preliminaryForm: selector(state, 'preliminaryDetails'),
     subContractorState: state.subContractor.form.activities,
-	  discountState: state.discount.form,
+    discountState: state.discount.form,
+    preferedLangUpdateNotify: state.userPreferences.notify
   };
 };
 
@@ -248,7 +263,7 @@ const mapDispatchToProps = dispatch => {
     getAllCurrencies: () => dispatch(actions.getAllCurrencies()),
     getProjectStatus: () => dispatch(actions.getProjectStatus()),
     getSubContractor: (projectId: string) => dispatch(actions.getSubContractor(projectId)),
-		getDiscountData: (projectId: string) => dispatch(actions.getDiscountData(projectId)),
+		getDiscountData: (projectId: string) => dispatch(actions.getDiscountData(projectId))
   };
 };
 
@@ -256,3 +271,4 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(Preliminaries);
+
