@@ -2,6 +2,7 @@ import Notify from "../../../enums/Notify";
 import EventType from "../../../enums/EventType";
 import { ILookupState } from "../../../store/Lookups/Types/ILookupState";
 import { IProjectDetailState } from "../../../store/CustomerEnquiryForm/Types/IProjectDetailState";
+import { IUserPreferencesState } from "../../../store/UserPreferencesForm/Types/IUserPreferencesState";
 export const preliminariesData: any =
 {
   preliminary: {
@@ -130,5 +131,20 @@ export const dynamicsInitialState = {
   contractName: "",
   customerId: "",
   customerName: ""
-}
+};
+
+export const initialUserPreferencesState: IUserPreferencesState = {
+	preferences: {  
+	userPreferenceId: '',
+	languageId: 1,
+	languageName: 'en',
+	currencyId: 1,
+	currencySymbol: '$',
+	currencyName: 'Dollar'
+	},
+	error: null,
+	loading: false,
+	notify: Notify.success,
+	event: EventType.none
+  };
 

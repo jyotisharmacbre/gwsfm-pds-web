@@ -110,10 +110,8 @@ const Preliminaries: React.FC<
   useEffect(() => {
    if(props.preferedLangUpdateNotify == Notify.success)
    {
-    props.getProjectStatus();
-    
+    props.getProjectStatus();    
    }
-
   }, [props.preferedLangUpdateNotify]);
 
   const handleExpandAllEvent = () => {
