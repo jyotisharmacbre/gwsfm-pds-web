@@ -4,7 +4,7 @@ import { IState } from '../../../../store/state';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import GridTable from '../../../Table/GridTable';
-import { injectIntl } from 'react-intl';
+import { injectIntl, FormattedMessage } from 'react-intl';
 import { reduxForm, InjectedFormProps } from 'redux-form';
 import { IProjectDashboardGrid } from '../../../../store/Dashboard/Types/IProjectDashboardGrid';
 import IReactIntl from '../../../../Translations/IReactIntl';
@@ -101,13 +101,19 @@ let DashboardActionApprovalForm: React.FC<
 const getTableColumns = () => {
   return [
     {
-      title: 'Name',
+      title: <FormattedMessage id="HOMESCREEN_GRID_COLUMN_NAME" />,
       field: 'name'
     },
-    { title: 'Updated By', field: 'modifiedBy' },
-    { title: 'Date', field: 'modifiedOn' },
     {
-      title: 'Status',
+      title: <FormattedMessage id="HOMESCREEN_GRID_COLUMN_UPDATEDBY" />,
+      field: 'modifiedBy'
+    },
+    {
+      title: <FormattedMessage id="HOMESCREEN_GRID_COLUMN_DATE" />,
+      field: 'modifiedOn'
+    },
+    {
+      title: <FormattedMessage id="HOMESCREEN_GRID_COLUMN_STATUS" />,
       field: 'approvalStatus'
     }
   ];

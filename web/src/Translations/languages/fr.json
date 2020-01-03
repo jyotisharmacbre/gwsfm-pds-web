@@ -1,4 +1,8 @@
 {
+  "HOMESCREEN_GRID_COLUMN_NAME": "Nom",
+  "HOMESCREEN_GRID_COLUMN_UPDATEDBY": "Mis à jour par",
+  "HOMESCREEN_GRID_COLUMN_DATE": "Date",
+  "HOMESCREEN_GRID_COLUMN_STATUS": "Statut",
   "TITLE_WELCOME": "Bienvenue",
   "TITLE_MYACTIONS": "Mes actions",
   "TITLE_HELLO": "Bonjour",
