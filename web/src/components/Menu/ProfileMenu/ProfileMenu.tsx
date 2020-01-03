@@ -12,7 +12,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 // @ts-ignore
-import { Link,useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
 import { userPreferencesGet, userPreferencesFormEdit, userPreferencesFormAdd, resetUserPreferencesState } from '../../../store/UserPreferencesForm/Actions';
@@ -54,7 +54,7 @@ const ProfileMenu: React.FC<any> = props => {
   let history = useHistory();
   const [showMenu, setMenuVisibility] = useState(false);
   const [isEditable, makeEditable] = useState(false);
-  
+
 
   useEffect(() => {
     props.getUserPreferences();
@@ -87,21 +87,19 @@ const ProfileMenu: React.FC<any> = props => {
     makeEditable(false);
   }
 
-  const hideMenuOnBlur= (event)=> {
-    if (!event.currentTarget.contains(event.relatedTarget)) {
-      !makeEditable && setMenuVisibility(false);
-  }
-  }
+const handlePopUp=()=>{
+  let htmlEl:any=document.getElementById("dropLanguage");
+  htmlEl.classList.remove("hide");
+htmlEl.classList.add("show");
+}
 
-
-  
   return (
     <nav className="topbar">
       <div className="container-fluid">
         <div className="row d-flex align-items-center">
           <div className="col-sm-12">
-             
-            <div className={history.location.pathname=="/" ||history.location.pathname=="/Pipeline"?"d-md-block logo":"logo" } >
+
+            <div className={history.location.pathname == "/" || history.location.pathname == "/Pipeline" ? "d-md-block logo" : "logo"} >
               <Link data-test=""
                 to={{
                   pathname: "/"
@@ -110,8 +108,8 @@ const ProfileMenu: React.FC<any> = props => {
                 <img src={close_icon} alt="close" />
               </Link>
             </div>
-    
-            <ul className="icons-blocks">
+
+            <ul className="icons-blocks" >
               <li id="sm_none">
                 <a href="#">
                   <FontAwesomeIcon className="" icon={faHome} />
@@ -125,10 +123,10 @@ const ProfileMenu: React.FC<any> = props => {
                   </i>
                 </a>
               </li>
-              <li>
-                <div className="dropdown show" onBlur={hideMenuOnBlur}>
+              <li >
+                <div className="dropdown show" >
                   <a
-                    onClick={() => setMenuVisibility(!showMenu)}
+                    onClick={() => handlePopUp()}
                     className="btn btn-secondary dropdown-toggle p-0"
                     href="#"
                     id="js-usertext"
@@ -144,9 +142,10 @@ const ProfileMenu: React.FC<any> = props => {
                   </a>
 
                   <div
+                  id="dropLanguage"
                     className={`dropdown-menu dropdown-menu-right user-dropdown ${showMenu ? 'show' : 'hide'}`}
                     aria-labelledby="dropdownMenuLink"
-                  >
+                    >
 
                     <div className='language_wrap'>
 
@@ -205,13 +204,15 @@ const ProfileMenu: React.FC<any> = props => {
                       </div>
                     </div>
                   </div>
-                </div>
+                  </div>
+               
+
               </li>
               <li>
                 <button
                   type="button"
                   id="sidebarCollapse"
-                  className={history.location.pathname=="/" ||history.location.pathname=="/Pipeline"?"navbar-btn d-none":"navbar-btn" } >
+                  className={history.location.pathname == "/" || history.location.pathname == "/Pipeline" ? "navbar-btn d-none" : "navbar-btn"} >
                   <span></span>
                   <span></span>
                   <span></span>
