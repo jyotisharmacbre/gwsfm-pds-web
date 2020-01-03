@@ -90,7 +90,7 @@ const PricingSummaryTable: React.FC<Props> = (props) => {
 									<td data-column={`Margin (%)`}>&nbsp;</td>
                                     <td data-column={`Sell (${props.currencySymbol})`}>
 										Customer{' '}
-										{props.discount.discountType == 1 ? (
+										{props.discount.clientDiscount && props.discount.discountType == 1 ? (
 											`(${props.discount.clientDiscount}%)`
 										) : null}
 									</td>
@@ -100,7 +100,7 @@ const PricingSummaryTable: React.FC<Props> = (props) => {
                                     <td data-column={`Cost (${props.currencySymbol})`}>
                                         {props.currencySymbol}
 										<span data-test="sub-contractor-discount">
-											{props.discount.supplierTotalDiscount}
+											{props.discount.supplierTotalDiscount==undefined ? 0 : props.discount.supplierTotalDiscount}
 										</span>
 										&nbsp;
 									</td>

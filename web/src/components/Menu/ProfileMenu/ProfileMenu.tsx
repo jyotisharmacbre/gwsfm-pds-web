@@ -39,6 +39,7 @@ interface IMapDispatchToProps {
   getAllLanguages: () => void;
   getAllCurrencies: () => void;
   resetUserPreferencesState: () => void;
+  getProjectStatus: () => void;
 }
 
 interface IProps {
@@ -67,6 +68,7 @@ const ProfileMenu: React.FC<any> = props => {
       toast.success('Data Saved Successfully');
       props.getUserPreferences();
       props.resetUserPreferencesState();
+      props.getProjectStatus();
       setMenuVisibility(true);
       makeEditable(false);
     }
@@ -109,7 +111,7 @@ htmlEl.classList.add("show");
               </Link>
             </div>
 
-            <ul className="icons-blocks" >
+            <ul className="icons-blocks">
               <li id="sm_none">
                 <a href="#">
                   <FontAwesomeIcon className="" icon={faHome} />
@@ -250,7 +252,8 @@ const mapDispatchToProps = dispatch => {
     getUserPreferences: () => dispatch(userPreferencesGet()),
     getAllLanguages: () => dispatch(actions.getAllLanguages()),
     getAllCurrencies: () => dispatch(actions.getAllCurrencies()),
-    resetUserPreferencesState: () => dispatch(resetUserPreferencesState())
+    resetUserPreferencesState: () => dispatch(resetUserPreferencesState()),
+    getProjectStatus: () => dispatch(actions.getProjectStatus()),
   }
 }
 
