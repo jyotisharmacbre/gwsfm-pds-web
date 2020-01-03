@@ -12,7 +12,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 // @ts-ignore
-import { Link,useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
 import { userPreferencesGet, userPreferencesFormEdit, userPreferencesFormAdd, resetUserPreferencesState } from '../../../store/UserPreferencesForm/Actions';
@@ -87,9 +87,11 @@ const ProfileMenu: React.FC<any> = props => {
   }
 
   const handleBlur = (e) => {
-    if (!e.currentTarget.contains(e.relatedTarget)) {
-      !isEditable && setMenuVisibility(false);
-    }
+    if (e.relatedTarget == null)
+      {
+        setMenuVisibility(false);
+      }    
+    e && e.target.focus();
   }
 
   return (
@@ -97,8 +99,8 @@ const ProfileMenu: React.FC<any> = props => {
       <div className="container-fluid">
         <div className="row d-flex align-items-center">
           <div className="col-sm-12">
-             
-            <div className={history.location.pathname=="/" ||history.location.pathname=="/Pipeline"?"d-md-block logo":"logo" } >
+
+            <div className={history.location.pathname == "/" || history.location.pathname == "/Pipeline" ? "d-md-block logo" : "logo"} >
               <Link data-test=""
                 to={{
                   pathname: "/"
@@ -107,7 +109,7 @@ const ProfileMenu: React.FC<any> = props => {
                 <img src={close_icon} alt="close" />
               </Link>
             </div>
-    
+
             <ul className="icons-blocks">
               <li id="sm_none">
                 <a href="#">
@@ -122,9 +124,9 @@ const ProfileMenu: React.FC<any> = props => {
                   </i>
                 </a>
               </li>
-              <li onBlur={handleBlur}>
+              <li data-test='menu-container' onBlur={handleBlur}>
                 <div className="dropdown show">
-                  <a
+                  <a                  
                     onClick={() => setMenuVisibility(!showMenu)}
                     className="btn btn-secondary dropdown-toggle p-0"
                     href="#"
@@ -208,7 +210,7 @@ const ProfileMenu: React.FC<any> = props => {
                 <button
                   type="button"
                   id="sidebarCollapse"
-                  className={history.location.pathname=="/" ||history.location.pathname=="/Pipeline"?"navbar-btn d-none":"navbar-btn" } >
+                  className={history.location.pathname == "/" || history.location.pathname == "/Pipeline" ? "navbar-btn d-none" : "navbar-btn"} >
                   <span></span>
                   <span></span>
                   <span></span>
