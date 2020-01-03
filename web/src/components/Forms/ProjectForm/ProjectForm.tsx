@@ -577,7 +577,7 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 								name="saveAndClose"
 								onClick={handleSubmit((values) => props.onSave(values))}
 							>
-								<FormattedMessage id="BUTTON_SAVE_AND_CLOSE" />
+								<FormattedMessage id="BUTTON_SAVE" />
 							</button>
 							<button type="button" name="next" onClick={handleSubmit((values) => props.onNext(values))}>
 								<FormattedMessage id="BUTTON_NEXT" />
