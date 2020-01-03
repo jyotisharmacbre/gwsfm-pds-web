@@ -9,194 +9,217 @@ import { IProjectOverviewDetails } from './Types/IProjectOverviewDetails';
 import { isProjectStateInReview } from '../store-helper';
 import { ILookup } from '../Lookups/Types/ILookup';
 
-const projectOverviewFormAddSuccess = (response: IProjectAdditionalDetail, event: EventType) => {
-	return {
-		type: ActionType.PROJECT_OVERVIEW_FORM_ADD_SUCCESS,
-		payload: response,
-		event: event
-	};
+const projectOverviewFormAddSuccess = (
+  response: IProjectAdditionalDetail,
+  event: EventType
+) => {
+  return {
+    type: ActionType.PROJECT_OVERVIEW_FORM_ADD_SUCCESS,
+    payload: response,
+    event: event
+  };
 };
 
 const projectOverviewFormEditSuccess = (response: any, event: EventType) => {
-	return {
-		type: ActionType.PROJECT_OVERVIEW_FORM_EDIT_SUCCESS,
-		payload: response,
-		event: event
-	};
+  return {
+    type: ActionType.PROJECT_OVERVIEW_FORM_EDIT_SUCCESS,
+    payload: response,
+    event: event
+  };
 };
 
 const projectOverviewFormError = (error: string) => {
-	return {
-		type: ActionType.PROJECT_OVERVIEW_FORM_ERROR,
-		payload: error
-	};
+  return {
+    type: ActionType.PROJECT_OVERVIEW_FORM_ERROR,
+    payload: error
+  };
 };
 
 const getAdditionalDetailsSuccess = (response: any) => {
-	return {
-		type: ActionType.GET_ADDITIONALS_DETAILS_SUCCESS,
-		payload: response
-	};
+  return {
+    type: ActionType.GET_ADDITIONALS_DETAILS_SUCCESS,
+    payload: response
+  };
 };
 
 const getAdditionalDetailsError = (error: string) => {
-	return {
-		type: ActionType.GET_ADDITIONALS_DETAILS_ERROR,
-		payload: error
-	};
+  return {
+    type: ActionType.GET_ADDITIONALS_DETAILS_ERROR,
+    payload: error
+  };
 };
 const changeProjectStatusToBidLostSuccess = (response: any) => {
-	return {
-		type: ActionType.CHANGE_PROJECT_STATUS_TO_BID_LOST_SUCCESS,
-		payload: response
-	};
+  return {
+    type: ActionType.CHANGE_PROJECT_STATUS_TO_BID_LOST_SUCCESS,
+    payload: response
+  };
 };
 
 const changeProjectStatusToBidLostError = (error: string) => {
-	return {
-		type: ActionType.CHANGE_PROJECT_STATUS_TO_BID_LOST_ERROR,
-		payload: error
-	};
+  return {
+    type: ActionType.CHANGE_PROJECT_STATUS_TO_BID_LOST_ERROR,
+    payload: error
+  };
 };
 const changeProjectStatusToOnHoldSuccess = (response: any) => {
-	return {
-		type: ActionType.CHANGE_PROJECT_STATUS_TO_ON_HOLD_SUCCESS,
-		payload: response
-	};
+  return {
+    type: ActionType.CHANGE_PROJECT_STATUS_TO_ON_HOLD_SUCCESS,
+    payload: response
+  };
 };
 
 const changeProjectStatusToOnHoldError = (error: string) => {
-	return {
-		type: ActionType.CHANGE_PROJECT_STATUS_TO_ON_HOLD_ERROR,
-		payload: error
-	};
+  return {
+    type: ActionType.CHANGE_PROJECT_STATUS_TO_ON_HOLD_ERROR,
+    payload: error
+  };
 };
 const reactivateProjectSuccess = (response: any) => {
-	return {
-		type: ActionType.REACTIVATE_PROJECT_SUCCESS,
-		payload: response
-	};
+  return {
+    type: ActionType.REACTIVATE_PROJECT_SUCCESS,
+    payload: response
+  };
 };
 
 const reactivateProjectError = (error: string) => {
-	return {
-		type: ActionType.REACTIVATE_PROJECT_ERROR,
-		payload: error
-	};
-};
-
-export const setupPojectApprovalsInitialData = (lookupdata: Array<ILookup>, currencySymbol: string, projectId: string) => {
-  return (dispatch: Dispatch) => {
-    dispatch({ type: ActionType.BIND_PROJECT_APPROVAL_INITIAL_DATA, payload: { lookupdata, currencySymbol, projectId } });
-
+  return {
+    type: ActionType.REACTIVATE_PROJECT_ERROR,
+    payload: error
   };
-}
-let config = {
-	headers: {
-		'Content-Type': 'application/json'
-	}
-};
-export const projectOverviewFormAdd = (projectId: string, data: IProjectOverviewDetails, event: EventType) => {
-	return (dispatch: Dispatch) => {
-		if (isProjectStateInReview()) dispatch(projectOverviewFormError('error'));
-		data.projectId = projectId;
-		data.projectAdditionalDetail.projectId = projectId;
-		axios.baseAPI
-			.post('api/Projects/additionalDetails', data, config)
-			.then((response) => {
-				dispatch(projectOverviewFormAddSuccess(response.data, event));
-			})
-			.catch((error) => {
-				dispatch(projectOverviewFormError(error));
-			});
-	};
 };
 
-export const projectOverviewFormEdit = (data: IProjectOverviewState, event: EventType) => {
-	return (dispatch: Dispatch) => {
-		if (isProjectStateInReview()) dispatch(projectOverviewFormError('error'));
-		axios.baseAPI
-			.put('api/Projects/additionalDetails', data, config)
-			.then((response) => {
-				dispatch(projectOverviewFormEditSuccess(response.data, event));
-			})
-			.catch((error) => {
-				dispatch(projectOverviewFormError(error));
-			});
-	};
+export const setupPojectApprovalsInitialData = (
+  lookupdata: Array<ILookup>,
+  currencySymbol: string,
+  projectId: string
+) => {
+  return (dispatch: Dispatch) => {
+    dispatch({
+      type: ActionType.BIND_PROJECT_APPROVAL_INITIAL_DATA,
+      payload: { lookupdata, currencySymbol, projectId }
+    });
+  };
+};
+let config = {
+  headers: {
+    'Content-Type': 'application/json'
+  }
+};
+export const projectOverviewFormAdd = (
+  projectId: string,
+  data: IProjectOverviewDetails,
+  event: EventType
+) => {
+  return (dispatch: Dispatch) => {
+    if (isProjectStateInReview()) dispatch(projectOverviewFormError('error'));
+    data.projectId = projectId;
+    data.projectAdditionalDetail.projectId = projectId;
+    axios.baseAPI
+      .post('api/Projects/additionalDetails', data, config)
+      .then(response => {
+        dispatch(projectOverviewFormAddSuccess(response.data, event));
+      })
+      .catch(error => {
+        dispatch(projectOverviewFormError(error));
+      });
+  };
+};
+
+export const projectOverviewFormEdit = (
+  data: IProjectOverviewState,
+  event: EventType
+) => {
+  return (dispatch: Dispatch) => {
+    if (isProjectStateInReview()) dispatch(projectOverviewFormError('error'));
+    axios.baseAPI
+      .put('api/Projects/additionalDetails', data, config)
+      .then(response => {
+        dispatch(projectOverviewFormEditSuccess(response.data, event));
+      })
+      .catch(error => {
+        dispatch(projectOverviewFormError(error));
+      });
+  };
 };
 
 export const getAdditionalDetails = (projectId: string) => {
-	return (dispatch: Dispatch) => {
-		axios.baseAPI
-			.get(`api/Projects/${projectId}/additionalDetails`, config)
-			.then((response) => {
-				dispatch(getAdditionalDetailsSuccess(response.data));
-			})
-			.catch((error) => {
-				dispatch(getAdditionalDetailsError(error));
-			});
-	};
+  return (dispatch: Dispatch) => {
+    axios.baseAPI
+      .get(`api/Projects/${projectId}/additionalDetails`, config)
+      .then(response => {
+        dispatch(getAdditionalDetailsSuccess(response.data));
+      })
+      .catch(error => {
+        dispatch(getAdditionalDetailsError(error));
+      });
+  };
 };
 
 const resetProjectOverviewStateDispatch = () => {
-	return {
-		type: ActionType.RESET_PROJECT_OVERVIEW_STATE
-	};
+  return {
+    type: ActionType.RESET_PROJECT_OVERVIEW_STATE
+  };
 };
 
 export const resetProjectOverviewState = () => {
-	return (dispatch: Dispatch) => {
-		dispatch(resetProjectOverviewStateDispatch());
-	};
+  return (dispatch: Dispatch) => {
+    dispatch(resetProjectOverviewStateDispatch());
+  };
 };
 export const changeProjectStatusToBidLost = (projectId: string) => {
-	return (dispatch: Dispatch) => {
-		axios.baseAPI
-			.put(`api/Projects/${projectId}/bidlost`, config)
-			.then((response) => {
-				dispatch(changeProjectStatusToBidLostSuccess(response.data));
-			})
-			.catch((error) => {
-				dispatch(changeProjectStatusToBidLostError(error));
-			});
-	};
+  return (dispatch: Dispatch) => {
+    axios.baseAPI
+      .put(`api/Projects/${projectId}/bidlost`, config)
+      .then(response => {
+        dispatch(changeProjectStatusToBidLostSuccess(response.data));
+      })
+      .catch(error => {
+        dispatch(changeProjectStatusToBidLostError(error));
+      });
+  };
 };
 export const changeProjectStatusToOnHold = (projectId: string) => {
-	return (dispatch: Dispatch) => {
-		axios.baseAPI
-			.put(`api/Projects/${projectId}/onHold`, config)
-			.then((response) => {
-				dispatch(changeProjectStatusToOnHoldSuccess(response.data));
-			})
-			.catch((error) => {
-				dispatch(changeProjectStatusToOnHoldError(error));
-			});
-	};
+  return (dispatch: Dispatch) => {
+    axios.baseAPI
+      .put(`api/Projects/${projectId}/onHold`, config)
+      .then(response => {
+        dispatch(changeProjectStatusToOnHoldSuccess(response.data));
+      })
+      .catch(error => {
+        dispatch(changeProjectStatusToOnHoldError(error));
+      });
+  };
 };
 export const reactivateProject = (projectId: string) => {
-	return (dispatch: Dispatch) => {
-		axios.baseAPI
-			.put(`api/Projects/${projectId}/reactivate`, config)
-			.then((response) => {
-				dispatch(reactivateProjectSuccess(response.data));
-			})
-			.catch((error) => {
-				dispatch(reactivateProjectError(error));
-			});
-	};
+  return (dispatch: Dispatch) => {
+    axios.baseAPI
+      .put(`api/Projects/${projectId}/reactivate`, config)
+      .then(response => {
+        dispatch(reactivateProjectSuccess(response.data));
+      })
+      .catch(error => {
+        dispatch(reactivateProjectError(error));
+      });
+  };
 };
 export const getAdminDefaultValues = (countryId: number) => {
-	let sessionData: any = sessionStorage.getItem('defaultParameters');
-	let isLookupSessionExists: boolean = sessionData ? (JSON.parse(sessionData).length > 0 ? true : false) : false;
-	return (dispatch: Dispatch) => {
-		if (!isLookupSessionExists) {
-			axios.baseAPI
-				.get(`api/Admin/getProjectParameters/${countryId}`)
-				.then((response) => {
-					sessionStorage.setItem('defaultParameters', JSON.stringify(response.data));
-				})
-				.catch((error) => {});
-		}
-	};
+  let sessionData: any = sessionStorage.getItem('defaultParameters');
+  let isLookupSessionExists: boolean = sessionData
+    ? JSON.parse(sessionData).length > 0
+      ? true
+      : false
+    : false;
+  return (dispatch: Dispatch) => {
+    if (!isLookupSessionExists) {
+      axios.baseAPI
+        .get(`api/Admin/getProjectParameters/${countryId}`)
+        .then(response => {
+          sessionStorage.setItem(
+            'defaultParameters',
+            JSON.stringify(response.data)
+          );
+        })
+        .catch(error => {});
+    }
+  };
 };
