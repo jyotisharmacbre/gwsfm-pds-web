@@ -12,7 +12,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 // @ts-ignore
-import { Link,useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
 import { userPreferencesGet, userPreferencesFormEdit, userPreferencesFormAdd, resetUserPreferencesState } from '../../../store/UserPreferencesForm/Actions';
@@ -39,6 +39,7 @@ interface IMapDispatchToProps {
   getAllLanguages: () => void;
   getAllCurrencies: () => void;
   resetUserPreferencesState: () => void;
+  getProjectStatus: () => void;
 }
 
 interface IProps {
@@ -66,6 +67,7 @@ const ProfileMenu: React.FC<any> = props => {
       toast.success('Data Saved Successfully');
       props.getUserPreferences();
       props.resetUserPreferencesState();
+      props.getProjectStatus();
       setMenuVisibility(true);
       makeEditable(false);
     }
@@ -91,8 +93,8 @@ const ProfileMenu: React.FC<any> = props => {
       <div className="container-fluid">
         <div className="row d-flex align-items-center">
           <div className="col-sm-12">
-             
-            <div className={history.location.pathname=="/" ||history.location.pathname=="/Pipeline"?"d-md-block logo":"logo" } >
+
+            <div className={history.location.pathname == "/" || history.location.pathname == "/Pipeline" ? "d-md-block logo" : "logo"} >
               <Link data-test=""
                 to={{
                   pathname: "/"
@@ -101,7 +103,7 @@ const ProfileMenu: React.FC<any> = props => {
                 <img src={close_icon} alt="close" />
               </Link>
             </div>
-    
+
             <ul className="icons-blocks">
               <li id="sm_none">
                 <a href="#">
@@ -202,7 +204,7 @@ const ProfileMenu: React.FC<any> = props => {
                 <button
                   type="button"
                   id="sidebarCollapse"
-                  className={history.location.pathname=="/" ||history.location.pathname=="/Pipeline"?"navbar-btn d-none":"navbar-btn" } >
+                  className={history.location.pathname == "/" || history.location.pathname == "/Pipeline" ? "navbar-btn d-none" : "navbar-btn"} >
                   <span></span>
                   <span></span>
                   <span></span>
@@ -240,7 +242,8 @@ const mapDispatchToProps = dispatch => {
     getUserPreferences: () => dispatch(userPreferencesGet()),
     getAllLanguages: () => dispatch(actions.getAllLanguages()),
     getAllCurrencies: () => dispatch(actions.getAllCurrencies()),
-    resetUserPreferencesState: () => dispatch(resetUserPreferencesState())
+    resetUserPreferencesState: () => dispatch(resetUserPreferencesState()),
+    getProjectStatus: () => dispatch(actions.getProjectStatus()),
   }
 }
 

@@ -130,5 +130,4 @@ export const dynamicsInitialState = {
   contractName: "",
   customerId: "",
   customerName: ""
-}
-
+};
