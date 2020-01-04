@@ -10,6 +10,7 @@ import { getProjectStatus } from '../store/rootActions';
 import { formatMessage } from '../Translations/connectedIntlProvider';
 import { getDisplayName } from '../helpers/auth-helper';
 import { getUserNamesForEmailsService } from '../store/UserService/Action';
+import { IUserServiceData } from '../store/UserService/Types/IUserService';
 interface IMapDispatchToProps {
   dashboardGridDetail: () => void;
   getLookups: () => void;
@@ -19,7 +20,7 @@ interface IMapStateToProps {
   dashboardGridValues: Array<IProjectDashboardGrid>;
   valuesCount: number;
   lookupDetails: Array<ILookup>;
-  userNamesForEmails: any;
+  userNamesForEmails: Array<IUserServiceData>;
 }
 const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = props => {
   useEffect(() => {

@@ -11,18 +11,18 @@ import IReactIntl from '../../../../Translations/IReactIntl';
 import { ILookup } from '../../../../store/Lookups/Types/ILookup';
 import { getLookupDescription } from '../../../../helpers/utility-helper';
 import { LookupItems } from '../../../../helpers/constants';
+import { IUserServiceData } from '../../../../store/UserService/Types/IUserService';
 
 interface Props {
-  actionApprovalValues: any;
+  actionApprovalValues: Array<IProjectDashboardGrid>;
   showValues: number;
   lookupValues: Array<ILookup>;
-  userNamesForEmailsValues: any;
+  userNamesForEmailsValues: Array<IUserServiceData>;
 }
 let DashboardActionApprovalForm: React.FC<
   Props & InjectedFormProps<Array<IProjectDashboardGrid>, Props>
 > = props => {
   const [gridData, setGridData] = useState<Array<IProjectDashboardGrid>>([]);
-
   useEffect(() => {
     if (
       props.actionApprovalValues &&
@@ -31,7 +31,6 @@ let DashboardActionApprovalForm: React.FC<
       props.showValues &&
       props.userNamesForEmailsValues
     ) {
-      debugger;
       setGridData(
         getActionApprovalValues(
           props.actionApprovalValues,
@@ -54,36 +53,41 @@ let DashboardActionApprovalForm: React.FC<
     namesAndEmails,
     countVals
   ) => {
-    let result = data.map(function(rowProject) {
-      var statusID = rowProject.approvalStatus;
-      if (!isNaN(statusID) && allLookups.length > 0)
-        rowProject.approvalStatus = getLookupDescription(
-          allLookups,
-          rowProject.approvalStatus,
-          LookupItems.Project_Approval_Sign_Off_Status
-        );
-      var mailObj = namesAndEmails.find(
-        lk => lk.email.toUpperCase() === rowProject.modifiedBy.toUpperCase()
-      );
-      rowProject.modifiedBy = mailObj
-        ? `${mailObj.firstname} ${mailObj.lastName}`
-        : rowProject.modifiedBy;
-      rowProject.name = (
-        <Link
-          to={{
-            pathname: `/reviewsubmit/${rowProject.projectId}`,
-            state: { fromDashboard: true }
-          }}
-        >
-          {rowProject.name}
-        </Link>
-      );
-      rowProject.modifiedOn =
-        rowProject.modifiedOn != ''
-          ? moment(rowProject.modifiedOn).format('MM/DD/YYYY')
-          : '';
-      return rowProject;
-    });
+    let result =
+      data &&
+      data.map(function(rowProject) {
+        var statusID = rowProject.approvalStatus;
+        if (!isNaN(statusID) && allLookups.length > 0) {
+          rowProject.approvalStatus = rowProject.approvalStatus
+            ? getLookupDescription(
+                allLookups,
+                rowProject.approvalStatus,
+                LookupItems.Project_Approval_Sign_Off_Status
+              )
+            : 1;
+          var mailObj = namesAndEmails.find(
+            lk => lk.email.toUpperCase() === rowProject.modifiedBy.toUpperCase()
+          );
+          rowProject.modifiedBy = mailObj
+            ? `${mailObj.firstname} ${mailObj.lastName}`
+            : rowProject.modifiedBy;
+          rowProject.name = (
+            <Link
+              to={{
+                pathname: `/reviewsubmit/${rowProject.projectId}`,
+                state: { fromDashboard: true }
+              }}
+            >
+              {rowProject.name}
+            </Link>
+          );
+          rowProject.modifiedOn =
+            rowProject.modifiedOn != ''
+              ? moment(rowProject.modifiedOn).format('MM/DD/YYYY')
+              : '';
+        }
+        return rowProject;
+      });
     return result;
   };
   return (
