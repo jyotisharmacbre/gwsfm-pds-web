@@ -55,15 +55,15 @@ let DashboardActionApprovalForm: React.FC<
   ) => {
     let result =
       data &&
-      data.map(function(rowProject) {
+      data.map(function (rowProject) {
         var statusID = rowProject.approvalStatus;
         if (!isNaN(statusID) && allLookups.length > 0) {
           rowProject.approvalStatus = rowProject.approvalStatus
             ? getLookupDescription(
-                allLookups,
-                rowProject.approvalStatus,
-                LookupItems.Project_Approval_Sign_Off_Status
-              )
+              allLookups,
+              rowProject.approvalStatus,
+              LookupItems.Project_Approval_Sign_Off_Status
+            )
             : 1;
           var mailObj = namesAndEmails.find(
             lk => lk.email.toUpperCase() === rowProject.modifiedBy.toUpperCase()
@@ -92,13 +92,13 @@ let DashboardActionApprovalForm: React.FC<
   };
   return (
     <React.Fragment>
-      <GridTable
+      {gridData.length > 0 ? <GridTable
         columns={getTableColumns()}
         data={gridData}
         sorting={false}
         className="price-table home_screen_table"
         ActionList={[]}
-      />
+      /> : <span>{'No pending actions'}</span>}
     </React.Fragment>
   );
 };
