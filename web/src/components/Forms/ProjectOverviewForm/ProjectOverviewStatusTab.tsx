@@ -9,7 +9,6 @@ import { confirmAlert } from '../../Popup/CustomModalPopup';
 import IReactIntl from '../../../Translations/IReactIntl';
 import ProjectStatus from '../../../enums/ProjectStatus';
 import { activeMocks } from 'nock/types';
-import { Hidden } from '@material-ui/core';
 
 interface IProps {
     status: number;
@@ -41,10 +40,8 @@ const ProjectOverviewStatusTab: React.FC<IProps & IReactIntl> = props => {
         if (element != null) {
             var isClassExists = element.classList.contains('active');
             if (isClassExists) {
-                //element.classList.add('');
                 element.classList.remove('active');
             } else {
-                //element.classList.remove('active');
                 element.classList.add('active');
             }
         }
