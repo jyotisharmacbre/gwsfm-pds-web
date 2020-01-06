@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { LookupType } from '../../../store/Lookups/Types/LookupType';
-import { getPropertyName, getDiscountTypeValue, getFilterElementFromArray, maxLimit } from '../../../helpers/utility-helper';
+import { getPropertyName, getDiscountTypeValue, getFilterElementFromArray, maxLimitTo } from '../../../helpers/utility-helper';
 import { calculateClientDiscount, calculateTotalSum } from '../../../helpers/formulas';
 import { ICurrency } from '../../../store/Lookups/Types/ICurrency';
 import Currency from '../../../store/Lookups/InitialState/Currency';
@@ -226,7 +226,7 @@ let DiscountForm: React.FC<
 										messageKey="MESSAGE_DISCOUNT"
 										labelKey="LABEL_DISCOUNT"
 										placeholderKey="PLACEHOLDER_DISCOUNT"
-										normalize={maxLimit}
+										normalize={maxLimitTo(0,100)}
 										discountBind={getDiscountTypeValue(
 											props.projectstatus &&
 												props.projectstatus.filter(
