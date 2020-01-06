@@ -16,17 +16,17 @@ const getUserServiceError = (error: any) => {
 	};
 };
 const getUserNamesForEmailsServiceSuccess = (response: any) => {
-  return {
-    type: ActionType.USER_NAMES_FOR_EMAILSSERVICE_GET_SUCCESS,
-    payload: response
-  };
+	return {
+		type: ActionType.USER_NAMES_FOR_EMAILSSERVICE_GET_SUCCESS,
+		payload: response
+	};
 };
 
 const getUserNamesForEmailsServiceError = (error: any) => {
-  return {
-    type: ActionType.USER_NAMES_FOR_EMAILS_SERVICE_GET_ERROR,
-    payload: error
-  };
+	return {
+		type: ActionType.USER_NAMES_FOR_EMAILS_SERVICE_GET_ERROR,
+		payload: error
+	};
 };
 let config = {
 	headers: {
@@ -61,19 +61,19 @@ export const getUserServiceCallback = (search: string, success, failure) => {
 		});
 };
 export const getUserNamesForEmailsService = (data: any) => {
-  return (dispatch: Dispatch) => {
-    axios.userServiceAPI
-      .post(
-        `/api/users/getusernamesforemailids
+	return (dispatch: Dispatch) => {
+		axios.userServiceAPI
+			.post(
+				`/api/identity/users/getusernamesforemailids
     `,
-        data,
-        config
-      )
-      .then(response => {
-        dispatch(getUserNamesForEmailsServiceSuccess(response.data));
-      })
-      .catch(error => {
-        dispatch(getUserNamesForEmailsServiceError(error));
-      });
-  };
+				data,
+				config
+			)
+			.then(response => {
+				dispatch(getUserNamesForEmailsServiceSuccess(response.data));
+			})
+			.catch(error => {
+				dispatch(getUserNamesForEmailsServiceError(error));
+			});
+	};
 };

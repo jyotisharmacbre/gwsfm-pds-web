@@ -1,7 +1,7 @@
 import axios from 'axios';
 import authentication from '@kdpw/msal-b2c-react';
 
-export const baseURL = 'https://qat-pds-middletier.azurewebsites.net';
+export const baseURL = 'https://localhost:44379';
 export const baseAPI = axios.create({ baseURL });
 export const userServiceURL = 'https://qat-identity-api.azurewebsites.net';
 export const userServiceAPI = axios.create({ baseURL: userServiceURL });
