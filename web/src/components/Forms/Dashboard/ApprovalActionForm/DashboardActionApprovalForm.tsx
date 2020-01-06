@@ -58,13 +58,11 @@ let DashboardActionApprovalForm: React.FC<
       data.map(function (rowProject) {
         var statusID = rowProject.approvalStatus;
         if (!isNaN(statusID) && allLookups.length > 0) {
-          rowProject.approvalStatus = rowProject.approvalStatus
-            ? getLookupDescription(
-              allLookups,
-              rowProject.approvalStatus,
-              LookupItems.Project_Approval_Sign_Off_Status
-            )
-            : 1;
+          rowProject.approvalStatus = getLookupDescription(
+            allLookups,
+            rowProject.approvalStatus,
+            LookupItems.Project_Approval_Sign_Off_Status
+          );
           var mailObj = namesAndEmails.find(
             lk => lk.email.toUpperCase() === rowProject.modifiedBy.toUpperCase()
           );

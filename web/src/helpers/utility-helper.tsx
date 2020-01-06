@@ -24,7 +24,7 @@ export const getLookupDescription = (allLookups, lookupKey, lookupItem) => {
       lk.lookupItem === lookupItem &&
       lk.lookupKey.toString() === lookupKey.toString()
   );
-  if (filter || filter == undefined) return null;
+  if (!filter || filter == undefined) return null;
 
   return filter.description;
 };
