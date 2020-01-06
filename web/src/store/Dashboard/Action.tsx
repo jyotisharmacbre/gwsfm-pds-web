@@ -22,22 +22,13 @@ const headers = {
 
 export const projectDashboardGridDetail = () => {
   return (dispatch: Dispatch) => {
-    let data = [
-      {
-        name: 'Sample Project',
-        updatedBy: 'Admin',
-        updatedDate: '01-01-2019',
-        projectStatus: 2,
-        projectID: 'GUID_Value'
-      },
-      {
-        name: 'Dummy Project',
-        updatedBy: 'head admin',
-        updatedDate: '02-02-2019',
-        projectStatus: 1,
-        projectID: 'Some_GUID_Value'
-      }
-    ];
-    dispatch(DashboardGridDetailSuccess(data));
+    axios.baseAPI
+      .get('api/users/pendingApprovals', { headers: headers })
+      .then(response => {
+        dispatch(DashboardGridDetailSuccess(response.data));
+      })
+      .catch(error => {
+        dispatch(DashboardGridDetailError(error));
+      });
   };
 };

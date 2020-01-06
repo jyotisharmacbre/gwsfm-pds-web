@@ -1,7 +1,7 @@
 export interface IProjectDashboardGrid {
   name: string;
-  updatedBy: string;
-  updatedDate: string;
-  projectStatus: number;
-  projectID: string;
+  modifiedBy: string;
+  modifiedOn: string;
+  approvalStatus: string;
+  projectId: string;
 }
