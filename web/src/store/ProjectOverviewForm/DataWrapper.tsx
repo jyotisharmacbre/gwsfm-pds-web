@@ -45,6 +45,5 @@ export const setupInitialApprovalData = payload => {
 
     initialApprovalData.push(approval);
   });
-  debugger;
   return initialApprovalData;
 };
