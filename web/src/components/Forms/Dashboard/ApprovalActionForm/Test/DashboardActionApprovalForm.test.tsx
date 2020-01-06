@@ -58,13 +58,13 @@ describe('Dashboard Form testCases', () => {
     expect(wrapper).toMatchSnapshot();
   });
 });
-describe('Dashboard form reducer', () => {
-  it('should handle Get PROJECT DASHBOARD GRID DETAILS successfully', () => {
-    const projectDashboardGridAction: any = {
-      type: ActionType.PROJECT_DASHBOARD_GRID_DETAILS
-    };
-    expect(
-      DashboardGridDetailReducer(initialState, projectDashboardGridAction)
-    ).toMatchSnapshot();
-  });
-});
+// describe('Dashboard form reducer', () => {
+//   it('should handle Get PROJECT DASHBOARD GRID DETAILS successfully', () => {
+//     const projectDashboardGridAction: any = {
+//       type: ActionType.PROJECT_DASHBOARD_GRID_DETAILS
+//     };
+//     expect(
+//       DashboardGridDetailReducer(initialState, projectDashboardGridAction)
+//     ).toMatchSnapshot();
+//   });
+//});
