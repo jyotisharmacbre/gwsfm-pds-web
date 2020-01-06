@@ -40,7 +40,7 @@ let UserProfileForm: React.FC<Props &
 
           <ul>
             <li>
-              <a>
+              <a href="#">
                 <i>
                   <FontAwesomeIcon className="" icon={faUser} />
                 </i>

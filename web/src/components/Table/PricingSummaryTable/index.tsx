@@ -7,6 +7,7 @@ import IPricing from '../../../models/IPricing';
 import { IPreliminariesComponentDetails } from '../../../store/Preliminaries/Types/IPreliminariesComponentDetails';
 import { IDiscountActivity } from '../../../store/DiscountForm/Types/IDiscountActivity';
 import { calculateClientDiscount,calculateTotalSum } from '../../../helpers/formulas';
+import { FormattedMessage } from 'react-intl';
 
 interface Props {
 	preliminary?: Array<IPreliminariesComponentDetails>;
@@ -34,21 +35,21 @@ const PricingSummaryTable: React.FC<Props> = (props) => {
 
 	return (
 		<div className="price-sumry">
-			<label>Pricing Summary</label>
+			<label><FormattedMessage id="TITLE_PRICING_SUMMARY" /></label>
 			<div className="inner-block">
 				<table className="price-table table_responsive">
 					<thead>
 						<tr>
 							<th />
-							<th>Cost ({props.currencySymbol})</th>
-							<th>Margin (%)</th>
-							<th>Sell ({props.currencySymbol})</th>
+							<th><FormattedMessage id='TITLE_COST' /> ({props.currencySymbol})</th>
+							<th><FormattedMessage id='TITLE_MARGIN' /> (%)</th>
+							<th><FormattedMessage id='TITLE_SELL' /> ({props.currencySymbol})</th>
 						</tr>
 					</thead>
 					<tbody>
 						{props.preliminary ? (
 							<tr data-test="preliminary-data">
-								<td data-column="&nbsp;">Preliminaries</td>
+								<td data-column="&nbsp;"><FormattedMessage id='TITLE_PRELIMINARIES' /></td>
                                 <td data-column={`Cost (${props.currencySymbol})`}>
                                     {props.currencySymbol}
 									<span data-test="total-margin-summary">{preliminaryData.cost}</span>
@@ -65,7 +66,7 @@ const PricingSummaryTable: React.FC<Props> = (props) => {
 						) : null}
 						{props.subContractor ? (
 							<tr data-test="sub-contractor-data">
-								<td data-column="&nbsp;">Subcontractors</td>
+								<td data-column="&nbsp;"><FormattedMessage id='TITLE_SUBCONTRACTORS' /></td>
                                 <td data-column={`Cost (${props.currencySymbol})`}>
                                     {props.currencySymbol}
 									<span data-test="sub-contractor-cost">{subContractorData.cost}</span>
@@ -85,11 +86,11 @@ const PricingSummaryTable: React.FC<Props> = (props) => {
 									<br/>
 								</tr>
 								<tr data-test="discount-data">
-									<td data-column="&nbsp;">Disount</td>
-                                    <td data-column={`Cost (${props.currencySymbol})`}>Sub-Contractor</td>
+									<td data-column="&nbsp;"><FormattedMessage id='TITLE_DISOUNT' /></td>
+                                    <td data-column={`Cost (${props.currencySymbol})`}><FormattedMessage id='TITLE_SUB_CONTRACTOR' /></td>
 									<td data-column={`Margin (%)`}>&nbsp;</td>
                                     <td data-column={`Sell (${props.currencySymbol})`}>
-										Customer{' '}
+										<FormattedMessage id='TITLE_CUSTOMER' />{' '}
 										{props.discount.clientDiscount && props.discount.discountType == 1 ? (
 											`(${props.discount.clientDiscount}%)`
 										) : null}
