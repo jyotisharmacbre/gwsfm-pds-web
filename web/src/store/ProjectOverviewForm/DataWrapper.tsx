@@ -21,7 +21,7 @@ export const setupInitialApprovalData = (payload) => {
         let approveRangeMapping = ProjectApproverTypeAndRangeMapping.find(x => x.type == lookupApproverType.lookupKey.toString());
         let approverRange =
             lookupdata.filter(x => x.lookupItem.toLowerCase() == LookupType.Project_Approval_Range.toLowerCase()
-                && x.lookupKey.toString() == 'approveRangeMapping?.range');
+                && x.lookupKey.toString() == approveRangeMapping?.range);
 
         let approval: IProjectApprovals = {
             projectId: projectId,
@@ -33,8 +33,8 @@ export const setupInitialApprovalData = (payload) => {
             projectApprovalRangeDescription:
                 approverRange && approverRange.length > 0 ?
                     approverRange[0].description.replace('{CurrencySymbol}', currencySymbol).toString() : '',
-            showRangeLabel: !initialApprovalData.some(x => approveRangeMapping !== undefined && x.projectApprovalRange == approveRangeMapping.range),
-            userId:''
+            showRangeLabel: !initialApprovalData.some(x => approveRangeMapping && x.projectApprovalRange == approveRangeMapping.range),
+            userId: ''
         };
 
         initialApprovalData.push(approval);
