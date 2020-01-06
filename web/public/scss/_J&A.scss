@@ -33,6 +33,7 @@
     @include boxShadow(0 0 13px rgba(0, 0, 0, 0.1));
     margin: 10px 0;
     height: 100%;
+    cursor: pointer;
     @include mdScreen {
         height: auto;
     }
