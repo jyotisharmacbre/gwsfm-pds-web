@@ -92,9 +92,10 @@ const ProfileMenu: React.FC<any> = props => {
   const handleBlur = (e) => {
     if (e.relatedTarget == null || !e.currentTarget.contains(e.relatedTarget))
       {
-        setMenuVisibility(false);
-      }    
-    e && e.target.focus();
+        setMenuVisibility(false);        
+      }else{
+        e && e.target.focus();
+      }       
   }
 
   return (
