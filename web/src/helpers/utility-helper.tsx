@@ -112,11 +112,19 @@ export const maxLimit = (value: number) => {
   }
 };
 
-export const calculateRank = (
-  probabilityOfWinning: number,
-  approximateValue: number
-) => {
-  return probabilityOfWinning * approximateValue;
+export const maxLimitTo = (minLimit, maxLimit) => (value: number) =>
+ {
+	if (value < minLimit) {
+		return minLimit;
+	} else if (value > maxLimit) {
+		return maxLimit;
+	} else {
+		return value;
+	}
+ }
+
+export const calculateRank = (probabilityOfWinning: number, approximateValue: number) => {
+	return probabilityOfWinning * approximateValue;
 };
 
 export const getClassNameForProjectStatus = (projectStatus: ProjectStatus) => {
