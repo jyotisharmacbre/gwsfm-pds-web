@@ -86,10 +86,10 @@ const reactivateProjectError = (error: string) => {
 };
 
 export const setupPojectApprovalsInitialData = (lookupdata: Array<ILookup>, currencySymbol: string, projectId: string) => {
-  return (dispatch: Dispatch) => {
-    dispatch({ type: ActionType.BIND_PROJECT_APPROVAL_INITIAL_DATA, payload: { lookupdata, currencySymbol, projectId } });
+	return (dispatch: Dispatch) => {
+		dispatch({ type: ActionType.BIND_PROJECT_APPROVAL_INITIAL_DATA, payload: { lookupdata, currencySymbol, projectId } });
 
-  };
+	};
 }
 let config = {
 	headers: {
@@ -153,7 +153,7 @@ export const resetProjectOverviewState = () => {
 export const changeProjectStatusToBidLost = (projectId: string) => {
 	return (dispatch: Dispatch) => {
 		axios.baseAPI
-			.put(`api/Projects/${projectId}/bidlost`, config)
+			.put(`api/Workflow/${projectId}/bidlost`, config)
 			.then((response) => {
 				dispatch(changeProjectStatusToBidLostSuccess(response.data));
 			})
@@ -165,7 +165,7 @@ export const changeProjectStatusToBidLost = (projectId: string) => {
 export const changeProjectStatusToOnHold = (projectId: string) => {
 	return (dispatch: Dispatch) => {
 		axios.baseAPI
-			.put(`api/Projects/${projectId}/onHold`, config)
+			.put(`api/Workflow/${projectId}/onHold`, config)
 			.then((response) => {
 				dispatch(changeProjectStatusToOnHoldSuccess(response.data));
 			})
@@ -177,7 +177,7 @@ export const changeProjectStatusToOnHold = (projectId: string) => {
 export const reactivateProject = (projectId: string) => {
 	return (dispatch: Dispatch) => {
 		axios.baseAPI
-			.put(`api/Projects/${projectId}/reactivate`, config)
+			.put(`api/Workflow/${projectId}/reactivate`, config)
 			.then((response) => {
 				dispatch(reactivateProjectSuccess(response.data));
 			})
@@ -196,7 +196,7 @@ export const getAdminDefaultValues = (countryId: number) => {
 				.then((response) => {
 					sessionStorage.setItem('defaultParameters', JSON.stringify(response.data));
 				})
-				.catch((error) => {});
+				.catch((error) => { });
 		}
 	};
 };

@@ -15,13 +15,13 @@ nock(baseURL)
   .get('/api/Projects/4d27e2e1-843d-435a-b27c-03dca70ce232/additionalDetails')
   .reply(200, "Project overview data fetched successfully");
 nock(baseURL)
-  .put('/api/Projects/4d27e2e1-843d-435a-b27c-03dca70ce232/bidlost')
+  .put('/api/Workflow/4d27e2e1-843d-435a-b27c-03dca70ce232/bidlost')
   .reply(200, "Project overview status updated successfully");
 nock(baseURL)
-  .put('/api/Projects/4d27e2e1-843d-435a-b27c-03dca70ce232/onHold')
+  .put('/api/Workflow/4d27e2e1-843d-435a-b27c-03dca70ce232/onHold')
   .reply(200, "Project overview status updated successfully");
 nock(baseURL)
-  .put('/api/Projects/4d27e2e1-843d-435a-b27c-03dca70ce232/reactivate')
+  .put('/api/Workflow/4d27e2e1-843d-435a-b27c-03dca70ce232/reactivate')
   .reply(200, "Project overview status reactivated successfully");
 
 describe('Project overview Reducer', () => {
