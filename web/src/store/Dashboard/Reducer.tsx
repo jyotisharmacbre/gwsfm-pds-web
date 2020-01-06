@@ -4,14 +4,14 @@ import { IProjectDashboardGridState } from './Types/IProjectDashboardGridState';
 import moment from 'moment';
 import Notify from '../../enums/Notify';
 
-const initialState: IProjectDashboardGridState = {
+export const initialState: IProjectDashboardGridState = {
   actionApprovalDetails: [
     {
       name: '',
-      updatedBy: '',
-      updatedDate: '',
-      projectStatus: 2,
-      projectID: ''
+      modifiedBy: 'last@name.test',
+      modifiedOn: '',
+      approvalStatus: '1',
+      projectId: ''
     }
   ],
   error: null

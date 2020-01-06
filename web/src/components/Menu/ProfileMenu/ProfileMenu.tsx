@@ -90,11 +90,12 @@ const ProfileMenu: React.FC<any> = props => {
   }
 
   const handleBlur = (e) => {
-    if (e.relatedTarget == null)
+    if (e.relatedTarget == null || !e.currentTarget.contains(e.relatedTarget))
       {
-        setMenuVisibility(false);
-      }    
-    e && e.target.focus();
+        setMenuVisibility(false);        
+      }else{
+        e && e.target.focus();
+      }       
   }
 
   return (
@@ -128,7 +129,8 @@ const ProfileMenu: React.FC<any> = props => {
                 </a>
               </li>
               <li data-test='menu-container' onBlur={handleBlur}>
-                <div className="dropdown show">
+              <a href="#">
+                 <div className="dropdown show">
                   <a                  
                     onClick={() => setMenuVisibility(!showMenu)}
                     className="btn btn-secondary dropdown-toggle p-0"
@@ -208,9 +210,8 @@ const ProfileMenu: React.FC<any> = props => {
                       </div>
                     </div>
                   </div>
-                  </div>
-               
-
+                </div>
+              </a>
               </li>
               <li>
                 <button

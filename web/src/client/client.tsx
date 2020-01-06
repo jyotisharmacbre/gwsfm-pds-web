@@ -3,7 +3,7 @@ import authentication from '@kdpw/msal-b2c-react';
 
 export const baseURL = 'https://qat-pds-middletier.azurewebsites.net';
 export const baseAPI = axios.create({ baseURL });
-export const userServiceURL = 'https://qat-identity-api.azurewebsites.net';
+export const userServiceURL = 'https://qat-foundation-gateway.azurewebsites.net';
 export const userServiceAPI = axios.create({ baseURL: userServiceURL });
 
 const isTokenHandlerEnabled = (config = {}) => {

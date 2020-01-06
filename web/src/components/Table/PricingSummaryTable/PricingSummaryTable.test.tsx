@@ -13,7 +13,7 @@ import { initialState as discountInitialState } from '../../../store/DiscountFor
 
 let wrapper: any;
 const mountCalculationSummaryTable = (props) => {
-	wrapper = mount(<PricingSumaryTable {...props} />);
+	wrapper = mount(<IntlProvider locale="en" messages={translations['en'].messages}><PricingSumaryTable {...props} /></IntlProvider>);
 }; 
 
 describe('should calculation summary component renders without error', () => {
