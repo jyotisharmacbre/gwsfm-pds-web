@@ -96,7 +96,7 @@ let DashboardActionApprovalForm: React.FC<
         sorting={false}
         className="price-table home_screen_table"
         ActionList={[]}
-      /> : <span>{'No pending actions'}</span>}
+      /> : <span><FormattedMessage id='HOMESCREEN_GRID_NO_ACTION_MESSAGE' /></span>}
     </React.Fragment>
   );
 };
