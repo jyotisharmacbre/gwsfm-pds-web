@@ -10,16 +10,11 @@ import { IntlProvider } from 'react-intl';
 import translations from '../../../Translations/translation';
 import { BrowserRouter } from 'react-router-dom';
 import * as helper from '../../../helpers/auth-helper';
+import { findByTestAtrr } from '../../../helpers/test-helper';
 
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
-
-
-export const findByTestAtrr = (component: any, attr: string) => {
-  const wrapper = component.find(`[data-test='${attr}']`);
-  return wrapper;
-};
 
 describe('Profile Menu', () => {
   let store;
