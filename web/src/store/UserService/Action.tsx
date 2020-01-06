@@ -25,7 +25,7 @@ export const getUserService = (search: string) => {
 	return (dispatch: Dispatch) => {
 		axios.userServiceAPI
 			.get(
-				`/api/users/getListOfUsers/${search}
+				`/api/identity/users/GetListOfUsers/${search}
     `,
 				config
 			)
@@ -40,7 +40,7 @@ export const getUserService = (search: string) => {
 
 export const getUserServiceCallback = (search: string, success, failure) => {
 	axios.userServiceAPI
-		.get(`/api/users/getListOfUsers/${search}`, config)
+		.get(`/api/identity/users/GetListOfUsers/${search}`, config)
 		.then((response) => {
 			success(response.data);
 		})
