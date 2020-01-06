@@ -3,8 +3,16 @@ import { IAppProps } from '../../props/AppProps';
 import Routes from '../Routes';
 
 class Body extends React.Component<IAppProps> {
+
+
   render() {
-    return <Routes></Routes>;
+    return (
+<div>
+<Routes></Routes>
+  </div>
+    )
+    
+    
   }
 }
 

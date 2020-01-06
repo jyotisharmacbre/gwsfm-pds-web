@@ -161,7 +161,7 @@
     "MESSAGE_VERBAL": "Verbal",
     "MESSAGE_TENDER_ENQUIRY": "Full tender enquiry with specifications & orgs",
     "MESSAGE_OTHER": "Other",
-    "MESSAGE_SUBCONTRACTOR_DELETE_ACTIVITY": "Are you sure.Do you want to delete this activity? ",
+    "MESSAGE_SUBCONTRACTOR_DELETE_ACTIVITY": "Are you sure, you want to delete this activity?  ",
     "MESSAGE_PROJECT_STATUS_CHANGE": "Are you sure.Do you want to change the project status?",
     "MESSAGE_PROJECT_REACTIVATE": "Are you sure.Do you want to reactivate the project?",
     "PLACEHOLDER_DISCOUNT": "Enter discount",

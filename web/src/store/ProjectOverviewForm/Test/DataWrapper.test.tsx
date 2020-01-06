@@ -9,8 +9,8 @@ describe('DataWrapper test cases', () => {
     });
     it('should return project Approvals with BUL authorised header hidden and ComM header visible', () => {
         let initialData = setupInitialApprovalData(payload);
-        expect(initialData.find(x => x.approverType == ProjectApproverType.ComM).showRangeLabel).toBeTruthy();
-        expect(initialData.find(x => x.approverType == ProjectApproverType.BUL).showRangeLabel).toBeFalsy();
+        expect(initialData.find(x => x.approverType == ProjectApproverType.ComM)?.showRangeLabel).toBeTruthy();
+        expect(initialData.find(x => x.approverType == ProjectApproverType.BUL)?.showRangeLabel).toBeFalsy();
     });
 });
 
