@@ -12,6 +12,10 @@ body {
   }
 }
 
+div#RouteDiv {
+  height: calc(100% - 60px);
+}
+
 .hr_line {
   border: 1px solid map-get($colors, grey001);
   margin-bottom: 25px;
@@ -392,7 +396,7 @@ button[type="button"] {
                 display: flex;
                 justify-content: space-between;
                 button {
-                    min-width: 100px;
+                    min-width: 120px;
                 }
             }
         }
@@ -476,5 +480,12 @@ button[type="button"] {
         }
       }
     }
+  }
+}
+
+/*activate button*/
+.activate_btn {
+  svg {
+    margin-right: 8px;
   }
 }

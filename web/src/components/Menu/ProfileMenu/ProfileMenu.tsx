@@ -56,6 +56,7 @@ const ProfileMenu: React.FC<any> = props => {
   const [showMenu, setMenuVisibility] = useState(false);
   const [isEditable, makeEditable] = useState(false);
 
+
   useEffect(() => {
     props.getUserPreferences();
     props.getAllLanguages();
@@ -146,9 +147,10 @@ const ProfileMenu: React.FC<any> = props => {
                   </a>
 
                   <div
+                  id="dropLanguage"
                     className={`dropdown-menu dropdown-menu-right user-dropdown ${showMenu ? 'show' : 'hide'}`}
                     aria-labelledby="dropdownMenuLink"
-                  >
+                    >
 
                     <div className='language_wrap'>
 
