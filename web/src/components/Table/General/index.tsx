@@ -3,6 +3,7 @@ import './style.css';
 import { Divider, IconButton } from '@material-ui/core';
 import { Create } from '@material-ui/icons';
 import { IGeneralTableProps } from './props';
+import { FormattedMessage } from 'react-intl';
 
 const GeneralTable: React.FC<IGeneralTableProps> = props => {
   return (
@@ -24,7 +25,7 @@ const GeneralTable: React.FC<IGeneralTableProps> = props => {
           <div className="row">
             <div className="col-lg-12 mb-lg-2 d-none d-lg-block text-right">
               <div className="">
-                <button type="submit" className="edit-btn" onClick={props.editActionClick}>EDIT</button>
+                <button type="submit" className="edit-btn" onClick={props.editActionClick}><FormattedMessage id="BUTTON_EDIT" /></button>
               </div>
             </div>
           </div>
