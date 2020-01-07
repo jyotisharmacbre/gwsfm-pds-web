@@ -412,6 +412,7 @@ let ProjectOverviewForm: React.FC<Props &
           Iusto, optio, dolorum provident rerum aut hic quasi placeat iure
           tempora laudantium ipsa ad debitis unde? Iste voluptatibus minus
           veritatis qui ut."
+              createdDate="10/11/2019 11:44"
             />
             <ActivityFeed
               activityType={ProjectApprovalActivityType.SystemGenerated}
@@ -420,6 +421,7 @@ let ProjectOverviewForm: React.FC<Props &
           Iusto, optio, dolorum provident rerum aut hic quasi placeat iure
           tempora laudantium ipsa ad debitis unde? Iste voluptatibus minus
           veritatis qui ut."
+              createdDate="10/11/2019 11:44"
             />
             <div className="feed-block">
               <div className="feed-block-img close-icon">
@@ -539,27 +541,37 @@ let ProjectOverviewForm: React.FC<Props &
         </div>
       </div>
 
-			<div className={`${getClassNameForProjectStatus(props.status)} mr-35 three-btn`}>
-				<button className="active" type="button" onClick={() => props.onPrevious()}>
-					<FormattedMessage id="BUTTON_PREVIOUS" />
-				</button>
-				<button
-					name="save" className="active ml-auto" data-test="save"
-					type="button"
-				>
-					<FormattedMessage id="BUTTON_SAVE" />
-				</button>
-				<button
-					type="button"
-					name="next"
-					onClick={handleSubmit((values) => props.onNext(values))}
-					className=""
-				>
-					<FormattedMessage id="BUTTON_NEXT" />
-				</button>
-			</div>
-		</form>
-	);
+      <div
+        className={`${getClassNameForProjectStatus(
+          props.status
+        )} mr-35 three-btn`}
+      >
+        <button
+          className="active"
+          type="button"
+          onClick={() => props.onPrevious()}
+        >
+          <FormattedMessage id="BUTTON_PREVIOUS" />
+        </button>
+        <button
+          name="save"
+          className="active ml-auto"
+          data-test="save"
+          type="button"
+        >
+          <FormattedMessage id="BUTTON_SAVE" />
+        </button>
+        <button
+          type="button"
+          name="next"
+          onClick={handleSubmit(values => props.onNext(values))}
+          className=""
+        >
+          <FormattedMessage id="BUTTON_NEXT" />
+        </button>
+      </div>
+    </form>
+  );
 };
 
 const mapStateToProps = (state: IState) => ({

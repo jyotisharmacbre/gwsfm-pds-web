@@ -13,11 +13,13 @@ import FontawsomeReact, {
   FontAwesomeIcon
 } from '@fortawesome/react-fontawesome';
 import ProjectApprovalActivityType from '../../../enums/ProjectApprovalActivityType';
+import { formatDateAndTime } from '../../../helpers/utility-helper';
 
 interface IProps {
   activityType: ProjectApprovalActivityType;
   approvedBy: string;
   query: string;
+  createdDate: string;
 }
 
 const ActivityFeed: React.FC<IProps> = props => {
@@ -37,7 +39,9 @@ const ActivityFeed: React.FC<IProps> = props => {
           <FormattedMessage id="LABEL_APPROVED_BY" />{' '}
           <span>{props.approvedBy}</span>
         </h2>
-        <span className="feed-date-time">20/11/2019 | 03:40 AM</span>
+        <span className="feed-date-time">
+          {formatDateAndTime(props.createdDate)}
+        </span>
         <p>{props.query}</p>
       </div>
     </div>
