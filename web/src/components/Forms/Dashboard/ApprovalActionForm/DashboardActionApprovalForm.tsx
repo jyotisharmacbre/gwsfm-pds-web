@@ -12,6 +12,8 @@ import { ILookup } from '../../../../store/Lookups/Types/ILookup';
 import { getLookupDescription } from '../../../../helpers/utility-helper';
 import { LookupItems } from '../../../../helpers/constants';
 import { IUserServiceData } from '../../../../store/UserService/Types/IUserService';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faExclamation } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
   actionApprovalValues: Array<IProjectDashboardGrid>;
@@ -28,8 +30,7 @@ let DashboardActionApprovalForm: React.FC<
       props.actionApprovalValues &&
       props.lookupValues &&
       props.userNamesForEmailsValues &&
-      props.showValues &&
-      props.userNamesForEmailsValues
+      props.showValues
     ) {
       setGridData(
         getActionApprovalValues(
@@ -57,7 +58,7 @@ let DashboardActionApprovalForm: React.FC<
       data &&
       data.map(function (rowProject) {
         var statusID = rowProject.approvalStatus;
-        if (!isNaN(statusID) && allLookups.length > 0) {
+        if (!isNaN(statusID) && allLookups.length > 0 && namesAndEmails && namesAndEmails.length > 0) {
           rowProject.approvalStatus = getLookupDescription(
             allLookups,
             rowProject.approvalStatus,
@@ -72,7 +73,7 @@ let DashboardActionApprovalForm: React.FC<
           rowProject.name = (
             <Link
               to={{
-                pathname: `/reviewsubmit/${rowProject.projectId}`,
+                pathname: `/ReviewApprove/${rowProject.projectId}`,
                 state: { fromDashboard: true }
               }}
             >
@@ -96,7 +97,9 @@ let DashboardActionApprovalForm: React.FC<
         sorting={false}
         className="price-table home_screen_table"
         ActionList={[]}
-      /> : <span><FormattedMessage id='HOMESCREEN_GRID_NO_ACTION_MESSAGE' /></span>}
+      /> : <span className="table-row-no-pending-actions">
+          <FontAwesomeIcon className="active" icon={faExclamation} />
+          <FormattedMessage id='HOMESCREEN_GRID_NO_ACTION_MESSAGE' /></span>}
     </React.Fragment>
   );
 };
