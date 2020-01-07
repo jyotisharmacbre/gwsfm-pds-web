@@ -5,6 +5,7 @@ import PreliminaryItemsForm from './PreliminaryItemsForm';
 import EventType from '../../../enums/EventType';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleUp } from '@fortawesome/free-solid-svg-icons';
+import PreliminaryInsurranceForm from './PreliminaryInsurranceForm';
 
 interface Props {
   submitHandler: (
@@ -31,18 +32,18 @@ const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleE
             <div
               className="card-header"
               data-toggle="collapse"
-              data-test="collapse"
-              onClick={()=>onToggleEvent(prelimData[index].componentId)}
+              
+              
             >
               <a className="card-link" >{prelimData[index].componentName}</a>
              
-              <span aria-hidden="true">
-              <FontAwesomeIcon className="active" icon={faAngleUp} />
-              </span>
+              {prelimData[index].componentId!="13"?<span aria-hidden="true">
+              <FontAwesomeIcon data-test="collapse" className="active" icon={faAngleUp} onClick={()=>onToggleEvent(prelimData[index].componentId)}/>
+              </span>:null}
             </div>
             <div
                id={"collapse_"+prelimData[index].componentId}
-              className="hide expandAll"
+              className={prelimData[index].componentId=="13"?"show expandAll":"hide expandAll"}
               data-test="toggle"
               data-parent="#accordion"
             > <form
@@ -55,10 +56,10 @@ const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleE
               <table className="table table-bordered">
                 <thead>
                   <tr>
-                    <th><FormattedMessage id="T_HEADING_ITEM" /></th>
+                    {prelimData[index].componentId!="13"?<th><FormattedMessage id="T_HEADING_ITEM" /></th>:null}
                     <th><FormattedMessage id="T_HEADING_NAME_OF_SUPPLIER" /></th>
-                    <th><FormattedMessage id="T_HEADING_NO_OF_HOURS" /></th>
-                    <th><FormattedMessage id="T_HEADING_HOUR_RATE" /></th>
+                    {prelimData[index].componentId!="13"?<th><FormattedMessage id="T_HEADING_NO_OF_HOURS" /></th>:null}
+                    {prelimData[index].componentId!="13"?<th><FormattedMessage id="T_HEADING_HOUR_RATE" /></th>:null}
                     <th><FormattedMessage id="T_HEADING_TOTAL_COST" /></th>
                     <th><FormattedMessage id="T_HEADING_GROSS_MARGIN" /></th>
                     <th><FormattedMessage id="T_HEADING_TOTAL_SELL" /></th>
@@ -66,7 +67,7 @@ const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleE
                   </tr>
                 </thead>
                 
-                <FieldArray 
+                {prelimData[index].componentId!="13"?<FieldArray 
               name={`${member}.items`} 
               component={PreliminaryItemsForm}
               itemDetail={prelimData[index]}
@@ -75,7 +76,15 @@ const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleE
               currencyId={0}
               currencySymbol={currencySymbol}
               key={index}
-            />
+            />:<FieldArray 
+            name={`${member}.items`} 
+            component={PreliminaryInsurranceForm}
+            itemDetail={prelimData[index]}
+            componentIndex={index}
+            currencies={[]}
+            currencyId={0}
+            currencySymbol={currencySymbol}
+            key={index}/>}
            
             </table>
                 </div>

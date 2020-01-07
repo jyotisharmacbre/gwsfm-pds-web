@@ -108,6 +108,37 @@ export const expectedDataForDefaultValues: Array<IPreliminariesComponentDetails>
         comments: ''
       }
     ]
-  }
+  }]
+  export const expectedDataForInsurrance: Array<IPreliminariesComponentDetails>= [
+  
+    {
+      componentId: '13',
+      componentName: 'Insurance Cost',
+      items: [
+        {
+          itemId: '1',
+          itemName: 'Sub-Contractor',
+          preliminaryId:'',
+          nameOfSupplier: '',
+          noOfHours: 0,
+          hourRate: 70,
+          totalCost: 0,
+          grossMargin: 15,
+          comments: ''
+        }
+      ]
+    }];
+    export const lookupDataForInsurrance: any = [
+      {lookupId: 1,
+    lookupItem: "Pre_Components",
+    lookupKey: 13,
+    description: "Insurance Cost",
+  },
+  {lookupId: 2,
+    lookupItem: "Pre_Component_Items",
+    lookupKey: 1,
+      description: "Sub-Contractor",
+    }
+  
+  ];
 
-];

@@ -1,3 +1,7 @@
+import { IPreliminaries } from "../store/Preliminaries/Types/IPreliminaries";
+import { IPreliminaryForm } from "../store/Preliminaries/Types/IPreliminaryState";
+import { IPreliminariesComponentDetails } from "../store/Preliminaries/Types/IPreliminariesComponentDetails";
+
 export const calculateTotalSum = (...values) =>{
   let total =0;
   for(let i=0;i<values.length;i++)
@@ -10,7 +14,10 @@ export const calculateCost = (noOfHours:number,hourRate:number) =>{
   totalCost=noOfHours*hourRate;
   return totalCost.toFixed(2);
 }
-
+export const calculateTotalCost = (cost:number) =>{
+  let totalCost:number =(1.4*cost)/100;
+  return totalCost;
+}
 export const calculateAverageMargin = (totalCost:number,totalSell:number) =>{
   let averageMargin =0;
   if(totalSell > 0 && totalCost > 0)
