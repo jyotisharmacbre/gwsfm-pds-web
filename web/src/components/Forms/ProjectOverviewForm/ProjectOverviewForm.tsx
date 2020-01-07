@@ -539,29 +539,27 @@ let ProjectOverviewForm: React.FC<Props &
         </div>
       </div>
 
-      <div
-        className={`${getClassNameForProjectStatus(
-          props.status
-        )} mr-35 d-flex two-side-btn`}
-      >
-        <button
-          className="active mb-4 mt-0"
-          type="button"
-          onClick={() => props.onPrevious()}
-        >
-          <FormattedMessage id="BUTTON_PREVIOUS" />
-        </button>
-        <button
-          type="button"
-          name="next"
-          onClick={handleSubmit(values => props.onNext(values))}
-          className="mb-4 mt-0 mr-0"
-        >
-          <FormattedMessage id="BUTTON_NEXT" />
-        </button>
-      </div>
-    </form>
-  );
+			<div className={`${getClassNameForProjectStatus(props.status)} mr-35 three-btn`}>
+				<button className="active" type="button" onClick={() => props.onPrevious()}>
+					<FormattedMessage id="BUTTON_PREVIOUS" />
+				</button>
+				<button
+					name="save" className="active ml-auto" data-test="save"
+					type="button"
+				>
+					<FormattedMessage id="BUTTON_SAVE" />
+				</button>
+				<button
+					type="button"
+					name="next"
+					onClick={handleSubmit((values) => props.onNext(values))}
+					className=""
+				>
+					<FormattedMessage id="BUTTON_NEXT" />
+				</button>
+			</div>
+		</form>
+	);
 };
 
 const mapStateToProps = (state: IState) => ({

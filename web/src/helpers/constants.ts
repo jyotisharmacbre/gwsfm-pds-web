@@ -18,5 +18,6 @@ export const LookupItems = {
   JAndA_Status: 'JAndA_Status',
   Project_Status: 'Project_Status',
   Work_Type: 'Work_Type',
-  Discount_Type: 'Discount_Type'
+  Discount_Type: 'Discount_Type',
+  Project_Approval_Sign_Off_Status: 'Project_Approval_Sign_Off_Status'
 };

@@ -55,7 +55,7 @@ export function PdsFormInput({
           style={{
             position: 'absolute',
             top: '41px',
-            left: '12px',
+            left: '8px',
             marginRight: '10px',
             fontSize: '14px',
             color: '#a9b2b5'

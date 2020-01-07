@@ -17,8 +17,8 @@ import {
 	getDropdown,
 	getFilterElementFromArray,
 	normalizeToNumber,
-	maxLimit,
-	calculateRank
+	calculateRank,
+  maxLimitTo
 } from '../../../helpers/utility-helper';
 import PdsFormTypeAhead from '../../PdsFormHandlers/PdsFormTypeAhead';
 import { IProjectDetail } from '../../../store/CustomerEnquiryForm/Types/IProjectDetail';
@@ -416,7 +416,7 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 										onlyNumber
 									]}
 									messageKey="MESSAGE_PROBABILITYOFWINING"
-									normalize={maxLimit}
+                  normalize={maxLimitTo(0,100)}
 								/>
 
 								<Field
@@ -531,7 +531,7 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 									className="pl-30 width-288"
 									discountBind="%"
 									validate={[Validate.maxLength(3)]}
-									normalize={maxLimit}
+									normalize={maxLimitTo(0,100)}
 								/>
 
 								<Field
@@ -577,7 +577,7 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 								name="saveAndClose"
 								onClick={handleSubmit((values) => props.onSave(values))}
 							>
-								<FormattedMessage id="BUTTON_SAVE_AND_CLOSE" />
+								<FormattedMessage id="BUTTON_SAVE" />
 							</button>
 							<button type="button" name="next" onClick={handleSubmit((values) => props.onNext(values))}>
 								<FormattedMessage id="BUTTON_NEXT" />

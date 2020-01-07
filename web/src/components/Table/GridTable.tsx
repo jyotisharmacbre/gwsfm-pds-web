@@ -10,7 +10,6 @@ const GridTable: React.FC<IGridTableProps> = props => {
           {props.columns.map(x => (
             <th>
               {x.title}
-
               {props.sorting ? (
                 <FontAwesomeIcon className="active" icon={faArrowDown} />
               ) : null}

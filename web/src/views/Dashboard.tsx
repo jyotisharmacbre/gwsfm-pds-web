@@ -9,20 +9,36 @@ import { ILookup } from '../store/Lookups/Types/ILookup';
 import { getProjectStatus } from '../store/rootActions';
 import { formatMessage } from '../Translations/connectedIntlProvider';
 import { getDisplayName } from '../helpers/auth-helper';
+import { getUserNamesForEmailsService } from '../store/UserService/Action';
+import { IUserServiceData } from '../store/UserService/Types/IUserService';
 interface IMapDispatchToProps {
   dashboardGridDetail: () => void;
   getLookups: () => void;
+  handleGetUserNamesForEmails: (emails: any) => void;
 }
 interface IMapStateToProps {
   dashboardGridValues: Array<IProjectDashboardGrid>;
   valuesCount: number;
   lookupDetails: Array<ILookup>;
+  userNamesForEmails: Array<IUserServiceData>;
 }
 const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = props => {
   useEffect(() => {
     props.getLookups();
     props.dashboardGridDetail();
   }, []);
+  useEffect(() => {
+    if (props.dashboardGridValues.length > 0) {
+      var allEmails = new Array();
+      for (let recordNo in props.dashboardGridValues) {
+        allEmails.push(props.dashboardGridValues[recordNo].modifiedBy);
+      }
+      allEmails = allEmails.filter(function(el) {
+        return el != '';
+      });
+      if (allEmails.length > 0) props.handleGetUserNamesForEmails(allEmails);
+    }
+  }, [props.dashboardGridValues]);
   return (
     <div>
       <div className="container">
@@ -51,14 +67,18 @@ const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = props => {
                   </div>
                 </div>
               </div>
+              <div className="top_Title top_Title2">
+                <h2>{formatMessage('TITLE_MYACTIONS')}</h2>
+              </div>
+              <div className="table-grid-wrap price-sumry home_screen_table">
+                <DashboardActionApprovalForm
+                  actionApprovalValues={props.dashboardGridValues}
+                  showValues={props.valuesCount}
+                  lookupValues={props.lookupDetails}
+                  userNamesForEmailsValues={props.userNamesForEmails}
+                />
+              </div>
             </div>
-          </div>
-          <div className="table-grid-wrap price-sumry">
-            <DashboardActionApprovalForm
-              actionApprovalValues={props.dashboardGridValues}
-              showValues={props.valuesCount}
-              lookupValues={props.lookupDetails}
-            />
           </div>
         </div>
       </div>
@@ -69,13 +89,16 @@ const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = props => {
 const mapStateToProps = (state: IState) => ({
   valuesCount: 5,
   lookupDetails: state.lookup.projectstatus,
-  dashboardGridValues: state.dashboardGrid.actionApprovalDetails
+  dashboardGridValues: state.dashboardGrid.actionApprovalDetails,
+  userNamesForEmails: state.userService.userServiceData
 });
 
 const mapDispatchToProps = dispatch => {
   return {
     getLookups: () => dispatch(getProjectStatus()),
-    dashboardGridDetail: () => dispatch(projectDashboardGridDetail())
+    dashboardGridDetail: () => dispatch(projectDashboardGridDetail()),
+    handleGetUserNamesForEmails: allEmails =>
+      dispatch(getUserNamesForEmailsService(allEmails))
   };
 };
 export default connect(

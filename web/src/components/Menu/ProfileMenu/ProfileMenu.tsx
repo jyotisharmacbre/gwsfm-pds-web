@@ -56,6 +56,7 @@ const ProfileMenu: React.FC<any> = props => {
   const [showMenu, setMenuVisibility] = useState(false);
   const [isEditable, makeEditable] = useState(false);
 
+
   useEffect(() => {
     props.getUserPreferences();
     props.getAllLanguages();
@@ -88,6 +89,15 @@ const ProfileMenu: React.FC<any> = props => {
     makeEditable(false);
   }
 
+  const handleBlur = (e) => {
+    if (e.relatedTarget == null || !e.currentTarget.contains(e.relatedTarget))
+      {
+        setMenuVisibility(false);        
+      }else{
+        e && e.target.focus();
+      }       
+  }
+
   return (
     <nav className="topbar">
       <div className="container-fluid">
@@ -118,9 +128,10 @@ const ProfileMenu: React.FC<any> = props => {
                   </i>
                 </a>
               </li>
-              <li>
-                <div className="dropdown show">
-                  <a
+              <li data-test='menu-container' onBlur={handleBlur}>
+              <a href="#">
+                 <div className="dropdown show">
+                  <a                  
                     onClick={() => setMenuVisibility(!showMenu)}
                     className="btn btn-secondary dropdown-toggle p-0"
                     href="#"
@@ -137,9 +148,10 @@ const ProfileMenu: React.FC<any> = props => {
                   </a>
 
                   <div
+                  id="dropLanguage"
                     className={`dropdown-menu dropdown-menu-right user-dropdown ${showMenu ? 'show' : 'hide'}`}
                     aria-labelledby="dropdownMenuLink"
-                  >
+                    >
 
                     <div className='language_wrap'>
 
@@ -190,7 +202,7 @@ const ProfileMenu: React.FC<any> = props => {
                       <div className={`${!isEditable ? 'show' : 'hide'}`}>
 
                         <div className='link_group'>
-                          <a href="#" onClick={() => makeEditable(!isEditable)}>{formatMessage('BUTTON_EDIT')}</a>
+                          <a href="#" onClick={() => makeEditable(true)}>{formatMessage('BUTTON_EDIT')}</a>
                           <span>|</span>
                           <a href="#" onClick={logOut}>{formatMessage('BUTTON_SIGNOUT')}</a>
                         </div>
@@ -199,6 +211,7 @@ const ProfileMenu: React.FC<any> = props => {
                     </div>
                   </div>
                 </div>
+              </a>
               </li>
               <li>
                 <button

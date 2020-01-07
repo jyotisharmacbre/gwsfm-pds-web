@@ -26,6 +26,10 @@ const userServiceReducer = (oldState = initialState, action) => {
       return getUSerServiceSuccess(oldState, action);
     case ActionType.USER_SERVICE_GET_ERROR:
       return getUSerServiceError(oldState, action);
+    case ActionType.USER_NAMES_FOR_EMAILSSERVICE_GET_SUCCESS:
+      return getUSerServiceSuccess(oldState, action);
+    case ActionType.USER_NAMES_FOR_EMAILS_SERVICE_GET_ERROR:
+      return getUSerServiceError(oldState, action);
     default:
       return oldState;
   }
