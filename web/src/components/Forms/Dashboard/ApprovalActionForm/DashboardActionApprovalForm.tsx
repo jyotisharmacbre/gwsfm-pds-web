@@ -58,7 +58,7 @@ let DashboardActionApprovalForm: React.FC<
       data &&
       data.map(function (rowProject) {
         var statusID = rowProject.approvalStatus;
-        if (!isNaN(statusID) && allLookups.length > 0 && namesAndEmails) {
+        if (!isNaN(statusID) && allLookups.length > 0 && namesAndEmails && namesAndEmails.length > 0) {
           rowProject.approvalStatus = getLookupDescription(
             allLookups,
             rowProject.approvalStatus,
