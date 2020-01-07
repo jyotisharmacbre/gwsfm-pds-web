@@ -370,7 +370,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 							</div>
 							<div className="feed-block-content">
 								<h2>
-									<FormattedMessage id="LABEL_APPROVED_BY" /> <span>John Wick</span>
+									<FormattedMessage id="LABEL_APPROVED_BY" /><i> by</i> <span>John Wick</span>
 								</h2>
 								<span className="feed-date-time">20/11/2019 | 03:40 AM</span>
 								<p>
