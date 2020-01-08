@@ -7,7 +7,6 @@ import PricingSummaryTable from '../components/Table/PricingSummaryTable';
 import * as actions from '../store/rootActions';
 import { toast } from 'react-toastify';
 import {
-  getClassNameForProjectStatus,
   getPropertyName,
   getFilterElementFromArray
 } from '../helpers/utility-helper';
@@ -84,6 +83,23 @@ const ReviewApprove: React.FC<IProps &
     return props.history.push(`/${module}/${props.match.params.projectId}`);
   };
 
+  const handleApproval = () => {
+    actions.updateProjectStatusToInReview(
+      props.match.params.projectId,
+      handleApprovalSuccess,
+      handleApprovalError
+    );
+  };
+
+  const handleApprovalSuccess = data => {
+    toast.success('Approved Successfully');
+    props.history.push('/');
+  };
+
+  const handleApprovalError = data => {
+    toast.error('Some error occured');
+  };
+
   return (
     <div className="container-fluid" data-test="review-approve-component">
       <div className="row">
@@ -120,7 +136,7 @@ const ReviewApprove: React.FC<IProps &
             </div>
             <div className="two-side-btn pt-2">
               <button type="button">QUERY</button>
-              <button type="button" name="next">
+              <button onClick={handleApproval} type="button">
                 APPROVE
               </button>
             </div>
