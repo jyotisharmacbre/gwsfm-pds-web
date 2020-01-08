@@ -164,19 +164,6 @@ const ProjectOverview: React.FC<IProps &
       }
     }, [props.notify, props.event]);
 
-    useEffect(() => {
-      if (props.notify == Notify.success) {
-        if (props.event == EventType.save) {
-          toast.success('Project reactivated successfully');
-          props.getProjectDetail(props.match.params.projectId);
-        } else {
-          toast.success('Project status changed successfully');
-        }
-      } else if (props.notify == Notify.error) {
-        toast.error('Error occured.Please contact administrator');
-      }
-      props.resetProjectOverviewState();
-    }, [props.notify]);
 
     useEffect(() => {
       props.setAdminDefaultValues(props.project.countryId);
@@ -266,16 +253,33 @@ const ProjectOverview: React.FC<IProps &
       }
       return projectStatusData.length > 0 ? projectStatusData[0].description : '';
     };
+
+    const notifySucess = (data, actionType) => {
+      if (actionType === 'reactivate') {
+        toast.success('Project reactivated successfully');
+        props.getProjectDetail(props.match.params.projectId);
+      }
+      else {
+        toast.success('Project status changed successfully');
+      }
+    };
+
+    const notifyError = (error) => {
+      toast.error('Error occured.Please contact administrator');
+    };
+
     const handleReactivateEvent = () => {
-      props.reactivateProject(props.match.params.projectId);
+      actions.reactivateProject(props.match.params.projectId, notifySucess, notifyError);
+
     };
     const handleOnHoldEvent = () => {
       props.setProjectStatus(6);
-      props.changeProjectStatusToOnHold(props.match.params.projectId);
+      actions.changeProjectStatusToOnHold(props.match.params.projectId, notifySucess, notifyError);
     };
     const handleBidLostEvent = () => {
       props.setProjectStatus(4);
-      props.changeProjectStatusToBidLost(props.match.params.projectId);
+      actions.changeProjectStatusToBidLost(props.match.params.projectId, notifySucess, notifyError);
+
     };
     const onSearchUserService = (values: any) => {
       props.handleGetuserServiceData(values);
@@ -382,12 +386,6 @@ const mapDispatchToProps = dispatch => {
       dispatch(actions.resetProjectOverviewState()),
     getProjectDetail: projectId =>
       dispatch(actions.getProjectDetail(projectId)),
-    changeProjectStatusToOnHold: projectId =>
-      dispatch(actions.changeProjectStatusToOnHold(projectId)),
-    changeProjectStatusToBidLost: projectId =>
-      dispatch(actions.changeProjectStatusToBidLost(projectId)),
-    reactivateProject: projectId =>
-      dispatch(actions.reactivateProject(projectId)),
     setProjectStatus: status => dispatch(actions.changeProjectStatus(status)),
     handleGetDynamicSubContractorData: searchSubContractor =>
       dispatch(getDynamicSubContractorData(searchSubContractor)),

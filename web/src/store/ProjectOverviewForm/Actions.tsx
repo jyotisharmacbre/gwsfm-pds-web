@@ -45,45 +45,6 @@ const getAdditionalDetailsError = (error: string) => {
 		payload: error
 	};
 };
-const changeProjectStatusToBidLostSuccess = (response: any) => {
-	return {
-		type: ActionType.CHANGE_PROJECT_STATUS_TO_BID_LOST_SUCCESS,
-		payload: response
-	};
-};
-
-const changeProjectStatusToBidLostError = (error: string) => {
-	return {
-		type: ActionType.CHANGE_PROJECT_STATUS_TO_BID_LOST_ERROR,
-		payload: error
-	};
-};
-const changeProjectStatusToOnHoldSuccess = (response: any) => {
-	return {
-		type: ActionType.CHANGE_PROJECT_STATUS_TO_ON_HOLD_SUCCESS,
-		payload: response
-	};
-};
-
-const changeProjectStatusToOnHoldError = (error: string) => {
-	return {
-		type: ActionType.CHANGE_PROJECT_STATUS_TO_ON_HOLD_ERROR,
-		payload: error
-	};
-};
-const reactivateProjectSuccess = (response: any) => {
-	return {
-		type: ActionType.REACTIVATE_PROJECT_SUCCESS,
-		payload: response
-	};
-};
-
-const reactivateProjectError = (error: string) => {
-	return {
-		type: ActionType.REACTIVATE_PROJECT_ERROR,
-		payload: error
-	};
-};
 
 export const setupPojectApprovalsInitialData = (lookupdata: Array<ILookup>, currencySymbol: string, projectId: string) => {
 	return (dispatch: Dispatch) => {
@@ -150,42 +111,7 @@ export const resetProjectOverviewState = () => {
 		dispatch(resetProjectOverviewStateDispatch());
 	};
 };
-export const changeProjectStatusToBidLost = (projectId: string) => {
-	return (dispatch: Dispatch) => {
-		axios.baseAPI
-			.put(`api/Workflow/${projectId}/bidlost`, config)
-			.then((response) => {
-				dispatch(changeProjectStatusToBidLostSuccess(response.data));
-			})
-			.catch((error) => {
-				dispatch(changeProjectStatusToBidLostError(error));
-			});
-	};
-};
-export const changeProjectStatusToOnHold = (projectId: string) => {
-	return (dispatch: Dispatch) => {
-		axios.baseAPI
-			.put(`api/Workflow/${projectId}/onHold`, config)
-			.then((response) => {
-				dispatch(changeProjectStatusToOnHoldSuccess(response.data));
-			})
-			.catch((error) => {
-				dispatch(changeProjectStatusToOnHoldError(error));
-			});
-	};
-};
-export const reactivateProject = (projectId: string) => {
-	return (dispatch: Dispatch) => {
-		axios.baseAPI
-			.put(`api/Workflow/${projectId}/reactivate`, config)
-			.then((response) => {
-				dispatch(reactivateProjectSuccess(response.data));
-			})
-			.catch((error) => {
-				dispatch(reactivateProjectError(error));
-			});
-	};
-};
+
 export const getAdminDefaultValues = (countryId: number) => {
 	let sessionData: any = sessionStorage.getItem('defaultParameters');
 	let isLookupSessionExists: boolean = sessionData ? (JSON.parse(sessionData).length > 0 ? true : false) : false;

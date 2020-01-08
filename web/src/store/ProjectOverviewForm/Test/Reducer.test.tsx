@@ -49,54 +49,6 @@ describe('Project overview Reducer', () => {
       projectOverviewFormReducer(testData.initialState, projectOverviewFormEditAction)
     ).toMatchSnapshot();
   });
-  it('should handle on hold project status change event ', () => {
-    const projectOverviewFormOnHoldAction: any = {
-      type: ActionType.CHANGE_PROJECT_STATUS_TO_ON_HOLD_SUCCESS
-    };
-    expect(
-      projectOverviewFormReducer(testData.initialState, projectOverviewFormOnHoldAction)
-    ).toMatchSnapshot();
-  });
-  it('should handle on hold error during change of project status ', () => {
-    const projectOverviewFormOnHoldErrorAction: any = {
-      type: ActionType.CHANGE_PROJECT_STATUS_TO_ON_HOLD_ERROR
-    };
-    expect(
-      projectOverviewFormReducer(testData.initialState, projectOverviewFormOnHoldErrorAction)
-    ).toMatchSnapshot();
-  });
-  it('should handle bid lost project status change event ', () => {
-    const projectOverviewFormBidLostAction: any = {
-      type: ActionType.CHANGE_PROJECT_STATUS_TO_BID_LOST_SUCCESS
-    };
-    expect(
-      projectOverviewFormReducer(testData.initialState, projectOverviewFormBidLostAction)
-    ).toMatchSnapshot();
-  });
-  it('should handle bid lost error during change of project status ', () => {
-    const projectOverviewFormBidLostErrorAction: any = {
-      type: ActionType.CHANGE_PROJECT_STATUS_TO_ON_HOLD_ERROR
-    };
-    expect(
-      projectOverviewFormReducer(testData.initialState, projectOverviewFormBidLostErrorAction)
-    ).toMatchSnapshot();
-  });
-  it('should handle reactivate project event ', () => {
-    const projectOverviewFormReactivateAction: any = {
-      type: ActionType.REACTIVATE_PROJECT_SUCCESS
-    };
-    expect(
-      projectOverviewFormReducer(testData.initialState, projectOverviewFormReactivateAction)
-    ).toMatchSnapshot();
-  });
-  it('should handle reactivate error event ', () => {
-    const projectOverviewFormReactivateErrorAction: any = {
-      type: ActionType.REACTIVATE_PROJECT_ERROR
-    };
-    expect(
-      projectOverviewFormReducer(testData.initialState, projectOverviewFormReactivateErrorAction)
-    ).toMatchSnapshot();
-  });
 
   it('should handle get additional details successfully and sync InitialData with db data', () => {
     const getAdditionalDetailsAction: any = {

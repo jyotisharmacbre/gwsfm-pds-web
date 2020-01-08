@@ -2,8 +2,8 @@
 import { ActionType } from '../../../store/Lookups/Types/ActionType';
 import { ILookupState } from '../Types/ILookupState';
 import lookupReducer from '../Reducer';
-import { currencies, countries, projectstatus, languages } from './lookupData';
-import { getProjectStatus, getAllContries, getAllCurrencies, getAllLanguages} from '../Actions';
+import { currencies, countries, projectstatus, lookups, languages } from './lookupData';
+import { getProjectStatus, getAllContries, getAllCurrencies, getAllLanguages } from '../Actions';
 import nock from 'nock';
 import { baseURL } from '../../../client/client';
 import configureMockStore from 'redux-mock-store';
@@ -27,9 +27,10 @@ nock(baseURL)
 nock(baseURL)
   .get('/api/LookupData/GetLanguages')
   .reply(200, languages);
-  
+
 const initialState: ILookupState = {
   projectstatus,
+  lookups,
   currencies,
   languages,
   countries,
@@ -39,8 +40,8 @@ const initialState: ILookupState = {
 let store = mockStore();
 
 describe('Lookup reducer', () => {
-  beforeEach(()=>{
-    store.dispatch=jest.fn(); 
+  beforeEach(() => {
+    store.dispatch = jest.fn();
   })
 
   it('should handle default action', () => {
@@ -137,22 +138,22 @@ describe('Lookup reducer', () => {
     ).toMatchSnapshot();
   });
 
-  it('should handle getProjectStatus successfully',async () => {
+  it('should handle getProjectStatus successfully', async () => {
     await getProjectStatus()(store.dispatch);
     expect(store.dispatch).toHaveBeenCalled;
   });
 
-  it('should handle getAllLanguages successfully',async () => {
-   await getAllLanguages()(store.dispatch);
+  it('should handle getAllLanguages successfully', async () => {
+    await getAllLanguages()(store.dispatch);
     expect(store.dispatch).toHaveBeenCalled;
   });
 
-  it('should handle getAllCurrencies successfully',async () => {
+  it('should handle getAllCurrencies successfully', async () => {
     await getAllCurrencies()(store.dispatch);
     expect(store.dispatch).toHaveBeenCalled;
   });
 
-  it('should handle getAllContries successfully',async () => {
+  it('should handle getAllContries successfully', async () => {
     await getAllContries()(store.dispatch);
     expect(store.dispatch).toHaveBeenCalled;
   });

@@ -10,7 +10,7 @@ export const initialState: IProjectDashboardGridState = {
       name: '',
       modifiedBy: 'last@name.test',
       modifiedOn: '',
-      approvalStatus: '1',
+      approvalStatus: 1,
       projectId: ''
     }
   ],
