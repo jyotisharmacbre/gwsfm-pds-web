@@ -122,7 +122,7 @@ const ProjectOverviewSummary: React.FC<IProps> = (props) => {
 						<ul>
 							<li>
 								<span><FormattedMessage id="LABEL_CDMNOTIFIABLE" /></span>
-								<p>{props.projectOverview.projectAdditionalDetail.cdmNotifiable ? 'Yes' : 'No'}</p>
+								<p>{props.projectOverview.projectAdditionalDetail.cdmNotifiable ? formatMessage('LABEL_YES') : formatMessage('LABEL_NO')}</p>
 							</li>
 						</ul>
 					</div>
