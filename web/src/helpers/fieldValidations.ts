@@ -48,5 +48,9 @@ export const CheckConstraints=(id:string)=>{
   {
     isExists= true;
   }
+  else if(PreliminaryComponentField.CBRELABOUR==id)
+  {
+    isExists= true;
+  }
   return isExists;
 }
