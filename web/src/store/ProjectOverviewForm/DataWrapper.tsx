@@ -21,7 +21,7 @@ export const setupInitialApprovalData = (payload) => {
         let approveRangeMapping = ProjectApproverTypeAndRangeMapping.find(x => x.type == lookupApproverType.lookupKey.toString());
         let approverRange =
             lookupdata.filter(x => x.lookupItem.toLowerCase() == LookupType.Project_Approval_Range.toLowerCase()
-                && x.lookupKey.toString() == approveRangeMapping?.range);
+                && x.lookupKey.toString() == (approveRangeMapping?approveRangeMapping.range:approveRangeMapping));
 
         let approval: IProjectApprovals = {
             projectId: projectId,
