@@ -33,7 +33,6 @@ import { Validate, alphaNumeric } from '../../../helpers/fieldValidations';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import IReactIntl from '../../../Translations/IReactIntl';
 import TypeAhead from '../../TypeAhead/TypeAhead';
-import { dynamicsSubcontractorData } from '../../TypeAhead/TypeAheadConstantData/dynamicSubcontractorData';
 import { IDynamicsOtherSubContractor } from '../../../store/DynamicsData/Types/IDynamicData';
 import ProjectStatus from '../../../enums/ProjectStatus';
 import ProjectActivity from '../ProjectActivities/ProjectActivity';
