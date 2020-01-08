@@ -6,6 +6,8 @@ import Company from '../../../store/DynamicsData/InitialState/Company';
 import * as actions from '../../../store/rootActions';
 import { toast } from 'react-toastify';
 import { getPropertyName, getFilterElementFromArray } from '../../../helpers/utility-helper';
+import { FormattedMessage } from 'react-intl';
+import { formatMessage } from '../../../Translations/connectedIntlProvider';
 
 interface IProps {
 	project: IProjectDetail;
@@ -87,13 +89,13 @@ const ProjectSummary: React.FC<IProps> = (props) => {
 	
 	return (
 		<div className="RS_custom_block">
-			<h4>Customer Enquiry</h4>
+			<h4><FormattedMessage id="HEADING_CUSTOMER_ENQUIRY" /></h4>
 			<div className="RS_custom_inner">
 				<div className="row">
 					<div className="col-lg-4 col-sm-6">
 						<ul>
 							<li>
-								<span>Company</span>
+								<span><FormattedMessage id="LABEL_COMPANY" /></span>
 								<p data-test='company'>{companyName}</p>
 							</li>
 						</ul>
@@ -101,7 +103,7 @@ const ProjectSummary: React.FC<IProps> = (props) => {
 					<div className="col-lg-4 col-sm-6">
 						<ul>
 							<li>
-								<span>Head of Project</span>
+								<span><FormattedMessage id="LABEL_HEAD_OF_PROJECT" /></span>
 								<p data-test='head-of-project'>{headOfProject}</p>
 							</li>
 						</ul>
@@ -109,8 +111,8 @@ const ProjectSummary: React.FC<IProps> = (props) => {
 					<div className="col-lg-4 col-sm-6">
 						<ul>
 							<li>
-								<span>Manager Experienced</span>
-								<p>{props.project.pmHasExperience ? 'Yes' : 'No'}</p>
+								<span><FormattedMessage id="LABEL_MANAGER_EXPERIENCED" /></span>
+								<p>{props.project.pmHasExperience ? formatMessage('LABEL_YES') : formatMessage('LABEL_NO')}</p>
 							</li>
 						</ul>
 					</div>
@@ -119,7 +121,7 @@ const ProjectSummary: React.FC<IProps> = (props) => {
 					<div className="col-lg-4 col-sm-6">
 						<ul>
 							<li>
-								<span>Project</span>
+								<span><FormattedMessage id="LABEL_PROJECT" /></span>
 								<p>{props.project.name}</p>
 							</li>
 						</ul>
@@ -127,7 +129,7 @@ const ProjectSummary: React.FC<IProps> = (props) => {
 					<div className="col-lg-4 col-sm-6">
 						<ul>
 							<li>
-								<span>Project Manager</span>
+								<span><FormattedMessage id="LABEL_PROJECT_MANAGER" /></span>
 								<p>{projectManager}</p>
 							</li>
 						</ul>
@@ -135,7 +137,7 @@ const ProjectSummary: React.FC<IProps> = (props) => {
 					<div className="col-lg-4 col-sm-6">
 						<ul>
 							<li>
-								<span>Project Owner</span>
+								<span><FormattedMessage id='LABEL_PROJECT_OWNER' /></span>
 								<p>{projectOwner}</p>
 							</li>
 						</ul>
@@ -146,7 +148,7 @@ const ProjectSummary: React.FC<IProps> = (props) => {
 					<div className="col-lg-4 col-sm-6">
 						<ul>
 							<li>
-								<span>Project Status</span>
+								<span><FormattedMessage id='LABEL_PROJECT_STATUS' /></span>
 								<p>{projectStatus}</p>
 							</li>
 						</ul>
@@ -154,7 +156,7 @@ const ProjectSummary: React.FC<IProps> = (props) => {
 					<div className="col-lg-4 col-sm-6">
 						<ul>
 							<li>
-								<span>Type of Engagement</span>
+								<span><FormattedMessage id='LABEL_TYPE_OF_ENGAGEMENT' /></span>
 								<p>{typeOfEngagement}</p>
 							</li>
 						</ul>
@@ -164,13 +166,13 @@ const ProjectSummary: React.FC<IProps> = (props) => {
 				<div className="row">
 					<div className="col-lg-12">
 						<div className="scope_block">
-							<h5>Project Scope</h5>
+							<h5><FormattedMessage id="LABEL_PROJECT_SCOPE" /></h5>
 							<ul>
 								<li>{props.project.scope}</li>
 							</ul>
 						</div>
 						<div className="comment_block">
-							<h5>Comments</h5>
+							<h5><FormattedMessage id="LABEL_COMMENTS" /></h5>
 							<p>{props.project.comment}</p>
 						</div>
 					</div>
