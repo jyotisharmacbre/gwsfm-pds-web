@@ -112,25 +112,6 @@ export const getDynamicCompanyData = (searchCompany: string) => {
   };
 };
 
-// export const getDynamicSubContractorData = (searchSubContractor: string) => {
-//   console.log(searchSubContractor, 'searchSubContractor')
-//   return (dispatch: Dispatch) => {
-//     axios.baseAPI
-//       .get(
-//         `/api/ErpLookup/getSubContractors/${searchSubContractor}?topCount=50
-//       `,
-//         config
-//       )
-//       .then(response => {
-//         console.log(response.data, 'rees')
-//         dispatch(getDynamicSubContractorSuccess(response.data));
-//       })
-//       .catch(error => {
-//         dispatch(getDynamicSubContractorError(error));
-//       });
-//   };
-// };
-
 export const getDynamicOther = (data: any, type: string) => {
   switch (type) {
     case 'contractorId':
