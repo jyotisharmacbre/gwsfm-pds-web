@@ -17,6 +17,7 @@ export const newActivity : ISubContractorActivity ={
     activityName: '', 
     isExistingSubcontractor: null,
     subcontractorId: '',
+    otherSubcontractorName: '',
     isPreferredSupplier: null,
     totalCost: 0,
     grossMargin: 0,

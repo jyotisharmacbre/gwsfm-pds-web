@@ -6,6 +6,7 @@ export interface ISubContractorActivity {
     activityName: string;
     isExistingSubcontractor: boolean | null;
     subcontractorId: string;
+    otherSubcontractorName: string;
     isPreferredSupplier: boolean | null;
     totalCost: number;
     grossMargin: number;
