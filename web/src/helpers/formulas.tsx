@@ -12,7 +12,7 @@ export const calculateCost = (noOfHours:number,hourRate:number) =>{
   let totalCost =0;
   if(noOfHours > 0 && hourRate > 0)
   totalCost=noOfHours*hourRate;
-  return totalCost.toFixed(2);
+  return totalCost;
 }
 export const calculateTotalCost = (cost:number) =>{
   let totalCost:number =(1.4*cost)/100;
@@ -30,7 +30,7 @@ export const calculateSell = (cost:number,margin:number) =>{
   let divide = (1- margin/100);
   if(divide != 0)
   sell = cost / divide;
-  return sell.toFixed(2);
+  return sell;
 }
 
 

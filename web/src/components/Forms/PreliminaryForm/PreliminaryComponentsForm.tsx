@@ -6,6 +6,7 @@ import EventType from '../../../enums/EventType';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleUp } from '@fortawesome/free-solid-svg-icons';
 import PreliminaryInsurranceForm from './PreliminaryInsurranceForm';
+import { CheckConstraints } from '../../../helpers/fieldValidations';
 
 interface Props {
   submitHandler: (
@@ -37,13 +38,14 @@ const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleE
             >
               <a className="card-link" >{prelimData[index].componentName}</a>
              
-              {prelimData[index].componentId!="13"?<span aria-hidden="true">
+              {!CheckConstraints(prelimData[index].componentId)
+              ?<span aria-hidden="true">
               <FontAwesomeIcon data-test="collapse" className="active" icon={faAngleUp} onClick={()=>onToggleEvent(prelimData[index].componentId)}/>
               </span>:null}
             </div>
             <div
                id={"collapse_"+prelimData[index].componentId}
-              className={prelimData[index].componentId=="13"?"show expandAll":"hide expandAll"}
+              className={CheckConstraints(prelimData[index].componentId)?"show expandAll":"hide expandAll"}
               data-test="toggle"
               data-parent="#accordion"
             > <form
@@ -56,10 +58,10 @@ const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleE
               <table className="table table-bordered">
                 <thead>
                   <tr>
-                    {prelimData[index].componentId!="13"?<th><FormattedMessage id="T_HEADING_ITEM" /></th>:null}
+                    {!CheckConstraints(prelimData[index].componentId)?<th><FormattedMessage id="T_HEADING_ITEM" /></th>:null}
                     <th><FormattedMessage id="T_HEADING_NAME_OF_SUPPLIER" /></th>
-                    {prelimData[index].componentId!="13"?<th><FormattedMessage id="T_HEADING_NO_OF_HOURS" /></th>:null}
-                    {prelimData[index].componentId!="13"?<th><FormattedMessage id="T_HEADING_HOUR_RATE" /></th>:null}
+                    {!CheckConstraints(prelimData[index].componentId)?<th><FormattedMessage id="T_HEADING_NO_OF_HOURS" /></th>:null}
+                    {!CheckConstraints(prelimData[index].componentId)?<th><FormattedMessage id="T_HEADING_HOUR_RATE" /></th>:null}
                     <th><FormattedMessage id="T_HEADING_TOTAL_COST" /></th>
                     <th><FormattedMessage id="T_HEADING_GROSS_MARGIN" /></th>
                     <th><FormattedMessage id="T_HEADING_TOTAL_SELL" /></th>
@@ -67,7 +69,7 @@ const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleE
                   </tr>
                 </thead>
                 
-                {prelimData[index].componentId!="13"?<FieldArray 
+                {!CheckConstraints(prelimData[index].componentId)?<FieldArray 
               name={`${member}.items`} 
               component={PreliminaryItemsForm}
               itemDetail={prelimData[index]}

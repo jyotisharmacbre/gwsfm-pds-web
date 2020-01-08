@@ -1,5 +1,6 @@
 import { memoize } from 'lodash';
 import { formatMessage } from './../Translations/connectedIntlProvider';
+import PreliminaryComponentField from '../enums/PreliminaryComponentFields';
 
 export const onlyNumber = value =>
   value && isNaN(Number(value))
@@ -40,3 +41,12 @@ export const Validate = {
   ),
   maxLength: memoize(length => value => fieldValidationLength(value, length))
 };
+
+export const CheckConstraints=(id:string)=>{
+  let isExists:boolean=false;
+  if(PreliminaryComponentField.InsurranceCost==id)
+  {
+    isExists= true;
+  }
+  return isExists;
+}
