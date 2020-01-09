@@ -14,6 +14,7 @@ import FontawsomeReact, { FontAwesomeIcon } from '@fortawesome/react-fontawesome
 import EventType from '../../../enums/EventType';
 import { IPreliminariesComponentDetails } from '../../../store/Preliminaries/Types/IPreliminariesComponentDetails';
 import { IDiscountActivity } from '../../../store/DiscountForm/Types/IDiscountActivity';
+import * as actions from '../../../store/rootActions';
 
 interface Props {
 	projectId: string;
@@ -33,12 +34,14 @@ let SubcontractorForm: React.FC<Props & IReactIntl & InjectedFormProps<ISubContr
 				subContractor={props.subContractorForm}
 				discount={props.discountState}
 				currencySymbol={props.currencySymbol}
+				
 			/>
 			<FieldArray
 				name="activities"
 				component={SubContractorActivityForm}
 				intl={props.intl}
 				currencySymbol={props.currencySymbol}
+				getDynamicSubContractorData={actions.getDynamicSubContractorData}
 			/>
 
 			<div className="mr-35 three-btn">

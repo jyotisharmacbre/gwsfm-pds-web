@@ -14,22 +14,22 @@ export const setupInitialApprovalData = (payload) => {
     let pendingApprovalStatus =
         lookupdata.filter(x =>
             x.lookupItem.toLowerCase() == LookupType.Project_Approval_Sign_Off_Status.toLowerCase()
-            && x.lookupKey.toString() == ProjectSignOffStatus.Pending);
+            && x.lookupKey == ProjectSignOffStatus.Draft);
 
     approverTypeList.forEach(lookupApproverType => {
 
-        let approveRangeMapping = ProjectApproverTypeAndRangeMapping.find(x => x.type == lookupApproverType.lookupKey.toString());
+        let approveRangeMapping = ProjectApproverTypeAndRangeMapping.find(x => x.type == lookupApproverType.lookupKey);
         let approverRange =
             lookupdata.filter(x => x.lookupItem.toLowerCase() == LookupType.Project_Approval_Range.toLowerCase()
-                && x.lookupKey.toString() == approveRangeMapping?.range);
+                && x.lookupKey == approveRangeMapping?.range);
 
         let approval: IProjectApprovals = {
             projectId: projectId,
-            approvalStatus: ProjectSignOffStatus.Pending,
+            approvalStatus: ProjectSignOffStatus.Draft,
             approvalStatusDescription: pendingApprovalStatus && pendingApprovalStatus.length > 0 ? pendingApprovalStatus[0].description.toString() : '',
-            approverType: lookupApproverType.lookupKey.toString(),
+            approverType: lookupApproverType.lookupKey,
             approverTypeDescription: lookupApproverType.description,
-            projectApprovalRange: approveRangeMapping ? approveRangeMapping.range : '',
+            projectApprovalRange: approveRangeMapping ? approveRangeMapping.range : 0,
             projectApprovalRangeDescription:
                 approverRange && approverRange.length > 0 ?
                     approverRange[0].description.replace('{CurrencySymbol}', currencySymbol).toString() : '',

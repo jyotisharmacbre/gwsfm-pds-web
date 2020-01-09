@@ -42,7 +42,6 @@ import { Validate, alphaNumeric } from '../../../helpers/fieldValidations';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import IReactIntl from '../../../Translations/IReactIntl';
 import TypeAhead from '../../TypeAhead/TypeAhead';
-import { dynamicsSubcontractorData } from '../../TypeAhead/TypeAheadConstantData/dynamicSubcontractorData';
 import { IDynamicsOtherSubContractor } from '../../../store/DynamicsData/Types/IDynamicData';
 import ProjectStatus from '../../../enums/ProjectStatus';
 import ProjectActivity from '../ProjectActivities/ProjectActivity';
@@ -307,105 +306,103 @@ let ProjectOverviewForm: React.FC<Props &
             </div>
           </div>
 
-          <div className="row">
-            <div className="col-xl-10">
-              <div className="form-group">
-                <label>
-                  <FormattedMessage id="LABEL_PROJECT_PLAN" />
-                </label>
-                <div className="calender-wrap">
-                  <div className="row">
-                    <div className="col-xl-6 mt-2 position-relative manipulate-calendar">
-                      <DatePicker
-                        name="projectAdditionalDetail.firstValuationDate"
-                        data-test="firstValuationDate"
-                        className="required"
-                        labelKey="LABEL_FIRST_VALUATION_DATE"
-                      />
-                    </div>
-                    <div className="col-xl-6 mt-2 position-relative manipulate-calendar">
-                      <DatePicker
-                        name="projectAdditionalDetail.finalAccountDate"
-                        data-test="finalAccountDate"
-                        className="required"
-                        labelKey="LABEL_FIRST_ACCOUNT_DATE"
-                      />
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-xl-12">
-                      <Field
-                        name="projectAdditionalDetail.valuationIntervals"
-                        data-test="valuationIntervals"
-                        type="text"
-                        className="required"
-                        validate={[
-                          Validate.required('LABEL_VALUATION_INTERVALS')
-                        ]}
-                        component={PdsFormInput}
-                        labelKey="LABEL_VALUATION_INTERVALS"
-                        placeholderKey="PLACEHOLDER_VALUATION_INTERVALS"
-                      />
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-xl-12">
-                      <Field
-                        name="projectAdditionalDetail.paymentTerms"
-                        data-test="paymentTerms"
-                        type="text"
-                        className="required"
-                        validate={[Validate.required('LABEL_PAYMENT_TERMS')]}
-                        component={PdsFormInput}
-                        labelKey="LABEL_PAYMENT_TERMS"
-                        placeholderKey="PLACEHOLDER_PAYMENT_TERMS"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <Field
-            name="projectAdditionalDetail.isProjectLive"
-            data-test="isProjectLive"
-            component={PdsFormButton}
-            buttons={selectionButtons}
-            labelKey="LABEL_PROJECT_IS_LIVE"
-          />
-          <Field
-            name="projectAdditionalDetail.comments"
-            data-test="comments"
-            labelKey="LABEL_COMMENTS"
-            rows="7"
-            component={PdsFormTextArea}
-            placeholderKey="PLACEHOLDER_ADDITIONAL_COMMENTS"
-          />
-        </div>
-      </div>
-      {/* AUTHORISED SECTION */}
-      <div className={`${getClassNameForProjectStatus(props.status)} row`}>
-        <div className="col-xl-6">
-          <div className="authorised_form_wrap">
-            <h6 className="ml-0">
-              <FormattedMessage id="LABEL_PROJECT_AUTHORISED" />
-            </h6>
-            <div className="authorised_form_inner">
-              <FieldArray
-                name="projectApprovals"
-                component={ProjectApprovalForm}
-                formatUserData={formatUserData}
-                getListOfUsers={getListOfUsers}
-              />
-            </div>
-          </div>
-        </div>
-        <div className="col-xl-6">
-          <h3 className="feed_head">
-            <FormattedMessage id="LABEL_ACTIVITY_FEED" />
-          </h3>
-          <section className="activity_feed">
-            <ActivityFeed
+					<div className="row">
+						<div className="col-xl-10">
+							<div className="form-group">
+								<label>
+									<FormattedMessage id="LABEL_PROJECT_PLAN" />
+								</label>
+								<div className="calender-wrap">
+									<div className="row">
+										<div className="col-xl-6 mt-2 position-relative manipulate-calendar">
+											<DatePicker
+												name="projectAdditionalDetail.firstValuationDate"
+												data-test="firstValuationDate"
+												className="required"
+												labelKey="LABEL_FIRST_VALUATION_DATE"
+											/>
+										</div>
+										<div className="col-xl-6 mt-2 position-relative manipulate-calendar">
+											<DatePicker
+												name="projectAdditionalDetail.finalAccountDate"
+												data-test="finalAccountDate"
+												className="required"
+												labelKey="LABEL_FIRST_ACCOUNT_DATE"
+											/>
+										</div>
+									</div>
+									<div className="row">
+										<div className="col-xl-12">
+											<Field
+												name="projectAdditionalDetail.valuationIntervals"
+												data-test="valuationIntervals"
+												type="text"
+												className="required"
+												validate={[Validate.required('LABEL_VALUATION_INTERVALS')]}
+												component={PdsFormInput}
+												labelKey="LABEL_VALUATION_INTERVALS"
+												placeholderKey="PLACEHOLDER_VALUATION_INTERVALS"
+											/>
+										</div>
+									</div>
+									<div className="row">
+										<div className="col-xl-12">
+											<Field
+												name="projectAdditionalDetail.paymentTerms"
+												data-test="paymentTerms"
+												type="text"
+												className="required"
+												validate={[Validate.required('LABEL_PAYMENT_TERMS')]}
+												component={PdsFormInput}
+												labelKey="LABEL_PAYMENT_TERMS"
+												placeholderKey="PLACEHOLDER_PAYMENT_TERMS"
+											/>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<Field
+						name="projectAdditionalDetail.isProjectLive"
+						data-test="isProjectLive"
+						component={PdsFormButton}
+						buttons={selectionButtons}
+						labelKey="LABEL_PROJECT_IS_LIVE"
+					/>
+					<Field
+						name="projectAdditionalDetail.comments"
+						data-test="comments"
+						labelKey="LABEL_COMMENTS"
+						rows="7"
+						component={PdsFormTextArea}
+						placeholderKey="PLACEHOLDER_ADDITIONAL_COMMENTS"
+					/>
+				</div>
+			</div>
+			{/* AUTHORISED SECTION */}
+			<div className={`${getClassNameForProjectStatus(props.status)} row`}>
+				<div className="col-xl-6">
+					<div className="authorised_form_wrap">
+						<h6 className="ml-0">
+							<FormattedMessage id="LABEL_PROJECT_AUTHORISED" />
+						</h6>
+						<div className="authorised_form_inner">
+							<FieldArray
+								name="projectApprovals"
+								component={ProjectApprovalForm}
+								formatUserData={formatUserData}
+								getListOfUsers={getListOfUsers}
+							/>
+						</div>
+					</div>
+				</div>
+				<div className="col-xl-6">
+					<h3 className="feed_head">
+						<FormattedMessage id="LABEL_ACTIVITY_FEED" />
+					</h3>
+					<section className="activity_feed">
+          <ActivityFeed
               activityType={ProjectApprovalActivityType.UserQuery}
               approvedBy="Avneet"
               query="UserQuery Lorem ipsum dolor sit amet, consectetur adipisicing elit.
@@ -423,123 +420,132 @@ let ProjectOverviewForm: React.FC<Props &
           veritatis qui ut."
               createdDate="10/11/2019 11:44"
             />
-            <div className="feed-block">
-              <div className="feed-block-img close-icon">
-                <FontAwesomeIcon className="" icon={faTimes} />
-              </div>
-              <div className="feed-block-content">
-                <h2>
-                  <FormattedMessage id="LABEL_APPROVED_BY" />{' '}
-                  <span>John Smith</span>
-                </h2>
-                <span className="feed-date-time">20/11/2019 | 03:40 AM</span>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Iusto, optio, dolorum provident rerum aut hic quasi placeat
-                  iure tempora laudantium ipsa ad debitis unde? Iste
-                  voluptatibus minus veritatis qui ut.
-                </p>
-              </div>
-            </div>
-            <div className="feed-block">
-              <div className="feed-block-img feed-icon">
-                <FontAwesomeIcon className="" icon={faUser} />
-              </div>
-              <div className="feed-block-content">
-                <h2>
-                  <FormattedMessage id="LABEL_APPROVED_BY" />{' '}
-                  <span>John Wick</span>
-                </h2>
-                <span className="feed-date-time">20/11/2019 | 03:40 AM</span>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Iusto, optio, dolorum provident rerum aut hic quasi placeat
-                  iure tempora laudantium ipsa ad debitis unde? Iste
-                  voluptatibus minus veritatis qui ut.
-                </p>
-              </div>
-            </div>
-            <div className="feed-block">
-              <div className="feed-block-img check-icon">
-                <FontAwesomeIcon className="" icon={faCheck} />
-              </div>
-              <div className="feed-block-content">
-                <h2>
-                  <FormattedMessage id="LABEL_APPROVED_BY" />{' '}
-                  <span>John Doe</span>
-                </h2>
-                <span className="feed-date-time">20/11/2019 | 03:40 AM</span>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Iusto, optio, dolorum provident rerum aut hic quasi placeat
-                  iure tempora laudantium ipsa ad debitis unde? Iste
-                  voluptatibus minus veritatis qui ut.
-                </p>
-              </div>
-            </div>
-            <div className="feed-block">
-              <div className="feed-block-img feed-icon">
-                <FontAwesomeIcon className="" icon={faUser} />
-              </div>
-              <div className="feed-block-content">
-                <h2>
-                  <FormattedMessage id="LABEL_APPROVED_BY" />{' '}
-                  <span>John Wick</span>
-                </h2>
-                <span className="feed-date-time">20/11/2019 | 03:40 AM</span>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Iusto, optio, dolorum provident .
-                </p>
-              </div>
-            </div>
-          </section>
-        </div>
-      </div>
-      <div className="row">
-        <div className="col-xl-12">
-          <PricingSummaryTable
-            data-test="pricing-summary"
-            preliminary={props.preliminaryState}
-            subContractor={props.subContractorState}
-            discount={props.discountState}
-            currencySymbol={props.currencySymbol}
-          />
-          <CalculationsSummaryTable
-            data-test="calculation-summary"
-            preliminary={props.preliminaryState}
-            subContractor={props.subContractorState}
-            discount={props.discountState}
-            currencySymbol={props.currencySymbol}
-          />
-        </div>
-      </div>
-      <div className={`${getClassNameForProjectStatus(props.status)} row`}>
-        <div className="col-lg-4">
-          <ProjectOverviewRiskForm
-            riskName="projectAdditionalDetail.projectRisk1"
-            riskLabelName="LABEL_PROJECT_RISK_1"
-            riskControlMeasureName="projectAdditionalDetail.projectRiskControlMeasure1"
-            riskControlMeasureLabelName="LABEL_RISK_1_CONTROL_MEASURE"
-          />
-        </div>
-        <div className="col-lg-4">
-          <ProjectOverviewRiskForm
-            riskName="projectAdditionalDetail.projectRisk2"
-            riskLabelName="LABEL_PROJECT_RISK_2"
-            riskControlMeasureName="projectAdditionalDetail.projectRiskControlMeasure2"
-            riskControlMeasureLabelName="LABEL_RISK_2_CONTROL_MEASURE"
-          />
-        </div>
-        <div className="col-lg-4">
-          <ProjectOverviewRiskForm
-            riskName="projectAdditionalDetail.projectRisk3"
-            riskLabelName="LABEL_PROJECT_RISK_3"
-            riskControlMeasureName="projectAdditionalDetail.projectRiskControlMeasure3"
-            riskControlMeasureLabelName="LABEL_RISK_3_CONTROL_MEASURE"
-          />
-        </div>
-      </div>
+						<div className="feed-block">
+							<div className="feed-block-img feed-icon">
+								<FontAwesomeIcon className="" icon={faUser} />
+							</div>
+							<div className="feed-block-content">
+								<h2>
+									<FormattedMessage id="LABEL_APPROVED_BY" /><i> by</i> <span>John Wick</span>
+								</h2>
+								<span className="feed-date-time">20/11/2019 | 03:40 AM</span>
+								<p>
+									Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum
+									provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde?
+									Iste voluptatibus minus veritatis qui ut.
+								</p>
+							</div>
+						</div>
+						<div className="feed-block">
+							<div className="feed-block-img close-icon">
+								<FontAwesomeIcon className="" icon={faTimes} />
+							</div>
+							<div className="feed-block-content">
+								<h2>
+									<FormattedMessage id="LABEL_APPROVED_BY" /> <span>John Smith</span>
+								</h2>
+								<span className="feed-date-time">20/11/2019 | 03:40 AM</span>
+								<p>
+									Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum
+									provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde?
+									Iste voluptatibus minus veritatis qui ut.
+								</p>
+							</div>
+						</div>
+						<div className="feed-block">
+							<div className="feed-block-img feed-icon">
+								<FontAwesomeIcon className="" icon={faUser} />
+							</div>
+							<div className="feed-block-content">
+								<h2>
+									<FormattedMessage id="LABEL_APPROVED_BY" /> <span>John Wick</span>
+								</h2>
+								<span className="feed-date-time">20/11/2019 | 03:40 AM</span>
+								<p>
+									Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum
+									provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde?
+									Iste voluptatibus minus veritatis qui ut.
+								</p>
+							</div>
+						</div>
+						<div className="feed-block">
+							<div className="feed-block-img check-icon">
+								<FontAwesomeIcon className="" icon={faCheck} />
+							</div>
+							<div className="feed-block-content">
+								<h2>
+									<FormattedMessage id="LABEL_APPROVED_BY" /> <span>John Doe</span>
+								</h2>
+								<span className="feed-date-time">20/11/2019 | 03:40 AM</span>
+								<p>
+									Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum
+									provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde?
+									Iste voluptatibus minus veritatis qui ut.
+								</p>
+							</div>
+						</div>
+						<div className="feed-block">
+							<div className="feed-block-img feed-icon">
+								<FontAwesomeIcon className="" icon={faUser} />
+							</div>
+							<div className="feed-block-content">
+								<h2>
+									<FormattedMessage id="LABEL_APPROVED_BY" /> <span>John Wick</span>
+								</h2>
+								<span className="feed-date-time">20/11/2019 | 03:40 AM</span>
+								<p>
+									Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum
+									provident .
+								</p>
+							</div>
+						</div>
+					</section>
+				</div>
+			</div>
+			<div className="row">
+				<div className="col-xl-12">
+					<PricingSummaryTable
+						data-test="pricing-summary"
+						preliminary={props.preliminaryState}
+						subContractor={props.subContractorState}
+						discount={props.discountState}
+						currencySymbol={props.currencySymbol}
+					/>
+					<CalculationsSummaryTable
+						data-test="calculation-summary"
+						preliminary={props.preliminaryState}
+						subContractor={props.subContractorState}
+						discount={props.discountState}
+						currencySymbol={props.currencySymbol}
+					/>
+				</div>
+			</div>
+			<div className={`${getClassNameForProjectStatus(props.status)} row`}>
+				<div className="col-lg-4">
+					<ProjectOverviewRiskForm
+						riskName="projectAdditionalDetail.projectRisk1"
+						riskLabelName="LABEL_PROJECT_RISK_1"
+						riskControlMeasureName="projectAdditionalDetail.projectRiskControlMeasure1"
+						riskControlMeasureLabelName="LABEL_RISK_1_CONTROL_MEASURE"
+					/>
+				</div>
+				<div className="col-lg-4">
+					<ProjectOverviewRiskForm
+						riskName="projectAdditionalDetail.projectRisk2"
+						riskLabelName="LABEL_PROJECT_RISK_2"
+						riskControlMeasureName="projectAdditionalDetail.projectRiskControlMeasure2"
+						riskControlMeasureLabelName="LABEL_RISK_2_CONTROL_MEASURE"
+					/>
+				</div>
+				<div className="col-lg-4">
+					<ProjectOverviewRiskForm
+						riskName="projectAdditionalDetail.projectRisk3"
+						riskLabelName="LABEL_PROJECT_RISK_3"
+						riskControlMeasureName="projectAdditionalDetail.projectRiskControlMeasure3"
+						riskControlMeasureLabelName="LABEL_RISK_3_CONTROL_MEASURE"
+					/>
+				</div>
+			</div>
 
       <div
         className={`${getClassNameForProjectStatus(
