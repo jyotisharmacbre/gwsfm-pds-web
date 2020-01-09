@@ -27,16 +27,27 @@ import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
 import {calculateSell} from '../../../helpers/formulas';
 import { confirmAlert } from '../../Popup/CustomModalPopup';
+import NewTypeAhead from '../../TypeAhead/NewTypeAhead';
 
 interface Props {
   fields:any,
   activities:Array<ISubContractorActivity>;
   currencySymbol:string;
   intl:any;
+  getDynamicSubContractorData: (value: any, success: any, failure: any) => void;
 }
  
 const SubContractorActivityForm :React.FC<Props> = (props:Props) => {
   const {fields,intl} = props;
+  
+  const formatSubcontractForTypeAhead = (data) => {
+		let result: any = [];
+		data.map((subcontractData: any) => {
+			result.push({ label: subcontractData.name, id: subcontractData.subContractorId });
+		});
+		return result;
+  };
+  
   return(
     <div>
     {fields.map((member, index) => (
@@ -78,14 +89,26 @@ const SubContractorActivityForm :React.FC<Props> = (props:Props) => {
                   buttons={selectionButtons}
                   labelKey="LABEL_EXISTING_SUBCONTRACTOR"
                 />
-                <Field
-                  name={`${member}.subcontractorId`}
-                  data-test="subcontractorId"
-                  type="text"
-                  component={PdsFormInput}
-                  labelKey="LABEL_SUBCONTRACTOR"
-                  placeholderKey="PLACEHOLDER_SUBCONTRACTOR"
-                />
+                <NewTypeAhead
+									name={`${member}.subcontractorId`}
+									onSearch={props.getDynamicSubContractorData}
+									formatData={formatSubcontractForTypeAhead}
+									DynamicsType="subcontractorId"
+									placeholderKey="PLACEHOLDER_SUBCONTRACTOR"
+									labelName="LABEL_SUBCONTRACTOR"
+									submitParam="id"
+								/>
+                
+								{props.activities[0].subcontractorId === '0' && (
+									<Field
+										name={`${member}.otherSubcontractorName`}
+										type="text"
+										component={PdsFormInput}
+										labelKey="LABEL_OTHER_SUBCONTRACTOR"
+										placeholderKey="PLACEHOLDER_OTHER_SUBCONTRACTOR"
+									/>
+								)}
+
                 <Field
                   name={`${member}.isPreferredSupplier`}
                   component={PdsFormButton}
