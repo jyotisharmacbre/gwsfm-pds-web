@@ -4,11 +4,13 @@ import { Field } from 'redux-form';
 import { FormattedMessage } from 'react-intl';
 const normalizeNumericInput = (val, prevVal) => {
     if (val) {
-        return (/^\d+$/.test(val)) ? parseInt(val) : prevVal
+        return (/^[0-9]*$/.test(val)) ? parseInt(val) : 0
     }
-    else
+    else {
         return 0;
+    }
 };
+
 const ValidatedNumericInput = props => {
     return (
         <div className={'form-group'}>
@@ -23,6 +25,7 @@ const ValidatedNumericInput = props => {
                 currency={props.currency}
                 inputmode={props.inputmode}
                 divPosition={props.divPosition}
+                validate={props.validate}
             />
         </div>
     );

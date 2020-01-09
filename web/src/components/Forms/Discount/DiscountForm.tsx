@@ -23,6 +23,7 @@ import {
 	getSubContractorSummaryCalculation,
 	getPreliminarySummaryCalculation
 } from '../../../helpers/pricing-calculation-helper';
+import ValidatedNumericInput from '../../NumericInput';
 
 interface Props {
 	onNext: (data: IDiscountActivity) => void;
@@ -100,12 +101,12 @@ let DiscountForm: React.FC<
 	return (
 		<div className="container-fluid">
 			<div className="row">
-			<CalculationsSummaryTable
-				preliminary={props.preliminaryState}
-				subContractor={props.subContractorState}
-				discount={props.discountForm}
-				currencySymbol={currencySymbol}
-			/>
+				<CalculationsSummaryTable
+					preliminary={props.preliminaryState}
+					subContractor={props.subContractorState}
+					discount={props.discountForm}
+					currencySymbol={currencySymbol}
+				/>
 			</div>
 			<div className=" row">
 				<div className="col-lg-12 col-sm-12">
@@ -134,7 +135,7 @@ let DiscountForm: React.FC<
 										labelKey="LABEL_STATE_DETAILS"
 										placeholderKey="PLACEHOLDER_ENTER_STATE_DETAILS"
 									/>
-									<Field
+									<ValidatedNumericInput
 										name="supplierTotalDiscount"
 										type="text"
 										className="width-120 pl-20"
@@ -142,7 +143,6 @@ let DiscountForm: React.FC<
 										validate={[ Validate.maxLength(15) ]}
 										messageKey="MESSAGE_TOTAL_DISCOUNT"
 										labelKey="LABEL_TOTAL_DISCOUNT"
-										normalize={normalize}
 										currency={currencySymbol}
 										divPosition="relative"
 									/>
@@ -166,7 +166,7 @@ let DiscountForm: React.FC<
 								<div className="col-lg-8">
 									<h2>
 										<FormattedMessage id="TITLE_CLIENT_DISCOUNT" />
-										</h2>
+									</h2>
 									<Field
 										input={{
 											value:
@@ -229,14 +229,14 @@ let DiscountForm: React.FC<
 										normalize={maxLimitTo(0,100)}
 										discountBind={getDiscountTypeValue(
 											props.projectstatus &&
-												props.projectstatus.filter(
-													(element) => element.lookupItem == LookupType.Discount_Type
-												),
+											props.projectstatus.filter(
+												(element) => element.lookupItem == LookupType.Discount_Type
+											),
 											discountTypeValue,
 											currencySymbol
 										)}
 										divPosition="relative"
-										
+
 									/>
 									<label className="w-100 mb-0">
 										<FormattedMessage id="LABEL_SUB_TOTAL_DISCOUNTS" />
