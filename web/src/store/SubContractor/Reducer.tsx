@@ -14,7 +14,7 @@ const subContractorFormAddSuccess = (oldState, action) => {
     notify: Notify.success,
     event: action.event,
     form: updateObject(oldState.form, {
-      activities: [...action.payload]
+      activities: action.payload
     })
   });
 };
