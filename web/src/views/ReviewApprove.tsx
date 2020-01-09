@@ -7,7 +7,6 @@ import PricingSummaryTable from '../components/Table/PricingSummaryTable';
 import * as actions from '../store/rootActions';
 import { toast } from 'react-toastify';
 import {
-  getClassNameForProjectStatus,
   getPropertyName,
   getFilterElementFromArray
 } from '../helpers/utility-helper';
@@ -87,6 +86,23 @@ const ReviewApprove: React.FC<IProps &
     return props.history.push(`/${module}/${props.match.params.projectId}`);
   };
 
+  const handleApproval = () => {
+    actions.projectApprove(
+      props.match.params.projectId,
+      handleApprovalSuccess,
+      handleApprovalError
+    );
+  };
+
+  const handleApprovalSuccess = data => {
+    toast.success('Approved Successfully');
+    props.history.push('/');
+  };
+
+  const handleApprovalError = data => {
+    toast.error('Some error occured');
+  };
+
   return (
     <div className="container-fluid" data-test="review-approve-component">
       {showQueryPopup && <QueryPopup />}
@@ -94,7 +110,9 @@ const ReviewApprove: React.FC<IProps &
         <div className="col-lg-12">
           <div className="custom-wrap">
             <div className="heading-subtitle">
-              <h1><FormattedMessage id='LABEL_REVIEW_APPROVE' /></h1>
+              <h1>
+                <FormattedMessage id="LABEL_REVIEW_APPROVE" />
+              </h1>
             </div>
             <ProjectSummary
               project={props.project}
