@@ -85,7 +85,7 @@ const ReviewApprove: React.FC<IProps &
   };
 
   const handleApproval = () => {
-    actions.updateProjectStatusToInReview(
+    actions.projectApprove(
       props.match.params.projectId,
       handleApprovalSuccess,
       handleApprovalError

@@ -49,3 +49,14 @@ export const updateProjectStatusToInReview = (projectId: string, success, error)
 		});
 };
 
+export const projectApprove = (projectId: string, success, error) => {
+  axios.baseAPI
+    .put(`/api/Workflow/${projectId}/Approve`, null, config)
+    .then(response => {
+      success(response.data);
+    })
+    .catch(exception => {
+      error(exception);
+    });
+};
+
