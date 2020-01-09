@@ -110,6 +110,7 @@ const ReviewSubmit: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = 
 						<ProjectSummary
 							project={props.project}
 							lookUpData={props.projectStatus}
+							currencySymbol={currencySymbol}
 						/>
 						<ProjectOverviewSummary
 							projectOverview={props.projectOverview}
