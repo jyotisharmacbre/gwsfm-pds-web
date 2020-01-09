@@ -115,6 +115,7 @@ const ReviewSubmit: React.FC<IProps &
             <ProjectSummary
               project={props.project}
               lookUpData={props.projectStatus}
+              currencySymbol={currencySymbol}
             />
             <ProjectOverviewSummary
               projectOverview={props.projectOverview}
