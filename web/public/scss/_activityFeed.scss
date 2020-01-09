@@ -1,8 +1,8 @@
 /* Activity Feed*/
 h3.feed_head {
     font-size: 14px;
-    font-weight: 700;
-    color: #333333;
+    font-weight: 600;
+    color: map-get($colors , grey03 );
 }
 .activity_feed {
     position: relative;
@@ -58,9 +58,9 @@ h3.feed_head {
             border-right: 7px solid map-get($colors, whiteColor );
         }
         h2 {
-            color: #333333;
+            color: map-get($colors , grey03 );
             font-size: 14px;
-            font-weight: 700;
+            font-weight: 600;
            span {
             color: #4cbe7f;
            }

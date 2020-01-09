@@ -23,6 +23,7 @@ import { IDiscountActivity } from '../store/DiscountForm/Types/IDiscountActivity
 import { ILookup } from '../store/Lookups/Types/ILookup';
 import { LookupType } from '../store/Lookups/Types/LookupType';
 import { IProjectOverviewDetails } from '../store/ProjectOverviewForm/Types/IProjectOverviewDetails';
+import { FormattedMessage } from 'react-intl';
 
 interface IProps {
   match: match<{ projectId: string }>;
@@ -90,11 +91,12 @@ const ReviewApprove: React.FC<IProps &
         <div className="col-lg-12">
           <div className="custom-wrap">
             <div className="heading-subtitle">
-              <h1>Review &#38; Approve</h1>
+              <h1><FormattedMessage id='LABEL_REVIEW_APPROVE' /></h1>
             </div>
             <ProjectSummary
               project={props.project}
               lookUpData={props.projectStatus}
+              currencySymbol={currencySymbol}
             />
             <ProjectOverviewSummary
               projectOverview={props.projectOverview}
@@ -119,9 +121,9 @@ const ReviewApprove: React.FC<IProps &
               </div>
             </div>
             <div className="two-side-btn pt-2">
-              <button type="button">QUERY</button>
+              <button type="button"><FormattedMessage id="BUTTON_QUERY" /></button>
               <button type="button" name="next">
-                APPROVE
+                <FormattedMessage id="BUTTON_APPROVE" />
               </button>
             </div>
           </div>

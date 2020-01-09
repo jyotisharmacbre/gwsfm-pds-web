@@ -167,14 +167,3 @@ export const resetProjectDetailStateToInitial = () => {
 	};
 };
 
-export const updateProjectStatusToInReview = (projectId: string, success, error) => {
-	if (isProjectStateInReview()) error('error');
-	axios.baseAPI
-		.put(`/api/Projects/${projectId}/inReview`, null, { headers: headers })
-		.then((response) => {
-			success(response.data);
-		})
-		.catch((error) => {
-			error(error);
-		});
-};
