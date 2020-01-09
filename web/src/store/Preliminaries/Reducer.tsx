@@ -6,9 +6,9 @@ import Notify from '../../enums/Notify';
 const preliminaryAddSuccess = (oldState, action) => {
   let preliminaryDetails = oldState.preliminaryDetails;
   action.payload?.data.forEach((item) => {
-    preliminaryDetails.filter(x => x.componentId == item.preliminariesComponentId)[0].
-      items.filter(x => x.itemId == item.preliminariesItemId)[0].
-      preliminaryId = item.preliminaryId;
+    preliminaryDetails.find(x => x.componentId == item.preliminariesComponentId)
+    .items.find(x => x.itemId == item.preliminariesItemId)
+    .preliminaryId = item.preliminaryId;
   });
   return updateObject(oldState, {
     notify: Notify.success,

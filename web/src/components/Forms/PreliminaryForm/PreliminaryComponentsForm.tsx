@@ -35,7 +35,7 @@ const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleE
               data-test="collapse"
               onClick={()=>onToggleEvent(prelimData[index].componentId)}
             >
-               {prelimData[index].items.find(x=>x.preliminaryId)? <img className="check-box" src={checkMark} /> : "" }
+               {prelimData[index].items.find(x=>x.preliminaryId)? <img className="check-mark" src={checkMark} /> : "" }
               <a className="card-link" >{prelimData[index].componentName}</a>
              
               <span aria-hidden="true">

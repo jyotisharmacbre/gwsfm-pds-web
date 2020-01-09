@@ -50,7 +50,7 @@ describe('Preliminary Components Form test cases', () => {
   });
   it('should render check-mark if preliminariuserData item has id', () => {
     const collapseContainer = findByTestAtrr(wrapper, 'collapse').first();
-    const checkBox = collapseContainer.find('.check-box');
+    const checkBox = collapseContainer.find('.check-mark');
     expect(checkBox).toHaveLength(1);
   });
 });
