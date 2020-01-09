@@ -5,6 +5,7 @@ import PreliminaryItemsForm from './PreliminaryItemsForm';
 import EventType from '../../../enums/EventType';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleUp } from '@fortawesome/free-solid-svg-icons';
+import checkMark from '../../../assests/images/check_mark.png';
 
 interface Props {
   submitHandler: (
@@ -34,7 +35,8 @@ const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleE
               data-test="collapse"
               onClick={()=>onToggleEvent(prelimData[index].componentId)}
             >
-              <a className="card-link" >{prelimData[index].componentName} | {prelimData[index].items.find(x=>x.preliminaryId)? 'Saved': 'UnSaved'}</a>
+               {prelimData[index].items.find(x=>x.preliminaryId)? <img className="check-box" src={checkMark} /> : "" }
+              <a className="card-link" >{prelimData[index].componentName}</a>
              
               <span aria-hidden="true">
               <FontAwesomeIcon className="active" icon={faAngleUp} />

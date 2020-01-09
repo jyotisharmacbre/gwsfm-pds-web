@@ -48,4 +48,9 @@ describe('Preliminary Components Form test cases', () => {
     expect(props.onToggleEvent.mock.calls.length).toEqual(2);
     expect(toggle.hasClass('hide')).toEqual(true);
   });
+  it('should render check-mark if preliminariuserData item has id', () => {
+    const collapseContainer = findByTestAtrr(wrapper, 'collapse').first();
+    const checkBox = collapseContainer.find('.check-box');
+    expect(checkBox).toHaveLength(1);
+  });
 });
