@@ -22,7 +22,7 @@ interface Props {
       
 }  
 
-const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleEvent,prelimData,currencySymbol}) => (
+const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleEvent,prelimData,currencySymbol}) =>(
 
   <div>
   {fields.map((member, index) => (
@@ -34,7 +34,7 @@ const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleE
               data-test="collapse"
               onClick={()=>onToggleEvent(prelimData[index].componentId)}
             >
-              <a className="card-link" >{prelimData[index].componentName}</a>
+              <a className="card-link" >{prelimData[index].componentName} | {prelimData[index].items.find(x=>x.preliminaryId)? 'Saved': 'UnSaved'}</a>
              
               <span aria-hidden="true">
               <FontAwesomeIcon className="active" icon={faAngleUp} />
