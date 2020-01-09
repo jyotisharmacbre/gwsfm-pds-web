@@ -3,9 +3,6 @@ export {
   projectOverviewFormEdit,
   getAdditionalDetails,
   resetProjectOverviewState,
-  changeProjectStatusToBidLost,
-  changeProjectStatusToOnHold,
-  reactivateProject,
   getAdminDefaultValues,
   setupPojectApprovalsInitialData
 } from './ProjectOverviewForm/Actions';
@@ -18,7 +15,6 @@ export {
   projectDetailEdit,
   changeProjectStatus,
   resetProjectDetailStateToInitial,
-  updateProjectStatusToInReview
 } from './CustomerEnquiryForm/Action';
 
 export {
@@ -59,3 +55,12 @@ export {
 } from './DynamicsData/Action';
 
 export { getUserService, getUserServiceCallback } from './UserService/Action';
+
+export {
+  changeProjectStatusToBidLost,
+  changeProjectStatusToOnHold,
+  reactivateProject,
+  updateProjectStatusToInReview
+
+} from './WorkflowService/Actions';
+
