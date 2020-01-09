@@ -97,7 +97,6 @@ interface IMapDispatchToProps {
   changeProjectStatusToBidLost: (projectId: string) => void;
   reactivateProject: (projectId: string) => void;
   setProjectStatus: (status: number) => void;
-  handleGetDynamicSubContractorData: (searchSubContractor: string) => void;
   setAdminDefaultValues: (countryId: number) => void;
   getSubContractor: (projectId: string) => void;
   getPreliminaryDetails: (projectId: string) => void;
@@ -389,8 +388,6 @@ const mapDispatchToProps = dispatch => {
     reactivateProject: projectId =>
       dispatch(actions.reactivateProject(projectId)),
     setProjectStatus: status => dispatch(actions.changeProjectStatus(status)),
-    handleGetDynamicSubContractorData: searchSubContractor =>
-      dispatch(getDynamicSubContractorData(searchSubContractor)),
     setAdminDefaultValues: countryId =>
       dispatch(actions.getAdminDefaultValues(countryId)),
     getSubContractor: (projectId: string) =>

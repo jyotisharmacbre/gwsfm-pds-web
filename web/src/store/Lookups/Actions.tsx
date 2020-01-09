@@ -6,7 +6,7 @@ import { ICurrency } from './Types/ICurrency';
 import { ILanguage } from './Types/ILanguage';
 import { de } from 'date-fns/esm/locale';
 import { ICountry } from './Types/ICountry';
-import {getDefaultState} from '../Common/Action';
+import { getDefaultState } from '../Common/Action';
 
 const getProjectStatusSuccess = (response: any) => {
   return {
@@ -50,7 +50,8 @@ export const getProjectStatus = () => {
     'Enquiry_Type',
     'Discount_Type',
     'Pre_Components',
-    'Pre_Component_Items'
+    'Pre_Component_Items',
+    'Project_Approval_Sign_Off_Status'
   ];
   return (dispatch: Dispatch) => {
     axios.baseAPI
@@ -110,17 +111,16 @@ const getAllLanguagesError = (error: any) => {
 export const getAllCurrencies = (cache: boolean = true) => {
   return (dispatch: Dispatch) => {
     let storeData = store.getState().lookup.currencies;
-    if(cache && storeData && storeData.length > 0)
-      dispatch(getDefaultState());
-    else{
-    axios.baseAPI
-      .get('api/LookupData/GetAllCurrencies')
-      .then(response => {
-        dispatch(getAllCurrenciesSuccess(response.data));
-      })
-      .catch(error => {
-        dispatch(getAllCurrenciesError(error));
-      });
+    if (cache && storeData && storeData.length > 0) dispatch(getDefaultState());
+    else {
+      axios.baseAPI
+        .get('api/LookupData/GetAllCurrencies')
+        .then(response => {
+          dispatch(getAllCurrenciesSuccess(response.data));
+        })
+        .catch(error => {
+          dispatch(getAllCurrenciesError(error));
+        });
     }
   };
 };
@@ -152,7 +152,7 @@ export const getAllContries = () => {
   };
 };
 
-export const getAllLanguages = () => { 
+export const getAllLanguages = () => {
   return (dispatch: Dispatch) => {
     axios.baseAPI
       .get('api/LookupData/GetLanguages')

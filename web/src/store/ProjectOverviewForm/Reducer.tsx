@@ -6,7 +6,6 @@ import { IProjectApprovals } from './Types/IProjectApprovals';
 import { initialState } from './InitialState';
 import { setupInitialApprovalData } from './DataWrapper';
 
-
 export const newProjectApprovals: IProjectApprovals = {
   projectApprovalId: '',
   projectId: '',
@@ -33,7 +32,9 @@ const projectOverviewFormAddSuccess = (oldState, action) => {
 const setupPojectApprovalsInitialData = (oldState, action) => {
   return updateObject(oldState, {
     notify: Notify.none,
-    form: updateObject(oldState.form, { projectApprovals: setupInitialApprovalData(action.payload) }),
+    form: updateObject(oldState.form, {
+      projectApprovals: setupInitialApprovalData(action.payload)
+    }),
     initialStateSetForProjectApprovals: true
   });
 };
@@ -56,14 +57,22 @@ const projectOverviewFormError = (oldState, action) => {
 };
 
 const getAdditionalDetailsSuccess = (oldState, action) => {
-  let updatedApproverList = oldState.form.projectApprovals.map(item => {
-    let savedApproverItem = action.payload.projectApprovals.find(x => x.approverType === item.approverType);
-    return savedApproverItem ? { ...item, ...savedApproverItem } : item;
-  });
-  action.payload.projectApprovals = updatedApproverList;
-  return updateObject(oldState, {
-    form: updateObject(oldState.form, action.payload)
-  });
+  let updatedApproverList: Array<IProjectApprovals> = [];
+  if (action.payload != '') {
+    if (oldState.form.projectApprovals && action.payload.projectApprovals) {
+      updatedApproverList = oldState.form.projectApprovals.map(item => {
+        let savedApproverItem = action.payload.projectApprovals.find(
+          x => x.approverType === item.approverType
+        );
+        return savedApproverItem ? { ...item, ...savedApproverItem } : item;
+      });
+    }
+    action.payload.projectApprovals = updatedApproverList;
+    return updateObject(oldState, {
+      form: updateObject(oldState.form, action.payload)
+    });
+  }
+  return oldState;
 };
 
 const getAdditionalDetailsError = (oldState, action) => {
