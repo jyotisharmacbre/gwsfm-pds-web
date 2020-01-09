@@ -1,11 +1,11 @@
 import { ActionType } from './Types/ActionType';
 import { updateObject } from '../../helpers/utility-helper';
-import {ISubContractorActivity} from './Types/ISubContractorActivity';
+import { ISubContractorActivity } from './Types/ISubContractorActivity';
 import { ISubContractorState } from './Types/ISubContractorState';
-import {IQuote} from './Types/IQuote';
+import { IQuote } from './Types/IQuote';
 import Notify from '../../enums/Notify';
 import EventType from '../../enums/EventType';
-import {initialState,newActivity} from './InitialState';
+import { initialState, newActivity } from './InitialState';
 
 const subContractorFormAddSuccess = (oldState, action) => {
   return updateObject(oldState, {
@@ -14,7 +14,7 @@ const subContractorFormAddSuccess = (oldState, action) => {
     notify: Notify.success,
     event: action.event,
     form: updateObject(oldState.form, {
-      activities:action.payload
+      activities: action.payload
     })
   });
 };
@@ -26,7 +26,7 @@ const subContractorFormEditSuccess = (oldState, action) => {
     notify: Notify.success,
     event: action.event,
     form: updateObject(oldState.form, {
-      activities:action.payload
+      activities: action.payload
     })
   });
 };
@@ -41,9 +41,7 @@ const subContractorFormError = (oldState, action) => {
 
 const getSubContractorSuccess = (oldState, action) => {
   return updateObject(oldState, {
-    form: updateObject(oldState.form,
-     {activities: action.payload
-     })
+    form: updateObject(oldState.form, { activities: action.payload })
   });
 };
 

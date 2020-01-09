@@ -43,7 +43,7 @@ const ProjectPipelineForm: React.FC<Props & IReactIntl> = (props: any) => {
           ? moment(rowProject.commenceDate).format('MM/DD/YYYY')
           : '';
 
-      rowProject.cdmNotifiable = rowProject.cdmNotifiable ? 'Yes' : 'No';
+      rowProject.cdmNotifiable = rowProject.cdmNotifiable ? formatMessage('LABEL_YES') : formatMessage('LABEL_NO');
 
       rowProject.name = (
         <Link

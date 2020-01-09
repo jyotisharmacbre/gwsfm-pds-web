@@ -1,8 +1,8 @@
 import { ProjectApproverType, ProjectApprovalRange } from "./ProjectApprovalEnums";
 
 interface IApproverTypeAndRangeMapping {
-    type: string,
-    range: string
+    type: number,
+    range: number
 }
 
 export const ProjectApproverTypeAndRangeMapping: Array<IApproverTypeAndRangeMapping> = [

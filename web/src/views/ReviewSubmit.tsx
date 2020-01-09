@@ -105,11 +105,12 @@ const ReviewSubmit: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = 
 				<div className="col-lg-12">
 					<div className="custom-wrap">
 						<div className="heading-subtitle">
-							<h1>Review &#38; Submit</h1>
+							<h1><FormattedMessage id='MENU_REVIEW_SUBMIT' /></h1>
 						</div>
 						<ProjectSummary
 							project={props.project}
 							lookUpData={props.projectStatus}
+							currencySymbol={currencySymbol}
 						/>
 						<ProjectOverviewSummary
 							projectOverview={props.projectOverview}
