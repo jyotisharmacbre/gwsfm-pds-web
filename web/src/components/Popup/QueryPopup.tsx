@@ -1,17 +1,16 @@
 import React from 'react'
 import { render } from 'react-dom'
-import IReactIntl from '../../Translations/IReactIntl';
 import { injectIntl, FormattedMessage } from 'react-intl';
+import question_mark from '../../components/images/Question Mark_Icon.svg';
 
 interface IProps {
-    intl: any,
-    titleKey: string,
-    contentKey: string,
-    handleConfirm: () => void,
+    titleKey?: string,
+    contentKey?: string,
+    handleConfirm?: () => void,
     handleReject?: () => void
 }
 
-const QueryPopup: React.FC<IProps & IReactIntl> = props => {
+const QueryPopup: React.FC<IProps> = props => {
     const confirm = () => {
         if (props.handleConfirm) { props.handleConfirm() }
         removeBodyClass();
@@ -21,14 +20,14 @@ const QueryPopup: React.FC<IProps & IReactIntl> = props => {
         removeBodyClass();
     }
     const removeBodyClass = () => {
-        document.body.classList.remove('react-confirm-alert-body-element');
-        const target: any = document.getElementById('react-confirm-alert')
+        const target: any = document.getElementById('exampleModal')
         target.parentNode.removeChild(target)
     }
     return (
         <div className="modal fade show custom_modal" id="exampleModal" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" data-keyboard="false" data-backdrop="static" style={{ display: 'block' }} aria-modal="true">
             <div className="modal-dialog modal-dialog-centered" role="document">
                 <div className="modal-content">
+                <span><img src={question_mark} alt="close" /></span>
                     <div className="modal-header">
                         <h5 className="modal-title">
                            heading
@@ -54,24 +53,5 @@ const QueryPopup: React.FC<IProps & IReactIntl> = props => {
     )
 }
 
-function createElementReconfirm(properties) {
-    let divTarget = document.getElementById('react-confirm-alert')
-    if (divTarget) {
-        render(<QueryPopup {...properties} />, divTarget)
-    } else {
-        if (document.body.children.length > 0) {
-            document.body.children[0].classList.add('react-confirm-alert-blur')
-        }
-        divTarget = document.createElement('div')
-        divTarget.id = 'react-confirm-alert'
-        document.body.appendChild(divTarget)
-        render(<QueryPopup {...properties} />, divTarget)
-    }
-}
-
-export function confirmQuery(properties) {
-    debugger;
-    createElementReconfirm(properties)
-}
-export default (QueryPopup);
+export default QueryPopup;
 
