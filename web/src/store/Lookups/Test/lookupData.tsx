@@ -8,6 +8,13 @@ export const projectstatus: Array<ILookup> = [{
   lookupKey: 1,
   description: "Initial Customer Inquiry"
 }];
+
+export const lookups: Array<ILookup> = [{
+  lookupId: 1,
+  lookupItem: "Project_Approver_Type",
+  lookupKey: 1,
+  description: "HOP(HOP)"
+}];
 export const currencies: Array<ICurrency> = [
   {
     currencyId: 4,
