@@ -23,10 +23,17 @@ import { IDiscountActivity } from '../store/DiscountForm/Types/IDiscountActivity
 import { ILookup } from '../store/Lookups/Types/ILookup';
 import { LookupType } from '../store/Lookups/Types/LookupType';
 import { IProjectOverviewDetails } from '../store/ProjectOverviewForm/Types/IProjectOverviewDetails';
+import { confirmQuery } from '../components/Popup/QueryPopup';
+import IReactIntl from '../Translations/IReactIntl';
+import { injectIntl } from 'react-intl';
+
+
+
 
 interface IProps {
   match: match<{ projectId: string }>;
   history: History;
+  intl:any;
 }
 
 interface IMapStateToProps {
@@ -51,7 +58,7 @@ interface IMapDispatchToProps {
 
 const ReviewApprove: React.FC<IProps &
   IMapStateToProps &
-  IMapDispatchToProps> = props => {
+  IMapDispatchToProps&IReactIntl> = props => {
   const CurrencyObj = new Currency();
   const [currencySymbol, setCurrencySymbol] = useState<string>('');
   const projectId = props.match.params.projectId;
@@ -119,7 +126,16 @@ const ReviewApprove: React.FC<IProps &
               </div>
             </div>
             <div className="two-side-btn pt-2">
-              <button type="button">QUERY</button>
+              <button type="button" 
+              onClick={
+                ()=>{
+                   confirmQuery({
+                    intl:props.intl,
+                    titleKey: "TITLE_CONFIRMATION",
+                    contentKey: "MESSAGE_SUBCONTRACTOR_DELETE_ACTIVITY"
+                  });
+                }}
+               >QUERY</button>
               <button type="button" name="next">
                 APPROVE
               </button>
@@ -158,4 +174,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ReviewApprove);
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(ReviewApprove));
