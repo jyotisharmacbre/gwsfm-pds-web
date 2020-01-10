@@ -28,7 +28,6 @@ import { FormattedMessage } from 'react-intl';
 interface IProps {
   match: match<{ projectId: string }>;
   history: History;
-  intl:any;
 }
 
 interface IMapStateToProps {
