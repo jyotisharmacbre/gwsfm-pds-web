@@ -24,27 +24,28 @@ const QueryPopup: React.FC<IProps> = props => {
         target.parentNode.removeChild(target)
     }
     return (
-        <div className="modal fade show custom_modal" id="exampleModal" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" data-keyboard="false" data-backdrop="static" style={{ display: 'block' }} aria-modal="true">
+        <div className="modal fade show custom_modal query_modal" id="exampleModal" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" data-keyboard="false" data-backdrop="static" style={{ display: 'block' }} aria-modal="true">
             <div className="modal-dialog modal-dialog-centered" role="document">
-                <div className="modal-content">
-                <span><img src={question_mark} alt="close" /></span>
+                <div className="modal-content d-flex align-items-center">
+                <span><img className="question_mark_icon" src={question_mark} alt="close" /></span>
                     <div className="modal-header">
                         <h5 className="modal-title">
-                           heading
+                          Add a Query
                         </h5>
                         <span onClick={() => removeBodyClass()} className="close" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </span>
                     </div>
-                    <div className="modal-body">
-                        heading body
+                    <div className="modal-body text-center w-100">
+                      <p>Please let us know your query below</p>
+                       <textarea name="projectAdditionalDetail.comments" placeholder="Type in additional comments" rows={3} className="form-control undefined "></textarea>
                     </div>
                     <div className="modal-footer">
                         <button type="button" data-test="button_reject" className="" onClick={() => reject()}>
-                           no
+                           CANCEL
                         </button>
                         <button type="button" data-test="button_confirm" className="active" onClick={() => confirm()}>
-                        yes
+                        SUBMIT
                         </button>
                     </div>
                 </div>
