@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import PreliminaryItemsForm from './PreliminaryItemsForm';
 import EventType from '../../../enums/EventType';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleUp } from '@fortawesome/free-solid-svg-icons';
+import { faAngleUp, faCheck } from '@fortawesome/free-solid-svg-icons';
 import PreliminaryInsurranceForm from './PreliminaryInsurranceForm';
 import { CheckConstraints } from '../../../helpers/fieldValidations';
 

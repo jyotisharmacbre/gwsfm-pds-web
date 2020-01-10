@@ -50,3 +50,27 @@ export const CheckConstraints=(id:string)=>{
   }
   return isExists;
 }
+export const isLumpSumOrCBRELabourExists=(id:string)=>{
+  let isExists:boolean=false;
+  if(PreliminaryComponentField.Lump_Sum_Allowance==id||PreliminaryComponentField.CBRE_Labour==id)
+  {
+    isExists= true;
+  }
+  return isExists;
+}
+export const isLumpSumOrSubContractorExists=(id:string)=>{
+  let isExists:boolean=false;
+  if(PreliminaryComponentField.Lump_Sum_Allowance==id||PreliminaryComponentField.Sub_Contractor==id)
+  {
+    isExists= true;
+  }
+  return isExists;
+}
+export const isCBRELabourOrAgencyLabourExists=(id:string)=>{
+  let isExists:boolean=false;
+  if(PreliminaryComponentField.CBRE_Labour!=id&&PreliminaryComponentField.Agency_Labour!=id)
+  {
+    isExists= true;
+  }
+  return isExists;
+}
