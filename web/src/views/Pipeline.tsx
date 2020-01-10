@@ -16,14 +16,19 @@ interface IMapStateToProps {
   
   projectPipeline: Array<IProjectPipelineGrid>;
   lookupDetails: Array<ILookup>;
+  userPreferChangeNotify: Notify
 }
 const ProjectPipeline: React.FC<IMapStateToProps &
   IMapDispatchToProps> = props => {
   useEffect(() => {
     props.getLookups();
-
     props.projectPipelineGridDetail();
   }, []);
+  useEffect(() => {
+    if (props.userPreferChangeNotify == Notify.success) {
+      props.projectPipelineGridDetail();
+    }
+  }, [props.userPreferChangeNotify]);
   return (
     <div className="container-fluid">
       <div className="row">
@@ -52,9 +57,8 @@ const ProjectPipeline: React.FC<IMapStateToProps &
 
 const mapStateToProps = (state: IState) => ({
   lookupDetails: state.lookup.projectstatus,
-
   projectPipeline: state.pipelineGrid.pipelineDetails,
-
+  userPreferChangeNotify: state.userPreferences.notify
 });
 
 const mapDispatchToProps = dispatch => {

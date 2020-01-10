@@ -31,11 +31,14 @@ const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleE
     <div className="accordion" key={index}>
           <div className="card">
             <div
-              className="card-header"
+              className="card-header p-l-43"
               data-toggle="collapse"
               
               
             >
+              <div className="tick_wrap">
+              <FontAwesomeIcon icon={faCheck} />
+              </div>
               <a className="card-link" >{prelimData[index].componentName}</a>
              
               {!CheckConstraints(prelimData[index].componentId)

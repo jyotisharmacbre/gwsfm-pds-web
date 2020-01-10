@@ -56,6 +56,7 @@
         p {
             line-height: 16px;
             font-size: 12px;
+            text-align: justify;
         }
     }
 }
@@ -170,8 +171,8 @@
 .authorised_form_wrap {
     h6 {
         font-size: 14px;
-        font-weight: 700;
-        color: map-get($colors , grey004 );
+        font-weight: 600;
+        color: map-get($colors , grey03 );
         margin-left: -16px;
     }
     .authorised_form_inner {

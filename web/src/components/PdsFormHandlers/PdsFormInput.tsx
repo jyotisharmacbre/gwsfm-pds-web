@@ -40,7 +40,7 @@ export function PdsFormInput({
         <span
           style={{
             position: 'absolute',
-            top: '39px',
+            top: '41px',
             left: '8px',
             marginRight: '10px',
             fontSize: '14px',
