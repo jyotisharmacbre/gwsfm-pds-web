@@ -3,6 +3,11 @@ body {
   font-family: 'Hind', sans-serif !important;
 }
 
+p {
+  word-wrap: break-word;
+}
+
+
 #content {
   width: calc(100% - 250px);
   min-height: 100vh;

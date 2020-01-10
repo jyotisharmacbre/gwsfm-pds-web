@@ -7,7 +7,6 @@ import PricingSummaryTable from '../components/Table/PricingSummaryTable';
 import * as actions from '../store/rootActions';
 import { toast } from 'react-toastify';
 import {
-  getClassNameForProjectStatus,
   getPropertyName,
   getFilterElementFromArray
 } from '../helpers/utility-helper';
@@ -23,6 +22,8 @@ import { IDiscountActivity } from '../store/DiscountForm/Types/IDiscountActivity
 import { ILookup } from '../store/Lookups/Types/ILookup';
 import { LookupType } from '../store/Lookups/Types/LookupType';
 import { IProjectOverviewDetails } from '../store/ProjectOverviewForm/Types/IProjectOverviewDetails';
+import QueryPopup from '../components/Popup/QueryPopup';
+import { FormattedMessage } from 'react-intl';
 
 interface IProps {
   match: match<{ projectId: string }>;
@@ -55,7 +56,7 @@ const ReviewApprove: React.FC<IProps &
   const CurrencyObj = new Currency();
   const [currencySymbol, setCurrencySymbol] = useState<string>('');
   const projectId = props.match.params.projectId;
-
+  const [showQueryPopup, setShowQueryPopup] = useState<boolean>(false);
   useEffect(() => {
     window.scrollTo(0, 0);
     props.getAllCurrencies();
@@ -84,17 +85,38 @@ const ReviewApprove: React.FC<IProps &
     return props.history.push(`/${module}/${props.match.params.projectId}`);
   };
 
+  const handleApproval = () => {
+    actions.projectApprove(
+      props.match.params.projectId,
+      handleApprovalSuccess,
+      handleApprovalError
+    );
+  };
+
+  const handleApprovalSuccess = data => {
+    toast.success('Approved Successfully');
+    props.history.push('/');
+  };
+
+  const handleApprovalError = data => {
+    toast.error('Some error occured');
+  };
+
   return (
     <div className="container-fluid" data-test="review-approve-component">
+      {showQueryPopup && <QueryPopup />}
       <div className="row">
         <div className="col-lg-12">
           <div className="custom-wrap">
             <div className="heading-subtitle">
-              <h1>Review &#38; Approve</h1>
+              <h1>
+                <FormattedMessage id="LABEL_REVIEW_APPROVE" />
+              </h1>
             </div>
             <ProjectSummary
               project={props.project}
               lookUpData={props.projectStatus}
+              currencySymbol={currencySymbol}
             />
             <ProjectOverviewSummary
               projectOverview={props.projectOverview}
@@ -119,9 +141,9 @@ const ReviewApprove: React.FC<IProps &
               </div>
             </div>
             <div className="two-side-btn pt-2">
-              <button type="button">QUERY</button>
+              <button type="button" onClick={()=>setShowQueryPopup(true)}><FormattedMessage id="BUTTON_QUERY" /></button>
               <button type="button" name="next">
-                APPROVE
+                <FormattedMessage id="BUTTON_APPROVE" />
               </button>
             </div>
           </div>

@@ -4,8 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import PreliminaryItemsForm from './PreliminaryItemsForm';
 import EventType from '../../../enums/EventType';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleUp } from '@fortawesome/free-solid-svg-icons';
-import checkMark from '../../../assests/images/check_mark.png';
+import { faAngleUp, faCheck } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
   submitHandler: (
@@ -30,12 +29,15 @@ const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleE
     <div className="accordion" key={index}>
           <div className="card">
             <div
-              className="card-header"
+              className="card-header p-l-43"
               data-toggle="collapse"
               data-test="collapse"
               onClick={()=>onToggleEvent(prelimData[index].componentId)}
             >
-               {prelimData[index].items.find(x=>x.preliminaryId)? <img className="check-mark" src={checkMark} /> : "" }
+               {prelimData[index].items.find(x=>x.preliminaryId)? <div className="tick_wrap">
+              <FontAwesomeIcon icon={faCheck} />
+              </div> : "" }
+             
               <a className="card-link" >{prelimData[index].componentName}</a>
              
               <span aria-hidden="true">
