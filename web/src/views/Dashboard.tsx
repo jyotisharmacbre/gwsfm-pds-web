@@ -11,6 +11,7 @@ import { formatMessage } from '../Translations/connectedIntlProvider';
 import { getDisplayName } from '../helpers/auth-helper';
 import { getUserNamesForEmailsService } from '../store/UserService/Action';
 import { IUserServiceData } from '../store/UserService/Types/IUserService';
+import Notify from '../enums/Notify';
 interface IMapDispatchToProps {
   dashboardGridDetail: () => void;
   getLookups: () => void;
@@ -21,6 +22,7 @@ interface IMapStateToProps {
   valuesCount: number;
   lookupDetails: Array<ILookup>;
   userNamesForEmails: Array<IUserServiceData>;
+  userPreferChangeNotify: Notify;
 }
 const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = props => {
   useEffect(() => {
@@ -39,6 +41,11 @@ const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = props => {
       if (allEmails.length > 0) props.handleGetUserNamesForEmails(allEmails);
     }
   }, [props.dashboardGridValues]);
+  useEffect(() => {
+    if (props.userPreferChangeNotify == Notify.success) {
+      props.dashboardGridDetail();
+    }
+  }, [props.userPreferChangeNotify]);
   return (
     <div>
       <div className="container">
@@ -90,7 +97,8 @@ const mapStateToProps = (state: IState) => ({
   valuesCount: 5,
   lookupDetails: state.lookup.projectstatus,
   dashboardGridValues: state.dashboardGrid.actionApprovalDetails,
-  userNamesForEmails: state.userService.userServiceData
+  userNamesForEmails: state.userService.userServiceData,
+  userPreferChangeNotify: state.userPreferences.notify
 });
 
 const mapDispatchToProps = dispatch => {

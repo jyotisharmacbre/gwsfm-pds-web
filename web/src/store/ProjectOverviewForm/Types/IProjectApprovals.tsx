@@ -1,11 +1,11 @@
 export interface IProjectApprovals {
     projectApprovalId?: string;
     projectId: string;
-    projectApprovalRange: string;
+    projectApprovalRange: number;
     projectApprovalRangeDescription: string;
-    approverType: string;
+    approverType: number;
     approverTypeDescription: string;
-    approvalStatus: string;
+    approvalStatus: number;
     approvalStatusDescription: string;
     userId?: string;
     showRangeLabel: boolean;
