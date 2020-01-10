@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { FieldArray} from 'redux-form';
 import { FormattedMessage } from 'react-intl';
 import PreliminaryItemsForm from './PreliminaryItemsForm';
 import EventType from '../../../enums/EventType';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleUp } from '@fortawesome/free-solid-svg-icons';
+import { faAngleUp, faCheck } from '@fortawesome/free-solid-svg-icons';
 import PreliminaryInsurranceForm from './PreliminaryInsurranceForm';
 import { CheckConstraints } from '../../../helpers/fieldValidations';
 
@@ -31,11 +31,14 @@ const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleE
     <div className="accordion" key={index}>
           <div className="card">
             <div
-              className="card-header"
+              className="card-header p-l-43"
               data-toggle="collapse"
               
               
             >
+              <div className="tick_wrap">
+              <FontAwesomeIcon icon={faCheck} />
+              </div>
               <a className="card-link" >{prelimData[index].componentName}</a>
              
               {!CheckConstraints(prelimData[index].componentId)
@@ -68,8 +71,8 @@ const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleE
                     <th><FormattedMessage id="T_HEADING_COMMENTS" /></th>
                   </tr>
                 </thead>
-                
-                {!CheckConstraints(prelimData[index].componentId)?<FieldArray 
+                <Suspense fallback={<div>Loading...</div>}>
+                 {!CheckConstraints(prelimData[index].componentId)?<FieldArray 
               name={`${member}.items`} 
               component={PreliminaryItemsForm}
               itemDetail={prelimData[index]}
@@ -86,8 +89,9 @@ const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleE
             currencies={[]}
             currencyId={0}
             currencySymbol={currencySymbol}
-            key={index}/>}
+            key={index}/>} 
            
+           </Suspense>
             </table>
                 </div>
                 </div>

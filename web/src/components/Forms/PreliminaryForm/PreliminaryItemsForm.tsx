@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { Suspense }  from 'react';
 import { Field, formValueSelector } from 'redux-form';
 import PdsFormInput from '../../PdsFormHandlers/PdsFormInput';
-import { Validate, alphaNumeric, onlyNumber } from '../../../helpers/fieldValidations';
-import { restrictMinus, restrictMinusAndDecimal} from '../../../helpers/utility-helper';
+import { Validate, alphaNumeric, onlyNumber, isLumpSumOrCBRELabourExists, isLumpSumOrSubContractorExists, isCBRELabourOrAgencyLabourExists } from '../../../helpers/fieldValidations';
+import { restrictMinus,restrictMinusAndDecimal} from '../../../helpers/utility-helper';
 import { calculateCost,calculateSell} from '../../../helpers/formulas';
 import { IState } from '../../../store/state';
 import { connect } from 'react-redux';
@@ -27,12 +27,13 @@ const PreliminaryItemsForm:React.FC<Props>
   const{fields,itemDetail,componentIndex,currencies,currencyId,currencySymbol,preliminaryData}=props;
 
   return (
-  <tbody>
-  {props.fields.map((member, index) => (
-   <tr>
+      <tbody>
+          <Suspense fallback={<div>Loading...</div>}>
+          {props.fields.map((member, index) => (
+              <tr key={index}>
      <td>{props.itemDetail.items[index].itemName}</td>
      <td>
-                       {props.itemDetail.items[index].itemId=="2"||props.itemDetail.items[index].itemId=="3"?<Field
+                       {isLumpSumOrCBRELabourExists(props.itemDetail.items[index].itemId)?<Field
                         name={`${member}.nameOfSupplier`}
                         input={{disabled: true} }
                         data-test="nameOfSupplier"
@@ -55,7 +56,7 @@ const PreliminaryItemsForm:React.FC<Props>
                     />}
     </td>
     <td>
-    {(props.itemDetail.items[index].itemId=="1"||props.itemDetail.items[index].itemId=="2")?<Field
+    {(isLumpSumOrSubContractorExists(props.itemDetail.items[index].itemId))?<Field
                   name={`${member}.noOfHours`}
                   type="number"
                  input={{ disabled: true}}
@@ -81,7 +82,7 @@ const PreliminaryItemsForm:React.FC<Props>
               />}
     </td>
      <td>
-                {(props.itemDetail.items[index].itemId=="1"||props.itemDetail.items[index].itemId=="2")?<Field
+                {(isLumpSumOrSubContractorExists(props.itemDetail.items[index].itemId))?<Field
                   name={`${member}.hourRate`}
                   type="number"
                   normalize={restrictMinus}                 
@@ -111,7 +112,7 @@ const PreliminaryItemsForm:React.FC<Props>
               />}
     </td>
   <td>
-    {props.itemDetail.items[index].itemId!="3"&&props.itemDetail.items[index].itemId!="4"?<Field
+    {isCBRELabourOrAgencyLabourExists(props.itemDetail.items[index].itemId)?<Field
                   name={`${member}.totalCost`}
                   type="number"
                   component={PdsFormInput}
@@ -189,7 +190,8 @@ const PreliminaryItemsForm:React.FC<Props>
     </td>
 
      </tr>
-    ))}
+          ))}
+          </Suspense>
     </tbody>
   )};
   const mapStateToProps = (state: IState) => ({
@@ -198,5 +200,4 @@ const PreliminaryItemsForm:React.FC<Props>
     currencyId:state.project.form.currencyId
   });
  const selector=formValueSelector("PreliminaryForm");
-export default connect(mapStateToProps)(PreliminaryItemsForm);;
-
+export default connect(mapStateToProps)(PreliminaryItemsForm);

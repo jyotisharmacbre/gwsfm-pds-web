@@ -2,6 +2,7 @@ import { ActionType } from './Types/ActionType';
 import { updateObject } from '../../helpers/utility-helper';
 import { ILookupState } from './Types/ILookupState';
 import moment from 'moment';
+import { ILookup } from './Types/ILookup';
 
 const initialState: ILookupState = {
   projectstatus: [],
@@ -16,7 +17,10 @@ const getProjectStatusSuccess = (oldState, action) => {
   sessionStorage.setItem("lookupData", JSON.stringify(action.payload));
   return updateObject(oldState, {
     error: null,
-    projectstatus: action.payload
+    projectstatus: action.payload.map(x => {
+      x.lookupKey = Number(x.lookupKey);
+      return x;
+    })
   });
 };
 
@@ -30,7 +34,10 @@ const getLookupsSuccess = (oldState, action) => {
   // sessionStorage.setItem("lookupApprovalData", JSON.stringify(action.payload));
   return updateObject(oldState, {
     error: null,
-    lookups: action.payload
+    lookups: action.payload.map(x => {
+      x.lookupKey = Number(x.lookupKey);
+      return x;
+    })
   });
 };
 

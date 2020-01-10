@@ -33,7 +33,6 @@ import { Validate, alphaNumeric } from '../../../helpers/fieldValidations';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import IReactIntl from '../../../Translations/IReactIntl';
 import TypeAhead from '../../TypeAhead/TypeAhead';
-import { dynamicsSubcontractorData } from '../../TypeAhead/TypeAheadConstantData/dynamicSubcontractorData';
 import { IDynamicsOtherSubContractor } from '../../../store/DynamicsData/Types/IDynamicData';
 import ProjectStatus from '../../../enums/ProjectStatus';
 import ProjectActivity from '../ProjectActivities/ProjectActivity';
@@ -370,7 +369,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 							</div>
 							<div className="feed-block-content">
 								<h2>
-									<FormattedMessage id="LABEL_APPROVED_BY" /> <span>John Wick</span>
+									<FormattedMessage id="LABEL_APPROVED_BY" /><i> by</i> <span>John Wick</span>
 								</h2>
 								<span className="feed-date-time">20/11/2019 | 03:40 AM</span>
 								<p>

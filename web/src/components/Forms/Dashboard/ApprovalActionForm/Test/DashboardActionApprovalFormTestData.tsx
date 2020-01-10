@@ -9,7 +9,7 @@ export const intialDashboardState: IProjectDashboardGridState = {
       name: 'a',
       modifiedBy: 'last@name.test',
       modifiedOn: '01-01-19',
-      approvalStatus: '1',
+      approvalStatus: 1,
       projectId: 'GUID'
     }
   ],
@@ -39,7 +39,7 @@ export const getDashboardData: IProjectDashboardGridState = {
       name: '',
       modifiedBy: 'last@name.test',
       modifiedOn: '',
-      approvalStatus: '1',
+      approvalStatus: 1,
       projectId: ''
     }
   ],

@@ -216,3 +216,23 @@ form{
     margin-right: 14px;
     margin-bottom: 12px;
 }
+
+.tick_wrap {
+    background: map-get($colors , lightGreen02 );
+    position: absolute;
+    z-index: 1;
+    width: 26px;
+    height: 26px;
+    left: 0;
+    svg {
+        color: map-get($colors , whiteColor );
+        height: 14px;
+        right: 0;
+        left: 0;
+        margin: auto;
+    }
+}
+
+.p-l-43 {
+    padding-left: 43px;
+}

@@ -3,8 +3,8 @@ import { IPreliminariesItems } from './Types/IPreliminariesItems';
 import { IPreliminaries } from './Types/IPreliminaries';
 import {IAdminDefaults} from "../ProjectOverviewForm/Types/IAdminDefault"
 import AdminFields from '../../enums/AdminFields';
-import PreliminaryComponentField from '../../enums/PreliminaryComponentFields';
 import { CheckConstraints } from '../../helpers/fieldValidations';
+import LookupField from '../../enums/LookupFields';
 
 export const bindUserData = (preliminaryData) => {
     var preliminaryDetails:Array<IPreliminariesComponentDetails>=[];
@@ -18,19 +18,18 @@ export const bindUserData = (preliminaryData) => {
     adminDefaultData.map((x)=>{
         if(x.name==AdminFields.GrossMarginPerc){defaultGrossMargin=parseInt(x.value)}
         if(x.name==AdminFields.CBRELabourRatePerc){labourRate=parseInt(x.value)}
-        
     });
     if(lookupData&&lookupData.length>0)
     {
-        var pre_components=lookupData.filter((data)=>{return data.lookupItem=='Pre_Components'});
-    var pre_component_items=lookupData.filter((data)=>{return data.lookupItem=='Pre_Component_Items'});
+        var pre_components=lookupData.filter((data)=>{return data.lookupItem==LookupField.Pre_Components});
+    var pre_component_items=lookupData.filter((data)=>{return data.lookupItem==LookupField.Pre_Component_Items});
    pre_components.map((components)=>{
     componentDetails.componentId=components.lookupKey.toString();
     componentDetails.componentName=components.description;
     var itemDetails: Array<IPreliminariesItems>=[];
     var preData=preliminaryData!=''?preliminaryData.filter((x)=>{return x.preliminariesComponentId==components.lookupKey}):[];
     pre_component_items.map((item)=>{
-        if(componentDetails.componentId=="13")
+        if(CheckConstraints(componentDetails.componentId))
         {
             if(itemDetails.length<1)
             {

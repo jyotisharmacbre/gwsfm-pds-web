@@ -25,6 +25,14 @@ Object {
       "shortName": "en",
     },
   ],
+  "lookups": Array [
+    Object {
+      "description": "HOP(HOP)",
+      "lookupId": 1,
+      "lookupItem": "Project_Approver_Type",
+      "lookupKey": 1,
+    },
+  ],
   "projectstatus": Array [
     Object {
       "description": "Initial Customer Inquiry",
@@ -59,6 +67,14 @@ Object {
       "languageID": 1,
       "name": "English",
       "shortName": "en",
+    },
+  ],
+  "lookups": Array [
+    Object {
+      "description": "HOP(HOP)",
+      "lookupId": 1,
+      "lookupItem": "Project_Approver_Type",
+      "lookupKey": 1,
     },
   ],
   "projectstatus": Array [
@@ -97,6 +113,14 @@ Object {
       "shortName": "en",
     },
   ],
+  "lookups": Array [
+    Object {
+      "description": "HOP(HOP)",
+      "lookupId": 1,
+      "lookupItem": "Project_Approver_Type",
+      "lookupKey": 1,
+    },
+  ],
   "projectstatus": Array [
     Object {
       "description": "Initial Customer Inquiry",
@@ -131,6 +155,14 @@ Object {
       "languageID": 1,
       "name": "English",
       "shortName": "en",
+    },
+  ],
+  "lookups": Array [
+    Object {
+      "description": "HOP(HOP)",
+      "lookupId": 1,
+      "lookupItem": "Project_Approver_Type",
+      "lookupKey": 1,
     },
   ],
   "projectstatus": Array [
@@ -169,6 +201,14 @@ Object {
       "shortName": "en",
     },
   ],
+  "lookups": Array [
+    Object {
+      "description": "HOP(HOP)",
+      "lookupId": 1,
+      "lookupItem": "Project_Approver_Type",
+      "lookupKey": 1,
+    },
+  ],
   "projectstatus": Array [
     Object {
       "description": "Initial Customer Inquiry",
@@ -203,6 +243,14 @@ Object {
       "languageID": 1,
       "name": "English",
       "shortName": "en",
+    },
+  ],
+  "lookups": Array [
+    Object {
+      "description": "HOP(HOP)",
+      "lookupId": 1,
+      "lookupItem": "Project_Approver_Type",
+      "lookupKey": 1,
     },
   ],
   "projectstatus": Array [
@@ -241,6 +289,14 @@ Object {
       "shortName": "en",
     },
   ],
+  "lookups": Array [
+    Object {
+      "description": "HOP(HOP)",
+      "lookupId": 1,
+      "lookupItem": "Project_Approver_Type",
+      "lookupKey": 1,
+    },
+  ],
   "projectstatus": Array [
     Object {
       "description": "Initial Customer Inquiry",
@@ -277,6 +333,14 @@ Object {
       "shortName": "en",
     },
   ],
+  "lookups": Array [
+    Object {
+      "description": "HOP(HOP)",
+      "lookupId": 1,
+      "lookupItem": "Project_Approver_Type",
+      "lookupKey": 1,
+    },
+  ],
   "projectstatus": Array [
     Object {
       "description": "Initial Customer Inquiry",
@@ -311,6 +375,14 @@ Object {
       "languageID": 1,
       "name": "English",
       "shortName": "en",
+    },
+  ],
+  "lookups": Array [
+    Object {
+      "description": "HOP(HOP)",
+      "lookupId": 1,
+      "lookupItem": "Project_Approver_Type",
+      "lookupKey": 1,
     },
   ],
   "projectstatus": Array [

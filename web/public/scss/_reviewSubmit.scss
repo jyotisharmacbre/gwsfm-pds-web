@@ -65,3 +65,38 @@
         margin-bottom: 0;
     }
 }
+
+/*Query popup*/
+.question_mark_icon {
+    max-width: 40px;
+    margin-bottom: 15px;
+}
+.custom_modal {
+    &.query_modal {
+        &.modal{
+            &.show {
+                .modal-dialog {
+                    max-width: 400px;
+                    width: 100%;
+                }
+                .modal-content {
+                    padding: 20px;
+                    .modal-title {
+                        font-weight: 700;
+                        margin-bottom: 0;
+                    }
+                    p {
+                        margin-bottom: 10px;
+                    }
+                }
+                .close {
+                    position: absolute;
+                    right: 6px;
+                    top: 3px;
+                    color: #818A8F;
+                    font-weight: 400;
+                }
+            }
+        }
+    }
+}
