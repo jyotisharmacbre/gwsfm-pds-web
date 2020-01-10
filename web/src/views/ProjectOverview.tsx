@@ -122,6 +122,7 @@ const ProjectOverview: React.FC<IProps &
     const CurrencyObj = new Currency();
     const [currencySymbol, setCurrencySymbol] = useState<string>('');
     const [customerName, setCustomerName] = useState<string>('');
+    const [projectManager, setProjectManager] = useState<string>('');
     useEffect(() => {
       window.scrollTo(0, 0);
       props.getAllCurrencies();
@@ -205,6 +206,22 @@ const ProjectOverview: React.FC<IProps &
           actions.getListOfContract(props.enquiryOverview.contractorId, getListOfContractSuccess, failure);
       }
     }, [props.enquiryOverview]);
+
+    useEffect(() =>{
+      if (props.enquiryOverview.projectManager)
+        actions.getUserServiceCallback(
+          props.enquiryOverview.projectManager,
+          projectManagerSuccess,
+          failure
+        );
+    }, [props.enquiryOverview]);
+
+    const projectManagerSuccess = response => {
+      let filter = response.find(
+        ele => ele.email == props.enquiryOverview.projectManager
+      );
+      setProjectManager(filter.lastName + ' ' + filter.firstname);
+    };
 
     const getListOfContractSuccess = (response) => {
       setCustomerName(getFilterElementFromArray(
@@ -317,7 +334,7 @@ const ProjectOverview: React.FC<IProps &
                     },
                     {
                       heading: formatMessage('MESSAGE_PROJECT_MANAGER'),
-                      subHeading: props.enquiryOverview.projectManager
+                      subHeading: projectManager
                     },
                     {
                       heading: formatMessage('LABEL_CN_NUMBER'),
