@@ -30,10 +30,9 @@ const PreliminaryInsurranceForm:React.FC<Props>
   return (
   <tbody>
   {props.fields.map((member, index) => (
-   <tr>
-
+   <tr key={index}>
      <td>
-                      <Field
+       <Field
                         name={`${member}.nameOfSupplier`}
                         data-test="nameOfSupplier"
                         type="text"
@@ -52,14 +51,16 @@ const PreliminaryInsurranceForm:React.FC<Props>
                 normalize={restrictMinus}
                 input={{
                   value:calculateTotalCost(getPreliminarySummaryCalculation(props.preliminaryData).cost),
-                  disabled: true,
-                  onchange:updateCost(index)
+                    disabled: true,
+                    onchange: updateCost(index)
+                  
                   }}
                 component={PdsFormInput}
                 className="width-120 pl-20 required currency"
                 validate={[
-                  Validate.maxLength(15),
-                  onlyNumber
+                    Validate.maxLength(15),
+                    onlyNumber
+                  
                 ]}
                 currency={currencySymbol}
                 divPosition="relative"
@@ -73,8 +74,9 @@ const PreliminaryInsurranceForm:React.FC<Props>
                   component={PdsFormInput}
                   className="width-120 pl-20 required currency"
                   validate={[
-                    Validate.maxLength(15),
-                    onlyNumber
+                      Validate.maxLength(15),
+                      onlyNumber
+                    
                   ]}
                   currency={"%"}
                   divPosition="relative"
@@ -91,8 +93,8 @@ const PreliminaryInsurranceForm:React.FC<Props>
                    component={PdsFormInput}
                   className="width-120 pl-20 required currency"
                   validate={[
-                    Validate.maxLength(15),
-                    onlyNumber
+                      Validate.maxLength(15),
+                      onlyNumber
                   ]}
                   currency={currencySymbol}
                   divPosition="relative"
@@ -116,9 +118,8 @@ const PreliminaryInsurranceForm:React.FC<Props>
     </tbody>
   )};
   const mapStateToProps = (state: IState) => ({
-    preliminaryData: selector(state,"preliminaryDetails"),
-    currencies:state.lookup.currencies,
-    currencyId:state.project.form.currencyId
+    preliminaryData: selector(state,"preliminaryDetails")
+   
   });
  const selector=formValueSelector("PreliminaryForm");
 export default connect(mapStateToProps)(PreliminaryInsurranceForm);;

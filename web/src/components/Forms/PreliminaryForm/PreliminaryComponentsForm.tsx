@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { FieldArray} from 'redux-form';
 import { FormattedMessage } from 'react-intl';
 import PreliminaryItemsForm from './PreliminaryItemsForm';
@@ -68,8 +68,8 @@ const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleE
                     <th><FormattedMessage id="T_HEADING_COMMENTS" /></th>
                   </tr>
                 </thead>
-                
-                {!CheckConstraints(prelimData[index].componentId)?<FieldArray 
+                <Suspense fallback={<div>Loading...</div>}>
+                 {!CheckConstraints(prelimData[index].componentId)?<FieldArray 
               name={`${member}.items`} 
               component={PreliminaryItemsForm}
               itemDetail={prelimData[index]}
@@ -86,8 +86,9 @@ const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleE
             currencies={[]}
             currencyId={0}
             currencySymbol={currencySymbol}
-            key={index}/>}
+            key={index}/>} 
            
+           </Suspense>
             </table>
                 </div>
                 </div>

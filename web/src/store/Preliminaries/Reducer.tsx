@@ -1,8 +1,8 @@
 import { ActionType } from './Types/ActionType';
 import {initialState} from './InitialState';
 import { updateObject } from '../../helpers/utility-helper';
-import {bindUserData} from "./DataWrapper";
 import Notify from '../../enums/Notify';
+
 const preliminaryAddSuccess = (oldState, action) => {
  return updateObject(oldState, {
     notify: Notify.success,
@@ -31,9 +31,10 @@ const preliminaryEditError = (oldState, action) => {
 const preliminaryGetSuccess = (oldState, action) => {
   return updateObject(oldState, {
     notify:Notify.none,
-    preliminaryDetails:bindUserData(action.payload)
+    preliminaryDetails:action.payload
   });
 };
+
 const preliminaryGetError = (oldState, action) => {
   return initialState;
 };

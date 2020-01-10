@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Field, formValueSelector } from 'redux-form';
 import PdsFormInput from '../../PdsFormHandlers/PdsFormInput';
 import { Validate, alphaNumeric, onlyNumber } from '../../../helpers/fieldValidations';
@@ -27,14 +27,18 @@ const PreliminaryItemsForm:React.FC<Props>
   const{fields,itemDetail,componentIndex,currencies,currencyId,currencySymbol,preliminaryData}=props;
 
   return (
+    
   <tbody>
+    <Suspense fallback={<div>Loading...</div>}>
   {props.fields.map((member, index) => (
-   <tr>
+    
+   <tr key={index}>
+     
      <td>{props.itemDetail.items[index].itemName}</td>
      <td>
-                       {props.itemDetail.items[index].itemId=="2"||props.itemDetail.items[index].itemId=="3"?<Field
+                       <Field
                         name={`${member}.nameOfSupplier`}
-                        input={{disabled: true} }
+                        input={(props.itemDetail.items[index].itemId=="2"||props.itemDetail.items[index].itemId=="3")?{disabled: true}:{disabled: false} }
                         data-test="nameOfSupplier"
                         type="text"
                         className="width-120 mb-0"
@@ -43,104 +47,63 @@ const PreliminaryItemsForm:React.FC<Props>
                             Validate.maxLength(1000),
                             alphaNumeric
                           ]}
-                      />:<Field
-                      name={`${member}.nameOfSupplier`}
-                      data-test="nameOfSupplier"
-                      type="text"
-                      component={PdsFormInput}
-                      validate={[
-                          Validate.maxLength(1000),
-                          alphaNumeric
-                        ]}
-                    />}
-    </td>
+                      />
+    </td> 
     <td>
-    {(props.itemDetail.items[index].itemId=="1"||props.itemDetail.items[index].itemId=="2")?<Field
+    <Field
                   name={`${member}.noOfHours`}
                   type="number"
-                 input={{ disabled: true}}
+                 input={(props.itemDetail.items[index].itemId=="1"||props.itemDetail.items[index].itemId=="2")?{ disabled: true}:{ disabled: false}}
                  component={PdsFormInput}
                   className="width-120 pl-20 required "
                   validate={[
-                    Validate.maxLength(15),
-                    onlyNumber
+                      Validate.maxLength(15),
+                      onlyNumber
+                    
                   ]}
                   normalize={restrictMinus}
                   divPosition="relative"
-                />:<Field
-                name={`${member}.noOfHours`}
-                type="number"
-                component={PdsFormInput}
-                className="width-120 pl-20 required "
-                validate={[
-                  Validate.maxLength(15),
-                  onlyNumber
-                ]}
-                normalize={restrictMinus}
-                divPosition="relative"
-              />}
+                />
     </td>
-     <td>
-                {(props.itemDetail.items[index].itemId=="1"||props.itemDetail.items[index].itemId=="2")?<Field
+      <td>
+                <Field
                   name={`${member}.hourRate`}
                   type="number"
                   normalize={restrictMinus}                 
-                  input={{ disabled: true}}
+                  input={(props.itemDetail.items[index].itemId=="1"||props.itemDetail.items[index].itemId=="2")?{ disabled: true}:{disabled: false}}
                   component={PdsFormInput}
                   className="width-120 pl-20 required currency"
                   validate={[
-                    Validate.maxLength(15),
-                    onlyNumber
+                      Validate.maxLength(15),
+                      onlyNumber
                   ]}
                   currency={currencySymbol}
                   divPosition="relative"
                   placeholderKey=""
-                />:<Field
-                name={`${member}.hourRate`}
-                type="number"
-                component={PdsFormInput}
-                normalize={restrictMinus}
-                className="width-120 pl-20 required currency"
-                validate={[
-                  Validate.maxLength(15),
-                  onlyNumber
-                ]}
-                currency={currencySymbol}
-                divPosition="relative"
-                placeholderKey=""
-              />}
+                />
     </td>
   <td>
-    {props.itemDetail.items[index].itemId!="3"&&props.itemDetail.items[index].itemId!="4"?<Field
-                  name={`${member}.totalCost`}
-                  type="number"
-                  component={PdsFormInput}
-                  normalize={restrictMinus}
-                  className="width-120 pl-20 required currency"
-                  validate={[
-                    Validate.maxLength(15),
-                    onlyNumber
-                  ]}
-                  currency={currencySymbol}
-                  divPosition="relative"
-                />:<Field
+<Field
                 name={`${member}.totalCost`}
                 type="number"
                 normalize={restrictMinus}
-                input={{
-                  value:calculateCost(props.preliminaryData[props.componentIndex].items[index].noOfHours,props.preliminaryData[props.componentIndex].items[index].hourRate),
-                  disabled: true,
-                  onchange:updateCost(index)
-                  }}
+                input={(props.itemDetail.items[index].itemId!="3"&&props.itemDetail.items[index].itemId!="4")?{
+                    disabled: false
+                   
+                } : {
+                    value: calculateCost(props.preliminaryData[props.componentIndex].items[index].noOfHours, props.preliminaryData[props.componentIndex].items[index].hourRate),
+                        disabled: true,
+                        onchange: updateCost(index)}}
                 component={PdsFormInput}
                 className="width-120 pl-20 required currency"
                 validate={[
-                  Validate.maxLength(15),
-                  onlyNumber
+                    Validate.maxLength(15),
+                    onlyNumber
+                  
                 ]}
                 currency={currencySymbol}
                 divPosition="relative"
-              />}
+              />
     </td>
     <td>
     <Field
@@ -150,8 +113,9 @@ const PreliminaryItemsForm:React.FC<Props>
                   component={PdsFormInput}
                   className="width-120 pl-20 required currency"
                   validate={[
-                    Validate.maxLength(15),
-                    onlyNumber
+                      Validate.maxLength(15),
+                      onlyNumber
+                    
                   ]}
                   currency={"%"}
                   divPosition="relative"
@@ -161,15 +125,16 @@ const PreliminaryItemsForm:React.FC<Props>
     <Field
                   name={'totalSell'}
                   type="text"
-                  input={{
+                   input={{
                     value:calculateSell(props.preliminaryData[props.componentIndex].items[index].totalCost,props.preliminaryData[props.componentIndex].items[index].grossMargin),
                      disabled: true 
                     }}
                    component={PdsFormInput}
                   className="width-120 pl-20 required currency"
                   validate={[
-                    Validate.maxLength(15),
-                    onlyNumber
+                      Validate.maxLength(15),
+                      onlyNumber
+                    
                   ]}
                   currency={currencySymbol}
                   divPosition="relative"
@@ -189,13 +154,13 @@ const PreliminaryItemsForm:React.FC<Props>
     </td>
 
      </tr>
+    
     ))}
+     </Suspense>
     </tbody>
   )};
   const mapStateToProps = (state: IState) => ({
-    preliminaryData: selector(state,"preliminaryDetails"),
-    currencies:state.lookup.currencies,
-    currencyId:state.project.form.currencyId
+    preliminaryData: selector(state,"preliminaryDetails")
   });
  const selector=formValueSelector("PreliminaryForm");
 export default connect(mapStateToProps)(PreliminaryItemsForm);;
