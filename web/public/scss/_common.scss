@@ -1,7 +1,13 @@
 body {
   background-color: map-get($colors, grey04);
   font-family: 'Hind', sans-serif !important;
+  word-break: break-word;
 }
+
+p {
+  word-wrap: break-word;
+}
+
 
 #content {
   width: calc(100% - 250px);
@@ -36,17 +42,20 @@ div#RouteDiv {
 
 ::placeholder {
   /* Firefox, Chrome, Opera */
-  color: map-get($colors, lightenBgColor);
+  color: map-get($colors, grey002) !important;
+  font-weight: 500 !important;
 }
 
 :-ms-input-placeholder {
   /* Internet Explorer 10-11 */
-  color: map-get($colors, lightenBgColor);
+  color: map-get($colors, grey002) !important;
+  font-weight: 500 !important;
 }
 
 ::-ms-input-placeholder {
   /* Microsoft Edge */
-  color: map-get($colors, lightenBgColor);
+  color: map-get($colors, grey002) !important;
+  font-weight: 500 !important;
 }
 
 /*scrollbar */
@@ -94,7 +103,9 @@ form {
     height: auto;
     padding: 10px;
     font-size: 13px;
-    text-transform: capitalize;
+    font-weight: 500;
+    text-transform: initial;
+    color: map-get($colors, grey002) ;
     &:focus {
       @include boxShadow(1px 0px 7px rgba(170, 169, 169, 0.2));
       border: 1px solid transparent;
@@ -130,7 +141,6 @@ form {
     select {
       &.form-control {
         max-width: 285px;
-        color: #999;
         -webkit-appearance: none;
         -moz-appearance: none;
         appearance: none;
@@ -178,9 +188,10 @@ form {
     }
     label {
       padding-left: 10px;
-      color: map-get($colors, grey09);
+      color: map-get($colors, grey03);
       cursor: pointer;
       margin-bottom: 7px !important;
+      font-weight: 500;
       &:before {
         width: 15px;
         height: 15px;
@@ -190,7 +201,7 @@ form {
         content: '';
         display: inline-block;
         @include borderRadius(50px);
-        border: 1px solid map-get($colors, grey09);
+        border: 1px solid map-get($colors, grey03);
         background: transparent;
         z-index: -1;
       }
@@ -252,7 +263,7 @@ button[type="button"] {
     min-width: 160px;
     border: 2px solid map-get($colors, darkGreen);
     text-align: center;
-    letter-spacing: 2px;
+    letter-spacing: initial;
     @include borderRadius(5px);
     color: map-get($colors, whiteColor);
     cursor: pointer;
@@ -285,7 +296,7 @@ button[type="button"] {
 }
 
 .pl-20 {
-  padding-left: 20px !important;
+  padding-left: 25px !important;
 }
 
 .pl-30 {
@@ -407,12 +418,12 @@ button[type="button"] {
     background: map-get($colors, whiteColor) !important;
     border: 1px solid map-get($colors, grey06) !important;
     @include borderRadius(2px);
-    color: map-get($colors, grey06) !important;
-    padding: 8px 25px !important;
+    color: map-get($colors, grey002) !important;
+    padding: 6px 25px !important;
     font-size: 13px !important;
     line-height: normal !important;
     margin-right: 8px !important;
-    font-weight: normal !important;
+    font-weight: 400 !important;
     min-width: 0 !important;
     cursor: pointer !important;
     border-radius: 0 !important;

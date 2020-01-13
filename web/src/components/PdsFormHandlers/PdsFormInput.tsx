@@ -40,11 +40,11 @@ export function PdsFormInput({
         <span
           style={{
             position: 'absolute',
-            top: '39px',
+            top: '41px',
             left: '8px',
             marginRight: '10px',
             fontSize: '14px',
-            color: '#a9b2b5'
+            color: '#818A8F'
           }}
         >
           {currency}
@@ -58,7 +58,7 @@ export function PdsFormInput({
             left: '8px',
             marginRight: '10px',
             fontSize: '14px',
-            color: '#a9b2b5'
+            color: '#818A8F'
           }}
         >
           {discountBind}

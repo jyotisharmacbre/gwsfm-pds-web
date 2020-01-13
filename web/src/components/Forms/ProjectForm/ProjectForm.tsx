@@ -7,7 +7,7 @@ import PdsFormSelect from '../../PdsFormHandlers/PdsFormSelect';
 import PdsFormTextArea from '../../PdsFormHandlers/PdsFormTextArea';
 import PdsFormButton from '../../PdsFormHandlers/PdsFormButton';
 import { selectionButtons } from '../../../helpers/constants';
-import { Validate, alphaNumeric, onlyNumber } from '../../../helpers/fieldValidations';
+import { Validate, alphaNumeric, onlyNumber, OnlyDistinctAssetTypes } from '../../../helpers/fieldValidations';
 import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
 import { FormattedMessage, injectIntl } from 'react-intl';
@@ -417,7 +417,7 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 										onlyNumber
 									]}
 									messageKey="MESSAGE_PROBABILITYOFWINING"
-									normalize={maxLimitTo(0, 100)}
+									normalize={maxLimitTo(0,100)}
 								/>
 
 								<ValidatedNumericInput
@@ -483,7 +483,8 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 											validate={[
 												Validate.required('LABEL_ASSETS_WORKED_ON'),
 												Validate.maxLength(1000),
-												onlyNumber
+												onlyNumber,
+												OnlyDistinctAssetTypes(props.secondAssetWorkedOn, props.thirdAssetWorkedOn)
 											]}
 											normalize={normalizeToNumber}
 										>
@@ -501,6 +502,7 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 											DropdownCheck="selectRound"
 											placeholderKey="PLACEHOLDER_SECOND_ASSET"
 											normalize={normalizeToNumber}
+											validate={OnlyDistinctAssetTypes(props.firstAssetWorkedOn, props.thirdAssetWorkedOn)}
 										>
 											<FormattedMessage id="PLACEHOLDER_SECOND_ASSET">
 												{(message) => <option value="">{message}</option>}
@@ -516,6 +518,7 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 											DropdownCheck="selectRound"
 											placeholderKey="PLACEHOLDER_THIRD_ASSET"
 											normalize={normalizeToNumber}
+											validate={OnlyDistinctAssetTypes(props.firstAssetWorkedOn, props.secondAssetWorkedOn)}
 										>
 											<FormattedMessage id="PLACEHOLDER_THIRD_ASSET">
 												{(message) => <option value="">{message}</option>}
@@ -532,7 +535,7 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 									className="pl-30 width-288"
 									discountBind="%"
 									validate={[Validate.maxLength(3)]}
-									normalize={maxLimitTo(0,100)}
+									normalize={maxLimitTo(0, 100)}
 								/>
 
 								<Field
@@ -565,7 +568,8 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 									labelKey="LABEL_COMMENTS"
 									name="comment"
 									rows="7"
-									component={PdsFormTextArea}
+                  component={PdsFormTextArea}
+                  validate={[Validate.maxLength(5000)]}
 									placeholderKey="PLACEHOLDER_ADDITIONAL_COMMENTS"
 								/>
 							</div>
@@ -601,7 +605,10 @@ const mapStateToProps = (state: IState) => ({
 	companyId: selector(state, 'companyId'),
 	probabilityOfWinning: selector(state, 'probabilityOfWinning'),
 	approximateValue: selector(state, 'approxValue'),
-	userPreferenceCurrencyId: userPreferenceSelector(state, 'currencyId')
+	userPreferenceCurrencyId: userPreferenceSelector(state, 'currencyId'),
+	firstAssetWorkedOn: selector(state, 'firstAssetWorkedOn'),
+	secondAssetWorkedOn: selector(state, 'secondAssetWorkedOn'),
+	thirdAssetWorkedOn: selector(state, 'thirdAssetWorkedOn')
 });
 
 const form = reduxForm<IProjectDetail, Props>({

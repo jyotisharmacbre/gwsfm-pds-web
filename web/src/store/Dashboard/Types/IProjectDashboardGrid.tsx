@@ -2,6 +2,6 @@ export interface IProjectDashboardGrid {
   name: string;
   modifiedBy: string;
   modifiedOn: string;
-  approvalStatus: string;
+  approvalStatus: number;
   projectId: string;
 }

@@ -11,6 +11,7 @@ import { formatMessage } from '../Translations/connectedIntlProvider';
 import { getDisplayName } from '../helpers/auth-helper';
 import { getUserNamesForEmailsService } from '../store/UserService/Action';
 import { IUserServiceData } from '../store/UserService/Types/IUserService';
+import Notify from '../enums/Notify';
 interface IMapDispatchToProps {
   dashboardGridDetail: () => void;
   getLookups: () => void;
@@ -25,7 +26,6 @@ interface IMapStateToProps {
 const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = props => {
   useEffect(() => {
     props.getLookups();
-    props.dashboardGridDetail();
   }, []);
   useEffect(() => {
     if (props.dashboardGridValues.length > 0) {
@@ -39,6 +39,9 @@ const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = props => {
       if (allEmails.length > 0) props.handleGetUserNamesForEmails(allEmails);
     }
   }, [props.dashboardGridValues]);
+  useEffect(() => {
+      props.dashboardGridDetail();
+  }, [props.lookupDetails]);
   return (
     <div>
       <div className="container">

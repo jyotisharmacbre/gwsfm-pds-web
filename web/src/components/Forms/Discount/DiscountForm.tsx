@@ -219,7 +219,7 @@ let DiscountForm: React.FC<
 									</div>
 									<Field
 										name="clientDiscount"
-										type="text"
+										type="number"
 										className="width-120 pl-20"
 										component={PdsFormInput}
 										validate={[ Validate.maxLength(15) ]}

@@ -44,12 +44,12 @@ Object {
     },
     "projectApprovals": Array [
       Object {
-        "approvalStatus": "",
+        "approvalStatus": 0,
         "approvalStatusDescription": "",
-        "approverType": "",
+        "approverType": 0,
         "approverTypeDescription": "",
         "projectApprovalId": "",
-        "projectApprovalRange": "",
+        "projectApprovalRange": 0,
         "projectApprovalRangeDescription": "",
         "projectId": "",
         "showRangeLabel": true,
@@ -106,12 +106,12 @@ Object {
     },
     "projectApprovals": Array [
       Object {
-        "approvalStatus": "",
+        "approvalStatus": 0,
         "approvalStatusDescription": "",
-        "approverType": "",
+        "approverType": 0,
         "approverTypeDescription": "",
         "projectApprovalId": "",
-        "projectApprovalRange": "",
+        "projectApprovalRange": 0,
         "projectApprovalRangeDescription": "",
         "projectId": "",
         "showRangeLabel": true,
@@ -168,12 +168,12 @@ Object {
     },
     "projectApprovals": Array [
       Object {
-        "approvalStatus": "",
+        "approvalStatus": 0,
         "approvalStatusDescription": "",
-        "approverType": "",
+        "approverType": 0,
         "approverTypeDescription": "",
         "projectApprovalId": "",
-        "projectApprovalRange": "",
+        "projectApprovalRange": 0,
         "projectApprovalRangeDescription": "",
         "projectId": "",
         "showRangeLabel": true,
@@ -230,12 +230,12 @@ Object {
     },
     "projectApprovals": Array [
       Object {
-        "approvalStatus": "",
+        "approvalStatus": 0,
         "approvalStatusDescription": "",
-        "approverType": "",
+        "approverType": 0,
         "approverTypeDescription": "",
         "projectApprovalId": "",
-        "projectApprovalRange": "",
+        "projectApprovalRange": 0,
         "projectApprovalRangeDescription": "",
         "projectId": "",
         "showRangeLabel": true,
