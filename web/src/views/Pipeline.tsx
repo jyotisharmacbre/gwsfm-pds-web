@@ -21,9 +21,10 @@ const ProjectPipeline: React.FC<IMapStateToProps &
   IMapDispatchToProps> = props => {
   useEffect(() => {
     props.getLookups();
-
-    props.projectPipelineGridDetail();
   }, []);
+  useEffect(() => {
+      props.projectPipelineGridDetail();
+  }, [props.lookupDetails]);
   return (
     <div className="container-fluid">
       <div className="row">
@@ -52,9 +53,7 @@ const ProjectPipeline: React.FC<IMapStateToProps &
 
 const mapStateToProps = (state: IState) => ({
   lookupDetails: state.lookup.projectstatus,
-
-  projectPipeline: state.pipelineGrid.pipelineDetails,
-
+  projectPipeline: state.pipelineGrid.pipelineDetails
 });
 
 const mapDispatchToProps = dispatch => {

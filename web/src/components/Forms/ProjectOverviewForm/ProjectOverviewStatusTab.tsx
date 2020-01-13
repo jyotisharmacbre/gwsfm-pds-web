@@ -60,7 +60,7 @@ const ProjectOverviewStatusTab: React.FC<IProps & IReactIntl> = props => {
                     <div className="status-dropdown">
                         <div className="status-dropdown-btn toggle">
 
-                            <span data-test="toggleStatusTab" id="toggleStatusTab" className={(props.status == ProjectStatus.BidLost || props.status == ProjectStatus.OnHold) ? "dropdown-placeholder link_disabled p-0" : "dropdown-placeholder p-0"} onClick={() => handleToggleStatusTab()}>Status:&nbsp; <strong>{props.statusName}
+                            <span data-test="toggleStatusTab" id="toggleStatusTab" className={(props.status == ProjectStatus.BidLost || props.status == ProjectStatus.OnHold) ? "dropdown-placeholder link_disabled p-0" : "dropdown-placeholder p-0"} onClick={() => handleToggleStatusTab()}><FormattedMessage id="LABEL_STATUS" />:&nbsp; <strong>{props.statusName}
                             </strong>
                             {(props.status != ProjectStatus.BidLost && props.status != ProjectStatus.OnHold) ? <FontAwesomeIcon className="active mrgnlft10" icon={faPencilAlt} /> : null}
                             </span>
@@ -68,7 +68,7 @@ const ProjectOverviewStatusTab: React.FC<IProps & IReactIntl> = props => {
                         
                         {(props.status != ProjectStatus.BidLost && props.status != ProjectStatus.OnHold) ?
                             <div className="status-dropdown-menu hide status-hidden toggle-list" data-test="statusTab" id="statusTab">
-                                <p>Change Status to</p>
+                                <p><FormattedMessage id="TITLE_CHANGE_STATUS_TO" /></p>
                                 <ul className="status-dropdown-list status-scrollable">
                                     <li data-test="bidlost" className={(props.status == 4) ? "status-dropdown-item mrgnlft10 status-selected link_disabled" : "status-dropdown-item mrgnlft10"} onClick={() =>
                                         confirmAlert({
@@ -78,8 +78,7 @@ const ProjectOverviewStatusTab: React.FC<IProps & IReactIntl> = props => {
                                             handleConfirm: () => props.handleBidLost()
                                         })
                                     }>
-                                        <a title="Bid Lost">Bid
-                                                                Lost</a></li>
+                                        <a title="Bid Lost"><FormattedMessage id="TITLE_BID_LOST" /></a></li>
                                     <li data-test="onhold" className={(props.status == 6) ? "status-dropdown-item mrgnlft10 status-selected link_disabled" : "status-dropdown-item mrgnlft10 "} onClick={() =>
                                         confirmAlert({
                                             intl: props.intl,
@@ -88,8 +87,7 @@ const ProjectOverviewStatusTab: React.FC<IProps & IReactIntl> = props => {
                                             handleConfirm: () => props.handleOnHold()
                                         })}>
                                         <a
-                                            title="On Hold">On
-                                                                Hold</a></li>
+                                            title="On Hold"><FormattedMessage id="TITLE_ON_HOLD" /></a></li>
 
                                 </ul>
 
@@ -109,7 +107,7 @@ const ProjectOverviewStatusTab: React.FC<IProps & IReactIntl> = props => {
                                         contentKey: "MESSAGE_PROJECT_REACTIVATE",
                                         handleConfirm: () => props.onReactivate()
                                     })}>
-                                <FontAwesomeIcon className="active mrgnrght10 activate_btn" icon={faLightbulb} />ACTIVATE
+                                <FontAwesomeIcon className="active mrgnrght10 activate_btn" icon={faLightbulb} /><FormattedMessage id="TITLE_ACTIVATE" />
                                             </button>
                         </span>
                     </div>   : null}             

@@ -52,5 +52,6 @@ export {
 	changeProjectStatusToBidLost,
 	changeProjectStatusToOnHold,
 	reactivateProject,
-	updateProjectStatusToInReview
+	updateProjectStatusToInReview,
+	projectApprove
 } from './WorkflowService/Actions';

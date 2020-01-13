@@ -22,10 +22,20 @@ export const preliminariuserData: Array<IPreliminariesComponentDetails> = [
         totalCost: 0,
         grossMargin: 0,
         comments: 'test'
+      },
+      {
+        itemId: '2',
+        itemName: 'Sub-Contractor-second',
+        preliminaryId: '',
+        nameOfSupplier: 'test',
+        noOfHours: 0,
+        hourRate: 0,
+        totalCost: 0,
+        grossMargin: 0,
+        comments: 'test'
       }
     ]
   }
-
 ];
 export const currencies: Array<ICurrency> = [
 
