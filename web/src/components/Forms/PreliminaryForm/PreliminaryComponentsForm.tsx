@@ -22,7 +22,7 @@ interface Props {
       
 }  
 
-const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleEvent,prelimData,currencySymbol}) => (
+const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleEvent,prelimData,currencySymbol}) =>(
 
   <div>
   {fields.map((member, index) => (
@@ -34,9 +34,10 @@ const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleE
               data-test="collapse"
               onClick={()=>onToggleEvent(prelimData[index].componentId)}
             >
-              <div className="tick_wrap">
+               {prelimData[index].items.find(x=>x.preliminaryId)? <div className="tick_wrap">
               <FontAwesomeIcon icon={faCheck} />
-              </div>
+              </div> : "" }
+             
               <a className="card-link" >{prelimData[index].componentName}</a>
              
               <span aria-hidden="true">
