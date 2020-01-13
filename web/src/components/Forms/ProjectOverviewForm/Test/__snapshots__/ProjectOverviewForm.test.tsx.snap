@@ -61,6 +61,12 @@ Object {
   "initialStateSetForProjectApprovals": false,
   "loading": false,
   "notify": 2,
+  "projectActivities": Object {
+    "data": Array [],
+    "error": null,
+    "loading": false,
+    "notify": 0,
+  },
 }
 `;
 
@@ -123,6 +129,12 @@ Object {
   "initialStateSetForProjectApprovals": false,
   "loading": false,
   "notify": 1,
+  "projectActivities": Object {
+    "data": Array [],
+    "error": null,
+    "loading": false,
+    "notify": 0,
+  },
 }
 `;
 
@@ -185,6 +197,12 @@ Object {
   "initialStateSetForProjectApprovals": false,
   "loading": false,
   "notify": 1,
+  "projectActivities": Object {
+    "data": Array [],
+    "error": null,
+    "loading": false,
+    "notify": 0,
+  },
 }
 `;
 
@@ -247,5 +265,11 @@ Object {
   "initialStateSetForProjectApprovals": false,
   "loading": false,
   "notify": 0,
+  "projectActivities": Object {
+    "data": Array [],
+    "error": null,
+    "loading": false,
+    "notify": 0,
+  },
 }
 `;
