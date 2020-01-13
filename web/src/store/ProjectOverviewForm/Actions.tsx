@@ -46,6 +46,19 @@ const getAdditionalDetailsError = (error: string) => {
 	};
 };
 
+const getProjectActivitiesSuccess = (response: any) => {
+	return {
+		type: ActionType.GET_PROJECT_ACTIVITIES_SUCCESS,
+		payload: response
+	};
+};
+
+const getProjectActivitiesError = (error: string) => {
+	return {
+		type: ActionType.GET_PROJECT_ACTIVITIES_ERROR,
+		payload: error
+	};
+};
 export const setupPojectApprovalsInitialData = (lookupdata: Array<ILookup>, currencySymbol: string, projectId: string) => {
 	return (dispatch: Dispatch) => {
 		dispatch({ type: ActionType.BIND_PROJECT_APPROVAL_INITIAL_DATA, payload: { lookupdata, currencySymbol, projectId } });
@@ -124,5 +137,18 @@ export const getAdminDefaultValues = (countryId: number) => {
 				})
 				.catch((error) => { });
 		}
+	};
+};
+
+export const getProjectActivities = (projectId: string) => {
+	return (dispatch: Dispatch) => {
+		axios.baseAPI
+			.get(`api/Projects/${projectId}/projectActivities`, config)
+			.then((response) => {
+				dispatch(getProjectActivitiesSuccess(response.data));
+			})
+			.catch((error) => {
+				dispatch(getProjectActivitiesError(error));
+			});
 	};
 };

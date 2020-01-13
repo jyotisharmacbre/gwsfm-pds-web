@@ -3,7 +3,7 @@ import { IProjectDetail } from '../../../store/CustomerEnquiryForm/Types/IProjec
 import { ILookup } from '../../../store/Lookups/Types/ILookup';
 import { LookupType } from '../../../store/Lookups/Types/LookupType';
 import { IProjectOverviewDetails } from '../../../store/ProjectOverviewForm/Types/IProjectOverviewDetails';
-import { convertDate } from '../../../helpers/utility-helper';
+import { formatDate } from '../../../helpers/utility-helper';
 import { FormattedMessage } from 'react-intl';
 
 interface IProps {
@@ -203,7 +203,7 @@ const ProjectOverviewSummary: React.FC<IProps> = props => {
                     <FormattedMessage id="LABEL_COMMENCE_DATE" />
                   </label>
                   <p>
-                    {convertDate(
+                    {formatDate(
                       props.projectOverview.projectAdditionalDetail.commenceDate
                     )}
                   </p>
@@ -213,7 +213,7 @@ const ProjectOverviewSummary: React.FC<IProps> = props => {
                     <FormattedMessage id="LABEL_COMPLETION_DATE" />
                   </label>
                   <p>
-                    {convertDate(
+                    {formatDate(
                       props.projectOverview.projectAdditionalDetail
                         .completionDate
                     )}
@@ -234,7 +234,7 @@ const ProjectOverviewSummary: React.FC<IProps> = props => {
                     <FormattedMessage id="LABEL_FIRST_VALUATION_DATE" />
                   </label>
                   <p>
-                    {convertDate(
+                    {formatDate(
                       props.projectOverview.projectAdditionalDetail
                         .firstValuationDate
                     )}
@@ -245,7 +245,7 @@ const ProjectOverviewSummary: React.FC<IProps> = props => {
                     <FormattedMessage id="LABEL_FINAL_ACCOUNT_DATE" />
                   </label>
                   <p>
-                    {convertDate(
+                    {formatDate(
                       props.projectOverview.projectAdditionalDetail
                         .finalAccountDate
                     )}

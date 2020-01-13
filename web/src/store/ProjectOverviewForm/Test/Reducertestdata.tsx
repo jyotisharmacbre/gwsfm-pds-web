@@ -185,7 +185,13 @@ export const initialState: IProjectOverviewState = {
   loading: false,
   notify: Notify.none,
   event: EventType.none,
-  initialStateSetForProjectApprovals: false
+  initialStateSetForProjectApprovals: false,
+  projectActivities:{
+        error:null,
+        loading:false,
+        notify: Notify.none,
+        data:[]
+    }
 };
 
 export const existingProjectApprovalData: IProjectApprovals[] = [
