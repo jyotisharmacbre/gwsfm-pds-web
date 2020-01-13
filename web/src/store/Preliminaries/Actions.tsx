@@ -4,7 +4,7 @@ import { Dispatch } from 'redux';
 import { IPreliminaries } from './Types/IPreliminaries';
 import EventType from '../../enums/EventType';
 import { isProjectStateInReview } from '../store-helper';
-
+import { bindUserData } from './DataWrapper';
 const preliminaryAddSuccess = (response: any, event: EventType) => {
 	return {
 		type: ActionType.PRELIMINARY_ADD_SUCCESS,
@@ -84,7 +84,7 @@ export const getPreliminaryDetails = (projectId: string) => {
 		axios.baseAPI
 			.get(`api/Preliminaries/${projectId}/preliminaryDetails`, config)
 			.then((response) => {
-				dispatch(preliminaryGetDataSuccess(response.data));
+				dispatch(preliminaryGetDataSuccess(bindUserData(response.data)));	
 			})
 			.catch((error) => {
 				dispatch(preliminaryGetDataError(error));

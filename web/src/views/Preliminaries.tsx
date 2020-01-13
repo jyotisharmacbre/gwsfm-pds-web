@@ -1,9 +1,8 @@
-import React, { useEffect,useState } from 'react';
+import React, { useEffect,useState, Suspense } from 'react';
 import { connect } from 'react-redux';
 import { IState } from '../store/state';
 import { IPreliminariesComponentDetails } from '../store/Preliminaries/Types/IPreliminariesComponentDetails';
 import * as actions from '../store/rootActions';
-import PreliminaryForm from '../components/Forms/PreliminaryForm/PreliminaryForm';
 import { IPreliminaries } from '../store/Preliminaries/Types/IPreliminaries';
 import { convertIntoDatabaseModel } from "../store/Preliminaries/DataWrapper";
 import { toast } from 'react-toastify';
@@ -12,14 +11,14 @@ import { ILookup } from '../store/Lookups/Types/ILookup';
 import { ICurrency } from '../store/Lookups/Types/ICurrency';
 import { FormattedMessage } from 'react-intl';
 import EventType from '../enums/EventType';
-import CalculationsSummaryTable from '../components/Table/CalculationsSummaryTable';
 import { getPropertyName,getFilterElementFromArray,getClassNameForProjectStatus } from '../helpers/utility-helper';
 import { formValueSelector } from 'redux-form';
 import Currency from '../store/Lookups/InitialState/Currency';
-import ProjectStatus from '../enums/ProjectStatus';
 import { History } from 'history';
 import { ISubContractorActivity } from '../store/SubContractor/Types/ISubContractorActivity';
 import { IDiscountActivity } from '../store/DiscountForm/Types/IDiscountActivity';
+import CalculationsSummaryTable from '../components/Table/CalculationsSummaryTable';
+import PreliminaryForm from '../components/Forms/PreliminaryForm/PreliminaryForm';
 interface IMapStateToProps {
   preliminaryDetails: Array<IPreliminariesComponentDetails>;
   lookupData: Array<ILookup>;
@@ -55,20 +54,28 @@ interface IMapDispatchToProps {
 const Preliminaries: React.FC<
   IMapStateToProps & IMapDispatchToProps
 > = props => {
-  let paramProjectId: string = '';
-  const CurrencyObj = new Currency();
+const CurrencyObj = new Currency();
   const [ currencySymbol, setCurrencySymbol ] = useState<string>('');
   let isLookupSessionExists: boolean = (sessionStorage.getItem("lookupData") != null && sessionStorage.getItem("lookupData") != undefined && sessionStorage.getItem("lookupData") != "")
 
  
   useEffect(() => {
     window.scrollTo(0, 0);
-    paramProjectId=props.match.params.projectId;
-    props.getProjectDetail(paramProjectId);
+    if(!props.currencyId&&!props.status)
+    {
+      props.getProjectDetail(props.match.params.projectId);
+    }
+   if(!isLookupSessionExists)
+   {
     props.getProjectStatus();
-    props.getAllCurrencies();
-    if (paramProjectId != null && paramProjectId != '' && paramProjectId != undefined && isLookupSessionExists) {
-      props.getPreliminaryDetails(paramProjectId);
+   }
+    if(!props.currencies)
+    {
+      props.getAllCurrencies();
+    }
+    
+    if ((props.match.params.projectId&& isLookupSessionExists)&&props.preliminaryDetails.length<1) {
+      props.getPreliminaryDetails(props.match.params.projectId);
     }
   }, []);
   useEffect(() => {
@@ -99,12 +106,6 @@ const Preliminaries: React.FC<
 		},
 		[ props.currencyId, props.currencies ]
 	);
-  useEffect(() => {
-    const paramProjectId = props.match.params.projectId;
-    if (paramProjectId != null && paramProjectId != '' && paramProjectId != undefined && isLookupSessionExists) {
-      props.getPreliminaryDetails(paramProjectId);
-    }
-  }, [props.lookupData]);
 
   const [isExpand, handleExpandAllEvent] = useState(false);
 
@@ -130,12 +131,11 @@ const Preliminaries: React.FC<
   ) => {
     var editData: Array<IPreliminaries> = [];
     var saveData: Array<IPreliminaries> = [];
-    paramProjectId = props.match.params.projectId;
     let preData: Array<IPreliminariesComponentDetails> = [];
     preData.push(preliminaryDetails.preliminaryDetails[index]);
     var preliminariesData: Array<IPreliminaries> = saveAll ?
-      convertIntoDatabaseModel(preliminaryDetails.preliminaryDetails, paramProjectId) :
-      convertIntoDatabaseModel(preData, paramProjectId)
+      convertIntoDatabaseModel(preliminaryDetails.preliminaryDetails, props.match.params.projectId) :
+      convertIntoDatabaseModel(preData, props.match.params.projectId)
     editData = preliminariesData.filter((data) => {
       return (data.TotalCost > 0 && data.PreliminaryId != '');
     })
@@ -171,12 +171,14 @@ const Preliminaries: React.FC<
                 <div className="row">
                   <div className="col-lg-9">
                     <div className="table-responsive">
+                   
                       <CalculationsSummaryTable
                         preliminary={props.preliminaryForm}
                         subContractor={props.subContractorState}
                         discount={props.discountState}
                         currencySymbol={currencySymbol}
                       />
+                 
                     </div>
                   </div>
                   <div className="col-lg-3">
@@ -189,7 +191,8 @@ const Preliminaries: React.FC<
               </div>
             </div>
 
-            <div>
+            {props.preliminaryDetails.length>0?<div>
+            
               <PreliminaryForm
                 onSave={handleSaveData}
                 onPrevious={handlePrevious}
@@ -209,7 +212,8 @@ const Preliminaries: React.FC<
                   )
                   )}
               />
-            </div>
+             
+            </div>:null}
           </form>
         </div>
       </div>
