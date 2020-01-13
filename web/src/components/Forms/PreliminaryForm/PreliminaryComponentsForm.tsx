@@ -33,6 +33,7 @@ const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleE
             <div
               className="card-header p-l-43"
               data-toggle="collapse"
+              data-test="tickWrap"
               
               
             >
