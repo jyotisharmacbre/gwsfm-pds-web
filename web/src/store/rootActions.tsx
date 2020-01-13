@@ -1,66 +1,56 @@
 export {
-  projectOverviewFormAdd,
-  projectOverviewFormEdit,
-  getAdditionalDetails,
-  resetProjectOverviewState,
-  getAdminDefaultValues,
-  setupPojectApprovalsInitialData
+	projectOverviewFormAdd,
+	projectOverviewFormEdit,
+	getAdditionalDetails,
+	resetProjectOverviewState,
+	getAdminDefaultValues,
+	setupPojectApprovalsInitialData,
+	getProjectActivities
 } from './ProjectOverviewForm/Actions';
 
 export {
-  projectDetailAdd,
-  getEnquiryOverview,
-  getProjectDetail,
-  resetProjectDetailState,
-  projectDetailEdit,
-  changeProjectStatus,
-  resetProjectDetailStateToInitial,
+	projectDetailAdd,
+	getEnquiryOverview,
+	getProjectDetail,
+	resetProjectDetailState,
+	projectDetailEdit,
+	changeProjectStatus,
+	resetProjectDetailStateToInitial
 } from './CustomerEnquiryForm/Action';
 
 export {
-  getProjectStatus,
-  getAllCurrencies,
-  getAllLanguages,
-  getAllContries,
-  getLookupsByLookupItems
+	getProjectStatus,
+	getAllCurrencies,
+	getAllLanguages,
+	getAllContries,
+	getLookupsByLookupItems
 } from './Lookups/Actions';
-export {
-  preliminaryAdd,
-  preliminaryEdit,
-  getPreliminaryDetails
-} from './Preliminaries/Actions';
+export { preliminaryAdd, preliminaryEdit, getPreliminaryDetails } from './Preliminaries/Actions';
 
+export { discountFormAdd, discountFormEdit, resetDiscountState, getDiscountData } from './DiscountForm/Actions';
 export {
-  discountFormAdd,
-  discountFormEdit,
-  resetDiscountState,
-  getDiscountData
-} from './DiscountForm/Actions';
-export {
-  subContractorFormAdd,
-  subContractorFormEdit,
-  getSubContractor,
-  resetSubContractorState
+	subContractorFormAdd,
+	subContractorFormEdit,
+	getSubContractor,
+	resetSubContractorState
 } from './SubContractor/Actions';
 
 export { userPreferencesFormEdit } from './UserPreferencesForm/Actions';
 
 export {
-  getDynamicContractData,
-  getDynamicCompanyData,
-  getDynamicSubContractorData,
-  getDynamicOther,
-  getListOfCompanies,
-  getListOfContract
+	getDynamicContractData,
+	getDynamicCompanyData,
+	getDynamicSubContractorData,
+	getDynamicOther,
+	getListOfCompanies,
+	getListOfContract
 } from './DynamicsData/Action';
 
-export { getUserService, getUserServiceCallback } from './UserService/Action';
+export { getUserService, getUserServiceCallback, getUserNamesForEmails } from './UserService/Action';
 
 export {
-  changeProjectStatusToBidLost,
-  changeProjectStatusToOnHold,
-  reactivateProject,
-  updateProjectStatusToInReview
-
+	changeProjectStatusToBidLost,
+	changeProjectStatusToOnHold,
+	reactivateProject,
+	updateProjectStatusToInReview
 } from './WorkflowService/Actions';
-

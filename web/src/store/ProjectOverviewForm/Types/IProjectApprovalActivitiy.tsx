@@ -1,8 +1,12 @@
+import ProjectApprovalActivityType from '../../../enums/ProjectApprovalActivityType';
+
 export interface IProjectApprovalActivitiy {
-  ApprovalActivityId: string;
-  ProjectId: string;
-  ApproverTypeId: string;
-  ApproverUserId: string;
-  Query: string;
-  ActivityType: string;
+  projectActivityId: string;
+  projectId: string;
+  approverType: number;
+  userId: string;
+  query: string;
+  activityType: ProjectApprovalActivityType;
+  createdBy: string;
+  createdOn: string;
 }

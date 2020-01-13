@@ -69,11 +69,22 @@ export const getUserNamesForEmailsService = (data: any) => {
 				data,
 				config
 			)
-			.then(response => {
+			.then((response) => {
 				dispatch(getUserNamesForEmailsServiceSuccess(response.data));
 			})
-			.catch(error => {
+			.catch((error) => {
 				dispatch(getUserNamesForEmailsServiceError(error));
 			});
 	};
+};
+
+export const getUserNamesForEmails = (data: Array<string>, success, failure) => {
+	axios.userServiceAPI
+		.post(`/api/identity/users/getusernamesforemailids`, data, config)
+		.then((response) => {
+			success(response.data);
+		})
+		.catch((error) => {
+			failure(error);
+		});
 };
