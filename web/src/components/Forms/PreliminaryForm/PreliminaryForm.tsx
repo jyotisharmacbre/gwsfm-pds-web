@@ -14,6 +14,7 @@ interface Props {
   onToggle:(id:string)=>void;
   preliminariesDetails: any;
   currencySymbol:string;
+  isExpand: boolean;
 }
 let PreliminaryForm: React.FC<
   Props &IReactIntl& InjectedFormProps<IPreliminaryForm, Props>
@@ -34,6 +35,7 @@ let PreliminaryForm: React.FC<
       prelimData={props.preliminariesDetails}
       handleSubmit={handleSubmit}
       currencySymbol={props.currencySymbol}
+      isExpand= {props.isExpand}
        />
      <div className="mr-35 three-btn">
          <button
