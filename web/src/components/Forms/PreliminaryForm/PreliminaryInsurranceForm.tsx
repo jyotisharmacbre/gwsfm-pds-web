@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import { ICurrency } from '../../../store/Lookups/Types/ICurrency';
 import { IPreliminariesComponentDetails } from '../../../store/Preliminaries/Types/IPreliminariesComponentDetails';
 import { getPreliminarySummaryCalculation } from '../../../helpers/pricing-calculation-helper';
+import ValidatedNumericInput from '../../NumericInput';
 interface Props {
   fields:any;
       itemDetail:any;
@@ -45,7 +46,7 @@ const PreliminaryInsurranceForm:React.FC<Props>
                       />
     </td>
   <td>
-    <Field
+    <ValidatedNumericInput
                 name={`${member}.totalCost`}
                 type="number"
                 normalize={restrictMinus}
@@ -67,7 +68,7 @@ const PreliminaryInsurranceForm:React.FC<Props>
               />
     </td>
     <td>
-    <Field
+    <ValidatedNumericInput
                   name={`${member}.grossMargin`}
                   type="number"
                   normalize={restrictMinus}

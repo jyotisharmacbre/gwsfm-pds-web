@@ -1,9 +1,22 @@
+.subcontractor_form{
+    .low {
+        .row{
+            &:last-child {
+                .forms_wrap {
+                    background-color: red;
+                }
+            }
+        }
+    }
+} 
+
 .forms_wrap {
     background: map-get($colors , whiteColor );
     @include boxShadow(0px 0px 13px rgba(76, 76, 76, 0.1));
     padding: 20px 25px 25px;
     position: relative;
     @include borderRadius(5px);
+    margin-bottom: 25px;
     .delete_text {
         position: absolute;
         right: 25px;
@@ -63,7 +76,7 @@
 
 .newActiv_btn {
     text-align: right;
-    margin: 40px 0;
+    margin: 15px 0 40px 0;
     position: relative;
     button {
         margin-right: 0;

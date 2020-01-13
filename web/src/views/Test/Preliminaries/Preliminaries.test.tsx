@@ -87,4 +87,18 @@ describe('Preliminaries component test cases', () => {
 		setUpStore(initialState, lookUpInitialState, data, subcontractorInitialState);
 		expect(wrapper.find('.link_disabled').length).toBeGreaterThan(0);
 	});
+	it('should show collapse all button and hide expandall button on click on expand all button', () => {
+		const btnExpandAll = findByTestAtrr(wrapper, 'btn-expandall').first();
+		const btnCollapseAll = findByTestAtrr(wrapper, 'btn-collapseall').first();
+		btnExpandAll.simulate('click');
+		expect(btnExpandAll.hasClass('hide')).toBeTruthy;
+		expect(btnCollapseAll.hasClass('show')).toBeTruthy;
+	});
+	it('should show expandall all button and hide collapse button on click on collapse all button', () => {
+		const btnExpandAll = findByTestAtrr(wrapper, 'btn-expandall').first();
+		const btnCollapseAll = findByTestAtrr(wrapper, 'btn-collapseall').first();
+		btnCollapseAll.simulate('click');
+		expect(btnCollapseAll.hasClass('hide')).toBeTruthy;
+		expect(btnExpandAll.hasClass('show')).toBeTruthy;
+	});
 });

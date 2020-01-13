@@ -74,3 +74,10 @@ export const isCBRELabourOrAgencyLabourExists=(id:string)=>{
   }
   return isExists;
 }
+export const OnlyDistinctAssetTypes = (first, second) => value => {
+  if ((second > 0 && value > 0 && (second === value)) || (first > 0 && value > 0 && (first === value))) {
+    return `${formatMessage('ASSET_ALREADY_SELECTED_VALIDATION_KEY', {
+      0: formatMessage('20')
+    })}`;
+  }
+}

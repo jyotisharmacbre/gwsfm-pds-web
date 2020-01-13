@@ -8,6 +8,7 @@ import { IState } from '../../../store/state';
 import { connect } from 'react-redux';
 import { ICurrency } from '../../../store/Lookups/Types/ICurrency';
 import { IPreliminariesComponentDetails } from '../../../store/Preliminaries/Types/IPreliminariesComponentDetails';
+import ValidatedNumericInput from '../../NumericInput';
 interface Props {
   fields:any;
       itemDetail:any;
@@ -56,7 +57,7 @@ const PreliminaryItemsForm:React.FC<Props>
                     />}
     </td>
     <td>
-    {(isLumpSumOrSubContractorExists(props.itemDetail.items[index].itemId))?<Field
+    {(isLumpSumOrSubContractorExists(props.itemDetail.items[index].itemId))?<ValidatedNumericInput
                   name={`${member}.noOfHours`}
                   type="number"
                  input={{ disabled: true}}
@@ -68,7 +69,7 @@ const PreliminaryItemsForm:React.FC<Props>
                   ]}
                   normalize={restrictMinus}
                   divPosition="relative"
-                />:<Field
+                />:<ValidatedNumericInput
                 name={`${member}.noOfHours`}
                 type="number"
                 component={PdsFormInput}
@@ -82,7 +83,7 @@ const PreliminaryItemsForm:React.FC<Props>
               />}
     </td>
      <td>
-                {(isLumpSumOrSubContractorExists(props.itemDetail.items[index].itemId))?<Field
+                {(isLumpSumOrSubContractorExists(props.itemDetail.items[index].itemId))?<ValidatedNumericInput
                   name={`${member}.hourRate`}
                   type="number"
                   normalize={restrictMinus}                 
@@ -96,7 +97,7 @@ const PreliminaryItemsForm:React.FC<Props>
                   currency={currencySymbol}
                   divPosition="relative"
                   placeholderKey=""
-                />:<Field
+                />:<ValidatedNumericInput
                 name={`${member}.hourRate`}
                 type="number"
                 component={PdsFormInput}
@@ -112,7 +113,7 @@ const PreliminaryItemsForm:React.FC<Props>
               />}
     </td>
   <td>
-    {isCBRELabourOrAgencyLabourExists(props.itemDetail.items[index].itemId)?<Field
+    {isCBRELabourOrAgencyLabourExists(props.itemDetail.items[index].itemId)?<ValidatedNumericInput
                   name={`${member}.totalCost`}
                   type="number"
                   component={PdsFormInput}
@@ -124,7 +125,7 @@ const PreliminaryItemsForm:React.FC<Props>
                   ]}
                   currency={currencySymbol}
                   divPosition="relative"
-                />:<Field
+                />:<ValidatedNumericInput
                 name={`${member}.totalCost`}
                 type="number"
                 normalize={restrictMinus}
@@ -144,7 +145,7 @@ const PreliminaryItemsForm:React.FC<Props>
               />}
     </td>
     <td>
-    <Field
+    <ValidatedNumericInput
                   name={`${member}.grossMargin`}
                   type="number"
                   normalize={restrictMinus}
