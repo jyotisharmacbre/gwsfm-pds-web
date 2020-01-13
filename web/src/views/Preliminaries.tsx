@@ -161,7 +161,6 @@ const CurrencyObj = new Currency();
     <div className="container-fluid">
       <div data-test="pre_row_status"  className={`${getClassNameForProjectStatus(props.status)} row`}>
         <div className="col-lg-12">
-        <Suspense fallback={<div>Loading...</div>}>
           <form className="custom-wrap">
             <div className="heading-subtitle">
               <h1>
@@ -220,7 +219,6 @@ const CurrencyObj = new Currency();
              
             </div>:null}
           </form>
-        </Suspense>
         </div>
       </div>
     </div>
