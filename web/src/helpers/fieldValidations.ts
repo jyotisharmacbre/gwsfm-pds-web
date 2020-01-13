@@ -42,42 +42,36 @@ export const Validate = {
   maxLength: memoize(length => value => fieldValidationLength(value, length))
 };
 
-export const CheckConstraints=(id:string)=>{
-  let isExists:boolean=false;
-  if(PreliminaryComponentField.InsurranceCost==id)
-  {
-    isExists= true;
+export const CheckConstraints = (id: string) => {
+  let isExists: boolean = false;
+  if (PreliminaryComponentField.InsurranceCost == id) {
+    isExists = true;
   }
   return isExists;
 }
-export const isLumpSumOrCBRELabourExists=(id:string)=>{
-  let isExists:boolean=false;
-  if(PreliminaryComponentField.Lump_Sum_Allowance==id||PreliminaryComponentField.CBRE_Labour==id)
-  {
-    isExists= true;
+export const isLumpSumOrCBRELabourExists = (id: string) => {
+  let isExists: boolean = false;
+  if (PreliminaryComponentField.Lump_Sum_Allowance == id || PreliminaryComponentField.CBRE_Labour == id) {
+    isExists = true;
   }
   return isExists;
 }
-export const isLumpSumOrSubContractorExists=(id:string)=>{
-  let isExists:boolean=false;
-  if(PreliminaryComponentField.Lump_Sum_Allowance==id||PreliminaryComponentField.Sub_Contractor==id)
-  {
-    isExists= true;
+export const isLumpSumOrSubContractorExists = (id: string) => {
+  let isExists: boolean = false;
+  if (PreliminaryComponentField.Lump_Sum_Allowance == id || PreliminaryComponentField.Sub_Contractor == id) {
+    isExists = true;
   }
   return isExists;
 }
-export const isCBRELabourOrAgencyLabourExists=(id:string)=>{
-  let isExists:boolean=false;
-  if(PreliminaryComponentField.CBRE_Labour!=id&&PreliminaryComponentField.Agency_Labour!=id)
-  {
-    isExists= true;
+export const isCBRELabourOrAgencyLabourExists = (id: string) => {
+  let isExists: boolean = false;
+  if (PreliminaryComponentField.CBRE_Labour != id && PreliminaryComponentField.Agency_Labour != id) {
+    isExists = true;
   }
   return isExists;
 }
 export const OnlyDistinctAssetTypes = (first, second) => value => {
   if ((second > 0 && value > 0 && (second === value)) || (first > 0 && value > 0 && (first === value))) {
-    return `${formatMessage('ASSET_ALREADY_SELECTED_VALIDATION_KEY', {
-      0: formatMessage('20')
-    })}`;
+    return formatMessage('ASSET_ALREADY_SELECTED_VALIDATION_KEY');
   }
 }
