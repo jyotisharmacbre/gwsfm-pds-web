@@ -100,7 +100,7 @@ const ProjectOverview: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 	const CurrencyObj = new Currency();
 	const [ currencySymbol, setCurrencySymbol ] = useState<string>('');
 	const [ customerName, setCustomerName ] = useState<string>('');
-  const [projectManager, setProjectManager] = useState<string>('');
+	const [projectManager, setProjectManager] = useState<string>('');
 	useEffect(() => {
 		window.scrollTo(0, 0);
 		props.getAllCurrencies();
@@ -114,7 +114,6 @@ const ProjectOverview: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 		props.getDiscountData(projectId);
 		props.getProjectActivities(projectId);
 	}, []);
-
 
 	useEffect(
 		() => {
@@ -195,6 +194,22 @@ const ProjectOverview: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 		[ props.enquiryOverview ]
 	);
 
+	useEffect(() =>{
+		if (props.enquiryOverview.projectManager)
+		  actions.getUserServiceCallback(
+			props.enquiryOverview.projectManager,
+			projectManagerSuccess,
+			failure
+		  );
+	  }, [props.enquiryOverview]);
+  
+	  const projectManagerSuccess = response => {
+		let filter = response.find(
+		  ele => ele.email == props.enquiryOverview.projectManager
+		);
+		setProjectManager(filter.firstname + ' ' + filter.lastName);
+	  }
+
 	const getListOfContractSuccess = (response) => {
 		setCustomerName(
 			getFilterElementFromArray(response, 'contractId', props.enquiryOverview.contractorId, 'customerName')
@@ -235,32 +250,6 @@ const ProjectOverview: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 		}
 	};
 
-
-    useEffect(() =>{
-      if (props.enquiryOverview.projectManager)
-        actions.getUserServiceCallback(
-          props.enquiryOverview.projectManager,
-          projectManagerSuccess,
-          failure
-        );
-    }, [props.enquiryOverview]);
-
-    const projectManagerSuccess = response => {
-      let filter = response.find(
-        ele => ele.email == props.enquiryOverview.projectManager
-      );
-      setProjectManager(filter.firstname + ' ' + filter.lastName);
-    };
-
-    const getListOfContractSuccess = (response) => {
-      setCustomerName(getFilterElementFromArray(
-        response,
-        'contractId',
-        props.enquiryOverview.contractorId,
-        'customerName'
-      )
-      )
-    }
 	const notifyError = (error) => {
 		toast.error('Error occured.Please contact administrator');
 	};
@@ -297,105 +286,52 @@ const ProjectOverview: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 								handleBidLost={handleBidLostEvent}
 							/>
 						</div>
-    const notifySucess = (data, actionType) => {
-      if (actionType === 'reactivate') {
-        toast.success('Project reactivated successfully');
-        props.getProjectDetail(props.match.params.projectId);
-      }
-      else {
-        toast.success('Project status changed successfully');
-      }
-    };
 
-    const notifyError = (error) => {
-      toast.error('Error occured.Please contact administrator');
-    };
-
-    const handleReactivateEvent = () => {
-      actions.reactivateProject(props.match.params.projectId, notifySucess, notifyError);
-
-    };
-    const handleOnHoldEvent = () => {
-      props.setProjectStatus(6);
-      actions.changeProjectStatusToOnHold(props.match.params.projectId, notifySucess, notifyError);
-    };
-    const handleBidLostEvent = () => {
-      props.setProjectStatus(4);
-      actions.changeProjectStatusToBidLost(props.match.params.projectId, notifySucess, notifyError);
-
-    };
-    const onSearchUserService = (values: any) => {
-      props.handleGetuserServiceData(values);
-    };
-    return (
-      <div className="container-fluid ">
-        <div className="row">
-          <div className="col-lg-12 col-sm-12">
-            {/* 20-dec-2019 */}
-            <div className="custom-wrap">
-              <div className="row align-items-center my-3 my-lg-4 pb-2">
-                <div className="col-lg-6">
-                  <h1 className="m-0">
-                    {formatMessage('TITLE_PROJECT_OVERVIEW')}
-                  </h1>
-                </div>
-                <ProjectOverviewStatusTab
-                  status={props.project.status}
-                  statusName={getProjectStatusName()}
-                  onReactivate={handleReactivateEvent}
-                  handleOnHold={handleOnHoldEvent}
-                  handleBidLost={handleBidLostEvent}
-                />
-              </div>
-
-              <GeneralTable
-                {...{
-                  headers: [
-                    {
-                      heading: formatMessage('LABEL_END_CUSTOMER_NAME'),
-                      subHeading: customerName
-                    },
-                    {
-                      heading: formatMessage('MESSAGE_PROJECT_NAME'),
-                      subHeading: props.enquiryOverview.projectName
-                    },
-                    {
-                      heading: formatMessage('MESSAGE_PROJECT_MANAGER'),
-                      subHeading: projectManager
-                    },
-                    {
-                      heading: formatMessage('LABEL_CN_NUMBER'),
-                      subHeading: convertToString(props.enquiryOverview.cnNumber)
-                    }
-                  ],
-                  content: props.project.scope,
-                  editActionClick: () => {
-                    props.history.push(
-                      `/Project/${props.match.params.projectId}`
-                    );
-                  }
-                }}
-              />
-              <ProjectOverviewForm
-                onNext={handleNext}
-                onPrevious={handlePrevious}
-                projectstatus={props.projectStatus}
-                lookups={props.lookups}
-                status={props.project.status}
-                projectId={props.match.params.projectId}
-                getListOfUsers={actions.getUserServiceCallback}
-                subContractorState={props.subContractorState}
-                preliminaryState={props.preliminaryState}
-                discountState={props.discountState}
-                currencySymbol={currencySymbol}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  };
-
+						<GeneralTable
+							{...{
+								headers: [
+									{
+										heading: formatMessage('LABEL_END_CUSTOMER_NAME'),
+										subHeading: customerName
+									},
+									{
+										heading: formatMessage('MESSAGE_PROJECT_NAME'),
+										subHeading: props.enquiryOverview.projectName
+									},
+									{
+										heading: formatMessage('MESSAGE_PROJECT_MANAGER'),
+										subHeading: projectManager
+									},
+									{
+										heading: formatMessage('LABEL_CN_NUMBER'),
+										subHeading: convertToString(props.enquiryOverview.cnNumber)
+									}
+								],
+								content: props.project.scope,
+								editActionClick: () => {
+									props.history.push(`/Project/${props.match.params.projectId}`);
+								}
+							}}
+						/>
+						<ProjectOverviewForm
+							onNext={handleNext}
+							onPrevious={handlePrevious}
+							projectstatus={props.projectStatus}
+							lookups={props.lookups}
+							status={props.project.status}
+							projectId={props.match.params.projectId}
+							getListOfUsers={actions.getUserServiceCallback}
+							subContractorState={props.subContractorState}
+							preliminaryState={props.preliminaryState}
+							discountState={props.discountState}
+							currencySymbol={currencySymbol}
+						/>
+					</div>
+				</div>
+			</div>
+		</div>
+	);
+};
 
 const mapStateToProps = (state: IState) => ({
 	form: state.projectOverview.form,
