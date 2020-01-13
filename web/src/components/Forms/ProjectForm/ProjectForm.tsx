@@ -33,6 +33,7 @@ import { IUserServiceData } from '../../../store/UserService/Types/IUserService'
 import { any } from 'prop-types';
 import { IDynamicContractCustomerData, IDynamicCompanyData } from '../../../store/DynamicsData/Types/IDynamicData';
 import { ICountry } from '../../../store/Lookups/Types/ICountry';
+import ValidatedNumericInput from '../../NumericInput';
 
 interface Props {
 	projectstatus: any;
@@ -403,7 +404,7 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 									</div>
 								</div>
 
-								<Field
+								<ValidatedNumericInput
 									name="probabilityOfWinning"
 									type="number"
 									component={PdsFormInput}
@@ -419,7 +420,7 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 									normalize={maxLimitTo(0,100)}
 								/>
 
-								<Field
+								<ValidatedNumericInput
 									name="approxValue"
 									type="number"
 									component={PdsFormInput}
@@ -473,7 +474,7 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 										<FormattedMessage id="LABEL_ASSETS_WORKED_ON" />*
 									</label>
 									<div className="select-wrapper mb-2">
-										<Field
+										<ValidatedNumericInput
 											name="firstAssetWorkedOn"
 											component={PdsFormSelect}
 											DropdownCheck="selectRound"
@@ -491,7 +492,7 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 												{(message) => <option value="">{message}</option>}
 											</FormattedMessage>
 											>{getDropdown(props.projectstatus, LookupType.Asset_Type)}
-										</Field>
+										</ValidatedNumericInput>
 									</div>
 
 									<div className="select-wrapper mb-2">
