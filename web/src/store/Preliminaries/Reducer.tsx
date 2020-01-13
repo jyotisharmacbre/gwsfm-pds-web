@@ -1,37 +1,43 @@
 import { ActionType } from './Types/ActionType';
-import {initialState} from './InitialState';
+import { initialState } from './InitialState';
 import { updateObject } from '../../helpers/utility-helper';
-import {bindUserData} from "./DataWrapper";
+import { bindUserData } from "./DataWrapper";
 import Notify from '../../enums/Notify';
 const preliminaryAddSuccess = (oldState, action) => {
- return updateObject(oldState, {
+  let preliminaryDetails = oldState.preliminaryDetails;
+  action.payload?.data.forEach((item) => {
+    preliminaryDetails.find(x => x.componentId == item.preliminariesComponentId)
+    .items.find(x => x.itemId == item.preliminariesItemId)
+    .preliminaryId = item.preliminaryId;
+  });
+  return updateObject(oldState, {
     notify: Notify.success,
-    event:action.event
+    event: action.event,
+    preliminaryDetails
   });
 };
 const preliminaryAddError = (oldState, action) => {
   return updateObject(oldState, {
     notify: Notify.error,
-    event:action.event
+    event: action.event
   });
 }
 const preliminaryEditSuccess = (oldState, action) => {
-
   return updateObject(oldState, {
     notify: Notify.success,
-    event:action.event
+    event: action.event
   });
 }
 const preliminaryEditError = (oldState, action) => {
   return updateObject(oldState, {
     notify: Notify.error,
-    event:action.event
+    event: action.event
   });
 };
 const preliminaryGetSuccess = (oldState, action) => {
   return updateObject(oldState, {
-    notify:Notify.none,
-    preliminaryDetails:bindUserData(action.payload)
+    notify: Notify.none,
+    preliminaryDetails: bindUserData(action.payload)
   });
 };
 const preliminaryGetError = (oldState, action) => {
