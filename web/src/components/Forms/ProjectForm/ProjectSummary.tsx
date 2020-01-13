@@ -107,18 +107,18 @@ const ProjectSummary: React.FC<IProps> = props => {
 
   const headofProjectSuccess = response => {
     let filter = response.find(ele => ele.email == props.project.headOfProject);
-    setHeadOfProject(filter.lastName + ' ' + filter.firstname);
+    setHeadOfProject(filter.firstname + ' ' + filter.lastName);
   };
 
   const projectOwnerSuccess = response => {
     let filter = response.find(ele => ele.email == props.project.projectOwner);
-    setProjectOwner(filter.lastName + ' ' + filter.firstname);
+    setProjectOwner(filter.firstname + ' ' + filter.lastName);
   };
   const projectManagerSuccess = response => {
     let filter = response.find(
       ele => ele.email == props.project.projectManager
     );
-    setProjectManager(filter.lastName + ' ' + filter.firstname);
+    setProjectManager(filter.firstname + ' ' + filter.lastName);
   };
   const getContractorSuccess = response => {
     let filter = response.find(
