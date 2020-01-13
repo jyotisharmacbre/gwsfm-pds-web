@@ -564,7 +564,8 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 									labelKey="LABEL_COMMENTS"
 									name="comment"
 									rows="7"
-									component={PdsFormTextArea}
+                  component={PdsFormTextArea}
+                  validate={[Validate.maxLength(5000)]}
 									placeholderKey="PLACEHOLDER_ADDITIONAL_COMMENTS"
 								/>
 							</div>

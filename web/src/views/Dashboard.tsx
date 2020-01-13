@@ -22,12 +22,10 @@ interface IMapStateToProps {
   valuesCount: number;
   lookupDetails: Array<ILookup>;
   userNamesForEmails: Array<IUserServiceData>;
-  userPreferChangeNotify: Notify;
 }
 const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = props => {
   useEffect(() => {
     props.getLookups();
-    props.dashboardGridDetail();
   }, []);
   useEffect(() => {
     if (props.dashboardGridValues.length > 0) {
@@ -42,10 +40,8 @@ const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = props => {
     }
   }, [props.dashboardGridValues]);
   useEffect(() => {
-    if (props.userPreferChangeNotify == Notify.success) {
       props.dashboardGridDetail();
-    }
-  }, [props.userPreferChangeNotify]);
+  }, [props.lookupDetails]);
   return (
     <div>
       <div className="container">
@@ -97,8 +93,7 @@ const mapStateToProps = (state: IState) => ({
   valuesCount: 5,
   lookupDetails: state.lookup.projectstatus,
   dashboardGridValues: state.dashboardGrid.actionApprovalDetails,
-  userNamesForEmails: state.userService.userServiceData,
-  userPreferChangeNotify: state.userPreferences.notify
+  userNamesForEmails: state.userService.userServiceData
 });
 
 const mapDispatchToProps = dispatch => {

@@ -26,8 +26,9 @@ import {newActivity} from '../../../store/SubContractor/InitialState';
 import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
 import {calculateSell} from '../../../helpers/formulas';
-import { confirmAlert } from '../../Popup/CustomModalPopup';
+
 import NewTypeAhead from '../../TypeAhead/NewTypeAhead';
+import { confirmAlert } from '../../Popup/CustomModalPopup';
 
 interface Props {
   fields:any,
