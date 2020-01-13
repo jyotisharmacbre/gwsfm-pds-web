@@ -88,6 +88,9 @@ form {
   .form-group {
     margin-bottom: 25px;
     position: relative;
+    mark {
+      padding: 0;
+    }
     .symbol_fix {
       position: absolute;
       left: 15px;
@@ -499,4 +502,17 @@ button[type="button"] {
   svg {
     margin-right: 8px;
   }
+}
+
+/*custom typehead*/
+.custom_typehead {
+  ul {
+    li {
+      a {
+        color: map-get($colors , black );
+        font-size: 14px;
+        padding: 10px 10px;
+      }
+    }
+  } 
 }

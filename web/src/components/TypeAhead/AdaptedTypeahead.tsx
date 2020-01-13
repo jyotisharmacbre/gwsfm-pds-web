@@ -18,7 +18,7 @@ const AdaptedTypeahead = ({ input, render, meta, labelName, className, ...rest }
   }
 
   return (
-    <div className={'form-group'}>
+    <div className={'form-group custom_typehead'}>
       {
         labelName &&
         <label>
