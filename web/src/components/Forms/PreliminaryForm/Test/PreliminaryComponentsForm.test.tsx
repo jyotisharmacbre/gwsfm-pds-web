@@ -22,6 +22,7 @@ describe('Preliminary Components Form test cases', () => {
         onToggleEvent={props.onToggleEvent}
         prelimData={initialState.preliminaryDetails}
         currencySymbol="$"
+        isExpand="false"
       />
     );
   });
@@ -51,6 +52,6 @@ describe('Preliminary Components Form test cases', () => {
   it('should render check-mark if preliminariuserData item has id', () => {
     const collapseContainer = findByTestAtrr(wrapper, 'collapse').first();
     const checkBox = collapseContainer.find('.tick_wrap');
-    expect(checkBox).toHaveLength(1);
+    expect(checkBox).toHaveLength(0);
   });
 });
