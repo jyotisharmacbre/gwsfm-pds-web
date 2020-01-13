@@ -100,7 +100,7 @@ const ProjectOverview: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 	const CurrencyObj = new Currency();
 	const [ currencySymbol, setCurrencySymbol ] = useState<string>('');
 	const [ customerName, setCustomerName ] = useState<string>('');
-	const [projectManager, setProjectManager] = useState<string>('');
+	const [ projectManager, setProjectManager ] = useState<string>('');
 	useEffect(() => {
 		window.scrollTo(0, 0);
 		props.getAllCurrencies();
@@ -194,21 +194,18 @@ const ProjectOverview: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 		[ props.enquiryOverview ]
 	);
 
-	useEffect(() =>{
-		if (props.enquiryOverview.projectManager)
-		  actions.getUserServiceCallback(
-			props.enquiryOverview.projectManager,
-			projectManagerSuccess,
-			failure
-		  );
-	  }, [props.enquiryOverview]);
-  
-	  const projectManagerSuccess = response => {
-		let filter = response.find(
-		  ele => ele.email == props.enquiryOverview.projectManager
-		);
+	useEffect(
+		() => {
+			if (props.enquiryOverview.projectManager)
+				actions.getUserServiceCallback(props.enquiryOverview.projectManager, projectManagerSuccess, failure);
+		},
+		[ props.enquiryOverview ]
+	);
+
+	const projectManagerSuccess = (response) => {
+		let filter = response.find((ele) => ele.email == props.enquiryOverview.projectManager);
 		setProjectManager(filter.firstname + ' ' + filter.lastName);
-	  }
+	};
 
 	const getListOfContractSuccess = (response) => {
 		setCustomerName(
@@ -358,7 +355,7 @@ const mapDispatchToProps = (dispatch) => {
 		projectOverviewFormEdit: (form, event) => dispatch(actions.projectOverviewFormEdit(form, event)),
 		getAdditionalDetails: (projectId) => dispatch(actions.getAdditionalDetails(projectId)),
 		getEnquiryOverview: (projectId) => dispatch(actions.getEnquiryOverview(projectId)),
-		resetProjectOverviewState: () => dispatch(actions.resetProjectOverviewState()),
+		resetProjectOverviewState: () => dispatch(actions.resetProjectOverviewNotifier()),
 		getProjectDetail: (projectId) => dispatch(actions.getProjectDetail(projectId)),
 		setProjectStatus: (status) => dispatch(actions.changeProjectStatus(status)),
 		setAdminDefaultValues: (countryId) => dispatch(actions.getAdminDefaultValues(countryId)),
