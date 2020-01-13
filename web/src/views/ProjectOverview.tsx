@@ -220,7 +220,7 @@ const ProjectOverview: React.FC<IProps &
       let filter = response.find(
         ele => ele.email == props.enquiryOverview.projectManager
       );
-      setProjectManager(filter.lastName + ' ' + filter.firstname);
+      setProjectManager(filter.firstname + ' ' + filter.lastName);
     };
 
     const getListOfContractSuccess = (response) => {
