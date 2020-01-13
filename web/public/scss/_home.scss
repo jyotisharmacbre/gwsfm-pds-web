@@ -50,15 +50,22 @@
             }
             &:nth-child(2) {
                 .badge {
-                    background: map-get($colors, red);
-                    width: 8px;
-                    height: 8px;
+                    background: map-get($colors, whiteColor);
+                    border: 1px solid map-get($colors, darkGreen);
+                    width: 14px;
+                    height: 14px;
+                    font-style: initial;
+                    font-weight: 600;
                     @include borderRadius(50%);
                     padding: 0;
                     position: absolute;
-                    top: -2px;
-                    right: -2px;
-                    display: block;
+                    top: -9px;
+                    right: -6px;
+                    display: flex;
+                    align-items: center;
+                    color: map-get($colors, darkGreen);
+                    justify-content: center;
+                    font-size: 10px;
                 }
             }
             a {
@@ -144,6 +151,10 @@
                             align-items: center;
                             height: 100%;
                             font-size: 17px;
+                            img {
+                                max-width: 18px;
+                                height: 18px;
+                            }
                         }
                         .title_name {
                             color: map-get($colors, grey002);
@@ -401,7 +412,7 @@
     font-size: 12px;
     font-style: italic;
     font-weight: 300;
-    position: absolute;
+    position: relative;
 }
 
 .width-288 {

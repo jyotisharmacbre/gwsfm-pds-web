@@ -1,6 +1,7 @@
 body {
   background-color: map-get($colors, grey04);
   font-family: 'Hind', sans-serif !important;
+  word-break: break-word;
 }
 
 p {
@@ -187,9 +188,10 @@ form {
     }
     label {
       padding-left: 10px;
-      color: map-get($colors, grey09);
+      color: map-get($colors, grey03);
       cursor: pointer;
       margin-bottom: 7px !important;
+      font-weight: 500;
       &:before {
         width: 15px;
         height: 15px;
@@ -199,7 +201,7 @@ form {
         content: '';
         display: inline-block;
         @include borderRadius(50px);
-        border: 1px solid map-get($colors, grey09);
+        border: 1px solid map-get($colors, grey03);
         background: transparent;
         z-index: -1;
       }
