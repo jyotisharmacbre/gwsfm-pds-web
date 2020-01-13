@@ -44,6 +44,7 @@ import { ISubContractorActivity } from '../../../store/SubContractor/Types/ISubC
 import { IPreliminariesComponentDetails } from '../../../store/Preliminaries/Types/IPreliminariesComponentDetails';
 import { IDiscountActivity } from '../../../store/DiscountForm/Types/IDiscountActivity';
 import ProjectApprovalForm from './ProjectApprovalForm';
+import ActivityFeedList from './ActivityFeedList';
 
 interface Props {
 	onNext: (data: IProjectOverviewDetails) => void;
@@ -92,7 +93,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						type="text"
 						component={PdsFormInput}
 						className="required"
-						validate={[Validate.required('LABEL_MAIN_CONTRACTOR')]}
+						validate={[ Validate.required('LABEL_MAIN_CONTRACTOR') ]}
 						labelKey="LABEL_MAIN_CONTRACTOR"
 						placeholderKey="PLACEHOLDER_CONTRACTORS_NAME"
 					/>
@@ -102,7 +103,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						type="text"
 						component={PdsFormInput}
 						className="required"
-						validate={[Validate.required('LABEL_ENQUIRY_RECEIVED_FROM'), Validate.maxLength(1000)]}
+						validate={[ Validate.required('LABEL_ENQUIRY_RECEIVED_FROM'), Validate.maxLength(1000) ]}
 						warn={alphaNumeric}
 						labelKey="LABEL_ENQUIRY_RECEIVED_FROM"
 						placeholderKey="PLACEHOLDER_ENQUIRY_SENDER_NAME"
@@ -137,7 +138,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						type="text"
 						component={PdsFormInput}
 						className="required"
-						validate={[Validate.required('LABEL_CREDIT_CHECK_RESULT'), Validate.maxLength(1000)]}
+						validate={[ Validate.required('LABEL_CREDIT_CHECK_RESULT'), Validate.maxLength(1000) ]}
 						warn={alphaNumeric}
 						labelKey="LABEL_CREDIT_CHECK_RESULT"
 						placeholderKey="PLACEHOLDER_CREDIT_CHECK_DETAILS"
@@ -148,7 +149,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						type="text"
 						component={PdsFormInput}
 						className="required"
-						validate={[Validate.required('LABEL_SITE_ADDRESS'), Validate.maxLength(1000)]}
+						validate={[ Validate.required('LABEL_SITE_ADDRESS'), Validate.maxLength(1000) ]}
 						warn={alphaNumeric}
 						labelKey="LABEL_SITE_ADDRESS"
 						placeholderKey="PLACEHOLDER_ADD_SITE_ADDRESS"
@@ -166,7 +167,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						type="text"
 						component={PdsFormInput}
 						className="required"
-						validate={[Validate.required('LABEL_FORM_OF_CONTRACT'), Validate.maxLength(1000)]}
+						validate={[ Validate.required('LABEL_FORM_OF_CONTRACT'), Validate.maxLength(1000) ]}
 						warn={alphaNumeric}
 						labelKey="LABEL_FORM_OF_CONTRACT"
 						placeholderKey="PLACEHOLDER_FORM_OF_CONTRACT"
@@ -176,7 +177,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						data-test="retention"
 						type="text"
 						component={PdsFormInput}
-						validate={[Validate.maxLength(1000)]}
+						validate={[ Validate.maxLength(1000) ]}
 						warn={alphaNumeric}
 						labelKey="LABEL_RETENTION"
 						placeholderKey="PLACEHOLDER_ADD_RETENTION"
@@ -186,7 +187,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						data-test="liquidatedDamages"
 						type="text"
 						component={PdsFormInput}
-						validate={[Validate.maxLength(1000)]}
+						validate={[ Validate.maxLength(1000) ]}
 						warn={alphaNumeric}
 						labelKey="LABEL_LIQUIDATED_DAMAGES"
 						placeholderKey="PLACEHOLDER_ADD_LIQUIDATED_DAMAGES"
@@ -197,7 +198,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						type="text"
 						component={PdsFormInput}
 						className="required"
-						validate={[Validate.required('LABEL_INSURANCE'), Validate.maxLength(1000)]}
+						validate={[ Validate.required('LABEL_INSURANCE'), Validate.maxLength(1000) ]}
 						warn={alphaNumeric}
 						labelKey="LABEL_INSURANCE"
 						placeholderKey="PLACEHOLDER_ADD_INSURANCE"
@@ -211,7 +212,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 								name="projectAdditionalDetail.workTypeId"
 								component={PdsFormSelect}
 								className="required"
-								validate={[Validate.required('MESSAGE_PROJECT_STATUS')]}
+								validate={[ Validate.required('MESSAGE_PROJECT_STATUS') ]}
 								placeholderKey="PLACEHOLDER_WORK_TYPES"
 								messageKey="MESSAGE_PROJECT_STATUS"
 							>
@@ -256,7 +257,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 												labelKey="LABEL_PROJECTMILE_STONES"
 												rows="7"
 												className="required"
-												validate={[Validate.required('LABEL_PROJECTMILE_STONES')]}
+												validate={[ Validate.required('LABEL_PROJECTMILE_STONES') ]}
 												component={PdsFormTextArea}
 												placeholderKey="PLACEHOLDER_PROJECT_MILESTONES"
 											/>
@@ -299,7 +300,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 												data-test="valuationIntervals"
 												type="text"
 												className="required"
-												validate={[Validate.required('LABEL_VALUATION_INTERVALS')]}
+												validate={[ Validate.required('LABEL_VALUATION_INTERVALS') ]}
 												component={PdsFormInput}
 												labelKey="LABEL_VALUATION_INTERVALS"
 												placeholderKey="PLACEHOLDER_VALUATION_INTERVALS"
@@ -313,7 +314,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 												data-test="paymentTerms"
 												type="text"
 												className="required"
-												validate={[Validate.required('LABEL_PAYMENT_TERMS')]}
+												validate={[ Validate.required('LABEL_PAYMENT_TERMS') ]}
 												component={PdsFormInput}
 												labelKey="LABEL_PAYMENT_TERMS"
 												placeholderKey="PLACEHOLDER_PAYMENT_TERMS"
@@ -359,90 +360,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 					</div>
 				</div>
 				<div className="col-xl-6">
-					<h3 className="feed_head">
-						<FormattedMessage id="LABEL_ACTIVITY_FEED" />
-					</h3>
-					<section className="activity_feed">
-						<div className="feed-block">
-							<div className="feed-block-img feed-icon">
-								<FontAwesomeIcon className="" icon={faUser} />
-							</div>
-							<div className="feed-block-content">
-								<h2>
-									<FormattedMessage id="LABEL_APPROVED_BY" /><i> by</i> <span>John Wick</span>
-								</h2>
-								<span className="feed-date-time">20/11/2019 | 03:40 AM</span>
-								<p>
-									Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum
-									provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde?
-									Iste voluptatibus minus veritatis qui ut.
-								</p>
-							</div>
-						</div>
-						<div className="feed-block">
-							<div className="feed-block-img close-icon">
-								<FontAwesomeIcon className="" icon={faTimes} />
-							</div>
-							<div className="feed-block-content">
-								<h2>
-									<FormattedMessage id="LABEL_APPROVED_BY" /> <span>John Smith</span>
-								</h2>
-								<span className="feed-date-time">20/11/2019 | 03:40 AM</span>
-								<p>
-									Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum
-									provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde?
-									Iste voluptatibus minus veritatis qui ut.
-								</p>
-							</div>
-						</div>
-						<div className="feed-block">
-							<div className="feed-block-img feed-icon">
-								<FontAwesomeIcon className="" icon={faUser} />
-							</div>
-							<div className="feed-block-content">
-								<h2>
-									<FormattedMessage id="LABEL_APPROVED_BY" /> <span>John Wick</span>
-								</h2>
-								<span className="feed-date-time">20/11/2019 | 03:40 AM</span>
-								<p>
-									Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum
-									provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde?
-									Iste voluptatibus minus veritatis qui ut.
-								</p>
-							</div>
-						</div>
-						<div className="feed-block">
-							<div className="feed-block-img check-icon">
-								<FontAwesomeIcon className="" icon={faCheck} />
-							</div>
-							<div className="feed-block-content">
-								<h2>
-									<FormattedMessage id="LABEL_APPROVED_BY" /> <span>John Doe</span>
-								</h2>
-								<span className="feed-date-time">20/11/2019 | 03:40 AM</span>
-								<p>
-									Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum
-									provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde?
-									Iste voluptatibus minus veritatis qui ut.
-								</p>
-							</div>
-						</div>
-						<div className="feed-block">
-							<div className="feed-block-img feed-icon">
-								<FontAwesomeIcon className="" icon={faUser} />
-							</div>
-							<div className="feed-block-content">
-								<h2>
-									<FormattedMessage id="LABEL_APPROVED_BY" /> <span>John Wick</span>
-								</h2>
-								<span className="feed-date-time">20/11/2019 | 03:40 AM</span>
-								<p>
-									Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum
-									provident .
-								</p>
-							</div>
-						</div>
-					</section>
+					<ActivityFeedList currencySymbol={props.currencySymbol} />
 				</div>
 			</div>
 			<div className="row">
@@ -494,18 +412,10 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 				<button className="active" type="button" onClick={() => props.onPrevious()}>
 					<FormattedMessage id="BUTTON_PREVIOUS" />
 				</button>
-				<button
-					name="save" className="active ml-auto" data-test="save"
-					type="button"
-				>
+				<button name="save" className="active ml-auto" data-test="save" type="button">
 					<FormattedMessage id="BUTTON_SAVE" />
 				</button>
-				<button
-					type="button"
-					name="next"
-					onClick={handleSubmit((values) => props.onNext(values))}
-					className=""
-				>
+				<button type="button" name="next" onClick={handleSubmit((values) => props.onNext(values))} className="">
 					<FormattedMessage id="BUTTON_NEXT" />
 				</button>
 			</div>

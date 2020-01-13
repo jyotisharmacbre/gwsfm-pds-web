@@ -112,19 +112,21 @@ export const maxLimit = (value: number) => {
   }
 };
 
-export const maxLimitTo = (minLimit, maxLimit) => (value: number) =>
- {
-	if (value < minLimit) {
-		return minLimit;
-	} else if (value > maxLimit) {
-		return maxLimit;
-	} else {
-		return value;
-	}
- }
+export const maxLimitTo = (minLimit, maxLimit) => (value: number) => {
+  if (value < minLimit) {
+    return minLimit;
+  } else if (value > maxLimit) {
+    return maxLimit;
+  } else {
+    return value;
+  }
+};
 
-export const calculateRank = (probabilityOfWinning: number, approximateValue: number) => {
-	return probabilityOfWinning * approximateValue;
+export const calculateRank = (
+  probabilityOfWinning: number,
+  approximateValue: number
+) => {
+  return probabilityOfWinning * approximateValue;
 };
 
 export const getClassNameForProjectStatus = (projectStatus: ProjectStatus) => {
@@ -138,6 +140,12 @@ export const getClassNameForProjectStatus = (projectStatus: ProjectStatus) => {
   return className;
 };
 
-export const convertDate = (date: string) => {
+export const formatDate = (date: string) => {
   return moment(date).format('DD/MM/YYYY');
+};
+
+export const formatDateAndTime = (date: string) => {
+  return (
+    moment(date).format('DD/MM/YYYY') + ' | ' + moment(date).format('hh:mm A')
+  );
 };

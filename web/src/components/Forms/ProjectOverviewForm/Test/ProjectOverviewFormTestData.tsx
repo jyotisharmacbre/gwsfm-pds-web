@@ -57,10 +57,15 @@ export const initialState: IProjectOverviewState = {
   },
   error: null,
   loading: false,
-  notify: Notify.none,
+  notify: Notify.none, 
   event: EventType.none,
-  initialStateSetForProjectApprovals: false
-
+  initialStateSetForProjectApprovals: false,
+  projectActivities:{
+        error:null,
+        loading:false,
+        notify: Notify.none,
+        data:[]
+    }
 };
 
 export const getProjectOverviewData: IProjectOverviewState = {
@@ -120,5 +125,11 @@ export const getProjectOverviewData: IProjectOverviewState = {
   loading: false,
   notify: Notify.none,
   event: EventType.none,
-  initialStateSetForProjectApprovals: false
+  initialStateSetForProjectApprovals: false,
+  projectActivities:{
+        error:null,
+        loading:false,
+        notify: Notify.none,
+        data:[]
+    }
 };

@@ -150,7 +150,7 @@ describe('ProjectForm Fields', () => {
           currencyId: 1
         });
       });
-      
+
       it('Should renders currencyId field', () => {
         expect(field.render());
       });
@@ -171,7 +171,7 @@ describe('ProjectForm Fields', () => {
           countryId: 1
         });
       });
-      
+
       it('Should renders countryId field', () => {
         expect(field.render());
       });
@@ -192,6 +192,22 @@ describe('ProjectForm Fields', () => {
       });
       it('Shows error when firstAssetWorkedOn is set to blank', () => {
         field.simulate('blur');
+        const errorBlock = wrapper.find('.text-danger');
+        expect(errorBlock).toHaveLength(1);
+      });
+      it('Shows error when value in firstAssetWorkedOn is again selected in secondAssetWorkedOn', () => {
+        let fieldFirst = wrapper.find('select[name="firstAssetWorkedOn"]').last();
+        fieldFirst.simulate('blur');
+        let fieldSecond = wrapper.find('select[name="secondAssetWorkedOn"]').last();
+        fieldSecond.simulate('blur');
+        const errorBlock = wrapper.find('.text-danger');
+        expect(errorBlock).toHaveLength(1);
+      });
+      it('Shows error when value in firstAssetWorkedOn is again selected in thirdAssetWorkedOn', () => {
+        let fieldFirst = wrapper.find('select[name="firstAssetWorkedOn"]').last();
+        fieldFirst.simulate('blur');
+        let fieldThird = wrapper.find('select[name="thirdAssetWorkedOn"]').last();
+        fieldThird.simulate('blur');
         const errorBlock = wrapper.find('.text-danger');
         expect(errorBlock).toHaveLength(1);
       });

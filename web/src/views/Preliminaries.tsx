@@ -106,13 +106,7 @@ const Preliminaries: React.FC<
     }
   }, [props.lookupData]);
 
-  const handleExpandAllEvent = () => {
-    var element: any = document.getElementsByClassName('expandAll');
-    for (let i = 0; i < element.length; i++) {
-      element[i].classList.remove('hide');
-      element[i].classList.add('show');
-    }
-  };
+  const [isExpand, handleExpandAllEvent] = useState(false);
 
   const handleToggle = (id: string) => {
     var element: any = document.getElementById('collapse_' + id);
@@ -187,7 +181,8 @@ const Preliminaries: React.FC<
                   </div>
                   <div className="col-lg-3">
                     <div className="text-left text-lg-right">
-                      <button type="button" className="active fltRght mb-3 mb-lg-0" onClick={() => handleExpandAllEvent()}><FormattedMessage id="BUTTON_EXPAND_ALL"></FormattedMessage></button>
+                      <button type="button" className={`active fltRght mb-3 mb-lg-0 btn-collapseall" ${isExpand?'hide':'show'}`} data-test='btn-expandall' onClick={() => handleExpandAllEvent(true)}><FormattedMessage id="BUTTON_EXPAND_ALL"></FormattedMessage></button>
+                      <button type="button" className={`active fltRght mb-3 mb-lg-0 btn-collapseall" ${isExpand?'show':'hide'}`} data-test='btn-collapseall' onClick={() => handleExpandAllEvent(false)}><FormattedMessage id="BUTTON_COLLAPSE_ALL"></FormattedMessage></button>
                     </div>
                   </div>
                 </div>
@@ -199,6 +194,7 @@ const Preliminaries: React.FC<
                 onSave={handleSaveData}
                 onPrevious={handlePrevious}
                 onToggle={handleToggle}
+                isExpand= {isExpand}
                 preliminariesDetails={props.preliminaryDetails}
                 currencySymbol={getFilterElementFromArray(
                     props.currencies,
