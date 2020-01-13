@@ -107,13 +107,7 @@ const CurrencyObj = new Currency();
 		[ props.currencyId, props.currencies ]
 	);
 
-  const handleExpandAllEvent = () => {
-    var element: any = document.getElementsByClassName('expandAll');
-    for (let i = 0; i < element.length; i++) {
-      element[i].classList.remove('hide');
-      element[i].classList.add('show');
-    }
-  };
+  const [isExpand, handleExpandAllEvent] = useState(false);
 
   const handleToggle = (id: string) => {
     var element: any = document.getElementById('collapse_' + id);
@@ -161,7 +155,6 @@ const CurrencyObj = new Currency();
     <div className="container-fluid">
       <div data-test="pre_row_status"  className={`${getClassNameForProjectStatus(props.status)} row`}>
         <div className="col-lg-12">
-        <Suspense fallback={<div>Loading...</div>}>
           <form className="custom-wrap">
             <div className="heading-subtitle">
               <h1>
@@ -190,7 +183,8 @@ const CurrencyObj = new Currency();
                   </div>
                   <div className="col-lg-3">
                     <div className="text-left text-lg-right">
-                      <button type="button" className="active fltRght mb-3 mb-lg-0" onClick={() => handleExpandAllEvent()}><FormattedMessage id="BUTTON_EXPAND_ALL"></FormattedMessage></button>
+                      <button type="button" className={`active fltRght mb-3 mb-lg-0 btn-collapseall" ${isExpand?'hide':'show'}`} data-test='btn-expandall' onClick={() => handleExpandAllEvent(true)}><FormattedMessage id="BUTTON_EXPAND_ALL"></FormattedMessage></button>
+                      <button type="button" className={`active fltRght mb-3 mb-lg-0 btn-collapseall" ${isExpand?'show':'hide'}`} data-test='btn-collapseall' onClick={() => handleExpandAllEvent(false)}><FormattedMessage id="BUTTON_COLLAPSE_ALL"></FormattedMessage></button>
                     </div>
                   </div>
                 </div>
@@ -203,6 +197,7 @@ const CurrencyObj = new Currency();
                 onSave={handleSaveData}
                 onPrevious={handlePrevious}
                 onToggle={handleToggle}
+                isExpand= {isExpand}
                 preliminariesDetails={props.preliminaryDetails}
                 currencySymbol={getFilterElementFromArray(
                     props.currencies,
@@ -220,7 +215,6 @@ const CurrencyObj = new Currency();
              
             </div>:null}
           </form>
-        </Suspense>
         </div>
       </div>
     </div>

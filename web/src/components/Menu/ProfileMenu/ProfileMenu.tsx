@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import close_icon from '../../images/logo-black.png';
+import en_translation from '../../images/english-flag.png';
 import * as actions from '../../../store/rootActions';
 import {
   FontAwesomeIcon
@@ -8,7 +9,8 @@ import {
   faAngleDown,
   faUser,
   faBell,
-  faHome
+  faHome,
+  faPoundSign
 } from '@fortawesome/free-solid-svg-icons';
 
 // @ts-ignore
@@ -124,7 +126,7 @@ const ProfileMenu: React.FC<any> = props => {
                 <a href="#">
                   <i>
                     <FontAwesomeIcon className="" icon={faBell} />
-                    <span className="badge badge-light"></span>
+                    <span className="badge badge-light">3</span>
                   </i>
                 </a>
               </li>
@@ -183,7 +185,7 @@ const ProfileMenu: React.FC<any> = props => {
                         <li>
                           <a href="#">
                             <i>
-                              <FontAwesomeIcon className="" icon={faUser} />
+                              <img src={en_translation} alt="english translation icon" />
                             </i>
                             <p className="title_name">{formatMessage('LABEL_PREFERED_LANGUAGE')}</p>
                             <span className="dsc">{props.languageName}</span>
@@ -192,7 +194,7 @@ const ProfileMenu: React.FC<any> = props => {
                         <li>
                           <a href="#">
                             <i>
-                              <FontAwesomeIcon className="" icon={faUser} />
+                              <FontAwesomeIcon className="" icon={faPoundSign} />
                             </i>
                             <p className="title_name">{formatMessage('LABEL_PREFERED_CURRENCY')}</p>
                             <span className="dsc">{props.currencySymbol}</span>

@@ -25,7 +25,7 @@ const Routes: React.FC = props => {
         path="/JustificationAuthorisation/:projectId"
         component={JustificationAuthorisation}
       />
-      <Suspense fallback={<div>Loading...</div>}><Route path="/Preliminaries/:projectId" component={Preliminaries} /></Suspense>
+      <Route path="/Preliminaries/:projectId" component={Preliminaries} />
       <Route path="/Subcontractor/:projectId" component={Subcontractor} />
       <Route path="/ReviewSubmit/:projectId" component={ReviewSubmit} />
       <Route path="/ReviewApprove/:projectId" component={ReviewApprove} />

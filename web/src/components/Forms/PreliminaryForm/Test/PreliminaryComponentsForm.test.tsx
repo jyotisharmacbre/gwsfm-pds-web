@@ -22,6 +22,7 @@ describe('Preliminary Components Form test cases', () => {
         onToggleEvent={props.onToggleEvent}
         prelimData={initialState.preliminaryDetails}
         currencySymbol="$"
+        isExpand="false"
       />
     );
   });
@@ -47,5 +48,10 @@ describe('Preliminary Components Form test cases', () => {
     button.simulate('click');
     expect(props.onToggleEvent.mock.calls.length).toEqual(2);
     expect(toggle.hasClass('hide')).toEqual(true);
+  });
+  it('should render check-mark if preliminariuserData item has id', () => {
+    const collapseContainer = findByTestAtrr(wrapper, 'tickWrap').first();
+    const checkBox = collapseContainer.find('.tick_wrap');
+    expect(checkBox).toHaveLength(1);
   });
 });

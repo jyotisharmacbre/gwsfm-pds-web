@@ -24,7 +24,7 @@ interface Props {
       
 }  
 
-const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleEvent,prelimData,currencySymbol}) => (
+const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleEvent,prelimData,currencySymbol, isExpand}) => (
 
   <div>
   {fields.map((member, index) => (
@@ -33,12 +33,14 @@ const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleE
             <div
               className="card-header p-l-43"
               data-toggle="collapse"
+              data-test="tickWrap"
               
               
             >
-              <div className="tick_wrap">
+               {prelimData[index].items.find(x=>x.preliminaryId)? <div className="tick_wrap">
               <FontAwesomeIcon icon={faCheck} />
-              </div>
+              </div> : "" }
+             
               <a className="card-link" >{prelimData[index].componentName}</a>
              
               {!CheckConstraints(prelimData[index].componentId)
