@@ -322,7 +322,7 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 										<FormattedMessage id="LABEL_PROJECT_STATUS" />
 									</label>
 									<div className="select-wrapper">
-										<Field name="status" component={PdsFormSelect} normalize={normalizeToNumber}>
+										<Field name="status" component={PdsFormSelect} normalize={normalizeToNumber} disabled={true}>
 											<FormattedMessage id="PLACEHOLDER_PROJECT_STATUS">
 												{(message) => <option value="">{message}</option>}
 											</FormattedMessage>
