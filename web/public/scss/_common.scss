@@ -150,7 +150,7 @@ form {
         border: 1px solid map-get($colors, grey08);
         position: relative;
         @include borderRadius(6px);
-        padding: 10px 10px;
+        padding: 10px 30px 10px 10px;
         height: auto !important;
         @include smScreen {
           max-width: 100%;
@@ -482,13 +482,14 @@ button[type="button"] {
         position: relative;
         padding-left: 50% !important;
         background-color: transparent !important;
+        margin: 5px 0;
+        min-height: 31px;
         &:before {
           position: absolute;
           top: 6px;
           left: 10px;
           width: 45%;
           padding-right: 10px;
-          white-space: nowrap;
           content: attr(data-column);
           font-weight: 700;
         }

@@ -48,15 +48,15 @@ const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = props => {
         <div className="row">
           <div className="col-xl-12">
             <div className="custom-wrap">
-              <div className="row align-items-center">
+              <div className="row align-items-center my-3 my-lg-4 pb-2">
                 <div className="col-xl-6">
-                  <h1 className="top_Title2">
+                  <h1 className="top_Title2 m-0">
                     {formatMessage('TITLE_WELCOME')}{' '}
                     {getDisplayName() && getDisplayName()}
                   </h1>
                 </div>
                 <div className="col-xl-6">
-                  <div className="mr-35 three-btn justify-content-xl-end justify-content-lg-start pb-0">
+                  <div className="mr-35 three-btn pb-0 pt-0 mt-4 mt-xl-0 d-flex justify-content-start justify-content-xl-end">
                     <Link to="/Pipeline">
                       <button name="save" className="active mr-3" type="button">
                         {formatMessage('BUTTON_PIPELINE')}
