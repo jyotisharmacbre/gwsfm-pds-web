@@ -59,12 +59,18 @@ const getProjectActivitiesError = (error: string) => {
 		payload: error
 	};
 };
-export const setupPojectApprovalsInitialData = (lookupdata: Array<ILookup>, currencySymbol: string, projectId: string) => {
+export const setupPojectApprovalsInitialData = (
+	lookupdata: Array<ILookup>,
+	currencySymbol: string,
+	projectId: string
+) => {
 	return (dispatch: Dispatch) => {
-		dispatch({ type: ActionType.BIND_PROJECT_APPROVAL_INITIAL_DATA, payload: { lookupdata, currencySymbol, projectId } });
-
+		dispatch({
+			type: ActionType.BIND_PROJECT_APPROVAL_INITIAL_DATA,
+			payload: { lookupdata, currencySymbol, projectId }
+		});
 	};
-}
+};
 let config = {
 	headers: {
 		'Content-Type': 'application/json'
@@ -125,6 +131,17 @@ export const resetProjectOverviewState = () => {
 	};
 };
 
+const resetProjectOverviewNotifierDispatch = () => {
+	return {
+		type: ActionType.RESET_PROJECT_OVERVIEW_NOTIFIER
+	};
+};
+
+export const resetProjectOverviewNotifier = () => {
+	return (dispatch: Dispatch) => {
+		dispatch(resetProjectOverviewNotifierDispatch());
+	};
+};
 export const getAdminDefaultValues = (countryId: number) => {
 	let sessionData: any = sessionStorage.getItem('defaultParameters');
 	let isLookupSessionExists: boolean = sessionData ? (JSON.parse(sessionData).length > 0 ? true : false) : false;
@@ -135,7 +152,7 @@ export const getAdminDefaultValues = (countryId: number) => {
 				.then((response) => {
 					sessionStorage.setItem('defaultParameters', JSON.stringify(response.data));
 				})
-				.catch((error) => { });
+				.catch((error) => {});
 		}
 	};
 };

@@ -77,6 +77,10 @@ const resetProjectDetailStateToInitial = (oldState, action) => {
   return initialState;
 };
 
+const resetCustomerEnquiryState = (oldState, action) => {
+  return initialState;
+};
+
 const updateProjectFormState = (oldState, action) => {
   return updateObject(oldState, {
     form: action.payload.form
@@ -107,6 +111,8 @@ const projectDetailReducer = (oldState = initialState, action) => {
       return changeProjectStatus(oldState, action);
     case ActionType.RESET_PROJECT_DETAIL_STATE_TO_INITIAL:
       return resetProjectDetailStateToInitial(oldState, action);
+    case ActionType.RESET_CUSTOMER_ENQUIRY_STATE:
+      return resetCustomerEnquiryState(oldState, action);
     case ActionType.UPDATE_PROJECT_FORM_STATE:
       return updateProjectFormState(oldState, action);
     default:

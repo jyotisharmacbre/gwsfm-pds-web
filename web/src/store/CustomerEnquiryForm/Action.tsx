@@ -180,3 +180,14 @@ export const updateProjectFormState = (formValues: IProjectDetail) => {
 		dispatch(updateProjectFormStateDispatch(formValues));
 	};
 }
+const resetCustomerEnquiryStateDispatch = () => {
+	return {
+		type: ActionType.RESET_CUSTOMER_ENQUIRY_STATE
+	};
+};
+
+export const resetCustomerEnquiryState = () => {
+	return (dispatch: Dispatch) => {
+		dispatch(resetCustomerEnquiryStateDispatch());
+	};
+};

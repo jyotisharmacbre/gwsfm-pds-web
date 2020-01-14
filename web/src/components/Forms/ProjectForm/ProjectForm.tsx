@@ -106,8 +106,8 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 					(ContractData.contractName === 'Other'
 						? ContractData.contractName
 						: '(' +
-						ContractData.contractName +
-						(ContractData.contractId === '0' ? '' : '-' + ContractData.contractId + ')'))).trim(),
+							ContractData.contractName +
+							(ContractData.contractId === '0' ? '' : '-' + ContractData.contractId + ')'))).trim(),
 				id: ContractData.contractId
 			};
 		});
@@ -135,8 +135,8 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 					(ContractData.contractName === 'Other'
 						? ContractData.contractName
 						: '(' +
-						ContractData.contractName +
-						(ContractData.contractId === '0' ? '' : '-' + ContractData.contractId + ')'))).trim(),
+							ContractData.contractName +
+							(ContractData.contractId === '0' ? '' : '-' + ContractData.contractId + ')'))).trim(),
 				id: ContractData.contractId
 			});
 		});
@@ -188,7 +188,7 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 									validate={/*To do: Have to replace it with consistent solution.
                       Currently, This field is using "require"(no memoize) insted of "required"(with memoize),
                       It is in use to change the state of "required" error message on language change*/
-										[Validate.require('LABEL_PROJECT'), Validate.maxLength(1000)]}
+									[ Validate.require('LABEL_PROJECT'), Validate.maxLength(1000) ]}
 									messageKey="MESSAGE_PROJECT_NAME"
 									labelKey="LABEL_PROJECT"
 									placeholderKey="PLACEHOLDER_PROJECT_NAME"
@@ -246,7 +246,7 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 										type="text"
 										component={PdsFormInput}
 										className="required"
-										validate={[Validate.required('LABEL_COMPANY'), Validate.maxLength(1000)]}
+										validate={[ Validate.required('LABEL_COMPANY'), Validate.maxLength(1000) ]}
 										labelKey="LABEL_OTHER_COMPANY"
 										placeholderKey="PLACEHOLDER_COMPANY_NAME"
 									/>
@@ -268,7 +268,7 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 										type="text"
 										component={PdsFormInput}
 										className="required"
-										validate={[Validate.required('LABEL_CONTRACT'), Validate.maxLength(1000)]}
+										validate={[ Validate.required('LABEL_CONTRACT'), Validate.maxLength(1000) ]}
 										labelKey="LABEL_OTHER_CONTRACT"
 										placeholderKey="PLACEHOLDER_CONTRACT"
 									/>
@@ -318,14 +318,14 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 									rows="7"
 									component={PdsFormTextArea}
 									className="required"
-									validate={[Validate.required('LABEL_PROJECT_SCOPE'), Validate.maxLength(5000)]}
+									validate={[ Validate.required('LABEL_PROJECT_SCOPE'), Validate.maxLength(5000) ]}
 									labelKey="LABEL_PROJECT_SCOPE"
 								/>
 								<Field
 									name="cnNumber"
 									type="text"
 									component={PdsFormInput}
-									validate={[Validate.maxLength(25)]}
+									validate={[ Validate.maxLength(25) ]}
 									labelKey="LABEL_CN_NUMBER"
 									placeholderKey="PLACEHOLDER_CN_NUMBER"
 								/>
@@ -334,7 +334,7 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 										<FormattedMessage id="LABEL_PROJECT_STATUS" />
 									</label>
 									<div className="select-wrapper">
-										<Field name="status" component={PdsFormSelect} normalize={normalizeToNumber}>
+										<Field name="status" component={PdsFormSelect} normalize={normalizeToNumber} disabled={true}>
 											<FormattedMessage id="PLACEHOLDER_PROJECT_STATUS">
 												{(message) => <option value="">{message}</option>}
 											</FormattedMessage>
@@ -430,7 +430,7 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 										onlyNumber
 									]}
 									messageKey="MESSAGE_PROBABILITYOFWINING"
-									normalize={maxLimitTo(0,100)}
+									normalize={maxLimitTo(0, 100)}
 								/>
 
 								<ValidatedNumericInput
@@ -497,7 +497,10 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 												Validate.required('LABEL_ASSETS_WORKED_ON'),
 												Validate.maxLength(1000),
 												onlyNumber,
-												OnlyDistinctAssetTypes(props.secondAssetWorkedOn, props.thirdAssetWorkedOn)
+												OnlyDistinctAssetTypes(
+													props.secondAssetWorkedOn,
+													props.thirdAssetWorkedOn
+												)
 											]}
 											normalize={normalizeToNumber}
 										>
@@ -515,7 +518,10 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 											DropdownCheck="selectRound"
 											placeholderKey="PLACEHOLDER_SECOND_ASSET"
 											normalize={normalizeToNumber}
-											validate={OnlyDistinctAssetTypes(props.firstAssetWorkedOn, props.thirdAssetWorkedOn)}
+											validate={OnlyDistinctAssetTypes(
+												props.firstAssetWorkedOn,
+												props.thirdAssetWorkedOn
+											)}
 										>
 											<FormattedMessage id="PLACEHOLDER_SECOND_ASSET">
 												{(message) => <option value="">{message}</option>}
@@ -531,7 +537,10 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 											DropdownCheck="selectRound"
 											placeholderKey="PLACEHOLDER_THIRD_ASSET"
 											normalize={normalizeToNumber}
-											validate={OnlyDistinctAssetTypes(props.firstAssetWorkedOn, props.secondAssetWorkedOn)}
+											validate={OnlyDistinctAssetTypes(
+												props.firstAssetWorkedOn,
+												props.secondAssetWorkedOn
+											)}
 										>
 											<FormattedMessage id="PLACEHOLDER_THIRD_ASSET">
 												{(message) => <option value="">{message}</option>}
@@ -544,10 +553,10 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 									name="soldMargin"
 									type="number"
 									component={PdsFormInput}
-									labelKey="LABEL_SOLID_MARGIN"
+									labelKey="LABEL_BIG_MARGIN"
 									className="pl-30 width-288"
 									discountBind="%"
-									validate={[Validate.maxLength(3)]}
+									validate={[ Validate.maxLength(3) ]}
 									normalize={maxLimitTo(0, 100)}
 								/>
 
@@ -565,24 +574,26 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 									)}
 								/>
 
-								<Field
-									name={'rank'}
-									type="text"
-									labelKey="LABEL_RANK"
-									input={{
-										value: calculateRank(props.probabilityOfWinning, props.approximateValue),
-										disabled: true
-									}}
-									component={PdsFormInput}
-									className="static-field"
-								/>
+								{false && (
+									<Field
+										name={'rank'}
+										type="text"
+										labelKey="LABEL_RANK"
+										input={{
+											value: calculateRank(props.probabilityOfWinning, props.approximateValue),
+											disabled: true
+										}}
+										component={PdsFormInput}
+										className="static-field"
+									/>
+								)}
 
 								<Field
 									labelKey="LABEL_COMMENTS"
 									name="comment"
 									rows="7"
-                  component={PdsFormTextArea}
-                  validate={[Validate.maxLength(5000)]}
+									component={PdsFormTextArea}
+									validate={[ Validate.maxLength(5000) ]}
 									placeholderKey="PLACEHOLDER_ADDITIONAL_COMMENTS"
 								/>
 							</div>

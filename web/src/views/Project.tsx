@@ -94,6 +94,9 @@ const Project: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = props
         })
       } else if (props.event == EventType.save) {
         toast.success('Data Saved Successfully');
+        history.push({
+          pathname: `/Project/${props.projectId}`
+        })
       }
       props.resetProjectDetailState();
     }
