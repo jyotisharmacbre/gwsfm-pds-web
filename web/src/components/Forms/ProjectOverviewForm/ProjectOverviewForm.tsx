@@ -154,13 +154,14 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						labelKey="LABEL_SITE_ADDRESS"
 						placeholderKey="PLACEHOLDER_ADD_SITE_ADDRESS"
 					/>
-					<Field
+					{false && <Field
+						className="d-none"
 						name="projectAdditionalDetail.cdmNotifiable"
 						data-test="cdmNotifiable"
 						component={PdsFormButton}
 						buttons={selectionButtons}
 						labelKey="LABEL_CDMNOTIFIABLE"
-					/>
+					/>}
 					<Field
 						name="projectAdditionalDetail.formOfContract"
 						data-test="formOfContract"
@@ -325,13 +326,13 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 							</div>
 						</div>
 					</div>
-					<Field
+					{false && <Field
 						name="projectAdditionalDetail.isProjectLive"
 						data-test="isProjectLive"
 						component={PdsFormButton}
 						buttons={selectionButtons}
 						labelKey="LABEL_PROJECT_IS_LIVE"
-					/>
+					/>}
 					<Field
 						name="projectAdditionalDetail.comments"
 						data-test="comments"
