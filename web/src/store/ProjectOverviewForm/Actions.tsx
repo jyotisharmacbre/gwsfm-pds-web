@@ -46,12 +46,31 @@ const getAdditionalDetailsError = (error: string) => {
 	};
 };
 
-export const setupPojectApprovalsInitialData = (lookupdata: Array<ILookup>, currencySymbol: string, projectId: string) => {
-	return (dispatch: Dispatch) => {
-		dispatch({ type: ActionType.BIND_PROJECT_APPROVAL_INITIAL_DATA, payload: { lookupdata, currencySymbol, projectId } });
-
+const getProjectActivitiesSuccess = (response: any) => {
+	return {
+		type: ActionType.GET_PROJECT_ACTIVITIES_SUCCESS,
+		payload: response
 	};
-}
+};
+
+const getProjectActivitiesError = (error: string) => {
+	return {
+		type: ActionType.GET_PROJECT_ACTIVITIES_ERROR,
+		payload: error
+	};
+};
+export const setupPojectApprovalsInitialData = (
+	lookupdata: Array<ILookup>,
+	currencySymbol: string,
+	projectId: string
+) => {
+	return (dispatch: Dispatch) => {
+		dispatch({
+			type: ActionType.BIND_PROJECT_APPROVAL_INITIAL_DATA,
+			payload: { lookupdata, currencySymbol, projectId }
+		});
+	};
+};
 let config = {
 	headers: {
 		'Content-Type': 'application/json'
@@ -112,6 +131,17 @@ export const resetProjectOverviewState = () => {
 	};
 };
 
+const resetProjectOverviewNotifierDispatch = () => {
+	return {
+		type: ActionType.RESET_PROJECT_OVERVIEW_NOTIFIER
+	};
+};
+
+export const resetProjectOverviewNotifier = () => {
+	return (dispatch: Dispatch) => {
+		dispatch(resetProjectOverviewNotifierDispatch());
+	};
+};
 export const getAdminDefaultValues = (countryId: number) => {
 	let sessionData: any = sessionStorage.getItem('defaultParameters');
 	let isLookupSessionExists: boolean = sessionData ? (JSON.parse(sessionData).length > 0 ? true : false) : false;
@@ -122,7 +152,20 @@ export const getAdminDefaultValues = (countryId: number) => {
 				.then((response) => {
 					sessionStorage.setItem('defaultParameters', JSON.stringify(response.data));
 				})
-				.catch((error) => { });
+				.catch((error) => {});
 		}
+	};
+};
+
+export const getProjectActivities = (projectId: string) => {
+	return (dispatch: Dispatch) => {
+		axios.baseAPI
+			.get(`api/Projects/${projectId}/projectActivities`, config)
+			.then((response) => {
+				dispatch(getProjectActivitiesSuccess(response.data));
+			})
+			.catch((error) => {
+				dispatch(getProjectActivitiesError(error));
+			});
 	};
 };

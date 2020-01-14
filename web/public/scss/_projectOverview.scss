@@ -57,6 +57,7 @@
             line-height: 16px;
             font-size: 12px;
             text-align: justify;
+            text-transform: initial;
         }
     }
 }
@@ -191,11 +192,11 @@
                 position: absolute;
                 right: 10px;
                 top: calc(100% - 28px);
-                color: map-get($colors , grey001 );
+                color: map-get($colors, grey03);
             }
             .form-control {
                 border: 1px solid map-get($colors , grey001 );
-                padding-right: 65px;
+                padding-right: 100px;
             }
         }
         .approve_state {
