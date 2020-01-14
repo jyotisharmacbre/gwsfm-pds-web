@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { MainTitle } from '../../Title/Title';
 
-import { Field, reduxForm, InjectedFormProps, formValueSelector } from 'redux-form';
+import { Field, reduxForm, InjectedFormProps, formValueSelector, getFormValues } from 'redux-form';
 import PdsFormInput from '../../PdsFormHandlers/PdsFormInput';
 import PdsFormSelect from '../../PdsFormHandlers/PdsFormSelect';
 import PdsFormTextArea from '../../PdsFormHandlers/PdsFormTextArea';
@@ -50,7 +50,7 @@ interface Props {
 	dynamicsContractCustomerData: Array<IDynamicContractCustomerData>;
 	dynamicsCompany: Array<IDynamicCompanyData>;
 	countries: Array<ICountry> | null;
-	changeCurrencyId: (value: number) => void;
+	updateProjectFormState: (value: IProjectDetail) => void;
 }
 
 const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetail, Props>> = (props: any) => {
@@ -65,11 +65,14 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 		dynamicsCompany
 	} = props;
 
-	const onCountryChange= (event)=> {
+	const onCountryChange= (event)=> {		
 		if(props.countries)
 		{
 			const selectedCurrencyId = props.countries.find(x=>x.countryId==event.target.value)?.currencyId;
-		    props.changeCurrencyId(selectedCurrencyId)
+			const formValues = {...props.formValues};
+			formValues.currencyId = selectedCurrencyId;
+			formValues.countryId = Number(event.target.value);
+		    props.updateProjectFormState(formValues)
 		}
 	}
 
@@ -406,7 +409,7 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 												props.currencies.map((data: ICurrency, i: number) => {
 													return (
 														<option key={data.currencyId} value={data.currencyId}>
-															{data.currencyName}
+															 {data.currencyName} {data.currencySymbol && `(${data.currencySymbol})`}
 														</option>
 													);
 												})}
@@ -618,7 +621,8 @@ const mapStateToProps = (state: IState) => ({
 	userPreferenceCurrencyId: userPreferenceSelector(state, 'currencyId'),
 	firstAssetWorkedOn: selector(state, 'firstAssetWorkedOn'),
 	secondAssetWorkedOn: selector(state, 'secondAssetWorkedOn'),
-	thirdAssetWorkedOn: selector(state, 'thirdAssetWorkedOn')
+	thirdAssetWorkedOn: selector(state, 'thirdAssetWorkedOn'),
+	formValues : getFormValues('ProjectForm')(state)
 });
 
 const form = reduxForm<IProjectDetail, Props>({

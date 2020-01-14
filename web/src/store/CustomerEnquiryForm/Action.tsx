@@ -168,15 +168,15 @@ export const resetProjectDetailStateToInitial = () => {
 	};
 };
 
-const changeCurrencyIdDispatch = (id: number) => {
+const updateProjectFormStateDispatch = (formValues: IProjectDetail) => {
 	return {
-		type: ActionType.CHANGE_CURRENCY_ID,
-		payload: id
+		type: ActionType.UPDATE_PROJECT_FORM_STATE,
+		payload: {form: formValues}
 	};
 };
 
-export const changeCurrencyId = (id: number) => {
+export const updateProjectFormState = (formValues: IProjectDetail) => {
 	return (dispatch: Dispatch) => {
-		dispatch(changeCurrencyIdDispatch(id));
+		dispatch(updateProjectFormStateDispatch(formValues));
 	};
 }
