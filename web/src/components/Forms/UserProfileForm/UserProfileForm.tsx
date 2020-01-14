@@ -101,7 +101,7 @@ let UserProfileForm: React.FC<Props &
                           key={data.currencyId}
                           value={data.currencyId}
                         >
-                          {data.currencyName}
+                        {data.currencyName} {data.currencySymbol && `(${data.currencySymbol})`}
                         </option>
                       );
                     })}

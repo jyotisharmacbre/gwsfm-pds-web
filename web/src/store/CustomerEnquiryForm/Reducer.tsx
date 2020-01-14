@@ -67,7 +67,7 @@ const setProjectId = (oldState, action) => {
     form: updateObject(oldState.form, { projectId: action.projectId })
   });
 };
-const changeProjectStatus=(oldState, action) => {
+const changeProjectStatus = (oldState, action) => {
   return updateObject(oldState, {
     form: updateObject(oldState.form, { status: action.payload })
   });
@@ -75,6 +75,12 @@ const changeProjectStatus=(oldState, action) => {
 
 const resetProjectDetailStateToInitial = (oldState, action) => {
   return initialState;
+};
+
+const changeCurrencyId = (oldState, action) => {
+  let newState = oldState;
+  newState.form.currencyId = action.payload;
+  return updateObject(oldState, newState);
 };
 
 const projectDetailReducer = (oldState = initialState, action) => {
@@ -101,6 +107,8 @@ const projectDetailReducer = (oldState = initialState, action) => {
       return changeProjectStatus(oldState, action);
     case ActionType.RESET_PROJECT_DETAIL_STATE_TO_INITIAL:
       return resetProjectDetailStateToInitial(oldState, action);
+    case ActionType.CHANGE_CURRENCY_ID:
+      return changeCurrencyId(oldState, action);
     default:
       return oldState;
   }

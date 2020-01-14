@@ -15,6 +15,7 @@ export {
 	resetProjectDetailState,
 	projectDetailEdit,
 	changeProjectStatus,
+	changeCurrencyId,
 	resetProjectDetailStateToInitial
 } from './CustomerEnquiryForm/Action';
 

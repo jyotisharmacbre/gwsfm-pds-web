@@ -31,5 +31,6 @@ export const countries: Array<ICountry> = [{
   countryId: 1,
   name: "fghanistan",
   code: "AFG",
-  isoAlpha2Code: "AF"
+  isoAlpha2Code: "AF",
+  currencyId: 64
 }];

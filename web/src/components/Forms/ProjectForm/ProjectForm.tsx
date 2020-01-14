@@ -50,6 +50,7 @@ interface Props {
 	dynamicsContractCustomerData: Array<IDynamicContractCustomerData>;
 	dynamicsCompany: Array<IDynamicCompanyData>;
 	countries: Array<ICountry> | null;
+	changeCurrencyId: (value: number) => void;
 }
 
 const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetail, Props>> = (props: any) => {
@@ -63,6 +64,14 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 		dynamicsContractCustomerData,
 		dynamicsCompany
 	} = props;
+
+	const onCountryChange= (event)=> {
+		if(props.countries)
+		{
+			const selectedCurrencyId = props.countries.find(x=>x.countryId==event.target.value)?.currencyId;
+		    props.changeCurrencyId(selectedCurrencyId)
+		}
+	}
 
 	const otherDynamicsContract = props.dynamicsOtherContract.length > 0 ? props.dynamicsOtherContract[0].id : '';
 
@@ -361,6 +370,7 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 											placeholderKey="PLACEHOLDER_COUNTRY"
 											messageKey="MESSAGE_COUNTRY"
 											normalize={normalizeToNumber}
+											onChange={onCountryChange}
 										>
 											<FormattedMessage id="PLACEHOLDER_COUNTRY">
 												{(message) => <option value="">{message}</option>}

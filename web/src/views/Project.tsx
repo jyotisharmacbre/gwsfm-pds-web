@@ -62,6 +62,7 @@ interface IMapDispatchToProps {
   handleProjectDetailsSubmit: (form: IProjectDetail, event: EventType) => void;
   handleProjectDetailsEdit: (form: IProjectDetail, event: EventType) => void;
   resetProjectDetailStateToInitial:() => void;
+  changeCurrencyId: (currencyId: number) => void;
 }
 
 interface IProps {
@@ -138,6 +139,7 @@ const Project: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = props
       getListOfUsers={actions.getUserServiceCallback}
       getListOfCompanies={actions.getListOfCompanies}
       getListOfContract={actions.getListOfContract}
+      changeCurrencyId= {props.changeCurrencyId}
     />
     </div>
   );
@@ -175,7 +177,8 @@ const mapDispatchToProps = dispatch => {
     handleGetDynamicCompanyData: searchCompany =>
       dispatch(getDynamicCompanyData(searchCompany)),
     handleGetuserServiceData: search => dispatch(getUserService(search)),
-    resetProjectDetailStateToInitial: () => dispatch(actions.resetProjectDetailStateToInitial())
+    resetProjectDetailStateToInitial: () => dispatch(actions.resetProjectDetailStateToInitial()),
+    changeCurrencyId: (currencyId: number) => dispatch(actions.changeCurrencyId(currencyId))
   };
 };
 
