@@ -148,7 +148,7 @@
 	"LABEL_VALUE": "Valeur (#)",
 	"LABEL_END_CUSTOMER_NAME": "Nom du cliente",
 	"LABEL_PROJECT_ID": "ID du projet",
-	"LABEL_SOLID_MARGIN": "solide marge",
+	"LABEL_BIG_MARGIN": "Grande Marge",
 	"LABEL_RANK": "rang",
 	"LABEL_WEIGHTED_TCV": "Pondérée TCV",
 	"LABEL_DIVISION": "Division",

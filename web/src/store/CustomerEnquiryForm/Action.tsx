@@ -167,3 +167,14 @@ export const resetProjectDetailStateToInitial = () => {
 	};
 };
 
+const resetCustomerEnquiryStateDispatch = () => {
+	return {
+		type: ActionType.RESET_CUSTOMER_ENQUIRY_STATE
+	};
+};
+
+export const resetCustomerEnquiryState = () => {
+	return (dispatch: Dispatch) => {
+		dispatch(resetCustomerEnquiryStateDispatch());
+	};
+};

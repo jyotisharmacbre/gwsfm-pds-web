@@ -82,6 +82,9 @@ const getAdditionalDetailsError = (oldState, action) => {
 };
 
 const resetProjectOverviewState = (oldState, action) => {
+	return initialState;
+};
+const resetProjectOverviewNotifier = (oldState, action) => {
 	return updateObject(oldState, {
 		notify: Notify.none,
 		event: EventType.none
@@ -121,14 +124,16 @@ const projectOverviewFormReducer = (oldState = initialState, action) => {
 			return getAdditionalDetailsError(oldState, action);
 		case ActionType.RESET_PROJECT_OVERVIEW_STATE:
 			return resetProjectOverviewState(oldState, action);
-		case ActionType.RESET_PROJECT_OVERVIEW_STATE:
-			return resetProjectOverviewState(oldState, action);
 		case ActionType.BIND_PROJECT_APPROVAL_INITIAL_DATA:
 			return setupPojectApprovalsInitialData(oldState, action);
 		case ActionType.GET_PROJECT_ACTIVITIES_SUCCESS:
 			return getProjectActivitiesSuccess(oldState, action);
 		case ActionType.GET_PROJECT_ACTIVITIES_ERROR:
 			return getProjectActivitiesError(oldState, action);
+		case ActionType.RESET_PROJECT_OVERVIEW_STATE:
+			return resetProjectOverviewState(oldState, action);
+		case ActionType.RESET_PROJECT_OVERVIEW_NOTIFIER:
+			return resetProjectOverviewNotifier(oldState, action);
 		default:
 			return oldState;
 	}
