@@ -56,6 +56,8 @@ const Preliminaries: React.FC<
 > = props => {
 const CurrencyObj = new Currency();
   const [ currencySymbol, setCurrencySymbol ] = useState<string>('');
+  let componentIds:Array<string>=[];
+  const [ componentIdList, setComponentId ] = useState(componentIds);
   let isLookupSessionExists: boolean = (sessionStorage.getItem("lookupData") != null && sessionStorage.getItem("lookupData") != undefined && sessionStorage.getItem("lookupData") != "")
 
  
@@ -74,7 +76,7 @@ const CurrencyObj = new Currency();
       props.getAllCurrencies();
     }
     
-    if ((props.match.params.projectId&& isLookupSessionExists)&&props.preliminaryDetails.length<1) {
+    if ((props.match.params.projectId&& isLookupSessionExists)) {
       props.getPreliminaryDetails(props.match.params.projectId);
     }
   }, []);
@@ -110,6 +112,7 @@ const CurrencyObj = new Currency();
   const [isExpand, handleExpandAllEvent] = useState(false);
 
   const handleToggle = (id: string) => {
+    componentIds=componentIdList;
     var element: any = document.getElementById('collapse_' + id);
     if (element != null) {
       var isClassExists = element.classList.contains('show');
@@ -121,6 +124,13 @@ const CurrencyObj = new Currency();
         element.classList.add('show');
       }
     }
+    if(!componentIds.includes(id))
+    {
+      componentIds.push(id);
+      let componentData = [...componentIds];
+      setComponentId(componentData);
+    }
+    
   };
   const handleSaveData = (
     saveAll: boolean,
@@ -198,6 +208,7 @@ const CurrencyObj = new Currency();
                 onPrevious={handlePrevious}
                 onToggle={handleToggle}
                 isExpand= {isExpand}
+                componentIdList={componentIdList}
                 preliminariesDetails={props.preliminaryDetails}
                 currencySymbol={getFilterElementFromArray(
                     props.currencies,
