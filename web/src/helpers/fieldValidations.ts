@@ -47,6 +47,10 @@ export const CheckConstraints = (id: string) => {
   if (PreliminaryComponentField.InsurranceCost == id) {
     isExists = true;
   }
+  else if(PreliminaryComponentField.CBRELABOUR==id)
+  {
+    isExists= true;
+  }
   return isExists;
 }
 export const isLumpSumOrCBRELabourExists = (id: string) => {

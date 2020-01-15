@@ -2,7 +2,7 @@ import React from 'react';
 import { Field, formValueSelector } from 'redux-form';
 import PdsFormInput from '../../PdsFormHandlers/PdsFormInput';
 import { Validate, alphaNumeric, onlyNumber } from '../../../helpers/fieldValidations';
-import { restrictMinus} from '../../../helpers/utility-helper';
+import { restrictMinus, restrictMinusAndDecimal} from '../../../helpers/utility-helper';
 import {calculateSell, calculateTotalCost} from '../../../helpers/formulas';
 import { IState } from '../../../store/state';
 import { connect } from 'react-redux';
@@ -71,7 +71,7 @@ const PreliminaryInsurranceForm:React.FC<Props>
     <ValidatedNumericInput
                   name={`${member}.grossMargin`}
                   type="number"
-                  normalize={restrictMinus}
+                  normalize={restrictMinusAndDecimal}
                   component={PdsFormInput}
                   className="width-120 pl-20 required currency"
                   validate={[
