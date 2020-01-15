@@ -19,13 +19,25 @@ export const newProjectApprovals: IProjectApprovals = {
 	showRangeLabel: true
 };
 
+const updateUserId = (oldState, newState) => {
+	oldState.map((ele) => {
+		let filter = newState.find((nstate) => nstate.approverType == ele.approverType);
+		if (filter) ele.userId = filter.userId;
+	});
+	return oldState;
+};
+
 const projectOverviewFormAddSuccess = (oldState, action) => {
 	return updateObject(oldState, {
 		error: null,
 		loading: false,
 		notify: Notify.success,
 		event: action.event,
-		form: updateObject(oldState.form, action.payload)
+		form: updateObject(oldState.form, {
+			projectId: action.payload.projectId,
+			projectAdditionalDetail: action.payload.projectAdditionalDetail,
+			projectApprovals: updateUserId(oldState.form.projectApprovals, action.payload.projectApprovals)
+		})
 	});
 };
 
@@ -44,7 +56,12 @@ const projectOverviewFormEditSuccess = (oldState, action) => {
 		error: null,
 		loading: false,
 		notify: Notify.success,
-		event: action.event
+		event: action.event,
+		form: updateObject(oldState.form, {
+			projectId: action.payload.projectId,
+			projectAdditionalDetail: action.payload.projectAdditionalDetail,
+			projectApprovals: updateUserId(oldState.form.projectApprovals, action.payload.projectApprovals)
+		})
 	});
 };
 

@@ -145,6 +145,8 @@ const ProjectOverview: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 				if (props.event == EventType.next) {
 					toast.success('Data Saved Successfully');
 					props.history.push(`/JustificationAuthorisation/${props.match.params.projectId}`);
+				} else if (props.event == EventType.save) {
+					toast.success('Data Saved Successfully');
 				} else if (props.event == EventType.previous) {
 					toast.success('Data Saved Successfully');
 					props.history.push(`/Project/${props.match.params.projectId}`);
@@ -241,6 +243,11 @@ const ProjectOverview: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 			? props.projectOverviewFormAdd(props.match.params.projectId, data, EventType.next)
 			: props.projectOverviewFormEdit(data, EventType.next);
 	};
+	const handleSave = (data: IProjectOverviewDetails) => {
+		data.projectAdditionalDetail.projectAddDetailId == ''
+			? props.projectOverviewFormAdd(props.match.params.projectId, data, EventType.save)
+			: props.projectOverviewFormEdit(data, EventType.save);
+	};
 	const convertToString = (id) => {
 		let data = '';
 		if (id != null && id != undefined) data = id.toString();
@@ -330,6 +337,7 @@ const ProjectOverview: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 							}}
 						/>
 						<ProjectOverviewForm
+							onSave={handleSave}
 							onNext={handleNext}
 							onPrevious={handlePrevious}
 							projectstatus={props.projectStatus}

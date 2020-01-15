@@ -49,6 +49,7 @@ import ActivityFeedList from './ActivityFeedList';
 interface Props {
 	onNext: (data: IProjectOverviewDetails) => void;
 	onPrevious: () => void;
+	onSave: (data: IProjectOverviewDetails) => void;
 	projectstatus: any;
 	status: number;
 	projectId: string;
@@ -420,7 +421,13 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 				<button className="active" type="button" onClick={() => props.onPrevious()}>
 					<FormattedMessage id="BUTTON_PREVIOUS" />
 				</button>
-				<button name="save" className="active ml-auto" data-test="save" type="button">
+				<button
+					name="save"
+					className="active ml-auto"
+					data-test="save"
+					type="button"
+					onClick={handleSubmit((values) => props.onSave(values))}
+				>
 					<FormattedMessage id="BUTTON_SAVE" />
 				</button>
 				<button type="button" name="next" onClick={handleSubmit((values) => props.onNext(values))} className="">
