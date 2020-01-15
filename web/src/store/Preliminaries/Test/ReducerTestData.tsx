@@ -102,7 +102,7 @@ export const expectedDataForDefaultValues: Array<IPreliminariesComponentDetails>
         preliminaryId:'',
         nameOfSupplier: '',
         noOfHours: 0,
-        hourRate: 70,
+        hourRate: 0,
         totalCost: 0,
         grossMargin: 15,
         comments: ''
@@ -121,7 +121,7 @@ export const expectedDataForDefaultValues: Array<IPreliminariesComponentDetails>
           preliminaryId:'',
           nameOfSupplier: '',
           noOfHours: 0,
-          hourRate: 70,
+          hourRate: 0,
           totalCost: 0,
           grossMargin: 15,
           comments: ''
