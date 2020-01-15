@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import PreliminaryComponentsForm from '../PreliminaryComponentsForm';
-import { preliminariuserData } from './PreliminaryFormTestData';
+import { preliminariuserData, preliminaryComponentIdList } from './PreliminaryFormTestData';
 import { findByTestAtrr } from '../../../../helpers/test-helper';
 import { initialState } from '../../../../store/Preliminaries/InitialState';
 
@@ -21,6 +21,7 @@ describe('Preliminary Components Form test cases', () => {
         handleSubmit={props.handleSubmit}
         onToggleEvent={props.onToggleEvent}
         prelimData={initialState.preliminaryDetails}
+        componentIdList={preliminaryComponentIdList}
         currencySymbol="$"
         isExpand="false"
       />
@@ -47,7 +48,6 @@ describe('Preliminary Components Form test cases', () => {
     const toggle = findByTestAtrr(wrapper, 'toggle');
     button.simulate('click');
     expect(props.onToggleEvent.mock.calls.length).toEqual(2);
-    expect(toggle.hasClass('hide')).toEqual(true);
   });
   it('should render check-mark if preliminariuserData item has id', () => {
     const collapseContainer = findByTestAtrr(wrapper, 'tickWrap').first();
