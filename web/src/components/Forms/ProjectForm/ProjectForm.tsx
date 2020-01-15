@@ -64,10 +64,10 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 	} = props;
 
 	const onCountryChange = (event) => {
-		if (props.countries) {
+		if (props.countries && props.currencies) {
 			const selectedCountryId = Number(event.target.value);
 			const selectedCurrencyId = props.countries.find(x => x.countryId === selectedCountryId)?.currencyId;
-			props.changeCurrencyId(selectedCurrencyId);
+			props.currencies.find(x=>x.currencyId === selectedCurrencyId) && props.changeCurrencyId(selectedCurrencyId);
 		}
 	}
 
