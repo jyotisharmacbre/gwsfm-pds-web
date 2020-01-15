@@ -158,3 +158,7 @@ export const formatDate = (date: string) => {
 export const formatDateAndTime = (date: string) => {
 	return moment(date).format('DD/MM/YYYY') + ' | ' + moment(date).format('hh:mm A');
 };
+
+export const displayUserName = (firstname: string, lastname: string) => {
+	return firstname + ' ' + lastname;
+};

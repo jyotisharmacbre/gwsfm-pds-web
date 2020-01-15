@@ -43,10 +43,9 @@ interface Props {
 	currencies: Array<ICurrency> | null;
 	onSearchContract: (value: any) => void;
 	onSearchCompany: (value: any) => void;
-	onSearchUserService: (value: any) => void;
-	getListOfUsers: (value: any, success: any, failure: any) => void;
-	getListOfCompanies: (value: any, success: any, failure: any) => void;
-	getListOfContract: (value: any, success: any, failure: any) => void;
+	getListOfUsers: (value: any) => void;
+	getListOfCompanies: (value: any) => void;
+	getListOfContract: (value: any) => void;
 	userServiceData: Array<IUserServiceData>;
 	dynamicsContractCustomerData: Array<IDynamicContractCustomerData>;
 	dynamicsCompany: Array<IDynamicCompanyData>;
@@ -59,7 +58,6 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 		projectstatus,
 		onSearchContract,
 		onSearchCompany,
-		onSearchUserService,
 		userServiceData,
 		dynamicsContractCustomerData,
 		dynamicsCompany
@@ -331,7 +329,12 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 										<FormattedMessage id="LABEL_PROJECT_STATUS" />
 									</label>
 									<div className="select-wrapper">
-										<Field name="status" component={PdsFormSelect} normalize={normalizeToNumber} disabled={true}>
+										<Field
+											name="status"
+											component={PdsFormSelect}
+											normalize={normalizeToNumber}
+											disabled={true}
+										>
 											<FormattedMessage id="PLACEHOLDER_PROJECT_STATUS">
 												{(message) => <option value="">{message}</option>}
 											</FormattedMessage>
