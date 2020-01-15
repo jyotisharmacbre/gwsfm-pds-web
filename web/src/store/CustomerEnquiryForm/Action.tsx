@@ -7,6 +7,7 @@ import { IProject } from './Types/IProject';
 import EventType from '../../enums/EventType';
 import { isProjectStateInReview, isDataExists } from '../store-helper';
 import { getDefaultState } from '../Common/Action';
+import { payload } from '../ProjectOverviewForm/Test/DataWrapperTestData';
 const projectDetailAddSuccess = (response: IProjectDetail, event: EventType) => {
 	return {
 		type: ActionType.PROJECT_ADD,

@@ -197,7 +197,7 @@ const ProfileMenu: React.FC<any> = props => {
                               <FontAwesomeIcon className="" icon={faPoundSign} />
                             </i>
                             <p className="title_name">{formatMessage('LABEL_PREFERED_CURRENCY')}</p>
-                            <span className="dsc">{props.currencySymbol}</span>
+                            <span className="dsc">{props.currencyName} {props.currencySymbol && `(${props.currencySymbol})`}</span>
                           </a>
                         </li>
                       </ul>

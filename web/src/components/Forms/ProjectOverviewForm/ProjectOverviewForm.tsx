@@ -57,7 +57,8 @@ interface Props {
 	discountState: IDiscountActivity;
 	currencySymbol: string;
 	lookups: any;
-	getListOfUsers: (value: any, success: any, failure: any) => void;
+	getListOfUsers: (value: any) => Promise<any>;
+	handleGetUserNamesForEmails: (emails: Array<string>) => void;
 }
 
 let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDetails, Props>> = (props) => {
@@ -153,14 +154,16 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						labelKey="LABEL_SITE_ADDRESS"
 						placeholderKey="PLACEHOLDER_ADD_SITE_ADDRESS"
 					/>
-					{false && <Field
-						className="d-none"
-						name="projectAdditionalDetail.cdmNotifiable"
-						data-test="cdmNotifiable"
-						component={PdsFormButton}
-						buttons={selectionButtons}
-						labelKey="LABEL_CDMNOTIFIABLE"
-					/>}
+					{false && (
+						<Field
+							className="d-none"
+							name="projectAdditionalDetail.cdmNotifiable"
+							data-test="cdmNotifiable"
+							component={PdsFormButton}
+							buttons={selectionButtons}
+							labelKey="LABEL_CDMNOTIFIABLE"
+						/>
+					)}
 					<Field
 						name="projectAdditionalDetail.formOfContract"
 						data-test="formOfContract"
@@ -325,13 +328,15 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 							</div>
 						</div>
 					</div>
-					{false && <Field
-						name="projectAdditionalDetail.isProjectLive"
-						data-test="isProjectLive"
-						component={PdsFormButton}
-						buttons={selectionButtons}
-						labelKey="LABEL_PROJECT_IS_LIVE"
-					/>}
+					{false && (
+						<Field
+							name="projectAdditionalDetail.isProjectLive"
+							data-test="isProjectLive"
+							component={PdsFormButton}
+							buttons={selectionButtons}
+							labelKey="LABEL_PROJECT_IS_LIVE"
+						/>
+					)}
 					<Field
 						name="projectAdditionalDetail.comments"
 						data-test="comments"
@@ -360,7 +365,10 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 					</div>
 				</div>
 				<div className="col-xl-6">
-					<ActivityFeedList currencySymbol={props.currencySymbol} />
+					<ActivityFeedList
+						currencySymbol={props.currencySymbol}
+						handleGetUserNamesForEmails={props.handleGetUserNamesForEmails}
+					/>
 				</div>
 			</div>
 			<div className="row">

@@ -44,12 +44,10 @@ export {
 	getDynamicContractData,
 	getDynamicCompanyData,
 	getDynamicSubContractorData,
-	getDynamicOther,
-	getListOfCompanies,
-	getListOfContract
+	getDynamicOther
 } from './DynamicsData/Action';
 
-export { getUserService, getUserServiceCallback, getUserNamesForEmails } from './UserService/Action';
+export { getUserNamesForEmailsService } from './UserService/Action';
 
 export {
 	changeProjectStatusToBidLost,
