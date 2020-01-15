@@ -1,20 +1,10 @@
 import * as axios from '../../client';
 import { ActionType } from './Types/ActionType';
 import { Dispatch } from 'redux';
+import { getUsersForEmailsService } from '../../services';
+import { store } from '../index';
+import { getDefaultState } from '../Common/Action';
 
-const getUserServiceSuccess = (response: any) => {
-	return {
-		type: ActionType.USER_SERVICE_GET_SUCCESS,
-		payload: response
-	};
-};
-
-const getUserServiceError = (error: any) => {
-	return {
-		type: ActionType.USER_SERVICE_GET_ERROR,
-		payload: error
-	};
-};
 const getUserNamesForEmailsServiceSuccess = (response: any) => {
 	return {
 		type: ActionType.USER_NAMES_FOR_EMAILSSERVICE_GET_SUCCESS,
@@ -28,47 +18,17 @@ const getUserNamesForEmailsServiceError = (error: any) => {
 		payload: error
 	};
 };
-let config = {
-	headers: {
-		'Content-Type': 'application/json'
-	}
-};
-export const getUserService = (search: string) => {
-	return (dispatch: Dispatch) => {
-		axios.userServiceAPI
-			.get(
-				`/api/identity/users/GetListOfUsers/${search}
-    `,
-				config
-			)
-			.then((response) => {
-				dispatch(getUserServiceSuccess(response.data));
-			})
-			.catch((error) => {
-				dispatch(getUserServiceError(error));
-			});
-	};
-};
 
-export const getUserServiceCallback = (search: string, success, failure) => {
-	axios.userServiceAPI
-		.get(`/api/identity/users/GetListOfUsers/${search}`, config)
-		.then((response) => {
-			success(response.data);
-		})
-		.catch((error) => {
-			failure(error);
-		});
-};
-export const getUserNamesForEmailsService = (data: any) => {
+export const getUserNamesForEmailsService = (data: Array<string>) => {
 	return (dispatch: Dispatch) => {
-		axios.userServiceAPI
-			.post(
-				`/api/identity/users/getusernamesforemailids
-    `,
-				data,
-				config
-			)
+		let userData = store.getState().userService.userServiceData;
+		let dataNotExists: Array<string> = [];
+		data.map((email) => {
+			let filter = userData.find((ele) => ele.email.toLowerCase() == email.toLowerCase());
+			if (filter == undefined) dataNotExists.push(email);
+		});
+		if (dataNotExists.length == 0) dispatch(getDefaultState());
+		getUsersForEmailsService(data)
 			.then((response) => {
 				dispatch(getUserNamesForEmailsServiceSuccess(response.data));
 			})
@@ -76,15 +36,4 @@ export const getUserNamesForEmailsService = (data: any) => {
 				dispatch(getUserNamesForEmailsServiceError(error));
 			});
 	};
-};
-
-export const getUserNamesForEmails = (data: Array<string>, success, failure) => {
-	axios.userServiceAPI
-		.post(`/api/identity/users/getusernamesforemailids`, data, config)
-		.then((response) => {
-			success(response.data);
-		})
-		.catch((error) => {
-			failure(error);
-		});
 };
