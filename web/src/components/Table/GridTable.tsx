@@ -2,7 +2,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
 import { IGridTableProps } from '../../props/AppProps';
+import ColumnTypeEnum from '../../enums/ColumnTypeEnum';
 const GridTable: React.FC<IGridTableProps> = props => {
+  const getColumnValue = (col, arr) => {
+    switch (col.type) {
+      case ColumnTypeEnum.currency:
+        return <span className='float-right'>{arr[col.field]}</span>;
+      case ColumnTypeEnum.percentage:
+        return <span className='float-right'> {arr[col.field] + ' %'}</span>;
+    }
+  };
   return (
     <table className={`${props.className} table_responsive`}>
       <thead>
@@ -21,12 +30,12 @@ const GridTable: React.FC<IGridTableProps> = props => {
         {props.data.map(x => (
           <tr>
             {props.columns.map(yy => (
-              <td data-column={yy.title}>{x[yy.field]}</td>
+              <td data-column={yy.title}>{yy.type ? getColumnValue(yy, x) : x[yy.field]}</td>
             ))}
           </tr>
         ))}
       </tbody>
     </table>
   );
-};
+}
 export default GridTable;

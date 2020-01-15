@@ -99,7 +99,7 @@
     "LABEL_CONTRACT_TYPE": "Contract type",
     "LABEL_CMD_NOTIFIABLE": "CMD notifiable",
     "LABEL_COUNTRY": "Country",
-    "LABEL_SOLD_MARGIN": "Sold margin",
+    "LABEL_SOLD_MARGIN": "Bid margin",
     "LABEL_CREDIT_CHECK_RESULT": "Credit Check Result",
     "LABEL_ENQUIRY_RECEIVED_FROM": "Enquiry Received From",
     "LABEL_FIRST_ACCOUNT_DATE": "First Account Date",
