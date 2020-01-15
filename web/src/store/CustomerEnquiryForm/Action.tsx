@@ -168,18 +168,6 @@ export const resetProjectDetailStateToInitial = () => {
 	};
 };
 
-const updateProjectFormStateDispatch = (formValues: IProjectDetail) => {
-	return {
-		type: ActionType.UPDATE_PROJECT_FORM_STATE,
-		payload: {form: formValues}
-	};
-};
-
-export const updateProjectFormState = (formValues: IProjectDetail) => {
-	return (dispatch: Dispatch) => {
-		dispatch(updateProjectFormStateDispatch(formValues));
-	};
-}
 const resetCustomerEnquiryStateDispatch = () => {
 	return {
 		type: ActionType.RESET_CUSTOMER_ENQUIRY_STATE

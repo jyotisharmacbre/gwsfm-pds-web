@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { MainTitle } from '../../Title/Title';
 
-import { Field, reduxForm, InjectedFormProps, formValueSelector, getFormValues } from 'redux-form';
+import { Field, reduxForm, InjectedFormProps, formValueSelector } from 'redux-form';
 import PdsFormInput from '../../PdsFormHandlers/PdsFormInput';
 import PdsFormSelect from '../../PdsFormHandlers/PdsFormSelect';
 import PdsFormTextArea from '../../PdsFormHandlers/PdsFormTextArea';
@@ -34,6 +34,7 @@ import { any } from 'prop-types';
 import { IDynamicContractCustomerData, IDynamicCompanyData } from '../../../store/DynamicsData/Types/IDynamicData';
 import { ICountry } from '../../../store/Lookups/Types/ICountry';
 import ValidatedNumericInput from '../../NumericInput';
+import { change } from "redux-form";
 
 interface Props {
 	projectstatus: any;
@@ -50,7 +51,6 @@ interface Props {
 	dynamicsContractCustomerData: Array<IDynamicContractCustomerData>;
 	dynamicsCompany: Array<IDynamicCompanyData>;
 	countries: Array<ICountry> | null;
-	updateProjectFormState: (value: IProjectDetail) => void;
 }
 
 const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetail, Props>> = (props: any) => {
@@ -66,17 +66,11 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 	} = props;
 
 	const onCountryChange = (event) => {
-		if (!props.countries) return;
-
-		const formValues = { ...props.formValues };
-
-		const selectedCountryId = Number(event.target.value);
-		const selectedCurrencyId = props.countries.find(x => x.countryId === selectedCountryId)?.currencyId;
-
-		formValues.currencyId = selectedCurrencyId;
-		formValues.countryId = selectedCountryId;
-
-		props.updateProjectFormState(formValues)
+		if (props.countries) {
+			const selectedCountryId = Number(event.target.value);
+			const selectedCurrencyId = props.countries.find(x => x.countryId === selectedCountryId)?.currencyId;
+			props.changeCurrencyId(selectedCurrencyId);
+		}
 	}
 
 	const otherDynamicsContract = props.dynamicsOtherContract.length > 0 ? props.dynamicsOtherContract[0].id : '';
@@ -635,8 +629,7 @@ const mapStateToProps = (state: IState) => ({
 	userPreferenceCurrencyId: userPreferenceSelector(state, 'currencyId'),
 	firstAssetWorkedOn: selector(state, 'firstAssetWorkedOn'),
 	secondAssetWorkedOn: selector(state, 'secondAssetWorkedOn'),
-	thirdAssetWorkedOn: selector(state, 'thirdAssetWorkedOn'),
-	formValues: getFormValues('ProjectForm')(state)
+	thirdAssetWorkedOn: selector(state, 'thirdAssetWorkedOn')
 });
 
 const form = reduxForm<IProjectDetail, Props>({
@@ -647,4 +640,6 @@ const form = reduxForm<IProjectDetail, Props>({
 const selector = formValueSelector('ProjectForm');
 const userPreferenceSelector = formValueSelector('UserProfileForm');
 
-export default connect(mapStateToProps)(form);
+export default connect(mapStateToProps, {
+	changeCurrencyId: currencyId => change("ProjectForm", "currencyId", currencyId)
+})(form);

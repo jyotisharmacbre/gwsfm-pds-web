@@ -16,7 +16,6 @@ export {
 	resetProjectDetailState,
 	projectDetailEdit,
 	changeProjectStatus,
-	updateProjectFormState,
 	resetProjectDetailStateToInitial,
 	resetCustomerEnquiryState
 } from './CustomerEnquiryForm/Action';

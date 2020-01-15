@@ -81,11 +81,6 @@ const resetCustomerEnquiryState = (oldState, action) => {
   return initialState;
 };
 
-const updateProjectFormState = (oldState, action) => {
-  return updateObject(oldState, {
-    form: action.payload.form
-  });
-};
 
 const projectDetailReducer = (oldState = initialState, action) => {
   switch (action.type) {
@@ -113,9 +108,7 @@ const projectDetailReducer = (oldState = initialState, action) => {
       return resetProjectDetailStateToInitial(oldState, action);
     case ActionType.RESET_CUSTOMER_ENQUIRY_STATE:
       return resetCustomerEnquiryState(oldState, action);
-    case ActionType.UPDATE_PROJECT_FORM_STATE:
-      return updateProjectFormState(oldState, action);
-    default:
+      default:
       return oldState;
   }
 };
