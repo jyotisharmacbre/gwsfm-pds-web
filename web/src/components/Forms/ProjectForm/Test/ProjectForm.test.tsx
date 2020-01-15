@@ -30,7 +30,15 @@ nock(baseURL)
 describe('ProjectForm Fields', () => {
   let wrapper: any;
   const props: any = {
-    handleSubmit: jest.fn()
+    handleSubmit: jest.fn(),
+    updateProjectFormState: jest.fn(),
+    countries: [{
+      countryId: 1,
+      name: "fghanistan",
+      code: "AFG",
+      isoAlpha2Code: "AF",
+      currencyId: 64
+    }]
   };
   beforeEach(() => {
     const formatMessage = jest.mock(
@@ -174,6 +182,11 @@ describe('ProjectForm Fields', () => {
 
       it('Should renders countryId field', () => {
         expect(field.render());
+      });
+      it('Should change currency on countryId change', () => {
+        field.simulate('change', { target: { value: '64' } })
+        expect(props.updateProjectFormState.mock.calls.length).toEqual(1);
+
       });
       it('Shows error when countryId is set to blank', () => {
         field.simulate('blur');
