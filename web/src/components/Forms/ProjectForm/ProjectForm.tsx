@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { MainTitle } from '../../Title/Title';
 
 import { Field, reduxForm, InjectedFormProps, formValueSelector } from 'redux-form';
@@ -34,6 +34,7 @@ import { any } from 'prop-types';
 import { IDynamicContractCustomerData, IDynamicCompanyData } from '../../../store/DynamicsData/Types/IDynamicData';
 import { ICountry } from '../../../store/Lookups/Types/ICountry';
 import ValidatedNumericInput from '../../NumericInput';
+import { change } from "redux-form";
 
 interface Props {
 	projectstatus: any;
@@ -63,6 +64,14 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 		dynamicsContractCustomerData,
 		dynamicsCompany
 	} = props;
+
+	const onCountryChange = (event) => {
+		if (props.countries) {
+			const selectedCountryId = Number(event.target.value);
+			const selectedCurrencyId = props.countries.find(x => x.countryId === selectedCountryId)?.currencyId;
+			props.changeCurrencyId(selectedCurrencyId);
+		}
+	}
 
 	const otherDynamicsContract = props.dynamicsOtherContract.length > 0 ? props.dynamicsOtherContract[0].id : '';
 
@@ -94,8 +103,8 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 					(ContractData.contractName === 'Other'
 						? ContractData.contractName
 						: '(' +
-							ContractData.contractName +
-							(ContractData.contractId === '0' ? '' : '-' + ContractData.contractId + ')'))).trim(),
+						ContractData.contractName +
+						(ContractData.contractId === '0' ? '' : '-' + ContractData.contractId + ')'))).trim(),
 				id: ContractData.contractId
 			};
 		});
@@ -123,8 +132,8 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 					(ContractData.contractName === 'Other'
 						? ContractData.contractName
 						: '(' +
-							ContractData.contractName +
-							(ContractData.contractId === '0' ? '' : '-' + ContractData.contractId + ')'))).trim(),
+						ContractData.contractName +
+						(ContractData.contractId === '0' ? '' : '-' + ContractData.contractId + ')'))).trim(),
 				id: ContractData.contractId
 			});
 		});
@@ -176,7 +185,7 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 									validate={/*To do: Have to replace it with consistent solution.
                       Currently, This field is using "require"(no memoize) insted of "required"(with memoize),
                       It is in use to change the state of "required" error message on language change*/
-									[ Validate.require('LABEL_PROJECT'), Validate.maxLength(1000) ]}
+										[Validate.require('LABEL_PROJECT'), Validate.maxLength(1000)]}
 									messageKey="MESSAGE_PROJECT_NAME"
 									labelKey="LABEL_PROJECT"
 									placeholderKey="PLACEHOLDER_PROJECT_NAME"
@@ -234,7 +243,7 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 										type="text"
 										component={PdsFormInput}
 										className="required"
-										validate={[ Validate.required('LABEL_COMPANY'), Validate.maxLength(1000) ]}
+										validate={[Validate.required('LABEL_COMPANY'), Validate.maxLength(1000)]}
 										labelKey="LABEL_OTHER_COMPANY"
 										placeholderKey="PLACEHOLDER_COMPANY_NAME"
 									/>
@@ -256,7 +265,7 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 										type="text"
 										component={PdsFormInput}
 										className="required"
-										validate={[ Validate.required('LABEL_CONTRACT'), Validate.maxLength(1000) ]}
+										validate={[Validate.required('LABEL_CONTRACT'), Validate.maxLength(1000)]}
 										labelKey="LABEL_OTHER_CONTRACT"
 										placeholderKey="PLACEHOLDER_CONTRACT"
 									/>
@@ -306,14 +315,14 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 									rows="7"
 									component={PdsFormTextArea}
 									className="required"
-									validate={[ Validate.required('LABEL_PROJECT_SCOPE'), Validate.maxLength(5000) ]}
+									validate={[Validate.required('LABEL_PROJECT_SCOPE'), Validate.maxLength(5000)]}
 									labelKey="LABEL_PROJECT_SCOPE"
 								/>
 								<Field
 									name="cnNumber"
 									type="text"
 									component={PdsFormInput}
-									validate={[ Validate.maxLength(25) ]}
+									validate={[Validate.maxLength(25)]}
 									labelKey="LABEL_CN_NUMBER"
 									placeholderKey="PLACEHOLDER_CN_NUMBER"
 								/>
@@ -361,6 +370,7 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 											placeholderKey="PLACEHOLDER_COUNTRY"
 											messageKey="MESSAGE_COUNTRY"
 											normalize={normalizeToNumber}
+											onChange={onCountryChange}
 										>
 											<FormattedMessage id="PLACEHOLDER_COUNTRY">
 												{(message) => <option value="">{message}</option>}
@@ -396,7 +406,7 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 												props.currencies.map((data: ICurrency, i: number) => {
 													return (
 														<option key={data.currencyId} value={data.currencyId}>
-															{data.currencyName}
+															{data.currencyName} {data.currencySymbol && `(${data.currencySymbol})`}
 														</option>
 													);
 												})}
@@ -543,7 +553,7 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 									labelKey="LABEL_BIG_MARGIN"
 									className="pl-30 width-288"
 									discountBind="%"
-									validate={[ Validate.maxLength(3) ]}
+									validate={[Validate.maxLength(3)]}
 									normalize={maxLimitTo(0, 100)}
 								/>
 
@@ -580,7 +590,7 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 									name="comment"
 									rows="7"
 									component={PdsFormTextArea}
-									validate={[ Validate.maxLength(5000) ]}
+									validate={[Validate.maxLength(5000)]}
 									placeholderKey="PLACEHOLDER_ADDITIONAL_COMMENTS"
 								/>
 							</div>
@@ -630,4 +640,6 @@ const form = reduxForm<IProjectDetail, Props>({
 const selector = formValueSelector('ProjectForm');
 const userPreferenceSelector = formValueSelector('UserProfileForm');
 
-export default connect(mapStateToProps)(form);
+export default connect(mapStateToProps, {
+	changeCurrencyId: currencyId => change("ProjectForm", "currencyId", currencyId)
+})(form);
