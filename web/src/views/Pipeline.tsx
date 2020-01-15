@@ -9,6 +9,7 @@ import { getProjectStatus } from '../store/Lookups/Actions';
 import Notify from '../enums/Notify';
 import { formatMessage } from '../Translations/connectedIntlProvider';
 import * as actions from '../store/rootActions';
+import { ICurrency } from '../store/Lookups/Types/ICurrency';
 
 interface IMapDispatchToProps {
 	projectPipelineGridDetail: () => void;
@@ -16,10 +17,12 @@ interface IMapDispatchToProps {
 	resetProjectOverviewState: () => void;
 	resetSubContractorState: () => void;
 	resetCustomerEnquiryState: () => void;
+	getAllCurrencies: () => void;
 }
 interface IMapStateToProps {
 	projectPipeline: Array<IProjectPipelineGrid>;
 	lookupDetails: Array<ILookup>;
+	currencies: Array<ICurrency> | null;
 }
 const ProjectPipeline: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
 	useEffect(() => {
@@ -27,12 +30,13 @@ const ProjectPipeline: React.FC<IMapStateToProps & IMapDispatchToProps> = (props
 		props.resetSubContractorState();
 		props.resetCustomerEnquiryState();
 		props.getLookups();
+		props.getAllCurrencies();
 	}, []);
 	useEffect(
 		() => {
 			props.projectPipelineGridDetail();
 		},
-		[ props.lookupDetails ]
+		[props.lookupDetails]
 	);
 	return (
 		<div className="container-fluid">
@@ -49,6 +53,7 @@ const ProjectPipeline: React.FC<IMapStateToProps & IMapDispatchToProps> = (props
 									<ProjectPipelineForm
 										lookupValues={props.lookupDetails}
 										pipelineValues={props.projectPipeline}
+										currencies={props.currencies}
 									/>
 								</React.Fragment>
 							</div>
@@ -62,7 +67,8 @@ const ProjectPipeline: React.FC<IMapStateToProps & IMapDispatchToProps> = (props
 
 const mapStateToProps = (state: IState) => ({
 	lookupDetails: state.lookup.projectstatus,
-	projectPipeline: state.pipelineGrid.pipelineDetails
+	projectPipeline: state.pipelineGrid.pipelineDetails,
+	currencies: state.lookup.currencies,
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -71,7 +77,8 @@ const mapDispatchToProps = (dispatch) => {
 		projectPipelineGridDetail: () => dispatch(projectPipelineDetail()),
 		resetProjectOverviewState: () => dispatch(actions.resetProjectOverviewState()),
 		resetSubContractorState: () => dispatch(actions.resetSubContractorState()),
-		resetCustomerEnquiryState: () => dispatch(actions.resetCustomerEnquiryState())
+		resetCustomerEnquiryState: () => dispatch(actions.resetCustomerEnquiryState()),
+		getAllCurrencies: () => dispatch(actions.getAllCurrencies()),
 	};
 };
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectPipeline);
