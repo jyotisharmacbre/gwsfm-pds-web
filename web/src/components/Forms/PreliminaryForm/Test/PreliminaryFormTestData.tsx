@@ -5,7 +5,7 @@ import { IProjectDetailState } from '../../../../store/CustomerEnquiryForm/Types
 import Notify from '../../../../enums/Notify';
 import EventType from '../../../../enums/EventType';
 
-
+export const preliminaryComponentIdList: Array<string> = ["1"]
 export const preliminariuserData: Array<IPreliminariesComponentDetails> = [
 
   {
