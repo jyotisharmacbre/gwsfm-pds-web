@@ -94,7 +94,17 @@ export const restrictMinus = (value: number) => {
 		return value;
 	}
 };
-
+export const restrictMinusAndDecimal = (value: number) => {
+  if (value < 0) {
+    return 0;
+  } else {
+if((value - Math.floor(value)) != 0)
+{
+  return parseInt(value.toString());
+}
+    return value;
+  }
+};
 export const isValidGUID = (stringToTest: string) => {
 	var regexGuid = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
 	return regexGuid.test(stringToTest);

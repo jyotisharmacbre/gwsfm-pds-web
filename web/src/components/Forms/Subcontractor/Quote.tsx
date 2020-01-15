@@ -36,7 +36,7 @@ const Quote = ({ fields }) => (
                     name={`${member}.quoteValue`}
                     type="number"
                     component={PdsFormInput}
-                    className="pl-20 required"
+                    className="pl-20"
                     validate={[
                       Validate.maxLength(1000),
                       onlyNumber
