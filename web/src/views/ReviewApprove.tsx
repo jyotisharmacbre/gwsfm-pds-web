@@ -143,7 +143,7 @@ const ReviewApprove: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> =
 							<button type="button" onClick={() => setShowQueryPopup(true)}>
 								<FormattedMessage id="BUTTON_QUERY" />
 							</button>
-							<button type="button" name="next">
+							<button type="button" name="next" onClick={handleApproval}>
 								<FormattedMessage id="BUTTON_APPROVE" />
 							</button>
 						</div>
