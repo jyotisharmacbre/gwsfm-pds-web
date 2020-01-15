@@ -1,9 +1,12 @@
 import axios from 'axios';
 import authentication from '@kdpw/msal-b2c-react';
+import appConfig from '../helpers/config-helper';
 
-export const baseURL = 'https://qat-pds-middletier.azurewebsites.net';
+const config = appConfig();
+export const baseURL = config.REACT_APP_API_BASE_URL;
+debugger;
 export const baseAPI = axios.create({ baseURL });
-export const userServiceURL = 'https://qat-foundation-gateway.azurewebsites.net';
+export const userServiceURL = config.REACT_APP_USER_SERVICE_URL;
 export const userServiceAPI = axios.create({ baseURL: userServiceURL });
 
 const isTokenHandlerEnabled = (config = {}) => {
