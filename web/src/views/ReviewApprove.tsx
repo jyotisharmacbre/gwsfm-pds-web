@@ -142,7 +142,7 @@ const ReviewApprove: React.FC<IProps &
             </div>
             <div className="two-side-btn pt-2">
               <button type="button" onClick={()=>setShowQueryPopup(true)}><FormattedMessage id="BUTTON_QUERY" /></button>
-              <button type="button" name="next">
+              <button type="button" name="next"onClick={handleApproval} >
                 <FormattedMessage id="BUTTON_APPROVE" />
               </button>
             </div>
