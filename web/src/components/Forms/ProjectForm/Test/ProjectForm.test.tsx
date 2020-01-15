@@ -63,7 +63,7 @@ describe('ProjectForm Fields', () => {
       </Provider>
     );
   });
-  xit('Defines the component', () => {
+  it('Defines the component', () => {
     expect(wrapper).toBeDefined();
   });
 
@@ -72,7 +72,7 @@ describe('ProjectForm Fields', () => {
     beforeEach(() => {
       form = wrapper.find('[form="ProjectForm"]').first();
     });
-    xit('Renders form component', () => {
+    it('Renders form component', () => {
       expect(form).toHaveLength(1);
     });
   });
@@ -83,10 +83,10 @@ describe('ProjectForm Fields', () => {
       beforeEach(() => {
         field = wrapper.find('input[name="name"]').first();
       });
-      xit('Should renders project name field', () => {
+      it('Should renders project name field', () => {
         expect(field.prop('type')).toBe('text');
       });
-      xit('Shows error when project name is set to blank', () => {
+      it('Shows error when project name is set to blank', () => {
         field.simulate('blur');
         const errorBlock = wrapper.find('.text-danger');
         expect(errorBlock).toHaveLength(1);
@@ -96,7 +96,7 @@ describe('ProjectForm Fields', () => {
       beforeEach(() => {
         field = wrapper.find('select[name="divisionId"]').first();
       });
-      xit('Should renders divisionId field', () => {
+      it('Should renders divisionId field', () => {
         expect(field.render());
       });
     });
@@ -105,7 +105,7 @@ describe('ProjectForm Fields', () => {
       beforeEach(() => {
         field = wrapper.find('select[name="businessUnitId"]').first();
       });
-      xit('Should renders businessUnitId field', () => {
+      it('Should renders businessUnitId field', () => {
         expect(field.render());
       });
     });
@@ -114,10 +114,10 @@ describe('ProjectForm Fields', () => {
       beforeEach(() => {
         field = wrapper.find('input[name="probabilityOfWinning"]').first();
       });
-      xit('Should renders probabilityOfWinning field', () => {
+      it('Should renders probabilityOfWinning field', () => {
         expect(field.prop('type')).toBe('number');
       });
-      xit('Shows error when probabilityOfWinning is set to blank', () => {
+      it('Shows error when probabilityOfWinning is set to blank', () => {
         field.simulate('blur');
         const errorBlock = wrapper.find('.text-danger');
         expect(errorBlock).toHaveLength(1);
@@ -128,10 +128,10 @@ describe('ProjectForm Fields', () => {
       beforeEach(() => {
         field = wrapper.find('input[name="approxValue"]').first();
       });
-      xit('Should renders approxValue field', () => {
+      it('Should renders approxValue field', () => {
         expect(field.prop('type')).toBe('number');
       });
-      xit('Shows error when approxValue is set to blank', () => {
+      it('Shows error when approxValue is set to blank', () => {
         field.simulate('blur');
         const errorBlock = wrapper.find('.text-danger');
         expect(errorBlock).toHaveLength(1);
@@ -142,10 +142,10 @@ describe('ProjectForm Fields', () => {
       beforeEach(() => {
         field = wrapper.find('select[name="contractTypeId"]').first();
       });
-      xit('Should renders contractTypeId field', () => {
+      it('Should renders contractTypeId field', () => {
         expect(field.render());
       });
-      xit('Shows error when contractTypeId is set to blank', () => {
+      it('Shows error when contractTypeId is set to blank', () => {
         field.simulate('blur');
         const errorBlock = wrapper.find('.text-danger');
         expect(errorBlock).toHaveLength(1);
@@ -163,10 +163,10 @@ describe('ProjectForm Fields', () => {
         });
       });
 
-      xit('Should renders currencyId field', () => {
+      it('Should renders currencyId field', () => {
         expect(field.render());
       });
-      xit('Shows error when currencyId is set to blank', () => {
+      it('Shows error when currencyId is set to blank', () => {
         field.simulate('blur');
         const errorBlock = wrapper.find('.text-danger');
         expect(errorBlock).toHaveLength(1);
@@ -184,7 +184,7 @@ describe('ProjectForm Fields', () => {
         });
       });
 
-      xit('Should renders countryId field', () => {
+      it('Should renders countryId field', () => {
         expect(field.render());
       });
       it('Should change currency on countryId change', () => {
@@ -194,7 +194,7 @@ describe('ProjectForm Fields', () => {
         expect(fieldCurrency.find('option').at(1).instance().selected).toBeTruthy;
 
       });
-      xit('Shows error when countryId is set to blank', () => {
+      it('Shows error when countryId is set to blank', () => {
         field.simulate('blur');
         const errorBlock = wrapper.find('.text-danger');
         expect(errorBlock).toHaveLength(1);
@@ -206,15 +206,15 @@ describe('ProjectForm Fields', () => {
       beforeEach(() => {
         field = wrapper.find('select[name="firstAssetWorkedOn"]').first();
       });
-      xit('Should renders firstAssetWorkedOn field', () => {
+      it('Should renders firstAssetWorkedOn field', () => {
         expect(field.render());
       });
-      xit('Shows error when firstAssetWorkedOn is set to blank', () => {
+      it('Shows error when firstAssetWorkedOn is set to blank', () => {
         field.simulate('blur');
         const errorBlock = wrapper.find('.text-danger');
         expect(errorBlock).toHaveLength(1);
       });
-      xit('Shows error when value in firstAssetWorkedOn is again selected in secondAssetWorkedOn', () => {
+      it('Shows error when value in firstAssetWorkedOn is again selected in secondAssetWorkedOn', () => {
         let fieldFirst = wrapper.find('select[name="firstAssetWorkedOn"]').last();
         fieldFirst.simulate('blur');
         let fieldSecond = wrapper.find('select[name="secondAssetWorkedOn"]').last();
@@ -222,7 +222,7 @@ describe('ProjectForm Fields', () => {
         const errorBlock = wrapper.find('.text-danger');
         expect(errorBlock).toHaveLength(1);
       });
-      xit('Shows error when value in firstAssetWorkedOn is again selected in thirdAssetWorkedOn', () => {
+      it('Shows error when value in firstAssetWorkedOn is again selected in thirdAssetWorkedOn', () => {
         let fieldFirst = wrapper.find('select[name="firstAssetWorkedOn"]').last();
         fieldFirst.simulate('blur');
         let fieldThird = wrapper.find('select[name="thirdAssetWorkedOn"]').last();
@@ -236,7 +236,7 @@ describe('ProjectForm Fields', () => {
       beforeEach(() => {
         field = wrapper.find('textarea[name="scope"]').first();
       });
-      xit('Should renders scope field', () => {
+      it('Should renders scope field', () => {
         expect(field.render());
       });
     });
@@ -245,7 +245,7 @@ describe('ProjectForm Fields', () => {
       beforeEach(() => {
         field = wrapper.find('input[name="soldMargin"]').first();
       });
-      xit('Should renders soldMargin field', () => {
+      it('Should renders soldMargin field', () => {
         expect(field.prop('type')).toBe('number');
       });
     });
@@ -254,7 +254,7 @@ describe('ProjectForm Fields', () => {
       beforeEach(() => {
         field = wrapper.find('input[name="weightedTCV"]').first();
       });
-      xit('Should renders weightedTCV field', () => {
+      it('Should renders weightedTCV field', () => {
         expect(field.prop('type')).toBe('number');
       });
     });
@@ -263,7 +263,7 @@ describe('ProjectForm Fields', () => {
       beforeEach(() => {
         field = wrapper.find('textarea[name="scope"]').first();
       });
-      xit('Should renders comment field', () => {
+      it('Should renders comment field', () => {
         expect(field.render());
       });
     });
@@ -272,7 +272,7 @@ describe('ProjectForm Fields', () => {
       beforeEach(() => {
         field = wrapper.find('button[name="next"]').first();
       });
-      xit('Should renders next button', () => {
+      it('Should renders next button', () => {
         expect(field.prop('type')).toBe('button');
       });
     });
@@ -281,7 +281,7 @@ describe('ProjectForm Fields', () => {
       beforeEach(() => {
         field = wrapper.find('button[name="saveAndClose"]').first();
       });
-      xit('Should renders saveAndClose button', () => {
+      it('Should renders saveAndClose button', () => {
         expect(field.prop('type')).toBe('button');
       });
     });
@@ -290,13 +290,13 @@ describe('ProjectForm Fields', () => {
       beforeEach(() => {
         field = wrapper.find('input[aria-autocomplete="both"]').first();
       });
-      xit('Should renders Typeahead field', () => {
+      it('Should renders Typeahead field', () => {
         expect(field.render());
       });
     });
 
     describe('Project form reducer', () => {
-      xit('should handle get projectEnquiryOverview successfully', () => {
+      it('should handle get projectEnquiryOverview successfully', () => {
         const getProjectEnquiryOverviewAction: any = {
           type: ActionType.GET_ENQUIRY_OVERVIEW_SUCCESS,
           payload: { projectId: '1' }
@@ -306,7 +306,7 @@ describe('ProjectForm Fields', () => {
         ).toMatchSnapshot();
       });
 
-      xit('should handle edit project successfully', () => {
+      it('should handle edit project successfully', () => {
         const editProjectAction: any = {
           type: ActionType.PROJECT_EDIT_SUCCESS,
           payload: { projectId: 'TestProjectId' }
@@ -316,7 +316,7 @@ describe('ProjectForm Fields', () => {
         ).toMatchSnapshot();
       });
 
-      xit('should handle add project successfully', () => {
+      it('should handle add project successfully', () => {
         const addProjectAction: any = {
           type: ActionType.PROJECT_ADD
         };
@@ -325,7 +325,7 @@ describe('ProjectForm Fields', () => {
         ).toMatchSnapshot();
       });
 
-      xit('should handle GET_PROJECT_DETAIL_ERROR with and return initialState', () => {
+      it('should handle GET_PROJECT_DETAIL_ERROR with and return initialState', () => {
         const getProjectDetailError: any = {
           type: ActionType.GET_PROJECT_DETAIL_ERROR,
           error: { success: false }
