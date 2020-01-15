@@ -29,7 +29,8 @@ export const languages: Array<ILanguage> = [{
 }];
 export const countries: Array<ICountry> = [{
   countryId: 1,
-  name: "fghanistan",
+  name: "Afghanistan",
   code: "AFG",
-  isoAlpha2Code: "AF"
+  isoAlpha2Code: "AF",
+  currencyId: 64
 }];
