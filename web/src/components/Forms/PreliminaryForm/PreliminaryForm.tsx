@@ -15,6 +15,7 @@ interface Props {
   preliminariesDetails: any;
   currencySymbol:string;
   isExpand: boolean;
+  componentIdList:Array<string>;
 }
 let PreliminaryForm: React.FC<
   Props &IReactIntl& InjectedFormProps<IPreliminaryForm, Props>
@@ -36,6 +37,7 @@ let PreliminaryForm: React.FC<
       handleSubmit={handleSubmit}
       currencySymbol={props.currencySymbol}
       isExpand= {props.isExpand}
+      componentIdList={props.componentIdList}
        />
      <div className="mr-35 three-btn">
          <button

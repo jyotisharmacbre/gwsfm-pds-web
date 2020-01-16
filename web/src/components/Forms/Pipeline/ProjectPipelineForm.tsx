@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
-import { getLookupDescription } from '../../../helpers/utility-helper';
+import { getLookupDescription, getPropertyName, getFilterElementFromArray } from '../../../helpers/utility-helper';
 import { LookupItems } from '../../../helpers/constants';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
@@ -10,16 +10,19 @@ import { formatMessage } from '../../../Translations/connectedIntlProvider';
 import { injectIntl } from 'react-intl';
 import IReactIntl from '../../../Translations/IReactIntl';
 import Translate from '../../../Translations/translate';
-
+import ColumnTypeEnum from '../../../enums/ColumnTypeEnum';
+import Currency from '../../../store/Lookups/InitialState/Currency';
+import { ICurrency } from '../../../store/Lookups/Types/ICurrency';
 interface Props {
   pipelineValues: any;
   lookupValues: any;
+  currencies: Array<ICurrency> | null;
 }
 const ProjectPipelineForm: React.FC<Props & IReactIntl> = (props: any) => {
-
-  const { pipelineValues, lookupValues } = props;
-  const getPipelineValues = allLookups => {
-    let data = pipelineValues.map(function(rowProject) {
+  const CurrencyObj = new Currency();
+  const { pipelineValues, lookupValues, currencies } = props;
+  const getPipelineValues = (allLookups, currencies) => {
+    let data = pipelineValues.map(function (rowProject) {
       var statusID = rowProject.status;
       if (!isNaN(statusID) && allLookups.length > 0)
         rowProject.status = getLookupDescription(
@@ -27,7 +30,13 @@ const ProjectPipelineForm: React.FC<Props & IReactIntl> = (props: any) => {
           rowProject.status,
           LookupItems.Project_Status
         );
-
+      const currencySymbol = getFilterElementFromArray(
+        currencies,
+        getPropertyName(CurrencyObj, (prop) => prop.currencyId),
+        rowProject.currencyId,
+        getPropertyName(CurrencyObj, (prop) => prop.currencySymbol)
+      );
+      rowProject.approxValue = `${currencySymbol} ${rowProject.approxValue}`;
       var contractID = rowProject.contractTypeId;
       if (contractID > 0 && allLookups.length > 0)
         rowProject.contractTypeId = getLookupDescription(
@@ -63,7 +72,7 @@ const ProjectPipelineForm: React.FC<Props & IReactIntl> = (props: any) => {
     <React.Fragment>
       <GridTable
         columns={getTableColumns()}
-        data={getPipelineValues(lookupValues)}
+        data={getPipelineValues(lookupValues, currencies)}
         sorting={true}
         className="price-table"
         ActionList={[]}
@@ -71,6 +80,7 @@ const ProjectPipelineForm: React.FC<Props & IReactIntl> = (props: any) => {
     </React.Fragment>
   );
 };
+
 const getTableColumns = () => {
   return [
     {
@@ -87,7 +97,8 @@ const getTableColumns = () => {
     },
     {
       title: formatMessage('LABEL_PROBABILITY_OF_WINING'),
-      field: 'probabilityOfWinning'
+      field: 'probabilityOfWinning',
+      type: ColumnTypeEnum.percentage
     },
     {
       title: formatMessage('LABEL_STATUS'),
@@ -96,11 +107,12 @@ const getTableColumns = () => {
     {
       title: formatMessage('LABEL_EXPECTED_START_DATE'),
       field: 'commenceDate',
-      type: 'date'
+      type: ColumnTypeEnum.date
     },
     {
       title: formatMessage('LABEL_APPROX_VALUE'),
-      field: 'approxValue'
+      field: 'approxValue',
+      type: ColumnTypeEnum.currency
     },
     {
       title: formatMessage('LABEL_CONTRACT_TYPE'),
@@ -117,10 +129,6 @@ const getTableColumns = () => {
     {
       title: formatMessage('LABEL_WEIGHTED_TCV'),
       field: 'weightedTCV'
-    },
-    {
-      title: formatMessage('LABEL_RANK'),
-      field: 'rank'
     }
   ];
 };

@@ -14,7 +14,7 @@ export const bindUserData = (preliminaryData) => {
     lookupData=(lookupData)?JSON.parse(lookupData):[];
     let defaultData:any=(sessionStorage.getItem("defaultParameters"));
     let adminDefaultData:Array<IAdminDefaults>=(defaultData?JSON.parse(defaultData):[]);
-    let defaultGrossMargin:number=0;let labourRate:number=0;let insurranceRate:number=0;
+    let defaultGrossMargin:number=0;let labourRate:number=0;
     adminDefaultData.map((x)=>{
         if(x.name==AdminFields.GrossMarginPerc){defaultGrossMargin=parseInt(x.value)}
         if(x.name==AdminFields.CBRELabourRatePerc){labourRate=parseInt(x.value)}
@@ -61,7 +61,7 @@ const generateItemDetails=(preData,item,labourRate,defaultGrossMargin)=>
     items.preliminaryId=itemData.length>0?(itemData[0].preliminaryId):"";
     items.nameOfSupplier=itemData.length>0?(itemData[0].nameOfSupplier==null?'':itemData[0].nameOfSupplier):'';
     items.noOfHours=itemData.length>0?itemData[0].noOfHours:0;
-    items.hourRate=itemData.length>0?itemData[0].hourRate:labourRate;
+    items.hourRate=itemData.length>0?itemData[0].hourRate:(CheckConstraints(items.itemName.toUpperCase())?labourRate:0);
     items.totalCost=itemData.length>0?itemData[0].totalCost:0;
     items.grossMargin=itemData.length>0?itemData[0].grossMargin:defaultGrossMargin;
     items.comments=itemData.length>0?(itemData[0].comments==null?'':itemData[0].comments):'';

@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useState } from 'react';
 import { FieldArray} from 'redux-form';
 import { FormattedMessage } from 'react-intl';
 import PreliminaryItemsForm from './PreliminaryItemsForm';
@@ -23,8 +23,7 @@ interface Props {
       currencySymbol:string;
       
 }  
-
-const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleEvent,prelimData,currencySymbol, isExpand}) => (
+const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleEvent,prelimData,currencySymbol, isExpand,componentIdList}) => (
 
   <div>
   {fields.map((member, index) => (
@@ -50,7 +49,7 @@ const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleE
             </div>
             <div
                id={"collapse_"+prelimData[index].componentId}
-              className={CheckConstraints(prelimData[index].componentId)?"show expandAll":"hide expandAll"}
+              className={CheckConstraints(prelimData[index].componentId)||isExpand?"show expandAll":"hide expandAll"}
               data-test="toggle"
               data-parent="#accordion"
             > <form
@@ -74,7 +73,7 @@ const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleE
                   </tr>
                 </thead>
                 <Suspense fallback={<div>Loading...</div>}>
-                 {!CheckConstraints(prelimData[index].componentId)?<FieldArray 
+                 {((!CheckConstraints(prelimData[index].componentId)&&componentIdList.includes(prelimData[index].componentId))||(isExpand&&!CheckConstraints(prelimData[index].componentId)))?<FieldArray 
               name={`${member}.items`} 
               component={PreliminaryItemsForm}
               itemDetail={prelimData[index]}
@@ -83,7 +82,8 @@ const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleE
               currencyId={0}
               currencySymbol={currencySymbol}
               key={index}
-            />:<FieldArray 
+            />:null}
+            {CheckConstraints(prelimData[index].componentId)?<FieldArray 
             name={`${member}.items`} 
             component={PreliminaryInsurranceForm}
             itemDetail={prelimData[index]}
@@ -91,7 +91,7 @@ const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleE
             currencies={[]}
             currencyId={0}
             currencySymbol={currencySymbol}
-            key={index}/>} 
+            key={index}/>:null} 
            
            </Suspense>
             </table>

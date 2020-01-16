@@ -8,6 +8,7 @@ import configureStore from 'redux-mock-store';
 import { reducer as formReducer } from 'redux-form';
 import PreliminaryForm from '../PreliminaryForm';
 import {initialState} from "../../../../store/Preliminaries/InitialState"
+import { preliminaryComponentIdList } from './PreliminaryFormTestData';
 
 describe('Preliminary Form testCases', () => {
  
@@ -19,6 +20,7 @@ describe('Preliminary Form testCases', () => {
     onToggle: jest.fn(),
     onPrevious:jest.fn(),
     preliminariesDetails:initialState,
+    componentIdList:preliminaryComponentIdList
 
   }; 
   beforeEach(() => {

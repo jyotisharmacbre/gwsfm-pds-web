@@ -4,6 +4,7 @@ import {
   calculateAverageMargin,
   calculateTotalCost
   } from '../formulas';
+import { defaultAdminData } from '../../store/Preliminaries/Test/ReducerTestData';
 
 describe('Summary calculation formulas run without error', () => {
   
@@ -17,8 +18,9 @@ describe('Summary calculation formulas run without error', () => {
     expect(result).toBe(20); 
   });
   it('should calculate total cost', () => {
+    sessionStorage.setItem("defaultParameters",JSON.stringify(defaultAdminData));
     let result = calculateTotalCost(100);
-    let expecedResult=(1.4*100)/100
+    let expecedResult=(1.4*100)/100;
     expect(result).toBe(expecedResult); 
   });
 });

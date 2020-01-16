@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { MainTitle } from '../../Title/Title';
 
 import { Field, reduxForm, InjectedFormProps, formValueSelector } from 'redux-form';
@@ -34,6 +34,7 @@ import { any } from 'prop-types';
 import { IDynamicContractCustomerData, IDynamicCompanyData } from '../../../store/DynamicsData/Types/IDynamicData';
 import { ICountry } from '../../../store/Lookups/Types/ICountry';
 import ValidatedNumericInput from '../../NumericInput';
+import { change } from "redux-form";
 
 interface Props {
 	projectstatus: any;
@@ -42,27 +43,33 @@ interface Props {
 	currencies: Array<ICurrency> | null;
 	onSearchContract: (value: any) => void;
 	onSearchCompany: (value: any) => void;
-	onSearchUserService: (value: any) => void;
-	getListOfUsers: (value: any, success: any, failure: any) => void;
-	getListOfCompanies: (value: any, success: any, failure: any) => void;
-	getListOfContract: (value: any, success: any, failure: any) => void;
+	getListOfUsers: (value: any) => void;
+	getListOfCompanies: (value: any) => void;
+	getListOfContract: (value: any) => void;
 	userServiceData: Array<IUserServiceData>;
 	dynamicsContractCustomerData: Array<IDynamicContractCustomerData>;
 	dynamicsCompany: Array<IDynamicCompanyData>;
 	countries: Array<ICountry> | null;
 }
 
-const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetail, Props>> = (props: any) => {
+const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = (props: any) => {
 	const {
 		handleSubmit,
 		projectstatus,
 		onSearchContract,
 		onSearchCompany,
-		onSearchUserService,
 		userServiceData,
 		dynamicsContractCustomerData,
 		dynamicsCompany
 	} = props;
+
+	const onCountryChange = (event) => {
+		if (props.countries && props.currencies) {
+			const selectedCountryId = Number(event.target.value);
+			const selectedCurrencyId = props.countries.find(x => x.countryId === selectedCountryId)?.currencyId;
+			props.currencies.find(x=>x.currencyId === selectedCurrencyId) && props.changeCurrencyId(selectedCurrencyId);
+		}
+	}
 
 	const otherDynamicsContract = props.dynamicsOtherContract.length > 0 ? props.dynamicsOtherContract[0].id : '';
 
@@ -94,8 +101,8 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 					(ContractData.contractName === 'Other'
 						? ContractData.contractName
 						: '(' +
-							ContractData.contractName +
-							(ContractData.contractId === '0' ? '' : '-' + ContractData.contractId + ')'))).trim(),
+						ContractData.contractName +
+						(ContractData.contractId === '0' ? '' : '-' + ContractData.contractId + ')'))).trim(),
 				id: ContractData.contractId
 			};
 		});
@@ -123,8 +130,8 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 					(ContractData.contractName === 'Other'
 						? ContractData.contractName
 						: '(' +
-							ContractData.contractName +
-							(ContractData.contractId === '0' ? '' : '-' + ContractData.contractId + ')'))).trim(),
+						ContractData.contractName +
+						(ContractData.contractId === '0' ? '' : '-' + ContractData.contractId + ')'))).trim(),
 				id: ContractData.contractId
 			});
 		});
@@ -176,11 +183,12 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 									validate={/*To do: Have to replace it with consistent solution.
                       Currently, This field is using "require"(no memoize) insted of "required"(with memoize),
                       It is in use to change the state of "required" error message on language change*/
-									[ Validate.require('LABEL_PROJECT'), Validate.maxLength(1000) ]}
+										[Validate.required('LABEL_PROJECT'), Validate.maxLength(1000)]}
 									messageKey="MESSAGE_PROJECT_NAME"
 									labelKey="LABEL_PROJECT"
 									placeholderKey="PLACEHOLDER_PROJECT_NAME"
 								/>
+
 								<div className={'form-group'}>
 									<label>
 										<FormattedMessage id="LABEL_DIVISION" />
@@ -234,7 +242,7 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 										type="text"
 										component={PdsFormInput}
 										className="required"
-										validate={[ Validate.required('LABEL_COMPANY'), Validate.maxLength(1000) ]}
+										validate={[Validate.required('LABEL_COMPANY'), Validate.maxLength(1000)]}
 										labelKey="LABEL_OTHER_COMPANY"
 										placeholderKey="PLACEHOLDER_COMPANY_NAME"
 									/>
@@ -256,7 +264,7 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 										type="text"
 										component={PdsFormInput}
 										className="required"
-										validate={[ Validate.required('LABEL_CONTRACT'), Validate.maxLength(1000) ]}
+										validate={[Validate.required('LABEL_CONTRACT'), Validate.maxLength(1000)]}
 										labelKey="LABEL_OTHER_CONTRACT"
 										placeholderKey="PLACEHOLDER_CONTRACT"
 									/>
@@ -306,14 +314,14 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 									rows="7"
 									component={PdsFormTextArea}
 									className="required"
-									validate={[ Validate.required('LABEL_PROJECT_SCOPE'), Validate.maxLength(5000) ]}
+									validate={[Validate.required('LABEL_PROJECT_SCOPE'), Validate.maxLength(5000)]}
 									labelKey="LABEL_PROJECT_SCOPE"
 								/>
 								<Field
 									name="cnNumber"
 									type="text"
 									component={PdsFormInput}
-									validate={[ Validate.maxLength(25) ]}
+									validate={[Validate.maxLength(25)]}
 									labelKey="LABEL_CN_NUMBER"
 									placeholderKey="PLACEHOLDER_CN_NUMBER"
 								/>
@@ -322,7 +330,12 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 										<FormattedMessage id="LABEL_PROJECT_STATUS" />
 									</label>
 									<div className="select-wrapper">
-										<Field name="status" component={PdsFormSelect} normalize={normalizeToNumber} disabled={true}>
+										<Field
+											name="status"
+											component={PdsFormSelect}
+											normalize={normalizeToNumber}
+											disabled={true}
+										>
 											<FormattedMessage id="PLACEHOLDER_PROJECT_STATUS">
 												{(message) => <option value="">{message}</option>}
 											</FormattedMessage>
@@ -361,6 +374,7 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 											placeholderKey="PLACEHOLDER_COUNTRY"
 											messageKey="MESSAGE_COUNTRY"
 											normalize={normalizeToNumber}
+											onChange={onCountryChange}
 										>
 											<FormattedMessage id="PLACEHOLDER_COUNTRY">
 												{(message) => <option value="">{message}</option>}
@@ -396,7 +410,7 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 												props.currencies.map((data: ICurrency, i: number) => {
 													return (
 														<option key={data.currencyId} value={data.currencyId}>
-															{data.currencyName}
+															{data.currencyName} {data.currencySymbol && `(${data.currencySymbol})`}
 														</option>
 													);
 												})}
@@ -474,20 +488,14 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 										<FormattedMessage id="LABEL_ASSETS_WORKED_ON" />*
 									</label>
 									<div className="select-wrapper mb-2">
-										<ValidatedNumericInput
+										<Field
 											name="firstAssetWorkedOn"
 											component={PdsFormSelect}
 											DropdownCheck="selectRound"
 											placeholderKey="PLACEHOLDER_FIRST_ASSET"
 											messageKey="MESSAGE_FIRST_ASSET"
 											validate={[
-												Validate.required('LABEL_ASSETS_WORKED_ON'),
-												Validate.maxLength(1000),
-												onlyNumber,
-												OnlyDistinctAssetTypes(
-													props.secondAssetWorkedOn,
-													props.thirdAssetWorkedOn
-												)
+												Validate.required('LABEL_ASSETS_WORKED_ON')
 											]}
 											normalize={normalizeToNumber}
 										>
@@ -495,7 +503,7 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 												{(message) => <option value="">{message}</option>}
 											</FormattedMessage>
 											>{getDropdown(props.projectstatus, LookupType.Asset_Type)}
-										</ValidatedNumericInput>
+										</Field>
 									</div>
 
 									<div className="select-wrapper mb-2">
@@ -505,10 +513,6 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 											DropdownCheck="selectRound"
 											placeholderKey="PLACEHOLDER_SECOND_ASSET"
 											normalize={normalizeToNumber}
-											validate={OnlyDistinctAssetTypes(
-												props.firstAssetWorkedOn,
-												props.thirdAssetWorkedOn
-											)}
 										>
 											<FormattedMessage id="PLACEHOLDER_SECOND_ASSET">
 												{(message) => <option value="">{message}</option>}
@@ -524,10 +528,6 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 											DropdownCheck="selectRound"
 											placeholderKey="PLACEHOLDER_THIRD_ASSET"
 											normalize={normalizeToNumber}
-											validate={OnlyDistinctAssetTypes(
-												props.firstAssetWorkedOn,
-												props.secondAssetWorkedOn
-											)}
 										>
 											<FormattedMessage id="PLACEHOLDER_THIRD_ASSET">
 												{(message) => <option value="">{message}</option>}
@@ -543,7 +543,7 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 									labelKey="LABEL_BIG_MARGIN"
 									className="pl-30 width-288"
 									discountBind="%"
-									validate={[ Validate.maxLength(3) ]}
+									validate={[Validate.maxLength(3)]}
 									normalize={maxLimitTo(0, 100)}
 								/>
 
@@ -580,7 +580,7 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 									name="comment"
 									rows="7"
 									component={PdsFormTextArea}
-									validate={[ Validate.maxLength(5000) ]}
+									validate={[Validate.maxLength(5000)]}
 									placeholderKey="PLACEHOLDER_ADDITIONAL_COMMENTS"
 								/>
 							</div>
@@ -625,9 +625,11 @@ const mapStateToProps = (state: IState) => ({
 const form = reduxForm<IProjectDetail, Props>({
 	form: 'ProjectForm',
 	enableReinitialize: true
-})(injectIntl(ProjectForm));
+})(ProjectForm);
 
 const selector = formValueSelector('ProjectForm');
 const userPreferenceSelector = formValueSelector('UserProfileForm');
 
-export default connect(mapStateToProps)(form);
+export default connect(mapStateToProps, {
+	changeCurrencyId: currencyId => change("ProjectForm", "currencyId", currencyId)
+})(form);
