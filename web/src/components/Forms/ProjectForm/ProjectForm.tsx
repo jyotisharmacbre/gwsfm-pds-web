@@ -52,7 +52,7 @@ interface Props {
 	countries: Array<ICountry> | null;
 }
 
-const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetail, Props>> = (props: any) => {
+const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = (props: any) => {
 	const {
 		handleSubmit,
 		projectstatus,
@@ -183,11 +183,12 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 									validate={/*To do: Have to replace it with consistent solution.
                       Currently, This field is using "require"(no memoize) insted of "required"(with memoize),
                       It is in use to change the state of "required" error message on language change*/
-										[Validate.require('LABEL_PROJECT'), Validate.maxLength(1000)]}
+										[Validate.required('LABEL_PROJECT'), Validate.maxLength(1000)]}
 									messageKey="MESSAGE_PROJECT_NAME"
 									labelKey="LABEL_PROJECT"
 									placeholderKey="PLACEHOLDER_PROJECT_NAME"
 								/>
+
 								<div className={'form-group'}>
 									<label>
 										<FormattedMessage id="LABEL_DIVISION" />
@@ -487,20 +488,14 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 										<FormattedMessage id="LABEL_ASSETS_WORKED_ON" />*
 									</label>
 									<div className="select-wrapper mb-2">
-										<ValidatedNumericInput
+										<Field
 											name="firstAssetWorkedOn"
 											component={PdsFormSelect}
 											DropdownCheck="selectRound"
 											placeholderKey="PLACEHOLDER_FIRST_ASSET"
 											messageKey="MESSAGE_FIRST_ASSET"
 											validate={[
-												Validate.required('LABEL_ASSETS_WORKED_ON'),
-												Validate.maxLength(1000),
-												onlyNumber,
-												OnlyDistinctAssetTypes(
-													props.secondAssetWorkedOn,
-													props.thirdAssetWorkedOn
-												)
+												Validate.required('LABEL_ASSETS_WORKED_ON')
 											]}
 											normalize={normalizeToNumber}
 										>
@@ -508,7 +503,7 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 												{(message) => <option value="">{message}</option>}
 											</FormattedMessage>
 											>{getDropdown(props.projectstatus, LookupType.Asset_Type)}
-										</ValidatedNumericInput>
+										</Field>
 									</div>
 
 									<div className="select-wrapper mb-2">
@@ -518,10 +513,6 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 											DropdownCheck="selectRound"
 											placeholderKey="PLACEHOLDER_SECOND_ASSET"
 											normalize={normalizeToNumber}
-											validate={OnlyDistinctAssetTypes(
-												props.firstAssetWorkedOn,
-												props.thirdAssetWorkedOn
-											)}
 										>
 											<FormattedMessage id="PLACEHOLDER_SECOND_ASSET">
 												{(message) => <option value="">{message}</option>}
@@ -537,10 +528,6 @@ const ProjectForm: React.FC<Props & IReactIntl & InjectedFormProps<IProjectDetai
 											DropdownCheck="selectRound"
 											placeholderKey="PLACEHOLDER_THIRD_ASSET"
 											normalize={normalizeToNumber}
-											validate={OnlyDistinctAssetTypes(
-												props.firstAssetWorkedOn,
-												props.secondAssetWorkedOn
-											)}
 										>
 											<FormattedMessage id="PLACEHOLDER_THIRD_ASSET">
 												{(message) => <option value="">{message}</option>}
@@ -638,7 +625,7 @@ const mapStateToProps = (state: IState) => ({
 const form = reduxForm<IProjectDetail, Props>({
 	form: 'ProjectForm',
 	enableReinitialize: true
-})(injectIntl(ProjectForm));
+})(ProjectForm);
 
 const selector = formValueSelector('ProjectForm');
 const userPreferenceSelector = formValueSelector('UserProfileForm');
