@@ -115,7 +115,6 @@ const ProjectOverview: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 		props.getLookups();
 		props.getProjectStatus();
 		props.getProjectDetail(projectId);
-		props.getAdditionalDetails(projectId);
 		props.getEnquiryOverview(projectId);
 		props.getSubContractor(projectId);
 		props.getPreliminaryDetails(projectId);
