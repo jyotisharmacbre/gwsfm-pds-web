@@ -96,6 +96,7 @@ interface IMapDispatchToProps {
 	setupPojectApprovalsInitialData: (lookupdata, currencySymbol, projectId) => void;
 	getProjectActivities: (projectId: string) => void;
 	handleGetUserNamesForEmails: (emails: Array<string>) => void;
+	postComment: (projectId: string, comment: string, success, failure) => void;
 }
 interface IProps {
 	projectId: string;
@@ -115,7 +116,6 @@ const ProjectOverview: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 		props.getLookups();
 		props.getProjectStatus();
 		props.getProjectDetail(projectId);
-		props.getAdditionalDetails(projectId);
 		props.getEnquiryOverview(projectId);
 		props.getSubContractor(projectId);
 		props.getPreliminaryDetails(projectId);
@@ -350,6 +350,8 @@ const ProjectOverview: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 							discountState={props.discountState}
 							currencySymbol={currencySymbol}
 							handleGetUserNamesForEmails={props.handleGetUserNamesForEmails}
+							postComment={props.postComment}
+							getProjectActivities={props.getProjectActivities}
 						/>
 					</div>
 				</div>
@@ -396,7 +398,9 @@ const mapDispatchToProps = (dispatch) => {
 			dispatch(actions.setupPojectApprovalsInitialData(lookupdata, currencySymbol, projectId)),
 		getLookups: () => dispatch(actions.getLookupsByLookupItems(lookupKeyList)),
 		getProjectActivities: (projectId) => dispatch(actions.getProjectActivities(projectId)),
-		handleGetUserNamesForEmails: (emails: Array<string>) => dispatch(actions.getUserNamesForEmailsService(emails))
+		handleGetUserNamesForEmails: (emails: Array<string>) => dispatch(actions.getUserNamesForEmailsService(emails)),
+		postComment: (projectId: string, comment: string, success, failure) =>
+			dispatch(actions.postQuery(projectId, comment, success, failure))
 	};
 };
 

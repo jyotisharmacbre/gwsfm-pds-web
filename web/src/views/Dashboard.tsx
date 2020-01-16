@@ -13,12 +13,15 @@ import { getUserNamesForEmailsService } from '../store/UserService/Action';
 import { IUserServiceData } from '../store/UserService/Types/IUserService';
 import Notify from '../enums/Notify';
 import { isValidEmail } from '../helpers/fieldValidations';
-
+import * as actions from '../store/rootActions';
 interface IMapDispatchToProps {
 	dashboardGridDetail: () => void;
 	getLookups: () => void;
 	handleGetUserNamesForEmails: (emails: any) => void;
 	resetDashboardState: () => void;
+	resetProjectOverviewState: () => void;
+	resetSubContractorState: () => void;
+	resetCustomerEnquiryState: () => void;
 }
 interface IMapStateToProps {
 	dashboardGridValues: Array<IProjectDashboardGrid>;
@@ -30,6 +33,9 @@ const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
 	useEffect(() => {
 		props.getLookups();
 		props.dashboardGridDetail();
+		props.resetProjectOverviewState();
+		props.resetSubContractorState();
+		props.resetCustomerEnquiryState();
 		return () => {
 			props.resetDashboardState();
 		};
@@ -108,7 +114,10 @@ const mapDispatchToProps = (dispatch) => {
 		getLookups: () => dispatch(getProjectStatus()),
 		dashboardGridDetail: () => dispatch(projectDashboardGridDetail()),
 		handleGetUserNamesForEmails: (allEmails) => dispatch(getUserNamesForEmailsService(allEmails)),
-		resetDashboardState: () => dispatch(resetDashboardState())
+		resetDashboardState: () => dispatch(resetDashboardState()),
+		resetProjectOverviewState: () => dispatch(actions.resetProjectOverviewState()),
+		resetSubContractorState: () => dispatch(actions.resetSubContractorState()),
+		resetCustomerEnquiryState: () => dispatch(actions.resetCustomerEnquiryState())
 	};
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

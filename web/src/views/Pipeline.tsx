@@ -13,9 +13,6 @@ import * as actions from '../store/rootActions';
 interface IMapDispatchToProps {
 	projectPipelineGridDetail: () => void;
 	getLookups: () => void;
-	resetProjectOverviewState: () => void;
-	resetSubContractorState: () => void;
-	resetCustomerEnquiryState: () => void;
 }
 interface IMapStateToProps {
 	projectPipeline: Array<IProjectPipelineGrid>;
@@ -23,9 +20,6 @@ interface IMapStateToProps {
 }
 const ProjectPipeline: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
 	useEffect(() => {
-		props.resetProjectOverviewState();
-		props.resetSubContractorState();
-		props.resetCustomerEnquiryState();
 		props.getLookups();
 	}, []);
 	useEffect(
@@ -68,10 +62,7 @@ const mapStateToProps = (state: IState) => ({
 const mapDispatchToProps = (dispatch) => {
 	return {
 		getLookups: () => dispatch(getProjectStatus()),
-		projectPipelineGridDetail: () => dispatch(projectPipelineDetail()),
-		resetProjectOverviewState: () => dispatch(actions.resetProjectOverviewState()),
-		resetSubContractorState: () => dispatch(actions.resetSubContractorState()),
-		resetCustomerEnquiryState: () => dispatch(actions.resetCustomerEnquiryState())
+		projectPipelineGridDetail: () => dispatch(projectPipelineDetail())
 	};
 };
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectPipeline);
