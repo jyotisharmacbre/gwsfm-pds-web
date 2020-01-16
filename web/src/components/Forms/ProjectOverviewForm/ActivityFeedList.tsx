@@ -97,18 +97,21 @@ const ActivityFeedList: React.FC<IProps & IMapStateToProps> = (props) => {
 
 	return (
 		<React.Fragment>
-			<h3 className="feed_head">
-				<FormattedMessage id="LABEL_ACTIVITY_FEED" />
-			</h3>
+			{activityFeedData.length > 0 && (
+				<h3 className="feed_head">
+					<FormattedMessage id="LABEL_ACTIVITY_FEED" />
+				</h3>
+			)}
 			<section className="activity_feed">
-				{activityFeedData.map((data) => (
-					<ActivityFeed
-						activityType={data.activityType}
-						approvedBy={data.approvedBy}
-						query={data.query}
-						createdDate={data.createdDate}
-					/>
-				))}
+				{activityFeedData &&
+					activityFeedData.map((data) => (
+						<ActivityFeed
+							activityType={data.activityType}
+							approvedBy={data.approvedBy}
+							query={data.query}
+							createdDate={data.createdDate}
+						/>
+					))}
 			</section>
 		</React.Fragment>
 	);

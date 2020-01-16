@@ -16,39 +16,42 @@ import { initialState as discountState } from '../../store/DiscountForm/InitialS
 import ProjectStatus from '../../enums/ProjectStatus';
 
 const history = { push: jest.fn() };
-const mockStore = configureStore([thunk]);
+const mockStore = configureStore([ thunk ]);
 let wrapper;
 const mountComponent = () => {
-  wrapper = mount(
-    <Provider store={store}>
-      <IntlProvider locale="en" messages={translations['en'].messages}>
-        <ReviewApprove history={history} match={{ params: { projectId: 1 } }} />
-      </IntlProvider>
-    </Provider>
-  );
+	wrapper = mount(
+		<Provider store={store}>
+			<IntlProvider locale="en" messages={translations['en'].messages}>
+				<ReviewApprove history={history} match={{ params: { projectId: 1 } }} />
+			</IntlProvider>
+		</Provider>
+	);
 };
 
 describe('review and approve component test cases', () => {
-  beforeEach(() => {
-    mountComponent();
-  });
+	beforeEach(() => {
+		mountComponent();
+	});
 
-  it('defines the component', () => {
-    expect(wrapper).toBeDefined();
-  });
+	it('defines the component', () => {
+		expect(wrapper).toBeDefined();
+	});
 
-  it('should match the snapshot', () => {
-    expect(wrapper).toMatchSnapshot();
-  });
-  it('should renders the component', () => {
-    expect(findByTestAtrr(wrapper, 'review-approve-component')).toBeDefined();
-  });
+	it('should match the snapshot', () => {
+		expect(wrapper).toMatchSnapshot();
+	});
+	it('should renders the component', () => {
+		expect(findByTestAtrr(wrapper, 'review-approve-component')).toBeDefined();
+	});
 
-  it('should renders the pricing summary component', () => {
-    expect(findByTestAtrr(wrapper, 'pricing-summary')).toBeDefined();
-  });
+	it('should renders the pricing summary component', () => {
+		expect(findByTestAtrr(wrapper, 'pricing-summary')).toBeDefined();
+	});
 
-  it('should renders the calculation summary component', () => {
-    expect(findByTestAtrr(wrapper, 'calculation-summary')).toBeDefined();
-  });
+	it('should renders the calculation summary component', () => {
+		expect(findByTestAtrr(wrapper, 'calculation-summary')).toBeDefined();
+	});
+	it('should renders the activity feed component', () => {
+		expect(findByTestAtrr(wrapper, 'activity-feed-list')).toBeDefined();
+	});
 });
