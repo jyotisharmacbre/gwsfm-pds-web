@@ -4,7 +4,6 @@ import appConfig from '../helpers/config-helper';
 
 const config = appConfig();
 export const baseURL = config.REACT_APP_API_BASE_URL;
-debugger;
 export const baseAPI = axios.create({ baseURL });
 export const userServiceURL = config.REACT_APP_USER_SERVICE_URL;
 export const userServiceAPI = axios.create({ baseURL: userServiceURL });
