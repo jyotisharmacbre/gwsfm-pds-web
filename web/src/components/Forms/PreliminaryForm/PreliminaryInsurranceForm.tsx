@@ -69,7 +69,7 @@ const PreliminaryInsurranceForm:React.FC<Props>
     <td>
     <Field
                   name={`${member}.grossMargin`}
-                  type="number"
+                  type="text"
                   normalize={restrictMinusAndDecimal}
                   component={PdsFormInput}
                   className="width-120 pl-20 required currency"
