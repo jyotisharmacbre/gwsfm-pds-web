@@ -61,11 +61,20 @@ export const projectApprove = (projectId: string, success, error) => {
 };
 
 export const postQuery = (projectId: string, query: string, success, error) => {
-	debugger;
 	axios.baseAPI
-		.post(`/api/Workflow/${projectId}/Query`, query, config)
+		.post(`/api/Workflow/${projectId}/query`, query, config)
 		.then((response) => {
-			debugger;
+			success(response.data);
+		})
+		.catch((exception) => {
+			error(exception);
+		});
+};
+
+export const postComments = (projectId: string, query: string, success, error) => {
+	axios.baseAPI
+		.post(`/api/Workflow/${projectId}/comments`, { query }, config)
+		.then((response) => {
 			success(response.data);
 		})
 		.catch((exception) => {

@@ -400,7 +400,7 @@ const mapDispatchToProps = (dispatch) => {
 		getProjectActivities: (projectId) => dispatch(actions.getProjectActivities(projectId)),
 		handleGetUserNamesForEmails: (emails: Array<string>) => dispatch(actions.getUserNamesForEmailsService(emails)),
 		postComment: (projectId: string, comment: string, success, failure) =>
-			dispatch(actions.postQuery(projectId, comment, success, failure))
+			dispatch(actions.postComments(projectId, comment, success, failure))
 	};
 };
 

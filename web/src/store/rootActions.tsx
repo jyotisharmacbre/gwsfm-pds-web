@@ -62,5 +62,6 @@ export {
 	reactivateProject,
 	updateProjectStatusToInReview,
 	projectApprove,
-	postQuery
+	postQuery,
+	postComments
 } from './WorkflowService/Actions';

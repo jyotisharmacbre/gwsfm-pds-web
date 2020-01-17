@@ -96,7 +96,6 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 		);
 	};
 	const handlePostCommentSuccess = () => {
-		debugger;
 		props.getProjectActivities(props.projectId);
 	};
 	const handlePostCommentError = () => {};
@@ -384,7 +383,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						currencySymbol={props.currencySymbol}
 						handleGetUserNamesForEmails={props.handleGetUserNamesForEmails}
 					/>
-					<textarea
+					{/* <textarea
 						name="comments"
 						placeholder="Add your comment here"
 						rows={3}
@@ -392,7 +391,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 					/>
 					<button type="button" onClick={handlePostComment}>
 						Post Comment
-					</button>
+					</button> */}
 				</div>
 			</div>
 			<div className="row">
