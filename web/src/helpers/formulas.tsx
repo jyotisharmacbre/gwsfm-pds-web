@@ -1,6 +1,4 @@
-import { IPreliminaries } from "../store/Preliminaries/Types/IPreliminaries";
-import { IPreliminaryForm } from "../store/Preliminaries/Types/IPreliminaryState";
-import { IPreliminariesComponentDetails } from "../store/Preliminaries/Types/IPreliminariesComponentDetails";
+
 import { IAdminDefaults } from "../store/ProjectOverviewForm/Types/IAdminDefault";
 import AdminFields from "../enums/AdminFields";
 
@@ -14,7 +12,7 @@ export const calculateCost = (noOfHours:number,hourRate:number) =>{
   let totalCost =0;
   if(noOfHours > 0 && hourRate > 0)
   totalCost=noOfHours*hourRate;
-  return totalCost;
+  return totalCost.toFixed(2);
 }
 export const calculateTotalCost = (cost:number) =>{
   let defaultData:any=(sessionStorage.getItem("defaultParameters"));
@@ -24,7 +22,7 @@ export const calculateTotalCost = (cost:number) =>{
       if(x.name==AdminFields.InsuranceRatePerc){insurranceCost=parseFloat(x.value)}
   });
   let totalCost:number =(insurranceCost*cost)/100;
-  return totalCost;
+  return totalCost.toFixed(2);
 }
 export const calculateAverageMargin = (totalCost:number,totalSell:number) =>{
   let averageMargin =0;
