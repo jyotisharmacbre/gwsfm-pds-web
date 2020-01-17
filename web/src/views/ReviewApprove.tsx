@@ -22,6 +22,7 @@ import { IProjectOverviewDetails } from '../store/ProjectOverviewForm/Types/IPro
 import QueryPopup from '../components/Popup/QueryPopup';
 import { FormattedMessage } from 'react-intl';
 import { IUserServiceData } from '../store/UserService/Types/IUserService';
+import ActivityFeedList from '../components/Forms/ProjectOverviewForm/ActivityFeedList';
 
 interface IProps {
 	match: match<{ projectId: string }>;
@@ -37,6 +38,8 @@ interface IMapStateToProps {
 	discountState: IDiscountActivity;
 	currencies: Array<ICurrency> | null;
 	userNamesForEmails: Array<IUserServiceData>;
+	initialStateSetForProjectApprovals: boolean;
+	lookups: Array<ILookup>;
 }
 
 interface IMapDispatchToProps {
@@ -48,7 +51,15 @@ interface IMapDispatchToProps {
 	getAdditionalDetails: (projectId: string) => void;
 	getProjectStatus: () => void;
 	handleGetUserNamesForEmails: (emails: Array<string>) => void;
+	getLookups: () => void;
+	getProjectActivities: (projectId: string) => void;
 }
+
+const lookupKeyList: string[] = [
+	LookupType.Project_Approval_Range,
+	LookupType.Project_Approval_Sign_Off_Status,
+	LookupType.Project_Approver_Type
+];
 
 const ReviewApprove: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = (props) => {
 	const CurrencyObj = new Currency();
@@ -64,6 +75,8 @@ const ReviewApprove: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> =
 		props.getSubContractor(projectId);
 		props.getPreliminaryDetails(projectId);
 		props.getDiscountData(projectId);
+		props.getLookups();
+		props.getProjectActivities(projectId);
 	}, []);
 
 	useEffect(
@@ -139,6 +152,15 @@ const ReviewApprove: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> =
 								/>
 							</div>
 						</div>
+						<div className="row">
+							<div className="col-xl-12">
+								<ActivityFeedList
+									data-test="activity-feed-list"
+									currencySymbol={currencySymbol}
+									handleGetUserNamesForEmails={props.handleGetUserNamesForEmails}
+								/>
+							</div>
+						</div>
 						<div className="two-side-btn pt-2">
 							<button type="button" onClick={() => setShowQueryPopup(true)}>
 								<FormattedMessage id="BUTTON_QUERY" />
@@ -162,7 +184,9 @@ const mapStateToProps = (state: IState) => ({
 	discountState: state.discount.form,
 	currencies: state.lookup.currencies,
 	projectOverview: state.projectOverview.form,
-	userNamesForEmails: state.userService.userServiceData
+	userNamesForEmails: state.userService.userServiceData,
+	lookups: state.lookup.lookups,
+	initialStateSetForProjectApprovals: state.projectOverview.initialStateSetForProjectApprovals
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -174,7 +198,9 @@ const mapDispatchToProps = (dispatch) => {
 		getAllCurrencies: () => dispatch(actions.getAllCurrencies()),
 		getProjectDetail: (projectId) => dispatch(actions.getProjectDetail(projectId)),
 		getAdditionalDetails: (projectId) => dispatch(actions.getAdditionalDetails(projectId)),
-		handleGetUserNamesForEmails: (emails: Array<string>) => dispatch(actions.getUserNamesForEmailsService(emails))
+		handleGetUserNamesForEmails: (emails: Array<string>) => dispatch(actions.getUserNamesForEmailsService(emails)),
+		getLookups: () => dispatch(actions.getLookupsByLookupItems(lookupKeyList)),
+		getProjectActivities: (projectId) => dispatch(actions.getProjectActivities(projectId))
 	};
 };
 

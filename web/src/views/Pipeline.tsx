@@ -9,18 +9,22 @@ import { getProjectStatus } from '../store/Lookups/Actions';
 import Notify from '../enums/Notify';
 import { formatMessage } from '../Translations/connectedIntlProvider';
 import * as actions from '../store/rootActions';
+import { ICurrency } from '../store/Lookups/Types/ICurrency';
 
 interface IMapDispatchToProps {
 	projectPipelineGridDetail: () => void;
 	getLookups: () => void;
+	getAllCurrencies: () => void;
 }
 interface IMapStateToProps {
 	projectPipeline: Array<IProjectPipelineGrid>;
 	lookupDetails: Array<ILookup>;
+	currencies: Array<ICurrency> | null;
 }
 const ProjectPipeline: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
 	useEffect(() => {
 		props.getLookups();
+		props.getAllCurrencies();
 	}, []);
 	useEffect(
 		() => {
@@ -43,6 +47,7 @@ const ProjectPipeline: React.FC<IMapStateToProps & IMapDispatchToProps> = (props
 									<ProjectPipelineForm
 										lookupValues={props.lookupDetails}
 										pipelineValues={props.projectPipeline}
+										currencies={props.currencies}
 									/>
 								</React.Fragment>
 							</div>
@@ -56,13 +61,15 @@ const ProjectPipeline: React.FC<IMapStateToProps & IMapDispatchToProps> = (props
 
 const mapStateToProps = (state: IState) => ({
 	lookupDetails: state.lookup.projectstatus,
-	projectPipeline: state.pipelineGrid.pipelineDetails
+	projectPipeline: state.pipelineGrid.pipelineDetails,
+	currencies: state.lookup.currencies
 });
 
 const mapDispatchToProps = (dispatch) => {
 	return {
 		getLookups: () => dispatch(getProjectStatus()),
-		projectPipelineGridDetail: () => dispatch(projectPipelineDetail())
+		projectPipelineGridDetail: () => dispatch(projectPipelineDetail()),
+		getAllCurrencies: () => dispatch(actions.getAllCurrencies())
 	};
 };
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectPipeline);
