@@ -296,9 +296,6 @@ const ProjectOverview: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 		props.setProjectStatus(ProjectStatus.OrderReceived);
 		actions.changeProjectStatusToOrderReceived(props.match.params.projectId, notifySucess, notifyError);
 	};
-	const onSearchUserService = (values: any) => {
-		props.handleGetuserServiceData(values);
-	};
 	return (
 		<div className="container-fluid ">
 			<div className="row">
