@@ -43,9 +43,9 @@ describe('should calculation summary component renders without error', () => {
 		newProps.subContractor[1].totalCost = 100;
 		newProps.subContractor[1].grossMargin = 20;
 		mountCalculationSummaryTable(newProps);
-		expect(findByTestAtrr(wrapper, 'sub-contractor-cost').text()).toEqual('200');
+		expect(findByTestAtrr(wrapper, 'sub-contractor-cost').text()).toEqual('200.00');
 		expect(findByTestAtrr(wrapper, 'sub-contractor-margin').text()).toEqual('20');
-		expect(findByTestAtrr(wrapper, 'sub-contractor-sell').text()).toEqual('250');
+		expect(findByTestAtrr(wrapper, 'sub-contractor-sell').text()).toEqual('250.00');
 	});
 
 	it('should render the preliminary row', () => {
