@@ -20,8 +20,8 @@ const GridTable: React.FC<IGridTableProps> = props => {
       <tbody>
         {props.data.map(x => (
           <tr>
-            {props.columns.map(yy => (
-              <td data-column={yy.title}>{x[yy.field]}</td>
+            {props.columns.map(column => (
+              <td data-column={column.title}>{x[column.field]}</td>
             ))}
           </tr>
         ))}

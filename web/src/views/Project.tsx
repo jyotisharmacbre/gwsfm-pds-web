@@ -32,6 +32,7 @@ import ProjectStatus from '../enums/ProjectStatus';
 import { ICountry } from '../store/Lookups/Types/ICountry';
 import { getUserPreferences } from '../services/lookup.service';
 import {getClassNameForProjectStatus} from '../helpers/utility-helper';
+import { formatMessage } from '../Translations/connectedIntlProvider';
 
 interface IMapStateToProps {
   notify: Notify;
@@ -87,12 +88,12 @@ const Project: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = props
   useEffect(() => {
     if (props.notify == Notify.success) {
       if (props.event == EventType.next) {
-        toast.success('Data Saved Successfully');
+        toast.success(formatMessage("TOASTER_SUCCESSFUL"));
         history.push({
           pathname: `/projectOverview/${props.projectId}`
         })
       } else if (props.event == EventType.save) {
-        toast.success('Data Saved Successfully');
+        toast.success(formatMessage("TOASTER_SUCCESSFUL"));
       }
       props.resetProjectDetailState();
     }

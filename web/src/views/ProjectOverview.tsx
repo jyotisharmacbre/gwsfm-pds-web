@@ -134,10 +134,10 @@ const ProjectOverview: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 		() => {
 			if (props.notify == Notify.success) {
 				if (props.event == EventType.next) {
-					toast.success('Data Saved Successfully');
+					toast.success(formatMessage("TOASTER_SUCCESSFUL"));
 					props.history.push(`/JustificationAuthorisation/${props.match.params.projectId}`);
 				} else if (props.event == EventType.previous) {
-					toast.success('Data Saved Successfully');
+					toast.success(formatMessage("TOASTER_SUCCESSFUL"));
 					props.history.push(`/Project/${props.match.params.projectId}`);
 				}
 				props.resetProjectOverviewState();
@@ -226,15 +226,15 @@ const ProjectOverview: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 
 	const notifySucess = (data, actionType) => {
 		if (actionType === 'reactivate') {
-			toast.success('Project reactivated successfully');
+			toast.success(formatMessage("TOASTER_SUCCESSFUL_REACTIVATED"));
 			props.getProjectDetail(props.match.params.projectId);
 		} else {
-			toast.success('Project status changed successfully');
+			toast.success(formatMessage("TOASTER_SUCCESSFUL_STATUS_CHANGED"));
 		}
 	};
 
 	const notifyError = (error) => {
-		toast.error('Error occured.Please contact administrator');
+		toast.error(formatMessage("TOASTER_ERROR_MESSAGE"));
 	};
 
 	const handleReactivateEvent = () => {

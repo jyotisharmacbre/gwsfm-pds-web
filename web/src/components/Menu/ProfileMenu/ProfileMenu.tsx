@@ -26,6 +26,7 @@ import { ICurrency } from '../../../store/Lookups/Types/ICurrency';
 import { getDisplayName, getDisplayEmail, logOut, getFirstName } from '../../../helpers/auth-helper';
 import { toast } from 'react-toastify';
 import { formatMessage } from '../../../Translations/connectedIntlProvider';
+import { FormattedMessage } from 'react-intl';
 
 interface IMapDispatchToProps {
   userPreferencesFormAdd: (
@@ -67,7 +68,7 @@ const ProfileMenu: React.FC<any> = props => {
 
   useEffect(() => {
     if (props.notify == Notify.success) {
-      toast.success('Data Saved Successfully');
+      toast.success(formatMessage("TOASTER_SUCCESSFUL"));
       props.getUserPreferences();
       props.resetUserPreferencesState();
       props.getProjectStatus();

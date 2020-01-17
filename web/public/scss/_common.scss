@@ -484,6 +484,8 @@ button[type="button"] {
         background-color: transparent !important;
         margin: 5px 0;
         min-height: 31px;
+        padding-top: 5px !important;
+        padding-bottom: 5px !important;
         &:before {
           position: absolute;
           top: 6px;

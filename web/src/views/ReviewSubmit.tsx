@@ -24,6 +24,7 @@ import { IDiscountActivity } from '../store/DiscountForm/Types/IDiscountActivity
 import { ILookup } from '../store/Lookups/Types/ILookup';
 import { LookupType } from '../store/Lookups/Types/LookupType';
 import { IProjectOverviewDetails } from '../store/ProjectOverviewForm/Types/IProjectOverviewDetails';
+import { formatMessage } from '../Translations/connectedIntlProvider';
 
 interface IProps {
   match: match<{ projectId: string }>;
@@ -94,12 +95,12 @@ const ReviewSubmit: React.FC<IProps &
   };
 
   const updateProjectStatusToInReviewSuccess = data => {
-    toast.success('Submitted Successfully');
+    toast.success(formatMessage("TOASTER_SUCCESSFUL_SUBMITED"));
     props.history.push('/');
   };
 
   const updateProjectStatusToInReviewError = data => {
-    toast.error('Some error occured');
+    toast.error(formatMessage("TOASTER_ERROR"));
   };
 
   return (

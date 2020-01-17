@@ -89,6 +89,13 @@
                     p {
                         margin-bottom: 10px;
                     }
+                    .warn_msg {
+                        color: map-get($colors , red );
+                        font-style: italic;
+                        padding-top: 5px;
+                        text-align: left;
+                        letter-spacing: .6px;
+                    }
                 }
                 .close {
                     position: absolute;

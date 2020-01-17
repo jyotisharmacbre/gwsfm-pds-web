@@ -24,6 +24,7 @@ import { LookupType } from '../store/Lookups/Types/LookupType';
 import { IProjectOverviewDetails } from '../store/ProjectOverviewForm/Types/IProjectOverviewDetails';
 import QueryPopup from '../components/Popup/QueryPopup';
 import { FormattedMessage } from 'react-intl';
+import { formatMessage } from '../Translations/connectedIntlProvider';
 
 interface IProps {
   match: match<{ projectId: string }>;
@@ -94,12 +95,12 @@ const ReviewApprove: React.FC<IProps &
   };
 
   const handleApprovalSuccess = data => {
-    toast.success('Approved Successfully');
+    toast.success(formatMessage("TOASTER_SUCCESSFUL_APPROVED"));
     props.history.push('/');
   };
 
   const handleApprovalError = data => {
-    toast.error('Some error occured');
+    toast.error(formatMessage("TOASTER_ERROR"));
   };
 
   return (

@@ -13,6 +13,7 @@ import {
 import { FormattedMessage } from 'react-intl';
 import { dynamicsDivisions } from '../../../helpers/dynamicsDivisionData';
 import { dynamicBusinessUnits } from '../../../helpers/dynamicBusinessData';
+import { formatMessage } from '../../../Translations/connectedIntlProvider';
 
 interface IProps {
   project: IProjectDetail;
@@ -140,7 +141,7 @@ const ProjectSummary: React.FC<IProps> = props => {
   };
 
   const failure = error => {
-    toast.error('Some error occured');
+    toast.error(formatMessage("TOASTER_ERROR"));
   };
 
   return (

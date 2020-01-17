@@ -20,6 +20,7 @@ import ProjectStatus from '../enums/ProjectStatus';
 import { History } from 'history';
 import { ISubContractorActivity } from '../store/SubContractor/Types/ISubContractorActivity';
 import { IDiscountActivity } from '../store/DiscountForm/Types/IDiscountActivity';
+import { formatMessage } from '../Translations/connectedIntlProvider';
 interface IMapStateToProps {
   preliminaryDetails: Array<IPreliminariesComponentDetails>;
   lookupData: Array<ILookup>;
@@ -74,13 +75,13 @@ const Preliminaries: React.FC<
   useEffect(() => {
     window.scrollTo(0, 0);
     if (props.notify == Notify.success) {
-      toast.success('Data Saved Successfully');
+      toast.success(formatMessage("TOASTER_SUCCESSFUL"));
       if (props.event == EventType.next) {
         props.history.push('/Subcontractor/' + props.match.params.projectId);
       }
     }
     else if (props.notify == Notify.error) {
-      toast.error('Error occured.Please contact to administrator.');
+      toast.error(formatMessage("TOASTER_ERROR_MESSAGE"));
     }
 
   }, [props.notify, props.event]);
@@ -145,7 +146,7 @@ const Preliminaries: React.FC<
     if (editData.length > 0 && saveData.length > 0) { props.preliminaryEdit(editData, event); props.preliminaryAdd(saveData, event); }
     else if (editData.length > 0) { props.preliminaryEdit(editData, event); }
     else if (saveData.length > 0) { props.preliminaryAdd(saveData, event) }
-    else { toast.error('No data changed to save.'); }
+    else { toast.error(formatMessage("TOASTER_ERROR_DATA_CHANGED")); }
   };
   const handlePrevious = () => {
     props.history.push(`/JustificationAuthorisation/${props.match.params.projectId}`);

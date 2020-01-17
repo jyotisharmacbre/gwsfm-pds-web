@@ -20,6 +20,7 @@ import { History } from 'history';
 import { IPreliminariesComponentDetails } from '../store/Preliminaries/Types/IPreliminariesComponentDetails';
 import { IDiscountActivity } from '../store/DiscountForm/Types/IDiscountActivity';
 import { ISubContractorActivity } from '../store/SubContractor/Types/ISubContractorActivity';
+import { formatMessage } from '../Translations/connectedIntlProvider';
 
 interface IProps {
   match: any;
@@ -93,13 +94,13 @@ const Subcontractor: React.FC<IProps &
   useEffect(() => {
     if (props.notify == Notify.success) {
       if (props.event == EventType.next) {
-        toast.success('Data Saved Successfully');
+        toast.success(formatMessage("TOASTER_SUCCESSFUL"));
         props.history.push(`/Discounts/${props.match.params.projectId}`);
       } else if (props.event == EventType.previous) {
-        toast.success('Data Saved Successfully');
+        toast.success(formatMessage("TOASTER_SUCCESSFUL"));
         props.history.push(`/preliminaries/${props.match.params.projectId}`);
       } else if (props.event == EventType.save) {
-        toast.success('Data Saved Successfully');
+        toast.success(formatMessage("TOASTER_SUCCESSFUL"));
       }
       props.resetSubContractorState();
     }
