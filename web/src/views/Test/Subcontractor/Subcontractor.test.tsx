@@ -87,5 +87,12 @@ it('should disable the form when state is InReview', () => {
 		setUpStore(initialState,lookUpInitialState,data,subcontractorInitialState);
 		mountPreliminaryComponent(Props);
     expect(wrapper.find('.link_disabled').length).toBeGreaterThan(0);
+  });
+  it('should disable the form when state is OrderReceived', () => {
+		let data = { ...customerEnquiryInitialState };
+		data.form.status = ProjectStatus.OrderReceived;
+		setUpStore(initialState,lookUpInitialState,data,subcontractorInitialState);
+		mountPreliminaryComponent(Props);
+    expect(wrapper.find('.link_disabled').length).toBeGreaterThan(0);
 	});
 }); 

@@ -37,6 +37,7 @@ import { IUserServiceData } from '../store/UserService/Types/IUserService';
 import { LookupType } from '../store/Lookups/Types/LookupType';
 import * as services from '../services';
 
+import ProjectStatus from '../enums/ProjectStatus';
 const tableHeaders: IGeneralTableHeaderProps[] = [
 	{ heading: 'End Client Name', subHeading: 'ING' },
 	{ heading: 'Project Name', subHeading: 'Building Maintainance' },
@@ -284,12 +285,16 @@ const ProjectOverview: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 		actions.reactivateProject(props.match.params.projectId, notifySucess, notifyError);
 	};
 	const handleOnHoldEvent = () => {
-		props.setProjectStatus(6);
+		props.setProjectStatus(ProjectStatus.OnHold);
 		actions.changeProjectStatusToOnHold(props.match.params.projectId, notifySucess, notifyError);
 	};
 	const handleBidLostEvent = () => {
-		props.setProjectStatus(4);
+		props.setProjectStatus(ProjectStatus.BidLost);
 		actions.changeProjectStatusToBidLost(props.match.params.projectId, notifySucess, notifyError);
+	};
+	const handleOrderReceivedEvent = () => {
+		props.setProjectStatus(ProjectStatus.OrderReceived);
+		actions.changeProjectStatusToOrderReceived(props.match.params.projectId, notifySucess, notifyError);
 	};
 	return (
 		<div className="container-fluid ">
@@ -306,6 +311,7 @@ const ProjectOverview: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 								onReactivate={handleReactivateEvent}
 								handleOnHold={handleOnHoldEvent}
 								handleBidLost={handleBidLostEvent}
+								handleOrderReceived={handleOrderReceivedEvent}
 							/>
 						</div>
 
