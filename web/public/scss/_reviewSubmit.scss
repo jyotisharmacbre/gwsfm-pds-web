@@ -77,24 +77,41 @@
         &.modal{
             &.show {
                 .modal-dialog {
-                    max-width: 400px;
+                    max-width: 500px;
                     width: 100%;
                 }
                 .modal-content {
                     padding: 20px;
+                    .form-control {
+                        font-size: 13px;
+                    }
                     .modal-title {
                         font-weight: 700;
                         margin-bottom: 0;
+                        font-size: 20px;
                     }
                     p {
                         margin-bottom: 10px;
+                        font-size: 16px;
                     }
                     .warn_msg {
-                        color: map-get($colors , red );
-                        font-style: italic;
+                        color: map-get($colors , grey004);
                         padding-top: 5px;
                         text-align: left;
-                        letter-spacing: .6px;
+                        background: map-get($colors , lightgrey );
+                        padding: 20px 20px 20px 50px;
+                        font-size: 13px;
+                        font-weight: 500;
+                        margin-top: 12px;
+                        position: relative;
+                        @include borderRadius (5px);
+                        .warn_icon {
+                            position: absolute;
+                            left: 20px;
+                            top: 0;
+                            bottom: 0;
+                            margin: auto 0;
+                        }
                     }
                 }
                 .close {

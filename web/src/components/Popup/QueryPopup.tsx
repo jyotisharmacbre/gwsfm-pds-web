@@ -2,6 +2,7 @@ import React from 'react'
 import { render } from 'react-dom'
 import { injectIntl, FormattedMessage } from 'react-intl';
 import question_mark from '../../components/images/Question Mark_Icon.svg';
+import warn_icon from '../../components/images/warn_icon.svg';
 import { formatMessage } from '../../Translations/connectedIntlProvider';
 
 interface IProps {
@@ -39,8 +40,9 @@ const QueryPopup: React.FC<IProps> = props => {
                     </div>
                     <div className="modal-body text-center w-100">
                       <p>Please let us know your query below</p>
-                       <textarea name="projectAdditionalDetail.comments" placeholder="Type in additional comments" rows={3} className="form-control undefined "></textarea>
+                       <textarea name="projectAdditionalDetail.comments" placeholder="Type in additional comments" rows={4} className="form-control undefined "></textarea>
                         <p className="warn_msg">
+                        <img className="warn_icon" src={warn_icon} alt="close" />
                             <FormattedMessage id="MESSAGE_WARNING" />
                         </p>
                     </div>
