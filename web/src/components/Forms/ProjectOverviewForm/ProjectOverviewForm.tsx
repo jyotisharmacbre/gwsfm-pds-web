@@ -88,12 +88,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 
 	const normalize = (value) => (value ? parseInt(value) : null);
 	const handlePostComment = () => {
-		props.postComment(
-			props.projectId,
-			'Avneet has posted comment.',
-			handlePostCommentSuccess,
-			handlePostCommentError
-		);
+		props.postComment(props.projectId, '', handlePostCommentSuccess, handlePostCommentError);
 	};
 	const handlePostCommentSuccess = () => {
 		props.getProjectActivities(props.projectId);
