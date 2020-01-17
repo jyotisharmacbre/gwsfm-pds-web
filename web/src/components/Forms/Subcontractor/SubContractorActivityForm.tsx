@@ -29,8 +29,8 @@ interface Props {
 	fields: any;
 	activities: Array<ISubContractorActivity>;
 	currencySymbol: string;
-	intl: any;
-	getDynamicSubContractorData: (value: any) => Promise<any>;
+  intl: any;
+  getListOfSubContractorData: (value: any) => Promise<any>; 
 }
 
 const SubContractorActivityForm: React.FC<Props> = (props: Props) => {
@@ -85,7 +85,7 @@ const SubContractorActivityForm: React.FC<Props> = (props: Props) => {
 									/>
 									<NewTypeAhead
 										name={`${member}.subcontractorId`}
-										onSearch={props.getDynamicSubContractorData}
+										onSearch={props.getListOfSubContractorData}
 										formatData={formatSubcontractForTypeAhead}
 										DynamicsType="subcontractorId"
 										placeholderKey="PLACEHOLDER_SUBCONTRACTOR"
