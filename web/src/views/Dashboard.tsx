@@ -22,6 +22,8 @@ interface IMapDispatchToProps {
 	resetProjectOverviewState: () => void;
 	resetSubContractorState: () => void;
 	resetCustomerEnquiryState: () => void;
+	resetPreliminaryState: () => void;
+	resetDiscountState: () => void;
 }
 interface IMapStateToProps {
 	dashboardGridValues: Array<IProjectDashboardGrid>;
@@ -36,6 +38,8 @@ const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
 		props.resetProjectOverviewState();
 		props.resetSubContractorState();
 		props.resetCustomerEnquiryState();
+		props.resetPreliminaryState();
+		props.resetDiscountState();
 		return () => {
 			props.resetDashboardState();
 		};
@@ -117,7 +121,9 @@ const mapDispatchToProps = (dispatch) => {
 		resetDashboardState: () => dispatch(resetDashboardState()),
 		resetProjectOverviewState: () => dispatch(actions.resetProjectOverviewState()),
 		resetSubContractorState: () => dispatch(actions.resetSubContractorState()),
-		resetCustomerEnquiryState: () => dispatch(actions.resetCustomerEnquiryState())
+		resetCustomerEnquiryState: () => dispatch(actions.resetCustomerEnquiryState()),
+		resetPreliminaryState: () => dispatch(actions.resetPreliminaryState()),
+		resetDiscountState: () => dispatch(actions.resetDiscountState())
 	};
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

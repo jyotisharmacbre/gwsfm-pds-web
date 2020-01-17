@@ -46,6 +46,18 @@ const preliminaryGetDataError = (error: string) => {
 	};
 };
 
+const resetPreliminaryStateDispatch = () => {
+	return {
+		type: ActionType.RESET_PRELIMINARY_STATE
+	};
+};
+
+export const resetPreliminaryState = () => {
+	return (dispatch: Dispatch) => {
+		dispatch(resetPreliminaryStateDispatch());
+	};
+};
+
 let config = {
 	headers: {
 		'Content-Type': 'application/json'
@@ -84,7 +96,7 @@ export const getPreliminaryDetails = (projectId: string) => {
 		axios.baseAPI
 			.get(`api/Preliminaries/${projectId}/preliminaryDetails`, config)
 			.then((response) => {
-				dispatch(preliminaryGetDataSuccess(bindUserData(response.data)));	
+				dispatch(preliminaryGetDataSuccess(bindUserData(response.data)));
 			})
 			.catch((error) => {
 				dispatch(preliminaryGetDataError(error));
