@@ -36,7 +36,7 @@ const ProjectPipelineForm: React.FC<Props & IReactIntl> = (props: any) => {
         rowProject.currencyId,
         getPropertyName(CurrencyObj, (prop) => prop.currencySymbol)
       );
-      rowProject.approxValue = `${currencySymbol} ${rowProject.approxValue}`;
+      rowProject.approxValue = `${currencySymbol}${rowProject.approxValue}`;
       var contractID = rowProject.contractTypeId;
       if (contractID > 0 && allLookups.length > 0)
         rowProject.contractTypeId = getLookupDescription(

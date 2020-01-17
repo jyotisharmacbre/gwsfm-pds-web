@@ -6,10 +6,11 @@ import ColumnTypeEnum from '../../enums/ColumnTypeEnum';
 const GridTable: React.FC<IGridTableProps> = props => {
   const getColumnValue = (col, arr) => {
     switch (col.type) {
+      case ColumnTypeEnum.numeric:
       case ColumnTypeEnum.currency:
         return <span className='float-right'>{arr[col.field]}</span>;
       case ColumnTypeEnum.percentage:
-        return <span className='float-right'> {arr[col.field] + ' %'}</span>;
+        return <span className='float-right'> {arr[col.field] + '%'}</span>;
     }
   };
   return (
