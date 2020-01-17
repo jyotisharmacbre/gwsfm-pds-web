@@ -55,27 +55,68 @@ class ReactDates extends PureComponent<Props & InjectedFormProps<{}, Props>> {
 
   handleDay = (value, type) => {
     const { input } = this.props;
-    if (validDate(this.state.year, this.state.month, value)) {
-      input.onChange(moment(input.value).set(type, value));
+    this.setState({ day: parseInt(value) });
+  };
+  changeDayEvent = (value, type) => {
+    const { input } = this.props;
+    if(value>31||!value||value==0)
+    {
+      value=new Date().getDate();
       this.setState({ day: parseInt(value) });
     }
+    if(this.state.month==2)
+    {
+      if(this.state.year%4==0)
+      {
+        if(value>29)
+        {
+          value=new Date().getDate();
+      this.setState({ day: parseInt(value) });
+        }
+      }
+      else
+      {
+        if(value>28)
+        {
+          value=new Date().getDate();
+      this.setState({ day: parseInt(value) });
+        }
+      }
+      
+    }
+      input.onChange(moment(input.value).set(type, value));
   };
-
   handleMonth = (value, type) => {
     const { input } = this.props;
     let month = value - 1;
-    if (validDate(this.state.year, value, this.state.day)) {
-      input.onChange(moment(input.value).set(type, month));
-      this.setState({ month: parseInt(value) });
-    }
+    this.setState({ month: parseInt(value) });
+    
   };
-
+  changeMonthEvent = (value, type) => {
+    const { input } = this.props;
+    if(value>12||!value||value==0)
+    {
+      value=(new Date().getMonth());
+      this.setState({ month: parseInt(value+1) });
+    }
+    value=value>0?value-1:value;
+      input.onChange(moment(input.value).set(type, value));
+  };
   handleYear = (value, type) => {
     const { input } = this.props;
-    if (validDate(value, this.state.month, this.state.day)) {
-      input.onChange(moment(input.value).set(type, value));
+    this.setState({ year: parseInt(value) });
+   
+  };
+  changeYearEvent = (value, type) => {
+    const { input } = this.props;
+    var aYearFromNow = new Date();
+    aYearFromNow.setFullYear(aYearFromNow.getFullYear() + 20);
+    if(value.length<4||!value||(value>=aYearFromNow.getFullYear())||value<=new Date().getFullYear())
+    {
+      value=new Date().getFullYear();
       this.setState({ year: parseInt(value) });
     }
+      input.onChange(moment(input.value).set(type, value));
   };
 
   render() {
@@ -97,6 +138,7 @@ class ReactDates extends PureComponent<Props & InjectedFormProps<{}, Props>> {
           placeholder="DD"
           value={this.state.day}
           onChange={event => this.handleDay(event.target.value, 'date')}
+          onBlur={event=>this.changeDayEvent(event.target.value, 'date')}
         />
         <input
           type="number"
@@ -104,6 +146,7 @@ class ReactDates extends PureComponent<Props & InjectedFormProps<{}, Props>> {
           placeholder="MM"
           value={this.state.month}
           onChange={event => this.handleMonth(event.target.value, 'month')}
+          onBlur={event=>this.changeMonthEvent(event.target.value, 'month')}
         />
         <input
           type="number"
@@ -111,6 +154,7 @@ class ReactDates extends PureComponent<Props & InjectedFormProps<{}, Props>> {
           placeholder="YYYY"
           value={this.state.year}
           onChange={event => this.handleYear(event.target.value, 'year')}
+          onBlur={event=>this.changeYearEvent(event.target.value, 'year')}
         />
         <SingleDatePicker
           customInputIcon={<img src={cal} />}
