@@ -10,7 +10,6 @@ import { initialState as subContractorInitialState, newActivity } from '../../..
 import { initialState as preliminariesInitialState } from '../../../../store/Preliminaries/InitialState';
 import { findByTestAtrr, checkProps } from '../../../../helpers/test-helper';
 import { initialState as discountInitialState } from '../../../../store/DiscountForm/InitialState';
-import { initialState as summaryCalculationState } from '../../../../store/SummaryCalculation/InitialState';
 
 let wrapper: any;
 
@@ -65,7 +64,7 @@ describe('should calculation summary component, calculate the cost, margin and s
 		Props.discount.clientDiscount = 0;
 		Props.discount.supplierTotalDiscount = 0;
 		mountCalculationSummaryTable(Props);
-		expect(findByTestAtrr(wrapper, 'total-cost-summary').text()).toEqual('100');
+		expect(findByTestAtrr(wrapper, 'total-cost-summary').text()).toEqual('100.00');
 		expect(findByTestAtrr(wrapper, 'total-margin-summary').text()).toEqual('20');
 		expect(findByTestAtrr(wrapper, 'gross-margin-summary').text()).toEqual('25');
 		expect(findByTestAtrr(wrapper, 'total-sell-summary').text()).toEqual('125.00');
@@ -77,7 +76,7 @@ describe('should calculation summary component, calculate the cost, margin and s
 		Props.discount.clientDiscount = 0;
 		Props.discount.supplierTotalDiscount = 10;
 		mountCalculationSummaryTable(Props);
-		expect(findByTestAtrr(wrapper, 'total-cost-summary').text()).toEqual('90');
+		expect(findByTestAtrr(wrapper, 'total-cost-summary').text()).toEqual('90.00');
 		expect(findByTestAtrr(wrapper, 'total-margin-summary').text()).toEqual('28');
 		expect(findByTestAtrr(wrapper, 'gross-margin-summary').text()).toEqual('35');
 		expect(findByTestAtrr(wrapper, 'total-sell-summary').text()).toEqual('125.00');
@@ -90,7 +89,7 @@ describe('should calculation summary component, calculate the cost, margin and s
 		Props.discount.clientDiscount = 10;
 		Props.discount.supplierTotalDiscount = 0;
 		mountCalculationSummaryTable(Props);
-		expect(findByTestAtrr(wrapper, 'total-cost-summary').text()).toEqual('100');
+		expect(findByTestAtrr(wrapper, 'total-cost-summary').text()).toEqual('100.00');
 		expect(findByTestAtrr(wrapper, 'total-margin-summary').text()).toEqual('11.11');
 		expect(findByTestAtrr(wrapper, 'gross-margin-summary').text()).toEqual('12.5');
 		expect(findByTestAtrr(wrapper, 'total-sell-summary').text()).toEqual('112.50');
@@ -103,7 +102,7 @@ describe('should calculation summary component, calculate the cost, margin and s
 		Props.discount.clientDiscount = 10;
 		Props.discount.supplierTotalDiscount = 0;
 		mountCalculationSummaryTable(Props);
-		expect(findByTestAtrr(wrapper, 'total-cost-summary').text()).toEqual('100');
+		expect(findByTestAtrr(wrapper, 'total-cost-summary').text()).toEqual('100.00');
 		expect(findByTestAtrr(wrapper, 'total-margin-summary').text()).toEqual('13.04');
 		expect(findByTestAtrr(wrapper, 'gross-margin-summary').text()).toEqual('15');
 		expect(findByTestAtrr(wrapper, 'total-sell-summary').text()).toEqual('115.00');
@@ -116,7 +115,7 @@ describe('should calculation summary component, calculate the cost, margin and s
 		Props.discount.clientDiscount = 10;
 		Props.discount.supplierTotalDiscount = 10;
 		mountCalculationSummaryTable(Props);
-		expect(findByTestAtrr(wrapper, 'total-cost-summary').text()).toEqual('90');
+		expect(findByTestAtrr(wrapper, 'total-cost-summary').text()).toEqual('90.00');
 		expect(findByTestAtrr(wrapper, 'total-margin-summary').text()).toEqual('20');
 		expect(findByTestAtrr(wrapper, 'gross-margin-summary').text()).toEqual('22.5');
 		expect(findByTestAtrr(wrapper, 'total-sell-summary').text()).toEqual('112.50');
@@ -129,7 +128,7 @@ describe('should calculation summary component, calculate the cost, margin and s
 		Props.discount.clientDiscount = 10;
 		Props.discount.supplierTotalDiscount = 10;
 		mountCalculationSummaryTable(Props);
-		expect(findByTestAtrr(wrapper, 'total-cost-summary').text()).toEqual('90');
+		expect(findByTestAtrr(wrapper, 'total-cost-summary').text()).toEqual('90.00');
 		expect(findByTestAtrr(wrapper, 'total-margin-summary').text()).toEqual('21.74');
 		expect(findByTestAtrr(wrapper, 'gross-margin-summary').text()).toEqual('25');
 		expect(findByTestAtrr(wrapper, 'total-sell-summary').text()).toEqual('115.00');
@@ -145,7 +144,7 @@ describe('should calculation summary component, calculate the cost, margin and s
 		Props.discount.clientDiscount = 10;
 		Props.discount.supplierTotalDiscount = 10;
 		mountCalculationSummaryTable(Props);
-		expect(findByTestAtrr(wrapper, 'total-cost-summary').text()).toEqual('190');
+		expect(findByTestAtrr(wrapper, 'total-cost-summary').text()).toEqual('190.00');
 		expect(findByTestAtrr(wrapper, 'total-margin-summary').text()).toEqual('15.56');
 		expect(findByTestAtrr(wrapper, 'gross-margin-summary').text()).toEqual('35');
 		expect(findByTestAtrr(wrapper, 'total-sell-summary').text()).toEqual('225.00');
@@ -161,7 +160,7 @@ describe('should calculation summary component, calculate the cost, margin and s
 		Props.discount.clientDiscount = 10;
 		Props.discount.supplierTotalDiscount = 10;
 		mountCalculationSummaryTable(Props);
-		expect(findByTestAtrr(wrapper, 'total-cost-summary').text()).toEqual('190');
+		expect(findByTestAtrr(wrapper, 'total-cost-summary').text()).toEqual('190.00');
 		expect(findByTestAtrr(wrapper, 'total-margin-summary').text()).toEqual('20.83');
 		expect(findByTestAtrr(wrapper, 'gross-margin-summary').text()).toEqual('50');
 		expect(findByTestAtrr(wrapper, 'total-sell-summary').text()).toEqual('240.00');
