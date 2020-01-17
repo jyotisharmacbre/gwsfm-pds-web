@@ -73,7 +73,7 @@ export const postQuery = (projectId: string, query: string, success, error) => {
 
 export const postComments = (projectId: string, query: string, success, error) => {
 	axios.baseAPI
-		.post(`/api/Workflow/${projectId}/comments`, { query }, config)
+		.post(`/api/Workflow/${projectId}/comments`, query, config)
 		.then((response) => {
 			success(response.data);
 		})
