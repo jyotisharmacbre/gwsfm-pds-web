@@ -83,7 +83,7 @@ describe('Discount component test cases', () => {
 		expect(container.hasClass('row')).toBe(true);
 	});
 	it('should make preliminaries element into readonly if project status is not bidlost or onhold', () => {
-		customerEnquiryInitialState.form.status = 4;
+		customerEnquiryInitialState.form.status = ProjectStatus.BidLost;
 		setUpStore(lookUpInitialState, customerEnquiryInitialState);
 		mountPreliminaryComponent(Props);
 		let container = findByTestAtrr(wrapper, 'dis_row_status').first();
@@ -94,5 +94,12 @@ describe('Discount component test cases', () => {
 		data.form.status = ProjectStatus.InReview;
 		setUpStore(lookUpInitialState, data);
 		expect(wrapper.find('.link_disabled').length).toBeGreaterThan(0);
+  });
+  it('should make discount element into readonly if project status is order received', () => {
+		customerEnquiryInitialState.form.status = ProjectStatus.OrderReceived;
+		setUpStore(lookUpInitialState, customerEnquiryInitialState);
+		mountPreliminaryComponent(Props);
+		let container = findByTestAtrr(wrapper, 'dis_row_status').first();
+		expect(container.hasClass('link_disabled')).toBe(true);
 	});
 });

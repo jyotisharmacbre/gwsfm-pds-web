@@ -16,7 +16,8 @@ let wrapper;
 const setUpStore = (projectOverviewState, lookUpInitialState) => {
 	store = mockStore({
 		projectOverview: projectOverviewState,
-		lookup: lookUpInitialState
+		lookup: lookUpInitialState,
+		userService: []
 	});
 };
 const mountComponent = (Props) => {

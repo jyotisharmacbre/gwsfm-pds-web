@@ -24,6 +24,8 @@ import {
 	getPreliminarySummaryCalculation
 } from '../../../helpers/pricing-calculation-helper';
 import ValidatedNumericInput from '../../NumericInput';
+import { toast } from 'react-toastify';
+import * as services from '../../../services';
 
 interface Props {
 	onNext: (data: IDiscountActivity) => void;
@@ -32,7 +34,7 @@ interface Props {
 	projectstatus: any;
 	currencies: Array<ICurrency> | null;
 	currencyId: any;
-	customerName: string;
+	contractorId: string;
 	otherCustomerName: string;
 	projectId: string;
 	dynamicsContractCustomerData: Array<IDynamicContractCustomerData>;
@@ -58,6 +60,7 @@ let DiscountForm: React.FC<
 	let initDiscount: IPricing = { cost: 0, sell: 0, margin: 0 };
 	const [ subContractorCalc, setSubContractorCalc ] = useState<IPricing>({ ...initDiscount });
 	const [ preliminaryCalc, setPreliminaryCalc ] = useState<IPricing>({ ...initDiscount });
+	const [ contractor, setContractor ] = useState<string>('');
 	// const currencySymbol = getFilterElementFromArray(
 	// 	props.currencies,
 	// 	getPropertyName(CurrencyObj, (prop) => prop.currencyId),
@@ -97,6 +100,33 @@ let DiscountForm: React.FC<
 		},
 		[ props.preliminaryState ]
 	);
+
+	useEffect(
+		() =>{
+			console.log(props.contractorId, "(props.contractorId")
+			if (props.contractorId) {
+				if (props.contractorId == '0') setContractor(props.otherCustomerName);
+				else
+					services
+						.getContractsAndCustomers(props.contractorId)
+						.then((response) => {
+							getContractorSuccess(response.data);
+						})
+						.catch((error) => {
+							failure(error);
+						});
+			}
+		}
+	)
+
+	const getContractorSuccess = (response) => {
+		let filter = response.find((ele) => ele.contractId == props.contractorId);
+		if (filter) setContractor(filter.contractName);
+	};
+
+	const failure = (error) => {
+		toast.error('Some error occured');
+	};
 
 	return (
 		<div className="container-fluid">
@@ -169,13 +199,7 @@ let DiscountForm: React.FC<
 									</h2>
 									<Field
 										input={{
-											value:
-												getFilterElementFromArray(
-													props.dynamicsContractCustomerData,
-													'contractId',
-													props.customerName,
-													'customerName'
-												) || props.otherCustomerName,
+											value: contractor,
 											disabled: true
 										}}
 										type="text"

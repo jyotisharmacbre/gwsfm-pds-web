@@ -16,27 +16,33 @@ interface IProps {
 	searchText?: any;
 	className?: any;
 	validationKey?: any;
-	onSearch: (value: any, success: any, failure: any) => void;
-    formatData:(value:any) => void;
-    handleOtherFieldChange?:(value:any,type:any) => void;
+	onSearch: (value: any) => Promise<any>;
+	formatData: (value: any) => void;
+	handleOtherFieldChange?: (value: any, type: any) => void;
 }
 const NewTypeAhead: React.FC<IProps> = (props) => {
 	const [ values, setValues ] = useState<any>([]);
-	
-    const handleChange = (value: any) => {
+
+	const handleChange = (value: any) => {
 		props.handleOtherFieldChange && props.handleOtherFieldChange(value, props.DynamicsType);
-	}
+	};
+
+	const failure = (error: string) => {};
 
 	const onSearchValue = (value: any) => {
-		props.onSearch(value, getValueSuccess, failure);
+		props
+			.onSearch(value)
+			.then((response) => {
+				setValues(props.formatData(response.data));
+			})
+			.catch((error) => {
+				failure(error);
+			});
 	};
 
-	const getValueSuccess = (response: any) => {
-		setValues(props.formatData(response));
-	};
-
-	const failure = (error: string) => {
-	};
+	// const getValueSuccess = (response: any) => {
+	// 	setValues(props.formatData(response));
+	// };
 
 	const _placeholder = props.placeholderKey
 		? props.intl.formatMessage({ id: props.placeholderKey })

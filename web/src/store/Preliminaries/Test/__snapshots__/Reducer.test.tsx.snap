@@ -4,7 +4,7 @@ exports[`preliminaryReducer Reducer should fetch preliminary data 1`] = `
 Object {
   "event": 3,
   "notify": 0,
-  "preliminaryDetails": Array [],
+  "preliminaryDetails": undefined,
 }
 `;
 

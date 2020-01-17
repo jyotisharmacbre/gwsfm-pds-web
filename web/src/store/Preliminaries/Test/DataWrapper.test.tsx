@@ -1,5 +1,5 @@
 import { bindUserData,convertIntoDatabaseModel } from '../DataWrapper';
-import {lookupData,preliminariesData,preliminariuserData,newUserData, defaultAdminData, expectedDataForDefaultValues} from "./ReducerTestData";
+import {lookupData,preliminariesData,preliminariuserData,newUserData, defaultAdminData, expectedDataForDefaultValues, lookupDataForInsurrance, expectedDataForInsurrance} from "./ReducerTestData";
 describe('DataWrapper test cases', () => {
     it('should bind preliminaries database data into user format', () => {
      sessionStorage.setItem("lookupData",JSON.stringify(lookupData));
@@ -22,6 +22,12 @@ describe('DataWrapper test cases', () => {
         sessionStorage.setItem("defaultParameters",JSON.stringify(defaultAdminData));
         expect(bindUserData([])).not.toBeNull();
         expect(bindUserData([])).toMatchObject(expectedDataForDefaultValues);
+       });
+       it('should return only one item data if componentId is 13', () => {
+        sessionStorage.setItem("lookupData",JSON.stringify(lookupDataForInsurrance));
+        sessionStorage.setItem("defaultParameters",JSON.stringify(defaultAdminData));
+        expect(bindUserData([])).not.toBeNull();
+        expect(bindUserData([])).toMatchObject(expectedDataForInsurrance);
        });
   });
       

@@ -7,7 +7,8 @@ export function PdsFormSelect({
   messages,
   messageKey,
   children,
-  DropdownCheck
+  DropdownCheck,
+  disabled
 }) {
   const errorClass = `${error && touched ? 'error' : ''}`;
   
@@ -16,6 +17,7 @@ export function PdsFormSelect({
       <select
         className={'form-control' + ' ' + errorClass + ' ' + DropdownCheck}   
         {...input}
+        disabled={disabled}
       >
         {children}
       </select>

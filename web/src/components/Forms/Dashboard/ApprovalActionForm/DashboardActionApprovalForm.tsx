@@ -16,120 +16,115 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExclamation } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
-  actionApprovalValues: Array<IProjectDashboardGrid>;
-  showValues: number;
-  lookupValues: Array<ILookup>;
-  userNamesForEmailsValues: Array<IUserServiceData>;
+	actionApprovalValues: Array<IProjectDashboardGrid>;
+	showValues: number;
+	lookupValues: Array<ILookup>;
+	userNamesForEmailsValues: Array<IUserServiceData>;
 }
-let DashboardActionApprovalForm: React.FC<
-  Props & InjectedFormProps<Array<IProjectDashboardGrid>, Props>
-> = props => {
-  const [gridData, setGridData] = useState<Array<IProjectDashboardGrid>>([]);
-  useEffect(() => {
-    if (
-      props.actionApprovalValues &&
-      props.lookupValues &&
-      props.userNamesForEmailsValues &&
-      props.showValues
-    ) {
-      setGridData(
-        getActionApprovalValues(
-          props.actionApprovalValues,
-          props.lookupValues,
-          props.userNamesForEmailsValues,
-          props.showValues
-        )
-      );
-    }
-  }, [
-    props.actionApprovalValues,
-    props.lookupValues,
-    props.userNamesForEmailsValues,
-    props.showValues
-  ]);
+let DashboardActionApprovalForm: React.FC<Props & InjectedFormProps<Array<IProjectDashboardGrid>, Props>> = (props) => {
+	const [ gridData, setGridData ] = useState<Array<IProjectDashboardGrid>>([]);
+	useEffect(
+		() => {
+			if (
+				props.actionApprovalValues &&
+				props.actionApprovalValues.length > 0 &&
+				props.lookupValues &&
+				props.userNamesForEmailsValues &&
+				props.showValues
+			) {
+				setGridData(
+					getActionApprovalValues(
+						props.actionApprovalValues,
+						props.lookupValues,
+						props.userNamesForEmailsValues,
+						props.showValues
+					)
+				);
+			}
+		},
+		[ props.actionApprovalValues, props.lookupValues, props.userNamesForEmailsValues, props.showValues ]
+	);
 
-  const getActionApprovalValues = (
-    data,
-    allLookups,
-    namesAndEmails,
-    countVals
-  ) => {
-    let result =
-      data &&
-      data.map(function (rowProject) {
-        var statusID = rowProject.approvalStatus;
-        if (!isNaN(statusID) && allLookups.length > 0 && namesAndEmails) {
-          rowProject.approvalStatus = getLookupDescription(
-            allLookups,
-            rowProject.approvalStatus,
-            LookupItems.Project_Approval_Sign_Off_Status
-          );
-          var mailObj = namesAndEmails.find(
-            lk => lk.email.toUpperCase() === rowProject.modifiedBy.toUpperCase()
-          );
-          rowProject.modifiedBy = mailObj
-            ? `${mailObj.firstname} ${mailObj.lastName}`
-            : rowProject.modifiedBy;
-          rowProject.name = (
-            <Link
-              to={{
-                pathname: `/ReviewApprove/${rowProject.projectId}`,
-                state: { fromDashboard: true }
-              }}
-            >
-              {rowProject.name}
-            </Link>
-          );
-          rowProject.modifiedOn =
-            rowProject.modifiedOn != ''
-              ? moment(rowProject.modifiedOn).format('MM/DD/YYYY')
-              : '';
-        }
-        return rowProject;
-      });
-    return result;
-  };
-  return (
-    <React.Fragment>
-      {gridData.length > 0 ? <GridTable
-        columns={getTableColumns()}
-        data={gridData}
-        sorting={false}
-        className="price-table home_screen_table"
-        ActionList={[]}
-      /> : <span className="table-row-no-pending-actions">
-          <FontAwesomeIcon className="active" icon={faExclamation} />
-          <FormattedMessage id='HOMESCREEN_GRID_NO_ACTION_MESSAGE' /></span>}
-    </React.Fragment>
-  );
+	const getActionApprovalValues = (data, allLookups, namesAndEmails, countVals) => {
+		let result =
+			data &&
+			data.map(function(rowProject) {
+				var statusID = rowProject.approvalStatus;
+				if (allLookups.length > 0 && namesAndEmails) {
+					rowProject.approvalStatus = getLookupDescription(
+						allLookups,
+						rowProject.approvalStatus,
+						LookupItems.Project_Approval_Sign_Off_Status
+					);
+					var mailObj = namesAndEmails.find(
+						(lk) => lk.email.toUpperCase() === rowProject.modifiedBy.toUpperCase()
+					);
+					rowProject.modifiedBy = mailObj
+						? `${mailObj.firstname} ${mailObj.lastName}`
+						: rowProject.modifiedBy;
+					rowProject.name = (
+						<Link
+							to={{
+								pathname: `/ReviewApprove/${rowProject.projectId}`,
+								state: { fromDashboard: true }
+							}}
+						>
+							{rowProject.name}
+						</Link>
+					);
+					rowProject.modifiedOn =
+						rowProject.modifiedOn != '' ? moment(rowProject.modifiedOn).format('MM/DD/YYYY') : '';
+				}
+				return rowProject;
+			});
+		return result;
+	};
+	return (
+		<React.Fragment>
+			{gridData.length > 0 ? (
+				<GridTable
+					columns={getTableColumns()}
+					data={gridData}
+					sorting={false}
+					className="price-table home_screen_table"
+					ActionList={[]}
+				/>
+			) : (
+				<span className="table-row-no-pending-actions">
+					<FontAwesomeIcon className="active" icon={faExclamation} />
+					<FormattedMessage id="HOMESCREEN_GRID_NO_ACTION_MESSAGE" />
+				</span>
+			)}
+		</React.Fragment>
+	);
 };
 const getTableColumns = () => {
-  return [
-    {
-      title: <FormattedMessage id="HOMESCREEN_GRID_COLUMN_NAME" />,
-      field: 'name'
-    },
-    {
-      title: <FormattedMessage id="HOMESCREEN_GRID_COLUMN_UPDATEDBY" />,
-      field: 'modifiedBy'
-    },
-    {
-      title: <FormattedMessage id="HOMESCREEN_GRID_COLUMN_DATE" />,
-      field: 'modifiedOn'
-    },
-    {
-      title: <FormattedMessage id="HOMESCREEN_GRID_COLUMN_STATUS" />,
-      field: 'approvalStatus'
-    }
-  ];
+	return [
+		{
+			title: <FormattedMessage id="HOMESCREEN_GRID_COLUMN_NAME" />,
+			field: 'name'
+		},
+		{
+			title: <FormattedMessage id="HOMESCREEN_GRID_COLUMN_UPDATEDBY" />,
+			field: 'modifiedBy'
+		},
+		{
+			title: <FormattedMessage id="HOMESCREEN_GRID_COLUMN_DATE" />,
+			field: 'modifiedOn'
+		},
+		{
+			title: <FormattedMessage id="HOMESCREEN_GRID_COLUMN_STATUS" />,
+			field: 'approvalStatus'
+		}
+	];
 };
 
 const mapStateToProps = (state: IState) => ({
-  initialValues: state.dashboardGrid.actionApprovalDetails
+	initialValues: state.dashboardGrid.actionApprovalDetails
 });
 
 const form = reduxForm<Array<IProjectDashboardGrid>, Props>({
-  form: 'DashboardActionApprovalForm',
-  enableReinitialize: true
+	form: 'DashboardActionApprovalForm',
+	enableReinitialize: true
 })(DashboardActionApprovalForm);
 export default connect(mapStateToProps)(form);

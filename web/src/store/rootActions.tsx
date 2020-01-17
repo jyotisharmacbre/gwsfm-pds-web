@@ -3,6 +3,7 @@ export {
 	projectOverviewFormEdit,
 	getAdditionalDetails,
 	resetProjectOverviewState,
+	resetProjectOverviewNotifier,
 	getAdminDefaultValues,
 	setupPojectApprovalsInitialData,
 	getProjectActivities
@@ -15,7 +16,8 @@ export {
 	resetProjectDetailState,
 	projectDetailEdit,
 	changeProjectStatus,
-	resetProjectDetailStateToInitial
+	resetProjectDetailStateToInitial,
+	resetCustomerEnquiryState
 } from './CustomerEnquiryForm/Action';
 
 export {
@@ -32,7 +34,8 @@ export {
 	subContractorFormAdd,
 	subContractorFormEdit,
 	getSubContractor,
-	resetSubContractorState
+	resetSubContractorState,
+	resetSubContractorNotifier
 } from './SubContractor/Actions';
 
 export { userPreferencesFormEdit } from './UserPreferencesForm/Actions';
@@ -41,17 +44,16 @@ export {
 	getDynamicContractData,
 	getDynamicCompanyData,
 	getDynamicSubContractorData,
-	getDynamicOther,
-	getListOfCompanies,
-	getListOfContract
+	getDynamicOther
 } from './DynamicsData/Action';
 
-export { getUserService, getUserServiceCallback, getUserNamesForEmails } from './UserService/Action';
+export { getUserNamesForEmailsService } from './UserService/Action';
 
 export {
 	changeProjectStatusToBidLost,
 	changeProjectStatusToOnHold,
 	reactivateProject,
 	updateProjectStatusToInReview,
-	projectApprove
+	projectApprove,
+	changeProjectStatusToOrderReceived
 } from './WorkflowService/Actions';

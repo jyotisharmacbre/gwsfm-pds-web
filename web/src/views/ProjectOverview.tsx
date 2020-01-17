@@ -15,7 +15,12 @@ import { ILookup } from '../store/Lookups/Types/ILookup';
 import { History } from 'history';
 import { toast } from 'react-toastify';
 import { formatMessage } from '../Translations/connectedIntlProvider';
-import { getFilterElementFromArray, getClassNameForProjectStatus, getPropertyName } from '../helpers/utility-helper';
+import {
+	getFilterElementFromArray,
+	getClassNameForProjectStatus,
+	getPropertyName,
+	displayUserName
+} from '../helpers/utility-helper';
 import ProjectOverviewStatusTab from '../components/Forms/ProjectOverviewForm/ProjectOverviewStatusTab';
 import { getDynamicSubContractorData } from '../store/DynamicsData/Action';
 import { IDynamicSubContractorData, IDynamicContractCustomerData } from '../store/DynamicsData/Types/IDynamicData';
@@ -29,8 +34,10 @@ import { IPreliminariesComponentDetails } from '../store/Preliminaries/Types/IPr
 import { IDiscountActivity } from '../store/DiscountForm/Types/IDiscountActivity';
 import { IProjectDetail } from '../store/CustomerEnquiryForm/Types/IProjectDetail';
 import { IUserServiceData } from '../store/UserService/Types/IUserService';
-import { getUserService } from '../store/UserService/Action';
 import { LookupType } from '../store/Lookups/Types/LookupType';
+import * as services from '../services';
+
+import ProjectStatus from '../enums/ProjectStatus';
 const tableHeaders: IGeneralTableHeaderProps[] = [
 	{ heading: 'End Client Name', subHeading: 'ING' },
 	{ heading: 'Project Name', subHeading: 'Building Maintainance' },
@@ -67,6 +74,7 @@ interface IMapStateToProps {
 	currencies: Array<ICurrency> | null;
 	initialStateSetForProjectApprovals: boolean;
 	lookups: Array<ILookup>;
+	userNamesForEmails: Array<IUserServiceData>;
 }
 interface IMapDispatchToProps {
 	getProjectStatus: () => void;
@@ -87,8 +95,8 @@ interface IMapDispatchToProps {
 	getAllCurrencies: () => void;
 	getLookups: () => void;
 	setupPojectApprovalsInitialData: (lookupdata, currencySymbol, projectId) => void;
-	handleGetuserServiceData: (searchText: string) => void;
 	getProjectActivities: (projectId: string) => void;
+	handleGetUserNamesForEmails: (emails: Array<string>) => void;
 }
 interface IProps {
 	projectId: string;
@@ -100,13 +108,14 @@ const ProjectOverview: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 	const CurrencyObj = new Currency();
 	const [ currencySymbol, setCurrencySymbol ] = useState<string>('');
 	const [ customerName, setCustomerName ] = useState<string>('');
+	const [ projectManager, setProjectManager ] = useState<string>('');
+	const [ getProjectManagerName, setGetProjectManagerName ] = useState<boolean>(false);
 	useEffect(() => {
 		window.scrollTo(0, 0);
 		props.getAllCurrencies();
 		props.getLookups();
 		props.getProjectStatus();
 		props.getProjectDetail(projectId);
-		props.getAdditionalDetails(projectId);
 		props.getEnquiryOverview(projectId);
 		props.getSubContractor(projectId);
 		props.getPreliminaryDetails(projectId);
@@ -136,6 +145,8 @@ const ProjectOverview: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 				if (props.event == EventType.next) {
 					toast.success(formatMessage("TOASTER_SUCCESSFUL"));
 					props.history.push(`/JustificationAuthorisation/${props.match.params.projectId}`);
+				} else if (props.event == EventType.save) {
+					toast.success('Data Saved Successfully');
 				} else if (props.event == EventType.previous) {
 					toast.success(formatMessage("TOASTER_SUCCESSFUL"));
 					props.history.push(`/Project/${props.match.params.projectId}`);
@@ -187,10 +198,38 @@ const ProjectOverview: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 			if (props.enquiryOverview.contractorId) {
 				if (props.enquiryOverview.contractorId === '0')
 					setCustomerName(props.enquiryOverview.otherContractName);
-				else actions.getListOfContract(props.enquiryOverview.contractorId, getListOfContractSuccess, failure);
+				else
+					services
+						.getContractsAndCustomers(props.enquiryOverview.contractorId)
+						.then((response) => {
+							getListOfContractSuccess(response.data);
+						})
+						.catch((error) => {
+							failure(error);
+						});
 			}
 		},
 		[ props.enquiryOverview ]
+	);
+
+	useEffect(
+		() => {
+			if (props.enquiryOverview.projectManager) {
+				setGetProjectManagerName(true);
+				props.handleGetUserNamesForEmails([ props.enquiryOverview.projectManager ]);
+			}
+		},
+		[ props.enquiryOverview ]
+	);
+
+	useEffect(
+		() => {
+			if (getProjectManagerName) {
+				let filter = props.userNamesForEmails.find((ele) => ele.email == props.enquiryOverview.projectManager);
+				if (filter) setProjectManager(displayUserName(filter.firstname, filter.lastName));
+			}
+		},
+		[ props.userNamesForEmails ]
 	);
 
 	const getListOfContractSuccess = (response) => {
@@ -203,6 +242,11 @@ const ProjectOverview: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 		data.projectAdditionalDetail.projectAddDetailId == ''
 			? props.projectOverviewFormAdd(props.match.params.projectId, data, EventType.next)
 			: props.projectOverviewFormEdit(data, EventType.next);
+	};
+	const handleSave = (data: IProjectOverviewDetails) => {
+		data.projectAdditionalDetail.projectAddDetailId == ''
+			? props.projectOverviewFormAdd(props.match.params.projectId, data, EventType.save)
+			: props.projectOverviewFormEdit(data, EventType.save);
 	};
 	const convertToString = (id) => {
 		let data = '';
@@ -241,21 +285,21 @@ const ProjectOverview: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 		actions.reactivateProject(props.match.params.projectId, notifySucess, notifyError);
 	};
 	const handleOnHoldEvent = () => {
-		props.setProjectStatus(6);
+		props.setProjectStatus(ProjectStatus.OnHold);
 		actions.changeProjectStatusToOnHold(props.match.params.projectId, notifySucess, notifyError);
 	};
 	const handleBidLostEvent = () => {
-		props.setProjectStatus(4);
+		props.setProjectStatus(ProjectStatus.BidLost);
 		actions.changeProjectStatusToBidLost(props.match.params.projectId, notifySucess, notifyError);
 	};
-	const onSearchUserService = (values: any) => {
-		props.handleGetuserServiceData(values);
+	const handleOrderReceivedEvent = () => {
+		props.setProjectStatus(ProjectStatus.OrderReceived);
+		actions.changeProjectStatusToOrderReceived(props.match.params.projectId, notifySucess, notifyError);
 	};
 	return (
 		<div className="container-fluid ">
 			<div className="row">
 				<div className="col-lg-12 col-sm-12">
-					{/* 20-dec-2019 */}
 					<div className="custom-wrap">
 						<div className="row align-items-center my-3 my-lg-4 pb-2">
 							<div className="col-lg-6">
@@ -267,6 +311,7 @@ const ProjectOverview: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 								onReactivate={handleReactivateEvent}
 								handleOnHold={handleOnHoldEvent}
 								handleBidLost={handleBidLostEvent}
+								handleOrderReceived={handleOrderReceivedEvent}
 							/>
 						</div>
 
@@ -283,7 +328,7 @@ const ProjectOverview: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 									},
 									{
 										heading: formatMessage('MESSAGE_PROJECT_MANAGER'),
-										subHeading: props.enquiryOverview.projectManager
+										subHeading: projectManager
 									},
 									{
 										heading: formatMessage('LABEL_CN_NUMBER'),
@@ -297,17 +342,19 @@ const ProjectOverview: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 							}}
 						/>
 						<ProjectOverviewForm
+							onSave={handleSave}
 							onNext={handleNext}
 							onPrevious={handlePrevious}
 							projectstatus={props.projectStatus}
 							lookups={props.lookups}
 							status={props.project.status}
 							projectId={props.match.params.projectId}
-							getListOfUsers={actions.getUserServiceCallback}
+							getListOfUsers={services.getUsersForEmailService}
 							subContractorState={props.subContractorState}
 							preliminaryState={props.preliminaryState}
 							discountState={props.discountState}
 							currencySymbol={currencySymbol}
+							handleGetUserNamesForEmails={props.handleGetUserNamesForEmails}
 						/>
 					</div>
 				</div>
@@ -330,7 +377,8 @@ const mapStateToProps = (state: IState) => ({
 	discountState: state.discount.form,
 	currencies: state.lookup.currencies,
 	lookups: state.lookup.lookups,
-	initialStateSetForProjectApprovals: state.projectOverview.initialStateSetForProjectApprovals
+	initialStateSetForProjectApprovals: state.projectOverview.initialStateSetForProjectApprovals,
+	userNamesForEmails: state.userService.userServiceData
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -341,7 +389,7 @@ const mapDispatchToProps = (dispatch) => {
 		projectOverviewFormEdit: (form, event) => dispatch(actions.projectOverviewFormEdit(form, event)),
 		getAdditionalDetails: (projectId) => dispatch(actions.getAdditionalDetails(projectId)),
 		getEnquiryOverview: (projectId) => dispatch(actions.getEnquiryOverview(projectId)),
-		resetProjectOverviewState: () => dispatch(actions.resetProjectOverviewState()),
+		resetProjectOverviewState: () => dispatch(actions.resetProjectOverviewNotifier()),
 		getProjectDetail: (projectId) => dispatch(actions.getProjectDetail(projectId)),
 		setProjectStatus: (status) => dispatch(actions.changeProjectStatus(status)),
 		setAdminDefaultValues: (countryId) => dispatch(actions.getAdminDefaultValues(countryId)),
@@ -351,10 +399,9 @@ const mapDispatchToProps = (dispatch) => {
 		getAllCurrencies: () => dispatch(actions.getAllCurrencies()),
 		setupPojectApprovalsInitialData: (lookupdata, currencySymbol, projectId) =>
 			dispatch(actions.setupPojectApprovalsInitialData(lookupdata, currencySymbol, projectId)),
-
-		handleGetuserServiceData: (search) => dispatch(getUserService(search)),
 		getLookups: () => dispatch(actions.getLookupsByLookupItems(lookupKeyList)),
-		getProjectActivities: (projectId) => dispatch(actions.getProjectActivities(projectId))
+		getProjectActivities: (projectId) => dispatch(actions.getProjectActivities(projectId)),
+		handleGetUserNamesForEmails: (emails: Array<string>) => dispatch(actions.getUserNamesForEmailsService(emails))
 	};
 };
 

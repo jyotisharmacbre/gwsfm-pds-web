@@ -19,13 +19,25 @@ export const newProjectApprovals: IProjectApprovals = {
 	showRangeLabel: true
 };
 
+const updateUserId = (oldState, newState) => {
+	oldState.map((ele) => {
+		let filter = newState.find((nstate) => nstate.approverType == ele.approverType);
+		if (filter) ele.userId = filter.userId;
+	});
+	return oldState;
+};
+
 const projectOverviewFormAddSuccess = (oldState, action) => {
 	return updateObject(oldState, {
 		error: null,
 		loading: false,
 		notify: Notify.success,
 		event: action.event,
-		form: updateObject(oldState.form, action.payload)
+		form: updateObject(oldState.form, {
+			projectId: action.payload.projectId,
+			projectAdditionalDetail: action.payload.projectAdditionalDetail,
+			projectApprovals: updateUserId(oldState.form.projectApprovals, action.payload.projectApprovals)
+		})
 	});
 };
 
@@ -44,7 +56,12 @@ const projectOverviewFormEditSuccess = (oldState, action) => {
 		error: null,
 		loading: false,
 		notify: Notify.success,
-		event: action.event
+		event: action.event,
+		form: updateObject(oldState.form, {
+			projectId: action.payload.projectId,
+			projectAdditionalDetail: action.payload.projectAdditionalDetail,
+			projectApprovals: updateUserId(oldState.form.projectApprovals, action.payload.projectApprovals)
+		})
 	});
 };
 
@@ -82,6 +99,9 @@ const getAdditionalDetailsError = (oldState, action) => {
 };
 
 const resetProjectOverviewState = (oldState, action) => {
+	return initialState;
+};
+const resetProjectOverviewNotifier = (oldState, action) => {
 	return updateObject(oldState, {
 		notify: Notify.none,
 		event: EventType.none
@@ -121,14 +141,16 @@ const projectOverviewFormReducer = (oldState = initialState, action) => {
 			return getAdditionalDetailsError(oldState, action);
 		case ActionType.RESET_PROJECT_OVERVIEW_STATE:
 			return resetProjectOverviewState(oldState, action);
-		case ActionType.RESET_PROJECT_OVERVIEW_STATE:
-			return resetProjectOverviewState(oldState, action);
 		case ActionType.BIND_PROJECT_APPROVAL_INITIAL_DATA:
 			return setupPojectApprovalsInitialData(oldState, action);
 		case ActionType.GET_PROJECT_ACTIVITIES_SUCCESS:
 			return getProjectActivitiesSuccess(oldState, action);
 		case ActionType.GET_PROJECT_ACTIVITIES_ERROR:
 			return getProjectActivitiesError(oldState, action);
+		case ActionType.RESET_PROJECT_OVERVIEW_STATE:
+			return resetProjectOverviewState(oldState, action);
+		case ActionType.RESET_PROJECT_OVERVIEW_NOTIFIER:
+			return resetProjectOverviewNotifier(oldState, action);
 		default:
 			return oldState;
 	}

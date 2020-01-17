@@ -49,6 +49,7 @@ import ActivityFeedList from './ActivityFeedList';
 interface Props {
 	onNext: (data: IProjectOverviewDetails) => void;
 	onPrevious: () => void;
+	onSave: (data: IProjectOverviewDetails) => void;
 	projectstatus: any;
 	status: number;
 	projectId: string;
@@ -57,7 +58,8 @@ interface Props {
 	discountState: IDiscountActivity;
 	currencySymbol: string;
 	lookups: any;
-	getListOfUsers: (value: any, success: any, failure: any) => void;
+	getListOfUsers: (value: any) => Promise<any>;
+	handleGetUserNamesForEmails: (emails: Array<string>) => void;
 }
 
 let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDetails, Props>> = (props) => {
@@ -150,18 +152,19 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						component={PdsFormInput}
 						className="required"
 						validate={[ Validate.required('LABEL_SITE_ADDRESS'), Validate.maxLength(1000) ]}
-						warn={alphaNumeric}
 						labelKey="LABEL_SITE_ADDRESS"
 						placeholderKey="PLACEHOLDER_ADD_SITE_ADDRESS"
 					/>
-					{false && <Field
-						className="d-none"
-						name="projectAdditionalDetail.cdmNotifiable"
-						data-test="cdmNotifiable"
-						component={PdsFormButton}
-						buttons={selectionButtons}
-						labelKey="LABEL_CDMNOTIFIABLE"
-					/>}
+					{false && (
+						<Field
+							className="d-none"
+							name="projectAdditionalDetail.cdmNotifiable"
+							data-test="cdmNotifiable"
+							component={PdsFormButton}
+							buttons={selectionButtons}
+							labelKey="LABEL_CDMNOTIFIABLE"
+						/>
+					)}
 					<Field
 						name="projectAdditionalDetail.formOfContract"
 						data-test="formOfContract"
@@ -326,13 +329,15 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 							</div>
 						</div>
 					</div>
-					{false && <Field
-						name="projectAdditionalDetail.isProjectLive"
-						data-test="isProjectLive"
-						component={PdsFormButton}
-						buttons={selectionButtons}
-						labelKey="LABEL_PROJECT_IS_LIVE"
-					/>}
+					{false && (
+						<Field
+							name="projectAdditionalDetail.isProjectLive"
+							data-test="isProjectLive"
+							component={PdsFormButton}
+							buttons={selectionButtons}
+							labelKey="LABEL_PROJECT_IS_LIVE"
+						/>
+					)}
 					<Field
 						name="projectAdditionalDetail.comments"
 						data-test="comments"
@@ -361,7 +366,10 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 					</div>
 				</div>
 				<div className="col-xl-6">
-					<ActivityFeedList currencySymbol={props.currencySymbol} />
+					<ActivityFeedList
+						currencySymbol={props.currencySymbol}
+						handleGetUserNamesForEmails={props.handleGetUserNamesForEmails}
+					/>
 				</div>
 			</div>
 			<div className="row">
@@ -413,7 +421,13 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 				<button className="active" type="button" onClick={() => props.onPrevious()}>
 					<FormattedMessage id="BUTTON_PREVIOUS" />
 				</button>
-				<button name="save" className="active ml-auto" data-test="save" type="button">
+				<button
+					name="save"
+					className="active ml-auto"
+					data-test="save"
+					type="button"
+					onClick={handleSubmit((values) => props.onSave(values))}
+				>
 					<FormattedMessage id="BUTTON_SAVE" />
 				</button>
 				<button type="button" name="next" onClick={handleSubmit((values) => props.onNext(values))} className="">

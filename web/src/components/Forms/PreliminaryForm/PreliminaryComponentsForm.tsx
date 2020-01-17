@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { Suspense, useState } from 'react';
 import { FieldArray} from 'redux-form';
 import { FormattedMessage } from 'react-intl';
 import PreliminaryItemsForm from './PreliminaryItemsForm';
 import EventType from '../../../enums/EventType';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleUp, faCheck } from '@fortawesome/free-solid-svg-icons';
+import PreliminaryInsurranceForm from './PreliminaryInsurranceForm';
+import { CheckConstraints } from '../../../helpers/fieldValidations';
 
 interface Props {
   submitHandler: (
@@ -21,8 +23,7 @@ interface Props {
       currencySymbol:string;
       
 }  
-
-const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleEvent,prelimData,currencySymbol, isExpand}) => (
+const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleEvent,prelimData,currencySymbol, isExpand,componentIdList}) => (
 
   <div>
   {fields.map((member, index) => (
@@ -31,8 +32,9 @@ const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleE
             <div
               className="card-header p-l-43"
               data-toggle="collapse"
-              data-test="collapse"
-              onClick={()=>onToggleEvent(prelimData[index].componentId)}
+              data-test="tickWrap"
+              
+              
             >
                {prelimData[index].items.find(x=>x.preliminaryId)? <div className="tick_wrap">
               <FontAwesomeIcon icon={faCheck} />
@@ -40,13 +42,14 @@ const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleE
              
               <a className="card-link" >{prelimData[index].componentName}</a>
              
-              <span aria-hidden="true">
-              <FontAwesomeIcon className="active" icon={faAngleUp} />
-              </span>
+              {!CheckConstraints(prelimData[index].componentId)
+              ?<span aria-hidden="true">
+              <FontAwesomeIcon data-test="collapse" className="active" icon={faAngleUp} onClick={()=>onToggleEvent(prelimData[index].componentId)}/>
+              </span>:null}
             </div>
             <div
                id={"collapse_"+prelimData[index].componentId}
-              className={`${isExpand? 'show': 'hide'} expandAll`}
+              className={CheckConstraints(prelimData[index].componentId)||isExpand?"show expandAll":"hide expandAll"}
               data-test="toggle"
               data-parent="#accordion"
             > <form
@@ -59,18 +62,18 @@ const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleE
               <table className="table table-bordered">
                 <thead>
                   <tr>
-                    <th><FormattedMessage id="T_HEADING_ITEM" /></th>
+                    {!CheckConstraints(prelimData[index].componentId)?<th><FormattedMessage id="T_HEADING_ITEM" /></th>:null}
                     <th><FormattedMessage id="T_HEADING_NAME_OF_SUPPLIER" /></th>
-                    <th><FormattedMessage id="T_HEADING_NO_OF_HOURS" /></th>
-                    <th><FormattedMessage id="T_HEADING_HOUR_RATE" /></th>
+                    {!CheckConstraints(prelimData[index].componentId)?<th><FormattedMessage id="T_HEADING_NO_OF_HOURS" /></th>:null}
+                    {!CheckConstraints(prelimData[index].componentId)?<th><FormattedMessage id="T_HEADING_HOUR_RATE" /></th>:null}
                     <th><FormattedMessage id="T_HEADING_TOTAL_COST" /></th>
                     <th><FormattedMessage id="T_HEADING_GROSS_MARGIN" /></th>
                     <th><FormattedMessage id="T_HEADING_TOTAL_SELL" /></th>
                     <th><FormattedMessage id="T_HEADING_COMMENTS" /></th>
                   </tr>
                 </thead>
-                
-                <FieldArray 
+                <Suspense fallback={<div>Loading...</div>}>
+                 {((!CheckConstraints(prelimData[index].componentId)&&componentIdList.includes(prelimData[index].componentId))||(isExpand&&!CheckConstraints(prelimData[index].componentId)))?<FieldArray 
               name={`${member}.items`} 
               component={PreliminaryItemsForm}
               itemDetail={prelimData[index]}
@@ -79,8 +82,18 @@ const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleE
               currencyId={0}
               currencySymbol={currencySymbol}
               key={index}
-            />
+            />:null}
+            {CheckConstraints(prelimData[index].componentId)?<FieldArray 
+            name={`${member}.items`} 
+            component={PreliminaryInsurranceForm}
+            itemDetail={prelimData[index]}
+            componentIndex={index}
+            currencies={[]}
+            currencyId={0}
+            currencySymbol={currencySymbol}
+            key={index}/>:null} 
            
+           </Suspense>
             </table>
                 </div>
                 </div>

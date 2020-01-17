@@ -67,7 +67,7 @@ const setProjectId = (oldState, action) => {
     form: updateObject(oldState.form, { projectId: action.projectId })
   });
 };
-const changeProjectStatus=(oldState, action) => {
+const changeProjectStatus = (oldState, action) => {
   return updateObject(oldState, {
     form: updateObject(oldState.form, { status: action.payload })
   });
@@ -76,6 +76,11 @@ const changeProjectStatus=(oldState, action) => {
 const resetProjectDetailStateToInitial = (oldState, action) => {
   return initialState;
 };
+
+const resetCustomerEnquiryState = (oldState, action) => {
+  return initialState;
+};
+
 
 const projectDetailReducer = (oldState = initialState, action) => {
   switch (action.type) {
@@ -101,7 +106,9 @@ const projectDetailReducer = (oldState = initialState, action) => {
       return changeProjectStatus(oldState, action);
     case ActionType.RESET_PROJECT_DETAIL_STATE_TO_INITIAL:
       return resetProjectDetailStateToInitial(oldState, action);
-    default:
+    case ActionType.RESET_CUSTOMER_ENQUIRY_STATE:
+      return resetCustomerEnquiryState(oldState, action);
+      default:
       return oldState;
   }
 };
