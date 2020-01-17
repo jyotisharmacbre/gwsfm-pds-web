@@ -25,6 +25,7 @@ import NewTypeAhead from '../../TypeAhead/NewTypeAhead';
 import { confirmAlert } from '../../Popup/CustomModalPopup';
 
 import ValidatedNumericInput from '../../../components/NumericInput/index';
+import { restrictMinus } from '../../../helpers/utility-helper';
 interface Props {
 	fields: any;
 	activities: Array<ISubContractorActivity>;
@@ -111,22 +112,24 @@ const SubContractorActivityForm: React.FC<Props> = (props: Props) => {
 									/>
 									<ValidatedNumericInput
 										name={`${member}.totalCost`}
-										type="number"
+										type="text"
 										component={PdsFormInput}
 										className="width-120 pl-20"
 										validate={[ Validate.maxLength(1000), onlyNumber ]}
 										currency={props.currencySymbol}
+										normalize={restrictMinus}
 										divPosition="relative"
 										labelKey="LABEL_TOTAL_COST"
 										placeholderKey=""
 									/>
 									<ValidatedNumericInput
 										name={`${member}.grossMargin`}
-										type="number"
+										type="text"
 										component={PdsFormInput}
 										className="width-120 pl-20"
 										validate={[ Validate.maxLength(1000), onlyNumber ]}
 										currency="%"
+										normalize={restrictMinus}
 										divPosition="relative"
 										labelKey="LABEL_GROSS_MARGIN"
 										placeholderKey=""
