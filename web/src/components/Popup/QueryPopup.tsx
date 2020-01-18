@@ -3,11 +3,13 @@ import { render } from 'react-dom'
 import { injectIntl, FormattedMessage } from 'react-intl';
 import question_mark from '../../components/images/Question Mark_Icon.svg';
 import IReactIntl from '../../Translations/IReactIntl';
+import { formatMessage } from '../../Translations/connectedIntlProvider';
 
 interface IProps {
     intl: any,
-    titleKey?: string,
-    contentKey?: string,
+    titleKey?: any,
+    subTitleKey?:any,
+    contentKey?: any,
     handleConfirm?: (data: string) => void,
     handleReject?: () => void
 }
@@ -33,24 +35,22 @@ const QueryPopup: React.FC<IProps> = props => {
                     <span><img className="question_mark_icon" src={question_mark} alt="close" /></span>
                     <div className="modal-header">
                         <h5 className="modal-title">
-                            {props.intl.formatMessage({ id: props.titleKey })}
-
-
+                            {props.titleKey}
                         </h5>
                         <span onClick={() => removeBodyClass()} className="close" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </span>
                     </div>
                     <div className="modal-body text-center w-100">
-                        <p>Please let us know your query below</p>
-                        <textarea name="projectAdditionalDetail.comments" placeholder="Type in additional comments" rows={3} className="form-control undefined " onChange={e => setValue(e.target.value)}></textarea>
+                        <p>{props.subTitleKey}</p>
+                        <textarea name="projectAdditionalDetail.comments" placeholder={formatMessage("PLACEHOLDER_QUERY")} rows={3} className="form-control undefined " onChange={e => setValue(e.target.value)}></textarea>
                     </div>
                     <div className="modal-footer">
                         <button type="button" data-test="button_reject" className="" onClick={() => reject()}>
-                            CANCEL
+                        {formatMessage("BUTTON_CANCEL")}
                         </button>
                         <button type="button" data-test="button_confirm" id="button_confirm" className="active" onClick={() => confirm()}>
-                            SUBMIT
+                        {formatMessage("BUTTON_SUBMIT")}
                         </button>
                     </div>
                 </div>

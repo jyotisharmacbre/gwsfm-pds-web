@@ -126,15 +126,14 @@ const ReviewApprove: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> =
 	const handleQuerySave = (data: string) => {
 		actions.postQuery(props.match.params.projectId, data, handleQuerySuccess, handleQueryError);
 	};
-	const handleQueryCancel = () => {
-		console.log('Cancel clicked');
-	};
 	return (
 		<div className="container-fluid" data-test="review-approve-component">
 			{showQueryPopup && <QueryPopup
 				intl={props.intl}
 				handleConfirm={handleQuerySave}
-				handleReject={handleQueryCancel}
+				titleKey={<FormattedMessage id="TITLE_QUERY" />}
+				subTitleKey={<FormattedMessage id="SUB_TITLE_QUERY" />}
+				contentKey={<FormattedMessage id="PLACEHOLDER_QUERY" />}
 			/>}
 			<div className="row">
 				<div className="col-lg-12">
