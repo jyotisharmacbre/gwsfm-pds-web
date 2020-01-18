@@ -52,7 +52,7 @@ const PricingSummaryTable: React.FC<Props> = (props) => {
 								<td data-column="&nbsp;"><FormattedMessage id='TITLE_PRELIMINARIES' /></td>
                                 <td data-column={`Cost (${props.currencySymbol})`}>
                                     {props.currencySymbol}
-									<span data-test="total-margin-summary">{preliminaryData.cost}</span>
+									<span data-test="total-margin-summary">{preliminaryData.cost.toFixed(2)}</span>
 								</td>
 								<td data-column={`Margin (%)`}>
 									<span data-test="gross-margin-summary">{preliminaryData.margin}</span>
@@ -60,7 +60,7 @@ const PricingSummaryTable: React.FC<Props> = (props) => {
 								</td>
                                 <td data-column={`Sell (${props.currencySymbol})`}>
                                     {props.currencySymbol}
-									<span data-test="total-sell-summary">{preliminaryData.sell}</span>
+									<span data-test="total-sell-summary">{preliminaryData.sell.toFixed(2)}</span>
 								</td>
 							</tr>
 						) : null}
@@ -69,14 +69,14 @@ const PricingSummaryTable: React.FC<Props> = (props) => {
 								<td data-column="&nbsp;"><FormattedMessage id='TITLE_SUBCONTRACTORS' /></td>
                                 <td data-column={`Cost (${props.currencySymbol})`}>
                                     {props.currencySymbol}
-									<span data-test="sub-contractor-cost">{subContractorData.cost}</span>
+									<span data-test="sub-contractor-cost">{subContractorData.cost.toFixed(2)}</span>
 								</td>
 								<td data-column={`Margin (%)`}>
 									<span data-test="sub-contractor-margin">{subContractorData.margin}</span>(%)
 								</td>
                                 <td data-column={`Sell (${props.currencySymbol})`}>
                                     {props.currencySymbol}
-									<span data-test="sub-contractor-sell">{subContractorData.sell}</span>
+									<span data-test="sub-contractor-sell">{subContractorData.sell.toFixed(2)}</span>
 								</td>
 							</tr>
 						) : null}

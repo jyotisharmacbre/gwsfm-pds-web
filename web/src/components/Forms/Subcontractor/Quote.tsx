@@ -10,6 +10,7 @@ import PdsFormTypeAhead from '../../PdsFormHandlers/PdsFormTypeAhead';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { Validate, alphaNumeric, onlyNumber } from '../../../helpers/fieldValidations';
 import ValidatedNumericInput from '../../NumericInput';
+import { restrictMinus } from '../../../helpers/utility-helper';
 
 const Quote = ({ fields }) => (
   <div className="row" data-test="sub-contractor-quote-form">
@@ -34,7 +35,7 @@ const Quote = ({ fields }) => (
                   />
                   <ValidatedNumericInput
                     name={`${member}.quoteValue`}
-                    type="number"
+                    type="text"
                     component={PdsFormInput}
                     className="pl-20"
                     validate={[
@@ -45,6 +46,7 @@ const Quote = ({ fields }) => (
                     divPosition="relative"
                     labelKey="LABEL_QUOTE_VALUE"
                     placeholderKey=""
+                    normalize={restrictMinus}
                   />
                 </div>
               </div>

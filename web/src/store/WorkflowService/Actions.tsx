@@ -69,4 +69,14 @@ export const postQuery = (projectId: string, query: string, success, error) => {
 			error(exception);
 		});
 };
+export const changeProjectStatusToOrderReceived = (projectId: string, success, error) => {
+	axios.baseAPI
+		.put(`api/Workflow/${projectId}/OrderReceived`, config)
+		.then((response) => {
+			success(response.data);
+		})
+		.catch((exception) => {
+			error(exception);
+		});
+};
 
