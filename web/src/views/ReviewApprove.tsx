@@ -19,7 +19,7 @@ import { IDiscountActivity } from '../store/DiscountForm/Types/IDiscountActivity
 import { ILookup } from '../store/Lookups/Types/ILookup';
 import { LookupType } from '../store/Lookups/Types/LookupType';
 import { IProjectOverviewDetails } from '../store/ProjectOverviewForm/Types/IProjectOverviewDetails';
-import showQueryModal from '../components/Popup/QueryPopup';
+import QueryPopup from '../components/Popup/QueryPopup';
 import { FormattedMessage } from 'react-intl';
 import { IUserServiceData } from '../store/UserService/Types/IUserService';
 import ActivityFeedList from '../components/Forms/ProjectOverviewForm/ActivityFeedList';
@@ -65,10 +65,11 @@ const lookupKeyList: string[] = [
 	LookupType.Project_Approver_Type
 ];
 
-const ReviewApprove: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & IReactIntl> = (props) => {
+const ReviewApprove: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = (props) => {
 	const CurrencyObj = new Currency();
 	const [currencySymbol, setCurrencySymbol] = useState<string>('');
 	const projectId = props.match.params.projectId;
+	const [showQueryPopup, setShowQueryPopup] = useState<boolean>(false);
 	useEffect(() => {
 		window.scrollTo(0, 0);
 		props.getAllCurrencies();
@@ -130,6 +131,11 @@ const ReviewApprove: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & 
 	};
 	return (
 		<div className="container-fluid" data-test="review-approve-component">
+			{showQueryPopup && <QueryPopup
+				intl={props.intl}
+				handleConfirm={handleQuerySave}
+				handleReject={handleQueryCancel}
+			/>}
 			<div className="row">
 				<div className="col-lg-12">
 					<div className="custom-wrap">
@@ -177,11 +183,7 @@ const ReviewApprove: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & 
 							</div>
 						</div>
 						<div className="two-side-btn pt-2">
-							<button type="button" onClick={() => showQueryModal({
-								intl: props.intl,
-								handleConfirm: handleQuerySave,
-								handleReject: handleQueryCancel
-							})}>
+							<button type="button" onClick={() => setShowQueryPopup(true)}>
 								<FormattedMessage id="BUTTON_QUERY" />
 							</button>
 							<button type="button" name="next" onClick={handleApproval}>
