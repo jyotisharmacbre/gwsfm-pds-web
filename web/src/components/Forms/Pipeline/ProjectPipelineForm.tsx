@@ -53,7 +53,8 @@ const ProjectPipelineForm: React.FC<Props & IReactIntl> = (props: any) => {
           : '';
 
       rowProject.cdmNotifiable = rowProject.cdmNotifiable ? formatMessage('LABEL_YES') : formatMessage('LABEL_NO');
-
+      rowProject.soldmargin = rowProject.soldmargin?rowProject.soldmargin:0;
+      rowProject.weightedTCV = `${currencySymbol}${rowProject.weightedTCV?rowProject.weightedTCV:0}`;
       rowProject.name = (
         <Link
           to={{
@@ -124,11 +125,13 @@ const getTableColumns = () => {
     },
     {
       title: formatMessage('LABEL_SOLD_MARGIN'),
-      field: 'soldmargin'
+      field: 'soldmargin',
+      type: ColumnTypeEnum.percentage
     },
     {
       title: formatMessage('LABEL_WEIGHTED_TCV'),
-      field: 'weightedTCV'
+      field: 'weightedTCV',
+      type: ColumnTypeEnum.currency
     }
   ];
 };
