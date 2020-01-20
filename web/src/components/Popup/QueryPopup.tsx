@@ -4,6 +4,7 @@ import { injectIntl, FormattedMessage } from 'react-intl';
 import question_mark from '../../components/images/Question Mark_Icon.svg';
 import IReactIntl from '../../Translations/IReactIntl';
 import { formatMessage } from '../../Translations/connectedIntlProvider';
+import warn_icon from '../../components/images/warn_icon.svg';
 
 interface IProps {
     intl: any,
@@ -44,6 +45,10 @@ const QueryPopup: React.FC<IProps> = props => {
                     <div className="modal-body text-center w-100">
                         <p>{props.subTitleKey}</p>
                         <textarea name="projectAdditionalDetail.comments" placeholder={formatMessage("PLACEHOLDER_QUERY")} rows={3} className="form-control undefined " onChange={e => setValue(e.target.value)}></textarea>
+                        <p className="warn_msg">
+                            <img className="warn_icon" src={warn_icon} alt="close" />
+                            <FormattedMessage id="MESSAGE_WARNING" />
+                        </p>
                     </div>
                     <div className="modal-footer">
                         <button type="button" data-test="button_reject" className="" onClick={() => reject()}>

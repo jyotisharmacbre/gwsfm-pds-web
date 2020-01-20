@@ -25,6 +25,7 @@ import { IUserServiceData } from '../store/UserService/Types/IUserService';
 import ActivityFeedList from '../components/Forms/ProjectOverviewForm/ActivityFeedList';
 import EventType from '../enums/EventType';
 import IReactIntl from '../Translations/IReactIntl';
+import { formatMessage } from '../Translations/connectedIntlProvider';
 
 interface IProps {
 	match: match<{ projectId: string }>;
@@ -107,21 +108,20 @@ const ReviewApprove: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> =
 		actions.projectApprove(props.match.params.projectId, handleApprovalSuccess, handleApprovalError);
 	};
 
-	const handleApprovalSuccess = (data) => {
-		toast.success('Approved Successfully');
+	const handleApprovalSuccess = data => {
+		toast.success(formatMessage("MESSAGE_SUCCESSFUL_APPROVED"));
 		props.history.push('/');
 	};
 
-	const handleApprovalError = (data) => {
-		toast.error('Some error occured');
+	const handleApprovalError = data => {
+		toast.error(formatMessage("MESSAGE_ERROR"));
 	};
 	const handleQuerySuccess = (data) => {
-		toast.success('Query Saved Successfully');
+		toast.success(formatMessage('MESSAGE_QUERY_SUCCESS'));
 		props.history.push('/');
 	};
-
 	const handleQueryError = (data) => {
-		toast.error('Some error occured');
+		toast.error(formatMessage("MESSAGE_ERROR"));
 	};
 	const handleQuerySave = (data: string) => {
 		actions.postQuery(props.match.params.projectId, data, handleQuerySuccess, handleQueryError);
