@@ -3,9 +3,9 @@ import authentication from '@kdpw/msal-b2c-react';
 import appConfig from '../helpers/config-helper';
 
 const config = appConfig();
-export const baseURL = config.REACT_APP_API_BASE_URL;
+export const baseURL = config.REACT_APP_MIDDLETIER_URL;
 export const baseAPI = axios.create({ baseURL });
-export const userServiceURL = config.REACT_APP_USER_SERVICE_URL;
+export const userServiceURL = config.REACT_APP_GATEWAY_URL;
 export const userServiceAPI = axios.create({ baseURL: userServiceURL });
 
 const isTokenHandlerEnabled = (config = {}) => {
