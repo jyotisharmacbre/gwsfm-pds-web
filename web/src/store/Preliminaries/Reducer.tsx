@@ -45,6 +45,12 @@ const preliminaryGetSuccess = (oldState, action) => {
 const preliminaryGetError = (oldState, action) => {
   return initialState;
 };
+
+const resetPreliminaryState = (oldState, action) => {
+	return initialState;
+};
+
+
 const preliminaryReducer = (oldState = initialState, action) => {
   switch (action.type) {
     case ActionType.PRELIMINARY_ADD_SUCCESS:
@@ -59,6 +65,8 @@ const preliminaryReducer = (oldState = initialState, action) => {
       return preliminaryGetSuccess(oldState, action);
     case ActionType.GET_PRELIMINARY_ERROR:
       return preliminaryGetError(oldState, action);
+      case ActionType.RESET_PRELIMINARY_STATE:
+			return resetPreliminaryState(oldState, action);
     default:
       return oldState;
   }

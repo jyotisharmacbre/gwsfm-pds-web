@@ -47,11 +47,6 @@ const ProjectPipelineForm: React.FC<Props & IReactIntl> = (props: any) => {
       rowProject.lastModified = moment(rowProject.lastModified).format(
         'MM/DD/YYYY'
       );
-      rowProject.commenceDate =
-        rowProject.commenceDate != ''
-          ? moment(rowProject.commenceDate).format('MM/DD/YYYY')
-          : '';
-
       rowProject.cdmNotifiable = rowProject.cdmNotifiable ? formatMessage('LABEL_YES') : formatMessage('LABEL_NO');
       rowProject.soldmargin = rowProject.soldmargin ? rowProject.soldmargin : 0;
       rowProject.weightedTCV = `${currencySymbol}${rowProject.weightedTCV ? rowProject.weightedTCV : 0}`;

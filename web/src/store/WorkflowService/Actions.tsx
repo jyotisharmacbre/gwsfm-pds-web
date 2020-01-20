@@ -52,10 +52,21 @@ export const updateProjectStatusToInReview = (projectId: string, success, error)
 export const projectApprove = (projectId: string, success, error) => {
 	axios.baseAPI
 		.put(`/api/Workflow/${projectId}/Approve`, null, config)
-		.then(response => {
+		.then((response) => {
 			success(response.data);
 		})
-		.catch(exception => {
+		.catch((exception) => {
+			error(exception);
+		});
+};
+
+export const postQuery = (projectId: string, query: string, success, error) => {
+	axios.baseAPI
+		.post(`/api/Workflow/${projectId}/query`, query, config)
+		.then((response) => {
+			success(response.data);
+		})
+		.catch((exception) => {
 			error(exception);
 		});
 };
@@ -80,3 +91,13 @@ export const changeProjectStatusToOrderReceived = (projectId: string, success, e
 		});
 };
 
+export const postComments = (projectId: string, query: string, success, error) => {
+	axios.baseAPI
+		.post(`/api/Workflow/${projectId}/comments`, query, config)
+		.then((response) => {
+			success(response.data);
+		})
+		.catch((exception) => {
+			error(exception);
+		});
+};
