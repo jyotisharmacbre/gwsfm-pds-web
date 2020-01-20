@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import {store} from '../../store';
+import { store } from '../../store';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
@@ -16,13 +16,13 @@ import { initialState as discountState } from '../../store/DiscountForm/InitialS
 import ProjectStatus from '../../enums/ProjectStatus';
 
 const history = { push: jest.fn() };
-const mockStore = configureStore([ thunk ]);
+const mockStore = configureStore([thunk]);
 let wrapper;
 const mountComponent = () => {
 	wrapper = mount(
 		<Provider store={store}>
 			<IntlProvider locale="en" messages={translations['en'].messages}>
-				<ReviewSubmit history={history} match={{ params: { projectId: 1 } }} />
+				<ReviewSubmit history={history} match={{ params: { projectId: '1' } }} />
 			</IntlProvider>
 		</Provider>
 	);
@@ -66,5 +66,16 @@ describe('review and approve component test cases', () => {
 		projectInitialState.form.status = ProjectStatus.InReview;
 		mountComponent();
 		expect(wrapper.find('.link_disabled').length).toBeGreaterThan(0);
-	}); 
+	});
+	it('should hide the submit button when state is not JA', () => {
+		projectInitialState.form.status = ProjectStatus.InReview;
+		const button = findByTestAtrr(wrapper, 'submit-button');
+		expect(button.length).toEqual(0);
+	});
+	it('should show the submit button when state is  JA', () => {
+		projectInitialState.form.status = ProjectStatus.JA;
+		mountComponent();
+		const button = findByTestAtrr(wrapper, 'submit-button');
+		expect(button.length).toBeGreaterThan(0);
+	});
 });

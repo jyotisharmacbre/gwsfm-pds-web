@@ -22,6 +22,7 @@ import { LookupType } from '../store/Lookups/Types/LookupType';
 import { IProjectOverviewDetails } from '../store/ProjectOverviewForm/Types/IProjectOverviewDetails';
 import { IUserServiceData } from '../store/UserService/Types/IUserService';
 import { formatMessage } from '../Translations/connectedIntlProvider';
+import ProjectStatus from '../enums/ProjectStatus';
 
 interface IProps {
 	match: match<{ projectId: string }>;
@@ -52,7 +53,7 @@ interface IMapDispatchToProps {
 
 const ReviewSubmit: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = (props) => {
 	const CurrencyObj = new Currency();
-	const [ currencySymbol, setCurrencySymbol ] = useState<string>('');
+	const [currencySymbol, setCurrencySymbol] = useState<string>('');
 	const projectId = props.match.params.projectId;
 
 	useEffect(() => {
@@ -79,7 +80,7 @@ const ReviewSubmit: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = 
 				);
 			}
 		},
-		[ props.project.currencyId, props.currencies ]
+		[props.project.currencyId, props.currencies]
 	);
 
 	const redirect = (module: string) => {
@@ -94,14 +95,14 @@ const ReviewSubmit: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = 
 		);
 	};
 
-  const updateProjectStatusToInReviewSuccess = data => {
-    toast.success(formatMessage("MESSAGE_SUCCESSFUL_SUBMITED"));
-    props.history.push('/');
-  };
+	const updateProjectStatusToInReviewSuccess = data => {
+		toast.success(formatMessage("MESSAGE_SUCCESSFUL_SUBMITED"));
+		props.history.push('/');
+	};
 
-  const updateProjectStatusToInReviewError = data => {
-    toast.error(formatMessage("MESSAGE_ERROR"));
-  };
+	const updateProjectStatusToInReviewError = data => {
+		toast.error(formatMessage("MESSAGE_ERROR"));
+	};
 
 	return (
 		<div className="container-fluid" data-test="review-approve-component">
@@ -152,9 +153,9 @@ const ReviewSubmit: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = 
 							>
 								<FormattedMessage id="BUTTON_PREVIOUS" />
 							</button>
-							<button onClick={updateProjectStatusToInReview} type="button" name="next">
+							{props.project.status == ProjectStatus.JA ? (<button onClick={updateProjectStatusToInReview} type="button" name="next" data-test="submit-button">
 								<FormattedMessage id="BUTTON_SUBMIT" />
-							</button>
+							</button>) : null}
 						</div>
 					</div>
 				</div>
