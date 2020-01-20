@@ -61,7 +61,6 @@ export {
 	changeProjectStatusToOnHold,
 	reactivateProject,
 	updateProjectStatusToInReview,
-	postQuery,
 	projectApprove,
 	postQuery,
 	postComments,
