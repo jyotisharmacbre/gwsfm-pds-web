@@ -21,6 +21,7 @@ import { ILookup } from '../store/Lookups/Types/ILookup';
 import { LookupType } from '../store/Lookups/Types/LookupType';
 import { IProjectOverviewDetails } from '../store/ProjectOverviewForm/Types/IProjectOverviewDetails';
 import { IUserServiceData } from '../store/UserService/Types/IUserService';
+import { formatMessage } from '../Translations/connectedIntlProvider';
 import ProjectStatus from '../enums/ProjectStatus';
 
 interface IProps {
@@ -94,14 +95,14 @@ const ReviewSubmit: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = 
 		);
 	};
 
-	const updateProjectStatusToInReviewSuccess = (data) => {
-		toast.success('Submitted Successfully');
-		props.history.push('/');
-	};
+  const updateProjectStatusToInReviewSuccess = data => {
+    toast.success(formatMessage("MESSAGE_SUCCESSFUL_SUBMITED"));
+    props.history.push('/');
+  };
 
-	const updateProjectStatusToInReviewError = (data) => {
-		toast.error('Some error occured');
-	};
+  const updateProjectStatusToInReviewError = data => {
+    toast.error(formatMessage("MESSAGE_ERROR"));
+  };
 
 	return (
 		<div className="container-fluid" data-test="review-approve-component">

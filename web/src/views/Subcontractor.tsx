@@ -16,6 +16,7 @@ import { History } from 'history';
 import { IPreliminariesComponentDetails } from '../store/Preliminaries/Types/IPreliminariesComponentDetails';
 import { IDiscountActivity } from '../store/DiscountForm/Types/IDiscountActivity';
 import { ISubContractorActivity } from '../store/SubContractor/Types/ISubContractorActivity';
+import { formatMessage } from '../Translations/connectedIntlProvider';
 
 interface IProps {
 	match: any;
@@ -78,23 +79,20 @@ const Subcontractor: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> =
 		[ props.currencyId, props.currencies ]
 	);
 
-	useEffect(
-		() => {
-			if (props.notify == Notify.success) {
-				if (props.event == EventType.next) {
-					toast.success('Data Saved Successfully');
-					props.history.push(`/Discounts/${props.match.params.projectId}`);
-				} else if (props.event == EventType.previous) {
-					toast.success('Data Saved Successfully');
-					props.history.push(`/preliminaries/${props.match.params.projectId}`);
-				} else if (props.event == EventType.save) {
-					toast.success('Data Saved Successfully');
-				}
-				props.resetSubContractorState();
-			}
-		},
-		[ props.notify, props.event ]
-	);
+  useEffect(() => {
+    if (props.notify == Notify.success) {
+      if (props.event == EventType.next) {
+        toast.success(formatMessage("MESSAGE_SUCCESSFUL"));
+        props.history.push(`/Discounts/${props.match.params.projectId}`);
+      } else if (props.event == EventType.previous) {
+        toast.success(formatMessage("MESSAGE_SUCCESSFUL"));
+        props.history.push(`/preliminaries/${props.match.params.projectId}`);
+      } else if (props.event == EventType.save) {
+        toast.success(formatMessage("MESSAGE_SUCCESSFUL"));
+      }
+      props.resetSubContractorState();
+    }
+  }, [props.notify, props.event]);
 
 	const handleEvent = (data: ISubContractor, event: EventType) => {
 		paramProjectId = props.match.params.projectId;

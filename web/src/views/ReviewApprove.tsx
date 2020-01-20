@@ -23,6 +23,7 @@ import QueryPopup from '../components/Popup/QueryPopup';
 import { FormattedMessage } from 'react-intl';
 import { IUserServiceData } from '../store/UserService/Types/IUserService';
 import ActivityFeedList from '../components/Forms/ProjectOverviewForm/ActivityFeedList';
+import { formatMessage } from '../Translations/connectedIntlProvider';
 
 interface IProps {
 	match: match<{ projectId: string }>;
@@ -103,14 +104,14 @@ const ReviewApprove: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> =
 		actions.projectApprove(props.match.params.projectId, handleApprovalSuccess, handleApprovalError);
 	};
 
-	const handleApprovalSuccess = (data) => {
-		toast.success('Approved Successfully');
-		props.history.push('/');
-	};
+  const handleApprovalSuccess = data => {
+    toast.success(formatMessage("MESSAGE_SUCCESSFUL_APPROVED"));
+    props.history.push('/');
+  };
 
-	const handleApprovalError = (data) => {
-		toast.error('Some error occured');
-	};
+  const handleApprovalError = data => {
+    toast.error(formatMessage("MESSAGE_ERROR"));
+  };
 
 	return (
 		<div className="container-fluid" data-test="review-approve-component">

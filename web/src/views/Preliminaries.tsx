@@ -19,6 +19,7 @@ import { ISubContractorActivity } from '../store/SubContractor/Types/ISubContrac
 import { IDiscountActivity } from '../store/DiscountForm/Types/IDiscountActivity';
 import CalculationsSummaryTable from '../components/Table/CalculationsSummaryTable';
 import PreliminaryForm from '../components/Forms/PreliminaryForm/PreliminaryForm';
+import { formatMessage } from '../Translations/connectedIntlProvider';
 interface IMapStateToProps {
   preliminaryDetails: Array<IPreliminariesComponentDetails>;
   lookupData: Array<ILookup>;
@@ -83,13 +84,13 @@ const CurrencyObj = new Currency();
   useEffect(() => {
     window.scrollTo(0, 0);
     if (props.notify == Notify.success) {
-      toast.success('Data Saved Successfully');
+      toast.success(formatMessage("MESSAGE_SUCCESSFUL"));
       if (props.event == EventType.next) {
         props.history.push('/Subcontractor/' + props.match.params.projectId);
       }
     }
     else if (props.notify == Notify.error) {
-      toast.error('Error occured.Please contact to administrator.');
+      toast.error(formatMessage("MESSAGE_ERROR_MESSAGE"));
     }
 
   }, [props.notify, props.event]);
@@ -155,7 +156,7 @@ const CurrencyObj = new Currency();
     if (editData.length > 0 && saveData.length > 0) { props.preliminaryEdit(editData, event); props.preliminaryAdd(saveData, event); }
     else if (editData.length > 0) { props.preliminaryEdit(editData, event); }
     else if (saveData.length > 0) { props.preliminaryAdd(saveData, event) }
-    else { toast.error('No data changed to save.'); }
+    else { toast.error(formatMessage("MESSAGE_ERROR_DATA_CHANGED")); }
   };
   const handlePrevious = () => {
     props.history.push(`/JustificationAuthorisation/${props.match.params.projectId}`);
