@@ -3,6 +3,7 @@ import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
 import { IGridTableProps } from '../../props/AppProps';
 import ColumnTypeEnum from '../../enums/ColumnTypeEnum';
+import moment from 'moment';
 const GridTable: React.FC<IGridTableProps> = props => {
   const getColumnValue = (col, arr) => {
     switch (col.type) {
@@ -10,6 +11,8 @@ const GridTable: React.FC<IGridTableProps> = props => {
         return <span className='float-right'>{arr[col.field]}</span>;
       case ColumnTypeEnum.percentage:
         return <span className='float-right'> {arr[col.field] + ' %'}</span>;
+      case ColumnTypeEnum.date:
+        return arr[col.field] ? moment(arr[col.field]).format('MM/DD/YYYY') : '';
     }
   };
   return (

@@ -21,6 +21,7 @@ import { ILookup } from '../store/Lookups/Types/ILookup';
 import { LookupType } from '../store/Lookups/Types/LookupType';
 import { IProjectOverviewDetails } from '../store/ProjectOverviewForm/Types/IProjectOverviewDetails';
 import { IUserServiceData } from '../store/UserService/Types/IUserService';
+import ProjectStatus from '../enums/ProjectStatus';
 
 interface IProps {
 	match: match<{ projectId: string }>;
@@ -151,9 +152,9 @@ const ReviewSubmit: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = 
 							>
 								<FormattedMessage id="BUTTON_PREVIOUS" />
 							</button>
-							<button onClick={updateProjectStatusToInReview} type="button" name="next">
+							{props.project.status == ProjectStatus.JA ? (<button onClick={updateProjectStatusToInReview} type="button" name="next">
 								<FormattedMessage id="BUTTON_SUBMIT" />
-							</button>
+							</button>) : null}
 						</div>
 					</div>
 				</div>
