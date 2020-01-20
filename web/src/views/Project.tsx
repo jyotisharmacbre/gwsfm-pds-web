@@ -25,6 +25,7 @@ import { ICountry } from '../store/Lookups/Types/ICountry';
 import { getUserPreferences } from '../services/lookup.service';
 import { getClassNameForProjectStatus } from '../helpers/utility-helper';
 import * as services from '../services';
+import { formatMessage } from '../Translations/connectedIntlProvider';
 
 interface IMapStateToProps {
 	notify: Notify;
@@ -75,25 +76,19 @@ const Project: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = (prop
 		}
 	}, []);
 
-	useEffect(
-		() => {
-			if (props.notify == Notify.success) {
-				if (props.event == EventType.next) {
-					toast.success('Data Saved Successfully');
-					history.push({
-						pathname: `/projectOverview/${props.projectId}`
-					});
-				} else if (props.event == EventType.save) {
-					toast.success('Data Saved Successfully');
-					history.push({
-						pathname: `/Project/${props.projectId}`
-					});
-				}
-				props.resetProjectDetailState();
-			}
-		},
-		[ props.notify, props.event ]
-	);
+  useEffect(() => {
+    if (props.notify == Notify.success) {
+      if (props.event == EventType.next) {
+        toast.success(formatMessage("MESSAGE_SUCCESSFUL"));
+        history.push({
+          pathname: `/projectOverview/${props.projectId}`
+        })
+      } else if (props.event == EventType.save) {
+        toast.success(formatMessage("MESSAGE_SUCCESSFUL"));
+      }
+      props.resetProjectDetailState();
+    }
+  }, [props.notify, props.event]);
 
 	const handleSave = (data: IProjectDetail) => {
 		data.projectId == ''
