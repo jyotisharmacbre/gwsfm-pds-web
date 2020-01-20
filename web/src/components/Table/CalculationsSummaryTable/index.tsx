@@ -80,7 +80,7 @@ const CalculationsSummaryTable: React.FC<Props> = (props) => {
 						<tbody>
 							<tr>
 								<td data-column={props.intl.formatMessage({ id: 'T_HEADING_TOTAL_COST' })}>{props.currencySymbol}
-                                    <span data-test='total-cost-summary'>{summaryCalculation.cost}</span></td>
+                                    <span data-test='total-cost-summary'>{summaryCalculation.cost.toFixed(2)}</span></td>
                                 <td data-column={props.intl.formatMessage({ id: 'T_HEADING_TOTAL_MARGIN' })}>
                                     <span data-test='total-margin-summary'>
                                         {summaryCalculation.margin}

@@ -63,5 +63,6 @@ export {
 	updateProjectStatusToInReview,
 	projectApprove,
 	postQuery,
-	postComments
+	postComments,
+	changeProjectStatusToOrderReceived
 } from './WorkflowService/Actions';

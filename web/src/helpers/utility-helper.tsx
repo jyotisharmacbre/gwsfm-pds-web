@@ -91,7 +91,7 @@ export const restrictMinus = (value: number) => {
 	if (value < 0) {
 		return 0;
 	} else {
-		return value;
+		return parseFloat(value.toString()?value.toString():"0");
 	}
 };
 export const restrictMinusAndDecimal = (value: number) => {
@@ -100,9 +100,9 @@ export const restrictMinusAndDecimal = (value: number) => {
   } else {
 if((value - Math.floor(value)) != 0)
 {
-  return parseInt(value.toString());
+  return parseFloat(value.toString()?value.toString():"0");
 }
-    return value;
+    return parseFloat(value.toString()?value.toString():"0");
   }
 };
 export const isValidGUID = (stringToTest: string) => {
@@ -139,7 +139,8 @@ export const getClassNameForProjectStatus = (projectStatus: ProjectStatus) => {
 	if (
 		projectStatus == ProjectStatus.BidLost ||
 		projectStatus == ProjectStatus.OnHold ||
-		projectStatus == ProjectStatus.InReview
+		projectStatus == ProjectStatus.InReview ||
+		projectStatus == ProjectStatus.OrderReceived
 	)
 		className = 'link_disabled';
 	return className;

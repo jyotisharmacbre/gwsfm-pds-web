@@ -75,7 +75,7 @@ describe('Preliminaries component test cases', () => {
 		expect(container.hasClass('row')).toBe(true);
 	});
 	it('should make preliminaries element into readonly if project status is not bidlost or onhold', () => {
-		customerEnquiryInitialState.form.status = 4;
+		customerEnquiryInitialState.form.status = ProjectStatus.BidLost;
 		setUpStore(initialState, lookUpInitialState, customerEnquiryInitialState, subcontractorInitialState);
 		mountPreliminaryComponent(Props);
 		let container = findByTestAtrr(wrapper, 'pre_row_status').first();
@@ -100,5 +100,12 @@ describe('Preliminaries component test cases', () => {
 		btnCollapseAll.simulate('click');
 		expect(btnCollapseAll.hasClass('hide')).toBeTruthy;
 		expect(btnExpandAll.hasClass('show')).toBeTruthy;
+	});
+	it('should make preliminaries element into readonly if project status is order received', () => {
+		customerEnquiryInitialState.form.status = ProjectStatus.OrderReceived;
+		setUpStore(initialState, lookUpInitialState, customerEnquiryInitialState, subcontractorInitialState);
+		mountPreliminaryComponent(Props);
+		let container = findByTestAtrr(wrapper, 'pre_row_status').first();
+		expect(container.hasClass('link_disabled')).toBe(true);
 	});
 });

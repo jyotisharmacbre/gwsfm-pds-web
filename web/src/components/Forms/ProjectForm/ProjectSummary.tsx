@@ -16,6 +16,7 @@ import { dynamicsDivisions } from '../../../helpers/dynamicsDivisionData';
 import { dynamicBusinessUnits } from '../../../helpers/dynamicBusinessData';
 import { IUserServiceData } from '../../../store/UserService/Types/IUserService';
 import * as services from '../../../services';
+import { formatMessage } from '../../../Translations/connectedIntlProvider';
 
 interface IProps {
 	project: IProjectDetail;
@@ -148,9 +149,9 @@ const ProjectSummary: React.FC<IProps> = (props) => {
 		}
 	};
 
-	const failure = (error) => {
-		toast.error('Some error occured');
-	};
+  const failure = error => {
+    toast.error(formatMessage("MESSAGE_ERROR"));
+  };
 
 	return (
 		<div className="RS_custom_block">

@@ -16,6 +16,7 @@ interface IProps {
     onReactivate: () => void;
     handleBidLost: () => void;
     handleOnHold: () => void;
+    handleOrderReceived:()=>void;
 }
 
 
@@ -47,7 +48,10 @@ const ProjectOverviewStatusTab: React.FC<IProps & IReactIntl> = props => {
         }
     };
 
-
+const handleOrderReceivedEvent=()=>{
+    handleToggleStatusTab();
+    props.handleOrderReceived();
+}
     return (
 
         <div className="col-md-6 mt-4 mt-lg-0 d-flex justify-content-start justify-content-lg-end">
@@ -70,7 +74,7 @@ const ProjectOverviewStatusTab: React.FC<IProps & IReactIntl> = props => {
                             <div className="status-dropdown-menu hide status-hidden toggle-list" data-test="statusTab" id="statusTab">
                                 <p><FormattedMessage id="TITLE_CHANGE_STATUS_TO" /></p>
                                 <ul className="status-dropdown-list status-scrollable">
-                                    <li data-test="bidlost" className={(props.status == 4) ? "status-dropdown-item mrgnlft10 status-selected link_disabled" : "status-dropdown-item mrgnlft10"} onClick={() =>
+                                    <li data-test="bidlost" className={(props.status == ProjectStatus.BidLost) ? "status-dropdown-item mrgnlft10 status-selected link_disabled" : "status-dropdown-item mrgnlft10"} onClick={() =>
                                         confirmAlert({
                                             intl: props.intl,
                                             titleKey: "TITLE_CONFIRMATION",
@@ -79,7 +83,7 @@ const ProjectOverviewStatusTab: React.FC<IProps & IReactIntl> = props => {
                                         })
                                     }>
                                         <a title="Bid Lost"><FormattedMessage id="TITLE_BID_LOST" /></a></li>
-                                    <li data-test="onhold" className={(props.status == 6) ? "status-dropdown-item mrgnlft10 status-selected link_disabled" : "status-dropdown-item mrgnlft10 "} onClick={() =>
+                                    <li data-test="onhold" className={(props.status == ProjectStatus.OnHold) ? "status-dropdown-item mrgnlft10 status-selected link_disabled" : "status-dropdown-item mrgnlft10 "} onClick={() =>
                                         confirmAlert({
                                             intl: props.intl,
                                             titleKey: "TITLE_CONFIRMATION",
@@ -87,7 +91,19 @@ const ProjectOverviewStatusTab: React.FC<IProps & IReactIntl> = props => {
                                             handleConfirm: () => props.handleOnHold()
                                         })}>
                                         <a
-                                            title="On Hold"><FormattedMessage id="TITLE_ON_HOLD" /></a></li>
+                                            title="On Hold"><FormattedMessage id="TITLE_ON_HOLD" /></a>
+                                    </li>
+                                    {props.status==ProjectStatus.JAApproved?
+                                    <li data-test="orderReceived" className={"status-dropdown-item mrgnlft10 "} onClick={() =>
+                                        confirmAlert({
+                                            intl: props.intl,
+                                            titleKey: "TITLE_CONFIRMATION",
+                                            contentKey: "MESSAGE_PROJECT_STATUS_CHANGE",
+                                            handleConfirm: () => handleOrderReceivedEvent()
+                                        })}>
+                                        <a
+                                            title="Order Received"><FormattedMessage id="TITLE_ORDER_RECEIVED" /></a>
+                                    </li>:null}
 
                                 </ul>
 

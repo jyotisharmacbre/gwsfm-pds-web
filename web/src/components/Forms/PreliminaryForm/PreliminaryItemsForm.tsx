@@ -58,7 +58,7 @@ const PreliminaryItemsForm:React.FC<Props>
     <td>
     {(isLumpSumOrSubContractorExists(props.itemDetail.items[index].itemId))?<Field
                   name={`${member}.noOfHours`}
-                  type="number"
+                  type="text"
                  input={{ disabled: true}}
                  component={PdsFormInput}
                   className="width-120 pl-20 required "
@@ -70,7 +70,7 @@ const PreliminaryItemsForm:React.FC<Props>
                   divPosition="relative"
                 />:<Field
                 name={`${member}.noOfHours`}
-                type="number"
+                type="text"
                 component={PdsFormInput}
                 className="width-120 pl-20 required "
                 validate={[
@@ -84,7 +84,7 @@ const PreliminaryItemsForm:React.FC<Props>
      <td>
                 {(isLumpSumOrSubContractorExists(props.itemDetail.items[index].itemId))?<Field
                   name={`${member}.hourRate`}
-                  type="number"
+                  type="text"
                   normalize={restrictMinus}                 
                   input={{ disabled: true}}
                   component={PdsFormInput}
@@ -98,7 +98,7 @@ const PreliminaryItemsForm:React.FC<Props>
                   placeholderKey=""
                 />:<Field
                 name={`${member}.hourRate`}
-                type="number"
+                type="text"
                 component={PdsFormInput}
                 normalize={restrictMinus}
                 className="width-120 pl-20 required currency"
@@ -114,7 +114,7 @@ const PreliminaryItemsForm:React.FC<Props>
   <td>
     {isCBRELabourOrAgencyLabourExists(props.itemDetail.items[index].itemId)?<Field
                   name={`${member}.totalCost`}
-                  type="number"
+                  type="text"
                   component={PdsFormInput}
                   normalize={restrictMinus}
                   className="width-120 pl-20 required currency"
@@ -126,7 +126,7 @@ const PreliminaryItemsForm:React.FC<Props>
                   divPosition="relative"
                 />:<Field
                 name={`${member}.totalCost`}
-                type="number"
+                type="text"
                 normalize={restrictMinus}
                 input={{
                   value:calculateCost(props.preliminaryData[props.componentIndex].items[index].noOfHours,props.preliminaryData[props.componentIndex].items[index].hourRate),
@@ -146,7 +146,7 @@ const PreliminaryItemsForm:React.FC<Props>
     <td>
     <Field
                   name={`${member}.grossMargin`}
-                  type="number"
+                  type="text"
                   normalize={restrictMinusAndDecimal}
                   component={PdsFormInput}
                   className="width-120 pl-20 required currency"
