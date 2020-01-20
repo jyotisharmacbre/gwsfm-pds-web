@@ -216,9 +216,9 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 								name="projectAdditionalDetail.workTypeId"
 								component={PdsFormSelect}
 								className="required"
-								validate={[ Validate.required('MESSAGE_PROJECT_STATUS') ]}
+								validate={[ Validate.required('MESSAGE_WORK_TYPE') ]}
 								placeholderKey="PLACEHOLDER_WORK_TYPES"
-								messageKey="MESSAGE_PROJECT_STATUS"
+								messageKey="MESSAGE_WORK_TYPE"
 							>
 								<FormattedMessage id="PLACEHOLDER_WORK_TYPES">
 									{(message) => <option value="">{message}</option>}
