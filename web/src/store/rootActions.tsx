@@ -27,9 +27,16 @@ export {
 	getAllContries,
 	getLookupsByLookupItems
 } from './Lookups/Actions';
-export { preliminaryAdd, preliminaryEdit, getPreliminaryDetails } from './Preliminaries/Actions';
 
-export { discountFormAdd, discountFormEdit, resetDiscountState, getDiscountData } from './DiscountForm/Actions';
+export { preliminaryAdd, preliminaryEdit, getPreliminaryDetails, resetPreliminaryState } from './Preliminaries/Actions';
+
+export {
+	discountFormAdd,
+	discountFormEdit,
+	resetDiscountState,
+	resetDiscountStateNotifier,
+	getDiscountData
+} from './DiscountForm/Actions';
 export {
 	subContractorFormAdd,
 	subContractorFormEdit,
@@ -55,5 +62,7 @@ export {
 	reactivateProject,
 	updateProjectStatusToInReview,
 	projectApprove,
+	postQuery,
+	postComments,
 	changeProjectStatusToOrderReceived
 } from './WorkflowService/Actions';
