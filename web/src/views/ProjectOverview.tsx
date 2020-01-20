@@ -28,7 +28,6 @@ import { IProjectOverviewDetails } from '../store/ProjectOverviewForm/Types/IPro
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
 import { ICurrency } from '../store/Lookups/Types/ICurrency';
-import Currency from '../store/Lookups/InitialState/Currency';
 import { ISubContractorActivity } from '../store/SubContractor/Types/ISubContractorActivity';
 import { IPreliminariesComponentDetails } from '../store/Preliminaries/Types/IPreliminariesComponentDetails';
 import { IDiscountActivity } from '../store/DiscountForm/Types/IDiscountActivity';
@@ -36,6 +35,7 @@ import { IProjectDetail } from '../store/CustomerEnquiryForm/Types/IProjectDetai
 import { IUserServiceData } from '../store/UserService/Types/IUserService';
 import { LookupType } from '../store/Lookups/Types/LookupType';
 import * as services from '../services';
+import { currencyHoc, ICurrencyHoc } from '../hoc/CurrencyHoc';
 
 import ProjectStatus from '../enums/ProjectStatus';
 const tableHeaders: IGeneralTableHeaderProps[] = [
@@ -103,10 +103,8 @@ interface IProps {
 	match: any;
 }
 
-const ProjectOverview: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = (props) => {
+const ProjectOverview: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & ICurrencyHoc> = (props) => {
 	const projectId = props.match.params.projectId;
-	const CurrencyObj = new Currency();
-	const [ currencySymbol, setCurrencySymbol ] = useState<string>('');
 	const [ customerName, setCustomerName ] = useState<string>('');
 	const [ projectManager, setProjectManager ] = useState<string>('');
 	const [ getProjectManagerName, setGetProjectManagerName ] = useState<boolean>(false);
@@ -122,22 +120,6 @@ const ProjectOverview: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 		props.getDiscountData(projectId);
 		props.getProjectActivities(projectId);
 	}, []);
-
-	useEffect(
-		() => {
-			if (props.project.currencyId > 0 && props.currencies) {
-				setCurrencySymbol(
-					getFilterElementFromArray(
-						props.currencies,
-						getPropertyName(CurrencyObj, (prop) => prop.currencyId),
-						props.project.currencyId,
-						getPropertyName(CurrencyObj, (prop) => prop.currencySymbol)
-					)
-				);
-			}
-		},
-		[ props.project.currencyId, props.currencies ]
-	);
 
 	useEffect(
 		() => {
@@ -175,13 +157,11 @@ const ProjectOverview: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 				props.currencies.length > 0 &&
 				props.lookups.length > 0
 			) {
-				let currency = getFilterElementFromArray(
-					props.currencies,
-					getPropertyName(CurrencyObj, (prop) => prop.currencyId),
-					props.project.currencyId,
-					getPropertyName(CurrencyObj, (prop) => prop.currencySymbol)
+				props.setupPojectApprovalsInitialData(
+					props.lookups,
+					props.currencySymbol,
+					props.match.params.projectId
 				);
-				props.setupPojectApprovalsInitialData(props.lookups, currency, props.match.params.projectId);
 			}
 		},
 		[ props.lookups, props.project.currencyId, props.currencies ]
@@ -353,7 +333,7 @@ const ProjectOverview: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 							subContractorState={props.subContractorState}
 							preliminaryState={props.preliminaryState}
 							discountState={props.discountState}
-							currencySymbol={currencySymbol}
+							currencySymbol={props.currencySymbol}
 							handleGetUserNamesForEmails={props.handleGetUserNamesForEmails}
 						/>
 					</div>
@@ -405,4 +385,4 @@ const mapDispatchToProps = (dispatch) => {
 	};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProjectOverview);
+export default connect(mapStateToProps, mapDispatchToProps)(currencyHoc(ProjectOverview));
