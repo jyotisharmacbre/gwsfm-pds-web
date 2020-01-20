@@ -25,7 +25,7 @@ const PreliminaryInsurranceForm:React.FC<Props>
   const{fields,itemDetail,componentIndex,currencies,currencyId,currencySymbol,preliminaryData}=props;
   const updateCost=(index:number)=>
   {
-    props.preliminaryData[props.componentIndex].items[index].totalCost=calculateTotalCost(getPreliminarySummaryCalculation(props.preliminaryData).cost);
+    props.preliminaryData[props.componentIndex].items[index].totalCost=parseFloat(calculateTotalCost(getPreliminarySummaryCalculation(props.preliminaryData).cost));
   }
   return (
   <tbody>
@@ -69,7 +69,7 @@ const PreliminaryInsurranceForm:React.FC<Props>
     <td>
     <Field
                   name={`${member}.grossMargin`}
-                  type="number"
+                  type="text"
                   normalize={restrictMinusAndDecimal}
                   component={PdsFormInput}
                   className="width-120 pl-20 required currency"

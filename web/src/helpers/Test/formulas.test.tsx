@@ -21,6 +21,6 @@ describe('Summary calculation formulas run without error', () => {
     sessionStorage.setItem("defaultParameters",JSON.stringify(defaultAdminData));
     let result = calculateTotalCost(100);
     let expecedResult=(1.4*100)/100;
-    expect(result).toBe(expecedResult); 
+    expect(result).toBe(expecedResult.toFixed(2)); 
   });
 });

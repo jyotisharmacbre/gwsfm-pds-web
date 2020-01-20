@@ -7,3 +7,7 @@ export const getCompanies = (searchCompany: string) => {
 export const getContractsAndCustomers = (searchContract: string) => {
 	return axios.baseAPI.get(`/api/ERPLookup/getContractsAndCustomers/${searchContract}?topCount=50`);
 };
+
+export const getDynamicSubContractorData = (searchSubContract: string) => {
+	return axios.baseAPI.get(`/api/ERPLookup/getSubContractors/${searchSubContract}?topCount=50`);
+};

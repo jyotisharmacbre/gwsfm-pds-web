@@ -25,12 +25,13 @@ import NewTypeAhead from '../../TypeAhead/NewTypeAhead';
 import { confirmAlert } from '../../Popup/CustomModalPopup';
 
 import ValidatedNumericInput from '../../../components/NumericInput/index';
+import { restrictMinus } from '../../../helpers/utility-helper';
 interface Props {
 	fields: any;
 	activities: Array<ISubContractorActivity>;
 	currencySymbol: string;
-	intl: any;
-	getDynamicSubContractorData: (value: any) => Promise<any>;
+  intl: any;
+  getListOfSubContractorData: (value: any) => Promise<any>; 
 }
 
 const SubContractorActivityForm: React.FC<Props> = (props: Props) => {
@@ -85,7 +86,7 @@ const SubContractorActivityForm: React.FC<Props> = (props: Props) => {
 									/>
 									<NewTypeAhead
 										name={`${member}.subcontractorId`}
-										onSearch={props.getDynamicSubContractorData}
+										onSearch={props.getListOfSubContractorData}
 										formatData={formatSubcontractForTypeAhead}
 										DynamicsType="subcontractorId"
 										placeholderKey="PLACEHOLDER_SUBCONTRACTOR"
@@ -111,22 +112,24 @@ const SubContractorActivityForm: React.FC<Props> = (props: Props) => {
 									/>
 									<ValidatedNumericInput
 										name={`${member}.totalCost`}
-										type="number"
+										type="text"
 										component={PdsFormInput}
 										className="width-120 pl-20"
 										validate={[ Validate.maxLength(1000), onlyNumber ]}
 										currency={props.currencySymbol}
+										normalize={restrictMinus}
 										divPosition="relative"
 										labelKey="LABEL_TOTAL_COST"
 										placeholderKey=""
 									/>
 									<ValidatedNumericInput
 										name={`${member}.grossMargin`}
-										type="number"
+										type="text"
 										component={PdsFormInput}
 										className="width-120 pl-20"
 										validate={[ Validate.maxLength(1000), onlyNumber ]}
 										currency="%"
+										normalize={restrictMinus}
 										divPosition="relative"
 										labelKey="LABEL_GROSS_MARGIN"
 										placeholderKey=""
