@@ -68,7 +68,7 @@ const ProfileMenu: React.FC<any> = props => {
 
   useEffect(() => {
     if (props.notify == Notify.success) {
-      toast.success(formatMessage("TOASTER_SUCCESSFUL"));
+      toast.success(formatMessage("MESSAGE_SUCCESSFUL"));
       props.getUserPreferences();
       props.resetUserPreferencesState();
       props.getProjectStatus();

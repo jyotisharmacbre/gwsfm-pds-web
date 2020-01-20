@@ -79,12 +79,12 @@ const Project: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = (prop
   useEffect(() => {
     if (props.notify == Notify.success) {
       if (props.event == EventType.next) {
-        toast.success(formatMessage("TOASTER_SUCCESSFUL"));
+        toast.success(formatMessage("MESSAGE_SUCCESSFUL"));
         history.push({
           pathname: `/projectOverview/${props.projectId}`
         })
       } else if (props.event == EventType.save) {
-        toast.success(formatMessage("TOASTER_SUCCESSFUL"));
+        toast.success(formatMessage("MESSAGE_SUCCESSFUL"));
       }
       props.resetProjectDetailState();
     }

@@ -84,13 +84,13 @@ const CurrencyObj = new Currency();
   useEffect(() => {
     window.scrollTo(0, 0);
     if (props.notify == Notify.success) {
-      toast.success(formatMessage("TOASTER_SUCCESSFUL"));
+      toast.success(formatMessage("MESSAGE_SUCCESSFUL"));
       if (props.event == EventType.next) {
         props.history.push('/Subcontractor/' + props.match.params.projectId);
       }
     }
     else if (props.notify == Notify.error) {
-      toast.error(formatMessage("TOASTER_ERROR_MESSAGE"));
+      toast.error(formatMessage("MESSAGE_ERROR_MESSAGE"));
     }
 
   }, [props.notify, props.event]);
@@ -156,7 +156,7 @@ const CurrencyObj = new Currency();
     if (editData.length > 0 && saveData.length > 0) { props.preliminaryEdit(editData, event); props.preliminaryAdd(saveData, event); }
     else if (editData.length > 0) { props.preliminaryEdit(editData, event); }
     else if (saveData.length > 0) { props.preliminaryAdd(saveData, event) }
-    else { toast.error(formatMessage("TOASTER_ERROR_DATA_CHANGED")); }
+    else { toast.error(formatMessage("MESSAGE_ERROR_DATA_CHANGED")); }
   };
   const handlePrevious = () => {
     props.history.push(`/JustificationAuthorisation/${props.match.params.projectId}`);

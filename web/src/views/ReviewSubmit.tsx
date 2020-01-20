@@ -95,12 +95,12 @@ const ReviewSubmit: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = 
 	};
 
   const updateProjectStatusToInReviewSuccess = data => {
-    toast.success(formatMessage("TOASTER_SUCCESSFUL_SUBMITED"));
+    toast.success(formatMessage("MESSAGE_SUCCESSFUL_SUBMITED"));
     props.history.push('/');
   };
 
   const updateProjectStatusToInReviewError = data => {
-    toast.error(formatMessage("TOASTER_ERROR"));
+    toast.error(formatMessage("MESSAGE_ERROR"));
   };
 
 	return (

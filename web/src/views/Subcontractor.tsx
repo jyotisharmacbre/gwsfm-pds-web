@@ -82,13 +82,13 @@ const Subcontractor: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> =
   useEffect(() => {
     if (props.notify == Notify.success) {
       if (props.event == EventType.next) {
-        toast.success(formatMessage("TOASTER_SUCCESSFUL"));
+        toast.success(formatMessage("MESSAGE_SUCCESSFUL"));
         props.history.push(`/Discounts/${props.match.params.projectId}`);
       } else if (props.event == EventType.previous) {
-        toast.success(formatMessage("TOASTER_SUCCESSFUL"));
+        toast.success(formatMessage("MESSAGE_SUCCESSFUL"));
         props.history.push(`/preliminaries/${props.match.params.projectId}`);
       } else if (props.event == EventType.save) {
-        toast.success(formatMessage("TOASTER_SUCCESSFUL"));
+        toast.success(formatMessage("MESSAGE_SUCCESSFUL"));
       }
       props.resetSubContractorState();
     }

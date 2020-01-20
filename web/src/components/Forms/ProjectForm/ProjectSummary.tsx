@@ -150,7 +150,7 @@ const ProjectSummary: React.FC<IProps> = (props) => {
 	};
 
   const failure = error => {
-    toast.error(formatMessage("TOASTER_ERROR"));
+    toast.error(formatMessage("MESSAGE_ERROR"));
   };
 
 	return (

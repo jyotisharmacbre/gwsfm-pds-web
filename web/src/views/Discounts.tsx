@@ -72,12 +72,12 @@ const Discounts: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = pro
   useEffect(() => {
     if (props.notify == Notify.success) {
       if (props.event == EventType.next) {
-        toast.success(formatMessage("TOASTER_SUCCESSFUL"));
+        toast.success(formatMessage("MESSAGE_SUCCESSFUL"));
         props.history.push(`/ReviewSubmit/${props.match.params.projectId}`);
       } else if (props.event == EventType.previous) {
         props.history.push(`/Subcontractor/${props.match.params.projectId}`);
       } else if (props.event == EventType.save) {
-        toast.success(formatMessage("TOASTER_SUCCESSFUL"));
+        toast.success(formatMessage("MESSAGE_SUCCESSFUL"));
       }
       props.resetDiscountState();
     }

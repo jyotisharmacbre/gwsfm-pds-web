@@ -35,13 +35,13 @@ const JustificationAuthorisation: React.FC<IProps> = props => {
                   <div className="card_outer_wrap">
                     <Row className="pt-lg-3">
                       <Col lg={4} className="pl-md-2 pr-md-2" data-test="preliminaries-tile" onClick={()=> redirect('preliminaries')}>
-                        <Tile headingKey='PAGE_PRELIMINARY_TITLE' contentKey={"JA_PRELIMINARIES_DATA"}></Tile>
+                        <Tile headingKey='PAGE_PRELIMINARY_TITLE' contentKey={"LABEL_PRELIMINARIES_DESCRIPTION"}></Tile>
                       </Col>
                       <Col lg={4} className="pl-md-2 pr-md-2" data-test="subcontractor-tile" onClick={()=> redirect('Subcontractor')}>
-                        <Tile headingKey='PAGE_SUB_TITLE' contentKey={"JA_SUBCONTRACT_DATA"}></Tile>
+                        <Tile headingKey='PAGE_SUB_TITLE' contentKey={"LABEL_SUBCONTRACT_DESCRIPTION"}></Tile>
                       </Col>
                       <Col lg={4} className="pl-md-2 pr-md-2" data-test="discounts-tile" onClick={()=> redirect('Discounts')}>
-                        <Tile headingKey='SUB_TITLE_DISCOUNTS' contentKey={"JA_DISCOUNT_DATA"}></Tile>
+                        <Tile headingKey='SUB_TITLE_DISCOUNTS' contentKey={"LABEL_DISCOUNT_DESCRIPTION"}></Tile>
                       </Col>
                     </Row>
                   </div>

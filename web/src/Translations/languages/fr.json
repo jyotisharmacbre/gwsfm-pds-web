@@ -168,9 +168,9 @@
 	"LABEL_ACTIVITY_FEED": "Flux d'activité",
 	"LABEL_APPROVED_BY": "Approuvé par",
 	"LABEL_COMMENT_FROM": "Commentaire de",
-	"JA_PRELIMINARIES_DATA": "Coûts de main-d'œuvre CBRE directs et accessoires tels que O & Ms, etc.",
-	"JA_SUBCONTRACT_DATA" : "Fournisseurs tiers utilisés pour des activités spécifiques avec des détails de devis.",
-	"JA_DISCOUNT_DATA": "Remise du sous-traitant ou du fournisseur à considérer dans le coût final du projet.",
+	"LABEL_PRELIMINARIES_DESCRIPTION": "Coûts de main-d'œuvre CBRE directs et accessoires tels que O & Ms, etc.",
+	"LABEL_SUBCONTRACT_DESCRIPTION" : "Fournisseurs tiers utilisés pour des activités spécifiques avec des détails de devis.",
+	"LABEL_DISCOUNT_DESCRIPTION": "Remise du sous-traitant ou du fournisseur à considérer dans le coût final du projet.",
 	"FIX_TEXT_HOP": "HOP HOP)",
 	"FIX_TEXT_AGM": "AGM / AD",
 	"FIX_TEXT_COM": "ComM",
@@ -284,5 +284,14 @@
 	"T_HEADING_HOUR_RATE": "Taux horaire",
 	"T_HEADING_COMMENTS": "commentaires",
 	"JA_COMMON_TEXT": "Veuillez sélectionner la section qui correspond à votre projet.",
-	"JA_HEADER": "Justification et autorisation"
+	"JA_HEADER": "Justification et autorisation",
+	"MESSAGE_DISCOUNT": "Remise ajoutée avec succès",
+	"MESSAGE_ERROR": "Une erreur est survenue",
+	"MESSAGE_SUCCESSFUL": "Données enregistrées avec succès",
+	"MESSAGE_ERROR_MESSAGE": "Une erreur s'est produite. Veuillez contacter l'administrateur.",
+	"MESSAGE_ERROR_DATA_CHANGED": "Aucune donnée modifiée pour enregistrer.",
+	"MESSAGE_SUCCESSFUL_REACTIVATED": "Réactivation réussie du projet",
+	"MESSAGE_SUCCESSFUL_STATUS_CHANGED": "Le statut du projet a changé avec succès",
+	"MESSAGE_SUCCESSFUL_APPROVED": "Approuvé avec succès",
+	"MESSAGE_SUCCESSFUL_SUBMITED": "Soumis avec succès"
 }

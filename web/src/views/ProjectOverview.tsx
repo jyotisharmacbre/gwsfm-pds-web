@@ -143,12 +143,12 @@ const ProjectOverview: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 		() => {
 			if (props.notify == Notify.success) {
 				if (props.event == EventType.next) {
-					toast.success(formatMessage("TOASTER_SUCCESSFUL"));
+					toast.success(formatMessage("MESSAGE_SUCCESSFUL"));
 					props.history.push(`/JustificationAuthorisation/${props.match.params.projectId}`);
 				} else if (props.event == EventType.save) {
 					toast.success('Data Saved Successfully');
 				} else if (props.event == EventType.previous) {
-					toast.success(formatMessage("TOASTER_SUCCESSFUL"));
+					toast.success(formatMessage("MESSAGE_SUCCESSFUL"));
 					props.history.push(`/Project/${props.match.params.projectId}`);
 				}
 				props.resetProjectOverviewState();
@@ -270,15 +270,15 @@ const ProjectOverview: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 
 	const notifySucess = (data, actionType) => {
 		if (actionType === 'reactivate') {
-			toast.success(formatMessage("TOASTER_SUCCESSFUL_REACTIVATED"));
+			toast.success(formatMessage("MESSAGE_SUCCESSFUL_REACTIVATED"));
 			props.getProjectDetail(props.match.params.projectId);
 		} else {
-			toast.success(formatMessage("TOASTER_SUCCESSFUL_STATUS_CHANGED"));
+			toast.success(formatMessage("MESSAGE_SUCCESSFUL_STATUS_CHANGED"));
 		}
 	};
 
 	const notifyError = (error) => {
-		toast.error(formatMessage("TOASTER_ERROR_MESSAGE"));
+		toast.error(formatMessage("MESSAGE_ERROR_MESSAGE"));
 	};
 
 	const handleReactivateEvent = () => {

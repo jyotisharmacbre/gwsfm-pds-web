@@ -105,12 +105,12 @@ const ReviewApprove: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> =
 	};
 
   const handleApprovalSuccess = data => {
-    toast.success(formatMessage("TOASTER_SUCCESSFUL_APPROVED"));
+    toast.success(formatMessage("MESSAGE_SUCCESSFUL_APPROVED"));
     props.history.push('/');
   };
 
   const handleApprovalError = data => {
-    toast.error(formatMessage("TOASTER_ERROR"));
+    toast.error(formatMessage("MESSAGE_ERROR"));
   };
 
 	return (
