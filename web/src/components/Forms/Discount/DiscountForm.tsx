@@ -103,7 +103,6 @@ let DiscountForm: React.FC<
 
 	useEffect(
 		() =>{
-			console.log(props.contractorId, "(props.contractorId")
 			if (props.contractorId) {
 				if (props.contractorId == '0') setContractor(props.otherCustomerName);
 				else
@@ -116,7 +115,7 @@ let DiscountForm: React.FC<
 							failure(error);
 						});
 			}
-		}
+		}, [ props.contractorId ]
 	)
 
 	const getContractorSuccess = (response) => {
