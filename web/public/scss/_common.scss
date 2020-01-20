@@ -519,3 +519,32 @@ button[type="button"] {
     }
   } 
 }
+
+/* toaster message design */
+.Toastify__toast--error {
+  background-color: map-get($colors , red ) !important;
+}
+.Toastify__toast--success,
+.Toastify__toast--error {
+  background: #028239 !important;
+  border-radius: 5px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: !important;
+}
+.Toastify__close-button {
+  background-color: transparent !important;
+  padding: 0 !important;
+  opacity: 1 !important;
+  align-self: auto !important;
+  min-width: 0 !important;
+  margin-right: 10px;
+  border: none !important;
+}
+.Toastify__toast {
+  padding: 8px 8px 8px 18px !important;
+  font-family: hind !important;
+}
+.Toastify__close-button:hover {
+  color: #fff !important;
+}

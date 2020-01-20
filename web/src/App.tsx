@@ -127,7 +127,7 @@ const App: React.FC = (props: any) => {
   return (
     <div>
       <Layout Theme={theme} UseStyles={useStyles()} />
-      <ToastContainer autoClose={2000} />
+      <ToastContainer autoClose={5000} />
     </div>
   );
 };
