@@ -5,12 +5,14 @@ import { LookupType } from '../../../store/Lookups/Types/LookupType';
 import { IProjectOverviewDetails } from '../../../store/ProjectOverviewForm/Types/IProjectOverviewDetails';
 import { formatDate } from '../../../helpers/utility-helper';
 import { FormattedMessage } from 'react-intl';
+import { Link } from 'react-router-dom';
 
 interface IProps {
   projectOverview: IProjectOverviewDetails;
   lookUpData: Array<ILookup>;
 }
 const ProjectOverviewSummary: React.FC<IProps> = props => {
+  let urlProjectId: string = '';
   const [projectStatus, setProjectStatus] = useState<string>('');
   const [enquiryType, setEnquiryType] = useState<string>('');
   const [workType, setWorkType] = useState<string>('');
@@ -41,9 +43,20 @@ const ProjectOverviewSummary: React.FC<IProps> = props => {
 
   return (
     <div className="RS_custom_block">
-      <h4>
+      <div className="title_edit_btn">
+			<h4>
         <FormattedMessage id="TITLE_PROJECT_OVERVIEW" />
       </h4>
+      <Link
+						data-test="ProjectOverviewPath"
+						to={{
+							pathname: '/ProjectOverview/' + urlProjectId
+						}}
+					>
+			<button type="submit" className="edit-btn">EDIT</button>
+      </Link>
+			</div>
+      
       <div className="RS_custom_inner">
         <div className="row">
           <div className="col-lg-4 col-sm-6">
