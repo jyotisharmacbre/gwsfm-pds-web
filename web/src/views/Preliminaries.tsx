@@ -55,39 +55,6 @@ const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) 
 		sessionStorage.getItem('lookupData') != undefined &&
 		sessionStorage.getItem('lookupData') != '';
 
-<<<<<<< Updated upstream
- 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    if(!props.currencyId&&!props.status)
-    {
-      props.getProjectDetail(props.match.params.projectId);
-    }
-   if(!isLookupSessionExists)
-   {
-    props.getProjectStatus();
-   }
-    if(!props.currencies)
-    {
-      props.getAllCurrencies();
-    }
-    
-    if ((props.match.params.projectId&& isLookupSessionExists)) {
-      props.getPreliminaryDetails(props.match.params.projectId);
-    }
-  }, []);
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    if (props.notify == Notify.success) {
-      toast.success('Data Saved Successfully');
-      if (props.event == EventType.next) {
-        props.history.push('/Subcontractor/' + props.match.params.projectId);
-      }
-    }
-    else if (props.notify == Notify.error) {
-      toast.error('Error occured.Please contact to administrator.');
-    }
-=======
 	useEffect(() => {
 		window.scrollTo(0, 0);
 		if (!props.currencyId && !props.status) {
@@ -99,12 +66,11 @@ const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) 
 		if (!props.currencies) {
 			props.getAllCurrencies();
 		}
->>>>>>> Stashed changes
-
 		if (props.match.params.projectId && isLookupSessionExists) {
 			props.getPreliminaryDetails(props.match.params.projectId);
 		}
 	}, []);
+
 	useEffect(
 		() => {
 			window.scrollTo(0, 0);
@@ -137,30 +103,6 @@ const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) 
 
 	const [ isExpand, handleExpandAllEvent ] = useState(false);
 
-<<<<<<< Updated upstream
-  ) => {
-    var editData: Array<IPreliminaries> = [];
-    var saveData: Array<IPreliminaries> = [];
-    let preData: Array<IPreliminariesComponentDetails> = [];
-    preData.push(preliminaryDetails.preliminaryDetails[index]);
-    var preliminariesData: Array<IPreliminaries> = saveAll ?
-      convertIntoDatabaseModel(preliminaryDetails.preliminaryDetails, props.match.params.projectId) :
-      convertIntoDatabaseModel(preData, props.match.params.projectId)
-    editData = preliminariesData.filter((data) => {
-      return (data.TotalCost > 0 && data.PreliminaryId != '');
-    })
-    saveData = preliminariesData.filter((data) => {
-      return (data.TotalCost > 0 && data.PreliminaryId == '');
-    })
-    if (editData.length > 0 && saveData.length > 0) { props.preliminaryEdit(editData, event); props.preliminaryAdd(saveData, event); }
-    else if (editData.length > 0) { props.preliminaryEdit(editData, event); }
-    else if (saveData.length > 0) { props.preliminaryAdd(saveData, event) }
-    else { toast.error('No data changed to save.'); }
-  };
-  const handlePrevious = () => {
-    props.history.push(`/JustificationAuthorisation/${props.match.params.projectId}`);
-  };
-=======
 	const handleToggle = (id: string) => {
 		componentIds = componentIdList;
 		var element: any = document.getElementById('collapse_' + id);
@@ -208,7 +150,6 @@ const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) 
 	const handlePrevious = () => {
 		props.history.push(`/JustificationAuthorisation/${props.match.params.projectId}`);
 	};
->>>>>>> Stashed changes
 
 	return (
 		<div className="container-fluid">

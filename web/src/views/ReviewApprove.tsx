@@ -23,6 +23,7 @@ import QueryPopup from '../components/Popup/QueryPopup';
 import { FormattedMessage } from 'react-intl';
 import { IUserServiceData } from '../store/UserService/Types/IUserService';
 import ActivityFeedList from '../components/Forms/ProjectOverviewForm/ActivityFeedList';
+import { formatMessage } from '../Translations/connectedIntlProvider';
 
 interface IProps {
 	match: match<{ projectId: string }>;
@@ -104,20 +105,12 @@ const ReviewApprove: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> =
 	};
 
 	const handleApprovalSuccess = (data) => {
-<<<<<<< Updated upstream
-		toast.success('Approved Successfully');
-=======
 		toast.success(formatMessage('MESSAGE_SUCCESSFUL_APPROVED'));
->>>>>>> Stashed changes
 		props.history.push('/');
 	};
 
 	const handleApprovalError = (data) => {
-<<<<<<< Updated upstream
-		toast.error('Some error occured');
-=======
 		toast.error(formatMessage('MESSAGE_ERROR'));
->>>>>>> Stashed changes
 	};
 
 	return (

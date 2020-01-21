@@ -21,14 +21,11 @@ import { ILookup } from '../store/Lookups/Types/ILookup';
 import { LookupType } from '../store/Lookups/Types/LookupType';
 import { IProjectOverviewDetails } from '../store/ProjectOverviewForm/Types/IProjectOverviewDetails';
 import { IUserServiceData } from '../store/UserService/Types/IUserService';
-<<<<<<< Updated upstream
-=======
 import { formatMessage } from '../Translations/connectedIntlProvider';
 import { IAdminDefaults } from '../store/Admin/Types/IAdminDefault';
 import { ICountry } from '../store/Lookups/Types/ICountry';
 import { ICountryHoc, countryHoc } from '../hoc/CountryHoc';
 import { insuranceRateHoc, IInsuranceRateHoc } from '../hoc/InsuranceRateHoc';
->>>>>>> Stashed changes
 
 interface IProps {
 	match: match<{ projectId: string }>;
@@ -115,20 +112,12 @@ const ReviewSubmit: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & I
 	};
 
 	const updateProjectStatusToInReviewSuccess = (data) => {
-<<<<<<< Updated upstream
-		toast.success('Submitted Successfully');
-=======
 		toast.success(formatMessage('MESSAGE_SUCCESSFUL_SUBMITED'));
->>>>>>> Stashed changes
 		props.history.push('/');
 	};
 
 	const updateProjectStatusToInReviewError = (data) => {
-<<<<<<< Updated upstream
-		toast.error('Some error occured');
-=======
 		toast.error(formatMessage('MESSAGE_ERROR'));
->>>>>>> Stashed changes
 	};
 
 	return (
