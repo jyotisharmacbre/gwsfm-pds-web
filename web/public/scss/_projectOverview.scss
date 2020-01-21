@@ -124,6 +124,9 @@
             }
             td {
                 background-color: map-get($colors , grey05 );
+                span {
+                    padding: 0 3px;
+                }
                 &:first-child {
                     font-weight: 700;
                 }
@@ -193,7 +196,8 @@
                 position: absolute;
                 right: 10px;
                 top: calc(100% - 28px);
-                color: map-get($colors, grey03);
+                color: map-get($colors, darkGreen);
+                font-weight: 600;
             }
             .form-control {
                 border: 1px solid map-get($colors , grey001 );

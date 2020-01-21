@@ -106,21 +106,23 @@ let DiscountForm: React.FC<
 		[ props.preliminaryState ]
 	);
 
-	useEffect(() => {
-		console.log(props.contractorId, '(props.contractorId');
-		if (props.contractorId) {
-			if (props.contractorId == '0') setContractor(props.otherCustomerName);
-			else
-				services
-					.getContractsAndCustomers(props.contractorId)
-					.then((response) => {
-						getContractorSuccess(response.data);
-					})
-					.catch((error) => {
-						failure(error);
-					});
-		}
-	});
+	useEffect(
+		() => {
+			if (props.contractorId) {
+				if (props.contractorId == '0') setContractor(props.otherCustomerName);
+				else
+					services
+						.getContractsAndCustomers(props.contractorId)
+						.then((response) => {
+							getContractorSuccess(response.data);
+						})
+						.catch((error) => {
+							failure(error);
+						});
+			}
+		},
+		[ props.contractorId ]
+	);
 
 	const getContractorSuccess = (response) => {
 		let filter = response.find((ele) => ele.contractId == props.contractorId);

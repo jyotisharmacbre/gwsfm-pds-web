@@ -23,11 +23,14 @@ import QueryPopup from '../components/Popup/QueryPopup';
 import { FormattedMessage } from 'react-intl';
 import { IUserServiceData } from '../store/UserService/Types/IUserService';
 import ActivityFeedList from '../components/Forms/ProjectOverviewForm/ActivityFeedList';
+import EventType from '../enums/EventType';
+import IReactIntl from '../Translations/IReactIntl';
 import { formatMessage } from '../Translations/connectedIntlProvider';
 
 interface IProps {
 	match: match<{ projectId: string }>;
 	history: History;
+	intl: any;
 }
 
 interface IMapStateToProps {
@@ -54,6 +57,7 @@ interface IMapDispatchToProps {
 	handleGetUserNamesForEmails: (emails: Array<string>) => void;
 	getLookups: () => void;
 	getProjectActivities: (projectId: string) => void;
+	queryAdd: (projectId: string, formValue: string, event: EventType) => void;
 }
 
 const lookupKeyList: string[] = [
@@ -112,10 +116,27 @@ const ReviewApprove: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> =
 	const handleApprovalError = (data) => {
 		toast.error(formatMessage('MESSAGE_ERROR'));
 	};
-
+	const handleQuerySuccess = (data) => {
+		toast.success(formatMessage('MESSAGE_QUERY_SUCCESS'));
+		props.history.push('/');
+	};
+	const handleQueryError = (data) => {
+		toast.error(formatMessage('MESSAGE_ERROR'));
+	};
+	const handleQuerySave = (data: string) => {
+		actions.postQuery(props.match.params.projectId, data, handleQuerySuccess, handleQueryError);
+	};
 	return (
 		<div className="container-fluid" data-test="review-approve-component">
-			{showQueryPopup && <QueryPopup />}
+			{showQueryPopup && (
+				<QueryPopup
+					intl={props.intl}
+					handleConfirm={handleQuerySave}
+					titleKey={<FormattedMessage id="TITLE_QUERY" />}
+					subTitleKey={<FormattedMessage id="SUB_TITLE_QUERY" />}
+					contentKey={<FormattedMessage id="PLACEHOLDER_QUERY" />}
+				/>
+			)}
 			<div className="row">
 				<div className="col-lg-12">
 					<div className="custom-wrap">

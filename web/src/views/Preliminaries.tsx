@@ -19,6 +19,7 @@ import { ISubContractorActivity } from '../store/SubContractor/Types/ISubContrac
 import { IDiscountActivity } from '../store/DiscountForm/Types/IDiscountActivity';
 import CalculationsSummaryTable from '../components/Table/CalculationsSummaryTable';
 import PreliminaryForm from '../components/Forms/PreliminaryForm/PreliminaryForm';
+import { formatMessage } from '../Translations/connectedIntlProvider';
 interface IMapStateToProps {
 	preliminaryDetails: Array<IPreliminariesComponentDetails>;
 	lookupData: Array<ILookup>;

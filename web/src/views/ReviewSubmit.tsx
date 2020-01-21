@@ -26,6 +26,7 @@ import { IAdminDefaults } from '../store/Admin/Types/IAdminDefault';
 import { ICountry } from '../store/Lookups/Types/ICountry';
 import { ICountryHoc, countryHoc } from '../hoc/CountryHoc';
 import { insuranceRateHoc, IInsuranceRateHoc } from '../hoc/InsuranceRateHoc';
+import ProjectStatus from '../enums/ProjectStatus';
 
 interface IProps {
 	match: match<{ projectId: string }>;
@@ -176,9 +177,16 @@ const ReviewSubmit: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & I
 							>
 								<FormattedMessage id="BUTTON_PREVIOUS" />
 							</button>
-							<button onClick={updateProjectStatusToInReview} type="button" name="next">
-								<FormattedMessage id="BUTTON_SUBMIT" />
-							</button>
+							{props.project.status == ProjectStatus.JA ? (
+								<button
+									onClick={updateProjectStatusToInReview}
+									type="button"
+									name="next"
+									data-test="submit-button"
+								>
+									<FormattedMessage id="BUTTON_SUBMIT" />
+								</button>
+							) : null}
 						</div>
 					</div>
 				</div>

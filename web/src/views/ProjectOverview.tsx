@@ -97,6 +97,7 @@ interface IMapDispatchToProps {
 	setupPojectApprovalsInitialData: (lookupdata, currencySymbol, projectId) => void;
 	getProjectActivities: (projectId: string) => void;
 	handleGetUserNamesForEmails: (emails: Array<string>) => void;
+	postComment: (projectId: string, comment: string, success, failure) => void;
 }
 interface IProps {
 	projectId: string;
@@ -125,12 +126,12 @@ const ProjectOverview: React.FC<IProps & IMapStateToProps & IMapDispatchToProps 
 		() => {
 			if (props.notify == Notify.success) {
 				if (props.event == EventType.next) {
-					toast.success('Data Saved Successfully');
+					toast.success(formatMessage("MESSAGE_SUCCESSFUL"));
 					props.history.push(`/JustificationAuthorisation/${props.match.params.projectId}`);
 				} else if (props.event == EventType.save) {
 					toast.success('Data Saved Successfully');
 				} else if (props.event == EventType.previous) {
-					toast.success('Data Saved Successfully');
+					toast.success(formatMessage("MESSAGE_SUCCESSFUL"));
 					props.history.push(`/Project/${props.match.params.projectId}`);
 				}
 				props.resetProjectOverviewState();
@@ -250,15 +251,15 @@ const ProjectOverview: React.FC<IProps & IMapStateToProps & IMapDispatchToProps 
 
 	const notifySucess = (data, actionType) => {
 		if (actionType === 'reactivate') {
-			toast.success('Project reactivated successfully');
+			toast.success(formatMessage("MESSAGE_SUCCESSFUL_REACTIVATED"));
 			props.getProjectDetail(props.match.params.projectId);
 		} else {
-			toast.success('Project status changed successfully');
+			toast.success(formatMessage("MESSAGE_SUCCESSFUL_STATUS_CHANGED"));
 		}
 	};
 
 	const notifyError = (error) => {
-		toast.error('Error occured.Please contact administrator');
+		toast.error(formatMessage("MESSAGE_ERROR_MESSAGE"));
 	};
 
 	const handleReactivateEvent = () => {
@@ -335,6 +336,8 @@ const ProjectOverview: React.FC<IProps & IMapStateToProps & IMapDispatchToProps 
 							discountState={props.discountState}
 							currencySymbol={props.currencySymbol}
 							handleGetUserNamesForEmails={props.handleGetUserNamesForEmails}
+							postComment={props.postComment}
+							getProjectActivities={props.getProjectActivities}
 						/>
 					</div>
 				</div>
@@ -381,7 +384,9 @@ const mapDispatchToProps = (dispatch) => {
 			dispatch(actions.setupPojectApprovalsInitialData(lookupdata, currencySymbol, projectId)),
 		getLookups: () => dispatch(actions.getLookupsByLookupItems(lookupKeyList)),
 		getProjectActivities: (projectId) => dispatch(actions.getProjectActivities(projectId)),
-		handleGetUserNamesForEmails: (emails: Array<string>) => dispatch(actions.getUserNamesForEmailsService(emails))
+		handleGetUserNamesForEmails: (emails: Array<string>) => dispatch(actions.getUserNamesForEmailsService(emails)),
+		postComment: (projectId: string, comment: string, success, failure) =>
+			dispatch(actions.postComments(projectId, comment, success, failure))
 	};
 };
 
