@@ -104,12 +104,20 @@ const ReviewApprove: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> =
 	};
 
 	const handleApprovalSuccess = (data) => {
+<<<<<<< Updated upstream
 		toast.success('Approved Successfully');
+=======
+		toast.success(formatMessage('MESSAGE_SUCCESSFUL_APPROVED'));
+>>>>>>> Stashed changes
 		props.history.push('/');
 	};
 
 	const handleApprovalError = (data) => {
+<<<<<<< Updated upstream
 		toast.error('Some error occured');
+=======
+		toast.error(formatMessage('MESSAGE_ERROR'));
+>>>>>>> Stashed changes
 	};
 
 	return (
@@ -142,6 +150,12 @@ const ReviewApprove: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> =
 									subContractor={props.subContractorState}
 									discount={props.discountState}
 									currencySymbol={currencySymbol}
+									insuranceRate={1.6}
+									countryCode="UK"
+									showDiscount={true}
+									showContractor={true}
+									showPreliminary={true}
+									showInsurance={true}
 								/>
 								<CalculationsSummaryTable
 									data-test="calculation-summary"
@@ -149,6 +163,7 @@ const ReviewApprove: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> =
 									subContractor={props.subContractorState}
 									discount={props.discountState}
 									currencySymbol={currencySymbol}
+									insuranceRate={1.6}
 								/>
 							</div>
 						</div>

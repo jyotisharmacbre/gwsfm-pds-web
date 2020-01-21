@@ -7,7 +7,12 @@ import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { LookupType } from '../../../store/Lookups/Types/LookupType';
-import { getPropertyName, getDiscountTypeValue, getFilterElementFromArray, maxLimitTo } from '../../../helpers/utility-helper';
+import {
+	getPropertyName,
+	getDiscountTypeValue,
+	getFilterElementFromArray,
+	maxLimitTo
+} from '../../../helpers/utility-helper';
 import { calculateClientDiscount, calculateTotalSum } from '../../../helpers/formulas';
 import { ICurrency } from '../../../store/Lookups/Types/ICurrency';
 import Currency from '../../../store/Lookups/InitialState/Currency';
@@ -101,23 +106,21 @@ let DiscountForm: React.FC<
 		[ props.preliminaryState ]
 	);
 
-	useEffect(
-		() =>{
-			console.log(props.contractorId, "(props.contractorId")
-			if (props.contractorId) {
-				if (props.contractorId == '0') setContractor(props.otherCustomerName);
-				else
-					services
-						.getContractsAndCustomers(props.contractorId)
-						.then((response) => {
-							getContractorSuccess(response.data);
-						})
-						.catch((error) => {
-							failure(error);
-						});
-			}
+	useEffect(() => {
+		console.log(props.contractorId, '(props.contractorId');
+		if (props.contractorId) {
+			if (props.contractorId == '0') setContractor(props.otherCustomerName);
+			else
+				services
+					.getContractsAndCustomers(props.contractorId)
+					.then((response) => {
+						getContractorSuccess(response.data);
+					})
+					.catch((error) => {
+						failure(error);
+					});
 		}
-	)
+	});
 
 	const getContractorSuccess = (response) => {
 		let filter = response.find((ele) => ele.contractId == props.contractorId);
@@ -136,6 +139,7 @@ let DiscountForm: React.FC<
 					subContractor={props.subContractorState}
 					discount={props.discountForm}
 					currencySymbol={currencySymbol}
+					insuranceRate={1.6}
 				/>
 			</div>
 			<div className=" row">
@@ -250,17 +254,16 @@ let DiscountForm: React.FC<
 										messageKey="MESSAGE_DISCOUNT"
 										labelKey="LABEL_DISCOUNT"
 										placeholderKey="PLACEHOLDER_DISCOUNT"
-										normalize={maxLimitTo(0,100)}
+										normalize={maxLimitTo(0, 100)}
 										discountBind={getDiscountTypeValue(
 											props.projectstatus &&
-											props.projectstatus.filter(
-												(element) => element.lookupItem == LookupType.Discount_Type
-											),
+												props.projectstatus.filter(
+													(element) => element.lookupItem == LookupType.Discount_Type
+												),
 											discountTypeValue,
 											currencySymbol
 										)}
 										divPosition="relative"
-
 									/>
 									<label className="w-100 mb-0">
 										<FormattedMessage id="LABEL_SUB_TOTAL_DISCOUNTS" />

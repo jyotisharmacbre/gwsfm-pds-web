@@ -34,6 +34,7 @@ let SubcontractorForm: React.FC<Props & IReactIntl & InjectedFormProps<ISubContr
 				subContractor={props.subContractorForm}
 				discount={props.discountState}
 				currencySymbol={props.currencySymbol}
+				insuranceRate={0}
 			/>
 			<FieldArray
 				name="activities"

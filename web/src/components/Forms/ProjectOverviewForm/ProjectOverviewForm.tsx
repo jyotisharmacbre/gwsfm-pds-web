@@ -380,6 +380,12 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						subContractor={props.subContractorState}
 						discount={props.discountState}
 						currencySymbol={props.currencySymbol}
+						insuranceRate={1.6}
+						countryCode="UK"
+						showDiscount={true}
+						showContractor={true}
+						showPreliminary={true}
+						showInsurance={true}
 					/>
 					<CalculationsSummaryTable
 						data-test="calculation-summary"
@@ -387,6 +393,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						subContractor={props.subContractorState}
 						discount={props.discountState}
 						currencySymbol={props.currencySymbol}
+						insuranceRate={1.6}
 					/>
 				</div>
 			</div>
