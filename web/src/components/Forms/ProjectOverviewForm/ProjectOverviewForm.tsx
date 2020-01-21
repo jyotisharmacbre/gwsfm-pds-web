@@ -60,6 +60,8 @@ interface Props {
 	lookups: any;
 	getListOfUsers: (value: any) => Promise<any>;
 	handleGetUserNamesForEmails: (emails: Array<string>) => void;
+	postComment: (projectId: string, comment: string, success, failure) => void;
+	getProjectActivities: (projectId: string) => void;
 }
 
 let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDetails, Props>> = (props) => {
@@ -85,7 +87,13 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 	};
 
 	const normalize = (value) => (value ? parseInt(value) : null);
-
+	const handlePostComment = () => {
+		props.postComment(props.projectId, '', handlePostCommentSuccess, handlePostCommentError);
+	};
+	const handlePostCommentSuccess = () => {
+		props.getProjectActivities(props.projectId);
+	};
+	const handlePostCommentError = () => {};
 	return (
 		<form className="project-overview-form" noValidate={true} data-test="projectOverviewForm">
 			<div className={`${getClassNameForProjectStatus(props.status)} row`}>
@@ -334,8 +342,8 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 				</div>
 			</div>
 			{/* AUTHORISED SECTION */}
-			<div className={`${getClassNameForProjectStatus(props.status)} row`}>
-				<div className="col-xl-6">
+			<div className="row">
+				<div className={`${getClassNameForProjectStatus(props.status)} col-xl-6`}>
 					<div className="authorised_form_wrap">
 						<h6 className="ml-0">
 							<FormattedMessage id="LABEL_PROJECT_AUTHORISED" />
@@ -355,6 +363,15 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						currencySymbol={props.currencySymbol}
 						handleGetUserNamesForEmails={props.handleGetUserNamesForEmails}
 					/>
+					{/* <textarea
+						name="comments"
+						placeholder="Add your comment here"
+						rows={3}
+						className="form-control undefined "
+					/>
+					<button type="button" onClick={handlePostComment}>
+						Post Comment
+					</button> */}
 				</div>
 			</div>
 			<div className="row">

@@ -36,7 +36,9 @@
     "TITLE_JUSTIFICATION": "Justification & Authorisation",
     "TITLE_JUSTIFICATION_SHORT": "J&A",
     "TITLE_CONFIRMATION": "Confirmation",
+    "TITLE_QUERY": "Add a Query",
     "TITLE_MYACTIONS": "My Actions",
+    "SUB_TITLE_QUERY": "Please let us know your query below",
     "TITLE_ORDER_RECEIVED": "Order Received",
     "SUB_TITLE_DISCOUNTS": "DISCOUNTS",
     "TITLE_SUBCONTRACTOR_DISCOUNT": "SubContractor Discount",
@@ -248,6 +250,7 @@
     "PLACEHOLDER_WIN_PROBABILITY": "00%",
     "PLACEHOLDER_DIVISION": "Select division",
     "PLACEHOLDER_BUSINESS_UNIT": "Select business unit",
+    "PLACEHOLDER_QUERY": "Type in additional comments",
     "VALIDATION_MESSAGE_APPROXIMATE_VALUE_REQUIRED": "Approximate value is required",
     "VALIDATION_MESSAGE_ASSET_REQUIRED": "Asset is required",
     "VALIDATION_MESSAGE_CDMNOTIFIABLE_REQUIRED": "CDM notifiable is required",
@@ -290,5 +293,6 @@
     "MESSAGE_SUCCESSFUL_REACTIVATED": "Project reactivated successfully",
     "MESSAGE_SUCCESSFUL_STATUS_CHANGED": "Project status changed successfully",
     "MESSAGE_SUCCESSFUL_APPROVED": "Approved Successfully",
-    "MESSAGE_SUCCESSFUL_SUBMITED": "Submitted Successfully"
+    "MESSAGE_SUCCESSFUL_SUBMITED": "Submitted Successfully",
+    "MESSAGE_QUERY_SUCCESS": "Query Saved Successfully"
 }
