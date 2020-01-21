@@ -294,5 +294,6 @@
     "MESSAGE_SUCCESSFUL_STATUS_CHANGED": "Project status changed successfully",
     "MESSAGE_SUCCESSFUL_APPROVED": "Approved Successfully",
     "MESSAGE_SUCCESSFUL_SUBMITED": "Submitted Successfully",
-    "MESSAGE_QUERY_SUCCESS": "Query Saved Successfully"
+    "MESSAGE_QUERY_SUCCESS": "Query Saved Successfully",
+    "MESSAGE_WARNING": "After submitting the query, project status will be changed to J&A and all previous approvals will be reset and will require approval again"
 }

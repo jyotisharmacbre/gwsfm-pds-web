@@ -64,7 +64,9 @@ const ActivityFeedList: React.FC<IProps & IMapStateToProps> = (props) => {
 							createdDate: data.createdOn
 						});
 					});
-					setActivityFeedData(activityFeed);
+					const sortByKey = key => (a, b) => a[key] > b[key] ? 1 : -1;
+					let sortedFeed = activityFeed.slice().sort(sortByKey('createdOn'));
+					setActivityFeedData(sortedFeed);
 				}
 			}
 		},
