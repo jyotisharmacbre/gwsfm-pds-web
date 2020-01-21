@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import Layout from './components/Layouts/Layout';
 import { makeStyles, createMuiTheme } from '@material-ui/core/styles';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, Zoom, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { injectIntl } from 'react-intl';
 
@@ -127,7 +127,10 @@ const App: React.FC = (props: any) => {
   return (
     <div>
       <Layout Theme={theme} UseStyles={useStyles()} />
-      <ToastContainer autoClose={5000} />
+      <ToastContainer autoClose={5000} 
+        className='custom_toast_block'
+        transition = {Bounce}
+      />
     </div>
   );
 };
