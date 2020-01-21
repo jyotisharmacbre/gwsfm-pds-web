@@ -47,6 +47,7 @@
         "chartjs-plugin-datalabels": "^0.6.0",
         "class-validator": "^0.10.0",
         "config": "^3.2.2",
+        "date-fns": "^2.9.0",
         "enzyme": "^3.10.0",
         "enzyme-adapter-react-16": "^1.14.0",
         "jest-junit": "^9.0.0",

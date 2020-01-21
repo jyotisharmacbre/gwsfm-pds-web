@@ -22,7 +22,7 @@ interface Props {
 	userNamesForEmailsValues: Array<IUserServiceData>;
 }
 let DashboardActionApprovalForm: React.FC<Props & InjectedFormProps<Array<IProjectDashboardGrid>, Props>> = (props) => {
-	const [ gridData, setGridData ] = useState<Array<IProjectDashboardGrid>>([]);
+	const [gridData, setGridData] = useState<Array<IProjectDashboardGrid>>([]);
 	useEffect(
 		() => {
 			if (
@@ -42,20 +42,19 @@ let DashboardActionApprovalForm: React.FC<Props & InjectedFormProps<Array<IProje
 				);
 			}
 		},
-		[ props.actionApprovalValues, props.lookupValues, props.userNamesForEmailsValues, props.showValues ]
+		[props.actionApprovalValues, props.lookupValues, props.userNamesForEmailsValues, props.showValues]
 	);
 
 	const getActionApprovalValues = (data, allLookups, namesAndEmails, countVals) => {
 		let result =
 			data &&
-			data.map(function(rowProject) {
-				var statusID = rowProject.approvalStatus;
+			data.map(function (rowProject) {
 				if (allLookups.length > 0 && namesAndEmails) {
-					rowProject.approvalStatus = getLookupDescription(
+					rowProject.approvalStatus = !isNaN(rowProject.approvalStatus) ? getLookupDescription(
 						allLookups,
 						rowProject.approvalStatus,
 						LookupItems.Project_Approval_Sign_Off_Status
-					);
+					) : rowProject.approvalStatus;
 					var mailObj = namesAndEmails.find(
 						(lk) => lk.email.toUpperCase() === rowProject.modifiedBy.toUpperCase()
 					);
@@ -90,11 +89,11 @@ let DashboardActionApprovalForm: React.FC<Props & InjectedFormProps<Array<IProje
 					ActionList={[]}
 				/>
 			) : (
-				<span className="table-row-no-pending-actions">
-					<FontAwesomeIcon className="active" icon={faExclamation} />
-					<FormattedMessage id="HOMESCREEN_GRID_NO_ACTION_MESSAGE" />
-				</span>
-			)}
+					<span className="table-row-no-pending-actions">
+						<FontAwesomeIcon className="active" icon={faExclamation} />
+						<FormattedMessage id="HOMESCREEN_GRID_NO_ACTION_MESSAGE" />
+					</span>
+				)}
 		</React.Fragment>
 	);
 };
