@@ -95,4 +95,11 @@ describe('Subcontractor component test cases', () => {
 		mountPreliminaryComponent(Props);
 		expect(wrapper.find('.link_disabled').length).toBeGreaterThan(0);
 	});
+	it('should disable the form when state is OrderReceived', () => {
+		let data = { ...customerEnquiryInitialState };
+		data.form.status = ProjectStatus.JAApproved;
+		setUpStore(initialState, lookUpInitialState, data, subcontractorInitialState);
+		mountPreliminaryComponent(Props);
+		expect(wrapper.find('.link_disabled').length).toBeGreaterThan(0);
+	});
 });

@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 
 const PdsFormRadio: React.FC = (field: any) => {
   const errorClass = `${field.meta.error && field.meta.touched ? 'error' : ''}`;
-  const normalize = value => (value ? parseInt(value) : null);
+  
   return (
     <div className="form-group">
       {field.labelKey && (
@@ -14,17 +14,16 @@ const PdsFormRadio: React.FC = (field: any) => {
           {field.className && field.className.split(' ').includes('required') ? '*' : ''}
         </label>
       )}
-      {field.data.map((data, index) => {
+      {field.data && field.data.map((data, index) => {
         return (
           <div className="form-check" key={index}>
-            <Field
-              name={field.input.name}
-              component="input"
+            <input
+              {...field.input}
               type="radio"
-              value={data.lookupKey}     
-              normalize ={normalize}         
+              value={data.lookupKey}
+              checked={data.lookupKey === field.input.value}
             />
-            <label className="form-check-label">
+            <label className={"form-check-label" + ' ' + errorClass}>
               <FormattedMessage id={data.description} />
             </label>
           </div>

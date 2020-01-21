@@ -101,5 +101,12 @@ describe('Discount component test cases', () => {
 		mountPreliminaryComponent(Props);
 		let container = findByTestAtrr(wrapper, 'dis_row_status').first();
 		expect(container.hasClass('link_disabled')).toBe(true);
+  });
+  it('should make discount element into readonly if project status is order received', () => {
+		customerEnquiryInitialState.form.status = ProjectStatus.JAApproved;
+		setUpStore(lookUpInitialState, customerEnquiryInitialState);
+		mountPreliminaryComponent(Props);
+		let container = findByTestAtrr(wrapper, 'dis_row_status').first();
+		expect(container.hasClass('link_disabled')).toBe(true);
 	});
 });
