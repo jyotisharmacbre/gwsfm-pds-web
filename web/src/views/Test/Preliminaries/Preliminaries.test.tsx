@@ -108,4 +108,11 @@ describe('Preliminaries component test cases', () => {
 		let container = findByTestAtrr(wrapper, 'pre_row_status').first();
 		expect(container.hasClass('link_disabled')).toBe(true);
 	});
+	it('should make preliminaries element into readonly if project status is J&A Approved', () => {
+		customerEnquiryInitialState.form.status = ProjectStatus.JAApproved;
+		setUpStore(initialState, lookUpInitialState, customerEnquiryInitialState, subcontractorInitialState);
+		mountPreliminaryComponent(Props);
+		let container = findByTestAtrr(wrapper, 'pre_row_status').first();
+		expect(container.hasClass('link_disabled')).toBe(true);
+	});
 });
