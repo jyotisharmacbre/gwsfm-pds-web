@@ -22,6 +22,7 @@ interface Props {
 	currencySymbol: string;
 	preliminaryState: Array<IPreliminariesComponentDetails>;
 	discountState: IDiscountActivity;
+	insuranceRate: number;
 }
 
 let SubcontractorForm: React.FC<Props & IReactIntl & InjectedFormProps<ISubContractor, Props>> = (props: any) => {
@@ -34,7 +35,7 @@ let SubcontractorForm: React.FC<Props & IReactIntl & InjectedFormProps<ISubContr
 				subContractor={props.subContractorForm}
 				discount={props.discountState}
 				currencySymbol={props.currencySymbol}
-				insuranceRate={0}
+				insuranceRate={props.insuranceRate}
 			/>
 			<FieldArray
 				name="activities"

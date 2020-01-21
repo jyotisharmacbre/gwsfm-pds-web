@@ -49,27 +49,31 @@ const PricingSummaryTable: React.FC<Props> = (props) => {
 
 	return (
 		<div className="price-sumry">
-			<label>
-				<FormattedMessage id="TITLE_PRICING_SUMMARY" />
-			</label>
+			{(props.showPreliminary || props.showContractor) && (
+				<label>
+					<FormattedMessage id="TITLE_PRICING_SUMMARY" />
+				</label>
+			)}
 			<div className="inner-block">
 				<table className="price-table table_responsive">
-					<thead>
-						<tr>
-							<th />
-							<th>
-								<FormattedMessage id="TITLE_COST" /> ({props.currencySymbol})
-							</th>
-							<th>
-								<FormattedMessage id="TITLE_MARGIN" /> (%)
-							</th>
-							<th>
-								<FormattedMessage id="TITLE_SELL" /> ({props.currencySymbol})
-							</th>
-						</tr>
-					</thead>
+					{(props.showPreliminary || props.showContractor) && (
+						<thead>
+							<tr>
+								<th />
+								<th>
+									<FormattedMessage id="TITLE_COST" /> ({props.currencySymbol})
+								</th>
+								<th>
+									<FormattedMessage id="TITLE_MARGIN" /> (%)
+								</th>
+								<th>
+									<FormattedMessage id="TITLE_SELL" /> ({props.currencySymbol})
+								</th>
+							</tr>
+						</thead>
+					)}
 					<tbody>
-						{props.preliminary ? (
+						{props.showPreliminary && props.preliminary ? (
 							<tr data-test="preliminary-data">
 								<td data-column="&nbsp;">
 									<FormattedMessage id="TITLE_PRELIMINARIES" />
@@ -88,7 +92,7 @@ const PricingSummaryTable: React.FC<Props> = (props) => {
 								</td>
 							</tr>
 						) : null}
-						{props.subContractor ? (
+						{props.showContractor && props.subContractor ? (
 							<tr data-test="sub-contractor-data">
 								<td data-column="&nbsp;">
 									<FormattedMessage id="TITLE_SUBCONTRACTORS" />
@@ -111,7 +115,7 @@ const PricingSummaryTable: React.FC<Props> = (props) => {
 								<tr>
 									<br />
 								</tr>
-								<tr data-test="discount-data">
+								<tr>
 									<td data-column="&nbsp;">
 										{props.countryCode.toLowerCase() == 'gbr' ? 'Insurance' : 'SG&A'}
 									</td>
@@ -152,7 +156,7 @@ const PricingSummaryTable: React.FC<Props> = (props) => {
 								</tr>
 							</React.Fragment>
 						) : null}
-						{props.discount ? (
+						{props.showDiscount && props.discount ? (
 							<React.Fragment>
 								<tr>
 									<br />

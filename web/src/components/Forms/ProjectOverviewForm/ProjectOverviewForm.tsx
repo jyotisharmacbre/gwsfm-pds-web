@@ -62,6 +62,8 @@ interface Props {
 	handleGetUserNamesForEmails: (emails: Array<string>) => void;
 	postComment: (projectId: string, comment: string, success, failure) => void;
 	getProjectActivities: (projectId: string) => void;
+	countryCode: string;
+	insuranceRate: number;
 }
 
 let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDetails, Props>> = (props) => {
@@ -397,8 +399,8 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						subContractor={props.subContractorState}
 						discount={props.discountState}
 						currencySymbol={props.currencySymbol}
-						insuranceRate={1.6}
-						countryCode="UK"
+						insuranceRate={props.insuranceRate}
+						countryCode={props.countryCode}
 						showDiscount={true}
 						showContractor={true}
 						showPreliminary={true}
@@ -410,7 +412,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						subContractor={props.subContractorState}
 						discount={props.discountState}
 						currencySymbol={props.currencySymbol}
-						insuranceRate={1.6}
+						insuranceRate={props.insuranceRate}
 					/>
 				</div>
 			</div>

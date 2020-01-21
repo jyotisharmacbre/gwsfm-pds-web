@@ -16,6 +16,9 @@ import ProjectStatus from '../enums/ProjectStatus';
 import { IDynamicContractCustomerData } from '../store/DynamicsData/Types/IDynamicData';
 import { getClassNameForProjectStatus } from '../helpers/utility-helper';
 import { formatMessage } from '../Translations/connectedIntlProvider';
+import { insuranceRateHoc, IInsuranceRateHoc } from '../hoc/InsuranceRateHoc';
+import { IAdminDefaults } from '../store/Admin/Types/IAdminDefault';
+import { IProjectDetail } from '../store/CustomerEnquiryForm/Types/IProjectDetail';
 
 interface IProps {
 	match: match<{ projectId: string }>;
@@ -33,6 +36,8 @@ interface IMapStateToProps {
 	otherCustomerName: string;
 	status: number;
 	dynamicsContractCustomerData: Array<IDynamicContractCustomerData>;
+	adminDefaultValues: Array<IAdminDefaults>;
+	project: IProjectDetail;
 }
 
 interface IMapDispatchToProps {
@@ -45,9 +50,10 @@ interface IMapDispatchToProps {
 	getProjectDetail: (projectId: string) => void;
 	getSubContractor: (projectId: string) => void;
 	getPreliminaryDetails: (projectId: string) => void;
+	getProjectParameters: (countryId: number) => void;
 }
 
-const Discounts: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = (props) => {
+const Discounts: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & IInsuranceRateHoc> = (props) => {
 	const paramProjectId = props.match.params.projectId;
 
 	useEffect(() => {
@@ -77,7 +83,14 @@ const Discounts: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = (pr
 		},
 		[ props.notify, props.event ]
 	);
-
+	useEffect(
+		() => {
+			if (props.project.countryId > 0) {
+				props.getProjectParameters(props.project.countryId);
+			}
+		},
+		[ props.project.countryId ]
+	);
 	const handlePrevious = () => {
 		props.history.push(`/Subcontractor/${props.match.params.projectId}`);
 	};
@@ -118,6 +131,7 @@ const Discounts: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = (pr
 							otherCustomerName={props.otherCustomerName}
 							projectId={props.match.params.projectId}
 							dynamicsContractCustomerData={props.dynamicsContractCustomerData}
+							insuranceRate={props.insuranceRate}
 						/>
 					</div>
 				</div>
@@ -136,7 +150,9 @@ const mapStateToProps = (state: IState) => ({
 	status: state.project.form.status,
 	contractorId: state.project.form.contractorId,
 	otherCustomerName: state.project.form.otherContractName,
-	dynamicsContractCustomerData: state.dynamicData.dynamicsContract
+	dynamicsContractCustomerData: state.dynamicData.dynamicsContract,
+	adminDefaultValues: state.admin.adminDefaultValues,
+	project: state.project.form
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -149,8 +165,9 @@ const mapDispatchToProps = (dispatch) => {
 		getDiscountData: (projectId: string) => dispatch(actions.getDiscountData(projectId)),
 		getProjectDetail: (projectId) => dispatch(actions.getProjectDetail(projectId)),
 		getSubContractor: (projectId: string) => dispatch(actions.getSubContractor(projectId)),
-		getPreliminaryDetails: (projectId: string) => dispatch(actions.getPreliminaryDetails(projectId))
+		getPreliminaryDetails: (projectId: string) => dispatch(actions.getPreliminaryDetails(projectId)),
+		getProjectParameters: (countryId: number) => dispatch(actions.getProjectParameters(countryId))
 	};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Discounts);
+export default connect(mapStateToProps, mapDispatchToProps)(insuranceRateHoc(Discounts));

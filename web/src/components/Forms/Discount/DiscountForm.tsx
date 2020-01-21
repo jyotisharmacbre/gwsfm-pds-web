@@ -43,6 +43,7 @@ interface Props {
 	otherCustomerName: string;
 	projectId: string;
 	dynamicsContractCustomerData: Array<IDynamicContractCustomerData>;
+	insuranceRate: number;
 }
 
 interface IMapStateToProps {
@@ -141,7 +142,7 @@ let DiscountForm: React.FC<
 					subContractor={props.subContractorState}
 					discount={props.discountForm}
 					currencySymbol={currencySymbol}
-					insuranceRate={1.6}
+					insuranceRate={props.insuranceRate}
 				/>
 			</div>
 			<div className=" row">

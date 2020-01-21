@@ -20,6 +20,12 @@ import { IDiscountActivity } from '../store/DiscountForm/Types/IDiscountActivity
 import CalculationsSummaryTable from '../components/Table/CalculationsSummaryTable';
 import PreliminaryForm from '../components/Forms/PreliminaryForm/PreliminaryForm';
 import { formatMessage } from '../Translations/connectedIntlProvider';
+import { insuranceRateHoc, IInsuranceRateHoc } from '../hoc/InsuranceRateHoc';
+import { IAdminDefaults } from '../store/Admin/Types/IAdminDefault';
+import { ICountryHoc, countryHoc } from '../hoc/CountryHoc';
+import { ICountry } from '../store/Lookups/Types/ICountry';
+import { IProjectDetail } from '../store/CustomerEnquiryForm/Types/IProjectDetail';
+
 interface IMapStateToProps {
 	preliminaryDetails: Array<IPreliminariesComponentDetails>;
 	lookupData: Array<ILookup>;
@@ -33,6 +39,9 @@ interface IMapStateToProps {
 	history: History;
 	subContractorState: Array<ISubContractorActivity>;
 	discountState: IDiscountActivity;
+	countries: Array<ICountry> | null;
+	adminDefaultValues: Array<IAdminDefaults>;
+	project: IProjectDetail;
 }
 interface IMapDispatchToProps {
 	preliminaryAdd: (preliminaryDetails: Array<IPreliminaries>, event: EventType) => void;
@@ -44,9 +53,11 @@ interface IMapDispatchToProps {
 	getProjectDetail: (projectId: string) => void;
 	getSubContractor: (projectId: string) => void;
 	getDiscountData: (projectId: string) => void;
+	getProjectParameters: (countryId: number) => void;
+	getAllCountries: () => void;
 }
 
-const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
+const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps & ICountryHoc & IInsuranceRateHoc> = (props) => {
 	const CurrencyObj = new Currency();
 	const [ currencySymbol, setCurrencySymbol ] = useState<string>('');
 	let componentIds: Array<string> = [];
@@ -58,9 +69,7 @@ const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) 
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
-		if (!props.currencyId && !props.status) {
-			props.getProjectDetail(props.match.params.projectId);
-		}
+		props.getProjectDetail(props.match.params.projectId);
 		if (!isLookupSessionExists) {
 			props.getProjectStatus();
 		}
@@ -70,6 +79,9 @@ const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) 
 		if (props.match.params.projectId && isLookupSessionExists) {
 			props.getPreliminaryDetails(props.match.params.projectId);
 		}
+		props.getAllCountries();
+		props.getSubContractor(props.match.params.projectId);
+		props.getDiscountData(props.match.params.projectId);
 	}, []);
 
 	useEffect(
@@ -100,6 +112,15 @@ const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) 
 			}
 		},
 		[ props.currencyId, props.currencies ]
+	);
+
+	useEffect(
+		() => {
+			if (props.project.countryId > 0) {
+				props.getProjectParameters(props.project.countryId);
+			}
+		},
+		[ props.project.countryId ]
 	);
 
 	const [ isExpand, handleExpandAllEvent ] = useState(false);
@@ -183,7 +204,7 @@ const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) 
 												subContractor={props.subContractorState}
 												discount={props.discountState}
 												currencySymbol={currencySymbol}
-												insuranceRate={1.6}
+												insuranceRate={props.insuranceRate}
 											/>
 										</div>
 									</div>
@@ -230,6 +251,11 @@ const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) 
 										props.currencyId,
 										getPropertyName(CurrencyObj, (prop) => prop.currencySymbol)
 									)}
+									insuranceRate={props.insuranceRate}
+									countryCode={props.countryCode}
+									preliminaryState={props.preliminaryForm}
+									subContractorState={props.subContractorState}
+									discountState={props.discountState}
 								/>
 							</div>
 						) : null}
@@ -253,7 +279,10 @@ const mapStateToProps = (state: IState) => {
 		status: state.project.form.status,
 		preliminaryForm: selector(state, 'preliminaryDetails'),
 		subContractorState: state.subContractor.form.activities,
-		discountState: state.discount.form
+		discountState: state.discount.form,
+		adminDefaultValues: state.admin.adminDefaultValues,
+		countries: state.lookup.countries,
+		project: state.project.form
 	};
 };
 
@@ -266,8 +295,10 @@ const mapDispatchToProps = (dispatch) => {
 		getAllCurrencies: () => dispatch(actions.getAllCurrencies()),
 		getProjectStatus: () => dispatch(actions.getProjectStatus()),
 		getSubContractor: (projectId: string) => dispatch(actions.getSubContractor(projectId)),
-		getDiscountData: (projectId: string) => dispatch(actions.getDiscountData(projectId))
+		getDiscountData: (projectId: string) => dispatch(actions.getDiscountData(projectId)),
+		getProjectParameters: (countryId: number) => dispatch(actions.getProjectParameters(countryId)),
+		getAllCountries: () => dispatch(actions.getAllContries())
 	};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Preliminaries);
+export default connect(mapStateToProps, mapDispatchToProps)(countryHoc(insuranceRateHoc(Preliminaries)));

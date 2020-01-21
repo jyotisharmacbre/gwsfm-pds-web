@@ -32,6 +32,7 @@ export const bindUserData = (preliminaryData) => {
 			return data.lookupItem == LookupField.Pre_Component_Items;
 		});
 		pre_components.map((components) => {
+			if (components.lookupKey == '13') return;
 			componentDetails.componentId = components.lookupKey.toString();
 			componentDetails.componentName = components.description;
 			var itemDetails: Array<IPreliminariesItems> = [];
