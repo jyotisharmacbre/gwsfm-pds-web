@@ -115,7 +115,7 @@ describe('ProjectForm Fields', () => {
         field = wrapper.find('input[name="probabilityOfWinning"]').first();
       });
       it('Should renders probabilityOfWinning field', () => {
-        expect(field.prop('type')).toBe('number');
+        expect(field.prop('type')).toBe('text');
       });
       it('Shows error when probabilityOfWinning is set to blank', () => {
         field.simulate('blur');
@@ -129,7 +129,7 @@ describe('ProjectForm Fields', () => {
         field = wrapper.find('input[name="approxValue"]').first();
       });
       it('Should renders approxValue field', () => {
-        expect(field.prop('type')).toBe('number');
+        expect(field.prop('type')).toBe('text');
       });
       it('Shows error when approxValue is set to blank', () => {
         field.simulate('blur');
@@ -246,7 +246,7 @@ describe('ProjectForm Fields', () => {
         field = wrapper.find('input[name="soldMargin"]').first();
       });
       it('Should renders soldMargin field', () => {
-        expect(field.prop('type')).toBe('number');
+        expect(field.prop('type')).toBe('text');
       });
     });
 
