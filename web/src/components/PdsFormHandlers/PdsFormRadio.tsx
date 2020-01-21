@@ -13,7 +13,7 @@ const PdsFormRadio: React.FC = (field: any) => {
           {field.className && field.className.split(' ').includes('required') ? '*' : ''}
         </label>
       )}
-      {field.data.map((data, index) => {
+      {field.data && field.data.map((data, index) => {
         return (
           <div className="form-check" key={index}>
             <input
