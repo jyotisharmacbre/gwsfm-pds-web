@@ -26,7 +26,8 @@ describe('should calculation summary component renders without error', () => {
 		preliminary: preliminariesInitialState,
 		subContractor: subContractorInitialState.form.activities,
 		discount: discountInitialState,
-		currencySymbol: '$'
+		currencySymbol: '$',
+		insuranceRate: 0
 	};
 	Props.subContractor[0].projectId = 'test';
 	beforeEach(() => {
@@ -56,7 +57,8 @@ describe('should calculation summary component, calculate the cost, margin and s
 		preliminary: preliminariesInitialState,
 		subContractor: subContractorInitialState.form.activities,
 		discount: discountInitialState.form,
-		currencySymbol: '$'
+		currencySymbol: '$',
+		insuranceRate: -1
 	};
 	it('should calculate the pricing summary correctly, if discount is Zero', () => {
 		Props.subContractor[0].totalCost = 100;
@@ -163,6 +165,40 @@ describe('should calculation summary component, calculate the cost, margin and s
 		expect(findByTestAtrr(wrapper, 'total-cost-summary').text()).toEqual('190.00');
 		expect(findByTestAtrr(wrapper, 'total-margin-summary').text()).toEqual('20.83');
 		expect(findByTestAtrr(wrapper, 'gross-margin-summary').text()).toEqual('50');
+		expect(findByTestAtrr(wrapper, 'total-sell-summary').text()).toEqual('240.00');
+	});
+
+	it('should calculate the pricing summary correctly after applying discount and insurance rate 1.6', () => {
+		Props.insuranceRate = 1.6;
+		Props.subContractor[0].totalCost = 100;
+		Props.subContractor[0].grossMargin = 20;
+		Props.subContractor.push({ ...newActivity });
+		Props.subContractor[1].totalCost = 100;
+		Props.subContractor[1].grossMargin = 20;
+		Props.discount.discountType = 2;
+		Props.discount.clientDiscount = 10;
+		Props.discount.supplierTotalDiscount = 10;
+		mountCalculationSummaryTable(Props);
+		expect(findByTestAtrr(wrapper, 'total-cost-summary').text()).toEqual('193.20');
+		expect(findByTestAtrr(wrapper, 'total-margin-summary').text()).toEqual('19.5');
+		expect(findByTestAtrr(wrapper, 'gross-margin-summary').text()).toEqual('46.8');
+		expect(findByTestAtrr(wrapper, 'total-sell-summary').text()).toEqual('240.00');
+	});
+
+	it('should calculate the pricing summary correctly after applying discount and insurance rate 2.6', () => {
+		Props.insuranceRate = 2.6;
+		Props.subContractor[0].totalCost = 100;
+		Props.subContractor[0].grossMargin = 20;
+		Props.subContractor.push({ ...newActivity });
+		Props.subContractor[1].totalCost = 100;
+		Props.subContractor[1].grossMargin = 20;
+		Props.discount.discountType = 2;
+		Props.discount.clientDiscount = 10;
+		Props.discount.supplierTotalDiscount = 10;
+		mountCalculationSummaryTable(Props);
+		expect(findByTestAtrr(wrapper, 'total-cost-summary').text()).toEqual('195.20');
+		expect(findByTestAtrr(wrapper, 'total-margin-summary').text()).toEqual('18.67');
+		expect(findByTestAtrr(wrapper, 'gross-margin-summary').text()).toEqual('44.8');
 		expect(findByTestAtrr(wrapper, 'total-sell-summary').text()).toEqual('240.00');
 	});
 });

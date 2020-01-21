@@ -13,15 +13,25 @@ import { initialState as discountInitialState } from '../../../store/DiscountFor
 
 let wrapper: any;
 const mountCalculationSummaryTable = (props) => {
-	wrapper = mount(<IntlProvider locale="en" messages={translations['en'].messages}><PricingSumaryTable {...props} /></IntlProvider>);
-}; 
+	wrapper = mount(
+		<IntlProvider locale="en" messages={translations['en'].messages}>
+			<PricingSumaryTable {...props} />
+		</IntlProvider>
+	);
+};
 
 describe('should calculation summary component renders without error', () => {
 	let Props = {
 		preliminary: preliminariesInitialState,
 		subContractor: subContractorInitialState.form.activities,
 		discount: discountInitialState,
-		currencySymbol: '$'
+		currencySymbol: '$',
+		insuranceRate: -1,
+		countryCode: 'GBR',
+		showDiscount: true,
+		showContractor: true,
+		showPreliminary: true,
+		showInsurance: true
 	};
 	beforeEach(() => {
 		mountCalculationSummaryTable(Props);
@@ -38,7 +48,7 @@ describe('should calculation summary component renders without error', () => {
 		let newProps = { ...Props };
 		newProps.subContractor.push({ ...newActivity });
 		newProps.subContractor[0].projectId = 'test';
-    newProps.subContractor[0].totalCost = 100;
+		newProps.subContractor[0].totalCost = 100;
 		newProps.subContractor[0].grossMargin = 20;
 		newProps.subContractor[1].totalCost = 100;
 		newProps.subContractor[1].grossMargin = 20;
@@ -89,4 +99,4 @@ describe('should calculation summary component renders without error', () => {
 		mountCalculationSummaryTable(newProps);
 		expect(findByTestAtrr(wrapper, 'discount-data')).toHaveLength(0);
 	});
-}); 
+});
