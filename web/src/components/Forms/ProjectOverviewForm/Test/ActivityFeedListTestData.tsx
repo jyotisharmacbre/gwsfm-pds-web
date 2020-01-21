@@ -2,6 +2,8 @@ import Notify from '../../../../enums/Notify';
 import EventType from '../../../../enums/EventType';
 import { ILookupState } from '../../../../store/Lookups/Types/ILookupState';
 import { IProjectDetailState } from '../../../../store/CustomerEnquiryForm/Types/IProjectDetailState';
+import { IProjectApprovalActivitiy } from '../../../../store/ProjectOverviewForm/Types/IProjectApprovalActivitiy';
+import moment from 'moment';
 export const preliminariesData: any = {
 	preliminary: {
 		preliminaryDetails: [
@@ -133,3 +135,24 @@ export const dynamicsInitialState = {
 	customerId: '',
 	customerName: ''
 };
+export const ApprovalFeedList =
+
+	[{
+		projectActivityId: '1',
+		projectId: '1',
+		approverType: 1,
+		userId: 'user1@cbre.com',
+		query: 'string',
+		activityType: 1,
+		createdBy: 'string',
+		createdOn: moment()
+	}, {
+		projectActivityId: '2',
+		projectId: '1',
+		approverType: 2,
+		userId: 'user2@cbre.com',
+		query: 'string',
+		activityType: 2,
+		createdBy: 'string',
+		createdOn: moment().add('day', 1)
+	}];
