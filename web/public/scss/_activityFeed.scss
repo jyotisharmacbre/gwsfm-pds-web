@@ -7,7 +7,7 @@ h3.feed_head {
 .activity_feed {
     position: relative;
     max-height: 320px;
-    overflow-y: scroll;
+    overflow-y: auto;
     
     &:before {
         content: '';
