@@ -80,6 +80,7 @@ describe('ProjectOverviewForm Fields', () => {
 				expect(errorBlock).toHaveLength(1);
 			});
 		});
+
 		describe('Credit Check Result field', () => {
 			let field: ShallowWrapper;
 			beforeEach(() => {
