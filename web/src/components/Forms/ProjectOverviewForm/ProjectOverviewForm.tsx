@@ -118,30 +118,15 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						labelKey="LABEL_ENQUIRY_RECEIVED_FROM"
 						placeholderKey="PLACEHOLDER_ENQUIRY_SENDER_NAME"
 					/>
-					<div className="form-group">
-						<label>
-							<FormattedMessage id="LABEL_TYPE_OF_ENQUIRY" />*
-						</label>
-						{props.projectstatus &&
-							props.projectstatus
-								.filter((element) => element.lookupItem == LookupType.Enquiry_Type)
-								.map((data, index) => {
-									return (
-										<div className="form-check" key={index}>
-											<Field
-												name="projectAdditionalDetail.enquiryTypeId"
-												component="input"
-												type="radio"
-												value={+data.lookupKey}
-												normalize={normalize}
-											/>
-											<label className="form-check-label">
-												<FormattedMessage id={data.description} />
-											</label>
-										</div>
-									);
-								})}
-					</div>
+					<Field
+					 	name="projectAdditionalDetail.enquiryTypeId"
+					 	component={PdsFormRadio}
+					 	data = {props.projectstatus && props.projectstatus.filter((element) => element.lookupItem == LookupType.Enquiry_Type)}
+					 	className="required"
+						labelKey="LABEL_TYPE_OF_ENQUIRY"												  
+						normalize ={normalize}   
+						validate={[ Validate.required('LABEL_TYPE_OF_ENQUIRY') ]}
+					/>												
 					<Field
 						name="projectAdditionalDetail.creditCheckResult"
 						data-test="creditCheckResult"
