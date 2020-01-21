@@ -91,7 +91,13 @@ export const restrictMinus = (value: number) => {
 	if (value < 0) {
 		return 0;
 	} else {
-		return parseFloat(value.toString()?value.toString():"0");
+		let isValidDecimalOrWholeNumber=value.toString();
+		var regexp = /^\d+\.\d{0,2}$/;
+		if(!regexp.test(isValidDecimalOrWholeNumber))
+		{
+			return (value.toString()?value.toString().slice(0, -1):"0");
+		}
+		return (value.toString()?value.toString().replace(/^0+/, ''):"0");
 	}
 };
 export const restrictMinusAndDecimal = (value: number) => {

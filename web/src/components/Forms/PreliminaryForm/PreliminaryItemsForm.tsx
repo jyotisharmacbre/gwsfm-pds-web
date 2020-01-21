@@ -147,7 +147,7 @@ const PreliminaryItemsForm:React.FC<Props>
     <Field
                   name={`${member}.grossMargin`}
                   type="text"
-                  normalize={restrictMinusAndDecimal}
+                  normalize={restrictMinus}
                   component={PdsFormInput}
                   className="width-120 pl-20 required currency"
                   validate={[
