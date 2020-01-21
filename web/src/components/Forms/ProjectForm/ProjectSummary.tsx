@@ -161,14 +161,9 @@ const ProjectSummary: React.FC<IProps> = (props) => {
 				<h4>
 					<FormattedMessage id="HEADING_CUSTOMER_ENQUIRY" />
 				</h4>
-				<Link
-					data-test="ProjectLink"
-					to={{
-						pathname: '/Project/' + urlProjectId
-					}}
-				>
+				<a href="/Project">
 					<button type="submit" className="edit-btn">EDIT</button>
-				</Link>
+				</a>
 			</div>
 
 			<div className="RS_custom_inner">

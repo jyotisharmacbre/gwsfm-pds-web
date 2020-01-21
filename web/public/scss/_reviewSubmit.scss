@@ -21,6 +21,10 @@
         color: map-get($colors , whiteColor );
         border-radius: 2px;
         border-color: map-get($colors , whiteColor );
+        &:hover {
+            color: map-get($colors , whiteColor );
+            border-color: map-get($colors , whiteColor );
+        }
         @include mdScreen {
             padding: 6px 16px 3px;
         }

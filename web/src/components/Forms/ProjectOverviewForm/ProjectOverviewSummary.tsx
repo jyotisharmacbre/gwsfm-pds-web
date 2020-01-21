@@ -47,14 +47,9 @@ const ProjectOverviewSummary: React.FC<IProps> = props => {
 			<h4>
         <FormattedMessage id="TITLE_PROJECT_OVERVIEW" />
       </h4>
-      <Link
-						data-test="ProjectOverviewPath"
-						to={{
-							pathname: '/ProjectOverview/' + urlProjectId
-						}}
-					>
+            <a href="/ProjectOverview">
 			<button type="submit" className="edit-btn">EDIT</button>
-      </Link>
+      </a>
 			</div>
       
       <div className="RS_custom_inner">
