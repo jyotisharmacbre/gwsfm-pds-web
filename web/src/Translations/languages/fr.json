@@ -301,5 +301,5 @@
   "MESSAGE_SUCCESSFUL_APPROVED": "Approuvé avec succès",
   "MESSAGE_SUCCESSFUL_SUBMITED": "Soumis avec succès",
   "MESSAGE_QUERY_SUCCESS": "Requête enregistrée avec succès",
-  "MESSAGE_WARNING": "Après avoir soumis la requête, le statut du projet sera changé en J&N et toutes les approbations précédentes seront réinitialisées et devront à nouveau être approuvées."
+  "MESSAGE_WARNING": "Après avoir soumis la requête, le statut du projet sera changé en J&A et toutes les approbations précédentes seront réinitialisées et devront à nouveau être approuvées."
 }
