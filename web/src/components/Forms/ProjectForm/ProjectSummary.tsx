@@ -161,9 +161,7 @@ const ProjectSummary: React.FC<IProps> = (props) => {
 				<h4>
 					<FormattedMessage id="HEADING_CUSTOMER_ENQUIRY" />
 				</h4>
-				<a href="/Project">
 					<button type="submit" className="edit-btn">EDIT</button>
-				</a>
 			</div>
 
 			<div className="RS_custom_inner">

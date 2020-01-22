@@ -47,9 +47,7 @@ const ProjectOverviewSummary: React.FC<IProps> = props => {
 			<h4>
         <FormattedMessage id="TITLE_PROJECT_OVERVIEW" />
       </h4>
-            <a href="/ProjectOverview">
 			<button type="submit" className="edit-btn">EDIT</button>
-      </a>
 			</div>
       
       <div className="RS_custom_inner">
