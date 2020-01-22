@@ -90,14 +90,12 @@ if( props.isProjectFormDirty||
 	}
 	}
     const redirectionToComponent=(componentName:string,projectId:string)=>{
-		
-			props.resetProjectFormState();
-			props.resetProjectOverviewFormState();
-			props.resetPreliminaryFormState();
-			props.resetSubContractorFormState();
-			props.resetDiscountFormState();
-		
-		history.push(`/${componentName}/${projectId}`)
+		if(props.isDiscountFormDirty){props.resetDiscountFormState();}
+		if(props.isProjectFormDirty){props.resetProjectFormState();}
+		if(props.isProjectOverviewFormDirty){props.resetProjectOverviewFormState();}
+		if(props.isPreliminaryFormDirty){props.resetPreliminaryFormState();}
+		if(props.isSubContractorFormDirty){props.resetSubContractorFormState();}
+		history.push(`/${componentName}/${projectId}`);
 	}
 	return (
 		<nav id="sidebar">

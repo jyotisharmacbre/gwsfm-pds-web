@@ -32,6 +32,12 @@
 <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <script src="/config.js"></script>
+    <script>
+    window.addEventListener('beforeunload', function (e) {
+    e.preventDefault();
+    e.returnValue = '';
+});
+    </script>
     <div id="root"></div>
     <!--
       This HTML file is a template.
