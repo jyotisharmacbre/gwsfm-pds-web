@@ -18,8 +18,10 @@ import { IUserServiceData } from '../../../store/UserService/Types/IUserService'
 import * as services from '../../../services';
 import { formatMessage } from '../../../Translations/connectedIntlProvider';
 import { Link } from 'react-router-dom';
+import { History } from 'history';
 
 interface IProps {
+	oneditclick: () => void;
 	project: IProjectDetail;
 	lookUpData: Array<ILookup>;
 	currencySymbol: string;
@@ -155,13 +157,14 @@ const ProjectSummary: React.FC<IProps> = (props) => {
 		toast.error(formatMessage("MESSAGE_ERROR"));
 	};
 
+
 	return (
 		<div className="RS_custom_block">
 			<div className="title_edit_btn">
 				<h4>
 					<FormattedMessage id="HEADING_CUSTOMER_ENQUIRY" />
 				</h4>
-					<button type="submit" className="edit-btn">EDIT</button>
+				<button type="submit" className="edit-btn" onClick={props.oneditclick} >EDIT</button>
 			</div>
 
 			<div className="RS_custom_inner">
