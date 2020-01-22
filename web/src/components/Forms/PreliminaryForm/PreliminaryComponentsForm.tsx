@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleUp, faCheck } from '@fortawesome/free-solid-svg-icons';
 import PreliminaryInsurranceForm from './PreliminaryInsurranceForm';
 import { CheckConstraints } from '../../../helpers/fieldValidations';
+import { getClassNameForProjectStatus } from '../../../helpers/utility-helper';
 
 interface Props {
   submitHandler: (
@@ -23,10 +24,16 @@ interface Props {
       currencySymbol:string;
       
 }  
-const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleEvent,prelimData,currencySymbol, isExpand,componentIdList}) => (
+const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleEvent,prelimData,currencySymbol, isExpand,componentIdList, projectStatus}) => (
 
   <div>
-  {fields.map((member, index) => (
+  {fields.map((member, index) => {
+
+    const classNameUsingStatus = getClassNameForProjectStatus(projectStatus);
+    const isSaved = prelimData[index].items.find(x=>x.preliminaryId);
+    const isFreezedAndExpand = (classNameUsingStatus =='link_disabled' && isSaved) && onToggleEvent(prelimData[index].componentId);
+
+    return (
     <div className="accordion" key={index}>
           <div className="card">
             <div
@@ -36,7 +43,7 @@ const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleE
               
               
             >
-               {prelimData[index].items.find(x=>x.preliminaryId)? <div className="tick_wrap">
+               {isSaved? <div className="tick_wrap">
               <FontAwesomeIcon icon={faCheck} />
               </div> : "" }
              
@@ -49,7 +56,7 @@ const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleE
             </div>
             <div
                id={"collapse_"+prelimData[index].componentId}
-              className={CheckConstraints(prelimData[index].componentId)||isExpand?"show expandAll":"hide expandAll"}
+              className={CheckConstraints(prelimData[index].componentId)||isExpand||isFreezedAndExpand?"show expandAll":"hide expandAll"}
               data-test="toggle"
               data-parent="#accordion"
             > <form
@@ -110,7 +117,7 @@ const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleE
            
         </div>
   
-    ))}
+    )})}
     </div>
   );
  
