@@ -12,7 +12,7 @@ import { Validate, alphaNumeric, onlyNumber } from '../../../helpers/fieldValida
 import ValidatedNumericInput from '../../NumericInput';
 import { restrictMinus } from '../../../helpers/utility-helper';
 
-const Quote = ({ fields }) => (
+const Quote = ({ fields, currencySymbol }) => (
   <div className="row" data-test="sub-contractor-quote-form">
     <div className="col-lg-12">
       <div className="card_outer_wrap quote_wrap">
@@ -42,7 +42,7 @@ const Quote = ({ fields }) => (
                       Validate.maxLength(1000),
                       onlyNumber
                     ]}
-                    currency="$"
+                    currency={currencySymbol}
                     divPosition="relative"
                     labelKey="LABEL_QUOTE_VALUE"
                     placeholderKey=""
