@@ -66,3 +66,5 @@ export {
 	postComments,
 	changeProjectStatusToOrderReceived
 } from './WorkflowService/Actions';
+
+export { getProjectParameters } from './Admin/Actions';

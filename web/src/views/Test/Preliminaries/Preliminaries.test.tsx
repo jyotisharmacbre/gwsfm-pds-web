@@ -22,7 +22,8 @@ const setUpStore = (initialState, lookUpInitialState, customerEnquiryInitialStat
 		lookup: lookUpInitialState,
 		project: customerEnquiryInitialState,
 		subContractor: subcontractorInitialState,
-		discount: discountInitialState
+		discount: discountInitialState,
+		admin: { adminDefaultValues: [] }
 	});
 	store.dispatch = jest.fn();
 };
