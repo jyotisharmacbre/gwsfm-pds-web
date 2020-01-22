@@ -130,7 +130,7 @@ const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps & ICountryH
 		var element: any = document.getElementById('collapse_' + id);
 		if (element != null) {
 			var isClassExists = element.classList.contains('show');
-			if (isClassExists) {
+			if (isClassExists && getClassNameForProjectStatus(props.status) != 'link_disabled') {
 				element.classList.add('hide');
 				element.classList.remove('show');
 			} else {
@@ -256,6 +256,7 @@ const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps & ICountryH
 									preliminaryState={props.preliminaryForm}
 									subContractorState={props.subContractorState}
 									discountState={props.discountState}
+									projectStatus = {props.status}
 								/>
 							</div>
 						) : null}

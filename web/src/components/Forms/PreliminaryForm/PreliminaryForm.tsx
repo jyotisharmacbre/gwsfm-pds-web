@@ -21,6 +21,7 @@ interface Props {
 	preliminaryState: any;
 	subContractorState: any;
 	discountState: any;
+	projectStatus: number;
 }
 let PreliminaryForm: React.FC<Props & IReactIntl & InjectedFormProps<IPreliminaryForm, Props>> = (props: any) => {
 	const { handleSubmit } = props;
@@ -36,6 +37,7 @@ let PreliminaryForm: React.FC<Props & IReactIntl & InjectedFormProps<IPreliminar
 				currencySymbol={props.currencySymbol}
 				isExpand={props.isExpand}
 				componentIdList={props.componentIdList}
+				projectStatus = {props.projectStatus}
 			/>
 			<PricingSummaryTable
 				data-test="pricing-summary"
