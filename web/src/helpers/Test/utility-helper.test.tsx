@@ -1,11 +1,10 @@
 import React from 'react';
 import {
   normalizeToNumber,
-  getFilterElementFromArray
+  getFilterElementFromArray,
+  restrictMinusAndAllowDecimal
 } from '../../helpers/utility-helper';
 import {currencies} from './utility-helper-test-data';
-import ISummaryCalculation from '../../store/SummaryCalculation/Types/ISummaryCalculation';
-import {newActivity} from '../../store/SubContractor/InitialState';
 
 describe('utility helper functions run without error', () => {
   
@@ -18,6 +17,35 @@ describe('utility helper functions run without error', () => {
   it('should convert string to number', () => {
     let expectedResult = 1;
     let result = normalizeToNumber('1');
+    expect(result).toBe(expectedResult);
+  });
+  it('should not allow negtive value', () => {
+    let expectedResult = 0;
+    let result = restrictMinusAndAllowDecimal(-1);
+    expect(result).toBe(expectedResult);
+  });
+  it('should not allow letter in value', () => {
+    let expectedResult = 0;
+    let inputvalue:any="rish123";
+    let result = restrictMinusAndAllowDecimal(inputvalue);
+    expect(result).toBe(expectedResult);
+  });
+  it('should  allow decimal  value', () => {
+    let expectedResult = "123.33";
+    let inputvalue:any=123.33;
+    let result = restrictMinusAndAllowDecimal(inputvalue);
+    expect(result).toBe(expectedResult);
+  });
+  it('should  allow whole number', () => {
+    let expectedResult = "123";
+    let inputvalue:any=123;
+    let result = restrictMinusAndAllowDecimal(inputvalue);
+    expect(result).toBe(expectedResult);
+  });
+  it('should not allow decimal place more than two digits', () => {
+    let expectedResult = "123.66";
+    let inputvalue:any=123.666;
+    let result = restrictMinusAndAllowDecimal(inputvalue);
     expect(result).toBe(expectedResult);
   });
 });

@@ -87,8 +87,8 @@ export const getFilterElementFromArray = (
 	return element;
 };
 export const restrictMinusAndAllowDecimal=(value:number)=>{
-	var engRegex=/^[a-zA-Z]+$/;
-	if (value < 0 || engRegex.test(value.toString())) {return 0;}
+	var engRegex=/^[0-9.]+$/;
+	if (value < 0 || !engRegex.test(value.toString())) {return 0;}
 	else if(value.toString()=="0"){return 0;}
 	else {
 		let isValidDecimalOrWholeNumber=value.toString();
