@@ -16,6 +16,10 @@ import { History } from 'history';
 import { IPreliminariesComponentDetails } from '../store/Preliminaries/Types/IPreliminariesComponentDetails';
 import { IDiscountActivity } from '../store/DiscountForm/Types/IDiscountActivity';
 import { ISubContractorActivity } from '../store/SubContractor/Types/ISubContractorActivity';
+import { formatMessage } from '../Translations/connectedIntlProvider';
+import { insuranceRateHoc, IInsuranceRateHoc } from '../hoc/InsuranceRateHoc';
+import { IAdminDefaults } from '../store/Admin/Types/IAdminDefault';
+import { IProjectDetail } from '../store/CustomerEnquiryForm/Types/IProjectDetail';
 
 interface IProps {
 	match: any;
@@ -32,6 +36,8 @@ interface IMapStateToProps {
 	preliminaryState: Array<IPreliminariesComponentDetails>;
 	discountState: IDiscountActivity;
 	subContractorState: Array<ISubContractorActivity>;
+	adminDefaultValues: Array<IAdminDefaults>;
+	project: IProjectDetail;
 }
 
 interface IMapDispatchToProps {
@@ -43,9 +49,10 @@ interface IMapDispatchToProps {
 	getAllCurrencies: () => void;
 	getPreliminaryDetails: (projectId: string) => void;
 	getDiscountData: (projectId: string) => void;
+	getProjectParameters: (countryId: number) => void;
 }
 
-const Subcontractor: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = (props) => {
+const Subcontractor: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & IInsuranceRateHoc> = (props) => {
 	let paramProjectId: string = '';
 	const CurrencyObj = new Currency();
 	const [ currencySymbol, setCurrencySymbol ] = React.useState('$');
@@ -82,18 +89,27 @@ const Subcontractor: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> =
 		() => {
 			if (props.notify == Notify.success) {
 				if (props.event == EventType.next) {
-					toast.success('Data Saved Successfully');
+					toast.success(formatMessage('MESSAGE_SUCCESSFUL'));
 					props.history.push(`/Discounts/${props.match.params.projectId}`);
 				} else if (props.event == EventType.previous) {
-					toast.success('Data Saved Successfully');
+					toast.success(formatMessage('MESSAGE_SUCCESSFUL'));
 					props.history.push(`/preliminaries/${props.match.params.projectId}`);
 				} else if (props.event == EventType.save) {
-					toast.success('Data Saved Successfully');
+					toast.success(formatMessage('MESSAGE_SUCCESSFUL'));
 				}
 				props.resetSubContractorState();
 			}
 		},
 		[ props.notify, props.event ]
+	);
+
+	useEffect(
+		() => {
+			if (props.project.countryId > 0) {
+				props.getProjectParameters(props.project.countryId);
+			}
+		},
+		[ props.project.countryId ]
 	);
 
 	const handleEvent = (data: ISubContractor, event: EventType) => {
@@ -129,6 +145,7 @@ const Subcontractor: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> =
 							currencySymbol={currencySymbol}
 							preliminaryState={props.preliminaryState}
 							discountState={props.discountState}
+							insuranceRate={props.insuranceRate}
 						/>
 					</div>
 				</div>
@@ -146,7 +163,9 @@ const mapStateToProps = (state: IState) => ({
 	status: state.project.form.status,
 	preliminaryState: state.preliminary.preliminaryDetails,
 	discountState: state.discount.form,
-	subContractorState: state.subContractor.form.activities
+	subContractorState: state.subContractor.form.activities,
+	adminDefaultValues: state.admin.adminDefaultValues,
+	project: state.project.form
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -160,8 +179,9 @@ const mapDispatchToProps = (dispatch) => {
 		resetSubContractorState: () => dispatch(actions.resetSubContractorNotifier()),
 		getAllCurrencies: () => dispatch(actions.getAllCurrencies()),
 		getPreliminaryDetails: (projectId: string) => dispatch(actions.getPreliminaryDetails(projectId)),
-		getDiscountData: (projectId: string) => dispatch(actions.getDiscountData(projectId))
+		getDiscountData: (projectId: string) => dispatch(actions.getDiscountData(projectId)),
+		getProjectParameters: (countryId: number) => dispatch(actions.getProjectParameters(countryId))
 	};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Subcontractor);
+export default connect(mapStateToProps, mapDispatchToProps)(insuranceRateHoc(Subcontractor));

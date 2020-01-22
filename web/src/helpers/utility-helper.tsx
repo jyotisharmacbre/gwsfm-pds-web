@@ -169,7 +169,9 @@ export const getClassNameForProjectStatus = (projectStatus: ProjectStatus) => {
 	if (
 		projectStatus == ProjectStatus.BidLost ||
 		projectStatus == ProjectStatus.OnHold ||
-		projectStatus == ProjectStatus.InReview
+		projectStatus == ProjectStatus.InReview ||
+		projectStatus == ProjectStatus.OrderReceived ||
+		projectStatus == ProjectStatus.JAApproved
 	)
 		className = 'link_disabled';
 	return className;

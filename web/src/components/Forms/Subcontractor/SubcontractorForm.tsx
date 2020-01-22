@@ -15,12 +15,14 @@ import EventType from '../../../enums/EventType';
 import { IPreliminariesComponentDetails } from '../../../store/Preliminaries/Types/IPreliminariesComponentDetails';
 import { IDiscountActivity } from '../../../store/DiscountForm/Types/IDiscountActivity';
 import * as services from '../../../services';
+
 interface Props {
 	projectId: string;
 	onSubmitForm: (data: ISubContractor, event: EventType) => void;
 	currencySymbol: string;
 	preliminaryState: Array<IPreliminariesComponentDetails>;
 	discountState: IDiscountActivity;
+	insuranceRate: number;
 }
 
 let SubcontractorForm: React.FC<Props & IReactIntl & InjectedFormProps<ISubContractor, Props>> = (props: any) => {
@@ -33,13 +35,14 @@ let SubcontractorForm: React.FC<Props & IReactIntl & InjectedFormProps<ISubContr
 				subContractor={props.subContractorForm}
 				discount={props.discountState}
 				currencySymbol={props.currencySymbol}
+				insuranceRate={props.insuranceRate}
 			/>
 			<FieldArray
 				name="activities"
 				component={SubContractorActivityForm}
 				intl={props.intl}
 				currencySymbol={props.currencySymbol}
-				getDynamicSubContractorData={services.getUsersForEmailService}
+				getListOfSubContractorData={services.getDynamicSubContractorData}
 			/>
 
 			<div className="mr-35 three-btn">

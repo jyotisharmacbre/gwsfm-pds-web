@@ -21,6 +21,12 @@ import { ILookup } from '../store/Lookups/Types/ILookup';
 import { LookupType } from '../store/Lookups/Types/LookupType';
 import { IProjectOverviewDetails } from '../store/ProjectOverviewForm/Types/IProjectOverviewDetails';
 import { IUserServiceData } from '../store/UserService/Types/IUserService';
+import { formatMessage } from '../Translations/connectedIntlProvider';
+import { IAdminDefaults } from '../store/Admin/Types/IAdminDefault';
+import { ICountry } from '../store/Lookups/Types/ICountry';
+import { ICountryHoc, countryHoc } from '../hoc/CountryHoc';
+import { insuranceRateHoc, IInsuranceRateHoc } from '../hoc/InsuranceRateHoc';
+import ProjectStatus from '../enums/ProjectStatus';
 
 interface IProps {
 	match: match<{ projectId: string }>;
@@ -36,6 +42,8 @@ interface IMapStateToProps {
 	discountState: IDiscountActivity;
 	currencies: Array<ICurrency> | null;
 	userNamesForEmails: Array<IUserServiceData>;
+	adminDefaultValues: Array<IAdminDefaults>;
+	countries: Array<ICountry> | null;
 }
 
 interface IMapDispatchToProps {
@@ -47,9 +55,13 @@ interface IMapDispatchToProps {
 	getAdditionalDetails: (projectId: string) => void;
 	getProjectStatus: () => void;
 	handleGetUserNamesForEmails: (emails: Array<string>) => void;
+	getProjectParameters: (countryId: number) => void;
+	getAllCountries: () => void;
 }
 
-const ReviewSubmit: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = (props) => {
+const ReviewSubmit: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & ICountryHoc & IInsuranceRateHoc> = (
+	props
+) => {
 	const CurrencyObj = new Currency();
 	const [ currencySymbol, setCurrencySymbol ] = useState<string>('');
 	const projectId = props.match.params.projectId;
@@ -63,6 +75,7 @@ const ReviewSubmit: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = 
 		props.getSubContractor(projectId);
 		props.getPreliminaryDetails(projectId);
 		props.getDiscountData(projectId);
+		props.getAllCountries();
 	}, []);
 
 	useEffect(
@@ -80,6 +93,12 @@ const ReviewSubmit: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = 
 		},
 		[ props.project.currencyId, props.currencies ]
 	);
+	useEffect(
+		() => {
+			if (props.project.countryId > 0) props.getProjectParameters(props.project.countryId);
+		},
+		[ props.project.countryId ]
+	);
 
 	const redirect = (module: string) => {
 		return props.history.push(`/${module}/${props.match.params.projectId}`);
@@ -94,12 +113,12 @@ const ReviewSubmit: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = 
 	};
 
 	const updateProjectStatusToInReviewSuccess = (data) => {
-		toast.success('Submitted Successfully');
+		toast.success(formatMessage('MESSAGE_SUCCESSFUL_SUBMITED'));
 		props.history.push('/');
 	};
 
 	const updateProjectStatusToInReviewError = (data) => {
-		toast.error('Some error occured');
+		toast.error(formatMessage('MESSAGE_ERROR'));
 	};
 
 	return (
@@ -131,6 +150,12 @@ const ReviewSubmit: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = 
 									subContractor={props.subContractorState}
 									discount={props.discountState}
 									currencySymbol={currencySymbol}
+									insuranceRate={props.insuranceRate}
+									countryCode={props.countryCode}
+									showDiscount={true}
+									showContractor={true}
+									showPreliminary={true}
+									showInsurance={true}
 								/>
 								<CalculationsSummaryTable
 									data-test="calculation-summary"
@@ -138,6 +163,7 @@ const ReviewSubmit: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = 
 									subContractor={props.subContractorState}
 									discount={props.discountState}
 									currencySymbol={currencySymbol}
+									insuranceRate={props.insuranceRate}
 								/>
 							</div>
 						</div>
@@ -151,9 +177,16 @@ const ReviewSubmit: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = 
 							>
 								<FormattedMessage id="BUTTON_PREVIOUS" />
 							</button>
-							<button onClick={updateProjectStatusToInReview} type="button" name="next">
-								<FormattedMessage id="BUTTON_SUBMIT" />
-							</button>
+							{props.project.status == ProjectStatus.JA ? (
+								<button
+									onClick={updateProjectStatusToInReview}
+									type="button"
+									name="next"
+									data-test="submit-button"
+								>
+									<FormattedMessage id="BUTTON_SUBMIT" />
+								</button>
+							) : null}
 						</div>
 					</div>
 				</div>
@@ -170,7 +203,9 @@ const mapStateToProps = (state: IState) => ({
 	discountState: state.discount.form,
 	currencies: state.lookup.currencies,
 	projectOverview: state.projectOverview.form,
-	userNamesForEmails: state.userService.userServiceData
+	userNamesForEmails: state.userService.userServiceData,
+	adminDefaultValues: state.admin.adminDefaultValues,
+	countries: state.lookup.countries
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -182,8 +217,10 @@ const mapDispatchToProps = (dispatch) => {
 		getAllCurrencies: () => dispatch(actions.getAllCurrencies()),
 		getProjectDetail: (projectId) => dispatch(actions.getProjectDetail(projectId)),
 		getAdditionalDetails: (projectId) => dispatch(actions.getAdditionalDetails(projectId)),
-		handleGetUserNamesForEmails: (emails: Array<string>) => dispatch(actions.getUserNamesForEmailsService(emails))
+		handleGetUserNamesForEmails: (emails: Array<string>) => dispatch(actions.getUserNamesForEmailsService(emails)),
+		getProjectParameters: (countryId: number) => dispatch(actions.getProjectParameters(countryId)),
+		getAllCountries: () => dispatch(actions.getAllContries())
 	};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ReviewSubmit);
+export default connect(mapStateToProps, mapDispatchToProps)(countryHoc(insuranceRateHoc(ReviewSubmit)));

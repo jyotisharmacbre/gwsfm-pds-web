@@ -14,9 +14,6 @@ import { ICurrency } from '../store/Lookups/Types/ICurrency';
 interface IMapDispatchToProps {
 	projectPipelineGridDetail: () => void;
 	getLookups: () => void;
-	resetProjectOverviewState: () => void;
-	resetSubContractorState: () => void;
-	resetCustomerEnquiryState: () => void;
 	getAllCurrencies: () => void;
 }
 interface IMapStateToProps {
@@ -26,9 +23,6 @@ interface IMapStateToProps {
 }
 const ProjectPipeline: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
 	useEffect(() => {
-		props.resetProjectOverviewState();
-		props.resetSubContractorState();
-		props.resetCustomerEnquiryState();
 		props.getLookups();
 		props.getAllCurrencies();
 	}, []);
@@ -36,7 +30,7 @@ const ProjectPipeline: React.FC<IMapStateToProps & IMapDispatchToProps> = (props
 		() => {
 			props.projectPipelineGridDetail();
 		},
-		[props.lookupDetails]
+		[ props.lookupDetails ]
 	);
 	return (
 		<div className="container-fluid">
@@ -68,17 +62,14 @@ const ProjectPipeline: React.FC<IMapStateToProps & IMapDispatchToProps> = (props
 const mapStateToProps = (state: IState) => ({
 	lookupDetails: state.lookup.projectstatus,
 	projectPipeline: state.pipelineGrid.pipelineDetails,
-	currencies: state.lookup.currencies,
+	currencies: state.lookup.currencies
 });
 
 const mapDispatchToProps = (dispatch) => {
 	return {
 		getLookups: () => dispatch(getProjectStatus()),
 		projectPipelineGridDetail: () => dispatch(projectPipelineDetail()),
-		resetProjectOverviewState: () => dispatch(actions.resetProjectOverviewState()),
-		resetSubContractorState: () => dispatch(actions.resetSubContractorState()),
-		resetCustomerEnquiryState: () => dispatch(actions.resetCustomerEnquiryState()),
-		getAllCurrencies: () => dispatch(actions.getAllCurrencies()),
+		getAllCurrencies: () => dispatch(actions.getAllCurrencies())
 	};
 };
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectPipeline);

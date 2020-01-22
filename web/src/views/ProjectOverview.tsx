@@ -28,7 +28,6 @@ import { IProjectOverviewDetails } from '../store/ProjectOverviewForm/Types/IPro
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
 import { ICurrency } from '../store/Lookups/Types/ICurrency';
-import Currency from '../store/Lookups/InitialState/Currency';
 import { ISubContractorActivity } from '../store/SubContractor/Types/ISubContractorActivity';
 import { IPreliminariesComponentDetails } from '../store/Preliminaries/Types/IPreliminariesComponentDetails';
 import { IDiscountActivity } from '../store/DiscountForm/Types/IDiscountActivity';
@@ -36,6 +35,12 @@ import { IProjectDetail } from '../store/CustomerEnquiryForm/Types/IProjectDetai
 import { IUserServiceData } from '../store/UserService/Types/IUserService';
 import { LookupType } from '../store/Lookups/Types/LookupType';
 import * as services from '../services';
+import { currencyHoc, ICurrencyHoc } from '../hoc/CurrencyHoc';
+import { insuranceRateHoc, IInsuranceRateHoc } from '../hoc/InsuranceRateHoc';
+import { IAdminDefaults } from '../store/Admin/Types/IAdminDefault';
+import ProjectStatus from '../enums/ProjectStatus';
+import { ICountryHoc, countryHoc } from '../hoc/CountryHoc';
+import { ICountry } from '../store/Lookups/Types/ICountry';
 
 const tableHeaders: IGeneralTableHeaderProps[] = [
 	{ heading: 'End Client Name', subHeading: 'ING' },
@@ -74,6 +79,8 @@ interface IMapStateToProps {
 	initialStateSetForProjectApprovals: boolean;
 	lookups: Array<ILookup>;
 	userNamesForEmails: Array<IUserServiceData>;
+	countries: Array<ICountry> | null;
+	adminDefaultValues: Array<IAdminDefaults>;
 }
 interface IMapDispatchToProps {
 	getProjectStatus: () => void;
@@ -96,16 +103,19 @@ interface IMapDispatchToProps {
 	setupPojectApprovalsInitialData: (lookupdata, currencySymbol, projectId) => void;
 	getProjectActivities: (projectId: string) => void;
 	handleGetUserNamesForEmails: (emails: Array<string>) => void;
+	postComment: (projectId: string, comment: string, success, failure) => void;
+	getProjectParameters: (countryId: number) => void;
+	getAllCountries: () => void;
 }
 interface IProps {
 	projectId: string;
 	match: any;
 }
 
-const ProjectOverview: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = (props) => {
+const ProjectOverview: React.FC<
+	IProps & IMapStateToProps & IMapDispatchToProps & ICurrencyHoc & ICountryHoc & IInsuranceRateHoc
+> = (props) => {
 	const projectId = props.match.params.projectId;
-	const CurrencyObj = new Currency();
-	const [ currencySymbol, setCurrencySymbol ] = useState<string>('');
 	const [ customerName, setCustomerName ] = useState<string>('');
 	const [ projectManager, setProjectManager ] = useState<string>('');
 	const [ getProjectManagerName, setGetProjectManagerName ] = useState<boolean>(false);
@@ -120,34 +130,19 @@ const ProjectOverview: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 		props.getPreliminaryDetails(projectId);
 		props.getDiscountData(projectId);
 		props.getProjectActivities(projectId);
+		props.getAllCountries();
 	}, []);
-
-	useEffect(
-		() => {
-			if (props.project.currencyId > 0 && props.currencies) {
-				setCurrencySymbol(
-					getFilterElementFromArray(
-						props.currencies,
-						getPropertyName(CurrencyObj, (prop) => prop.currencyId),
-						props.project.currencyId,
-						getPropertyName(CurrencyObj, (prop) => prop.currencySymbol)
-					)
-				);
-			}
-		},
-		[ props.project.currencyId, props.currencies ]
-	);
 
 	useEffect(
 		() => {
 			if (props.notify == Notify.success) {
 				if (props.event == EventType.next) {
-					toast.success('Data Saved Successfully');
+					toast.success(formatMessage('MESSAGE_SUCCESSFUL'));
 					props.history.push(`/JustificationAuthorisation/${props.match.params.projectId}`);
 				} else if (props.event == EventType.save) {
 					toast.success('Data Saved Successfully');
 				} else if (props.event == EventType.previous) {
-					toast.success('Data Saved Successfully');
+					toast.success(formatMessage('MESSAGE_SUCCESSFUL'));
 					props.history.push(`/Project/${props.match.params.projectId}`);
 				}
 				props.resetProjectOverviewState();
@@ -158,10 +153,14 @@ const ProjectOverview: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 
 	useEffect(
 		() => {
-			props.setAdminDefaultValues(props.project.countryId);
+			if (props.project.countryId > 0) {
+				props.getProjectParameters(props.project.countryId);
+				props.setAdminDefaultValues(props.project.countryId);
+			}
 		},
 		[ props.project.countryId ]
 	);
+
 	const handlePrevious = () => {
 		props.history.push(`/Project/${props.match.params.projectId}`);
 	};
@@ -174,13 +173,11 @@ const ProjectOverview: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 				props.currencies.length > 0 &&
 				props.lookups.length > 0
 			) {
-				let currency = getFilterElementFromArray(
-					props.currencies,
-					getPropertyName(CurrencyObj, (prop) => prop.currencyId),
-					props.project.currencyId,
-					getPropertyName(CurrencyObj, (prop) => prop.currencySymbol)
+				props.setupPojectApprovalsInitialData(
+					props.lookups,
+					props.currencySymbol,
+					props.match.params.projectId
 				);
-				props.setupPojectApprovalsInitialData(props.lookups, currency, props.match.params.projectId);
 			}
 		},
 		[ props.lookups, props.project.currencyId, props.currencies ]
@@ -269,27 +266,31 @@ const ProjectOverview: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 
 	const notifySucess = (data, actionType) => {
 		if (actionType === 'reactivate') {
-			toast.success('Project reactivated successfully');
+			toast.success(formatMessage('MESSAGE_SUCCESSFUL_REACTIVATED'));
 			props.getProjectDetail(props.match.params.projectId);
 		} else {
-			toast.success('Project status changed successfully');
+			toast.success(formatMessage('MESSAGE_SUCCESSFUL_STATUS_CHANGED'));
 		}
 	};
 
 	const notifyError = (error) => {
-		toast.error('Error occured.Please contact administrator');
+		toast.error(formatMessage('MESSAGE_ERROR_MESSAGE'));
 	};
 
 	const handleReactivateEvent = () => {
 		actions.reactivateProject(props.match.params.projectId, notifySucess, notifyError);
 	};
 	const handleOnHoldEvent = () => {
-		props.setProjectStatus(6);
+		props.setProjectStatus(ProjectStatus.OnHold);
 		actions.changeProjectStatusToOnHold(props.match.params.projectId, notifySucess, notifyError);
 	};
 	const handleBidLostEvent = () => {
-		props.setProjectStatus(4);
+		props.setProjectStatus(ProjectStatus.BidLost);
 		actions.changeProjectStatusToBidLost(props.match.params.projectId, notifySucess, notifyError);
+	};
+	const handleOrderReceivedEvent = () => {
+		props.setProjectStatus(ProjectStatus.OrderReceived);
+		actions.changeProjectStatusToOrderReceived(props.match.params.projectId, notifySucess, notifyError);
 	};
 	return (
 		<div className="container-fluid ">
@@ -306,6 +307,7 @@ const ProjectOverview: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 								onReactivate={handleReactivateEvent}
 								handleOnHold={handleOnHoldEvent}
 								handleBidLost={handleBidLostEvent}
+								handleOrderReceived={handleOrderReceivedEvent}
 							/>
 						</div>
 
@@ -347,8 +349,12 @@ const ProjectOverview: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 							subContractorState={props.subContractorState}
 							preliminaryState={props.preliminaryState}
 							discountState={props.discountState}
-							currencySymbol={currencySymbol}
+							currencySymbol={props.currencySymbol}
 							handleGetUserNamesForEmails={props.handleGetUserNamesForEmails}
+							postComment={props.postComment}
+							getProjectActivities={props.getProjectActivities}
+							countryCode={props.countryCode}
+							insuranceRate={props.insuranceRate}
 						/>
 					</div>
 				</div>
@@ -372,7 +378,9 @@ const mapStateToProps = (state: IState) => ({
 	currencies: state.lookup.currencies,
 	lookups: state.lookup.lookups,
 	initialStateSetForProjectApprovals: state.projectOverview.initialStateSetForProjectApprovals,
-	userNamesForEmails: state.userService.userServiceData
+	userNamesForEmails: state.userService.userServiceData,
+	adminDefaultValues: state.admin.adminDefaultValues,
+	countries: state.lookup.countries
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -395,8 +403,12 @@ const mapDispatchToProps = (dispatch) => {
 			dispatch(actions.setupPojectApprovalsInitialData(lookupdata, currencySymbol, projectId)),
 		getLookups: () => dispatch(actions.getLookupsByLookupItems(lookupKeyList)),
 		getProjectActivities: (projectId) => dispatch(actions.getProjectActivities(projectId)),
-		handleGetUserNamesForEmails: (emails: Array<string>) => dispatch(actions.getUserNamesForEmailsService(emails))
+		handleGetUserNamesForEmails: (emails: Array<string>) => dispatch(actions.getUserNamesForEmailsService(emails)),
+		postComment: (projectId: string, comment: string, success, failure) =>
+			dispatch(actions.postComments(projectId, comment, success, failure)),
+		getProjectParameters: (countryId: number) => dispatch(actions.getProjectParameters(countryId)),
+		getAllCountries: () => dispatch(actions.getAllContries())
 	};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProjectOverview);
+export default connect(mapStateToProps, mapDispatchToProps)(currencyHoc(countryHoc(insuranceRateHoc(ProjectOverview))));

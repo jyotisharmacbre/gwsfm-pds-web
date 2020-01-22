@@ -103,3 +103,15 @@ export const resetDiscountState = () => {
 		dispatch(resetDiscountStateDispatch());
 	};
 };
+
+const resetDiscountStateNotifierDispatch = () => {
+	return {
+		type: ActionType.RESET_DISCOUNT_FORM_STATE_NOTIFIER
+	};
+};
+
+export const resetDiscountStateNotifier = () => {
+	return (dispatch: Dispatch) => {
+		dispatch(resetDiscountStateNotifierDispatch());
+	};
+};

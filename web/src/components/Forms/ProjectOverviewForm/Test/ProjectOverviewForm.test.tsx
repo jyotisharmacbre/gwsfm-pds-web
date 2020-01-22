@@ -21,7 +21,9 @@ nock(baseURL).post('/api/Projects/additionalDetails').reply(200, 'Project additi
 describe('ProjectOverviewForm Fields', () => {
 	let wrapper: any;
 	const props: any = {
-		handleSubmit: jest.fn()
+		handleSubmit: jest.fn(),
+		countryCode: 'GBP',
+		insuranceRate: -1
 	};
 	beforeEach(() => {
 		const formatMessage = jest.mock('./../../../../Translations/connectedIntlProvider');
@@ -80,6 +82,7 @@ describe('ProjectOverviewForm Fields', () => {
 				expect(errorBlock).toHaveLength(1);
 			});
 		});
+
 		describe('Credit Check Result field', () => {
 			let field: ShallowWrapper;
 			beforeEach(() => {

@@ -23,10 +23,18 @@ import QueryPopup from '../components/Popup/QueryPopup';
 import { FormattedMessage } from 'react-intl';
 import { IUserServiceData } from '../store/UserService/Types/IUserService';
 import ActivityFeedList from '../components/Forms/ProjectOverviewForm/ActivityFeedList';
+import EventType from '../enums/EventType';
+import IReactIntl from '../Translations/IReactIntl';
+import { formatMessage } from '../Translations/connectedIntlProvider';
+import { IAdminDefaults } from '../store/Admin/Types/IAdminDefault';
+import { ICountry } from '../store/Lookups/Types/ICountry';
+import { ICountryHoc, countryHoc } from '../hoc/CountryHoc';
+import { insuranceRateHoc, IInsuranceRateHoc } from '../hoc/InsuranceRateHoc';
 
 interface IProps {
 	match: match<{ projectId: string }>;
 	history: History;
+	intl: any;
 }
 
 interface IMapStateToProps {
@@ -40,6 +48,8 @@ interface IMapStateToProps {
 	userNamesForEmails: Array<IUserServiceData>;
 	initialStateSetForProjectApprovals: boolean;
 	lookups: Array<ILookup>;
+	adminDefaultValues: Array<IAdminDefaults>;
+	countries: Array<ICountry> | null;
 }
 
 interface IMapDispatchToProps {
@@ -53,6 +63,9 @@ interface IMapDispatchToProps {
 	handleGetUserNamesForEmails: (emails: Array<string>) => void;
 	getLookups: () => void;
 	getProjectActivities: (projectId: string) => void;
+	queryAdd: (projectId: string, formValue: string, event: EventType) => void;
+	getProjectParameters: (countryId: number) => void;
+	getAllCountries: () => void;
 }
 
 const lookupKeyList: string[] = [
@@ -61,7 +74,9 @@ const lookupKeyList: string[] = [
 	LookupType.Project_Approver_Type
 ];
 
-const ReviewApprove: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = (props) => {
+const ReviewApprove: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & ICountryHoc & IInsuranceRateHoc> = (
+	props
+) => {
 	const CurrencyObj = new Currency();
 	const [ currencySymbol, setCurrencySymbol ] = useState<string>('');
 	const projectId = props.match.params.projectId;
@@ -77,6 +92,7 @@ const ReviewApprove: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> =
 		props.getDiscountData(projectId);
 		props.getLookups();
 		props.getProjectActivities(projectId);
+		props.getAllCountries();
 	}, []);
 
 	useEffect(
@@ -94,6 +110,12 @@ const ReviewApprove: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> =
 		},
 		[ props.project.currencyId, props.currencies ]
 	);
+	useEffect(
+		() => {
+			if (props.project.countryId > 0) props.getProjectParameters(props.project.countryId);
+		},
+		[ props.project.countryId ]
+	);
 
 	const redirect = (module: string) => {
 		return props.history.push(`/${module}/${props.match.params.projectId}`);
@@ -104,17 +126,34 @@ const ReviewApprove: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> =
 	};
 
 	const handleApprovalSuccess = (data) => {
-		toast.success('Approved Successfully');
+		toast.success(formatMessage('MESSAGE_SUCCESSFUL_APPROVED'));
 		props.history.push('/');
 	};
 
 	const handleApprovalError = (data) => {
-		toast.error('Some error occured');
+		toast.error(formatMessage('MESSAGE_ERROR'));
 	};
-
+	const handleQuerySuccess = (data) => {
+		toast.success(formatMessage('MESSAGE_QUERY_SUCCESS'));
+		props.history.push('/');
+	};
+	const handleQueryError = (data) => {
+		toast.error(formatMessage('MESSAGE_ERROR'));
+	};
+	const handleQuerySave = (data: string) => {
+		actions.postQuery(props.match.params.projectId, data, handleQuerySuccess, handleQueryError);
+	};
 	return (
 		<div className="container-fluid" data-test="review-approve-component">
-			{showQueryPopup && <QueryPopup />}
+			{showQueryPopup && (
+				<QueryPopup
+					intl={props.intl}
+					handleConfirm={handleQuerySave}
+					titleKey={<FormattedMessage id="TITLE_QUERY" />}
+					subTitleKey={<FormattedMessage id="SUB_TITLE_QUERY" />}
+					contentKey={<FormattedMessage id="PLACEHOLDER_QUERY" />}
+				/>
+			)}
 			<div className="row">
 				<div className="col-lg-12">
 					<div className="custom-wrap">
@@ -142,6 +181,12 @@ const ReviewApprove: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> =
 									subContractor={props.subContractorState}
 									discount={props.discountState}
 									currencySymbol={currencySymbol}
+									insuranceRate={props.insuranceRate}
+									countryCode={props.countryCode}
+									showDiscount={true}
+									showContractor={true}
+									showPreliminary={true}
+									showInsurance={true}
 								/>
 								<CalculationsSummaryTable
 									data-test="calculation-summary"
@@ -149,6 +194,7 @@ const ReviewApprove: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> =
 									subContractor={props.subContractorState}
 									discount={props.discountState}
 									currencySymbol={currencySymbol}
+									insuranceRate={props.insuranceRate}
 								/>
 							</div>
 						</div>
@@ -186,7 +232,9 @@ const mapStateToProps = (state: IState) => ({
 	projectOverview: state.projectOverview.form,
 	userNamesForEmails: state.userService.userServiceData,
 	lookups: state.lookup.lookups,
-	initialStateSetForProjectApprovals: state.projectOverview.initialStateSetForProjectApprovals
+	initialStateSetForProjectApprovals: state.projectOverview.initialStateSetForProjectApprovals,
+	adminDefaultValues: state.admin.adminDefaultValues,
+	countries: state.lookup.countries
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -200,8 +248,10 @@ const mapDispatchToProps = (dispatch) => {
 		getAdditionalDetails: (projectId) => dispatch(actions.getAdditionalDetails(projectId)),
 		handleGetUserNamesForEmails: (emails: Array<string>) => dispatch(actions.getUserNamesForEmailsService(emails)),
 		getLookups: () => dispatch(actions.getLookupsByLookupItems(lookupKeyList)),
-		getProjectActivities: (projectId) => dispatch(actions.getProjectActivities(projectId))
+		getProjectActivities: (projectId) => dispatch(actions.getProjectActivities(projectId)),
+		getProjectParameters: (countryId: number) => dispatch(actions.getProjectParameters(countryId)),
+		getAllCountries: () => dispatch(actions.getAllContries())
 	};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ReviewApprove);
+export default connect(mapStateToProps, mapDispatchToProps)(countryHoc(insuranceRateHoc(ReviewApprove)));

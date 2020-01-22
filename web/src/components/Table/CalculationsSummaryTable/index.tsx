@@ -14,8 +14,9 @@ interface Props {
 	subContractor?: Array<ISubContractorActivity>;
 	preliminary?: Array<IPreliminariesComponentDetails>;
 	discount?: {} | IDiscountActivity;
-    currencySymbol: string;
-    intl: any;
+	currencySymbol: string;
+	insuranceRate: number;
+	intl: any;
 }
 
 const CalculationsSummaryTable: React.FC<Props> = (props) => {
@@ -44,18 +45,20 @@ const CalculationsSummaryTable: React.FC<Props> = (props) => {
 
 	useEffect(
 		() => {
-			if (props.discount && subContractorData && preliminaryData) {
+			if (props.discount && subContractorData && preliminaryData && props.insuranceRate) {
 				setSummaryCalculationState(
 					getDiscountSummaryCalculation(
 						props.discount as IDiscountActivity,
 						subContractorData,
-						preliminaryData
+						preliminaryData,
+						props.insuranceRate
 					)
 				);
 			}
 		},
-		[ props.discount, subContractorData, preliminaryData ]
+		[ props.discount, subContractorData, preliminaryData, props.insuranceRate ]
 	);
+
 	return (
 		<div className="col-lg-9 px-0">
 			<div className="price-sumry discount_table">
@@ -79,25 +82,22 @@ const CalculationsSummaryTable: React.FC<Props> = (props) => {
 						</thead>
 						<tbody>
 							<tr>
-								<td data-column={props.intl.formatMessage({ id: 'T_HEADING_TOTAL_COST' })}>{props.currencySymbol}
-                                    <span data-test='total-cost-summary'>{summaryCalculation.cost.toFixed(2)}</span></td>
-                                <td data-column={props.intl.formatMessage({ id: 'T_HEADING_TOTAL_MARGIN' })}>
-                                    <span data-test='total-margin-summary'>
-                                        {summaryCalculation.margin}
-                                    </span>
-                                    (%)
-                  </td>
-                                <td data-column={props.intl.formatMessage({ id: 'T_HEADING_GROSS_MARGIN' })}>{props.currencySymbol}
-                                    <span data-test='gross-margin-summary'>
-                                        {summaryCalculation.grossMargin}
-                                    </span>
-                                </td>
-                                <td data-column={props.intl.formatMessage({ id: 'T_HEADING_TOTAL_SELL' })}>
-                                    {props.currencySymbol}
-                                    <span data-test='total-sell-summary'>
-                                        {summaryCalculation.sell.toFixed(2)}
-                                    </span>
-                                </td>
+								<td data-column={props.intl.formatMessage({ id: 'T_HEADING_TOTAL_COST' })}>
+									{props.currencySymbol}
+									<span data-test="total-cost-summary">{summaryCalculation.cost.toFixed(2)}</span>
+								</td>
+								<td data-column={props.intl.formatMessage({ id: 'T_HEADING_TOTAL_MARGIN' })}>
+									<span data-test="total-margin-summary">{summaryCalculation.margin}</span>
+									(%)
+								</td>
+								<td data-column={props.intl.formatMessage({ id: 'T_HEADING_GROSS_MARGIN' })}>
+									{props.currencySymbol}
+									<span data-test="gross-margin-summary">{summaryCalculation.grossMargin}</span>
+								</td>
+								<td data-column={props.intl.formatMessage({ id: 'T_HEADING_TOTAL_SELL' })}>
+									{props.currencySymbol}
+									<span data-test="total-sell-summary">{summaryCalculation.sell.toFixed(2)}</span>
+								</td>
 							</tr>
 						</tbody>
 					</table>
