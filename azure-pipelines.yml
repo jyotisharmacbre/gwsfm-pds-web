@@ -18,6 +18,46 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
+
+- task: PowerShell@2
+  displayName: 'Code check-in Start Time'
+  inputs:
+    targetType: 'inline'
+    script: |
+      #check-in Start
+      $checkinstartdate=$(Get-Date -Format s);
+      Write-Host "##vso[task.setvariable variable=startTime]$checkinstartdate"
+
+- task: PowerShell@2
+  displayName: 'Code check-in End Time'
+  inputs:
+    targetType: 'inline'
+    script: |
+      #End check-in
+      $checkinenddate=$(Get-Date -Format s);
+      Write-Host "##vso[task.setvariable variable=endTime]$checkinenddate"
+
+- task: restCallBuildTask@0
+  inputs:
+    webserviceEndpoint: 'Metrics'
+    relativeUrl: 
+    httpVerb: 'POST'
+    body: |
+      {
+      "ApplicationId": $(appID),
+      "AutomationProcessId": 3,
+      "AutomationToolId": 95,
+      "Description": "code check-in",
+      "Version": "$(BUILD.BUILDID)",
+      "Cycle": "$(BUILD.BUILDID)",
+      "Passed": 1,
+      "Failed": 0,
+      "Blocked": 0,
+      "StartDateTime": "$(startTime)",
+      "EndDateTime": "$(endTime)"
+      }
+    contentType: 'application/json'
+    allowInvalidSSLCertificate: false
 - task: NodeTool@0
   inputs:
     versionSpec: '10.x'
