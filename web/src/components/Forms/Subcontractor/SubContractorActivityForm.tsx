@@ -160,7 +160,7 @@ const SubContractorActivityForm: React.FC<Props> = (props: Props) => {
 									/>
 								</div>
 							</div>
-							<FieldArray name={`${member}.quotes`} component={Quote} key={index} />
+							<FieldArray name={`${member}.quotes`} currencySymbol = {props.currencySymbol} component={Quote} key={index} />
 						</div>
 					</div>
 				</div>
