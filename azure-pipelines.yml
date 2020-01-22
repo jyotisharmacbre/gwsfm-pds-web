@@ -38,6 +38,7 @@ steps:
       Write-Host "##vso[task.setvariable variable=endTime]$checkinenddate"
 
 - task: restCallBuildTask@0
+  displayName: 'Code check-in'
   inputs:
     webserviceEndpoint: 'Metrics'
     relativeUrl: 
@@ -58,6 +59,76 @@ steps:
       }
     contentType: 'application/json'
     allowInvalidSSLCertificate: false
+
+- task: restCallBuildTask@0
+  displayName: 'Build Artifacst'
+  inputs:
+    webserviceEndpoint: 'Metrics'
+    relativeUrl: 
+    httpVerb: 'POST'
+    body: |
+      {
+      "ApplicationId": $(appID),
+      "AutomationProcessId": 50,
+      "AutomationToolId": 242,
+      "Description": "Build Artifacts",
+      "Version": "$(BUILD.BUILDID)",
+      "Cycle": "$(BUILD.BUILDID)",
+      "Passed": 1,
+      "Failed": 0,
+      "Blocked": 0,
+      "StartDateTime": "$(startTime)",
+      "EndDateTime": "$(endTime)"
+      }
+    contentType: 'application/json'
+    allowInvalidSSLCertificate: false
+
+- task: restCallBuildTask@0
+  displayName: 'Code Review'
+  inputs:
+    webserviceEndpoint: 'Metrics'
+    relativeUrl: 
+    httpVerb: 'POST'
+    body: |
+      {
+      "ApplicationId": $(appID),
+      "AutomationProcessId": 54,
+      "AutomationToolId": 242,
+      "Description": "Code Review",
+      "Version": "$(BUILD.BUILDID)",
+      "Cycle": "$(BUILD.BUILDID)",
+      "Passed": 1,
+      "Failed": 0,
+      "Blocked": 0,
+      "StartDateTime": "$(startTime)",
+      "EndDateTime": "$(endTime)"
+      }
+    contentType: 'application/json'
+    allowInvalidSSLCertificate: false
+
+- task: restCallBuildTask@0
+  displayName: 'Secret management'
+  inputs:
+    webserviceEndpoint: 'Metrics'
+    relativeUrl: 
+    httpVerb: 'POST'
+    body: |
+      {
+      "ApplicationId": $(appID),
+      "AutomationProcessId": 56,
+      "AutomationToolId": 242,
+      "Description": "Secret management",
+      "Version": "$(BUILD.BUILDID)",
+      "Cycle": "$(BUILD.BUILDID)",
+      "Passed": 1,
+      "Failed": 0,
+      "Blocked": 0,
+      "StartDateTime": "$(startTime)",
+      "EndDateTime": "$(endTime)"
+      }
+    contentType: 'application/json'
+    allowInvalidSSLCertificate: false
+
 - task: NodeTool@0
   inputs:
     versionSpec: '10.x'
@@ -69,6 +140,15 @@ steps:
     workingDir: web
     verbose: false
 
+- task: PowerShell@2
+  displayName: 'Code Build start'
+  inputs:
+    targetType: 'inline'
+    script: |
+      #check-build Start
+      $CodeBuildstartdate=$(Get-Date -Format s);
+      Write-Host "##vso[task.setvariable variable=CodeBuildstartTime]$CodeBuildstartdate"
+
 - task: Npm@1
   displayName: 'npm run build'
   inputs:
@@ -76,6 +156,39 @@ steps:
     workingDir: web
     verbose: false
     customCommand: 'run build'
+
+
+- task: PowerShell@2
+  displayName: 'Code Build End'
+  inputs:
+    targetType: 'inline'
+    script: |
+      #End Code Build
+      $CodeBuildenddate=$(Get-Date -Format s);
+      Write-Host "##vso[task.setvariable variable=CodeBuildendTime]$CodeBuildenddate"
+
+- task: restCallBuildTask@0
+  displayName: 'Code Build metrics'
+  inputs:
+    webserviceEndpoint: 'Metrics'
+    relativeUrl: 
+    httpVerb: 'POST'
+    body: |
+      {
+      "ApplicationId": $(appID),
+      "AutomationProcessId": 4,
+      "AutomationToolId": 242,
+      "Description": "Code Build",
+      "Version": "$(BUILD.BUILDID)",
+      "Cycle": "$(BUILD.BUILDID)",
+      "Passed": 1,
+      "Failed": 0,
+      "Blocked": 0,
+      "StartDateTime": "$(CodeBuildstartTime)",
+      "EndDateTime": "$(CodeBuildendTime)"
+      }
+    contentType: 'application/json'
+    allowInvalidSSLCertificate: false
 
 - task: Npm@1
   displayName: 'Test Run'
