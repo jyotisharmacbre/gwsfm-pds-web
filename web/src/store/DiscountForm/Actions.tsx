@@ -52,6 +52,9 @@ export const discountFormAdd = (projectId: string, data: IDiscountActivity, even
 	return (dispatch: Dispatch) => {
 		if (isProjectStateInReview()) dispatch(discountFormError('error'));
 		data.projectId = projectId;
+		data.clientDiscount.projectId = projectId;
+		data.subContractorDiscounts.forEach(x => x.projectId = projectId);
+
 		axios.baseAPI
 			.post('/api/Discounts/adddiscount', data, { headers: headers })
 			.then((response) => {
@@ -66,6 +69,8 @@ export const discountFormAdd = (projectId: string, data: IDiscountActivity, even
 export const discountFormEdit = (data: IDiscountActivity, event: EventType) => {
 	return (dispatch: Dispatch) => {
 		if (isProjectStateInReview()) dispatch(discountFormError('error'));
+		data.clientDiscount.projectId = data.projectId;
+		data.subContractorDiscounts.forEach(x => x.projectId = data.projectId);
 		axios.baseAPI
 			.put('/api/Discounts/UpdateDiscount', data, { headers: headers })
 			.then((response) => {

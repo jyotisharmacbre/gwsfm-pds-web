@@ -20,3 +20,32 @@
     }
 }
 
+
+.newDiscountSubcontractor_btn {
+    text-align: right;
+    margin: 40px 0;
+    // position: relative;
+    button {
+        margin-right: 0;
+    }
+    svg {
+        margin-right: 10px;
+        font-size: 20px;
+        vertical-align: middle;
+    }
+    &:before {
+        content: '';
+        position: absolute;
+        left: 0;
+        background: map-get($colors , grey001 );
+        width: 100%;
+        height: 1px;
+        bottom: -40px;
+    }
+
+   
+}
+ .discount-subcontractor-section{
+        margin-top: 20px;
+}
+

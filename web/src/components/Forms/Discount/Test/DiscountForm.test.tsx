@@ -11,6 +11,7 @@ import { ActionType } from '../../../../store/DiscountForm/Types/ActionType';
 import nock from 'nock';
 import { baseURL } from '../../../../client/client';
 import { initialState, getdiscountFormData } from './DiscountFormTestData';
+import { findByTestAtrr } from '../../../../helpers/test-helper';
 
 nock(baseURL)
   .post('/api/Discounts/adddiscount')
@@ -58,7 +59,7 @@ describe('DiscountForm Fields', () => {
     let field: ShallowWrapper;
     describe('Supplier name field', () => {
       beforeEach(() => {
-        field = wrapper.find('input[name="supplierName"]').first();
+        field = wrapper.find('input[name="subContractorDiscounts[0].supplierName"]').first();
       });
       it('Should renders supplier name field', () => {
         expect(field.prop('type')).toBe('text');
@@ -67,7 +68,7 @@ describe('DiscountForm Fields', () => {
 
     describe('State field', () => {
       beforeEach(() => {
-        field = wrapper.find('input[name="supplierState"]').first();
+        field = wrapper.find('input[name="subContractorDiscounts[0].supplierState"]').first();
       });
       it('Should renders supplierState field', () => {
         expect(field.prop('type')).toBe('text');
@@ -76,7 +77,7 @@ describe('DiscountForm Fields', () => {
 
     describe('supplierTotalDiscount field', () => {
       beforeEach(() => {
-        field = wrapper.find('input[name="supplierTotalDiscount"]').first();
+        field = wrapper.find('input[name="subContractorDiscounts[0].supplierTotalDiscount"]').first();
       });
       it('Should renders supplierTotalDiscount field', () => {
         expect(field.prop('type')).toBe('text');
@@ -85,7 +86,7 @@ describe('DiscountForm Fields', () => {
 
     describe('supplierComments field', () => {
       beforeEach(() => {
-        field = wrapper.find('textarea[name="supplierComments"]').first();
+        field = wrapper.find('textarea[name="subContractorDiscounts[0].supplierComments"]').first();
       });
       it('Should renders supplierComments field', () => {
         expect(field.prop('type')).toBe('textarea');
@@ -94,10 +95,24 @@ describe('DiscountForm Fields', () => {
 
     describe('clientState field', () => {
       beforeEach(() => {
-        field = wrapper.find('input[name="clientState"]').first();
+        field = wrapper.find('input[name="clientDiscount.clientState"]').first();
       });
       it('Should renders clientState field', () => {
         expect(field.prop('type')).toBe('text');
+      });
+    });
+
+    describe('supplierTotalDiscount value', () => {
+      it('should have the supplierTotalDiscount Value calculated in the span', () => {
+        field = findByTestAtrr(wrapper, 'supplierTotalDiscountValue');
+        expect(field.length).toEqual(1);
+      });
+    });
+
+    describe('sub contractor discount section', () => {
+      it('should verify the sub contractor discount section length', () => {
+        field = findByTestAtrr(wrapper, 'discount-sub-contractor-form');
+        expect(field.length).toEqual(1);
       });
     });
 
@@ -128,24 +143,24 @@ describe('DiscountForm Fields', () => {
       });
     });
 
-      it('should handle add discount successfully', () => {
-        const addDiscountData: any = {
-          type: ActionType.DISCOUNT_FORM_DATA_ADD
-        };
-        expect(
-          discountFormReducer(initialState, addDiscountData)
-        ).toMatchSnapshot();
-      });
+    it('should handle add discount successfully', () => {
+      const addDiscountData: any = {
+        type: ActionType.DISCOUNT_FORM_DATA_ADD
+      };
+      expect(
+        discountFormReducer(initialState, addDiscountData)
+      ).toMatchSnapshot();
+    });
 
-      it('should handle edit discount successfully', () => {
-        const editProjectAction: any = {
-          type: ActionType.DISCOUNT_FORM_DATA_EDIT
-        };
-        expect(
-          discountFormReducer(initialState, editProjectAction)
-        ).toMatchSnapshot();
-      });
-
+    it('should handle edit discount successfully', () => {
+      const editProjectAction: any = {
+        type: ActionType.DISCOUNT_FORM_DATA_EDIT
+      };
+      expect(
+        discountFormReducer(initialState, editProjectAction)
+      ).toMatchSnapshot();
     });
 
   });
+
+});
