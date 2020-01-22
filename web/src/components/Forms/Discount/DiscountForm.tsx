@@ -153,13 +153,13 @@ let DiscountForm: React.FC<
 					<div className="Discountforms_wrap">
 						<form className="custom-wrap p-0" onSubmit={handleSubmit} noValidate={true}>
 							<div className=" row">
-								<div className="col-lg-6 col-sm-6">
+								<div className="col-lg-5 col-sm-5">
 									<h2>
 										<FormattedMessage id="TITLE_SUBCONTRACTOR_DISCOUNT" />
 									</h2>
 								</div>
-								<div className="col-lg-6 col-sm-6">
-									<h6>
+								<div className="col-lg-4 col-sm-4">
+									<h6 className="discount-supplierTotalDiscount">
 										<FormattedMessage id="LABEL_TOTAL_SUBCONTRACTOR_DISCOUNT" /> :
 
 									    <span data-test="supplierTotalDiscountValue">
