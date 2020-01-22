@@ -17,6 +17,7 @@ import { dynamicBusinessUnits } from '../../../helpers/dynamicBusinessData';
 import { IUserServiceData } from '../../../store/UserService/Types/IUserService';
 import * as services from '../../../services';
 import { formatMessage } from '../../../Translations/connectedIntlProvider';
+import { Link } from 'react-router-dom';
 
 interface IProps {
 	project: IProjectDetail;
@@ -26,16 +27,17 @@ interface IProps {
 	handleGetUserNamesForEmails: (emails: Array<string>) => void;
 }
 const ProjectSummary: React.FC<IProps> = (props) => {
-	const [ projectStatus, setProjectStatus ] = useState<string>('');
-	const [ typeOfEngagement, setTypeOfEngagement ] = useState<string>('');
+	let urlProjectId: string = '';
+	const [projectStatus, setProjectStatus] = useState<string>('');
+	const [typeOfEngagement, setTypeOfEngagement] = useState<string>('');
 	const companyObj = new Company();
-	const [ companyName, setCompanyName ] = useState<string>('');
-	const [ headOfProject, setHeadOfProject ] = useState<string>('');
-	const [ projectOwner, setProjectOwner ] = useState<string>('');
-	const [ projectManager, setProjectManager ] = useState<string>('');
-	const [ contractor, setContractor ] = useState<string>('');
-	const [ division, setDivision ] = useState<string>('');
-	const [ businessUnit, setBusinessUnit ] = useState<string>('');
+	const [companyName, setCompanyName] = useState<string>('');
+	const [headOfProject, setHeadOfProject] = useState<string>('');
+	const [projectOwner, setProjectOwner] = useState<string>('');
+	const [projectManager, setProjectManager] = useState<string>('');
+	const [contractor, setContractor] = useState<string>('');
+	const [division, setDivision] = useState<string>('');
+	const [businessUnit, setBusinessUnit] = useState<string>('');
 
 	useEffect(
 		() => {
@@ -86,7 +88,7 @@ const ProjectSummary: React.FC<IProps> = (props) => {
 				if (filterBusinessUnit && filterBusinessUnit[0]) setBusinessUnit(filterBusinessUnit[0].Description);
 			}
 		},
-		[ props.project ]
+		[props.project]
 	);
 
 	useEffect(
@@ -106,7 +108,7 @@ const ProjectSummary: React.FC<IProps> = (props) => {
 					setTypeOfEngagement(filterEngagementType[0].description);
 			}
 		},
-		[ props.project, props.lookUpData ]
+		[props.project, props.lookUpData]
 	);
 
 	useEffect(
@@ -129,7 +131,7 @@ const ProjectSummary: React.FC<IProps> = (props) => {
 					setProjectManager(displayUserName(projectManagerFilter.firstname, projectManagerFilter.lastName));
 			}
 		},
-		[ props.userNamesForEmails ]
+		[props.userNamesForEmails]
 	);
 
 	const getContractorSuccess = (response) => {
@@ -149,15 +151,19 @@ const ProjectSummary: React.FC<IProps> = (props) => {
 		}
 	};
 
-  const failure = error => {
-    toast.error(formatMessage("MESSAGE_ERROR"));
-  };
+	const failure = error => {
+		toast.error(formatMessage("MESSAGE_ERROR"));
+	};
 
 	return (
 		<div className="RS_custom_block">
-			<h4>
-				<FormattedMessage id="HEADING_CUSTOMER_ENQUIRY" />
-			</h4>
+			<div className="title_edit_btn">
+				<h4>
+					<FormattedMessage id="HEADING_CUSTOMER_ENQUIRY" />
+				</h4>
+					<button type="submit" className="edit-btn">EDIT</button>
+			</div>
+
 			<div className="RS_custom_inner">
 				<div className="row">
 					<div className="col-lg-4 col-sm-6">

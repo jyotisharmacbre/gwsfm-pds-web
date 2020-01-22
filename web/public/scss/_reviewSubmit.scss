@@ -1,3 +1,42 @@
+.title_edit_btn {
+    background: map-get($colors , darkGreen );
+    border-radius: 5px 5px 0 0;
+    padding: 10px 15px 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+     h4 {
+        color: map-get($colors , whiteColor );
+        font-size: 16px;
+        margin: 0;
+    }
+    .edit-btn {
+        height: fit-content;
+        margin-top: 0;
+        border-width: 1px !important;
+        padding: 6px 25px 3px;
+        border-width: 1px;
+        min-width: auto;
+        background: transparent;
+        color: map-get($colors , whiteColor );
+        border-radius: 2px;
+        border-color: map-get($colors , whiteColor );
+        &:hover {
+            color: map-get($colors , whiteColor );
+            border-color: map-get($colors , whiteColor );
+        }
+        @include mdScreen {
+            padding: 6px 16px 3px;
+        }
+        &:focus {
+            outline: none;
+        }
+        &.active {
+            border-width: 1px;
+        }
+    }
+}
+
 .RS_custom_block,
 .RS_project_block {
     background: #fff;
@@ -45,13 +84,6 @@
     .comment_block {
         margin-top: 20px;
         margin-bottom: 15px;
-    }
-    h4 {
-        background: #006a4d;
-        border-radius: 5px 5px 0 0;
-        color: #fff;
-        padding: 15px 15px 15px 20px;
-        font-size: 16px;
     }
     h5 {
         font-size: 14px;
