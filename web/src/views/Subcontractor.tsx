@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 import Notify from '../enums/Notify';
 import { getPropertyName, getFilterElementFromArray, getClassNameForProjectStatus } from '../helpers/utility-helper';
 import { ICurrency } from '../store/Lookups/Types/ICurrency';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import Currency from '../store/Lookups/InitialState/Currency';
 import ProjectStatus from '../enums/ProjectStatus';
 import { History } from 'history';
@@ -20,10 +20,15 @@ import { formatMessage } from '../Translations/connectedIntlProvider';
 import { insuranceRateHoc, IInsuranceRateHoc } from '../hoc/InsuranceRateHoc';
 import { IAdminDefaults } from '../store/Admin/Types/IAdminDefault';
 import { IProjectDetail } from '../store/CustomerEnquiryForm/Types/IProjectDetail';
+import { isDirty, reset } from 'redux-form';
+import IReactIntl from '../Translations/IReactIntl';
+import { confirmAlert } from '../components/Popup/CustomModalPopup';
 
 interface IProps {
 	match: any;
 	history: History;
+	isSubcontractorFormDirty:boolean;
+	intl:any;
 }
 
 interface IMapStateToProps {
@@ -50,9 +55,10 @@ interface IMapDispatchToProps {
 	getPreliminaryDetails: (projectId: string) => void;
 	getDiscountData: (projectId: string) => void;
 	getProjectParameters: (countryId: number) => void;
+	resetSubcontractorFormState:()=>void;
 }
 
-const Subcontractor: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & IInsuranceRateHoc> = (props) => {
+const Subcontractor: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & IInsuranceRateHoc& IReactIntl> = (props) => {
 	let paramProjectId: string = '';
 	const CurrencyObj = new Currency();
 	const [ currencySymbol, setCurrencySymbol ] = React.useState('$');
@@ -111,7 +117,24 @@ const Subcontractor: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & 
 		},
 		[ props.project.countryId ]
 	);
-
+	const redirectionToComponent=(componentName:string)=>{
+		props.resetSubcontractorFormState();
+		props.history.push(`/${componentName}/${props.match.params.projectId}`);
+	
+	  }
+	  const handlePrevious = () => {
+		if(props.isSubcontractorFormDirty)
+		{
+			confirmAlert({
+				intl: props.intl,
+				titleKey: 'TITLE_CONFIRMATION',
+				contentKey: 'MESSAGE_DIRTY_CHECK',
+				handleConfirm: () => redirectionToComponent('preliminaries')})
+		}
+		else{
+			redirectionToComponent('preliminaries');
+		   }
+	  };
 	const handleEvent = (data: ISubContractor, event: EventType) => {
 		paramProjectId = props.match.params.projectId;
 		props.subContractorState[0].subContrActivityId == ''
@@ -142,6 +165,7 @@ const Subcontractor: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & 
 						<SubcontractorForm
 							projectId={props.match.params.projectId}
 							onSubmitForm={handleEvent}
+							onPreviousForm={handlePrevious}
 							currencySymbol={currencySymbol}
 							preliminaryState={props.preliminaryState}
 							discountState={props.discountState}
@@ -165,7 +189,8 @@ const mapStateToProps = (state: IState) => ({
 	discountState: state.discount.form,
 	subContractorState: state.subContractor.form.activities,
 	adminDefaultValues: state.admin.adminDefaultValues,
-	project: state.project.form
+	project: state.project.form,
+	isSubcontractorFormDirty:isDirty("subContractorForm")(state),
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -180,8 +205,10 @@ const mapDispatchToProps = (dispatch) => {
 		getAllCurrencies: () => dispatch(actions.getAllCurrencies()),
 		getPreliminaryDetails: (projectId: string) => dispatch(actions.getPreliminaryDetails(projectId)),
 		getDiscountData: (projectId: string) => dispatch(actions.getDiscountData(projectId)),
-		getProjectParameters: (countryId: number) => dispatch(actions.getProjectParameters(countryId))
+		getProjectParameters: (countryId: number) => dispatch(actions.getProjectParameters(countryId)),
+		resetSubcontractorFormState:()=>dispatch(reset("subContractorForm"))
+
 	};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(insuranceRateHoc(Subcontractor));
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(insuranceRateHoc(Subcontractor)));

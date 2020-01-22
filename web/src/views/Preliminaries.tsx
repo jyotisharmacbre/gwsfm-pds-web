@@ -9,10 +9,10 @@ import { toast } from 'react-toastify';
 import Notify from '../enums/Notify';
 import { ILookup } from '../store/Lookups/Types/ILookup';
 import { ICurrency } from '../store/Lookups/Types/ICurrency';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import EventType from '../enums/EventType';
 import { getPropertyName, getFilterElementFromArray, getClassNameForProjectStatus } from '../helpers/utility-helper';
-import { formValueSelector } from 'redux-form';
+import { formValueSelector, isDirty, reset } from 'redux-form';
 import Currency from '../store/Lookups/InitialState/Currency';
 import { History } from 'history';
 import { ISubContractorActivity } from '../store/SubContractor/Types/ISubContractorActivity';
@@ -25,6 +25,8 @@ import { IAdminDefaults } from '../store/Admin/Types/IAdminDefault';
 import { ICountryHoc, countryHoc } from '../hoc/CountryHoc';
 import { ICountry } from '../store/Lookups/Types/ICountry';
 import { IProjectDetail } from '../store/CustomerEnquiryForm/Types/IProjectDetail';
+import { confirmAlert } from '../components/Popup/CustomModalPopup';
+import IReactIntl from '../Translations/IReactIntl';
 
 interface IMapStateToProps {
 	preliminaryDetails: Array<IPreliminariesComponentDetails>;
@@ -42,6 +44,8 @@ interface IMapStateToProps {
 	countries: Array<ICountry> | null;
 	adminDefaultValues: Array<IAdminDefaults>;
 	project: IProjectDetail;
+	isPreliminaryFormDirty:boolean;
+	intl:any;
 }
 interface IMapDispatchToProps {
 	preliminaryAdd: (preliminaryDetails: Array<IPreliminaries>, event: EventType) => void;
@@ -55,9 +59,10 @@ interface IMapDispatchToProps {
 	getDiscountData: (projectId: string) => void;
 	getProjectParameters: (countryId: number) => void;
 	getAllCountries: () => void;
+	resetPreliminaryState:()=>void;
 }
 
-const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps & ICountryHoc & IInsuranceRateHoc> = (props) => {
+const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps & ICountryHoc & IInsuranceRateHoc&IReactIntl> = (props) => {
 	const CurrencyObj = new Currency();
 	const [ currencySymbol, setCurrencySymbol ] = useState<string>('');
 	let componentIds: Array<string> = [];
@@ -124,7 +129,10 @@ const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps & ICountryH
 	);
 
 	const [ isExpand, handleExpandAllEvent ] = useState(false);
-
+	const redirectionToComponent=(componentName:string)=>{
+		props.resetPreliminaryState();
+		props.history.push(`/${componentName}/${props.match.params.projectId}`);
+	  }
 	const handleToggle = (id: string) => {
 		componentIds = componentIdList;
 		var element: any = document.getElementById('collapse_' + id);
@@ -167,11 +175,24 @@ const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps & ICountryH
 			props.preliminaryAdd(saveData, event);
 		} else {
 			toast.error(formatMessage('MESSAGE_ERROR_DATA_CHANGED'));
+			props.history.push(`/Subcontractor/${props.match.params.projectId}`);
 		}
 	};
 	const handlePrevious = () => {
-		props.history.push(`/JustificationAuthorisation/${props.match.params.projectId}`);
-	};
+		if(props.isPreliminaryFormDirty)
+		{
+		  confirmAlert({
+			intl: props.intl,
+			titleKey: 'TITLE_CONFIRMATION',
+			contentKey: 'MESSAGE_DIRTY_CHECK',
+			handleConfirm: () => redirectionToComponent('JustificationAuthorisation')
+		  })
+		}
+		else{
+		  redirectionToComponent('JustificationAuthorisation')
+		}
+	 
+	  };
 
 	return (
 		<div className="container-fluid">
@@ -283,7 +304,8 @@ const mapStateToProps = (state: IState) => {
 		discountState: state.discount.form,
 		adminDefaultValues: state.admin.adminDefaultValues,
 		countries: state.lookup.countries,
-		project: state.project.form
+		project: state.project.form,
+		isPreliminaryFormDirty:isDirty("PreliminaryForm")(state),
 	};
 };
 
@@ -298,8 +320,9 @@ const mapDispatchToProps = (dispatch) => {
 		getSubContractor: (projectId: string) => dispatch(actions.getSubContractor(projectId)),
 		getDiscountData: (projectId: string) => dispatch(actions.getDiscountData(projectId)),
 		getProjectParameters: (countryId: number) => dispatch(actions.getProjectParameters(countryId)),
-		getAllCountries: () => dispatch(actions.getAllContries())
+		getAllCountries: () => dispatch(actions.getAllContries()),
+		resetPreliminaryState:()=>dispatch(reset("PreliminaryForm"))
 	};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(countryHoc(insuranceRateHoc(Preliminaries)));
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(countryHoc(insuranceRateHoc(Preliminaries))));
