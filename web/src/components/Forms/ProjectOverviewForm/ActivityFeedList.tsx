@@ -28,16 +28,13 @@ interface IMapStateToProps {
 const ActivityFeedList: React.FC<IProps & IMapStateToProps> = (props) => {
 	const [activityFeedData, setActivityFeedData] = useState<Array<IActivityFeed>>([]);
 	const [isprojectActivitiesUpdated, setIsprojectActivitiesUpdated] = useState<boolean>(false);
-	console.log('props.projectActivities', props.projectActivities);
 	useEffect(
 		() => {
-			console.log('props.projectActivities.length', props.projectActivities.length);
 			if (props.projectActivities.length > 0) {
 				let emails: Array<string> = [];
 				props.projectActivities.map((data, index) => {
 					emails.push(data.userId);
 				});
-				console.log('emails', emails);
 				props.handleGetUserNamesForEmails(emails);
 				setIsprojectActivitiesUpdated(true);
 			}
