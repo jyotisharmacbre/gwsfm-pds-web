@@ -264,6 +264,7 @@
     "VALIDATION_IS_REQUIRED": "{0} is required",
     "VALIDATION_ONLY_ALPHA_NUM": "Only alphanumeric characters",
     "FIELD_VALIDATION_KEY": "Must have a maximum of {0} characters",
+    "FIELD_VALIDATION_KEY_MAX_LIMIT": "Must have a range between {0} to {1} numbers",
     "ASSET_ALREADY_SELECTED_VALIDATION_KEY": "Asset Value is already selected",
     "T_HEADING_TOTAL_COST": "Total Cost",
     "T_HEADING_TOTAL_MARGIN": "Total Margin",

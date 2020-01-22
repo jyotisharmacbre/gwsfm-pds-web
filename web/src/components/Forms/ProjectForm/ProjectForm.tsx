@@ -19,7 +19,8 @@ import {
 	normalizeToNumber,
 	calculateRank,
 	maxLimitTo,
-	restrictMinusAndAllowDecimal
+	restrictMinusAndAllowDecimal,
+	restrictMinusAndDecimal
 } from '../../../helpers/utility-helper';
 import PdsFormTypeAhead from '../../PdsFormHandlers/PdsFormTypeAhead';
 import { IProjectDetail } from '../../../store/CustomerEnquiryForm/Types/IProjectDetail';
@@ -545,16 +546,17 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 									labelKey="LABEL_BIG_MARGIN"
 									className="pl-30 width-288"
 									discountBind="%"
-									validate={[Validate.maxLength(5)]}
+									validate={[Validate.maxLength(5),Validate.maxLimit(0,100)]}
 									normalize={restrictMinusAndAllowDecimal}
 								/>
 
 								<Field
 									name="weightedTCV"
-									type="number"
+									type="text"
 									component={PdsFormInput}
 									labelKey="LABEL_WEIGHTED_TCV"
 									className="pl-20 width-288"
+									normalize={restrictMinusAndDecimal}
 									currency={getFilterElementFromArray(
 										props.currencies,
 										getPropertyName(CurrencyObj, (prop) => prop.currencyId),

@@ -255,7 +255,7 @@ describe('ProjectForm Fields', () => {
         field = wrapper.find('input[name="weightedTCV"]').first();
       });
       it('Should renders weightedTCV field', () => {
-        expect(field.prop('type')).toBe('number');
+        expect(field.prop('type')).toBe('text');
       });
     });
 
