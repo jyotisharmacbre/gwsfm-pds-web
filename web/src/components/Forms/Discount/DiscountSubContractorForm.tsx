@@ -9,6 +9,7 @@ import ValidatedNumericInput from '../../NumericInput/index';
 import PdsFormInput from '../../PdsFormHandlers/PdsFormInput';
 import PdsFormTextArea from '../../PdsFormHandlers/PdsFormTextArea';
 import { confirmAlert } from '../../Popup/CustomModalPopup';
+import { restrictMinusAndAllowDecimal } from '../../../helpers/utility-helper';
 
 
 interface Props {
@@ -63,7 +64,7 @@ const DiscountSubContractorForm: React.FC<Props> = (props: Props) => {
                                     labelKey="LABEL_STATE_DETAILS"
                                     placeholderKey="PLACEHOLDER_ENTER_STATE_DETAILS"
                                 />
-                                <ValidatedNumericInput
+                                <Field
                                     name={`${member}.supplierTotalDiscount`}
                                     type="text"
                                     className="width-120 pl-20"
@@ -73,6 +74,8 @@ const DiscountSubContractorForm: React.FC<Props> = (props: Props) => {
                                     labelKey="LABEL_TOTAL_DISCOUNT"
                                     currency={props.currencySymbol}
                                     divPosition="relative"
+                                    normalize={restrictMinusAndAllowDecimal}
+
                                 />
                                 <Field
                                     name={`${member}.supplierComments`}

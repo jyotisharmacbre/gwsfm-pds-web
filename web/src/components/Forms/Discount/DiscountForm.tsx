@@ -11,7 +11,8 @@ import {
 	getPropertyName,
 	getDiscountTypeValue,
 	getFilterElementFromArray,
-	maxLimitTo
+	maxLimitTo,
+	restrictMinusAndAllowDecimalForMaxRangeHundred
 } from '../../../helpers/utility-helper';
 import { calculateClientDiscount, calculateTotalSum } from '../../../helpers/formulas';
 import { ICurrency } from '../../../store/Lookups/Types/ICurrency';
@@ -239,7 +240,7 @@ let DiscountForm: React.FC<
 										messageKey="MESSAGE_DISCOUNT"
 										labelKey="LABEL_DISCOUNT"
 										placeholderKey="PLACEHOLDER_DISCOUNT"
-										normalize={maxLimitTo(0, 100)}
+										normalize={restrictMinusAndAllowDecimalForMaxRangeHundred}
 										discountBind={getDiscountTypeValue(
 											props.projectstatus &&
 											props.projectstatus.filter(
