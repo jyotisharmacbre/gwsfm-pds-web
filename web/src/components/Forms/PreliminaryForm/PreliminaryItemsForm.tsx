@@ -2,7 +2,7 @@ import React, { Suspense }  from 'react';
 import { Field, formValueSelector } from 'redux-form';
 import PdsFormInput from '../../PdsFormHandlers/PdsFormInput';
 import { Validate, alphaNumeric, onlyNumber, isLumpSumOrCBRELabourExists, isLumpSumOrSubContractorExists, isCBRELabourOrAgencyLabourExists } from '../../../helpers/fieldValidations';
-import { restrictMinus,restrictMinusAndAllowDecimal} from '../../../helpers/utility-helper';
+import { restrictMinus,restrictMinusAndAllowDecimal, restrictMinusAndAllowDecimalForMaxRangeHundred} from '../../../helpers/utility-helper';
 import { calculateCost,calculateSell} from '../../../helpers/formulas';
 import { IState } from '../../../store/state';
 import { connect } from 'react-redux';
@@ -147,7 +147,7 @@ const PreliminaryItemsForm:React.FC<Props>
     <Field
                   name={`${member}.grossMargin`}
                   type="text"
-                  normalize={restrictMinusAndAllowDecimal}
+                  normalize={restrictMinusAndAllowDecimalForMaxRangeHundred}
                   component={PdsFormInput}
                   className="width-120 pl-20 required currency"
                   validate={[

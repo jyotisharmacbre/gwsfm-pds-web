@@ -20,7 +20,8 @@ import {
 	calculateRank,
 	maxLimitTo,
 	restrictMinusAndAllowDecimal,
-	restrictMinusAndDecimal
+	restrictMinusAndDecimal,
+	restrictMinusAndAllowDecimalForMaxRangeHundred
 } from '../../../helpers/utility-helper';
 import PdsFormTypeAhead from '../../PdsFormHandlers/PdsFormTypeAhead';
 import { IProjectDetail } from '../../../store/CustomerEnquiryForm/Types/IProjectDetail';
@@ -433,7 +434,7 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 										onlyNumber
 									]}
 									messageKey="MESSAGE_PROBABILITYOFWINING"
-									normalize={restrictMinusAndAllowDecimal}
+									normalize={restrictMinusAndAllowDecimalForMaxRangeHundred}
 								/>
 
 								<Field
@@ -546,8 +547,8 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 									labelKey="LABEL_BID_MARGIN"
 									className="pl-30 width-288"
 									discountBind="%"
-									validate={[Validate.maxLength(5),Validate.maxLimit(0,100)]}
-									normalize={restrictMinusAndAllowDecimal}
+									validate={[Validate.maxLength(5)]}
+									normalize={restrictMinusAndAllowDecimalForMaxRangeHundred}
 								/>
 
 								<Field

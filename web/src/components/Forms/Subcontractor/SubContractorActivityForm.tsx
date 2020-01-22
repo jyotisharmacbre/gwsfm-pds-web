@@ -25,7 +25,7 @@ import NewTypeAhead from '../../TypeAhead/NewTypeAhead';
 import { confirmAlert } from '../../Popup/CustomModalPopup';
 
 import ValidatedNumericInput from '../../../components/NumericInput/index';
-import { restrictMinus, restrictMinusAndAllowDecimal } from '../../../helpers/utility-helper';
+import { restrictMinus, restrictMinusAndAllowDecimal, restrictMinusAndAllowDecimalForMaxRangeHundred } from '../../../helpers/utility-helper';
 interface Props {
 	fields: any;
 	activities: Array<ISubContractorActivity>;
@@ -129,7 +129,7 @@ const SubContractorActivityForm: React.FC<Props> = (props: Props) => {
 										className="width-120 pl-20"
 										validate={[ Validate.maxLength(1000), onlyNumber ]}
 										currency="%"
-										normalize={restrictMinusAndAllowDecimal}
+										normalize={restrictMinusAndAllowDecimalForMaxRangeHundred}
 										divPosition="relative"
 										labelKey="LABEL_GROSS_MARGIN"
 										placeholderKey=""
