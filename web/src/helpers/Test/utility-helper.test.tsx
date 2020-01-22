@@ -61,20 +61,20 @@ describe('utility helper functions run without error', () => {
     expect(result).toBe(expectedResult);
   });
   it('should  allow decimal  value', () => {
-    let expectedResult = "123.33";
-    let inputvalue:any=123.33;
+    let expectedResult = "12.33";
+    let inputvalue:any=12.33;
     let result = restrictMinusAndAllowDecimalForMaxRangeHundred(inputvalue);
     expect(result).toBe(expectedResult);
   });
   it('should  allow whole number', () => {
-    let expectedResult = "123";
-    let inputvalue:any=123;
+    let expectedResult = "12";
+    let inputvalue:any=12;
     let result = restrictMinusAndAllowDecimalForMaxRangeHundred(inputvalue);
     expect(result).toBe(expectedResult);
   });
   it('should not allow decimal place more than two digits', () => {
-    let expectedResult = "123.66";
-    let inputvalue:any=123.666;
+    let expectedResult = "12.66";
+    let inputvalue:any=12.666;
     let result = restrictMinusAndAllowDecimalForMaxRangeHundred(inputvalue);
     expect(result).toBe(expectedResult);
   });
