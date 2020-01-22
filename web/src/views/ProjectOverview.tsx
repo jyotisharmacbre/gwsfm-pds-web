@@ -36,8 +36,12 @@ import { IUserServiceData } from '../store/UserService/Types/IUserService';
 import { LookupType } from '../store/Lookups/Types/LookupType';
 import * as services from '../services';
 import { currencyHoc, ICurrencyHoc } from '../hoc/CurrencyHoc';
-
+import { insuranceRateHoc, IInsuranceRateHoc } from '../hoc/InsuranceRateHoc';
+import { IAdminDefaults } from '../store/Admin/Types/IAdminDefault';
 import ProjectStatus from '../enums/ProjectStatus';
+import { ICountryHoc, countryHoc } from '../hoc/CountryHoc';
+import { ICountry } from '../store/Lookups/Types/ICountry';
+
 const tableHeaders: IGeneralTableHeaderProps[] = [
 	{ heading: 'End Client Name', subHeading: 'ING' },
 	{ heading: 'Project Name', subHeading: 'Building Maintainance' },
@@ -75,6 +79,8 @@ interface IMapStateToProps {
 	initialStateSetForProjectApprovals: boolean;
 	lookups: Array<ILookup>;
 	userNamesForEmails: Array<IUserServiceData>;
+	countries: Array<ICountry> | null;
+	adminDefaultValues: Array<IAdminDefaults>;
 }
 interface IMapDispatchToProps {
 	getProjectStatus: () => void;
@@ -98,13 +104,17 @@ interface IMapDispatchToProps {
 	getProjectActivities: (projectId: string) => void;
 	handleGetUserNamesForEmails: (emails: Array<string>) => void;
 	postComment: (projectId: string, comment: string, success, failure) => void;
+	getProjectParameters: (countryId: number) => void;
+	getAllCountries: () => void;
 }
 interface IProps {
 	projectId: string;
 	match: any;
 }
 
-const ProjectOverview: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & ICurrencyHoc> = (props) => {
+const ProjectOverview: React.FC<
+	IProps & IMapStateToProps & IMapDispatchToProps & ICurrencyHoc & ICountryHoc & IInsuranceRateHoc
+> = (props) => {
 	const projectId = props.match.params.projectId;
 	const [ customerName, setCustomerName ] = useState<string>('');
 	const [ projectManager, setProjectManager ] = useState<string>('');
@@ -120,18 +130,19 @@ const ProjectOverview: React.FC<IProps & IMapStateToProps & IMapDispatchToProps 
 		props.getPreliminaryDetails(projectId);
 		props.getDiscountData(projectId);
 		props.getProjectActivities(projectId);
+		props.getAllCountries();
 	}, []);
 
 	useEffect(
 		() => {
 			if (props.notify == Notify.success) {
 				if (props.event == EventType.next) {
-					toast.success(formatMessage("MESSAGE_SUCCESSFUL"));
+					toast.success(formatMessage('MESSAGE_SUCCESSFUL'));
 					props.history.push(`/JustificationAuthorisation/${props.match.params.projectId}`);
 				} else if (props.event == EventType.save) {
 					toast.success('Data Saved Successfully');
 				} else if (props.event == EventType.previous) {
-					toast.success(formatMessage("MESSAGE_SUCCESSFUL"));
+					toast.success(formatMessage('MESSAGE_SUCCESSFUL'));
 					props.history.push(`/Project/${props.match.params.projectId}`);
 				}
 				props.resetProjectOverviewState();
@@ -142,10 +153,14 @@ const ProjectOverview: React.FC<IProps & IMapStateToProps & IMapDispatchToProps 
 
 	useEffect(
 		() => {
-			props.setAdminDefaultValues(props.project.countryId);
+			if (props.project.countryId > 0) {
+				props.getProjectParameters(props.project.countryId);
+				props.setAdminDefaultValues(props.project.countryId);
+			}
 		},
 		[ props.project.countryId ]
 	);
+
 	const handlePrevious = () => {
 		props.history.push(`/Project/${props.match.params.projectId}`);
 	};
@@ -251,15 +266,15 @@ const ProjectOverview: React.FC<IProps & IMapStateToProps & IMapDispatchToProps 
 
 	const notifySucess = (data, actionType) => {
 		if (actionType === 'reactivate') {
-			toast.success(formatMessage("MESSAGE_SUCCESSFUL_REACTIVATED"));
+			toast.success(formatMessage('MESSAGE_SUCCESSFUL_REACTIVATED'));
 			props.getProjectDetail(props.match.params.projectId);
 		} else {
-			toast.success(formatMessage("MESSAGE_SUCCESSFUL_STATUS_CHANGED"));
+			toast.success(formatMessage('MESSAGE_SUCCESSFUL_STATUS_CHANGED'));
 		}
 	};
 
 	const notifyError = (error) => {
-		toast.error(formatMessage("MESSAGE_ERROR_MESSAGE"));
+		toast.error(formatMessage('MESSAGE_ERROR_MESSAGE'));
 	};
 
 	const handleReactivateEvent = () => {
@@ -338,6 +353,8 @@ const ProjectOverview: React.FC<IProps & IMapStateToProps & IMapDispatchToProps 
 							handleGetUserNamesForEmails={props.handleGetUserNamesForEmails}
 							postComment={props.postComment}
 							getProjectActivities={props.getProjectActivities}
+							countryCode={props.countryCode}
+							insuranceRate={props.insuranceRate}
 						/>
 					</div>
 				</div>
@@ -361,7 +378,9 @@ const mapStateToProps = (state: IState) => ({
 	currencies: state.lookup.currencies,
 	lookups: state.lookup.lookups,
 	initialStateSetForProjectApprovals: state.projectOverview.initialStateSetForProjectApprovals,
-	userNamesForEmails: state.userService.userServiceData
+	userNamesForEmails: state.userService.userServiceData,
+	adminDefaultValues: state.admin.adminDefaultValues,
+	countries: state.lookup.countries
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -386,8 +405,10 @@ const mapDispatchToProps = (dispatch) => {
 		getProjectActivities: (projectId) => dispatch(actions.getProjectActivities(projectId)),
 		handleGetUserNamesForEmails: (emails: Array<string>) => dispatch(actions.getUserNamesForEmailsService(emails)),
 		postComment: (projectId: string, comment: string, success, failure) =>
-			dispatch(actions.postComments(projectId, comment, success, failure))
+			dispatch(actions.postComments(projectId, comment, success, failure)),
+		getProjectParameters: (countryId: number) => dispatch(actions.getProjectParameters(countryId)),
+		getAllCountries: () => dispatch(actions.getAllContries())
 	};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(currencyHoc(ProjectOverview));
+export default connect(mapStateToProps, mapDispatchToProps)(currencyHoc(countryHoc(insuranceRateHoc(ProjectOverview))));
