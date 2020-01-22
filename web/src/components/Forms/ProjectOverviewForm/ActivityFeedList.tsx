@@ -28,13 +28,16 @@ interface IMapStateToProps {
 const ActivityFeedList: React.FC<IProps & IMapStateToProps> = (props) => {
 	const [activityFeedData, setActivityFeedData] = useState<Array<IActivityFeed>>([]);
 	const [isprojectActivitiesUpdated, setIsprojectActivitiesUpdated] = useState<boolean>(false);
+	console.log('props.projectActivities', props.projectActivities);
 	useEffect(
 		() => {
+			console.log('props.projectActivities.length', props.projectActivities.length);
 			if (props.projectActivities.length > 0) {
 				let emails: Array<string> = [];
 				props.projectActivities.map((data, index) => {
 					emails.push(data.userId);
 				});
+				console.log('emails', emails);
 				props.handleGetUserNamesForEmails(emails);
 				setIsprojectActivitiesUpdated(true);
 			}
@@ -64,9 +67,6 @@ const ActivityFeedList: React.FC<IProps & IMapStateToProps> = (props) => {
 							createdDate: data.createdOn
 						});
 					});
-					const sortByKey = key => (a, b) => a[key] < b[key] ? 1 : -1;
-					let sortedFeed = activityFeed.slice().sort(sortByKey('createdOn'));
-					setActivityFeedData(sortedFeed);
 				}
 			}
 		},
@@ -104,7 +104,7 @@ const ActivityFeedList: React.FC<IProps & IMapStateToProps> = (props) => {
 					<FormattedMessage id="LABEL_ACTIVITY_FEED" />
 				</h3>
 			)}
-			<section className="activity_feed">
+			<section id="renderedGrid" className="activity_feed">
 				{activityFeedData &&
 					activityFeedData.map((data) => (
 						<ActivityFeed
