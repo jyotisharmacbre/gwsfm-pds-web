@@ -49,8 +49,10 @@ describe('Discount Sub Contractor Form tests', () => {
 
     it('test the add addSubContractorDiscount click event', () => {
         let addSubContractorDiscount = findByTestAtrr(wrapper, 'addSubContractorDiscount');
+        let deletebutton = findByTestAtrr(wrapper, 'deleteDiscountSubContractor');
         addSubContractorDiscount.simulate('click');
         wrapper.update();
+        expect(deletebutton).not.toBeNull();
     });
 
     it('should disable the new activity button when subcontractor discount length is greater than 5', () => {
