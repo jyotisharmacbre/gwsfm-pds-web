@@ -276,6 +276,7 @@
     "VALIDATION_IS_REQUIRED": "{0} is required",
     "VALIDATION_ONLY_ALPHA_NUM": "Only alphanumeric characters",
     "FIELD_VALIDATION_KEY": "Must have a maximum of {0} characters",
+    "FIELD_VALIDATION_KEY_MAX_LIMIT": "Must have a range between {0} to {1} numbers",
     "ASSET_ALREADY_SELECTED_VALIDATION_KEY": "Asset Value is already selected",
     "T_HEADING_TOTAL_COST": "Total Cost",
     "T_HEADING_TOTAL_MARGIN": "Total Margin",
@@ -297,5 +298,6 @@
     "MESSAGE_SUCCESSFUL_STATUS_CHANGED": "Project status changed successfully",
     "MESSAGE_SUCCESSFUL_APPROVED": "Approved Successfully",
     "MESSAGE_SUCCESSFUL_SUBMITED": "Submitted Successfully",
-    "MESSAGE_QUERY_SUCCESS": "Query Saved Successfully"
+    "MESSAGE_QUERY_SUCCESS": "Query Saved Successfully",
+    "MESSAGE_WARNING": "After submitting the query, project status will be changed to J&A and all previous approvals will be reset and will require approval again."
 }

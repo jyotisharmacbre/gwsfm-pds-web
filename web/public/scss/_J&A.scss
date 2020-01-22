@@ -29,10 +29,20 @@
 .card_wrap {
     background: map-get($colors , whiteColor );
     @include borderRadius (3px);
-    padding: 28px 20px 0px 20px; 
+    padding: 38px 20px 10px 20px; 
+    @include transition(all 0.4s cubic-bezier(0.4, 0, 1, 1));
     @include boxShadow(0 0 13px rgba(0, 0, 0, 0.1));
     margin: 10px 0;
     height: 100%;
+    &:hover {
+        @include transform(translateY(-10px));
+        @include boxShadow(0 10px 13px rgba(0, 0, 0, 0.1));
+        .card {
+            .title {
+                color: map-get($colors , lightGreen );
+            }
+        }
+    }
     cursor: pointer;
     @include mdScreen {
         height: auto;
@@ -77,6 +87,7 @@
             font-size: 24px;
             color: map-get($colors , darkGreen );
             font-weight: 600;
+            @include transition(all 0.4s cubic-bezier(0.4, 0, 1, 1));
             @include lgScreen {
                 margin-top: 0;
             }

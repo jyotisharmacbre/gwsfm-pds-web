@@ -18,7 +18,10 @@ import {
 	getFilterElementFromArray,
 	normalizeToNumber,
 	calculateRank,
-	maxLimitTo
+	maxLimitTo,
+	restrictMinusAndAllowDecimal,
+	restrictMinusAndDecimal,
+	restrictMinusAndAllowDecimalForMaxRangeHundred
 } from '../../../helpers/utility-helper';
 import PdsFormTypeAhead from '../../PdsFormHandlers/PdsFormTypeAhead';
 import { IProjectDetail } from '../../../store/CustomerEnquiryForm/Types/IProjectDetail';
@@ -418,25 +421,25 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 									</div>
 								</div>
 
-								<ValidatedNumericInput
+								<Field
 									name="probabilityOfWinning"
-									type="number"
+									type="text"
 									component={PdsFormInput}
 									labelKey="LABEL_PROBABILITY_OF_WINING"
 									placeholderKey="PLACEHOLDER_WIN_PROBABILITY"
 									className="width-100 required"
 									validate={[
 										Validate.required('LABEL_PROBABILITY_OF_WINING'),
-										Validate.maxLength(3),
+										Validate.maxLength(5),
 										onlyNumber
 									]}
 									messageKey="MESSAGE_PROBABILITYOFWINING"
-									normalize={maxLimitTo(0, 100)}
+									normalize={restrictMinusAndAllowDecimalForMaxRangeHundred}
 								/>
 
-								<ValidatedNumericInput
+								<Field
 									name="approxValue"
-									type="number"
+									type="text"
 									component={PdsFormInput}
 									className="width-120 pl-20 required"
 									validate={[
@@ -444,6 +447,7 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 										Validate.maxLength(1000),
 										onlyNumber
 									]}
+									normalize={restrictMinusAndAllowDecimal}
 									currency={getFilterElementFromArray(
 										props.currencies,
 										getPropertyName(CurrencyObj, (prop) => prop.currencyId),
@@ -538,21 +542,22 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 								</div>
 								<Field
 									name="soldMargin"
-									type="number"
+									type="text"
 									component={PdsFormInput}
 									labelKey="LABEL_BID_MARGIN"
 									className="pl-30 width-288"
 									discountBind="%"
-									validate={[Validate.maxLength(3)]}
-									normalize={maxLimitTo(0, 100)}
+									validate={[Validate.maxLength(5)]}
+									normalize={restrictMinusAndAllowDecimalForMaxRangeHundred}
 								/>
 
 								<Field
 									name="weightedTCV"
-									type="number"
+									type="text"
 									component={PdsFormInput}
 									labelKey="LABEL_WEIGHTED_TCV"
 									className="pl-20 width-288"
+									normalize={restrictMinusAndDecimal}
 									currency={getFilterElementFromArray(
 										props.currencies,
 										getPropertyName(CurrencyObj, (prop) => prop.currencyId),

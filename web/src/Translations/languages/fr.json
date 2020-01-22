@@ -281,6 +281,7 @@
   "VALIDATION_IS_REQUIRED": "{0} est requis",
   "VALIDATION_ONLY_ALPHA_NUM": "Seulement des caractères alphanumériques",
   "FIELD_VALIDATION_KEY": "Doit contenir un maximum de {0} caractères",
+  "FIELD_VALIDATION_KEY_MAX_LIMIT": "Doit contenir un intervalle entre {0} à {1} Nombres",
   "ASSET_ALREADY_SELECTED_VALIDATION_KEY": "La valeur de l'actif est déjà sélectionnée",
   "T_HEADING_TOTAL_COST": "Coût total",
   "T_HEADING_TOTAL_MARGIN": "Marge totale",
@@ -302,5 +303,6 @@
   "MESSAGE_SUCCESSFUL_STATUS_CHANGED": "Le statut du projet a changé avec succès",
   "MESSAGE_SUCCESSFUL_APPROVED": "Approuvé avec succès",
   "MESSAGE_SUCCESSFUL_SUBMITED": "Soumis avec succès",
-  "MESSAGE_QUERY_SUCCESS": "Requête enregistrée avec succès"
+  "MESSAGE_QUERY_SUCCESS": "Requête enregistrée avec succès",
+  "MESSAGE_WARNING": "Après avoir soumis la requête, le statut du projet sera changé en J&A et toutes les approbations précédentes seront réinitialisées et devront à nouveau être approuvées."
 }

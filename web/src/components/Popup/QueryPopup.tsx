@@ -9,7 +9,7 @@ import warn_icon from '../../components/images/warn_icon.svg';
 interface IProps {
     intl: any,
     titleKey?: any,
-    subTitleKey?:any,
+    subTitleKey?: any,
     contentKey?: any,
     handleConfirm?: (data: string) => void,
     handleReject?: () => void
@@ -47,15 +47,15 @@ const QueryPopup: React.FC<IProps> = props => {
                         <textarea name="projectAdditionalDetail.comments" placeholder={formatMessage("PLACEHOLDER_QUERY")} rows={3} className="form-control undefined " onChange={e => setValue(e.target.value)}></textarea>
                         <p className="warn_msg">
                             <img className="warn_icon" src={warn_icon} alt="close" />
-                            <FormattedMessage id="MESSAGE_WARNING" />
+                            <i><FormattedMessage id="MESSAGE_WARNING" /></i>
                         </p>
                     </div>
                     <div className="modal-footer">
                         <button type="button" data-test="button_reject" className="" onClick={() => reject()}>
-                        {formatMessage("BUTTON_CANCEL")}
+                            {formatMessage("BUTTON_CANCEL")}
                         </button>
                         <button type="button" data-test="button_confirm" id="button_confirm" className="active" onClick={() => confirm()}>
-                        {formatMessage("BUTTON_SUBMIT")}
+                            {formatMessage("BUTTON_SUBMIT")}
                         </button>
                     </div>
                 </div>
