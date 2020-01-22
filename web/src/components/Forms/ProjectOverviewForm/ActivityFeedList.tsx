@@ -101,7 +101,7 @@ const ActivityFeedList: React.FC<IProps & IMapStateToProps> = (props) => {
 					<FormattedMessage id="LABEL_ACTIVITY_FEED" />
 				</h3>
 			)}
-			<section id="renderedGrid" className="activity_feed">
+			<section className="activity_feed">
 				{activityFeedData &&
 					activityFeedData.map((data) => (
 						<ActivityFeed
