@@ -33,8 +33,7 @@ const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleE
               className="card-header p-l-43"
               data-toggle="collapse"
               data-test="tickWrap"
-              
-              
+              onClick={()=>onToggleEvent(prelimData[index].componentId)}
             >
                {prelimData[index].items.find(x=>x.preliminaryId)? <div className="tick_wrap">
               <FontAwesomeIcon icon={faCheck} />
@@ -42,10 +41,9 @@ const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleE
              
               <a className="card-link" >{prelimData[index].componentName}</a>
              
-              {!CheckConstraints(prelimData[index].componentId)
-              ?<span aria-hidden="true">
-              <FontAwesomeIcon data-test="collapse" className="active" icon={faAngleUp} onClick={()=>onToggleEvent(prelimData[index].componentId)}/>
-              </span>:null}
+              <span aria-hidden="true">
+              <FontAwesomeIcon data-test="collapse" className="active" icon={faAngleUp}/>
+              </span>
             </div>
             <div
                id={"collapse_"+prelimData[index].componentId}

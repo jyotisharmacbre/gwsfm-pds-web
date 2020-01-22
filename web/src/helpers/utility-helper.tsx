@@ -1,6 +1,6 @@
 import React from 'react';
 import ProjectStatus from '../enums/ProjectStatus';
-import moment from 'moment';
+import moment, { invalid } from 'moment';
 
 export const updateObject = (oldState, updatedProperties) => {
 	return {
@@ -86,14 +86,75 @@ export const getFilterElementFromArray = (
 	}
 	return element;
 };
-
+export const restrictMinusAndAllowDecimal=(value:number)=>{
+	var engRegex=/^[0-9.]+$/;
+	if (value < 0 || !engRegex.test(value.toString())) {return 0;}
+	else if(value.toString()=="0"){return 0;}
+	else {
+		let isValidDecimalOrWholeNumber=value.toString();
+		var regexp = /^\d+\.\d{0,2}$/;
+		if(regexp.test(isValidDecimalOrWholeNumber))
+		{
+			if(isValidDecimalOrWholeNumber.indexOf('.')==-1)
+			{
+				isValidDecimalOrWholeNumber=isValidDecimalOrWholeNumber.replace(/^0+/, '');
+			}
+			return isValidDecimalOrWholeNumber;
+		}
+	    else{
+			let isValid:any=isValidDecimalOrWholeNumber.match(/[.]/g);
+			if(isValid!=null&&isValid!=undefined&&isValid.length>1)
+			{
+				isValidDecimalOrWholeNumber=isValidDecimalOrWholeNumber.substring(0,isValidDecimalOrWholeNumber.lastIndexOf('.'));
+			}
+			else
+			{
+				let index=isValidDecimalOrWholeNumber.indexOf(".");
+				isValidDecimalOrWholeNumber=isValidDecimalOrWholeNumber.length==2?isValidDecimalOrWholeNumber.replace(/^0+/, ''):isValidDecimalOrWholeNumber.substring(0,(index!=-1?(isValidDecimalOrWholeNumber.indexOf(".")+3):isValidDecimalOrWholeNumber.length));
+			}
+		}
+		return isValidDecimalOrWholeNumber;
+}
+}
+export const restrictMinusAndAllowDecimalForMaxRangeHundred=(value:number)=>{
+	var engRegex=/^[0-9.]+$/;
+	if (value < 0 || !engRegex.test(value.toString())) {return 0;}
+	else if(value.toString()=="0"){return 0;}
+	else if(value>100){return 100;}
+	else {
+		let isValidDecimalOrWholeNumber=value.toString();
+		var regexp = /^\d+\.\d{0,2}$/;
+		if(regexp.test(isValidDecimalOrWholeNumber))
+		{
+			if(isValidDecimalOrWholeNumber.indexOf('.')==-1)
+			{
+				isValidDecimalOrWholeNumber=isValidDecimalOrWholeNumber.replace(/^0+/, '');
+			}
+			return isValidDecimalOrWholeNumber;
+		}
+	    else{
+			let isValid:any=isValidDecimalOrWholeNumber.match(/[.]/g);
+			if(isValid!=null&&isValid!=undefined&&isValid.length>1)
+			{
+				isValidDecimalOrWholeNumber=isValidDecimalOrWholeNumber.substring(0,isValidDecimalOrWholeNumber.lastIndexOf('.'));
+			}
+			else
+			{
+				let index=isValidDecimalOrWholeNumber.indexOf(".");
+				isValidDecimalOrWholeNumber=isValidDecimalOrWholeNumber.length==2?isValidDecimalOrWholeNumber.replace(/^0+/, ''):isValidDecimalOrWholeNumber.substring(0,(index!=-1?(isValidDecimalOrWholeNumber.indexOf(".")+3):isValidDecimalOrWholeNumber.length));
+			}
+		}
+		return isValidDecimalOrWholeNumber;
+}
+}
 export const restrictMinus = (value: number) => {
 	if (value < 0) {
 		return 0;
 	} else {
 		return parseFloat(value.toString()?value.toString():"0");
 	}
-};
+	}
+
 export const restrictMinusAndDecimal = (value: number) => {
   if (value < 0) {
     return 0;
