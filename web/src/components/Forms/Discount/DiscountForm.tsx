@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Field, reduxForm, InjectedFormProps, formValueSelector, getFormValues } from 'redux-form';
+import { Field, reduxForm, InjectedFormProps, formValueSelector, getFormValues, FieldArray } from 'redux-form';
 import PdsFormInput from '../../PdsFormHandlers/PdsFormInput';
 import PdsFormTextArea from '../../PdsFormHandlers/PdsFormTextArea';
 import { Validate } from '../../../helpers/fieldValidations';
@@ -11,7 +11,8 @@ import {
 	getPropertyName,
 	getDiscountTypeValue,
 	getFilterElementFromArray,
-	maxLimitTo
+	maxLimitTo,
+	restrictMinusAndAllowDecimalForMaxRangeHundred
 } from '../../../helpers/utility-helper';
 import { calculateClientDiscount, calculateTotalSum } from '../../../helpers/formulas';
 import { ICurrency } from '../../../store/Lookups/Types/ICurrency';
@@ -26,11 +27,15 @@ import { ISubContractorActivity } from '../../../store/SubContractor/Types/ISubC
 import { IPreliminariesComponentDetails } from '../../../store/Preliminaries/Types/IPreliminariesComponentDetails';
 import {
 	getSubContractorSummaryCalculation,
-	getPreliminarySummaryCalculation
+	getPreliminarySummaryCalculation,
+	getSupplierTotalDiscount,
 } from '../../../helpers/pricing-calculation-helper';
 import ValidatedNumericInput from '../../NumericInput';
 import { toast } from 'react-toastify';
 import * as services from '../../../services';
+import DiscountSubContractorForm from './DiscountSubContractorForm';
+import IReactIntl from '../../../Translations/IReactIntl';
+import IClientDiscount from '../../../store/DiscountForm/Types/IClientDiscount';
 
 interface Props {
 	onNext: (data: IDiscountActivity) => void;
@@ -48,8 +53,7 @@ interface Props {
 
 interface IMapStateToProps {
 	initialValues: IDiscountActivity;
-	discountTypeValue: number;
-	clientDiscountValue: number;
+	clientDiscount: IClientDiscount;
 	discountForm: {} | IDiscountActivity;
 	userPreferenceCurrencyId: number;
 	subContractorState: Array<ISubContractorActivity>;
@@ -57,16 +61,16 @@ interface IMapStateToProps {
 }
 
 let DiscountForm: React.FC<
-	Props & IMapStateToProps & InjectedFormProps<IDiscountActivity, Props & IMapStateToProps>
+	Props & IMapStateToProps & IReactIntl & InjectedFormProps<IDiscountActivity, Props & IMapStateToProps>
 > = (props) => {
-	const { handleSubmit, initialValues, discountTypeValue } = props;
+	const { handleSubmit, initialValues, clientDiscount, intl } = props;
 	const normalize = (value) => (value ? parseInt(value) : null);
 	const CurrencyObj = new Currency();
-	const [ currencySymbol, setCurrencySymbol ] = useState<string>('');
+	const [currencySymbol, setCurrencySymbol] = useState<string>('');
 	let initDiscount: IPricing = { cost: 0, sell: 0, margin: 0 };
-	const [ subContractorCalc, setSubContractorCalc ] = useState<IPricing>({ ...initDiscount });
-	const [ preliminaryCalc, setPreliminaryCalc ] = useState<IPricing>({ ...initDiscount });
-	const [ contractor, setContractor ] = useState<string>('');
+	const [subContractorCalc, setSubContractorCalc] = useState<IPricing>({ ...initDiscount });
+	const [preliminaryCalc, setPreliminaryCalc] = useState<IPricing>({ ...initDiscount });
+	const [contractor, setContractor] = useState<string>('');
 	// const currencySymbol = getFilterElementFromArray(
 	// 	props.currencies,
 	// 	getPropertyName(CurrencyObj, (prop) => prop.currencyId),
@@ -86,7 +90,7 @@ let DiscountForm: React.FC<
 				);
 			}
 		},
-		[ props.currencyId, props.currencies ]
+		[props.currencyId, props.currencies]
 	);
 
 	useEffect(
@@ -95,7 +99,7 @@ let DiscountForm: React.FC<
 				setSubContractorCalc(getSubContractorSummaryCalculation(props.subContractorState));
 			}
 		},
-		[ props.subContractorState ]
+		[props.subContractorState]
 	);
 
 	useEffect(
@@ -104,7 +108,7 @@ let DiscountForm: React.FC<
 				setPreliminaryCalc(getPreliminarySummaryCalculation(props.preliminaryState));
 			}
 		},
-		[ props.preliminaryState ]
+		[props.preliminaryState]
 	);
 
 	useEffect(
@@ -122,7 +126,7 @@ let DiscountForm: React.FC<
 						});
 			}
 		},
-		[ props.contractorId ]
+		[props.contractorId]
 	);
 
 	const getContractorSuccess = (response) => {
@@ -148,52 +152,31 @@ let DiscountForm: React.FC<
 			<div className=" row">
 				<div className="col-lg-12 col-sm-12">
 					<div className="Discountforms_wrap">
-						<form className="custom-wrap p-0" noValidate={true}>
-							<div className="row">
-								<div className="col-lg-8">
+						<form className="custom-wrap p-0" onSubmit={handleSubmit} noValidate={true}>
+							<div className=" row">
+								<div className="col-lg-5 col-sm-5">
 									<h2>
 										<FormattedMessage id="TITLE_SUBCONTRACTOR_DISCOUNT" />
 									</h2>
-									<Field
-										name="supplierName"
-										type="text"
-										component={PdsFormInput}
-										validate={[ Validate.maxLength(1000) ]}
-										messageKey="MESSAGE_SUPPLIER_NAME"
-										labelKey="LABEL_SUPPLIER"
-										placeholderKey="PLACEHOLDER_ENTER_SUPPLIER_NAME"
-									/>
-									<Field
-										name="supplierState"
-										type="text"
-										component={PdsFormInput}
-										validate={[ Validate.maxLength(1000) ]}
-										messageKey="MESSAGE_STATE_DETAILS_NAME"
-										labelKey="LABEL_STATE_DETAILS"
-										placeholderKey="PLACEHOLDER_ENTER_STATE_DETAILS"
-									/>
-									<ValidatedNumericInput
-										name="supplierTotalDiscount"
-										type="text"
-										className="width-120 pl-20"
-										component={PdsFormInput}
-										validate={[ Validate.maxLength(15) ]}
-										messageKey="MESSAGE_TOTAL_DISCOUNT"
-										labelKey="LABEL_TOTAL_DISCOUNT"
-										currency={currencySymbol}
-										divPosition="relative"
-									/>
-									<Field
-										name="supplierComments"
-										rows={7}
-										type="textarea"
-										component={PdsFormTextArea}
-										validate={[ Validate.maxLength(5000) ]}
-										labelKey="LABEL_COMMENTS"
-										placeholderKey="PLACEHOLDER_ADDITIONAL_COMMENTS"
-									/>
+								</div>
+								<div className="col-lg-4 col-sm-4">
+									<h6 className="discount-supplierTotalDiscount">
+										<FormattedMessage id="LABEL_TOTAL_SUBCONTRACTOR_DISCOUNT" /> :
+
+									    <span data-test="supplierTotalDiscountValue">
+											{
+												props.discountForm && getSupplierTotalDiscount(props.discountForm['subContractorDiscounts'])
+											}
+										</span>
+									</h6>
 								</div>
 							</div>
+							<FieldArray
+								name="subContractorDiscounts"
+								component={DiscountSubContractorForm}
+								intl={props.intl}
+								currencySymbol={currencySymbol}
+							/>
 							<div className="row">
 								<div className="col-lg-12">
 									<div className="hr_line" />
@@ -216,10 +199,10 @@ let DiscountForm: React.FC<
 										placeholderKey="PLACEHOLDER_ENTER_CLIENT_NAME"
 									/>
 									<Field
-										name="clientState"
+										name="clientDiscount.clientState"
 										type="text"
 										component={PdsFormInput}
-										validate={[ Validate.maxLength(1000) ]}
+										validate={[Validate.maxLength(1000)]}
 										messageKey="MESSAGE_STATE_DETAILS"
 										labelKey="LABEL_STATE_DETAILS"
 										placeholderKey="PLACEHOLDER_ENTER_STATE_DETAILS"
@@ -235,7 +218,7 @@ let DiscountForm: React.FC<
 													return (
 														<div className="form-check" key={index}>
 															<Field
-																name="discountType"
+																name="clientDiscount.discountType"
 																component="input"
 																type="radio"
 																value={+data.lookupKey}
@@ -249,21 +232,21 @@ let DiscountForm: React.FC<
 												})}
 									</div>
 									<Field
-										name="clientDiscount"
+										name="clientDiscount.discount"
 										type="number"
 										className="width-120 pl-20"
 										component={PdsFormInput}
-										validate={[ Validate.maxLength(15) ]}
+										validate={[Validate.maxLength(15)]}
 										messageKey="MESSAGE_DISCOUNT"
 										labelKey="LABEL_DISCOUNT"
 										placeholderKey="PLACEHOLDER_DISCOUNT"
-										normalize={maxLimitTo(0, 100)}
+										normalize={restrictMinusAndAllowDecimalForMaxRangeHundred}
 										discountBind={getDiscountTypeValue(
 											props.projectstatus &&
-												props.projectstatus.filter(
-													(element) => element.lookupItem == LookupType.Discount_Type
-												),
-											discountTypeValue,
+											props.projectstatus.filter(
+												(element) => element.lookupItem == LookupType.Discount_Type
+											),
+											clientDiscount?.discountType,
 											currencySymbol
 										)}
 										divPosition="relative"
@@ -274,17 +257,17 @@ let DiscountForm: React.FC<
 									<label className="m-0 mb-4">
 										{currencySymbol}
 										{calculateClientDiscount(
-											discountTypeValue,
+											clientDiscount?.discountType,
 											calculateTotalSum(subContractorCalc.sell, preliminaryCalc.sell),
-											props.clientDiscountValue
+											clientDiscount?.discount ? clientDiscount?.discount : 0
 										)}
 									</label>
 									<Field
-										name="clientComments"
+										name="clientDiscount.clientComments"
 										rows={7}
 										type="textarea"
 										component={PdsFormTextArea}
-										validate={[ Validate.maxLength(5000) ]}
+										validate={[Validate.maxLength(5000)]}
 										labelKey="LABEL_COMMENTS"
 										placeholderKey="PLACEHOLDER_ADDITIONAL_COMMENTS"
 									/>
@@ -329,8 +312,7 @@ let DiscountForm: React.FC<
 
 const mapStateToProps = (state: IState) => ({
 	initialValues: state.discount.form,
-	discountTypeValue: discountSelector(state, 'discountType'),
-	clientDiscountValue: discountSelector(state, 'clientDiscount'),
+	clientDiscount: discountSelector(state, 'clientDiscount'),
 	discountForm: getFormValues('DiscountForm')(state),
 	userPreferenceCurrencyId: userPreferenceSelector(state, 'currencyId'),
 	subContractorState: state.subContractor.form.activities,
@@ -339,8 +321,8 @@ const mapStateToProps = (state: IState) => ({
 
 const form = reduxForm<IDiscountActivity, Props & IMapStateToProps>({
 	form: 'DiscountForm',
-	enableReinitialize: true
-})(DiscountForm);
+	enableReinitialize: true,
+})(injectIntl(DiscountForm));
 
 const discountSelector = formValueSelector('DiscountForm');
 const userPreferenceSelector = formValueSelector('UserProfileForm');

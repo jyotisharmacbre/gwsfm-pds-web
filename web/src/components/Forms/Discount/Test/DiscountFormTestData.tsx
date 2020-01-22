@@ -1,55 +1,80 @@
 import Notify from '../../../../enums/Notify';
 import EventType from '../../../../enums/EventType';
+import IDiscountSubContractor from '../../../../store/DiscountForm/Types/IDiscountSubContractor';
+
+export const newSubContractorDiscount: IDiscountSubContractor = {
+    subContractorDiscountId: '',
+    projectId: '',
+    supplierName: '',
+    supplierState: '',
+    supplierTotalDiscount: undefined,
+    supplierComments: '',
+}
 
 export const DiscountFormProps = {
-    discountId: '',
+
     projectId: '123',
-    supplierName: 'Test',
-    supplierState: 'Test',
-    supplierTotalDiscount: 123,
-    supplierComments: 'Test',
-    clientState: 'Test',
-    discountType: 1,
-    clientDiscount: 1,
-    clientComments: 'Test'
-    };
-    
+    clientDiscount: {
+        projectId: '123',
+        discountId: '',
+        clientState: 'Test',
+        discountType: 1,
+        discount: 1,
+        clientComments: 'Test',
+    },
+    subContractorDiscounts: [{
+        projectId: '123',
+        subContractorDiscountId: '1',
+        supplierName: 'Test',
+        supplierState: 'Test',
+        supplierTotalDiscount: 123,
+        supplierComments: 'Test',
+    }],
+
+}
 
 export const getdiscountFormData = {
     form: {
-        discountId: '',
         projectId: '',
-        supplierName: '',
-        supplierState: '',
-        supplierTotalDiscount: undefined,
-        supplierComments: '',
-        clientState: '',
-        discountType: 1,
-        clientDiscount: undefined,
-        clientComments: ''
-      },
-      error: null,
-      loading: false,
-      notify: Notify.none,
-      event: EventType.none
-    };
-
-    export const initialState = {
-        form: {
+        clientDiscount: {
             discountId: '',
+            projectId: '',
+            discount: undefined,
+            clientState: '',
+            discountType: 1,
+            clientComments: ''
+        },
+        subContractorDiscounts: [{ ...newSubContractorDiscount }],
+    },
+    error: null,
+    loading: false,
+    notify: Notify.none,
+    event: EventType.none
+};
+
+export const initialState = {
+    form: {
+        projectId: '123',
+        clientDiscount: {
+            discountId: '',
+            projectId: '123',
+            clientState: 'Test',
+            discountType: 1,
+            discount: 1,
+            clientComments: 'Test',
+        },
+        subContractorDiscounts: [{
+            subContractorDiscountId: '',
             projectId: '123',
             supplierName: 'Test',
             supplierState: 'Test',
             supplierTotalDiscount: 1,
             supplierComments: 'Test',
-            clientState: 'Test',
-            discountType: 1,
-            clientDiscount: 1,
-            clientComments: 'Test'
-          },
-          error: null,
-          loading: false,
-          notify: Notify.success,
-          event: EventType.save
-      };
-    
+        }],
+    },
+    error: null,
+    loading: false,
+    notify: Notify.success,
+    event: EventType.save
+};
+
