@@ -27,7 +27,7 @@ interface IMapStateToProps {
 
 const ActivityFeedList: React.FC<IProps & IMapStateToProps> = (props) => {
 	const [ activityFeedData, setActivityFeedData ] = useState<Array<IActivityFeed>>([]);
-	const [ userNamesForEmails, setUserNamesForEmails ] = useState([]);
+	const [ userNamesForEmails, setUserNamesForEmails ] = useState<any>([]);
 	useEffect(
 		() => {
 			if (props.projectActivities.length > 0) {
