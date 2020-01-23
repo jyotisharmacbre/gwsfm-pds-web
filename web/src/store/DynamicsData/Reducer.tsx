@@ -10,7 +10,8 @@ const initialState: IDynamicDataState = {
   dynamicsOtherContract: [],
   dynamicsSubcontractor: [],
   dynamicsOtherSubContractor: [],
-  dynamicsListOfDivision: []
+  dynamicsListOfDivision: [],
+  dynamicsListOfBusinessUnits:[]
 };
 
 const getDynamicContractSuccess = (oldState, action) => {
@@ -69,12 +70,24 @@ const getDynamicSubContractorOther = (oldState, action) => {
     dynamicsOtherSubContractor: action.payload
   });
 };
-const getDynamicDivision = (oldState, action) => {
+const getDynamicDivisionSuccess = (oldState, action) => {
   return updateObject(oldState, {
     dynamicsListOfDivision: action.payload
   });
 };
-
+const getDynamicDivisionError = (oldState, action) => {
+  return updateObject(oldState, {
+    error: action.payload
+  });
+};
+const getDynamicBusinessUnitSuccess=(oldState,action)=>
+{
+  return updateObject(oldState,{dynamicsListOfBusinessUnits:action.payload})
+}
+const getDynamicBusinessUnitError=(oldState,action)=>
+{
+  return updateObject(oldState,{error:action.payload})
+}
 const dynamicDataReducer = (oldState = initialState, action) => {
   switch (action.type) {
     case ActionType.DYNAMIC_CONTRACT_DATA_GET_SUCCESS:
@@ -96,7 +109,13 @@ const dynamicDataReducer = (oldState = initialState, action) => {
     case ActionType.DYNAMIC_OTHER_SUB_CONTRACTOR_SUCCESS:
       return getDynamicSubContractorOther(oldState, action);
     case ActionType.DYNAMIC_DIVISION_DATA_GET_SUCCESS:
-      return getDynamicDivision(oldState, action);
+      return getDynamicDivisionSuccess(oldState, action);
+    case ActionType.DYNAMIC_DIVISION_DATA_GET_ERROR:
+      return getDynamicDivisionError(oldState, action);
+    case ActionType.DYNAMIC_BUSINESSUNIT_SUCCESS:
+      return getDynamicBusinessUnitSuccess(oldState, action);
+    case ActionType.DYNAMIC_BUSINESSUNIT_ERROR:
+      return getDynamicDivisionError(oldState, action);
     default:
       return oldState;
   }

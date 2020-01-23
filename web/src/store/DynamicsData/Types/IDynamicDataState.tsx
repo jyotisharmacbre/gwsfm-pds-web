@@ -3,7 +3,8 @@ import {
   IDynamicContractCustomerData,
   IDynamicOther,
   IDynamicSubContractorData,
-  IDynamicsDivision
+  IDynamicsDivision,
+  IDynamicBusinessUnits
 } from './IDynamicData';
 
 export interface IDynamicDataState {
@@ -15,4 +16,5 @@ export interface IDynamicDataState {
   dynamicsOtherCompany: Array<IDynamicOther>;
   dynamicsSubcontractor: Array<IDynamicSubContractorData>;
   dynamicsOtherSubContractor: Array<IDynamicOther>;
+  dynamicsListOfBusinessUnits:Array<IDynamicBusinessUnits>;
 }

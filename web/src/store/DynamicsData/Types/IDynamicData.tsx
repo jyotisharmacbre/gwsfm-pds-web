@@ -26,5 +26,9 @@ export interface IDynamicsOtherSubContractor {
 }
 export interface IDynamicsDivision {
   divisionId: string,
-  description: string,
+  description: string
+}
+export interface IDynamicBusinessUnits{
+  businessUnitId: string,
+  description: string
 }

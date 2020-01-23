@@ -52,7 +52,8 @@ export {
 	getDynamicCompanyData,
 	getDynamicSubContractorData,
 	getDynamicOther,
-	getListOfDivision
+	getListOfDivision,
+	getListOfBusinessUnits
 } from './DynamicsData/Action';
 
 export { getUserNamesForEmailsService } from './UserService/Action';
