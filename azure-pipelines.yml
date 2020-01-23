@@ -38,7 +38,7 @@ steps:
       Write-Host "##vso[task.setvariable variable=endTime]$checkinenddate"
 
 - task: restCallBuildTask@0
-  displayName: 'Code check-in'
+  displayName: 'Post Code check-in Metrics'
   inputs:
     webserviceEndpoint: 'Metrics'
     relativeUrl: 
@@ -61,7 +61,7 @@ steps:
     allowInvalidSSLCertificate: false
 
 - task: restCallBuildTask@0
-  displayName: 'Build Artifacst'
+  displayName: 'Post Build Artifacst Metrics'
   inputs:
     webserviceEndpoint: 'Metrics'
     relativeUrl: 
@@ -84,7 +84,7 @@ steps:
     allowInvalidSSLCertificate: false
 
 - task: restCallBuildTask@0
-  displayName: 'Code Review'
+  displayName: 'Post Code Review Metrics'
   inputs:
     webserviceEndpoint: 'Metrics'
     relativeUrl: 
@@ -107,7 +107,7 @@ steps:
     allowInvalidSSLCertificate: false
 
 - task: restCallBuildTask@0
-  displayName: 'Secret management'
+  displayName: 'Post Secret management Metrics'
   inputs:
     webserviceEndpoint: 'Metrics'
     relativeUrl: 
@@ -141,7 +141,7 @@ steps:
     verbose: false
 
 - task: PowerShell@2
-  displayName: 'Code Build start'
+  displayName: 'Code Build start time'
   inputs:
     targetType: 'inline'
     script: |
@@ -159,7 +159,7 @@ steps:
 
 
 - task: PowerShell@2
-  displayName: 'Code Build End'
+  displayName: 'Code Build End Time'
   inputs:
     targetType: 'inline'
     script: |
@@ -168,7 +168,7 @@ steps:
       Write-Host "##vso[task.setvariable variable=CodeBuildendTime]$CodeBuildenddate"
 
 - task: restCallBuildTask@0
-  displayName: 'Code Build metrics'
+  displayName: 'Post Code Build Metrics'
   inputs:
     webserviceEndpoint: 'Metrics'
     relativeUrl: 
@@ -191,7 +191,7 @@ steps:
     allowInvalidSSLCertificate: false
 
 - task: PowerShell@2
-  displayName: 'test start time'
+  displayName: 'Unit Test Start Time'
   inputs:
     targetType: 'inline'
     script: |
@@ -206,7 +206,7 @@ steps:
     customCommand: 'run test:ci'
 
 - task: PowerShell@2
-  displayName: 'Test End Time'
+  displayName: 'unit Test End Time'
   inputs:
     targetType: 'inline'
     script: |
@@ -214,7 +214,7 @@ steps:
       Write-Host "##vso[task.setvariable variable=TestEndTime]$TestEnddate"
 
 - task: restCallBuildTask@0
-  displayName: 'Unit test'
+  displayName: 'Post Unit test Metrics'
   inputs:
     webserviceEndpoint: 'Metrics'
     relativeUrl: 
