@@ -178,7 +178,6 @@ export const getListOfDivision = () => {
 			config
 		)
 		.then(response => {
-			console.log(response.data);
 			dispatch(getDynamicDivisionSuccess(response.data));
 		})
 		.catch(error => {
@@ -194,7 +193,6 @@ export const getListOfBusinessUnits = () => {
 			config
 		)
 		.then(response => {
-			console.log(response.data);
 			dispatch(getDynamicBusinessUnitSuccess(response.data));
 		})
 		.catch(error => {

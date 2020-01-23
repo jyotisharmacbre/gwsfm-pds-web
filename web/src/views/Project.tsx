@@ -94,7 +94,6 @@ const Project: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = (prop
 			props.resetProjectDetailState();
 		}
 	}, [props.notify, props.event]);
-	console.log('getListOfDivisions', props.getListOfDivisions);
 	const handleSave = (data: IProjectDetail) => {
 		data.projectId == ''
 			? props.handleProjectDetailsSubmit(data, EventType.save)
