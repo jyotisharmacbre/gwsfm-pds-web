@@ -10,9 +10,9 @@ import PdsFormTypeAhead from '../../PdsFormHandlers/PdsFormTypeAhead';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { Validate, alphaNumeric, onlyNumber } from '../../../helpers/fieldValidations';
 import ValidatedNumericInput from '../../NumericInput';
-import { restrictMinus } from '../../../helpers/utility-helper';
+import { restrictMinus, restrictMinusAndAllowDecimal } from '../../../helpers/utility-helper';
 
-const Quote = ({ fields }) => (
+const Quote = ({ fields, currencySymbol }) => (
   <div className="row" data-test="sub-contractor-quote-form">
     <div className="col-lg-12">
       <div className="card_outer_wrap quote_wrap">
@@ -33,7 +33,7 @@ const Quote = ({ fields }) => (
                     labelKey="LABEL_ACTIVITY_NAME"
                     placeholderKey="PLACEHOLDER_SUPPLIER_NAME"
                   />
-                  <ValidatedNumericInput
+                  <Field
                     name={`${member}.quoteValue`}
                     type="text"
                     component={PdsFormInput}
@@ -42,11 +42,11 @@ const Quote = ({ fields }) => (
                       Validate.maxLength(1000),
                       onlyNumber
                     ]}
-                    currency="$"
+                    currency={currencySymbol}
                     divPosition="relative"
                     labelKey="LABEL_QUOTE_VALUE"
                     placeholderKey=""
-                    normalize={restrictMinus}
+                    normalize={restrictMinusAndAllowDecimal}
                   />
                 </div>
               </div>

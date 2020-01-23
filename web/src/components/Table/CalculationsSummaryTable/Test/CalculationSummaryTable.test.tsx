@@ -25,7 +25,7 @@ describe('should calculation summary component renders without error', () => {
 	let Props = {
 		preliminary: preliminariesInitialState,
 		subContractor: subContractorInitialState.form.activities,
-		discount: discountInitialState,
+		discount: discountInitialState.form,
 		currencySymbol: '$',
 		insuranceRate: 0
 	};
@@ -45,7 +45,7 @@ describe('should calculation summary component renders without error', () => {
 		const expectedProps = {
 			preliminary: preliminariesInitialState,
 			subContractor: subContractorInitialState.form.activities,
-			discount: discountInitialState,
+			discount: discountInitialState.form,
 			currencySymbol: '$'
 		};
 		const propsError = checkProps(CalculationsSummaryTable, expectedProps);
@@ -63,8 +63,8 @@ describe('should calculation summary component, calculate the cost, margin and s
 	it('should calculate the pricing summary correctly, if discount is Zero', () => {
 		Props.subContractor[0].totalCost = 100;
 		Props.subContractor[0].grossMargin = 20;
-		Props.discount.clientDiscount = 0;
-		Props.discount.supplierTotalDiscount = 0;
+		Props.discount.clientDiscount.discount = 0;
+		Props.discount.subContractorDiscounts[0].supplierTotalDiscount = 0;
 		mountCalculationSummaryTable(Props);
 		expect(findByTestAtrr(wrapper, 'total-cost-summary').text()).toEqual('100.00');
 		expect(findByTestAtrr(wrapper, 'total-margin-summary').text()).toEqual('20');
@@ -75,8 +75,8 @@ describe('should calculation summary component, calculate the cost, margin and s
 	it('should calculate the pricing summary correctly if only sub contractor discount is applying', () => {
 		Props.subContractor[0].totalCost = 100;
 		Props.subContractor[0].grossMargin = 20;
-		Props.discount.clientDiscount = 0;
-		Props.discount.supplierTotalDiscount = 10;
+		Props.discount.clientDiscount.discount = 0;
+		Props.discount.subContractorDiscounts[0].supplierTotalDiscount = 10;
 		mountCalculationSummaryTable(Props);
 		expect(findByTestAtrr(wrapper, 'total-cost-summary').text()).toEqual('90.00');
 		expect(findByTestAtrr(wrapper, 'total-margin-summary').text()).toEqual('28');
@@ -87,9 +87,9 @@ describe('should calculation summary component, calculate the cost, margin and s
 	it('should calculate the pricing summary correctly if only client discount(%) is applying', () => {
 		Props.subContractor[0].totalCost = 100;
 		Props.subContractor[0].grossMargin = 20;
-		Props.discount.discountType = 1;
-		Props.discount.clientDiscount = 10;
-		Props.discount.supplierTotalDiscount = 0;
+		Props.discount.clientDiscount.discountType = 1;
+		Props.discount.clientDiscount.discount = 10;
+		Props.discount.subContractorDiscounts[0].supplierTotalDiscount = 0;
 		mountCalculationSummaryTable(Props);
 		expect(findByTestAtrr(wrapper, 'total-cost-summary').text()).toEqual('100.00');
 		expect(findByTestAtrr(wrapper, 'total-margin-summary').text()).toEqual('11.11');
@@ -100,9 +100,9 @@ describe('should calculation summary component, calculate the cost, margin and s
 	it('should calculate the pricing summary correctly if only client discount(value) is applying', () => {
 		Props.subContractor[0].totalCost = 100;
 		Props.subContractor[0].grossMargin = 20;
-		Props.discount.discountType = 2;
-		Props.discount.clientDiscount = 10;
-		Props.discount.supplierTotalDiscount = 0;
+		Props.discount.clientDiscount.discountType = 2;
+		Props.discount.clientDiscount.discount = 10;
+		Props.discount.subContractorDiscounts[0].supplierTotalDiscount = 0;
 		mountCalculationSummaryTable(Props);
 		expect(findByTestAtrr(wrapper, 'total-cost-summary').text()).toEqual('100.00');
 		expect(findByTestAtrr(wrapper, 'total-margin-summary').text()).toEqual('13.04');
@@ -113,9 +113,9 @@ describe('should calculation summary component, calculate the cost, margin and s
 	it('should calculate the pricing summary correctly after applying discount in percentage', () => {
 		Props.subContractor[0].totalCost = 100;
 		Props.subContractor[0].grossMargin = 20;
-		Props.discount.discountType = 1;
-		Props.discount.clientDiscount = 10;
-		Props.discount.supplierTotalDiscount = 10;
+		Props.discount.clientDiscount.discountType = 1;
+		Props.discount.clientDiscount.discount = 10;
+		Props.discount.subContractorDiscounts[0].supplierTotalDiscount = 10;
 		mountCalculationSummaryTable(Props);
 		expect(findByTestAtrr(wrapper, 'total-cost-summary').text()).toEqual('90.00');
 		expect(findByTestAtrr(wrapper, 'total-margin-summary').text()).toEqual('20');
@@ -126,9 +126,9 @@ describe('should calculation summary component, calculate the cost, margin and s
 	it('should calculate the pricing summary correctly after applying discount in value', () => {
 		Props.subContractor[0].totalCost = 100;
 		Props.subContractor[0].grossMargin = 20;
-		Props.discount.discountType = 2;
-		Props.discount.clientDiscount = 10;
-		Props.discount.supplierTotalDiscount = 10;
+		Props.discount.clientDiscount.discountType = 2;
+		Props.discount.clientDiscount.discount = 10;
+		Props.discount.subContractorDiscounts[0].supplierTotalDiscount = 10;
 		mountCalculationSummaryTable(Props);
 		expect(findByTestAtrr(wrapper, 'total-cost-summary').text()).toEqual('90.00');
 		expect(findByTestAtrr(wrapper, 'total-margin-summary').text()).toEqual('21.74');
@@ -142,9 +142,9 @@ describe('should calculation summary component, calculate the cost, margin and s
 		Props.subContractor.push({ ...newActivity });
 		Props.subContractor[1].totalCost = 100;
 		Props.subContractor[1].grossMargin = 20;
-		Props.discount.discountType = 1;
-		Props.discount.clientDiscount = 10;
-		Props.discount.supplierTotalDiscount = 10;
+		Props.discount.clientDiscount.discountType = 1;
+		Props.discount.clientDiscount.discount = 10;
+		Props.discount.subContractorDiscounts[0].supplierTotalDiscount = 10;
 		mountCalculationSummaryTable(Props);
 		expect(findByTestAtrr(wrapper, 'total-cost-summary').text()).toEqual('190.00');
 		expect(findByTestAtrr(wrapper, 'total-margin-summary').text()).toEqual('15.56');
@@ -158,9 +158,9 @@ describe('should calculation summary component, calculate the cost, margin and s
 		Props.subContractor.push({ ...newActivity });
 		Props.subContractor[1].totalCost = 100;
 		Props.subContractor[1].grossMargin = 20;
-		Props.discount.discountType = 2;
-		Props.discount.clientDiscount = 10;
-		Props.discount.supplierTotalDiscount = 10;
+		Props.discount.clientDiscount.discountType = 2;
+		Props.discount.clientDiscount.discount = 10;
+		Props.discount.subContractorDiscounts[0].supplierTotalDiscount = 10;
 		mountCalculationSummaryTable(Props);
 		expect(findByTestAtrr(wrapper, 'total-cost-summary').text()).toEqual('190.00');
 		expect(findByTestAtrr(wrapper, 'total-margin-summary').text()).toEqual('20.83');
@@ -175,9 +175,10 @@ describe('should calculation summary component, calculate the cost, margin and s
 		Props.subContractor.push({ ...newActivity });
 		Props.subContractor[1].totalCost = 100;
 		Props.subContractor[1].grossMargin = 20;
-		Props.discount.discountType = 2;
-		Props.discount.clientDiscount = 10;
-		Props.discount.supplierTotalDiscount = 10;
+		Props.discount.clientDiscount.discountType = 2;
+		Props.discount.clientDiscount.discount = 10;
+		Props.discount.subContractorDiscounts[0].supplierTotalDiscount = 10;
+		mountCalculationSummaryTable(Props);
 		mountCalculationSummaryTable(Props);
 		expect(findByTestAtrr(wrapper, 'total-cost-summary').text()).toEqual('193.20');
 		expect(findByTestAtrr(wrapper, 'total-margin-summary').text()).toEqual('19.5');
@@ -192,9 +193,9 @@ describe('should calculation summary component, calculate the cost, margin and s
 		Props.subContractor.push({ ...newActivity });
 		Props.subContractor[1].totalCost = 100;
 		Props.subContractor[1].grossMargin = 20;
-		Props.discount.discountType = 2;
-		Props.discount.clientDiscount = 10;
-		Props.discount.supplierTotalDiscount = 10;
+		Props.discount.clientDiscount.discountType = 2;
+		Props.discount.clientDiscount.discount = 10;
+		Props.discount.subContractorDiscounts[0].supplierTotalDiscount = 10;
 		mountCalculationSummaryTable(Props);
 		expect(findByTestAtrr(wrapper, 'total-cost-summary').text()).toEqual('195.20');
 		expect(findByTestAtrr(wrapper, 'total-margin-summary').text()).toEqual('18.67');

@@ -8,12 +8,12 @@ import { IProjectApprovalActivitiy } from '../../../store/ProjectOverviewForm/Ty
 import { IProjectApprovals } from '../../../store/ProjectOverviewForm/Types/IProjectApprovals';
 import IActivityFeed from '../../../models/IActivityFeed';
 import * as actions from '../../../store/rootActions';
+import * as services from '../../../services';
 import { ILookup } from '../../../store/Lookups/Types/ILookup';
 import { ProjectApproverTypeAndRangeMapping } from '../../../store/ProjectOverviewForm/Types/ProjectApproverTypeAndRangeMapping';
 import { LookupType } from '../../../store/Lookups/Types/LookupType';
 import { IUserServiceData } from '../../../store/UserService/Types/IUserService';
 import { displayUserName } from '../../../helpers/utility-helper';
-
 interface IProps {
 	currencySymbol: string;
 	handleGetUserNamesForEmails: (emails: Array<string>) => void;
@@ -22,12 +22,11 @@ interface IProps {
 interface IMapStateToProps {
 	projectActivities: Array<IProjectApprovalActivitiy>;
 	lookups: Array<ILookup>;
-	userNamesForEmails: Array<IUserServiceData>;
 }
 
 const ActivityFeedList: React.FC<IProps & IMapStateToProps> = (props) => {
 	const [ activityFeedData, setActivityFeedData ] = useState<Array<IActivityFeed>>([]);
-	const [ isprojectActivitiesUpdated, setIsprojectActivitiesUpdated ] = useState<boolean>(false);
+	const [ userNamesForEmails, setUserNamesForEmails ] = useState<Array<IUserServiceData>>([]);
 	useEffect(
 		() => {
 			if (props.projectActivities.length > 0) {
@@ -35,20 +34,20 @@ const ActivityFeedList: React.FC<IProps & IMapStateToProps> = (props) => {
 				props.projectActivities.map((data, index) => {
 					emails.push(data.userId);
 				});
-				props.handleGetUserNamesForEmails(emails);
-				setIsprojectActivitiesUpdated(true);
+				services.getUsersForEmailsService(emails).then((response) => {
+					setUserNamesForEmails(response.data);
+				});
 			}
 		},
 		[ props.projectActivities ]
 	);
-
 	useEffect(
 		() => {
-			if (isprojectActivitiesUpdated && props.lookups) {
+			if (userNamesForEmails.length > 0 && props.lookups) {
 				if (props.projectActivities.length > 0) {
 					let activityFeed: Array<IActivityFeed> = [];
 					props.projectActivities.map((data, index) => {
-						let username = filterUserByEmailId(props.userNamesForEmails, data.userId);
+						let username = filterUserByEmailId(userNamesForEmails, data.userId);
 						activityFeed.push({
 							activityType: data.activityType,
 							approvedBy: username,
@@ -63,14 +62,13 @@ const ActivityFeedList: React.FC<IProps & IMapStateToProps> = (props) => {
 							),
 							createdDate: data.createdOn
 						});
+						setActivityFeedData(activityFeed);
 					});
-					setActivityFeedData(activityFeed);
 				}
 			}
 		},
-		[ props.userNamesForEmails ]
+		[ props.lookups, props.projectActivities, userNamesForEmails ]
 	);
-
 	const filterUserByEmailId = (data, emailId) => {
 		let userName = '';
 		let filter = data.filter((ele) => ele.email.toLowerCase() == emailId.toLowerCase());
@@ -119,8 +117,7 @@ const ActivityFeedList: React.FC<IProps & IMapStateToProps> = (props) => {
 
 const mapStateToProps = (state: IState) => ({
 	projectActivities: state.projectOverview.projectActivities.data,
-	lookups: state.lookup.lookups,
-	userNamesForEmails: state.userService.userServiceData
+	lookups: state.lookup.lookups
 });
 
 export default connect(mapStateToProps)(ActivityFeedList);
