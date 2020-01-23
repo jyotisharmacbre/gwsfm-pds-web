@@ -16,9 +16,10 @@ import { ICurrency } from '../store/Lookups/Types/ICurrency';
 import {
 	getDynamicContractData,
 	getDynamicCompanyData,
+	getListOfDivision,
 	getDynamicSubContractorData
 } from '../store/DynamicsData/Action';
-import { IDynamicContractCustomerData, IDynamicCompanyData } from '../store/DynamicsData/Types/IDynamicData';
+import { IDynamicContractCustomerData, IDynamicCompanyData, IDynamicsDivision } from '../store/DynamicsData/Types/IDynamicData';
 import { IUserServiceData } from '../store/UserService/Types/IUserService';
 import ProjectStatus from '../enums/ProjectStatus';
 import { ICountry } from '../store/Lookups/Types/ICountry';
@@ -38,11 +39,13 @@ interface IMapStateToProps {
 	userServiceData: Array<IUserServiceData>;
 	status: number;
 	countries: Array<ICountry> | null;
+	getListOfDivisions: Array<IDynamicsDivision>;
 }
 
 interface IMapDispatchToProps {
 	handleGetDynamicContractData: (searchContract: string) => void;
 	handleGetDynamicCompanyData: (searchCompany: string) => void;
+	getDynamicsListOfDivision: () => void;
 	getProjectStatus: () => void;
 	getProjectDetail: (projectId: string) => void;
 	resetProjectDetailState: () => void;
@@ -68,6 +71,7 @@ const Project: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = (prop
 		props.getProjectStatus();
 		props.getAllCurrencies();
 		props.getAllCountries();
+		props.getDynamicsListOfDivision();
 		let paramProjectId = props.match.params.projectId;
 		if (paramProjectId != null && paramProjectId != '') {
 			props.getProjectDetail(paramProjectId);
@@ -76,20 +80,20 @@ const Project: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = (prop
 		}
 	}, []);
 
-  useEffect(() => {
-    if (props.notify == Notify.success) {
-      if (props.event == EventType.next) {
-        toast.success(formatMessage("MESSAGE_SUCCESSFUL"));
-        history.push({
-          pathname: `/projectOverview/${props.projectId}`
-        })
-      } else if (props.event == EventType.save) {
-        toast.success(formatMessage("MESSAGE_SUCCESSFUL"));
-      }
-      props.resetProjectDetailState();
-    }
-  }, [props.notify, props.event]);
-
+	useEffect(() => {
+		if (props.notify == Notify.success) {
+			if (props.event == EventType.next) {
+				toast.success(formatMessage("MESSAGE_SUCCESSFUL"));
+				history.push({
+					pathname: `/projectOverview/${props.projectId}`
+				})
+			} else if (props.event == EventType.save) {
+				toast.success(formatMessage("MESSAGE_SUCCESSFUL"));
+			}
+			props.resetProjectDetailState();
+		}
+	}, [props.notify, props.event]);
+	console.log('getListOfDivisions', props.getListOfDivisions);
 	const handleSave = (data: IProjectDetail) => {
 		data.projectId == ''
 			? props.handleProjectDetailsSubmit(data, EventType.save)
@@ -108,7 +112,6 @@ const Project: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = (prop
 	const onSearchCompany = (values: any) => {
 		props.handleGetDynamicCompanyData(values);
 	};
-
 	return (
 		<div className={getClassNameForProjectStatus(props.status)}>
 			<ProjectForm
@@ -125,6 +128,7 @@ const Project: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = (prop
 				getListOfUsers={services.getUsersForEmailService}
 				getListOfCompanies={services.getCompanies}
 				getListOfContract={services.getContractsAndCustomers}
+				listOfDivisions={props.getListOfDivisions}
 			/>
 		</div>
 	);
@@ -135,6 +139,7 @@ const mapStateToProps = (state: IState) => {
 		projectStatus: state.lookup.projectstatus,
 		dynamicsContract: state.dynamicData.dynamicsContract,
 		dynamicsCompany: state.dynamicData.dynamicsCompany,
+		getListOfDivisions: state.dynamicData.dynamicsListOfDivision,
 		userServiceData: state.userService.userServiceData,
 		notify: state.project.notify,
 		event: state.project.event,
@@ -156,7 +161,8 @@ const mapDispatchToProps = (dispatch) => {
 		getAllCountries: () => dispatch(actions.getAllContries()),
 		handleGetDynamicContractData: (searchContract) => dispatch(getDynamicContractData(searchContract)),
 		handleGetDynamicCompanyData: (searchCompany) => dispatch(getDynamicCompanyData(searchCompany)),
-		resetProjectDetailStateToInitial: () => dispatch(actions.resetProjectDetailStateToInitial())
+		resetProjectDetailStateToInitial: () => dispatch(actions.resetProjectDetailStateToInitial()),
+		getDynamicsListOfDivision: () => dispatch(actions.getListOfDivision())
 	};
 };
 

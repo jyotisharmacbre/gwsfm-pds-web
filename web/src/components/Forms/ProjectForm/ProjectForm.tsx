@@ -31,7 +31,7 @@ import { dynamicsDivisions } from '../../../helpers/dynamicsDivisionData';
 import { dynamicBusinessUnits } from '../../../helpers/dynamicBusinessData';
 import { IUserServiceData } from '../../../store/UserService/Types/IUserService';
 import { any } from 'prop-types';
-import { IDynamicContractCustomerData, IDynamicCompanyData } from '../../../store/DynamicsData/Types/IDynamicData';
+import { IDynamicContractCustomerData, IDynamicCompanyData, IDynamicsDivision } from '../../../store/DynamicsData/Types/IDynamicData';
 import { ICountry } from '../../../store/Lookups/Types/ICountry';
 import ValidatedNumericInput from '../../NumericInput';
 import { change } from "redux-form";
@@ -50,6 +50,7 @@ interface Props {
 	dynamicsContractCustomerData: Array<IDynamicContractCustomerData>;
 	dynamicsCompany: Array<IDynamicCompanyData>;
 	countries: Array<ICountry> | null;
+	listOfDivisions: Array<IDynamicsDivision>;
 }
 
 const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = (props: any) => {
@@ -60,14 +61,16 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 		onSearchCompany,
 		userServiceData,
 		dynamicsContractCustomerData,
-		dynamicsCompany
+		dynamicsCompany,
+		listOfDivisions
 	} = props;
+	console.log(props.listOfDivisions, 'props.listOfDivisions')
 
 	const onCountryChange = (event) => {
 		if (props.countries && props.currencies) {
 			const selectedCountryId = Number(event.target.value);
 			const selectedCurrencyId = props.countries.find(x => x.countryId === selectedCountryId)?.currencyId;
-			props.currencies.find(x=>x.currencyId === selectedCurrencyId) && props.changeCurrencyId(selectedCurrencyId);
+			props.currencies.find(x => x.currencyId === selectedCurrencyId) && props.changeCurrencyId(selectedCurrencyId);
 		}
 	}
 
@@ -199,9 +202,9 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 												{(message) => <option value="">{message}</option>}
 											</FormattedMessage>
 
-											{dynamicsDivisions &&
-												dynamicsDivisions.map((data: any, i: number) => {
-													return <option value={data.DivisionId}>{data.Description}</option>;
+											{props.listOfDivisions &&
+												props.listOfDivisions.map((data: any, i: number) => {
+													return <option value={data.divisionId}>{data.description}</option>;
 												})}
 										</Field>
 									</div>

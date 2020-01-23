@@ -2,11 +2,13 @@ import {
   IDynamicCompanyData,
   IDynamicContractCustomerData,
   IDynamicOther,
-  IDynamicSubContractorData
+  IDynamicSubContractorData,
+  IDynamicsDivision
 } from './IDynamicData';
 
 export interface IDynamicDataState {
   dynamicsCompany: Array<IDynamicCompanyData>;
+  dynamicsListOfDivision: Array<IDynamicsDivision>;
   dynamicsContract: Array<IDynamicContractCustomerData>;
   error: string | null;
   dynamicsOtherContract: Array<IDynamicOther>;

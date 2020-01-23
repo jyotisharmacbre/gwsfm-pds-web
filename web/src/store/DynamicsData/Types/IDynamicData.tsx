@@ -24,3 +24,7 @@ export interface IDynamicsOtherSubContractor {
   label: string;
   id: string;
 }
+export interface IDynamicsDivision {
+  divisionId: string,
+  description: string,
+}
