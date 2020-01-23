@@ -91,7 +91,9 @@ const SubContractorActivityForm: React.FC<Props> = (props: Props) => {
 										DynamicsType="subcontractorId"
 										placeholderKey="PLACEHOLDER_SUBCONTRACTOR"
 										labelName="LABEL_SUBCONTRACTOR"
+										validationKey="LABEL_SUBCONTRACTOR"
 										submitParam="id"
+										className="required"
 									/>
 
 									{props.activities[0].subcontractorId === '0' && (
@@ -101,6 +103,8 @@ const SubContractorActivityForm: React.FC<Props> = (props: Props) => {
 											component={PdsFormInput}
 											labelKey="LABEL_OTHER_SUBCONTRACTOR"
 											placeholderKey="PLACEHOLDER_OTHER_SUBCONTRACTOR"
+											className="required"
+											validate={[Validate.required('LABEL_OTHER_SUBCONTRACTOR'), Validate.maxLength(1000)]}
 										/>
 									)}
 
