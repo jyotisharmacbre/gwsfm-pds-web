@@ -27,6 +27,7 @@ import { ICountry } from '../store/Lookups/Types/ICountry';
 import { ICountryHoc, countryHoc } from '../hoc/CountryHoc';
 import { insuranceRateHoc, IInsuranceRateHoc } from '../hoc/InsuranceRateHoc';
 import ProjectStatus from '../enums/ProjectStatus';
+import { IDynamicsDivision, IDynamicBusinessUnits } from '../store/DynamicsData/Types/IDynamicData';
 
 interface IProps {
 	match: match<{ projectId: string }>;
@@ -44,6 +45,8 @@ interface IMapStateToProps {
 	userNamesForEmails: Array<IUserServiceData>;
 	adminDefaultValues: Array<IAdminDefaults>;
 	countries: Array<ICountry> | null;
+	getListOfDivisions: Array<IDynamicsDivision>;
+	getListOfBusinessUnit:Array<IDynamicBusinessUnits>;
 }
 
 interface IMapDispatchToProps {
@@ -57,6 +60,8 @@ interface IMapDispatchToProps {
 	handleGetUserNamesForEmails: (emails: Array<string>) => void;
 	getProjectParameters: (countryId: number) => void;
 	getAllCountries: () => void;
+	getDynamicsListOfDivision: () => void;
+	getListOfBusinessUnits:()=>void;
 }
 
 const ReviewSubmit: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & ICountryHoc & IInsuranceRateHoc> = (
@@ -76,6 +81,8 @@ const ReviewSubmit: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & I
 		props.getPreliminaryDetails(projectId);
 		props.getDiscountData(projectId);
 		props.getAllCountries();
+		props.getDynamicsListOfDivision();
+		props.getListOfBusinessUnits();
 	}, []);
 
 	useEffect(
@@ -137,6 +144,8 @@ const ReviewSubmit: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & I
 							currencySymbol={currencySymbol}
 							userNamesForEmails={props.userNamesForEmails}
 							handleGetUserNamesForEmails={props.handleGetUserNamesForEmails}
+							listOfDivisions={props.getListOfDivisions}
+							listOfBusinessUnits ={props.getListOfBusinessUnit}
 						/>
 						<ProjectOverviewSummary
 							projectOverview={props.projectOverview}
@@ -205,7 +214,9 @@ const mapStateToProps = (state: IState) => ({
 	projectOverview: state.projectOverview.form,
 	userNamesForEmails: state.userService.userServiceData,
 	adminDefaultValues: state.admin.adminDefaultValues,
-	countries: state.lookup.countries
+	countries: state.lookup.countries,
+	getListOfDivisions: state.dynamicData.dynamicsListOfDivision,
+	getListOfBusinessUnit:state.dynamicData.dynamicsListOfBusinessUnits
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -219,7 +230,10 @@ const mapDispatchToProps = (dispatch) => {
 		getAdditionalDetails: (projectId) => dispatch(actions.getAdditionalDetails(projectId)),
 		handleGetUserNamesForEmails: (emails: Array<string>) => dispatch(actions.getUserNamesForEmailsService(emails)),
 		getProjectParameters: (countryId: number) => dispatch(actions.getProjectParameters(countryId)),
-		getAllCountries: () => dispatch(actions.getAllContries())
+		getAllCountries: () => dispatch(actions.getAllContries()),
+		getDynamicsListOfDivision: () => dispatch(actions.getListOfDivision()),
+		getListOfBusinessUnits:() =>dispatch(actions.getListOfBusinessUnits())
+
 	};
 };
 

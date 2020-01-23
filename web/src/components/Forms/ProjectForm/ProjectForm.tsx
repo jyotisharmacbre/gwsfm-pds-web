@@ -27,11 +27,9 @@ import Currency from '../../../store/Lookups/InitialState/Currency';
 import IReactIntl from '../../../Translations/IReactIntl';
 import TypeAhead from '../../TypeAhead/TypeAhead';
 import NewTypeAhead from '../../TypeAhead/NewTypeAhead';
-import { dynamicsDivisions } from '../../../helpers/dynamicsDivisionData';
-import { dynamicBusinessUnits } from '../../../helpers/dynamicBusinessData';
 import { IUserServiceData } from '../../../store/UserService/Types/IUserService';
 import { any } from 'prop-types';
-import { IDynamicContractCustomerData, IDynamicCompanyData, IDynamicsDivision } from '../../../store/DynamicsData/Types/IDynamicData';
+import { IDynamicContractCustomerData, IDynamicCompanyData, IDynamicsDivision, IDynamicBusinessUnits } from '../../../store/DynamicsData/Types/IDynamicData';
 import { ICountry } from '../../../store/Lookups/Types/ICountry';
 import ValidatedNumericInput from '../../NumericInput';
 import { change } from "redux-form";
@@ -51,6 +49,7 @@ interface Props {
 	dynamicsCompany: Array<IDynamicCompanyData>;
 	countries: Array<ICountry> | null;
 	listOfDivisions: Array<IDynamicsDivision>;
+	listOfBusinessUnits:Array<IDynamicBusinessUnits>;
 }
 
 const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = (props: any) => {
@@ -219,10 +218,10 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 											<FormattedMessage id="PLACEHOLDER_BUSINESS_UNIT">
 												{(message) => <option value="">{message}</option>}
 											</FormattedMessage>
-											{dynamicBusinessUnits &&
-												dynamicBusinessUnits.map((data: any, i: number) => {
+											{props.listOfBusinessUnits &&
+												props.listOfBusinessUnits.map((data: any, i: number) => {
 													return (
-														<option value={data.BusinessUnitId}>{data.Description}</option>
+														<option value={data.businessUnitId}>{data.description}</option>
 													);
 												})}
 										</Field>

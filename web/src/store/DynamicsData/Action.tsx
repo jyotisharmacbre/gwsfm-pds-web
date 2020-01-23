@@ -81,7 +81,19 @@ const getDefaultSuccess = (response: any) => {
 		type: ActionType.DYNAMIC_OTHER_DEFAULT_SUCCESS
 	};
 };
-
+const getDynamicBusinessUnitSuccess=(response:any)=>{
+	return {
+		type:ActionType.DYNAMIC_BUSINESSUNIT_SUCCESS,
+		payload:response
+	}
+};
+const getDynamicBusinessUnitError =(error:any) =>
+{
+	return {
+		type:ActionType.DYNAMIC_BUSINESSUNIT_ERROR,
+		payload:error
+};
+};
 let config = {
 	headers: {
 		'Content-Type': 'application/json'
@@ -159,16 +171,34 @@ export const getDynamicSubContractorData = (searchSubContractor: string, success
 };
 
 export const getListOfDivision = () => {
+	return (dispatch: Dispatch) => {
 	axios.baseAPI
 		.get(
 			`/api/ERPLookup/getDivision`,
 			config
 		)
 		.then(response => {
-			return (dispatch: Dispatch) => { dispatch(getDynamicDivisionSuccess(response.data)) };
+			console.log(response.data);
+			dispatch(getDynamicDivisionSuccess(response.data));
 		})
 		.catch(error => {
-			return (dispatch: Dispatch) => { dispatch(getDynamicDivisionError(error)) };
+			dispatch(getDynamicDivisionError(error)) ;
 		});
-
+	};
+};
+export const getListOfBusinessUnits = () => {
+	return (dispatch: Dispatch) => {
+	axios.baseAPI
+		.get(
+			`/api/ERPLookup/getBusinessUnit`,
+			config
+		)
+		.then(response => {
+			console.log(response.data);
+			dispatch(getDynamicBusinessUnitSuccess(response.data));
+		})
+		.catch(error => {
+			dispatch(getDynamicBusinessUnitError(error)) ;
+		});
+	};
 };

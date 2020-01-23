@@ -12,12 +12,11 @@ import {
 	displayUserName
 } from '../../../helpers/utility-helper';
 import { FormattedMessage } from 'react-intl';
-import { dynamicsDivisions } from '../../../helpers/dynamicsDivisionData';
-import { dynamicBusinessUnits } from '../../../helpers/dynamicBusinessData';
 import { IUserServiceData } from '../../../store/UserService/Types/IUserService';
 import * as services from '../../../services';
 import { formatMessage } from '../../../Translations/connectedIntlProvider';
 import { Link } from 'react-router-dom';
+import { IDynamicsDivision, IDynamicBusinessUnits } from '../../../store/DynamicsData/Types/IDynamicData';
 
 interface IProps {
 	project: IProjectDetail;
@@ -25,6 +24,8 @@ interface IProps {
 	currencySymbol: string;
 	userNamesForEmails: Array<IUserServiceData>;
 	handleGetUserNamesForEmails: (emails: Array<string>) => void;
+	listOfDivisions: Array<IDynamicsDivision>;
+	listOfBusinessUnits:Array<IDynamicBusinessUnits>;
 }
 const ProjectSummary: React.FC<IProps> = (props) => {
 	let urlProjectId: string = '';
@@ -78,14 +79,14 @@ const ProjectSummary: React.FC<IProps> = (props) => {
 								failure(error);
 							});
 				}
-				let filterDivision = dynamicsDivisions.filter(
-					(element) => element.DivisionId == props.project.divisionId
+				let filterDivision = props.listOfDivisions.filter(
+					(element) => element.divisionId == props.project.divisionId
 				);
-				if (filterDivision && filterDivision[0]) setDivision(filterDivision[0].Description);
-				let filterBusinessUnit = dynamicBusinessUnits.filter(
-					(element) => element.BusinessUnitId == props.project.businessUnitId
+				if (filterDivision && filterDivision[0]) setDivision(filterDivision[0].description);
+				let filterBusinessUnit = props.listOfBusinessUnits.filter(
+					(element) => element.businessUnitId == props.project.businessUnitId
 				);
-				if (filterBusinessUnit && filterBusinessUnit[0]) setBusinessUnit(filterBusinessUnit[0].Description);
+				if (filterBusinessUnit && filterBusinessUnit[0]) setBusinessUnit(filterBusinessUnit[0].description);
 			}
 		},
 		[props.project]
