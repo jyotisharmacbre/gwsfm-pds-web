@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 interface IProps {
   projectOverview: IProjectOverviewDetails;
   lookUpData: Array<ILookup>;
+  oneditOverview: () => void;
 }
 const ProjectOverviewSummary: React.FC<IProps> = props => {
   let urlProjectId: string = '';
@@ -47,7 +48,7 @@ const ProjectOverviewSummary: React.FC<IProps> = props => {
 			<h4>
         <FormattedMessage id="TITLE_PROJECT_OVERVIEW" />
       </h4>
-			<button type="submit" className="edit-btn">EDIT</button>
+			<button type="submit" className="edit-btn" onClick={() => props.oneditOverview()}>EDIT</button>
 			</div>
       
       <div className="RS_custom_inner">

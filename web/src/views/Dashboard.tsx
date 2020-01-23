@@ -33,8 +33,7 @@ interface IMapStateToProps {
 }
 const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
 	useEffect(() => {
-		props.getLookups();
-		props.dashboardGridDetail();
+		props.getLookups();		
 		props.resetProjectOverviewState();
 		props.resetSubContractorState();
 		props.resetCustomerEnquiryState();
@@ -60,6 +59,10 @@ const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
 		},
 		[ props.dashboardGridValues ]
 	);
+	//Following code will also re-render dashboardGrid on lnaguage change, as lookup data gets update on language change. 
+	useEffect(()=>{
+		props.dashboardGridDetail();
+	}, [props.lookupDetails]);
 	return (
 		<div>
 			<div className="container">

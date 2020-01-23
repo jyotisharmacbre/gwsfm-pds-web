@@ -24,6 +24,7 @@ describe('Preliminary Components Form test cases', () => {
         componentIdList={preliminaryComponentIdList}
         currencySymbol="$"
         isExpand="false"
+        projectStatus="1"
       />
     );
   });
@@ -35,7 +36,7 @@ describe('Preliminary Components Form test cases', () => {
     expect(wrapper).toMatchSnapshot();
   });
   it('should render toggle button event on click of component collapse icon', () => {
-    const button = findByTestAtrr(wrapper, 'collapse').first();
+    const button = findByTestAtrr(wrapper, 'tickWrap').first();
     button.simulate('click');
     expect(props.onToggleEvent.mock.calls.length).toEqual(1);
   });
@@ -44,7 +45,7 @@ describe('Preliminary Components Form test cases', () => {
     expect(button.length).toEqual(1);
   });
   it('should collapse the item component on click of component collapse icon', () => {
-    const button = findByTestAtrr(wrapper, 'collapse').first();
+    const button = findByTestAtrr(wrapper, 'tickWrap').first();
     const toggle = findByTestAtrr(wrapper, 'toggle');
     button.simulate('click');
     expect(props.onToggleEvent.mock.calls.length).toEqual(2);

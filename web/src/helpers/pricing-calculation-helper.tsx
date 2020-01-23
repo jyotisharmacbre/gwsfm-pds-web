@@ -5,6 +5,17 @@ import IPricing from '../models/IPricing';
 import { IPreliminariesComponentDetails } from '../store/Preliminaries/Types/IPreliminariesComponentDetails';
 import { IPreliminariesItems } from '../store/Preliminaries/Types/IPreliminariesItems';
 import { IDiscountActivity } from '../store/DiscountForm/Types/IDiscountActivity';
+import IDiscountSubContractor from '../store/DiscountForm/Types/IDiscountSubContractor';
+
+export const getSupplierTotalDiscount = (data: IDiscountSubContractor[]) => {
+	var totalDiscount = data && data.map(x => x.supplierTotalDiscount).reduce(function (previousValue, currentValue) {
+		let total = 0;
+		if (previousValue) total += previousValue;
+		if (currentValue) total += currentValue;
+		return total;
+	});
+	return totalDiscount ? totalDiscount : 0;
+}
 
 export const getSubContractorSummaryCalculation = (data: Array<ISubContractorActivity>) => {
 	let state: IPricing = { cost: 0, sell: 0, margin: 0 };
@@ -36,22 +47,25 @@ export const getDiscountSummaryCalculation = (
 	insurance: number
 ) => {
 	let discountData = { ...data };
-	if (discountData.supplierTotalDiscount == null) discountData.supplierTotalDiscount = 0;
-	if (discountData.clientDiscount == null) discountData.clientDiscount = 0;
+	let supplierTotalDiscount = getSupplierTotalDiscount(data.subContractorDiscounts);
+
+	if (!supplierTotalDiscount) supplierTotalDiscount = 0;
+
+	if (discountData.clientDiscount && !discountData.clientDiscount.discount) discountData.clientDiscount.discount = 0;
 	let state: ISummaryCalculation = { cost: 0, sell: 0, margin: 0, grossMargin: 0 };
-	if (discountData.supplierTotalDiscount != undefined) {
-		state.cost =
-			calculateInsurance(subContractorState.cost + preliminaryState.cost, insurance) -
-			discountData.supplierTotalDiscount;
-	}
+	state.cost = subContractorState.cost + preliminaryState.cost - supplierTotalDiscount;
+	state.cost =
+		calculateInsurance(subContractorState.cost + preliminaryState.cost, insurance) -
+		supplierTotalDiscount;
+
 	if (discountData.clientDiscount != undefined) {
 		state.sell =
 			subContractorState.sell +
 			preliminaryState.sell -
 			+calculateClientDiscount(
-				discountData.discountType,
+				discountData.clientDiscount.discountType,
 				subContractorState.sell + preliminaryState.sell,
-				discountData.clientDiscount
+				discountData.clientDiscount.discount ? discountData.clientDiscount.discount : 0
 			);
 	}
 	state.margin = +calculateAverageMargin(state.cost, state.sell);

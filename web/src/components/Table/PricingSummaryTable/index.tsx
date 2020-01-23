@@ -3,7 +3,8 @@ import { ISubContractorActivity } from '../../../store/SubContractor/Types/ISubC
 import {
 	getSubContractorSummaryCalculation,
 	getPreliminarySummaryCalculation,
-	calculatePercentage
+	calculatePercentage,
+	getSupplierTotalDiscount
 } from '../../../helpers/pricing-calculation-helper';
 import IPricing from '../../../models/IPricing';
 import { IPreliminariesComponentDetails } from '../../../store/Preliminaries/Types/IPreliminariesComponentDetails';
@@ -26,9 +27,9 @@ interface Props {
 
 const PricingSummaryTable: React.FC<Props> = (props) => {
 	let initDiscount: IPricing = { cost: 0, sell: 0, margin: 0 };
-	const [ subContractorData, setSubContractorData ] = useState({ ...initDiscount });
-	const [ preliminaryData, setPreliminaryData ] = useState({ ...initDiscount });
-	const [ discountData, setDiscountData ] = useState({ ...initDiscount });
+	const [subContractorData, setSubContractorData] = useState({ ...initDiscount });
+	const [preliminaryData, setPreliminaryData] = useState({ ...initDiscount });
+	const [discountData, setDiscountData] = useState({ ...initDiscount });
 
 	useEffect(
 		() => {
@@ -36,7 +37,7 @@ const PricingSummaryTable: React.FC<Props> = (props) => {
 				setSubContractorData(getSubContractorSummaryCalculation(props.subContractor));
 			}
 		},
-		[ props.subContractor ]
+		[props.subContractor]
 	);
 
 	useEffect(
@@ -44,7 +45,7 @@ const PricingSummaryTable: React.FC<Props> = (props) => {
 			if (props.preliminary && props.preliminary.length > 0)
 				setPreliminaryData(getPreliminarySummaryCalculation(props.preliminary));
 		},
-		[ props.preliminary ]
+		[props.preliminary]
 	);
 
 	return (
@@ -95,7 +96,7 @@ const PricingSummaryTable: React.FC<Props> = (props) => {
 						{props.showContractor && props.subContractor ? (
 							<tr data-test="sub-contractor-data">
 								<td data-column="&nbsp;">
-									<FormattedMessage id="TITLE_SUBCONTRACTORS" />
+									<FormattedMessage id='TITLE_SUBCONTRACTORS' />
 								</td>
 								<td data-column={`Cost (${props.currencySymbol})`}>
 									{props.currencySymbol}
@@ -126,8 +127,8 @@ const PricingSummaryTable: React.FC<Props> = (props) => {
 										{props.countryCode.toLowerCase() == 'gbr' ? (
 											'Insurance Percentage'
 										) : (
-											'SG&A Percentage'
-										)}
+												'SG&A Percentage'
+											)}
 									</td>
 									<td>&nbsp;</td>
 								</tr>
@@ -139,10 +140,8 @@ const PricingSummaryTable: React.FC<Props> = (props) => {
 											{props.insuranceRate ? (
 												calculatePercentage(
 													preliminaryData.cost +
-														subContractorData.cost -
-														(props.discount && props.discount.supplierTotalDiscount
-															? props.discount.supplierTotalDiscount
-															: 0),
+													subContractorData.cost -
+													(props.discount ? getSupplierTotalDiscount(props.discount?.subContractorDiscounts) : 0),
 													props.insuranceRate
 												).toFixed(2)
 											) : null}
@@ -170,9 +169,9 @@ const PricingSummaryTable: React.FC<Props> = (props) => {
 									</td>
 									<td data-column={`Margin (%)`}>&nbsp;</td>
 									<td data-column={`Sell (${props.currencySymbol})`}>
-										<FormattedMessage id="TITLE_CUSTOMER" />{' '}
-										{props.discount.clientDiscount && props.discount.discountType == 1 ? (
-											`(${props.discount.clientDiscount}%)`
+										<FormattedMessage id='TITLE_CUSTOMER' />{' '}
+										{props.discount?.clientDiscount?.discountType == 1 ? (
+											`(${props.discount.clientDiscount.discount}%)`
 										) : null}
 									</td>
 								</tr>
@@ -181,11 +180,9 @@ const PricingSummaryTable: React.FC<Props> = (props) => {
 									<td data-column={`Cost (${props.currencySymbol})`}>
 										{props.currencySymbol}
 										<span data-test="sub-contractor-discount">
-											{props.discount.supplierTotalDiscount == undefined ? (
-												0
-											) : (
-												props.discount.supplierTotalDiscount
-											)}
+											{
+												props.discount && getSupplierTotalDiscount(props.discount.subContractorDiscounts)
+											}
 										</span>
 										&nbsp;
 									</td>
@@ -193,11 +190,11 @@ const PricingSummaryTable: React.FC<Props> = (props) => {
 									<td data-column={`Sell (${props.currencySymbol})`}>
 										{props.currencySymbol}
 										<span data-test="customer-discount">
-											{props.discount &&
+											{props.discount && props.discount.clientDiscount &&
 												calculateClientDiscount(
-													props.discount.discountType,
+													props.discount.clientDiscount.discountType,
 													calculateTotalSum(subContractorData.sell, preliminaryData.sell),
-													props.discount.clientDiscount as number
+													props.discount.clientDiscount.discount as number
 												)}
 										</span>
 									</td>
