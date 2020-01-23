@@ -129,7 +129,7 @@ const App: React.FC = (props: any) => {
       <Layout Theme={theme} UseStyles={useStyles()} />
       <ToastContainer autoClose={5000} 
         className='custom_toast_block'
-        transition = {Bounce}
+        // transition = {Bounce}
       />
     </div>
   );
