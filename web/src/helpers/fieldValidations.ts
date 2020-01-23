@@ -11,6 +11,23 @@ export function fieldValidationLength(value, maxLength) {
 		})}`;
 	}
 }
+export function fieldValidationForMaxLimit(value, minLength,maxLength) {
+	if (value < minLength) {
+		return `${formatMessage('FIELD_VALIDATION_KEY_MAX_LIMIT', {
+			0: formatMessage(minLength),
+			1: formatMessage(maxLength)
+		})}`
+	} else if (value > maxLength) {
+		return `${formatMessage('FIELD_VALIDATION_KEY_MAX_LIMIT', {
+			0: formatMessage(minLength),
+			1: formatMessage(maxLength)
+		} 
+	
+	)}`
+	}
+}
+	
+	
 
 export function fieldValidationRequired(value, message) {
 	if (
@@ -30,7 +47,8 @@ export const alphaNumeric = (value) =>
 export const Validate = {
 	require: (message) => (value) => fieldValidationRequired(value, message),
 	required: memoize((message) => (value) => fieldValidationRequired(value, message)),
-	maxLength: memoize((length) => (value) => fieldValidationLength(value, length))
+	maxLength: memoize((length) => (value) => fieldValidationLength(value, length)),
+	maxLimit:memoize((minlength,maxLength)=>(value)=>fieldValidationForMaxLimit(value, minlength,maxLength))
 };
 
 export const CheckConstraints = (id: string) => {

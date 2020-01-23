@@ -26,8 +26,8 @@ interface IMapStateToProps {
 }
 
 const ActivityFeedList: React.FC<IProps & IMapStateToProps> = (props) => {
-	const [ activityFeedData, setActivityFeedData ] = useState<Array<IActivityFeed>>([]);
-	const [ isprojectActivitiesUpdated, setIsprojectActivitiesUpdated ] = useState<boolean>(false);
+	const [activityFeedData, setActivityFeedData] = useState<Array<IActivityFeed>>([]);
+	const [isprojectActivitiesUpdated, setIsprojectActivitiesUpdated] = useState<boolean>(false);
 	useEffect(
 		() => {
 			if (props.projectActivities.length > 0) {
@@ -39,7 +39,7 @@ const ActivityFeedList: React.FC<IProps & IMapStateToProps> = (props) => {
 				setIsprojectActivitiesUpdated(true);
 			}
 		},
-		[ props.projectActivities ]
+		[props.projectActivities]
 	);
 
 	useEffect(
@@ -64,11 +64,10 @@ const ActivityFeedList: React.FC<IProps & IMapStateToProps> = (props) => {
 							createdDate: data.createdOn
 						});
 					});
-					setActivityFeedData(activityFeed);
 				}
 			}
 		},
-		[ props.userNamesForEmails ]
+		[props.userNamesForEmails]
 	);
 
 	const filterUserByEmailId = (data, emailId) => {

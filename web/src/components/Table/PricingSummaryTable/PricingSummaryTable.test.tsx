@@ -24,7 +24,7 @@ describe('should calculation summary component renders without error', () => {
 	let Props = {
 		preliminary: preliminariesInitialState,
 		subContractor: subContractorInitialState.form.activities,
-		discount: discountInitialState,
+		discount: discountInitialState.form,
 		currencySymbol: '$',
 		insuranceRate: -1,
 		countryCode: 'GBR',
@@ -99,4 +99,4 @@ describe('should calculation summary component renders without error', () => {
 		mountCalculationSummaryTable(newProps);
 		expect(findByTestAtrr(wrapper, 'discount-data')).toHaveLength(0);
 	});
-});
+}); 

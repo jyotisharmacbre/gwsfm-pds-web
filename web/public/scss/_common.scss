@@ -530,3 +530,39 @@ button[type="button"] {
         }
     }
 }
+
+/* toaster message design */
+.custom_toast_block {
+    .Toastify__toast--error {
+        background-color: map-get($colors, red );
+    }
+
+    .Toastify__toast--success,
+    .Toastify__toast--error {
+        background: #028239;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+    }
+
+    .Toastify__close-button {
+        background-color: transparent;
+        padding: 0;
+        opacity: 1;
+        align-self: auto;
+        min-width: 0;
+        margin-right: 10px;
+        border: none;
+    }
+
+    .Toastify__toast {
+        padding: 8px 8px 8px 18px;
+        font-family: hind;
+    }
+
+    .Toastify__close-button {
+        &:hover {
+            color: #fff;
+        }
+    }
+}

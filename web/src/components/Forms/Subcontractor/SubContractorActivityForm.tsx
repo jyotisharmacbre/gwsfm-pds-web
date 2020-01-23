@@ -25,7 +25,7 @@ import NewTypeAhead from '../../TypeAhead/NewTypeAhead';
 import { confirmAlert } from '../../Popup/CustomModalPopup';
 
 import ValidatedNumericInput from '../../../components/NumericInput/index';
-import { restrictMinus } from '../../../helpers/utility-helper';
+import { restrictMinus, restrictMinusAndAllowDecimal, restrictMinusAndAllowDecimalForMaxRangeHundred } from '../../../helpers/utility-helper';
 interface Props {
 	fields: any;
 	activities: Array<ISubContractorActivity>;
@@ -110,26 +110,26 @@ const SubContractorActivityForm: React.FC<Props> = (props: Props) => {
 										buttons={selectionButtons}
 										labelKey="LABEL_PREFERRED_SUPPLIER"
 									/>
-									<ValidatedNumericInput
+									<Field
 										name={`${member}.totalCost`}
 										type="text"
 										component={PdsFormInput}
 										className="width-120 pl-20"
 										validate={[ Validate.maxLength(1000), onlyNumber ]}
 										currency={props.currencySymbol}
-										normalize={restrictMinus}
+										normalize={restrictMinusAndAllowDecimal}
 										divPosition="relative"
 										labelKey="LABEL_TOTAL_COST"
 										placeholderKey=""
 									/>
-									<ValidatedNumericInput
+									<Field
 										name={`${member}.grossMargin`}
 										type="text"
 										component={PdsFormInput}
 										className="width-120 pl-20"
 										validate={[ Validate.maxLength(1000), onlyNumber ]}
 										currency="%"
-										normalize={restrictMinus}
+										normalize={restrictMinusAndAllowDecimalForMaxRangeHundred}
 										divPosition="relative"
 										labelKey="LABEL_GROSS_MARGIN"
 										placeholderKey=""
@@ -160,7 +160,7 @@ const SubContractorActivityForm: React.FC<Props> = (props: Props) => {
 									/>
 								</div>
 							</div>
-							<FieldArray name={`${member}.quotes`} component={Quote} key={index} />
+							<FieldArray name={`${member}.quotes`} currencySymbol = {props.currencySymbol} component={Quote} key={index} />
 						</div>
 					</div>
 				</div>

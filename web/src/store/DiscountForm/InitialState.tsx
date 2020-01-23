@@ -1,19 +1,29 @@
 import { IDiscountState } from './Types/IDiscountState';
 import Notify from '../../enums/Notify';
 import EventType from '../../enums/EventType';
+import IDiscountSubContractor from './Types/IDiscountSubContractor';
+
+export const newSubContractorDiscount: IDiscountSubContractor = {
+  subContractorDiscountId: '',
+  projectId: '',
+  supplierName: '',
+  supplierState: '',
+  supplierTotalDiscount: undefined,
+  supplierComments: '',
+}
 
 export const initialState: IDiscountState = {
   form: {
-    discountId: '',
     projectId: '',
-    supplierName: '',
-    supplierState: '',
-    supplierTotalDiscount: undefined,
-    supplierComments: '',
-    clientState: '',
-    discountType: 1,
-    clientDiscount: undefined,
-    clientComments: ''
+    clientDiscount: {
+      discountId: '',
+      projectId: '',
+      discount: undefined,
+      clientState: '',
+      discountType: 1,
+      clientComments: ''
+    },
+    subContractorDiscounts: [{ ...newSubContractorDiscount }],
   },
   error: null,
   loading: false,
