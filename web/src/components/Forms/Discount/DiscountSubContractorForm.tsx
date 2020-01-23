@@ -66,7 +66,7 @@ const DiscountSubContractorForm: React.FC<Props> = (props: Props) => {
                                 />
                                 <Field
                                     name={`${member}.supplierTotalDiscount`}
-                                    type="text"
+                                    type="number"
                                     className="width-120 pl-20"
                                     component={PdsFormInput}
                                     validate={[Validate.maxLength(15)]}
@@ -97,7 +97,7 @@ const DiscountSubContractorForm: React.FC<Props> = (props: Props) => {
                     data-test="addSubContractorDiscount"
                     name="addSubContractorDiscount"
                     type="button"
-                    disabled={fields.length > 4}
+                    hidden={fields.length > 4}
                     className="active"
                     onClick={() => { fields.push({ ...newSubContractorDiscount }); console.log(fields.length); }}
                 >
