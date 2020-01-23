@@ -75,10 +75,7 @@ const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps & ICountryH
 		}
 		if (!props.currencies) {
 			props.getAllCurrencies();
-		}
-		if (props.match.params.projectId && isLookupSessionExists) {
-			props.getPreliminaryDetails(props.match.params.projectId);
-		}
+		}		
 		props.getAllCountries();
 		props.getSubContractor(props.match.params.projectId);
 		props.getDiscountData(props.match.params.projectId);
@@ -122,6 +119,13 @@ const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps & ICountryH
 		},
 		[ props.project.countryId ]
 	);
+
+	//Following code will also re-render dashboardGrid on lnaguage change, as lookup data gets update on language change. 
+	useEffect(()=>{
+	
+			props.getPreliminaryDetails(props.match.params.projectId);
+		
+	}, [props.lookupData]);
 
 	const [ isExpand, handleExpandAllEvent ] = useState(false);
 
