@@ -66,7 +66,7 @@ const DiscountSubContractorForm: React.FC<Props> = (props: Props) => {
                                 />
                                 <Field
                                     name={`${member}.supplierTotalDiscount`}
-                                    type="number"
+                                    type="text"
                                     className="width-120 pl-20"
                                     component={PdsFormInput}
                                     validate={[Validate.maxLength(15)]}
