@@ -80,7 +80,7 @@ describe('DiscountForm Fields', () => {
         field = wrapper.find('input[name="subContractorDiscounts[0].supplierTotalDiscount"]').first();
       });
       it('Should renders supplierTotalDiscount field', () => {
-        expect(field.prop('type')).toBe('number');
+        expect(field.prop('type')).toBe('text');
       });
     });
 
