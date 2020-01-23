@@ -59,10 +59,12 @@ interface IMapDispatchToProps {
 	getDiscountData: (projectId: string) => void;
 	getProjectParameters: (countryId: number) => void;
 	getAllCountries: () => void;
+	resetPreliminaryFormState:()=>void;
 	resetPreliminaryState:()=>void;
 }
 
 const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps & ICountryHoc & IInsuranceRateHoc&IReactIntl> = (props) => {
+	
 	const CurrencyObj = new Currency();
 	const [ currencySymbol, setCurrencySymbol ] = useState<string>('');
 	let componentIds: Array<string> = [];
@@ -71,7 +73,6 @@ const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps & ICountryH
 		sessionStorage.getItem('lookupData') != null &&
 		sessionStorage.getItem('lookupData') != undefined &&
 		sessionStorage.getItem('lookupData') != '';
-
 	useEffect(() => {
 		window.scrollTo(0, 0);
 		props.getProjectDetail(props.match.params.projectId);
@@ -91,15 +92,18 @@ const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps & ICountryH
 
 	useEffect(
 		() => {
-			window.scrollTo(0, 0);
 			if (props.notify == Notify.success) {
 				toast.success(formatMessage('MESSAGE_SUCCESSFUL'));
+				props.resetPreliminaryState();
 				if (props.event == EventType.next) {
 					props.history.push('/Subcontractor/' + props.match.params.projectId);
 				}
 			} else if (props.notify == Notify.error) {
 				toast.error(formatMessage('MESSAGE_ERROR_MESSAGE'));
+				props.resetPreliminaryState();
 			}
+			
+
 		},
 		[ props.notify, props.event ]
 	);
@@ -127,10 +131,10 @@ const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps & ICountryH
 		},
 		[ props.project.countryId ]
 	);
-
+	
 	const [ isExpand, handleExpandAllEvent ] = useState(false);
 	const redirectionToComponent=(componentName:string)=>{
-		props.resetPreliminaryState();
+		props.resetPreliminaryFormState();
 		props.history.push(`/${componentName}/${props.match.params.projectId}`);
 	  }
 	const handleToggle = (id: string) => {
@@ -152,6 +156,21 @@ const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps & ICountryH
 			setComponentId(componentData);
 		}
 	};
+	const handlePrevious = () => {
+		if(props.isPreliminaryFormDirty)
+		{
+		  confirmAlert({
+			intl: props.intl,
+			titleKey: 'TITLE_CONFIRMATION',
+			contentKey: 'MESSAGE_DIRTY_CHECK',
+			handleConfirm: () => redirectionToComponent('JustificationAuthorisation')
+		  })
+		}
+		else{
+		  redirectionToComponent('JustificationAuthorisation')
+		}
+	 
+	  };
 	const handleSaveData = (saveAll: boolean, event: EventType, preliminaryDetails: any, index: number) => {
 		var editData: Array<IPreliminaries> = [];
 		var saveData: Array<IPreliminaries> = [];
@@ -175,25 +194,13 @@ const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps & ICountryH
 			props.preliminaryAdd(saveData, event);
 		} else {
 			toast.error(formatMessage('MESSAGE_ERROR_DATA_CHANGED'));
-			props.history.push(`/Subcontractor/${props.match.params.projectId}`);
+			if(event==EventType.next)
+			{
+				redirectionToComponent('Subcontractor');
+			}
 		}
 	};
-	const handlePrevious = () => {
-		if(props.isPreliminaryFormDirty)
-		{
-		  confirmAlert({
-			intl: props.intl,
-			titleKey: 'TITLE_CONFIRMATION',
-			contentKey: 'MESSAGE_DIRTY_CHECK',
-			handleConfirm: () => redirectionToComponent('JustificationAuthorisation')
-		  })
-		}
-		else{
-		  redirectionToComponent('JustificationAuthorisation')
-		}
-	 
-	  };
-
+	
 	return (
 		<div className="container-fluid">
 			<div data-test="pre_row_status" className={`${getClassNameForProjectStatus(props.status)} row`}>
@@ -321,7 +328,8 @@ const mapDispatchToProps = (dispatch) => {
 		getDiscountData: (projectId: string) => dispatch(actions.getDiscountData(projectId)),
 		getProjectParameters: (countryId: number) => dispatch(actions.getProjectParameters(countryId)),
 		getAllCountries: () => dispatch(actions.getAllContries()),
-		resetPreliminaryState:()=>dispatch(reset("PreliminaryForm"))
+		resetPreliminaryFormState:()=>dispatch(reset("PreliminaryForm")),
+		resetPreliminaryState:()=>dispatch(actions.resetPreliminaryState())
 	};
 };
 

@@ -47,7 +47,9 @@ const preliminaryGetError = (oldState, action) => {
 };
 
 const resetPreliminaryState = (oldState, action) => {
-	return initialState;
+	 return updateObject(oldState, {
+    notify:Notify.none
+  });;
 };
 
 

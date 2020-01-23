@@ -70,7 +70,7 @@ const LeftMenu: React.FC<IMapStateToProps&IMapDispatchToProps&IReactIntl> = (pro
 	const disableEnableSubActiveClass = (value: string) => {
 		return activeClass == value ? 'subactive' : '';
 	};
-	const isFormDirty=(componentName:string,projectId:string)=>{
+	const isFormDirty=(componentName:string,projectId:string,id?:string)=>{
 if( props.isProjectFormDirty||
 	props.isProjectOverviewFormDirty||
 	props.isPreliminaryFormDirty||
@@ -81,13 +81,34 @@ if( props.isProjectFormDirty||
 			intl: props.intl,
 			titleKey: 'TITLE_CONFIRMATION',
 			contentKey: 'MESSAGE_DIRTY_CHECK',
-			handleConfirm: () => redirectionToComponent(componentName,projectId)
+			handleConfirm: () => redirectionToComponent(componentName,projectId),
+			handleReject:()=>activeLink()
 		})
 	}
 	else
 	{
 		redirectionToComponent(componentName,projectId);
 	}
+	}
+	 
+	const activeLink=()=>{
+		if(props.isProjectFormDirty)
+		{
+			let element:any=document.getElementById("projectLink");
+
+		}
+		// let element:any=id?document.getElementById(id):null;
+		// if (componentName.toLowerCase()=="preliminaries"||
+		// componentName.toLowerCase()=="subcontractor"||
+		// componentName.toLowerCase()=="discounts"
+		// ) {
+		// 	element.classList.add('subactive');
+		// 	return;
+		// }
+		// if(element)
+		// {
+		// 	element.classList.add('active');
+		// }
 	}
     const redirectionToComponent=(componentName:string,projectId:string)=>{
 		if(props.isDiscountFormDirty){props.resetDiscountFormState();}
@@ -119,14 +140,14 @@ if( props.isProjectFormDirty||
 			</div>
 
 			<ul id="homeMenu" className="list-unstyled components">
-				<li className={disableEnableMenu('project')}>
+				<li id="projectLink" className={disableEnableMenu('project')}>
 					<a className="cursorPntr"
 						data-test="ProjectLink" onClick={()=>isFormDirty('Project',urlProjectId)}	
 					>
 						<FormattedMessage id="HEADING_CUSTOMER_ENQUIRY" />
 					</a>
 				</li>
-				<li
+				<li id="projectOverviewLink"
 					data-test="ProjectOverviewLink"
 					className={isDisable ? disableEnableMenu('projectoverview') : 'link_disabled'}
 				>
@@ -137,7 +158,7 @@ if( props.isProjectFormDirty||
 						<FormattedMessage id="MENU_PROJECT_OVERVIEW" />
 					</a>
 				</li>
-				<li
+				<li id="justificationauthorisationLink"
 					className={
 						isDisable ? (
 							disableEnableMenu('justificationauthorisation') ||
@@ -159,24 +180,24 @@ if( props.isProjectFormDirty||
 						<FormattedMessage id="MENU_JUSTIFICATION" />
 					</a>
 					<ul className="collapse list-unstyled show" id="homeSubmenu">
-						<li className={disableEnableSubActiveClass('preliminaries')}>
-							<a className="cursorPntr" onClick={()=>isFormDirty('preliminaries',urlProjectId)}>
+						<li id="preliminariesLink" className={disableEnableSubActiveClass('preliminaries')}>
+							<a className="cursorPntr" onClick={()=>isFormDirty('preliminaries',urlProjectId,"justificationauthorisationLink")}>
 								<FormattedMessage id="MENU_PRELIMINARIES" />
 							</a>
 						</li>
-						<li className={disableEnableSubActiveClass('subcontractor')}>
-							<a className="cursorPntr" onClick={()=>isFormDirty('Subcontractor',urlProjectId)} >
+						<li id="subcontractorLink" className={disableEnableSubActiveClass('subcontractor')}>
+							<a className="cursorPntr" onClick={()=>isFormDirty('Subcontractor',urlProjectId,"justificationauthorisationLink")} >
 								<FormattedMessage id="MENU_SUBCONTRACTORS" />
 							</a>
 						</li>
-						<li className={disableEnableSubActiveClass('discounts')}>
-							<a className="cursorPntr" onClick={()=>isFormDirty('Discounts',urlProjectId)} >
+						<li id="discountsLink" className={disableEnableSubActiveClass('discounts')}>
+							<a className="cursorPntr" onClick={()=>isFormDirty('Discounts',urlProjectId,"justificationauthorisationLink")} >
 								<FormattedMessage id="MENU_DISCOUNTS" />{' '}
 							</a>
 						</li>
 					</ul>
 				</li>
-				<li className={isDisable ? disableEnableMenu('reviewsubmit') : 'link_disabled'}>
+				<li id="reviewsubmitLink" className={isDisable ? disableEnableMenu('reviewsubmit') : 'link_disabled'}>
 					<a className="cursorPntr"
 					 onClick={()=>isFormDirty('ReviewSubmit',urlProjectId)}
 					>

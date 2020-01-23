@@ -89,8 +89,7 @@ const form = reduxForm<ISubContractor, Props>({
 	destroyOnUnmount: false,
 	forceUnregisterOnUnmount: false,
 	form: 'subContractorForm',
-	enableReinitialize: true,
-	keepDirtyOnReinitialize: true
+	enableReinitialize: true
 })(injectIntl(SubcontractorForm));
 
 export default connect(mapStateToProps)(form);
