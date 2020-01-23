@@ -14,7 +14,6 @@ import { ProjectApproverTypeAndRangeMapping } from '../../../store/ProjectOvervi
 import { LookupType } from '../../../store/Lookups/Types/LookupType';
 import { IUserServiceData } from '../../../store/UserService/Types/IUserService';
 import { displayUserName } from '../../../helpers/utility-helper';
-
 interface IProps {
 	currencySymbol: string;
 	handleGetUserNamesForEmails: (emails: Array<string>) => void;
@@ -27,7 +26,7 @@ interface IMapStateToProps {
 
 const ActivityFeedList: React.FC<IProps & IMapStateToProps> = (props) => {
 	const [ activityFeedData, setActivityFeedData ] = useState<Array<IActivityFeed>>([]);
-	const [ userNamesForEmails, setUserNamesForEmails ] = useState<any>([]);
+	const [ userNamesForEmails, setUserNamesForEmails ] = useState<Array<IUserServiceData>>([]);
 	useEffect(
 		() => {
 			if (props.projectActivities.length > 0) {
