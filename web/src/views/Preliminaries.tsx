@@ -120,7 +120,7 @@ const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps & ICountryH
 		[ props.project.countryId ]
 	);
 
-	//Following code will also re-render dashboardGrid on lnaguage change, as lookup data gets update on language change. 
+	//Following code will also re-render Preliminaries on lnaguage change, as lookup data gets update on language change. 
 	useEffect(()=>{
 	
 			props.getPreliminaryDetails(props.match.params.projectId);
