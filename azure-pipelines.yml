@@ -190,12 +190,51 @@ steps:
     contentType: 'application/json'
     allowInvalidSSLCertificate: false
 
+- task: PowerShell@2
+  displayName: 'test start time'
+  inputs:
+    targetType: 'inline'
+    script: |
+      $TestStartdate=$(Get-Date -Format s);
+      Write-Host "##vso[task.setvariable variable=TestStartTime]$TestStartdate"
+
 - task: Npm@1
   displayName: 'Test Run'
   inputs:
     command: 'custom'
     workingDir: 'web'
     customCommand: 'run test:ci'
+
+- task: PowerShell@2
+  displayName: 'Test End Time'
+  inputs:
+    targetType: 'inline'
+    script: |
+      $TestEnddate=$(Get-Date -Format s);
+      Write-Host "##vso[task.setvariable variable=TestEndTime]$TestEnddate"
+
+- task: restCallBuildTask@0
+  displayName: 'Unit test'
+  inputs:
+    webserviceEndpoint: 'Metrics'
+    relativeUrl: 
+    httpVerb: 'POST'
+    body: |
+      {
+      "ApplicationId": $(appID),
+      "AutomationProcessId": 5,
+      "AutomationToolId": 48,
+      "Description": "Unit Test",
+      "Version": "$(BUILD.BUILDID)",
+      "Cycle": "$(BUILD.BUILDID)",
+      "Passed": 1,
+      "Failed": 0,
+      "Blocked": 0,
+      "StartDateTime": "$(TestStartTime)",
+      "EndDateTime": "$(TestEndTime)"
+      }
+    contentType: 'application/json'
+    allowInvalidSSLCertificate: false
 
 - task: PublishTestResults@2
   inputs:
