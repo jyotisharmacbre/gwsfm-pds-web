@@ -66,7 +66,6 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 		dynamicsCompany,
 		listOfDivisions
 	} = props;
-	console.log(props.listOfDivisions, 'props.listOfDivisions')
 
 	const onCountryChange = (event) => {
 		if (props.countries && props.currencies) {
