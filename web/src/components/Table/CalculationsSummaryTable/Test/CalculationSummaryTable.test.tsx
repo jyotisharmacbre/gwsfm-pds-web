@@ -182,7 +182,7 @@ describe('should calculation summary component, calculate the cost, margin and s
 		mountCalculationSummaryTable(Props);
 		expect(findByTestAtrr(wrapper, 'total-cost-summary').text()).toEqual('193.04');
 		expect(findByTestAtrr(wrapper, 'total-margin-summary').text()).toEqual('19.57');
-		expect(findByTestAtrr(wrapper, 'gross-margin-summary').text()).toEqual('45.96');
+		expect(findByTestAtrr(wrapper, 'gross-margin-summary').text()).toEqual('46.96');
 		expect(findByTestAtrr(wrapper, 'total-sell-summary').text()).toEqual('240.00');
 	});
 
