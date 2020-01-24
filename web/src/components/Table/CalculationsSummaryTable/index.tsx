@@ -58,7 +58,7 @@ const CalculationsSummaryTable: React.FC<Props> = (props) => {
 		},
 		[props.discount, subContractorData, preliminaryData, props.insuranceRate]
 	);
-
+ 
 	return (
 		<div className="col-lg-9 px-0">
 			<div className="price-sumry discount_table">

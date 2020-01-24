@@ -111,46 +111,6 @@ const PricingSummaryTable: React.FC<Props> = (props) => {
 								</td>
 							</tr>
 						) : null}
-						{props.showInsurance ? (
-							<React.Fragment>
-								<tr>
-									<br />
-								</tr>
-								<tr>
-									<td data-column="&nbsp;">
-										<FormattedMessage id={props.countryCode.toLowerCase() == 'gbr' ? 'LABEL_INSURANCE' : 'LABEL_SGA'} />
-									</td>
-									<td data-column={`Cost (${props.currencySymbol})`}>
-										<FormattedMessage id={props.countryCode.toLowerCase() == 'gbr' ? 'LABEL_INSURANCE_COST' : 'LABEL_SGA_COST'} />
-									</td>
-									<td data-column={`Margin (%)`}>
-										<FormattedMessage id={props.countryCode.toLowerCase() == 'gbr' ? ('LABEL_INSURANCE_PERCENTAGE') : ('LABEL_SGA_PERCENTAGE')} />
-									</td>
-									<td>&nbsp;</td>
-								</tr>
-								<tr>
-									<td data-column="&nbsp;">&nbsp;</td>
-									<td data-column={`Cost (${props.currencySymbol})`}>
-										{props.currencySymbol}
-										<span>
-											{props.insuranceRate ? (
-												calculatePercentage(
-													preliminaryData.cost +
-													subContractorData.cost -
-													(props.discount ? getSupplierTotalDiscount(props.discount?.subContractorDiscounts) : 0),
-													props.insuranceRate
-												).toFixed(2)
-											) : null}
-										</span>
-										&nbsp;
-									</td>
-									<td data-column="Margin (%)">
-										<span>{props.insuranceRate ? `${props.insuranceRate}(%)` : null}</span>
-									</td>
-									<td data-column={`Sell (${props.currencySymbol})`}>&nbsp;</td>
-								</tr>
-							</React.Fragment>
-						) : null}
 						{props.showDiscount && props.discount ? (
 							<React.Fragment>
 								<tr>
@@ -194,6 +154,46 @@ const PricingSummaryTable: React.FC<Props> = (props) => {
 												)}
 										</span>
 									</td>
+								</tr>
+							</React.Fragment>
+						) : null}
+						{props.showInsurance ? (
+							<React.Fragment>
+								<tr>
+									<br />
+								</tr>
+								<tr>
+									<td data-column="&nbsp;">
+										<FormattedMessage id={props.countryCode.toLowerCase() == 'gbr' ? 'LABEL_INSURANCE' : 'LABEL_SGA'} />
+									</td>
+									<td data-column={`Cost (${props.currencySymbol})`}>
+										<FormattedMessage id={props.countryCode.toLowerCase() == 'gbr' ? 'LABEL_INSURANCE_COST' : 'LABEL_SGA_COST'} />
+									</td>
+									<td data-column={`Margin (%)`}>
+										<FormattedMessage id={props.countryCode.toLowerCase() == 'gbr' ? ('LABEL_INSURANCE_PERCENTAGE') : ('LABEL_SGA_PERCENTAGE')} />
+									</td>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<td data-column="&nbsp;">&nbsp;</td>
+									<td data-column={`Cost (${props.currencySymbol})`}>
+										{props.currencySymbol}
+										<span>
+											{props.insuranceRate ? (
+												calculatePercentage(
+													preliminaryData.cost +
+													subContractorData.cost -
+													(props.discount ? getSupplierTotalDiscount(props.discount?.subContractorDiscounts) : 0),
+													props.insuranceRate
+												).toFixed(2)
+											) : null}
+										</span>
+										&nbsp;
+									</td>
+									<td data-column="Margin (%)">
+										<span>{props.insuranceRate ? `${props.insuranceRate}(%)` : null}</span>
+									</td>
+									<td data-column={`Sell (${props.currencySymbol})`}>&nbsp;</td>
 								</tr>
 							</React.Fragment>
 						) : null}
