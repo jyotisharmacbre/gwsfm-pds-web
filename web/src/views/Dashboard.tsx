@@ -104,6 +104,9 @@ const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
 						</div>
 					</div>
 				</div>
+				<div className="row float-right">
+					testing cache
+				</div>
 			</div>
 		</div>
 	);
