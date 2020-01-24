@@ -12,7 +12,7 @@ interface IProps {
     subTitleKey?: any,
     contentKey?: any,
     handleConfirm?: (data: string) => void,
-    handleReject?: () => void
+    handleCancel?: () => void
 }
 
 const QueryPopup: React.FC<IProps> = props => {
@@ -21,10 +21,8 @@ const QueryPopup: React.FC<IProps> = props => {
         if (props.handleConfirm) { props.handleConfirm(`"${value}"`) }
         removeBodyClass();
     }
-    const reject = () => {
-        if (props.handleReject) { props.handleReject() }
-        removeBodyClass();
-    }
+    const cancel = () => { 
+        if (props.handleCancel) { props.handleCancel() ;}    }
     const removeBodyClass = () => {
         const target: any = document.getElementById('exampleModal')
         target.parentNode.removeChild(target)
@@ -38,7 +36,7 @@ const QueryPopup: React.FC<IProps> = props => {
                         <h5 className="modal-title">
                             {props.titleKey}
                         </h5>
-                        <span onClick={() => removeBodyClass()} className="close" aria-label="Close">
+                        <span onClick={() => cancel()} className="close" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </span>
                     </div>
@@ -51,7 +49,7 @@ const QueryPopup: React.FC<IProps> = props => {
                         </p>
                     </div>
                     <div className="modal-footer">
-                        <button type="button" data-test="button_reject" className="" onClick={() => reject()}>
+                        <button type="button" data-test="button_reject" className="" onClick={() => cancel()}>
                             {formatMessage("BUTTON_CANCEL")}
                         </button>
                         <button type="button" data-test="button_confirm" id="button_confirm" className="active" onClick={() => confirm()}>
