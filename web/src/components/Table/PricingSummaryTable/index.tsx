@@ -118,17 +118,13 @@ const PricingSummaryTable: React.FC<Props> = (props) => {
 								</tr>
 								<tr>
 									<td data-column="&nbsp;">
-										{props.countryCode.toLowerCase() == 'gbr' ? 'Insurance' : 'SG&A'}
+										<FormattedMessage id={props.countryCode.toLowerCase() == 'gbr' ? 'LABEL_INSURANCE' : 'LABEL_SGA'} />
 									</td>
 									<td data-column={`Cost (${props.currencySymbol})`}>
-										{props.countryCode.toLowerCase() == 'gbr' ? 'Insurance Cost' : 'SG&A Cost'}
+										<FormattedMessage id={props.countryCode.toLowerCase() == 'gbr' ? 'LABEL_INSURANCE_COST' : 'LABEL_SGA_COST'} />
 									</td>
 									<td data-column={`Margin (%)`}>
-										{props.countryCode.toLowerCase() == 'gbr' ? (
-											'Insurance Percentage'
-										) : (
-												'SG&A Percentage'
-											)}
+										<FormattedMessage id={props.countryCode.toLowerCase() == 'gbr' ? ('LABEL_INSURANCE_PERCENTAGE') : ('LABEL_SGA_PERCENTAGE')} />
 									</td>
 									<td>&nbsp;</td>
 								</tr>
