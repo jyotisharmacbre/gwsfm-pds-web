@@ -24,6 +24,7 @@ describe('Preliminary Components Form test cases', () => {
         componentIdList={preliminaryComponentIdList}
         currencySymbol="$"
         isExpand="false"
+        projectStatus="1"
       />
     );
   });
