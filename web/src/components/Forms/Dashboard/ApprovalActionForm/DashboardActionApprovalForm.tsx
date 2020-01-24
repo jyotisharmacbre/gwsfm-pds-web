@@ -56,7 +56,7 @@ let DashboardActionApprovalForm: React.FC<Props & InjectedFormProps<Array<IProje
 						LookupItems.Project_Approval_Sign_Off_Status
 					) : rowProject.approvalStatus;
 					var mailObj = namesAndEmails.find(
-						(lk) => lk.email.toUpperCase() === rowProject.modifiedBy.toUpperCase()
+						lk =>lk.email && rowProject.modifiedBy && lk.email.toUpperCase() === rowProject.modifiedBy.toUpperCase()
 					);
 					rowProject.modifiedBy = mailObj
 						? `${mailObj.firstname} ${mailObj.lastName}`

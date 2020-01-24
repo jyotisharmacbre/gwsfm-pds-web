@@ -29,8 +29,8 @@
         background: transparent;
         color: #006a4d;
         border-radius: 2px;
-        @include mdScreen {
-            padding: 6px 16px 3px;
+        @include lgScreen {
+            padding: 6px 15px 3px;
         }
         &:focus {
             outline: none;

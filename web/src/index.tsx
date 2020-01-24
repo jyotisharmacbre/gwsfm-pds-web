@@ -40,5 +40,5 @@ b2cauth.run(() => {
     </Provider>,
     document.getElementById('root') as HTMLElement
   );
-  serviceWorker.register();
+  serviceWorker.unregister();
 });

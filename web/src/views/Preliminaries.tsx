@@ -55,6 +55,7 @@ interface IMapDispatchToProps {
 	getDiscountData: (projectId: string) => void;
 	getProjectParameters: (countryId: number) => void;
 	getAllCountries: () => void;
+	resetPreliminaryState:()=>void;
 }
 
 const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps & ICountryHoc & IInsuranceRateHoc> = (props) => {
@@ -75,10 +76,7 @@ const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps & ICountryH
 		}
 		if (!props.currencies) {
 			props.getAllCurrencies();
-		}
-		if (props.match.params.projectId && isLookupSessionExists) {
-			props.getPreliminaryDetails(props.match.params.projectId);
-		}
+		}		
 		props.getAllCountries();
 		props.getSubContractor(props.match.params.projectId);
 		props.getDiscountData(props.match.params.projectId);
@@ -95,6 +93,7 @@ const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps & ICountryH
 			} else if (props.notify == Notify.error) {
 				toast.error(formatMessage('MESSAGE_ERROR_MESSAGE'));
 			}
+			props.resetPreliminaryState();
 		},
 		[ props.notify, props.event ]
 	);
@@ -122,6 +121,13 @@ const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps & ICountryH
 		},
 		[ props.project.countryId ]
 	);
+
+	//Following code will also re-render Preliminaries on lnaguage change, as lookup data gets update on language change. 
+	useEffect(()=>{
+	
+			props.getPreliminaryDetails(props.match.params.projectId);
+		
+	}, [props.lookupData]);
 
 	const [ isExpand, handleExpandAllEvent ] = useState(false);
 
@@ -166,7 +172,10 @@ const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps & ICountryH
 		} else if (saveData.length > 0) {
 			props.preliminaryAdd(saveData, event);
 		} else {
-			toast.error(formatMessage('MESSAGE_ERROR_DATA_CHANGED'));
+			if(event==EventType.next)
+			{
+				props.history.push('/Subcontractor/' + props.match.params.projectId);
+			}
 		}
 	};
 	const handlePrevious = () => {
@@ -298,7 +307,8 @@ const mapDispatchToProps = (dispatch) => {
 		getSubContractor: (projectId: string) => dispatch(actions.getSubContractor(projectId)),
 		getDiscountData: (projectId: string) => dispatch(actions.getDiscountData(projectId)),
 		getProjectParameters: (countryId: number) => dispatch(actions.getProjectParameters(countryId)),
-		getAllCountries: () => dispatch(actions.getAllContries())
+		getAllCountries: () => dispatch(actions.getAllContries()),
+		resetPreliminaryState:()=>dispatch(actions.resetPreliminaryState())
 	};
 };
 
