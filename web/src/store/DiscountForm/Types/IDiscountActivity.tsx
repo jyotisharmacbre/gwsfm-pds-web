@@ -1,12 +1,8 @@
+import IDiscountSubContractor from '../Types/IDiscountSubContractor'
+import IClientDiscount from '../Types/IClientDiscount'
+
 export interface IDiscountActivity {
-  discountId: string;
   projectId: string;
-  supplierName: string;
-  supplierState: string;
-  supplierTotalDiscount: number | undefined;
-  supplierComments: string;
-  clientState: string;
-  discountType: number;
-  clientDiscount: number  | undefined;
-  clientComments: string;
+  clientDiscount: IClientDiscount;
+  subContractorDiscounts: Array<IDiscountSubContractor>;
 }

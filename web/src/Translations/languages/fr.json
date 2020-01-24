@@ -62,6 +62,7 @@
   "BUTTON_PIPELINE": "PIPELINE",
   "BUTTON_CREATE_NEW_PROJ": "CRÉER UN NOUVEAU PROJET",
   "BUTTON_QUERY": "REQUETE",
+  "BUTTON_NEW_SUBCONTRACTOR_DISCOUNT": "NOUVELLE RÉDUCTION",
   "LABEL_PREFERED_LANGUAGE": "langue préférée",
   "LABEL_PREFERED_CURRENCY": "devise préférée",
   "LABEL_QUOTE_VALUE": "Valeur du devis",
@@ -174,6 +175,7 @@
   "LABEL_PRELIMINARIES_DESCRIPTION": "Coûts de main-d'œuvre CBRE directs et accessoires tels que O & Ms, etc.",
   "LABEL_SUBCONTRACT_DESCRIPTION": "Fournisseurs tiers utilisés pour des activités spécifiques avec des détails de devis.",
   "LABEL_DISCOUNT_DESCRIPTION": "Remise du sous-traitant ou du fournisseur à considérer dans le coût final du projet.",
+  "LABEL_TOTAL_SUBCONTRACTOR_DISCOUNT": "Remise totale aux sous-traitants",
   "FIX_TEXT_HOP": "HOP HOP)",
   "FIX_TEXT_AGM": "AGM / AD",
   "FIX_TEXT_COM": "ComM",
@@ -207,6 +209,7 @@
   "MESSAGE_SUBCONTRACTOR_DELETE_ACTIVITY": "Voulez-vous vraiment supprimer cette activité? ",
   "MESSAGE_PROJECT_STATUS_CHANGE": "Voulez-vous vraiment changer l'état du projet?",
   "MESSAGE_PROJECT_REACTIVATE": "Voulez-vous vraiment réactiver le projet?",
+  "MESSAGE_DISCOUNT_SUBCONTRACTOR_DELETE_ACTIVITY": "Êtes-vous sûr de vouloir supprimer cette remise de sous-traitant?",
   "PLACEHOLDER_DISCOUNT": "Entrez la remise",
   "PLACEHOLDER_TYPE_OF_ENGAGEMENT": "Sélectionnez le type d'engagement",
   "PLACEHOLDER_SUPPLIER_NAME": "Entrez le nom du fournisseur",
@@ -301,7 +304,5 @@
   "MESSAGE_SUCCESSFUL_APPROVED": "Approuvé avec succès",
   "MESSAGE_SUCCESSFUL_SUBMITED": "Soumis avec succès",
   "MESSAGE_QUERY_SUCCESS": "Requête enregistrée avec succès",
-  "MESSAGE_WARNING": "Après avoir soumis la requête, le statut du projet sera changé en J&N et toutes les approbations précédentes seront réinitialisées et devront à nouveau être approuvées.",
-  "MESSAGE_DIRTY_CHECK":"Vous avez des modifications non enregistrées sur cette page. Voulez-vous quitter cette page et annuler vos modifications ou rester sur cette page?"
-
+  "MESSAGE_WARNING": "Après avoir soumis la requête, le statut du projet sera changé en J&N et toutes les approbations précédentes seront réinitialisées et devront à nouveau être approuvées."
 }

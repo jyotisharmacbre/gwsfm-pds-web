@@ -86,15 +86,16 @@ const Discounts: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & IIns
 				props.resetDiscountState();
 			}
 		},
-		[ props.notify, props.event ]
+		[props.notify, props.event]
 	);
+
 	useEffect(
 		() => {
 			if (props.project.countryId > 0) {
 				props.getProjectParameters(props.project.countryId);
 			}
 		},
-		[ props.project.countryId ]
+		[props.project.countryId]
 	);
 	const redirectionToComponent=(componentName:string)=>{
 		props.history.push(`/${componentName}/${props.match.params.projectId}`);
@@ -115,13 +116,13 @@ const Discounts: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & IIns
 	  };
 
 	const handleNext = (data: IDiscountActivity) => {
-		data.discountId == ''
+		data.clientDiscount.discountId == ''
 			? props.discountFormAdd(paramProjectId, data, EventType.next)
 			: props.discountFormEdit(data, EventType.next);
 	};
 
 	const handleSave = (data: IDiscountActivity) => {
-		data.discountId == ''
+		data.clientDiscount.discountId == ''
 			? props.discountFormAdd(paramProjectId, data, EventType.save)
 			: props.discountFormEdit(data, EventType.save);
 	};

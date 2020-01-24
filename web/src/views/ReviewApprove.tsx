@@ -33,11 +33,11 @@ import { insuranceRateHoc, IInsuranceRateHoc } from '../hoc/InsuranceRateHoc';
 
 interface IProps {
 	match: match<{ projectId: string }>;
-	history: History;
 	intl: any;
 }
 
 interface IMapStateToProps {
+	history: History;
 	projectStatus: Array<ILookup>;
 	project: IProjectDetail;
 	projectOverview: IProjectOverviewDetails;
@@ -77,6 +77,7 @@ const lookupKeyList: string[] = [
 const ReviewApprove: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & ICountryHoc & IInsuranceRateHoc> = (
 	props
 ) => {
+	let urlProjectId: string = '';
 	const CurrencyObj = new Currency();
 	const [ currencySymbol, setCurrencySymbol ] = useState<string>('');
 	const projectId = props.match.params.projectId;
@@ -143,6 +144,14 @@ const ReviewApprove: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & 
 	const handleQuerySave = (data: string) => {
 		actions.postQuery(props.match.params.projectId, data, handleQuerySuccess, handleQueryError);
 	};
+
+	const actionEditBtn = () => {
+		props.history.push(`/Project/${props.match.params.projectId}`);
+	}
+
+	const actionEditBtnOverview = () => {
+		props.history.push(`/ProjectOverview/${props.match.params.projectId}`);
+	}
 	return (
 		<div className="container-fluid" data-test="review-approve-component">
 			{showQueryPopup && (
@@ -163,6 +172,7 @@ const ReviewApprove: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & 
 							</h1>
 						</div>
 						<ProjectSummary
+						oneditclick={actionEditBtn}
 							project={props.project}
 							lookUpData={props.projectStatus}
 							currencySymbol={currencySymbol}
@@ -170,6 +180,7 @@ const ReviewApprove: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & 
 							handleGetUserNamesForEmails={props.handleGetUserNamesForEmails}
 						/>
 						<ProjectOverviewSummary
+						oneditOverview={actionEditBtnOverview}
 							projectOverview={props.projectOverview}
 							lookUpData={props.projectStatus}
 						/>

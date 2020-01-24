@@ -29,11 +29,11 @@ import { insuranceRateHoc, IInsuranceRateHoc } from '../hoc/InsuranceRateHoc';
 import ProjectStatus from '../enums/ProjectStatus';
 
 interface IProps {
-	match: match<{ projectId: string }>;
-	history: History;
+	match: match<{ projectId: string }>;	
 }
 
 interface IMapStateToProps {
+	history: History;
 	projectStatus: Array<ILookup>;
 	project: IProjectDetail;
 	projectOverview: IProjectOverviewDetails;
@@ -121,6 +121,14 @@ const ReviewSubmit: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & I
 		toast.error(formatMessage('MESSAGE_ERROR'));
 	};
 
+	const actionEditBtn = () => {
+		props.history.push(`/Project/${props.match.params.projectId}`);
+	}
+
+	const actionEditBtnOverview = () => {
+		props.history.push(`/ProjectOverview/${props.match.params.projectId}`);
+	}
+
 	return (
 		<div className="container-fluid" data-test="review-approve-component">
 			<div className="row">
@@ -132,6 +140,7 @@ const ReviewSubmit: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & I
 							</h1>
 						</div>
 						<ProjectSummary
+							oneditclick={actionEditBtn}
 							project={props.project}
 							lookUpData={props.projectStatus}
 							currencySymbol={currencySymbol}
@@ -139,6 +148,7 @@ const ReviewSubmit: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & I
 							handleGetUserNamesForEmails={props.handleGetUserNamesForEmails}
 						/>
 						<ProjectOverviewSummary
+							oneditOverview={actionEditBtnOverview}
 							projectOverview={props.projectOverview}
 							lookUpData={props.projectStatus}
 						/>

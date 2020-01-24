@@ -28,12 +28,14 @@ export const getUserNamesForEmailsService = (data: Array<string>) => {
 			if (filter == undefined) dataNotExists.push(email);
 		});
 		if (dataNotExists.length == 0) dispatch(getDefaultState());
-		getUsersForEmailsService(data)
-			.then((response) => {
-				dispatch(getUserNamesForEmailsServiceSuccess(response.data));
-			})
-			.catch((error) => {
-				dispatch(getUserNamesForEmailsServiceError(error));
-			});
+		else {
+			getUsersForEmailsService(dataNotExists)
+				.then((response) => {
+					dispatch(getUserNamesForEmailsServiceSuccess(response.data));
+				})
+				.catch((error) => {
+					dispatch(getUserNamesForEmailsServiceError(error));
+				});
+		}
 	};
 };
