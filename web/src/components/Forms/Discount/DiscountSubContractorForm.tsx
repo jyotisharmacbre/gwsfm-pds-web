@@ -97,9 +97,9 @@ const DiscountSubContractorForm: React.FC<Props> = (props: Props) => {
                     data-test="addSubContractorDiscount"
                     name="addSubContractorDiscount"
                     type="button"
-                    disabled={fields.length > 4}
+                    hidden={fields.length > 4}
                     className="active"
-                    onClick={() => { fields.push({ ...newSubContractorDiscount }); console.log(fields.length); }}
+                    onClick={() => { fields.push({ ...newSubContractorDiscount }); }}
                 >
                     <FontAwesomeIcon className="" icon={faPlusCircle} />
                     <FormattedMessage id="BUTTON_NEW_SUBCONTRACTOR_DISCOUNT" />

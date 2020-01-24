@@ -10,8 +10,8 @@ import IDiscountSubContractor from '../store/DiscountForm/Types/IDiscountSubCont
 export const getSupplierTotalDiscount = (data: IDiscountSubContractor[]) => {
 	var totalDiscount = data && data.map(x => x.supplierTotalDiscount).reduce(function (previousValue, currentValue) {
 		let total = 0;
-		if (previousValue) total += previousValue;
-		if (currentValue) total += currentValue;
+		if (previousValue) total += parseFloat(previousValue.toString());
+		if (currentValue) total += parseFloat(currentValue.toString());;
 		return total;
 	});
 	return totalDiscount ? totalDiscount : 0;

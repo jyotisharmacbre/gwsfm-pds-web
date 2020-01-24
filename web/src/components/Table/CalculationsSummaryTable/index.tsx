@@ -22,16 +22,16 @@ interface Props {
 const CalculationsSummaryTable: React.FC<Props> = (props) => {
 	let initPricing: IPricing = { cost: 0, sell: 0, margin: 0 };
 	let initSummary: ISummaryCalculation = { cost: 0, sell: 0, margin: 0, grossMargin: 0 };
-	const [ summaryCalculation, setSummaryCalculationState ] = useState<ISummaryCalculation>({ ...initSummary });
-	const [ subContractorData, setSubContractorData ] = useState({ ...initPricing });
-	const [ preliminaryData, setPreliminaryData ] = useState({ ...initPricing });
+	const [summaryCalculation, setSummaryCalculationState] = useState<ISummaryCalculation>({ ...initSummary });
+	const [subContractorData, setSubContractorData] = useState({ ...initPricing });
+	const [preliminaryData, setPreliminaryData] = useState({ ...initPricing });
 	useEffect(
 		() => {
 			if (props.subContractor) {
 				setSubContractorData(getSubContractorSummaryCalculation(props.subContractor));
 			}
 		},
-		[ props.subContractor ]
+		[props.subContractor]
 	);
 
 	useEffect(
@@ -40,7 +40,7 @@ const CalculationsSummaryTable: React.FC<Props> = (props) => {
 				setPreliminaryData(getPreliminarySummaryCalculation(props.preliminary));
 			}
 		},
-		[ props.preliminary ]
+		[props.preliminary]
 	);
 
 	useEffect(
@@ -56,7 +56,7 @@ const CalculationsSummaryTable: React.FC<Props> = (props) => {
 				);
 			}
 		},
-		[ props.discount, subContractorData, preliminaryData, props.insuranceRate ]
+		[props.discount, subContractorData, preliminaryData, props.insuranceRate]
 	);
 
 	return (
