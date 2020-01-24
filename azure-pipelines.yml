@@ -61,7 +61,7 @@ steps:
     allowInvalidSSLCertificate: false
 
 - task: restCallBuildTask@0
-  displayName: 'Post Build Artifacst Metrics'
+  displayName: 'Post Build Artifact Metrics'
   inputs:
     webserviceEndpoint: 'Metrics'
     relativeUrl: 
