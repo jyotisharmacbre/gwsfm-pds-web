@@ -1,20 +1,29 @@
 import { ActionType } from './Types/ActionType';
 import { initialState } from './InitialState';
 import { updateObject } from '../../helpers/utility-helper';
-import {bindUserData} from "./DataWrapper";
 import Notify from '../../enums/Notify';
 
-const preliminaryAddSuccess = (oldState, action) => {
-  let preliminaryDetails = oldState.preliminaryDetails;
+const updatePreliminaryState=(preliminaryDetails, action)=>{
   action.payload?.data.forEach((item) => {
-    preliminaryDetails.find(x => x.componentId == item.preliminariesComponentId)
-    .items.find(x => x.itemId == item.preliminariesItemId)
-    .preliminaryId = item.preliminaryId;
-  });
+    let newItem =   preliminaryDetails.find(x => x.componentId == item.preliminariesComponentId)
+      .items.find(x => x.itemId == item.preliminariesItemId);
+      newItem.preliminaryId = item.preliminaryId;
+      newItem.nameOfSupplier=item.nameOfSupplier;
+      newItem.noOfHours= item.noOfHours;
+      newItem.hourRate= item.hourRate;
+      newItem.totalCost= item.totalCost;
+      newItem.grossMargin= item.grossMargin;
+      newItem.comments=item.comments;
+    });
+    return preliminaryDetails;
+}
+const preliminaryAddSuccess = (oldState, action) => {
+  let preliminaryDetails =updatePreliminaryState(oldState.preliminaryDetails,action);
   return updateObject(oldState, {
     notify: Notify.success,
     event: action.event,
     preliminaryDetails
+    
   });
 };
 const preliminaryAddError = (oldState, action) => {
@@ -24,9 +33,12 @@ const preliminaryAddError = (oldState, action) => {
   });
 }
 const preliminaryEditSuccess = (oldState, action) => {
+  let preliminaryDetails = updatePreliminaryState(oldState.preliminaryDetails,action);
   return updateObject(oldState, {
     notify: Notify.success,
-    event: action.event
+    event: action.event,
+    preliminaryDetails
+    
   });
 }
 const preliminaryEditError = (oldState, action) => {
@@ -49,9 +61,8 @@ const preliminaryGetError = (oldState, action) => {
 const resetPreliminaryState = (oldState, action) => {
 	 return updateObject(oldState, {
     notify:Notify.none
-  });;
+    });
 };
-
 
 const preliminaryReducer = (oldState = initialState, action) => {
   switch (action.type) {
@@ -68,7 +79,7 @@ const preliminaryReducer = (oldState = initialState, action) => {
     case ActionType.GET_PRELIMINARY_ERROR:
       return preliminaryGetError(oldState, action);
       case ActionType.RESET_PRELIMINARY_STATE:
-			return resetPreliminaryState(oldState, action);
+      return resetPreliminaryState(oldState, action);
     default:
       return oldState;
   }

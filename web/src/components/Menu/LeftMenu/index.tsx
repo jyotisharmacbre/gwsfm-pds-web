@@ -90,25 +90,29 @@ if( props.isProjectFormDirty||
 		redirectionToComponent(componentName,projectId);
 	}
 	}
-	 
-	const activeLink=()=>{
-		if(props.isProjectFormDirty)
+	 const enableLinkClass=(id:string,classname:string)=>{
+		let element:any=document.getElementById(id);
+		element.classList.add(classname);
+	 }
+	 const disableLinkClass=()=>{
+		let element:any=document.getElementsByClassName("dirtyCheck");
+		if(element)
 		{
-			let element:any=document.getElementById("projectLink");
-
-		}
-		// let element:any=id?document.getElementById(id):null;
-		// if (componentName.toLowerCase()=="preliminaries"||
-		// componentName.toLowerCase()=="subcontractor"||
-		// componentName.toLowerCase()=="discounts"
-		// ) {
-		// 	element.classList.add('subactive');
-		// 	return;
-		// }
-		// if(element)
-		// {
-		// 	element.classList.add('active');
-		// }
+			for(let i=0;i<element.length;i++)
+			{
+				element[i].classList.remove("active");
+				element[i].classList.remove("subactive");
+			}
+	 }
+	}
+	const activeLink=()=>{
+		disableLinkClass();
+		if(props.isProjectFormDirty){enableLinkClass("projectLink","active")}
+		if(props.isProjectOverviewFormDirty){enableLinkClass("projectOverviewLink","active")}
+		if(props.isPreliminaryFormDirty){enableLinkClass("justificationauthorisationLink","active");enableLinkClass("preliminariesLink","subactive")}
+		if(props.isSubContractorFormDirty){enableLinkClass("justificationauthorisationLink","active");enableLinkClass("subcontractorLink","subactive")}
+		if(props.isDiscountFormDirty){enableLinkClass("justificationauthorisationLink","active");enableLinkClass("discountsLink","subactive")}
+		
 	}
     const redirectionToComponent=(componentName:string,projectId:string)=>{
 		if(props.isDiscountFormDirty){props.resetDiscountFormState();}
@@ -116,7 +120,7 @@ if( props.isProjectFormDirty||
 		if(props.isProjectOverviewFormDirty){props.resetProjectOverviewFormState();}
 		if(props.isPreliminaryFormDirty){props.resetPreliminaryFormState();}
 		if(props.isSubContractorFormDirty){props.resetSubContractorFormState();}
-		history.push(`/${componentName}/${projectId}`);
+		componentName?history.push(`/${componentName}/${projectId}`):history.push("/");
 	}
 	return (
 		<nav id="sidebar">
@@ -140,7 +144,7 @@ if( props.isProjectFormDirty||
 			</div>
 
 			<ul id="homeMenu" className="list-unstyled components">
-				<li id="projectLink" className={disableEnableMenu('project')}>
+				<li id="projectLink" className={disableEnableMenu('project')+" dirtyCheck"}>
 					<a className="cursorPntr"
 						data-test="ProjectLink" onClick={()=>isFormDirty('Project',urlProjectId)}	
 					>
@@ -149,7 +153,7 @@ if( props.isProjectFormDirty||
 				</li>
 				<li id="projectOverviewLink"
 					data-test="ProjectOverviewLink"
-					className={isDisable ? disableEnableMenu('projectoverview') : 'link_disabled'}
+					className={(isDisable ? disableEnableMenu('projectoverview') : 'link_disabled')+" dirtyCheck"}
 				>
 					<a className="cursorPntr"
 						data-test="ProjectOverviewPath"
@@ -160,14 +164,14 @@ if( props.isProjectFormDirty||
 				</li>
 				<li id="justificationauthorisationLink"
 					className={
-						isDisable ? (
+						(isDisable ? (
 							disableEnableMenu('justificationauthorisation') ||
 							disableEnableMenu('preliminaries') ||
 							disableEnableMenu('subcontractor') ||
 							disableEnableMenu('discounts')
 						) : (
 							'link_disabled'
-						)
+						))+" dirtyCheck"
 					}
 				>
 					<a  
@@ -180,24 +184,24 @@ if( props.isProjectFormDirty||
 						<FormattedMessage id="MENU_JUSTIFICATION" />
 					</a>
 					<ul className="collapse list-unstyled show" id="homeSubmenu">
-						<li id="preliminariesLink" className={disableEnableSubActiveClass('preliminaries')}>
+						<li id="preliminariesLink" className={disableEnableSubActiveClass('preliminaries')+" dirtyCheck"}>
 							<a className="cursorPntr" onClick={()=>isFormDirty('preliminaries',urlProjectId,"justificationauthorisationLink")}>
 								<FormattedMessage id="MENU_PRELIMINARIES" />
 							</a>
 						</li>
-						<li id="subcontractorLink" className={disableEnableSubActiveClass('subcontractor')}>
+						<li id="subcontractorLink" className={disableEnableSubActiveClass('subcontractor')+" dirtyCheck"}>
 							<a className="cursorPntr" onClick={()=>isFormDirty('Subcontractor',urlProjectId,"justificationauthorisationLink")} >
 								<FormattedMessage id="MENU_SUBCONTRACTORS" />
 							</a>
 						</li>
-						<li id="discountsLink" className={disableEnableSubActiveClass('discounts')}>
+						<li id="discountsLink" className={disableEnableSubActiveClass('discounts')+" dirtyCheck"}>
 							<a className="cursorPntr" onClick={()=>isFormDirty('Discounts',urlProjectId,"justificationauthorisationLink")} >
 								<FormattedMessage id="MENU_DISCOUNTS" />{' '}
 							</a>
 						</li>
 					</ul>
 				</li>
-				<li id="reviewsubmitLink" className={isDisable ? disableEnableMenu('reviewsubmit') : 'link_disabled'}>
+				<li id="reviewsubmitLink" className={(isDisable ? disableEnableMenu('reviewsubmit') : 'link_disabled')+" dirtyCheck"}>
 					<a className="cursorPntr"
 					 onClick={()=>isFormDirty('ReviewSubmit',urlProjectId)}
 					>
@@ -207,7 +211,7 @@ if( props.isProjectFormDirty||
 				{props.status == ProjectStatus.InReview && (
 					<li
 						data-test="review-approve"
-						className={isDisable ? disableEnableMenu('reviewapprove') : 'link_disabled'}
+						className={(isDisable ? disableEnableMenu('reviewapprove') : 'link_disabled')+" dirtyCheck"}
 					>
 						<a className="cursorPntr"
 						onClick={()=>isFormDirty('ReviewApprove',urlProjectId)}
@@ -216,7 +220,7 @@ if( props.isProjectFormDirty||
 						</a>
 					</li>
 				)}
-				<li className={isDisable ? '' : 'link_disabled'}>
+				<li className={(isDisable ? '' : 'link_disabled')+" dirtyCheck"}>
 					<a className="cursorPntr" onClick={()=>isFormDirty('','')}>
 						<FormattedMessage id="MENU_LOGOUT" />
 					</a>

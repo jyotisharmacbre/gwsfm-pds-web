@@ -4,7 +4,7 @@ import { IState } from '../store/state';
 import { IPreliminariesComponentDetails } from '../store/Preliminaries/Types/IPreliminariesComponentDetails';
 import * as actions from '../store/rootActions';
 import { IPreliminaries } from '../store/Preliminaries/Types/IPreliminaries';
-import { convertIntoDatabaseModel } from '../store/Preliminaries/DataWrapper';
+import { convertIntoDatabaseModel, bindUserData } from '../store/Preliminaries/DataWrapper';
 import { toast } from 'react-toastify';
 import Notify from '../enums/Notify';
 import { ILookup } from '../store/Lookups/Types/ILookup';
@@ -94,16 +94,13 @@ const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps & ICountryH
 		() => {
 			if (props.notify == Notify.success) {
 				toast.success(formatMessage('MESSAGE_SUCCESSFUL'));
-				props.resetPreliminaryState();
 				if (props.event == EventType.next) {
 					props.history.push('/Subcontractor/' + props.match.params.projectId);
 				}
 			} else if (props.notify == Notify.error) {
 				toast.error(formatMessage('MESSAGE_ERROR_MESSAGE'));
-				props.resetPreliminaryState();
 			}
-			
-
+			props.resetPreliminaryState();
 		},
 		[ props.notify, props.event ]
 	);
