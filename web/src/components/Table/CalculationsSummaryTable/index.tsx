@@ -3,7 +3,7 @@ import { ISubContractorActivity } from '../../../store/SubContractor/Types/ISubC
 import {
 	getSubContractorSummaryCalculation,
 	getPreliminarySummaryCalculation,
-	getDiscountSummaryCalculation,calculateInsurance 
+	getDiscountSummaryCalculation
 } from '../../../helpers/pricing-calculation-helper';
 import ISummaryCalculation from '../../../models/ISummaryCalculation';
 import IPricing from '../../../models/IPricing';
@@ -46,18 +46,19 @@ const CalculationsSummaryTable: React.FC<Props> = (props) => {
 	useEffect(
 		() => {
 			if (props.discount && subContractorData && preliminaryData && props.insuranceRate) {
-				let applyDiscount = getDiscountSummaryCalculation(
+				setSummaryCalculationState(
+					getDiscountSummaryCalculation(
 						props.discount as IDiscountActivity,
 						subContractorData,
-						preliminaryData
-					);
-				applyDiscount.cost = calculateInsurance(applyDiscount.cost,props.insuranceRate)	
-				setSummaryCalculationState(applyDiscount);
+						preliminaryData,
+						props.insuranceRate
+					)
+				);
 			}
 		},
 		[props.discount, subContractorData, preliminaryData, props.insuranceRate]
 	);
-
+ 
 	return (
 		<div className="col-lg-9 px-0">
 			<div className="price-sumry discount_table">

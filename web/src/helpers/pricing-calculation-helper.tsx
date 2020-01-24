@@ -43,7 +43,8 @@ export const getPreliminarySummaryCalculation = (data: Array<IPreliminariesCompo
 export const getDiscountSummaryCalculation = (
 	data: IDiscountActivity,
 	subContractorState: IPricing,
-	preliminaryState: IPricing
+	preliminaryState: IPricing,
+	insuranceRate:number
 ) => {
 	let discountData = { ...data };
 	let supplierTotalDiscount = getSupplierTotalDiscount(data.subContractorDiscounts);
@@ -52,7 +53,7 @@ export const getDiscountSummaryCalculation = (
 
 	if (discountData.clientDiscount && !discountData.clientDiscount.discount) discountData.clientDiscount.discount = 0;
 	let state: ISummaryCalculation = { cost: 0, sell: 0, margin: 0, grossMargin: 0 };
-	state.cost = subContractorState.cost + preliminaryState.cost - supplierTotalDiscount;
+	state.cost = calculateInsurance((subContractorState.cost + preliminaryState.cost - supplierTotalDiscount),insuranceRate);
 	if (discountData.clientDiscount != undefined) {
 		state.sell =
 			subContractorState.sell +
