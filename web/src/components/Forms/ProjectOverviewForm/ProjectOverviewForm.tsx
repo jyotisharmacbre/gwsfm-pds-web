@@ -116,7 +116,6 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						component={PdsFormInput}
 						className="required"
 						validate={[ Validate.required('LABEL_ENQUIRY_RECEIVED_FROM'), Validate.maxLength(1000) ]}
-						warn={alphaNumeric}
 						labelKey="LABEL_ENQUIRY_RECEIVED_FROM"
 						placeholderKey="PLACEHOLDER_ENQUIRY_SENDER_NAME"
 					/>
@@ -136,7 +135,6 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						component={PdsFormInput}
 						className="required"
 						validate={[ Validate.required('LABEL_CREDIT_CHECK_RESULT'), Validate.maxLength(1000) ]}
-						warn={alphaNumeric}
 						labelKey="LABEL_CREDIT_CHECK_RESULT"
 						placeholderKey="PLACEHOLDER_CREDIT_CHECK_DETAILS"
 					/>
@@ -167,7 +165,6 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						component={PdsFormInput}
 						className="required"
 						validate={[ Validate.required('LABEL_FORM_OF_CONTRACT'), Validate.maxLength(1000) ]}
-						warn={alphaNumeric}
 						labelKey="LABEL_FORM_OF_CONTRACT"
 						placeholderKey="PLACEHOLDER_FORM_OF_CONTRACT"
 					/>
@@ -177,7 +174,6 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						type="text"
 						component={PdsFormInput}
 						validate={[ Validate.maxLength(1000) ]}
-						warn={alphaNumeric}
 						labelKey="LABEL_RETENTION"
 						placeholderKey="PLACEHOLDER_ADD_RETENTION"
 					/>
@@ -187,7 +183,6 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						type="text"
 						component={PdsFormInput}
 						validate={[ Validate.maxLength(1000) ]}
-						warn={alphaNumeric}
 						labelKey="LABEL_LIQUIDATED_DAMAGES"
 						placeholderKey="PLACEHOLDER_ADD_LIQUIDATED_DAMAGES"
 					/>
@@ -198,7 +193,6 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						component={PdsFormInput}
 						className="required"
 						validate={[ Validate.required('LABEL_INSURANCE'), Validate.maxLength(1000) ]}
-						warn={alphaNumeric}
 						labelKey="LABEL_INSURANCE"
 						placeholderKey="PLACEHOLDER_ADD_INSURANCE"
 					/>
@@ -365,15 +359,6 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						currencySymbol={props.currencySymbol}
 						handleGetUserNamesForEmails={props.handleGetUserNamesForEmails}
 					/>
-					{/* <textarea
-						name="comments"
-						placeholder="Add your comment here"
-						rows={3}
-						className="form-control undefined "
-					/>
-					<button type="button" onClick={handlePostComment}>
-						Post Comment
-					</button> */}
 				</div>
 			</div>
 			<div className="row">
