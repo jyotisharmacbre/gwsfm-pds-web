@@ -24,12 +24,14 @@ interface IMapDispatchToProps {
 	resetCustomerEnquiryState: () => void;
 	resetPreliminaryState: () => void;
 	resetDiscountState: () => void;
+	getCurrentUserProfile: () => void;
 }
 interface IMapStateToProps {
 	dashboardGridValues: Array<IProjectDashboardGrid>;
 	valuesCount: number;
 	lookupDetails: Array<ILookup>;
 	userNamesForEmails: Array<IUserServiceData>;
+	currentUserProfile: IUserServiceData;
 }
 const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
 	useEffect(() => {
@@ -39,6 +41,7 @@ const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
 		props.resetCustomerEnquiryState();
 		props.resetPreliminaryState();
 		props.resetDiscountState();
+		props.getCurrentUserProfile();
 		return () => {
 			props.resetDashboardState();
 		};
@@ -72,7 +75,7 @@ const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
 							<div className="row align-items-center my-3 my-lg-4 pb-2">
 								<div className="col-xl-6">
 									<h1 className="top_Title2 m-0">
-										{formatMessage('TITLE_WELCOME')} {getDisplayName() && getDisplayName()}
+										{formatMessage('TITLE_WELCOME')} {!props.currentUserProfile.displayName? '...' : props.currentUserProfile.displayName}
 									</h1>
 								</div>
 								<div className="col-xl-6">
@@ -113,7 +116,8 @@ const mapStateToProps = (state: IState) => ({
 	valuesCount: 5,
 	lookupDetails: state.lookup.projectstatus,
 	dashboardGridValues: state.dashboardGrid.actionApprovalDetails,
-	userNamesForEmails: state.userService.userServiceData
+	userNamesForEmails: state.userService.userServiceData,
+	currentUserProfile: state.userService.currentUserProfile
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -126,7 +130,8 @@ const mapDispatchToProps = (dispatch) => {
 		resetSubContractorState: () => dispatch(actions.resetSubContractorState()),
 		resetCustomerEnquiryState: () => dispatch(actions.resetCustomerEnquiryState()),
 		resetPreliminaryState: () => dispatch(actions.resetPreliminaryState()),
-		resetDiscountState: () => dispatch(actions.resetDiscountState())
+		resetDiscountState: () => dispatch(actions.resetDiscountState()),
+		getCurrentUserProfile: () => dispatch(actions.getCurrentUserProfileForEmailsService())
 	};
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

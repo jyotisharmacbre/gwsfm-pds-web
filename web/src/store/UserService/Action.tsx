@@ -4,10 +4,18 @@ import { Dispatch } from 'redux';
 import { getUsersForEmailsService } from '../../services';
 import { store } from '../index';
 import { getDefaultState } from '../Common/Action';
+import { getDisplayEmail } from '../../helpers/auth-helper';
 
 const getUserNamesForEmailsServiceSuccess = (response: any) => {
 	return {
 		type: ActionType.USER_NAMES_FOR_EMAILSSERVICE_GET_SUCCESS,
+		payload: response
+	};
+};
+
+const getUserProfileForEmailsServiceSuccess = (response: any) => {
+	return {
+		type: ActionType.CURRENT_USER_PROFILE_FOR_EMAILSSERVICE_GET_SUCCESS,
 		payload: response
 	};
 };
@@ -18,6 +26,19 @@ const getUserNamesForEmailsServiceError = (error: any) => {
 		payload: error
 	};
 };
+
+export const getCurrentUserProfileForEmailsService = () => {
+	return (dispatch: Dispatch) => {
+		const email = getDisplayEmail();
+		getUsersForEmailsService([email])
+				.then((response) => {
+					dispatch(getUserProfileForEmailsServiceSuccess(response.data[0]));
+				})
+				.catch((error) => {
+					dispatch(getUserNamesForEmailsServiceError(error));
+				});
+	}
+}
 
 export const getUserNamesForEmailsService = (data: Array<string>) => {
 	return (dispatch: Dispatch) => {
