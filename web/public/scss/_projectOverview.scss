@@ -166,6 +166,11 @@
         .DayPickerKeyboardShortcuts_buttonReset{
             display: none;
         }
+        input {
+            @include mdScreen {
+                width: 40px;
+            }
+        }
     }
     .DayPicker_transitionContainer {
         width: 300px !important;
