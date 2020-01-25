@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`User service Action should add email if data not exist 1`] = `undefined`;
+
+exports[`User service Action should hide menu onblur 1`] = `
+Object {
+  "payload": "error",
+  "type": "USER_NAMES_FOR_EMAILS_SERVICE_GET_ERROR",
+}
+`;
+
+exports[`User service Action should hide menu onblur 2`] = `undefined`;
+
+exports[`User service Action should not add email if data already exist 1`] = `
+Object {
+  "payload": "error",
+  "type": "USER_NAMES_FOR_EMAILS_SERVICE_GET_ERROR",
+}
+`;
+
+exports[`User service Action should not add email if data already exist 2`] = `undefined`;
+
+exports[`User service Reducer should return updated state on getUSerServiceEmailErrorAction 1`] = `
+Object {
+  "error": Object {
+    "error": Object {
+      "error": true,
+    },
+  },
+  "userServiceData": Array [],
+}
+`;
+
+exports[`User service Reducer should return updated state on getUSerServiceEmailSuccessAction 1`] = `
+Object {
+  "error": null,
+  "userServiceData": Object {
+    "error": null,
+    "userServiceData": Array [
+      Object {
+        "email": "test@pds.com",
+      },
+    ],
+  },
+}
+`;
+
+exports[`User service Reducer should return updated state on getUSerServiceErrorAction 1`] = `
+Object {
+  "error": Object {
+    "error": Object {
+      "error": true,
+    },
+  },
+  "userServiceData": Array [],
+}
+`;
+
+exports[`User service Reducer should return updated state on getUSerServiceSuccessAction 1`] = `
+Object {
+  "error": null,
+  "userServiceData": Object {
+    "error": null,
+    "userServiceData": Array [
+      Object {
+        "email": "test@pds.com",
+      },
+    ],
+  },
+}
+`;

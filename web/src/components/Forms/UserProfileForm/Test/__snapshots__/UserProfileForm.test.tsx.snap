@@ -47,6 +47,23 @@ Object {
 }
 `;
 
+exports[`UserProfileForm Fields Defines form fields UserProfile form reducer should handle get resetUserPreferencesState successfully 1`] = `
+Object {
+  "error": null,
+  "event": 3,
+  "loading": false,
+  "notify": 0,
+  "preferences": Object {
+    "currencyId": 1,
+    "currencyName": "Dollar",
+    "currencySymbol": "$",
+    "languageId": 1,
+    "languageName": "en",
+    "userPreferenceId": "",
+  },
+}
+`;
+
 exports[`UserProfileForm Fields Defines form fields UserProfile form reducer should handle userPreferenceUpdateError with and return initialState 1`] = `
 Object {
   "error": Object {
@@ -63,5 +80,54 @@ Object {
     "languageName": "en",
     "userPreferenceId": "",
   },
+}
+`;
+
+exports[`UserProfileForm Fields Defines form fields UserProfile form reducer should return userPreferencesFormAdd action 1`] = `
+Object {
+  "event": 0,
+  "payload": Object {
+    "currencyId": 1,
+    "currencyName": "Dollar",
+    "currencySymbol": "$",
+    "languageId": 1,
+    "languageName": "en",
+    "userPreferenceId": "",
+  },
+  "type": "USER_PREFERENCES_FORM_ADD_SUCCESS",
+}
+`;
+
+exports[`UserProfileForm Fields Defines form fields UserProfile form reducer should return userPreferencesFormEdit action 1`] = `
+Object {
+  "event": 0,
+  "payload": Object {
+    "currencyId": 1,
+    "currencyName": "Dollar",
+    "currencySymbol": "$",
+    "languageId": 1,
+    "languageName": "en",
+    "userPreferenceId": "",
+  },
+  "type": "USER_PREFERENCES_FORM_EDIT_SUCCESS",
+}
+`;
+
+exports[`UserProfileForm Fields Defines form fields UserProfile form reducer should return userPreferencesGet action 1`] = `
+Object {
+  "payload": Object {
+    "languageId": 1,
+    "languageName": "en",
+  },
+  "type": "USER_PREFERENCES_GET_SUCCESS",
+}
+`;
+
+exports[`UserProfileForm Fields Defines form fields should return resetUserPreferencesState action 1`] = `undefined`;
+
+exports[`UserProfileForm Fields Defines form fields should return resetUserPreferencesState action 2`] = `
+Object {
+  "payload": "error",
+  "type": "USER_PREFERENCES_FORM_ERROR",
 }
 `;

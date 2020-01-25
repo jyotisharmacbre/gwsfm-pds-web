@@ -5,14 +5,14 @@ import { getUsersForEmailsService } from '../../services';
 import { store } from '../index';
 import { getDefaultState } from '../Common/Action';
 
-const getUserNamesForEmailsServiceSuccess = (response: any) => {
+export const getUserNamesForEmailsServiceSuccess = (response: any) => {
 	return {
 		type: ActionType.USER_NAMES_FOR_EMAILSSERVICE_GET_SUCCESS,
 		payload: response
 	};
 };
 
-const getUserNamesForEmailsServiceError = (error: any) => {
+export const getUserNamesForEmailsServiceError = (error: any) => {
 	return {
 		type: ActionType.USER_NAMES_FOR_EMAILS_SERVICE_GET_ERROR,
 		payload: error
@@ -31,9 +31,11 @@ export const getUserNamesForEmailsService = (data: Array<string>) => {
 		else {
 			getUsersForEmailsService(dataNotExists)
 				.then((response) => {
+					/* istanbul ignore next */ 
 					dispatch(getUserNamesForEmailsServiceSuccess(response.data));
 				})
 				.catch((error) => {
+					/* istanbul ignore next */ 
 					dispatch(getUserNamesForEmailsServiceError(error));
 				});
 		}

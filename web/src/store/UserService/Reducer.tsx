@@ -2,7 +2,7 @@ import { ActionType } from './Types/ActionType';
 import { updateObject } from '../../helpers/utility-helper';
 import { IUserServiceState } from './Types/IUserServiceState';
 
-const initialState: IUserServiceState = {
+export const initialState: IUserServiceState = {
 	userServiceData: [],
 	error: null
 };
