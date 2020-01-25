@@ -144,7 +144,7 @@ const ProfileMenu: React.FC<any> = props => {
                     aria-expanded="false"
                   >
                     <FontAwesomeIcon className="" icon={faUser} />
-                    <span id="sm_none">{`${getDisplayName() && getDisplayName()}`}</span>
+                    <span id="sm_none">{props.displayName && props.displayName }</span>
                     <span className="down-arrow">
                       <FontAwesomeIcon className="" icon={faAngleDown} />
                     </span>
