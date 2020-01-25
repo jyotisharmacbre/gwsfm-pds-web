@@ -225,7 +225,7 @@ const ProjectOverview: React.FC<
 				if (filter) setProjectManager(displayUserName(filter.firstname, filter.lastName));
 			}
 		},
-		[ props.userNamesForEmails ]
+		[ props.userNamesForEmails, getProjectManagerName]
 	);
 
 	const getListOfContractSuccess = (response) => {

@@ -60,7 +60,7 @@ describe('Discount Sub Contractor Form tests', () => {
         shallowWrapper(props);
         let addSubContractorDiscount = findByTestAtrr(wrapper, 'addSubContractorDiscount');
         wrapper.update();
-        expect(addSubContractorDiscount.prop('disabled')).toBe(true);
+        expect(addSubContractorDiscount.prop('hidden')).toBe(true);
     });
     it('should show the popup for confirm on delete button click on subcontractor discount', () => {
         let deleteSubContractorDiscountButtons = findByTestAtrr(wrapper, 'deleteDiscountSubContractor');

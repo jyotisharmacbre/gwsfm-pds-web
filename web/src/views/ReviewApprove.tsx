@@ -30,6 +30,7 @@ import { IAdminDefaults } from '../store/Admin/Types/IAdminDefault';
 import { ICountry } from '../store/Lookups/Types/ICountry';
 import { ICountryHoc, countryHoc } from '../hoc/CountryHoc';
 import { insuranceRateHoc, IInsuranceRateHoc } from '../hoc/InsuranceRateHoc';
+import { IDynamicBusinessUnits, IDynamicsDivision } from '../store/DynamicsData/Types/IDynamicData';
 
 interface IProps {
 	match: match<{ projectId: string }>;
@@ -50,6 +51,8 @@ interface IMapStateToProps {
 	lookups: Array<ILookup>;
 	adminDefaultValues: Array<IAdminDefaults>;
 	countries: Array<ICountry> | null;
+	getListOfDivisions: Array<IDynamicsDivision>;
+	getListOfBusinessUnit:Array<IDynamicBusinessUnits>;
 }
 
 interface IMapDispatchToProps {
@@ -66,6 +69,8 @@ interface IMapDispatchToProps {
 	queryAdd: (projectId: string, formValue: string, event: EventType) => void;
 	getProjectParameters: (countryId: number) => void;
 	getAllCountries: () => void;
+	getDynamicsListOfDivision: () => void;
+	getListOfBusinessUnits:()=>void;
 }
 
 const lookupKeyList: string[] = [
@@ -152,12 +157,15 @@ const ReviewApprove: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & 
 	const actionEditBtnOverview = () => {
 		props.history.push(`/ProjectOverview/${props.match.params.projectId}`);
 	}
+	const handleQueryCancel=() =>
+	{setShowQueryPopup(false);}
 	return (
 		<div className="container-fluid" data-test="review-approve-component">
 			{showQueryPopup && (
 				<QueryPopup
 					intl={props.intl}
 					handleConfirm={handleQuerySave}
+					handleCancel={handleQueryCancel}
 					titleKey={<FormattedMessage id="TITLE_QUERY" />}
 					subTitleKey={<FormattedMessage id="SUB_TITLE_QUERY" />}
 					contentKey={<FormattedMessage id="PLACEHOLDER_QUERY" />}
@@ -178,6 +186,8 @@ const ReviewApprove: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & 
 							currencySymbol={currencySymbol}
 							userNamesForEmails={props.userNamesForEmails}
 							handleGetUserNamesForEmails={props.handleGetUserNamesForEmails}
+							listOfDivisions={props.getListOfDivisions}
+							listOfBusinessUnits ={props.getListOfBusinessUnit}
 						/>
 						<ProjectOverviewSummary
 						oneditOverview={actionEditBtnOverview}
@@ -245,7 +255,9 @@ const mapStateToProps = (state: IState) => ({
 	lookups: state.lookup.lookups,
 	initialStateSetForProjectApprovals: state.projectOverview.initialStateSetForProjectApprovals,
 	adminDefaultValues: state.admin.adminDefaultValues,
-	countries: state.lookup.countries
+	countries: state.lookup.countries,
+	getListOfDivisions: state.dynamicData.dynamicsListOfDivision,
+	getListOfBusinessUnit:state.dynamicData.dynamicsListOfBusinessUnits
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -261,7 +273,9 @@ const mapDispatchToProps = (dispatch) => {
 		getLookups: () => dispatch(actions.getLookupsByLookupItems(lookupKeyList)),
 		getProjectActivities: (projectId) => dispatch(actions.getProjectActivities(projectId)),
 		getProjectParameters: (countryId: number) => dispatch(actions.getProjectParameters(countryId)),
-		getAllCountries: () => dispatch(actions.getAllContries())
+		getAllCountries: () => dispatch(actions.getAllContries()),
+		getDynamicsListOfDivision: () => dispatch(actions.getListOfDivision()),
+		getListOfBusinessUnits:() =>dispatch(actions.getListOfBusinessUnits())
 	};
 };
 

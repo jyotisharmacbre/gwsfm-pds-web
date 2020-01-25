@@ -77,7 +77,6 @@ export const subContractorFormEdit = (
 		if (isProjectStateInReview()) dispatch(subContractorFormError('error'));
 		data.activities.map((element) => {
 			element.projectId = projectId;
-			element.subContrActivityId = subContrActivityId;
 		});
 		axios.baseAPI
 			.put('api/SubContractor/activities', data.activities, config)
