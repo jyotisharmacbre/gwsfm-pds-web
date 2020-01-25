@@ -222,7 +222,7 @@ const ProjectOverview: React.FC<
 		() => {
 			if (getProjectManagerName) {
 				let filter = props.userNamesForEmails.find((ele) => ele.email == props.enquiryOverview.projectManager);
-				if (filter) setProjectManager(displayUserName(filter.firstname, filter.lastName));
+				if (filter) setProjectManager(displayUserName(filter));
 			}
 		},
 		[ props.userNamesForEmails, getProjectManagerName]

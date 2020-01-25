@@ -21,7 +21,8 @@ import {
 	maxLimitTo,
 	restrictMinusAndAllowDecimal,
 	restrictMinusAndDecimal,
-	restrictMinusAndAllowDecimalForMaxRangeHundred
+	restrictMinusAndAllowDecimalForMaxRangeHundred,
+	displayUserName
 } from '../../../helpers/utility-helper';
 import PdsFormTypeAhead from '../../PdsFormHandlers/PdsFormTypeAhead';
 import { IProjectDetail } from '../../../store/CustomerEnquiryForm/Types/IProjectDetail';
@@ -144,9 +145,9 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 
 	const getUserServiceDropdown =
 		userServiceData &&
-		userServiceData.filter((user) => user.firstname && user.lastName).map((UserServiceData: any) => {
+		userServiceData.filter((user) => user.displayName).map((UserServiceData: any) => {
 			return {
-				label: `${UserServiceData.firstname} ${UserServiceData.lastName} (${UserServiceData.email === null
+				label: `${displayUserName(UserServiceData)} (${UserServiceData.email === null
 					? 'NA'
 					: UserServiceData.email})`,
 				id: UserServiceData.id,
@@ -158,7 +159,7 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 		let result: any = [];
 		data.map((UserServiceData: any) => {
 			result.push({
-				label: `${UserServiceData.firstname} ${UserServiceData.lastName} (${UserServiceData.email === null
+				label: `${displayUserName(UserServiceData)} (${UserServiceData.email === null
 					? 'NA'
 					: UserServiceData.email})`,
 				id: UserServiceData.id,

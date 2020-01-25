@@ -14,6 +14,7 @@ import { IUserServiceData } from '../store/UserService/Types/IUserService';
 import Notify from '../enums/Notify';
 import { isValidEmail } from '../helpers/fieldValidations';
 import * as actions from '../store/rootActions';
+import { displayUserName } from '../helpers/utility-helper';
 interface IMapDispatchToProps {
 	dashboardGridDetail: () => void;
 	getLookups: () => void;
@@ -75,7 +76,7 @@ const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
 							<div className="row align-items-center my-3 my-lg-4 pb-2">
 								<div className="col-xl-6">
 									<h1 className="top_Title2 m-0">
-										{formatMessage('TITLE_WELCOME')} {!props.currentUserProfile.displayName? '...' : props.currentUserProfile.displayName}
+										{formatMessage('TITLE_WELCOME')} {!displayUserName(props.currentUserProfile)? '...' : displayUserName(props.currentUserProfile)}
 									</h1>
 								</div>
 								<div className="col-xl-6">

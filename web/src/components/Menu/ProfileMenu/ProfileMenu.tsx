@@ -27,6 +27,7 @@ import { getDisplayName, getDisplayEmail, logOut, getFirstName } from '../../../
 import { toast } from 'react-toastify';
 import { formatMessage } from '../../../Translations/connectedIntlProvider';
 import { FormattedMessage } from 'react-intl';
+import { displayUserName } from '../../../helpers/utility-helper';
 
 interface IMapDispatchToProps {
   userPreferencesFormAdd: (
@@ -246,7 +247,7 @@ const mapStateToProps = (state: IState) => {
     currencies: state.lookup.currencies,
     languages: state.lookup.languages,
     notify: state.userPreferences.notify,
-    displayName: state.userService.currentUserProfile.displayName,
+    displayName: displayUserName(state.userService.currentUserProfile),
     displayEmail: state.userService.currentUserProfile.email
   }
 }
