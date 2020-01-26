@@ -27,6 +27,7 @@ import { getDisplayName, getDisplayEmail, logOut, getFirstName } from '../../../
 import { toast } from 'react-toastify';
 import { formatMessage } from '../../../Translations/connectedIntlProvider';
 import { FormattedMessage } from 'react-intl';
+import { displayUserName } from '../../../helpers/utility-helper';
 
 interface IMapDispatchToProps {
   userPreferencesFormAdd: (
@@ -43,6 +44,7 @@ interface IMapDispatchToProps {
   getAllCurrencies: () => void;
   resetUserPreferencesState: () => void;
   getProjectStatus: () => void;
+  getCurrentUserProfile: () => void;
 }
 
 interface IProps {
@@ -64,6 +66,7 @@ const ProfileMenu: React.FC<any> = props => {
     props.getUserPreferences();
     props.getAllLanguages();
     props.getAllCurrencies();
+    props.getCurrentUserProfile();
   }, [])
 
   useEffect(() => {
@@ -144,7 +147,7 @@ const ProfileMenu: React.FC<any> = props => {
                     aria-expanded="false"
                   >
                     <FontAwesomeIcon className="" icon={faUser} />
-                    <span id="sm_none">{props.displayName && `${formatMessage('TITLE_HELLO')}, ${getFirstName()}`}</span>
+                    <span id="sm_none">{formatMessage('TITLE_HELLO')},  {props.displayName ? props.displayName: '...'}</span>
                     <span className="down-arrow">
                       <FontAwesomeIcon className="" icon={faAngleDown} />
                     </span>
@@ -244,8 +247,8 @@ const mapStateToProps = (state: IState) => {
     currencies: state.lookup.currencies,
     languages: state.lookup.languages,
     notify: state.userPreferences.notify,
-    displayName: getDisplayName(),
-    displayEmail: getDisplayEmail()
+    displayName: displayUserName(state.userService.currentUserProfile),
+    displayEmail: state.userService.currentUserProfile.email
   }
 }
 
@@ -260,6 +263,7 @@ const mapDispatchToProps = dispatch => {
     getAllCurrencies: () => dispatch(actions.getAllCurrencies()),
     resetUserPreferencesState: () => dispatch(resetUserPreferencesState()),
     getProjectStatus: () => dispatch(actions.getProjectStatus()),
+    getCurrentUserProfile: () => dispatch(actions.getCurrentUserProfileForEmailsService())
   }
 }
 

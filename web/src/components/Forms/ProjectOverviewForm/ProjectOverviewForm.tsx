@@ -11,7 +11,7 @@ import { selectionButtons } from '../../../helpers/constants';
 import { enquiryTypeData } from '../../../helpers/dropDownFormValues';
 import { IState } from '../../../store/state';
 import { IProjectAdditionalDetail } from '../../../store/ProjectOverviewForm/Types/IProjectAdditionalDetail';
-import { getPropertyName, getDropdown, getClassNameForProjectStatus } from '../../../helpers/utility-helper';
+import { getPropertyName, getDropdown, getClassNameForProjectStatus, displayUserName } from '../../../helpers/utility-helper';
 import { LookupType } from '../../../store/Lookups/Types/LookupType';
 import EventType from '../../../enums/EventType';
 import FontawsomeSvg from '@fortawesome/fontawesome-svg-core';
@@ -77,9 +77,9 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 	const formatUserData = (data) => {
 		let returnValue: any = [];
 		if (data && data.length > 0) {
-			data.filter((user) => user.firstname && user.lastName).map((data: any) => {
+			data.filter((user) => user.displayName).map((data: any) => {
 				returnValue.push({
-					label: `${data.firstname} ${data.lastName} (${data.email === null ? 'NA' : data.email})`,
+					label: `${displayUserName(data)} (${data.email === null ? 'NA' : data.email})`,
 					id: data.id,
 					email: data.email
 				});
