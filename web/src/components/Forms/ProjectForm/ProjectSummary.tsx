@@ -121,20 +121,20 @@ const ProjectSummary: React.FC<IProps> = (props) => {
 					(ele) => ele.email == props.project.headOfProject
 				);
 				if (headOfProjectFilter)
-					setHeadOfProject(displayUserName(headOfProjectFilter.firstname, headOfProjectFilter.lastName));
+					setHeadOfProject(displayUserName(headOfProjectFilter));
 				let projectOwnerFilter = props.userNamesForEmails.find(
 					(ele) => ele.email == props.project.projectOwner
 				);
 				if (projectOwnerFilter)
-					setProjectOwner(displayUserName(projectOwnerFilter.firstname, projectOwnerFilter.lastName));
+					setProjectOwner(displayUserName(projectOwnerFilter));
 				let projectManagerFilter = props.userNamesForEmails.find(
 					(ele) => ele.email == props.project.projectManager
 				);
 				if (projectManagerFilter)
-					setProjectManager(displayUserName(projectManagerFilter.firstname, projectManagerFilter.lastName));
+					setProjectManager(displayUserName(projectManagerFilter));
 			}
 		},
-		[props.userNamesForEmails]
+		[props.project, props.userNamesForEmails]
 	);
 
 	const getContractorSuccess = (response) => {
