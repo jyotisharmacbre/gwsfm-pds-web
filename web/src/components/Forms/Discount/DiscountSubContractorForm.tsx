@@ -23,10 +23,9 @@ const DiscountSubContractorForm: React.FC<Props> = (props: Props) => {
     return (
         <div>
             {fields.map((member, index) => (
+                <div className="forms_wrap">
                 <div className="row" key={index} data-test="discount-sub-contractor-form">
-                    <div className="col-lg-9">
-                        <div className="forms_wrap">
-
+                    <div className="col-lg-7">
                             {fields.length > 1 ? (
 
                                 <button
