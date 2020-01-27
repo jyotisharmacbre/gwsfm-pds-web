@@ -13,18 +13,22 @@ import { ICurrency } from '../store/Lookups/Types/ICurrency';
 import { isValidEmail } from '../helpers/fieldValidations';
 import { IUserServiceData } from '../store/UserService/Types/IUserService';
 import { getUserNamesForEmailsService } from '../store/rootActions';
+import { IDynamicContractCustomerData } from '../store/DynamicsData/Types/IDynamicData';
+import { getContractDetailsByIds } from '../store/DynamicsData/Action';
 
 interface IMapDispatchToProps {
 	projectPipelineGridDetail: () => void;
 	getLookups: () => void;
 	getAllCurrencies: () => void;
 	handleGetUserNamesForEmails: (emails: any) => void;
+	handleGetContractDetailsByIds:(contractIds:any) =>void;
 }
 interface IMapStateToProps {
 	projectPipeline: Array<IProjectPipelineGrid>;
 	lookupDetails: Array<ILookup>;
 	currencies: Array<ICurrency> | null;
 	userNamesForEmails: Array<IUserServiceData>;
+	contractDetailsByIds:Array<IDynamicContractCustomerData>;
 }
 const ProjectPipeline: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
 	useEffect(() => {
@@ -35,18 +39,20 @@ const ProjectPipeline: React.FC<IMapStateToProps & IMapDispatchToProps> = (props
 		() => {
 			if (props.projectPipeline.length > 0) {
 				var allEmails = new Array();
+				var allClients = new Array();
 				for (let recordNo in props.projectPipeline) {
 					if (isValidEmail(props.projectPipeline[recordNo].projectOwner))
-						allEmails.push(props.projectPipeline[recordNo].projectOwner.toLowerCase());
+						{allEmails.push(props.projectPipeline[recordNo].projectOwner.toLowerCase());
+							allClients.push(props.projectPipeline[recordNo].contractorId);}
 				}
-				allEmails = allEmails.filter(function(el) {
-					return el != '';
-				});
 				const disinctvals = (value,index,self) =>{
+					if(value!=='')
 					return self.indexOf(value) === index;
 				}
 				const uniqueVals = allEmails.filter(disinctvals);
-				if (allEmails.length > 0) props.handleGetUserNamesForEmails(uniqueVals);
+				allEmails && props.handleGetUserNamesForEmails(uniqueVals);
+				allClients && props.handleGetContractDetailsByIds(allClients.filter(disinctvals));
+
 			}
 		},
 		[ props.projectPipeline ]
@@ -90,6 +96,7 @@ const mapStateToProps = (state: IState) => ({
 	projectPipeline: state.pipelineGrid.pipelineDetails,
 	currencies: state.lookup.currencies,
 	userNamesForEmails: state.userService.userServiceData,
+	contractDetailsByIds:state.dynamicData.dynamicsContract
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -98,6 +105,7 @@ const mapDispatchToProps = (dispatch) => {
 		projectPipelineGridDetail: () => dispatch(projectPipelineDetail()),
 		getAllCurrencies: () => dispatch(actions.getAllCurrencies()),
 		handleGetUserNamesForEmails: (allEmails) => dispatch(getUserNamesForEmailsService(allEmails)),
+		handleGetContractDetailsByIds:(allContracts) =>dispatch(getContractDetailsByIds(allContracts))
 	};
 };
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectPipeline);
