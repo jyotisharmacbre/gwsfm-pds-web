@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
-import { getLookupDescription, getPropertyName, getFilterElementFromArray } from '../../../helpers/utility-helper';
+import { getLookupDescription, getPropertyName, getFilterElementFromArray, displayUserName } from '../../../helpers/utility-helper';
 import { LookupItems } from '../../../helpers/constants';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
@@ -13,18 +13,48 @@ import Translate from '../../../Translations/translate';
 import ColumnTypeEnum from '../../../enums/ColumnTypeEnum';
 import Currency from '../../../store/Lookups/InitialState/Currency';
 import { ICurrency } from '../../../store/Lookups/Types/ICurrency';
+import { IUserServiceData } from '../../../store/UserService/Types/IUserService';
+import { IProjectPipelineGrid } from '../../../store/pipeline/Types/IProjectPipelineGrid';
 interface Props {
   pipelineValues: any;
   lookupValues: any;
   currencies: Array<ICurrency> | null;
+  userNamesForEmailsValues:Array<IUserServiceData>;
 }
 const ProjectPipelineForm: React.FC<Props & IReactIntl> = (props: any) => {
   const CurrencyObj = new Currency();
   const { pipelineValues, lookupValues, currencies } = props;
-  const getPipelineValues = (allLookups, currencies) => {
-    let data = pipelineValues.map(function (rowProject) {
+  const [gridData, setGridData] = useState<Array<IProjectPipelineGrid>>([]);
+	useEffect(
+		() => {
+			if (
+				props.pipelineValues &&
+				props.currencies?.length>0  &&
+				props.lookupValues &&
+				props.userNamesForEmailsValues?.length>0
+			) {
+				setGridData(
+					getPipelineValues(
+            props.pipelineValues,
+            props.lookupValues,
+            props.currencies,
+						props.userNamesForEmailsValues,
+					)
+				);
+			}
+		},
+		[props.pipelineValues,props.lookupValues,props.currencies,props.userNamesForEmailsValues]
+	);
+  const getPipelineValues = (pipelineData,allLookups, currencies,namesAndEmails) => {
+    let data = pipelineData.map(function (rowProject) {
+      var mailObj =namesAndEmails && namesAndEmails.find(
+        lk =>lk.email && rowProject.projectOwner && lk.email.toUpperCase() === rowProject.projectOwner.toUpperCase()
+      );
+      rowProject.projectOwner =mailObj && mailObj
+						? `${displayUserName(mailObj)}`
+						: rowProject.projectOwner;
       var statusID = rowProject.status;
-      if (!isNaN(statusID) && allLookups.length > 0)
+      if (!isNaN(statusID) && allLookups.length > 0 )
         rowProject.status = getLookupDescription(
           allLookups,
           rowProject.status,
@@ -68,7 +98,7 @@ const ProjectPipelineForm: React.FC<Props & IReactIntl> = (props: any) => {
     <React.Fragment>
       <GridTable
         columns={getTableColumns()}
-        data={getPipelineValues(lookupValues, currencies)}
+        data={gridData}
         sorting={true}
         className="price-table"
         ActionList={[]}
