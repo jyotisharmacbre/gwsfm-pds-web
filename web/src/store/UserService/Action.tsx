@@ -13,14 +13,14 @@ export const getUserNamesForEmailsServiceSuccess = (response: any) => {
 	};
 };
 
-const getUserProfileForEmailsServiceSuccess = (response: any) => {
+export const getUserProfileForEmailsServiceSuccess = (response: any) => {
 	return {
 		type: ActionType.CURRENT_USER_PROFILE_FOR_EMAILSSERVICE_GET_SUCCESS,
 		payload: response
 	};
 };
 
-const getUserNamesForEmailsServiceError = (error: any) => {
+export const getUserNamesForEmailsServiceError = (error: any) => {
 	return {
 		type: ActionType.USER_NAMES_FOR_EMAILS_SERVICE_GET_ERROR,
 		payload: error
@@ -31,12 +31,14 @@ export const getCurrentUserProfileForEmailsService = () => {
 	return (dispatch: Dispatch) => {
 		const email = getDisplayEmail();
 		getUsersForEmailsService([email])
-				.then((response) => {
-					dispatch(getUserProfileForEmailsServiceSuccess(response.data[0]));
-				})
-				.catch((error) => {
-					dispatch(getUserNamesForEmailsServiceError(error));
-				});
+			.then((response) => {
+				/* istanbul ignore next */
+				dispatch(getUserProfileForEmailsServiceSuccess(response.data[0]));
+			})
+			.catch((error) => {
+				/* istanbul ignore next */
+				dispatch(getUserNamesForEmailsServiceError(error));
+			});
 	}
 }
 
@@ -52,11 +54,11 @@ export const getUserNamesForEmailsService = (data: Array<string>) => {
 		else {
 			getUsersForEmailsService(dataNotExists)
 				.then((response) => {
-					/* istanbul ignore next */ 
+					/* istanbul ignore next */
 					dispatch(getUserNamesForEmailsServiceSuccess(response.data));
 				})
 				.catch((error) => {
-					/* istanbul ignore next */ 
+					/* istanbul ignore next */
 					dispatch(getUserNamesForEmailsServiceError(error));
 				});
 		}

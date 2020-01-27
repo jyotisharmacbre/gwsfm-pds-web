@@ -46,7 +46,7 @@ const mountPreliminaryComponent = (Props) => {
 describe('Discount component test cases', () => {
 	const Props: any = {
 		form: discountInitialState.form,
-		notify: Notify.none,
+		notify: Notify.success,
 		projectId: '',
 		event: EventType.none,
 		projectStatus: [],

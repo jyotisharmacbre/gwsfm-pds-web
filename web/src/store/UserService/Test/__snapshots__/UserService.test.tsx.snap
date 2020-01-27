@@ -2,15 +2,6 @@
 
 exports[`User service Action should add email if data not exist 1`] = `undefined`;
 
-exports[`User service Action should hide menu onblur 1`] = `
-Object {
-  "payload": "error",
-  "type": "USER_NAMES_FOR_EMAILS_SERVICE_GET_ERROR",
-}
-`;
-
-exports[`User service Action should hide menu onblur 2`] = `undefined`;
-
 exports[`User service Action should not add email if data already exist 1`] = `
 Object {
   "payload": "error",
@@ -20,8 +11,28 @@ Object {
 
 exports[`User service Action should not add email if data already exist 2`] = `undefined`;
 
+exports[`User service Action should not add email if data already exist 3`] = `undefined`;
+
+exports[`User service Reducer should return updated state on getCurrentUserProfileSuccess 1`] = `
+Object {
+  "currentUserProfile": Object {
+    "email": "test@pds.com",
+  },
+  "error": null,
+  "userServiceData": Array [],
+}
+`;
+
 exports[`User service Reducer should return updated state on getUSerServiceEmailErrorAction 1`] = `
 Object {
+  "currentUserProfile": Object {
+    "displayName": "",
+    "email": "",
+    "firstname": "",
+    "groups": null,
+    "id": "",
+    "lastName": "",
+  },
   "error": Object {
     "error": Object {
       "error": true,
@@ -33,6 +44,14 @@ Object {
 
 exports[`User service Reducer should return updated state on getUSerServiceEmailSuccessAction 1`] = `
 Object {
+  "currentUserProfile": Object {
+    "displayName": "",
+    "email": "",
+    "firstname": "",
+    "groups": null,
+    "id": "",
+    "lastName": "",
+  },
   "error": null,
   "userServiceData": Object {
     "error": null,
@@ -47,6 +66,14 @@ Object {
 
 exports[`User service Reducer should return updated state on getUSerServiceErrorAction 1`] = `
 Object {
+  "currentUserProfile": Object {
+    "displayName": "",
+    "email": "",
+    "firstname": "",
+    "groups": null,
+    "id": "",
+    "lastName": "",
+  },
   "error": Object {
     "error": Object {
       "error": true,
@@ -58,6 +85,14 @@ Object {
 
 exports[`User service Reducer should return updated state on getUSerServiceSuccessAction 1`] = `
 Object {
+  "currentUserProfile": Object {
+    "displayName": "",
+    "email": "",
+    "firstname": "",
+    "groups": null,
+    "id": "",
+    "lastName": "",
+  },
   "error": null,
   "userServiceData": Object {
     "error": null,

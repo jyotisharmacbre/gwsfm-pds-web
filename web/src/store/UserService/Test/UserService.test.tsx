@@ -1,9 +1,10 @@
 
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import { getUserNamesForEmailsService, getUserNamesForEmailsServiceSuccess, getUserNamesForEmailsServiceError } from '../Action';
+import { getUserNamesForEmailsService, getUserNamesForEmailsServiceSuccess, getUserNamesForEmailsServiceError, getUserProfileForEmailsServiceSuccess, getCurrentUserProfileForEmailsService } from '../Action';
 import { ActionType } from './../Types/ActionType';
 import { store } from './../../index';
+import * as helper from '../../../helpers/auth-helper';
 
 import { IUserServiceState } from '../Types/IUserServiceState';
 import nock from 'nock';
@@ -28,11 +29,6 @@ _store = mockStore({
     groups: []
   }
 });
-const _userService: IUserServiceState = {
-  userServiceData: [],
-  error: null
-};
-
 
 
 describe('User service Action', () => {
@@ -40,9 +36,20 @@ describe('User service Action', () => {
     const getState = jest.mock(
       './../../index'
     );
-    let state: any = {
+
+    const state: any = {
       userService: { userServiceData: [{ email: 'test@pds.com' }] }
     }
+
+    const getDisplayEmail = jest.mock(
+      '../../../helpers/auth-helper'
+    );
+
+    jest
+    .spyOn(helper, 'getDisplayEmail')
+    .mockImplementationOnce(() => {
+      return 'test@pds.com';
+    });
 
     jest
       .spyOn(store, 'getState')
@@ -53,10 +60,16 @@ describe('User service Action', () => {
       type: ActionType.USER_NAMES_FOR_EMAILSSERVICE_GET_SUCCESS,
       payload: "test data"
     }
+    const expectedActionForCurrentUserProfile ={
+      type: ActionType.CURRENT_USER_PROFILE_FOR_EMAILSSERVICE_GET_SUCCESS,
+      payload: "test data"
+    }
 
-    expect(getUserNamesForEmailsServiceSuccess("test data")).toMatchObject(expectedActions);
-    expect(getUserNamesForEmailsServiceError("error")).toMatchSnapshot();
+  expect(getUserNamesForEmailsServiceSuccess("test data")).toMatchObject(expectedActions);
+  expect(getUserProfileForEmailsServiceSuccess("test data")).toMatchObject(expectedActionForCurrentUserProfile);
+   expect(getUserNamesForEmailsServiceError("error")).toMatchSnapshot();
     expect(_store.dispatch(getUserNamesForEmailsService(['test@pds.com']))).toMatchSnapshot();
+    expect(_store.dispatch(getCurrentUserProfileForEmailsService())).toMatchSnapshot();
   });
 
   it('should add email if data not exist', () => {
@@ -105,6 +118,14 @@ describe('User service Reducer', () => {
       }
     }
     expect(userServiceReducer(initialState, getUSerServiceSuccessAction)).toMatchSnapshot();
+  });
+
+  it('should return updated state on getCurrentUserProfileSuccess', () => {
+    const getCurrentUserProfileSuccess = {
+      type: ActionType.CURRENT_USER_PROFILE_FOR_EMAILSSERVICE_GET_SUCCESS,
+      payload: { email: "test@pds.com" }
+    }
+    expect(userServiceReducer(initialState, getCurrentUserProfileSuccess)).toMatchSnapshot();
   });
 
   it('should return updated state on getUSerServiceEmailErrorAction', () => {
