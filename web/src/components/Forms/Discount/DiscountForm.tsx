@@ -158,7 +158,7 @@ let DiscountForm: React.FC<
 									</h2>
 								</div>
 								<div className="col-lg-6">
-									<h6 className="discount-supplierTotalDiscount">
+									<h6 className="discount-supplierTotalDiscount text-lg-right">
 										<FormattedMessage id="LABEL_TOTAL_SUBCONTRACTOR_DISCOUNT" /> :
 
 									    <span data-test="supplierTotalDiscountValue">
