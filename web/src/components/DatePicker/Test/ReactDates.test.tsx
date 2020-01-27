@@ -30,12 +30,18 @@ return 24;
   });
   it('should return false if selected date is less than today date', () => {
     let expectedResult=false;
-    let result=validDate(2020,1,25);
+    let year=new Date().getFullYear();
+    let day=new Date().getDate()-1;
+    let month=new Date().getMonth()+1;
+    let result=validDate(year,month,day);
     expect(result).toBe(expectedResult);
 });
-it('should return false if selected date is greater than today date', () => {
+it('should return true if selected date is greater than today date', () => {
   let expectedResult=true;
-  let result=validDate(2020,1,28);
+    let year=new Date().getFullYear();
+    let day=new Date().getDate()+1;
+    let month=new Date().getMonth()+1;
+    let result=validDate(year,month,day);
   expect(result).toBe(expectedResult);
 });
 it('should return false if year is not a number', () => {
