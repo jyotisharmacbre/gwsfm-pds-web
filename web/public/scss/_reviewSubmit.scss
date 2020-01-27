@@ -39,7 +39,7 @@
 
 .RS_custom_block,
 .RS_project_block {
-    background: #fff;
+    background: map-get($colors , whiteColor );
     border-radius: 5px;
     margin-top: 15px;
     margin-bottom: 24px;

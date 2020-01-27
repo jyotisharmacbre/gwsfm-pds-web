@@ -73,7 +73,7 @@ const ActivityFeedList: React.FC<IProps & IMapStateToProps> = (props) => {
 		let userName = '';
 		let filter = data.filter((ele) => ele.email.toLowerCase() == emailId.toLowerCase());
 		if (filter != undefined && filter[0] != undefined)
-			userName = displayUserName(filter[0].firstname, filter[0].lastName);
+			userName = displayUserName(filter[0]);
 		return userName;
 	};
 	const generateQuery = (query, username, currencySymbol, activityType, approverType, lookups, mapping) => {

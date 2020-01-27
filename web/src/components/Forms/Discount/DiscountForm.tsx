@@ -139,27 +139,25 @@ let DiscountForm: React.FC<
 	};
 
 	return (
-		<div className="container-fluid">
-			<div className="row">
-				<CalculationsSummaryTable
-					preliminary={props.preliminaryState}
-					subContractor={props.subContractorState}
-					discount={props.discountForm}
-					currencySymbol={currencySymbol}
-					insuranceRate={props.insuranceRate}
-				/>
-			</div>
+		<div className="discount_form">
+			<CalculationsSummaryTable
+				preliminary={props.preliminaryState}
+				subContractor={props.subContractorState}
+				discount={props.discountForm}
+				currencySymbol={currencySymbol}
+				insuranceRate={props.insuranceRate}
+			/>
 			<div className=" row">
 				<div className="col-lg-12 col-sm-12">
 					<div className="Discountforms_wrap">
 						<form className="custom-wrap p-0" onSubmit={handleSubmit} noValidate={true}>
 							<div className=" row">
-								<div className="col-lg-5 col-sm-5">
+								<div className="col-lg-6">
 									<h2>
 										<FormattedMessage id="TITLE_SUBCONTRACTOR_DISCOUNT" />
 									</h2>
 								</div>
-								<div className="col-lg-4 col-sm-4">
+								<div className="col-lg-6">
 									<h6 className="discount-supplierTotalDiscount">
 										<FormattedMessage id="LABEL_TOTAL_SUBCONTRACTOR_DISCOUNT" /> :
 
@@ -182,99 +180,109 @@ let DiscountForm: React.FC<
 									<div className="hr_line" />
 								</div>
 							</div>
+
 							<div className="row">
-								<div className="col-lg-8">
+								<div className="col-lg-12">
 									<h2>
 										<FormattedMessage id="TITLE_CLIENT_DISCOUNT" />
 									</h2>
-									<Field
-										input={{
-											value: contractor,
-											disabled: true
-										}}
-										type="text"
-										component={PdsFormInput}
-										labelKey="LABEL_CLIENT"
-										messageKey="LABEL_CLIENT"
-										placeholderKey="PLACEHOLDER_ENTER_CLIENT_NAME"
-									/>
-									<Field
-										name="clientDiscount.clientState"
-										type="text"
-										component={PdsFormInput}
-										validate={[Validate.maxLength(1000)]}
-										messageKey="MESSAGE_STATE_DETAILS"
-										labelKey="LABEL_STATE_DETAILS"
-										placeholderKey="PLACEHOLDER_ENTER_STATE_DETAILS"
-									/>
-									<div className="form-group">
-										<label>
-											<FormattedMessage id="LABEL_DISCOUNT_TYPE" />
-										</label>
-										{props.projectstatus &&
-											props.projectstatus
-												.filter((element) => element.lookupItem == LookupType.Discount_Type)
-												.map((data, index) => {
-													return (
-														<div className="form-check" key={index}>
-															<Field
-																name="clientDiscount.discountType"
-																component="input"
-																type="radio"
-																value={+data.lookupKey}
-																normalize={normalize}
-															/>
-															<label className="form-check-label">
-																<FormattedMessage id={data.description} />
-															</label>
-														</div>
-													);
-												})}
-									</div>
-									<Field
-										name="clientDiscount.discount"
-										type="number"
-										className="width-120 pl-20"
-										component={PdsFormInput}
-										validate={[Validate.maxLength(15)]}
-										messageKey="MESSAGE_DISCOUNT"
-										labelKey="LABEL_DISCOUNT"
-										placeholderKey="PLACEHOLDER_DISCOUNT"
-										normalize={restrictMinusAndAllowDecimalForMaxRangeHundred}
-										discountBind={getDiscountTypeValue(
-											props.projectstatus &&
-											props.projectstatus.filter(
-												(element) => element.lookupItem == LookupType.Discount_Type
-											),
-											clientDiscount?.discountType,
-											currencySymbol
-										)}
-										divPosition="relative"
-									/>
-									<label className="w-100 mb-0">
-										<FormattedMessage id="LABEL_SUB_TOTAL_DISCOUNTS" />
-									</label>
-									<label className="m-0 mb-4">
-										{currencySymbol}
-										{calculateClientDiscount(
-											clientDiscount?.discountType,
-											calculateTotalSum(subContractorCalc.sell, preliminaryCalc.sell),
-											clientDiscount?.discount ? clientDiscount?.discount : 0
-										)}
-									</label>
-									<Field
-										name="clientDiscount.clientComments"
-										rows={7}
-										type="textarea"
-										component={PdsFormTextArea}
-										validate={[Validate.maxLength(5000)]}
-										labelKey="LABEL_COMMENTS"
-										placeholderKey="PLACEHOLDER_ADDITIONAL_COMMENTS"
-									/>
 								</div>
 							</div>
-							<div className="hr_line mb-0 mt-4" />
 
+							<div className="forms_wrap">
+								<div className="row">
+									<div className="col-lg-7">
+										<div className="discount-subcontractor-section">
+											<Field
+												input={{
+													value: contractor,
+													disabled: true
+												}}
+												type="text"
+												component={PdsFormInput}
+												labelKey="LABEL_CLIENT"
+												messageKey="LABEL_CLIENT"
+												placeholderKey="PLACEHOLDER_ENTER_CLIENT_NAME"
+											/>
+											<Field
+												name="clientDiscount.clientState"
+												type="text"
+												component={PdsFormInput}
+												validate={[Validate.maxLength(1000)]}
+												messageKey="MESSAGE_STATE_DETAILS"
+												labelKey="LABEL_STATE_DETAILS"
+												placeholderKey="PLACEHOLDER_ENTER_STATE_DETAILS"
+											/>
+											<div className="form-group">
+												<label>
+													<FormattedMessage id="LABEL_DISCOUNT_TYPE" />
+												</label>
+												{props.projectstatus &&
+													props.projectstatus
+														.filter((element) => element.lookupItem == LookupType.Discount_Type)
+														.map((data, index) => {
+															return (
+																<div className="form-check" key={index}>
+																	<Field
+																		name="clientDiscount.discountType"
+																		component="input"
+																		type="radio"
+																		value={+data.lookupKey}
+																		normalize={normalize}
+																	/>
+																	<label className="form-check-label">
+																		<FormattedMessage id={data.description} />
+																	</label>
+																</div>
+															);
+														})}
+											</div>
+											<Field
+												name="clientDiscount.discount"
+												type="number"
+												className="width-120 pl-20"
+												component={PdsFormInput}
+												validate={[Validate.maxLength(15)]}
+												messageKey="MESSAGE_DISCOUNT"
+												labelKey="LABEL_DISCOUNT"
+												placeholderKey="PLACEHOLDER_DISCOUNT"
+												normalize={restrictMinusAndAllowDecimalForMaxRangeHundred}
+												discountBind={getDiscountTypeValue(
+													props.projectstatus &&
+													props.projectstatus.filter(
+														(element) => element.lookupItem == LookupType.Discount_Type
+													),
+													clientDiscount?.discountType,
+													currencySymbol
+												)}
+												divPosition="relative"
+											/>
+											<label className="w-100 mb-0">
+												<FormattedMessage id="LABEL_SUB_TOTAL_DISCOUNTS" />
+											</label>
+											<label className="m-0 mb-4">
+												{currencySymbol}
+												{calculateClientDiscount(
+													clientDiscount?.discountType,
+													calculateTotalSum(subContractorCalc.sell, preliminaryCalc.sell),
+													clientDiscount?.discount ? clientDiscount?.discount : 0
+												)}
+											</label>
+											<Field
+												name="clientDiscount.clientComments"
+												rows={7}
+												type="textarea"
+												component={PdsFormTextArea}
+												validate={[Validate.maxLength(5000)]}
+												labelKey="LABEL_COMMENTS"
+												placeholderKey="PLACEHOLDER_ADDITIONAL_COMMENTS"
+											/>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div className="hr_line mb-0 mr-t-40" />
 							<div className="mr-35 three-btn">
 								<button
 									className="active"
@@ -306,7 +314,7 @@ let DiscountForm: React.FC<
 					</div>
 				</div>
 			</div>
-		</div>
+		</div >
 	);
 };
 

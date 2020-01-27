@@ -24,8 +24,7 @@ const userPreferencesFormAddSuccess = (oldState, action) => {
 		error: null,
 		loading: false,
 		notify: Notify.success,
-		event: action.event,
-		preferences: updateObject(oldState.preferences, action.payload)
+		event: action.event
 	});
 };
 

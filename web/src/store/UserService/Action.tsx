@@ -4,6 +4,7 @@ import { Dispatch } from 'redux';
 import { getUsersForEmailsService } from '../../services';
 import { store } from '../index';
 import { getDefaultState } from '../Common/Action';
+import { getDisplayEmail } from '../../helpers/auth-helper';
 
 export const getUserNamesForEmailsServiceSuccess = (response: any) => {
 	return {
@@ -12,12 +13,32 @@ export const getUserNamesForEmailsServiceSuccess = (response: any) => {
 	};
 };
 
-export const getUserNamesForEmailsServiceError = (error: any) => {
+const getUserProfileForEmailsServiceSuccess = (response: any) => {
+	return {
+		type: ActionType.CURRENT_USER_PROFILE_FOR_EMAILSSERVICE_GET_SUCCESS,
+		payload: response
+	};
+};
+
+const getUserNamesForEmailsServiceError = (error: any) => {
 	return {
 		type: ActionType.USER_NAMES_FOR_EMAILS_SERVICE_GET_ERROR,
 		payload: error
 	};
 };
+
+export const getCurrentUserProfileForEmailsService = () => {
+	return (dispatch: Dispatch) => {
+		const email = getDisplayEmail();
+		getUsersForEmailsService([email])
+				.then((response) => {
+					dispatch(getUserProfileForEmailsServiceSuccess(response.data[0]));
+				})
+				.catch((error) => {
+					dispatch(getUserNamesForEmailsServiceError(error));
+				});
+	}
+}
 
 export const getUserNamesForEmailsService = (data: Array<string>) => {
 	return (dispatch: Dispatch) => {

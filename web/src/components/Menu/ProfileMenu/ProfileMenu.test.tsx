@@ -77,7 +77,9 @@ describe('Profile Menu', () => {
 
     store = mockStore({
       userPreferences: { preferences: {} },
-      lookup: {}
+      lookup: {},
+      userService: {currentUserProfile: {displayName: 'testName', email: 'test@pds.com'}}
+
     });
     jest.mock('react-router-dom', () => ({
       useHistory: jest.fn().mockReturnValue({
