@@ -205,7 +205,7 @@ form {
                 @include borderRadius(50px);
                 border: 1px solid map-get($colors, grey03);
                 background: transparent;
-                z-index: -1;
+                z-index: 0;
             }
         }
         input[type='radio'] {
@@ -312,6 +312,9 @@ button[type="button"] {
 
 .rbt-input-hint {
     display: none !important;
+}
+.mr-t-40 {
+    margin-top: 40px;
 }
 
 .mx-35 {
