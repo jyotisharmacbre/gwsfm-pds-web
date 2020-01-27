@@ -32,6 +32,7 @@ const ActivityFeedList: React.FC<IProps & IMapStateToProps> = (props) => {
 			if (props.projectActivities.length > 0) {
 				let emails: Array<string> = [];
 				props.projectActivities.map((data, index) => {
+					if(emails.length == 0 || !emails.some(x=>x == data.userId))
 					emails.push(data.userId);
 				});
 				services.getUsersForEmailsService(emails).then((response) => {
