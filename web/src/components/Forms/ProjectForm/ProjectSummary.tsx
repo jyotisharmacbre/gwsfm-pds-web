@@ -165,7 +165,7 @@ const ProjectSummary: React.FC<IProps> = (props) => {
 				<h4>
 					<FormattedMessage id="HEADING_CUSTOMER_ENQUIRY" />
 				</h4>
-				<button type="submit" className="edit-btn" onClick={props.oneditclick} >EDIT</button>
+				<button type="submit" className="edit-btn" onClick={props.oneditclick} ><FormattedMessage id="BUTTON_EDIT" /></button>
 			</div>
 
 			<div className="RS_custom_inner">
