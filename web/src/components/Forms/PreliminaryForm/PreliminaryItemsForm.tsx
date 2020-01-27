@@ -1,7 +1,7 @@
 import React, { Suspense }  from 'react';
 import { Field, formValueSelector } from 'redux-form';
 import PdsFormInput from '../../PdsFormHandlers/PdsFormInput';
-import { Validate, alphaNumeric, onlyNumber, isLumpSumOrCBRELabourExists, isLumpSumOrSubContractorExists, isCBRELabourOrAgencyLabourExists } from '../../../helpers/fieldValidations';
+import { Validate, onlyNumber, isLumpSumOrCBRELabourExists, isLumpSumOrSubContractorExists, isCBRELabourOrAgencyLabourExists } from '../../../helpers/fieldValidations';
 import { restrictMinus,restrictMinusAndAllowDecimal, restrictMinusAndAllowDecimalForMaxRangeHundred} from '../../../helpers/utility-helper';
 import { calculateCost,calculateSell} from '../../../helpers/formulas';
 import { IState } from '../../../store/state';
@@ -41,8 +41,7 @@ const PreliminaryItemsForm:React.FC<Props>
                         className="width-120 mb-0"
                         component={PdsFormInput}
                         validate={[
-                            Validate.maxLength(1000),
-                            alphaNumeric
+                            Validate.maxLength(1000)
                           ]}
                       />:<Field
                       name={`${member}.nameOfSupplier`}
@@ -50,8 +49,7 @@ const PreliminaryItemsForm:React.FC<Props>
                       type="text"
                       component={PdsFormInput}
                       validate={[
-                          Validate.maxLength(1000),
-                          alphaNumeric
+                          Validate.maxLength(1000)
                         ]}
                     />}
     </td>
@@ -183,8 +181,7 @@ const PreliminaryItemsForm:React.FC<Props>
                         type="text"
                         component={PdsFormInput}
                         validate={[
-                            Validate.maxLength(1000),
-                            alphaNumeric
+                            Validate.maxLength(1000)
                           ]}
                       />
     </td>

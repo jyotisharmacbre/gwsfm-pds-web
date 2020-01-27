@@ -96,7 +96,7 @@ const SubContractorActivityForm: React.FC<Props> = (props: Props) => {
 										className="required"
 									/>
 
-									{props.activities[0].subcontractorId === '0' && (
+									{props.activities[index].subcontractorId === '0' && (
 										<Field
 											name={`${member}.otherSubcontractorName`}
 											type="text"

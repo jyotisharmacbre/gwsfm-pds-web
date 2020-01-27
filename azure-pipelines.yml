@@ -18,6 +18,117 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
+
+- task: PowerShell@2
+  displayName: 'Code check-in Start Time'
+  inputs:
+    targetType: 'inline'
+    script: |
+      #check-in Start
+      $checkinstartdate=$(Get-Date -Format s);
+      Write-Host "##vso[task.setvariable variable=startTime]$checkinstartdate"
+
+- task: PowerShell@2
+  displayName: 'Code check-in End Time'
+  inputs:
+    targetType: 'inline'
+    script: |
+      #End check-in
+      $checkinenddate=$(Get-Date -Format s);
+      Write-Host "##vso[task.setvariable variable=endTime]$checkinenddate"
+
+- task: restCallBuildTask@0
+  displayName: 'Post Code check-in Metrics'
+  inputs:
+    webserviceEndpoint: 'Metrics'
+    relativeUrl: 
+    httpVerb: 'POST'
+    body: |
+      {
+      "ApplicationId": $(appID),
+      "AutomationProcessId": 3,
+      "AutomationToolId": 95,
+      "Description": "code check-in",
+      "Version": "$(BUILD.BUILDID)",
+      "Cycle": "$(BUILD.BUILDID)",
+      "Passed": 1,
+      "Failed": 0,
+      "Blocked": 0,
+      "StartDateTime": "$(startTime)",
+      "EndDateTime": "$(endTime)"
+      }
+    contentType: 'application/json'
+    allowInvalidSSLCertificate: false
+
+- task: restCallBuildTask@0
+  displayName: 'Post Build Artifact Metrics'
+  inputs:
+    webserviceEndpoint: 'Metrics'
+    relativeUrl: 
+    httpVerb: 'POST'
+    body: |
+      {
+      "ApplicationId": $(appID),
+      "AutomationProcessId": 50,
+      "AutomationToolId": 242,
+      "Description": "Build Artifacts",
+      "Version": "$(BUILD.BUILDID)",
+      "Cycle": "$(BUILD.BUILDID)",
+      "Passed": 1,
+      "Failed": 0,
+      "Blocked": 0,
+      "StartDateTime": "$(startTime)",
+      "EndDateTime": "$(endTime)"
+      }
+    contentType: 'application/json'
+    allowInvalidSSLCertificate: false
+
+- task: restCallBuildTask@0
+  displayName: 'Post Code Review Metrics'
+  inputs:
+    webserviceEndpoint: 'Metrics'
+    relativeUrl: 
+    httpVerb: 'POST'
+    body: |
+      {
+      "ApplicationId": $(appID),
+      "AutomationProcessId": 54,
+      "AutomationToolId": 242,
+      "Description": "Code Review",
+      "Version": "$(BUILD.BUILDID)",
+      "Cycle": "$(BUILD.BUILDID)",
+      "Passed": 1,
+      "Failed": 0,
+      "Blocked": 0,
+      "StartDateTime": "$(startTime)",
+      "EndDateTime": "$(endTime)"
+      }
+    contentType: 'application/json'
+    allowInvalidSSLCertificate: false
+
+- task: restCallBuildTask@0
+  displayName: 'Post Secret management Metrics'
+  inputs:
+    webserviceEndpoint: 'Metrics'
+    relativeUrl: 
+    httpVerb: 'POST'
+    body: |
+      {
+      "ApplicationId": $(appID),
+      "AutomationProcessId": 56,
+      "AutomationToolId": 242,
+      "Description": "Secret management",
+      "Version": "$(BUILD.BUILDID)",
+      "Cycle": "$(BUILD.BUILDID)",
+      "Passed": 1,
+      "Failed": 0,
+      "Blocked": 0,
+      "StartDateTime": "$(startTime)",
+      "EndDateTime": "$(endTime)"
+      }
+    contentType: 'application/json'
+    allowInvalidSSLCertificate: false
+
 - task: NodeTool@0
   inputs:
     versionSpec: '10.x'
@@ -29,6 +140,15 @@ steps:
     workingDir: web
     verbose: false
 
+- task: PowerShell@2
+  displayName: 'Code Build start time'
+  inputs:
+    targetType: 'inline'
+    script: |
+      #check-build Start
+      $CodeBuildstartdate=$(Get-Date -Format s);
+      Write-Host "##vso[task.setvariable variable=CodeBuildstartTime]$CodeBuildstartdate"
+
 - task: Npm@1
   displayName: 'npm run build'
   inputs:
@@ -37,12 +157,84 @@ steps:
     verbose: false
     customCommand: 'run build'
 
+
+- task: PowerShell@2
+  displayName: 'Code Build End Time'
+  inputs:
+    targetType: 'inline'
+    script: |
+      #End Code Build
+      $CodeBuildenddate=$(Get-Date -Format s);
+      Write-Host "##vso[task.setvariable variable=CodeBuildendTime]$CodeBuildenddate"
+
+- task: restCallBuildTask@0
+  displayName: 'Post Code Build Metrics'
+  inputs:
+    webserviceEndpoint: 'Metrics'
+    relativeUrl: 
+    httpVerb: 'POST'
+    body: |
+      {
+      "ApplicationId": $(appID),
+      "AutomationProcessId": 4,
+      "AutomationToolId": 242,
+      "Description": "Code Build",
+      "Version": "$(BUILD.BUILDID)",
+      "Cycle": "$(BUILD.BUILDID)",
+      "Passed": 1,
+      "Failed": 0,
+      "Blocked": 0,
+      "StartDateTime": "$(CodeBuildstartTime)",
+      "EndDateTime": "$(CodeBuildendTime)"
+      }
+    contentType: 'application/json'
+    allowInvalidSSLCertificate: false
+
+- task: PowerShell@2
+  displayName: 'Unit Test Start Time'
+  inputs:
+    targetType: 'inline'
+    script: |
+      $TestStartdate=$(Get-Date -Format s);
+      Write-Host "##vso[task.setvariable variable=TestStartTime]$TestStartdate"
+
 - task: Npm@1
   displayName: 'Test Run'
   inputs:
     command: 'custom'
     workingDir: 'web'
     customCommand: 'run test:ci'
+
+- task: PowerShell@2
+  displayName: 'unit Test End Time'
+  inputs:
+    targetType: 'inline'
+    script: |
+      $TestEnddate=$(Get-Date -Format s);
+      Write-Host "##vso[task.setvariable variable=TestEndTime]$TestEnddate"
+
+- task: restCallBuildTask@0
+  displayName: 'Post Unit test Metrics'
+  inputs:
+    webserviceEndpoint: 'Metrics'
+    relativeUrl: 
+    httpVerb: 'POST'
+    body: |
+      {
+      "ApplicationId": $(appID),
+      "AutomationProcessId": 5,
+      "AutomationToolId": 48,
+      "Description": "Unit Test",
+      "Version": "$(BUILD.BUILDID)",
+      "Cycle": "$(BUILD.BUILDID)",
+      "Passed": 1,
+      "Failed": 0,
+      "Blocked": 0,
+      "StartDateTime": "$(TestStartTime)",
+      "EndDateTime": "$(TestEndTime)"
+      }
+    contentType: 'application/json'
+    allowInvalidSSLCertificate: false
 
 - task: PublishTestResults@2
   inputs:

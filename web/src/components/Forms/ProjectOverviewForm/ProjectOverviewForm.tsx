@@ -11,7 +11,7 @@ import { selectionButtons } from '../../../helpers/constants';
 import { enquiryTypeData } from '../../../helpers/dropDownFormValues';
 import { IState } from '../../../store/state';
 import { IProjectAdditionalDetail } from '../../../store/ProjectOverviewForm/Types/IProjectAdditionalDetail';
-import { getPropertyName, getDropdown, getClassNameForProjectStatus } from '../../../helpers/utility-helper';
+import { getPropertyName, getDropdown, getClassNameForProjectStatus, displayUserName } from '../../../helpers/utility-helper';
 import { LookupType } from '../../../store/Lookups/Types/LookupType';
 import EventType from '../../../enums/EventType';
 import FontawsomeSvg from '@fortawesome/fontawesome-svg-core';
@@ -78,9 +78,9 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 	const formatUserData = (data) => {
 		let returnValue: any = [];
 		if (data && data.length > 0) {
-			data.filter((user) => user.firstname && user.lastName).map((data: any) => {
+			data.filter((user) => user.displayName).map((data: any) => {
 				returnValue.push({
-					label: `${data.firstname} ${data.lastName} (${data.email === null ? 'NA' : data.email})`,
+					label: `${displayUserName(data)} (${data.email === null ? 'NA' : data.email})`,
 					id: data.id,
 					email: data.email
 				});
@@ -100,7 +100,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 	return (
 		<form className="project-overview-form" noValidate={true} data-test="projectOverviewForm">
 			<div className={`${getClassNameForProjectStatus(props.status)} row`}>
-				<div className="col-lg-8">
+				<div className="col-xl-7 col-lg-9 col-md-12">
 					<Field
 						name="projectAdditionalDetail.mainContractor"
 						type="text"
@@ -117,7 +117,6 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						component={PdsFormInput}
 						className="required"
 						validate={[ Validate.required('LABEL_ENQUIRY_RECEIVED_FROM'), Validate.maxLength(1000) ]}
-						warn={alphaNumeric}
 						labelKey="LABEL_ENQUIRY_RECEIVED_FROM"
 						placeholderKey="PLACEHOLDER_ENQUIRY_SENDER_NAME"
 					/>
@@ -137,7 +136,6 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						component={PdsFormInput}
 						className="required"
 						validate={[ Validate.required('LABEL_CREDIT_CHECK_RESULT'), Validate.maxLength(1000) ]}
-						warn={alphaNumeric}
 						labelKey="LABEL_CREDIT_CHECK_RESULT"
 						placeholderKey="PLACEHOLDER_CREDIT_CHECK_DETAILS"
 					/>
@@ -168,7 +166,6 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						component={PdsFormInput}
 						className="required"
 						validate={[ Validate.required('LABEL_FORM_OF_CONTRACT'), Validate.maxLength(1000) ]}
-						warn={alphaNumeric}
 						labelKey="LABEL_FORM_OF_CONTRACT"
 						placeholderKey="PLACEHOLDER_FORM_OF_CONTRACT"
 					/>
@@ -178,7 +175,6 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						type="text"
 						component={PdsFormInput}
 						validate={[ Validate.maxLength(1000) ]}
-						warn={alphaNumeric}
 						labelKey="LABEL_RETENTION"
 						placeholderKey="PLACEHOLDER_ADD_RETENTION"
 					/>
@@ -188,7 +184,6 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						type="text"
 						component={PdsFormInput}
 						validate={[ Validate.maxLength(1000) ]}
-						warn={alphaNumeric}
 						labelKey="LABEL_LIQUIDATED_DAMAGES"
 						placeholderKey="PLACEHOLDER_ADD_LIQUIDATED_DAMAGES"
 					/>
@@ -199,7 +194,6 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						component={PdsFormInput}
 						className="required"
 						validate={[ Validate.required('LABEL_INSURANCE'), Validate.maxLength(1000) ]}
-						warn={alphaNumeric}
 						labelKey="LABEL_INSURANCE"
 						placeholderKey="PLACEHOLDER_ADD_INSURANCE"
 					/>
@@ -225,14 +219,14 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 					</div>
 
 					<div className="row">
-						<div className="col-xl-10">
+						<div className="col-xl-12">
 							<div className="form-group">
 								<label>
 									<FormattedMessage id="LABEL_PROJECT_PLAN" />
 								</label>
 								<div className="calender-wrap">
 									<div className="row">
-										<div className="col-xl-6 mt-2 position-relative manipulate-calendar">
+										<div className="col-md-6 mt-2 position-relative manipulate-calendar">
 											<DatePicker
 												name="projectAdditionalDetail.commenceDate"
 												data-test="commenceDate"
@@ -240,7 +234,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 												labelKey="LABEL_COMMENCE_DATE"
 											/>
 										</div>
-										<div className="col-xl-6 mt-2 position-relative manipulate-calendar">
+										<div className="col-md-6 mt-2 position-relative manipulate-calendar">
 											<DatePicker
 												name="projectAdditionalDetail.completionDate"
 												data-test="completionDate"
@@ -269,14 +263,14 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 					</div>
 
 					<div className="row">
-						<div className="col-xl-10">
+						<div className="col-xl-12">
 							<div className="form-group">
 								<label>
 									<FormattedMessage id="LABEL_PROJECT_PLAN" />
 								</label>
 								<div className="calender-wrap">
 									<div className="row">
-										<div className="col-xl-6 mt-2 position-relative manipulate-calendar">
+										<div className="col-md-6 mt-2 position-relative manipulate-calendar">
 											<DatePicker
 												name="projectAdditionalDetail.firstValuationDate"
 												data-test="firstValuationDate"
@@ -284,7 +278,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 												labelKey="LABEL_FIRST_VALUATION_DATE"
 											/>
 										</div>
-										<div className="col-xl-6 mt-2 position-relative manipulate-calendar">
+										<div className="col-md-6 mt-2 position-relative manipulate-calendar">
 											<DatePicker
 												name="projectAdditionalDetail.finalAccountDate"
 												data-test="finalAccountDate"

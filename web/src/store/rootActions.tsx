@@ -51,10 +51,12 @@ export {
 	getDynamicContractData,
 	getDynamicCompanyData,
 	getDynamicSubContractorData,
-	getDynamicOther
+	getDynamicOther,
+	getListOfDivision,
+	getListOfBusinessUnits
 } from './DynamicsData/Action';
 
-export { getUserNamesForEmailsService } from './UserService/Action';
+export { getUserNamesForEmailsService, getCurrentUserProfileForEmailsService } from './UserService/Action';
 
 export {
 	changeProjectStatusToBidLost,
