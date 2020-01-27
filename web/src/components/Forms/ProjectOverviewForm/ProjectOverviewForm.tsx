@@ -99,7 +99,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 	return (
 		<form className="project-overview-form" noValidate={true} data-test="projectOverviewForm">
 			<div className={`${getClassNameForProjectStatus(props.status)} row`}>
-				<div className="col-lg-8">
+				<div className="col-xl-7 col-lg-9 col-md-12">
 					<Field
 						name="projectAdditionalDetail.mainContractor"
 						type="text"
@@ -218,14 +218,14 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 					</div>
 
 					<div className="row">
-						<div className="col-xl-10">
+						<div className="col-xl-12">
 							<div className="form-group">
 								<label>
 									<FormattedMessage id="LABEL_PROJECT_PLAN" />
 								</label>
 								<div className="calender-wrap">
 									<div className="row">
-										<div className="col-xl-6 mt-2 position-relative manipulate-calendar">
+										<div className="col-md-6 mt-2 position-relative manipulate-calendar">
 											<DatePicker
 												name="projectAdditionalDetail.commenceDate"
 												data-test="commenceDate"
@@ -233,7 +233,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 												labelKey="LABEL_COMMENCE_DATE"
 											/>
 										</div>
-										<div className="col-xl-6 mt-2 position-relative manipulate-calendar">
+										<div className="col-md-6 mt-2 position-relative manipulate-calendar">
 											<DatePicker
 												name="projectAdditionalDetail.completionDate"
 												data-test="completionDate"
@@ -262,14 +262,14 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 					</div>
 
 					<div className="row">
-						<div className="col-xl-10">
+						<div className="col-xl-12">
 							<div className="form-group">
 								<label>
 									<FormattedMessage id="LABEL_PROJECT_PLAN" />
 								</label>
 								<div className="calender-wrap">
 									<div className="row">
-										<div className="col-xl-6 mt-2 position-relative manipulate-calendar">
+										<div className="col-md-6 mt-2 position-relative manipulate-calendar">
 											<DatePicker
 												name="projectAdditionalDetail.firstValuationDate"
 												data-test="firstValuationDate"
@@ -277,7 +277,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 												labelKey="LABEL_FIRST_VALUATION_DATE"
 											/>
 										</div>
-										<div className="col-xl-6 mt-2 position-relative manipulate-calendar">
+										<div className="col-md-6 mt-2 position-relative manipulate-calendar">
 											<DatePicker
 												name="projectAdditionalDetail.finalAccountDate"
 												data-test="finalAccountDate"
