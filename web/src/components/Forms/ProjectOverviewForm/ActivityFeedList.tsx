@@ -46,7 +46,6 @@ const ActivityFeedList: React.FC<IProps & IMapStateToProps> = (props) => {
 			if (userNamesForEmails.length > 0 && props.lookups) {
 				if (props.projectActivities.length > 0) {
 					let activityFeed: Array<IActivityFeed> = [];
-					debugger;
 					let sortedData = props.projectActivities.sort((a:IProjectApprovalActivitiy,b:IProjectApprovalActivitiy)=>{ 
 						let dateA= +new Date(a.createdOn), dateB= +new Date(b.createdOn);
     					return (dateB-dateA)});
