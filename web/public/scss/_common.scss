@@ -472,7 +472,17 @@ button[type="button"] {
 }
 
 
-/*table responsive*/
+/*table responsive and common table design style*/
+td {
+    a {
+        color: map-get($colors , lightGreen );
+        text-decoration: none;
+        &:hover {
+            color: map-get($colors , lightGreen );
+            text-decoration: underline;
+        }
+    }
+}
 
 @include mdScreen {
     .table_responsive {
