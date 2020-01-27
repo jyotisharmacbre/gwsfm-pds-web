@@ -119,6 +119,8 @@
     "LABEL_MANAGER_EXPERIENCED": "Manager Experienced",
     "LABEL_YES": "YES",
     "LABEL_NO": "NO",
+    "LABEL_LAST_UPDATE": "Last Update",
+    "LABEL_OTHER": "Other",
     "LABEL_FINAL_ACCOUNT_DATE": "Final Account Date",
     "LABEL_INSURANCE": "Insurance",
     "LABEL_LIQUIDATED_DAMAGES": "Liquidated Damages",
