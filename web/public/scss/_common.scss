@@ -313,6 +313,9 @@ button[type="button"] {
 .rbt-input-hint {
     display: none !important;
 }
+.mr-t-40 {
+    margin-top: 40px;
+}
 
 .mx-35 {
     margin: 0 35px;
@@ -469,7 +472,17 @@ button[type="button"] {
 }
 
 
-/*table responsive*/
+/*table responsive and common table design style*/
+td {
+    a {
+        color: map-get($colors , lightGreen );
+        text-decoration: none;
+        &:hover {
+            color: map-get($colors , lightGreen );
+            text-decoration: underline;
+        }
+    }
+}
 
 @include mdScreen {
     .table_responsive {

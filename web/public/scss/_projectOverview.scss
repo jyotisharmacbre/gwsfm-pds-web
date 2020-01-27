@@ -130,6 +130,10 @@
                 &:first-child {
                     font-weight: 700;
                 }
+                a {
+                    color: map-get($colors , lightGreen );
+                    text-decoration: underline;
+                }
             }
         }
         &.cost-table {
@@ -165,6 +169,11 @@
         }
         .DayPickerKeyboardShortcuts_buttonReset{
             display: none;
+        }
+        input {
+            @include mdScreen {
+                width: 40px;
+            }
         }
     }
     .DayPicker_transitionContainer {

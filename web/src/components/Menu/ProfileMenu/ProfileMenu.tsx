@@ -147,7 +147,7 @@ const ProfileMenu: React.FC<any> = props => {
                     aria-expanded="false"
                   >
                     <FontAwesomeIcon className="" icon={faUser} />
-                    <span id="sm_none">{formatMessage('TITLE_HELLO')},  {props.displayName ? props.displayName: '...'}</span>
+                    <span id="sm_none">{props.displayName ? props.displayName: '...'}</span>
                     <span className="down-arrow">
                       <FontAwesomeIcon className="" icon={faAngleDown} />
                     </span>

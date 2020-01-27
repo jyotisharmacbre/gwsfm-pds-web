@@ -116,7 +116,7 @@ const getTableColumns = () => {
         (term = rowData.name.length)
     },
     { title: formatMessage('LABEL_OWNER'), field: 'projectOwner' },
-    { title: 'Last Update', field: 'lastModified' },
+    { title: formatMessage('LABEL_LAST_UPDATE'), field: 'lastModified' },
     {
       title: formatMessage('LABEL_CLIENT_CUSTOMER'),
       field: 'contractorId'
