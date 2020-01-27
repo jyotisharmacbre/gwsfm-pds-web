@@ -205,7 +205,7 @@ form {
                 @include borderRadius(50px);
                 border: 1px solid map-get($colors, grey03);
                 background: transparent;
-                z-index: 0;
+                z-index: -1;
             }
         }
         input[type='radio'] {
