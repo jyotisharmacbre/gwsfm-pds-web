@@ -11,7 +11,13 @@ import { BrowserRouter } from 'react-router-dom';
 import ProjectStatus from '../../../../enums/ProjectStatus';
 
 let props: any = {
-	projectId: ''
+	projectId: '',
+	isProjectFormDirty:false,
+	isProjectOverviewFormDirty:false,
+	isPreliminaryFormDirty:false,
+	isSubContractorFormDirty:false,
+	isDiscountFormDirty:false,
+	history : { push: jest.fn() }
 };
 describe('Left Menu Renders', () => {
 	const mockStore = configureStore([]);
@@ -83,6 +89,7 @@ describe('Left Menu Renders', () => {
 		window.location.href =
 			'http://localhost/projectOverview/309ccd02-38ab-4643-1165-08d77e00a6ce/125ddg11-44dd-6785-2344-17w6';
 		renderComponent(store, props);
+		
 		const link = findByTestAtrr(wrapper, 'ProjectOverviewPath').first();
 		expect(link.getDOMNode().href).not.toContain('125ddg11-44dd-6785-2344-17w6');
 	});
@@ -95,4 +102,21 @@ describe('Left Menu Renders', () => {
 		renderComponent(store, props);
 		expect(findByTestAtrr(wrapper, 'review-approve').length).toEqual(1);
 	});
+	it('should redirect to component if form is not dirty', () => {
+		leftMenuProjectData.form.projectId = '309ccd02-38ab-4643-1165-08d77e00a6ce';
+		renderComponent(store, props);
+		const link = findByTestAtrr(wrapper, 'ProjectOverviewPath').first();
+		link.simulate('click'); 
+		expect( window.location.href ).toContain( 'ProjectOverview' );
+		expect( window.location.href ).toContain( '309ccd02-38ab-4643-1165-08d77e00a6ce' );
+	});
+	it('should not redirect to component if form is dirty', () => {
+		let prop={isProjectFormDirty:true};
+		renderComponent(store,prop);
+		leftMenuProjectData.form.projectId = '309ccd02-38ab-4643-1165-08d77e00a6ce';
+      const link = findByTestAtrr(wrapper, 'ProjectOverviewPath').first();
+		link.simulate('click'); 
+	  expect( props.history.push).not.toHaveBeenLastCalledWith( '/ProjectOverview/309ccd02-38ab-4643-1165-08d77e00a6ce' );
+	});
+	
 });
