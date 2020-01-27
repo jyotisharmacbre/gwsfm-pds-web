@@ -121,20 +121,20 @@ const ProjectSummary: React.FC<IProps> = (props) => {
 					(ele) => ele.email == props.project.headOfProject
 				);
 				if (headOfProjectFilter)
-					setHeadOfProject(displayUserName(headOfProjectFilter.firstname, headOfProjectFilter.lastName));
+					setHeadOfProject(displayUserName(headOfProjectFilter));
 				let projectOwnerFilter = props.userNamesForEmails.find(
 					(ele) => ele.email == props.project.projectOwner
 				);
 				if (projectOwnerFilter)
-					setProjectOwner(displayUserName(projectOwnerFilter.firstname, projectOwnerFilter.lastName));
+					setProjectOwner(displayUserName(projectOwnerFilter));
 				let projectManagerFilter = props.userNamesForEmails.find(
 					(ele) => ele.email == props.project.projectManager
 				);
 				if (projectManagerFilter)
-					setProjectManager(displayUserName(projectManagerFilter.firstname, projectManagerFilter.lastName));
+					setProjectManager(displayUserName(projectManagerFilter));
 			}
 		},
-		[props.userNamesForEmails]
+		[props.project, props.userNamesForEmails]
 	);
 
 	const getContractorSuccess = (response) => {
@@ -165,7 +165,7 @@ const ProjectSummary: React.FC<IProps> = (props) => {
 				<h4>
 					<FormattedMessage id="HEADING_CUSTOMER_ENQUIRY" />
 				</h4>
-				<button type="submit" className="edit-btn" onClick={props.oneditclick} >EDIT</button>
+				<button type="submit" className="edit-btn" onClick={props.oneditclick} ><FormattedMessage id="BUTTON_EDIT" /></button>
 			</div>
 
 			<div className="RS_custom_inner">

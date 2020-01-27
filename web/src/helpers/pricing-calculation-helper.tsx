@@ -10,8 +10,8 @@ import IDiscountSubContractor from '../store/DiscountForm/Types/IDiscountSubCont
 export const getSupplierTotalDiscount = (data: IDiscountSubContractor[]) => {
 	var totalDiscount = data && data.map(x => x.supplierTotalDiscount).reduce(function (previousValue, currentValue) {
 		let total = 0;
-		if (previousValue) total += previousValue;
-		if (currentValue) total += currentValue;
+		if (previousValue) total += parseFloat(previousValue.toString());
+		if (currentValue) total += parseFloat(currentValue.toString());;
 		return total;
 	});
 	return totalDiscount ? totalDiscount : 0;
@@ -44,7 +44,7 @@ export const getDiscountSummaryCalculation = (
 	data: IDiscountActivity,
 	subContractorState: IPricing,
 	preliminaryState: IPricing,
-	insurance: number
+	insuranceRate:number
 ) => {
 	let discountData = { ...data };
 	let supplierTotalDiscount = getSupplierTotalDiscount(data.subContractorDiscounts);
@@ -53,11 +53,7 @@ export const getDiscountSummaryCalculation = (
 
 	if (discountData.clientDiscount && !discountData.clientDiscount.discount) discountData.clientDiscount.discount = 0;
 	let state: ISummaryCalculation = { cost: 0, sell: 0, margin: 0, grossMargin: 0 };
-	state.cost = subContractorState.cost + preliminaryState.cost - supplierTotalDiscount;
-	state.cost =
-		calculateInsurance(subContractorState.cost + preliminaryState.cost, insurance) -
-		supplierTotalDiscount;
-
+	state.cost = calculateInsurance((subContractorState.cost + preliminaryState.cost - supplierTotalDiscount),insuranceRate);
 	if (discountData.clientDiscount != undefined) {
 		state.sell =
 			subContractorState.sell +

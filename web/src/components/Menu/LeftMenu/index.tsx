@@ -164,11 +164,7 @@ const LeftMenu: React.FC<IMapStateToProps> = (props) => {
 						</Link>
 					</li>
 				)}
-				<li className={isDisable ? '' : 'link_disabled'}>
-					<Link to="/">
-						<FormattedMessage id="MENU_LOGOUT" />
-					</Link>
-				</li>
+				
 			</ul>
 		</nav>
 	);

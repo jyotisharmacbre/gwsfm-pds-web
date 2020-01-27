@@ -48,7 +48,7 @@ const GeneralTable: React.FC<IGeneralTableProps> = props => {
         </div>
         <div className="col-lg-12 mt-2 m-xl-0 d-block d-lg-none">
           <div className="d-flex justify-content-between">
-            <button type="submit" className="edit-btn">EDIT</button>
+            <button type="submit" className="edit-btn"><FormattedMessage id="BUTTON_EDIT" /></button>
           </div>
         </div>
       </div>

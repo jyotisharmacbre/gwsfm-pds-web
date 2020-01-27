@@ -11,7 +11,7 @@ import {
 } from '../pricing-calculation-helper';
 import ISummaryCalculation from '../../store/SummaryCalculation/Types/ISummaryCalculation';
 import { newActivity } from '../../store/SubContractor/InitialState';
-import { getSubContractorDiscounts } from './pricing-calculation-helper-test-data';
+import { getSubContractorDiscountsWithDiscountAsNumber, getSubContractorDiscountsWithDiscountAsString } from './pricing-calculation-helper-test-data';
 describe('Summary calculation helper run without error', () => {
 
   it('should calculate summary for sub contractor object', () => {
@@ -31,8 +31,12 @@ describe('Summary calculation helper run without error', () => {
 });
 
 describe('Sub contractor Discount calculation helper run without error', () => {
-  it('should calculate SupplierTotalDiscount for sub contractor discounts', () => {
-    let result = getSupplierTotalDiscount(getSubContractorDiscounts(3));
+  it('should calculate SupplierTotalDiscount for sub contractor discounts when supplierDiscount is number format', () => {
+    let result = getSupplierTotalDiscount(getSubContractorDiscountsWithDiscountAsNumber(3));
+    expect(result).toStrictEqual(3);
+  });
+  it('should calculate SupplierTotalDiscount for sub contractor discounts when supplierDiscount is string format', () => {
+    let result = getSupplierTotalDiscount(getSubContractorDiscountsWithDiscountAsString(3));
     expect(result).toStrictEqual(3);
   });
 });

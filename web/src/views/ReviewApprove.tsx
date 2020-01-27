@@ -157,12 +157,15 @@ const ReviewApprove: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & 
 	const actionEditBtnOverview = () => {
 		props.history.push(`/ProjectOverview/${props.match.params.projectId}`);
 	}
+	const handleQueryCancel=() =>
+	{setShowQueryPopup(false);}
 	return (
 		<div className="container-fluid" data-test="review-approve-component">
 			{showQueryPopup && (
 				<QueryPopup
 					intl={props.intl}
 					handleConfirm={handleQuerySave}
+					handleCancel={handleQueryCancel}
 					titleKey={<FormattedMessage id="TITLE_QUERY" />}
 					subTitleKey={<FormattedMessage id="SUB_TITLE_QUERY" />}
 					contentKey={<FormattedMessage id="PLACEHOLDER_QUERY" />}

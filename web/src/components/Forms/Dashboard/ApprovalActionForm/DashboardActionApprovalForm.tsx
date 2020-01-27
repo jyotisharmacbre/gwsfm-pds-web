@@ -9,7 +9,7 @@ import { reduxForm, InjectedFormProps } from 'redux-form';
 import { IProjectDashboardGrid } from '../../../../store/Dashboard/Types/IProjectDashboardGrid';
 import IReactIntl from '../../../../Translations/IReactIntl';
 import { ILookup } from '../../../../store/Lookups/Types/ILookup';
-import { getLookupDescription } from '../../../../helpers/utility-helper';
+import { getLookupDescription, displayUserName } from '../../../../helpers/utility-helper';
 import { LookupItems } from '../../../../helpers/constants';
 import { IUserServiceData } from '../../../../store/UserService/Types/IUserService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -56,10 +56,10 @@ let DashboardActionApprovalForm: React.FC<Props & InjectedFormProps<Array<IProje
 						LookupItems.Project_Approval_Sign_Off_Status
 					) : rowProject.approvalStatus;
 					var mailObj = namesAndEmails.find(
-						lk =>lk.email && lk.email.toUpperCase() === rowProject.modifiedBy.toUpperCase()
+						lk =>lk.email && rowProject.modifiedBy && lk.email.toUpperCase() === rowProject.modifiedBy.toUpperCase()
 					);
 					rowProject.modifiedBy = mailObj
-						? `${mailObj.firstname} ${mailObj.lastName}`
+						? `${displayUserName(mailObj)}`
 						: rowProject.modifiedBy;
 					rowProject.name = (
 						<Link
