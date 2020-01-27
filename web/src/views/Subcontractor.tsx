@@ -142,6 +142,10 @@ const Subcontractor: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & 
 			: props.subContractorFormEdit(paramProjectId, props.subContractorState[0].subContrActivityId, data, event);
 	};
 
+	const handlePrevious = () => {
+		props.history.push(`/preliminaries/${props.match.params.projectId}`);
+	};
+
 	return (
 		<div className="container-fluid">
 			<div data-test="sub_row_status" className={`${getClassNameForProjectStatus(props.status)} row`}>
@@ -165,7 +169,7 @@ const Subcontractor: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & 
 						<SubcontractorForm
 							projectId={props.match.params.projectId}
 							onSubmitForm={handleEvent}
-							onPreviousForm={handlePrevious}
+							onPrevious = {handlePrevious}
 							currencySymbol={currencySymbol}
 							preliminaryState={props.preliminaryState}
 							discountState={props.discountState}

@@ -1,7 +1,7 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Component } from 'react';
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
-import { SingleDatePicker } from 'react-dates';
+import { SingleDatePicker,isInclusivelyBeforeDay  } from 'react-dates';
 import moment from 'moment';
 import { InjectedFormProps } from 'redux-form';
 import cal from '../../assests/images/calender.png';
@@ -15,9 +15,20 @@ interface Props {
   required: any;
 }
 
-const validDate = (year, month, day) =>
-  moment(moment(year + '-' + month + '-' + day), 'YYYY-MM-DD', true).isValid();
-
+export const validDate = (year, month, day) =>
+{
+  if(!year||!month||!day)
+  {
+    return false;
+  }
+  var selectedDate = new Date(year,(month-1),day);
+var todaysDate=new Date();
+if(selectedDate&&selectedDate<todaysDate)
+{
+  return false;
+}
+ return true;
+}
 class ReactDates extends PureComponent<Props & InjectedFormProps<{}, Props>> {
   state = {
     focused: false,
@@ -42,7 +53,13 @@ class ReactDates extends PureComponent<Props & InjectedFormProps<{}, Props>> {
     const { input } = this.props;
     input.onFocus(value);
   };
-
+setDateState=()=>{
+  this.setState({
+    day: new Date().getDate(),
+    month: new Date().getMonth() + 1,
+    year:  new Date().getFullYear()
+  });
+}
   onChange = value => {
     this.setState({
       day: value.date(),
@@ -55,27 +72,58 @@ class ReactDates extends PureComponent<Props & InjectedFormProps<{}, Props>> {
 
   handleDay = (value, type) => {
     const { input } = this.props;
-    if (validDate(this.state.year, this.state.month, value)) {
-      input.onChange(moment(input.value).set(type, value));
-      this.setState({ day: parseInt(value) });
-    }
+    this.setState({ day: parseInt(value) });
   };
-
+  changeDayEvent = (value, type) => {
+    const { input } = this.props;
+  if(validDate(this.state.year,this.state.month,this.state.day))
+  {
+    input.onChange(moment(input.value).set(type, value));
+  }
+  else
+  {
+    this.setDateState();
+    input.onChange(moment(new Date()));
+   
+  }
+  };
   handleMonth = (value, type) => {
     const { input } = this.props;
     let month = value - 1;
-    if (validDate(this.state.year, value, this.state.day)) {
-      input.onChange(moment(input.value).set(type, month));
-      this.setState({ month: parseInt(value) });
-    }
+    this.setState({ month: parseInt(value) });
+    
   };
-
+  changeMonthEvent = (value, type) => {
+    const { input } = this.props;
+    if(validDate(this.state.year,this.state.month,this.state.day))
+  {
+    input.onChange(moment(input.value).set(type, (value-1)));
+  }
+  else
+  {
+    this.setDateState();
+    input.onChange(moment(new Date()));
+   
+  }
+    
+  };
   handleYear = (value, type) => {
     const { input } = this.props;
-    if (validDate(value, this.state.month, this.state.day)) {
+    this.setState({ year: parseInt(value) });
+  };
+  changeYearEvent = (value, type) => {
+    const { input } = this.props;
+    if(validDate(this.state.year,this.state.month,this.state.day))
+    {
       input.onChange(moment(input.value).set(type, value));
-      this.setState({ year: parseInt(value) });
     }
+    else
+    {     
+      this.setDateState();
+      input.onChange(moment(new Date()));
+ 
+    }
+
   };
 
   render() {
@@ -93,24 +141,30 @@ class ReactDates extends PureComponent<Props & InjectedFormProps<{}, Props>> {
       <div className="date-picker-wrap">
         <input
           type="number"
+          id="date"
           className="form-control"
           placeholder="DD"
           value={this.state.day}
           onChange={event => this.handleDay(event.target.value, 'date')}
+          onBlur={event=>this.changeDayEvent(event.target.value, 'date')}
         />
         <input
           type="number"
           className="form-control"
+          id="month"
           placeholder="MM"
           value={this.state.month}
           onChange={event => this.handleMonth(event.target.value, 'month')}
+          onBlur={event=>this.changeMonthEvent(event.target.value, 'month')}
         />
         <input
           type="number"
           className="form-control"
+          id="year"
           placeholder="YYYY"
           value={this.state.year}
           onChange={event => this.handleYear(event.target.value, 'year')}
+          onBlur={event=>this.changeYearEvent(event.target.value, 'year')}
         />
         <SingleDatePicker
           customInputIcon={<img src={cal} />}
@@ -119,6 +173,7 @@ class ReactDates extends PureComponent<Props & InjectedFormProps<{}, Props>> {
           date={input.value}
           onDateChange={this.onChange}
           focused={focused}
+          isInsideRange={day => !isInclusivelyBeforeDay (day, moment())}          
           onFocusChange={this.onFocusChange}
           id={input.name}
         />

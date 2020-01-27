@@ -12,13 +12,12 @@ import {
 	displayUserName
 } from '../../../helpers/utility-helper';
 import { FormattedMessage } from 'react-intl';
-import { dynamicsDivisions } from '../../../helpers/dynamicsDivisionData';
-import { dynamicBusinessUnits } from '../../../helpers/dynamicBusinessData';
 import { IUserServiceData } from '../../../store/UserService/Types/IUserService';
 import * as services from '../../../services';
 import { formatMessage } from '../../../Translations/connectedIntlProvider';
 import { Link } from 'react-router-dom';
 import { History } from 'history';
+import { IDynamicsDivision, IDynamicBusinessUnits } from '../../../store/DynamicsData/Types/IDynamicData';
 
 interface IProps {
 	oneditclick: () => void;
@@ -27,6 +26,8 @@ interface IProps {
 	currencySymbol: string;
 	userNamesForEmails: Array<IUserServiceData>;
 	handleGetUserNamesForEmails: (emails: Array<string>) => void;
+	listOfDivisions: Array<IDynamicsDivision>;
+	listOfBusinessUnits:Array<IDynamicBusinessUnits>;
 }
 const ProjectSummary: React.FC<IProps> = (props) => {
 	let urlProjectId: string = '';
@@ -80,14 +81,14 @@ const ProjectSummary: React.FC<IProps> = (props) => {
 								failure(error);
 							});
 				}
-				let filterDivision = dynamicsDivisions.filter(
-					(element) => element.DivisionId == props.project.divisionId
+				let filterDivision = props.listOfDivisions.filter(
+					(element) => element.divisionId == props.project.divisionId
 				);
-				if (filterDivision && filterDivision[0]) setDivision(filterDivision[0].Description);
-				let filterBusinessUnit = dynamicBusinessUnits.filter(
-					(element) => element.BusinessUnitId == props.project.businessUnitId
+				if (filterDivision && filterDivision[0]) setDivision(filterDivision[0].description);
+				let filterBusinessUnit = props.listOfBusinessUnits.filter(
+					(element) => element.businessUnitId == props.project.businessUnitId
 				);
-				if (filterBusinessUnit && filterBusinessUnit[0]) setBusinessUnit(filterBusinessUnit[0].Description);
+				if (filterBusinessUnit && filterBusinessUnit[0]) setBusinessUnit(filterBusinessUnit[0].description);
 			}
 		},
 		[props.project]
@@ -120,20 +121,20 @@ const ProjectSummary: React.FC<IProps> = (props) => {
 					(ele) => ele.email == props.project.headOfProject
 				);
 				if (headOfProjectFilter)
-					setHeadOfProject(displayUserName(headOfProjectFilter.firstname, headOfProjectFilter.lastName));
+					setHeadOfProject(displayUserName(headOfProjectFilter));
 				let projectOwnerFilter = props.userNamesForEmails.find(
 					(ele) => ele.email == props.project.projectOwner
 				);
 				if (projectOwnerFilter)
-					setProjectOwner(displayUserName(projectOwnerFilter.firstname, projectOwnerFilter.lastName));
+					setProjectOwner(displayUserName(projectOwnerFilter));
 				let projectManagerFilter = props.userNamesForEmails.find(
 					(ele) => ele.email == props.project.projectManager
 				);
 				if (projectManagerFilter)
-					setProjectManager(displayUserName(projectManagerFilter.firstname, projectManagerFilter.lastName));
+					setProjectManager(displayUserName(projectManagerFilter));
 			}
 		},
-		[props.userNamesForEmails]
+		[props.project, props.userNamesForEmails]
 	);
 
 	const getContractorSuccess = (response) => {
@@ -164,7 +165,7 @@ const ProjectSummary: React.FC<IProps> = (props) => {
 				<h4>
 					<FormattedMessage id="HEADING_CUSTOMER_ENQUIRY" />
 				</h4>
-				<button type="submit" className="edit-btn" onClick={props.oneditclick} >EDIT</button>
+				<button type="submit" className="edit-btn" onClick={props.oneditclick} ><FormattedMessage id="BUTTON_EDIT" /></button>
 			</div>
 
 			<div className="RS_custom_inner">

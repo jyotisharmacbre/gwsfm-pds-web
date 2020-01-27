@@ -1,6 +1,7 @@
 import React from 'react';
 import ProjectStatus from '../enums/ProjectStatus';
 import moment, { invalid } from 'moment';
+import { IUserServiceData } from '../store/UserService/Types/IUserService';
 
 export const updateObject = (oldState, updatedProperties) => {
 	return {
@@ -222,6 +223,6 @@ export const formatDateAndTime = (date: string) => {
 	return moment(date).format('DD/MM/YYYY') + ' | ' + moment(date).format('hh:mm A');
 };
 
-export const displayUserName = (firstname: string, lastname: string) => {
-	return firstname + ' ' + lastname;
+export const displayUserName = (userProfile: IUserServiceData) => {
+	return userProfile?.displayName;
 };

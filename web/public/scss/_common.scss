@@ -313,6 +313,9 @@ button[type="button"] {
 .rbt-input-hint {
     display: none !important;
 }
+.mr-t-40 {
+    margin-top: 40px;
+}
 
 .mx-35 {
     margin: 0 35px;
@@ -384,28 +387,33 @@ button[type="button"] {
     &.modal {
         &.show {
             .modal-dialog {
-                max-width: 300px;
+                max-width: 400px;
                 margin: 1.75rem auto;
                 padding: 10px;
+                width: 100%;
             }
             .modal-content {
                 border: 0;
-                padding: 15px;
+                padding: 20px;
+                p {
+                    margin-bottom: 10px;
+                    font-size: 16px;
+                    text-align: center;
+                }
                 .modal-header {
                     padding: 0;
                     border: 0;
                 }
                 .modal-title {
                     color: map-get($colors, grey03);
-                    font-size: 14px;
-                    font-weight: 600;
-                    margin-bottom: 6px;
+                    font-weight: 700;
+                    margin-bottom: 0;
+                    font-size: 20px;
                 }
                 .modal-body {
                     padding: 0;
                     font-size: 11px;
                     color: map-get($colors, grey03);
-                    ;
                     font-weight: 400;
                 }
             }
@@ -417,6 +425,13 @@ button[type="button"] {
                 button {
                     min-width: 120px;
                 }
+            }
+            .close {
+                position: absolute;
+                right: 6px;
+                top: 3px;
+                color: #818A8F;
+                font-weight: 400;
             }
         }
     }
@@ -457,7 +472,17 @@ button[type="button"] {
 }
 
 
-/*table responsive*/
+/*table responsive and common table design style*/
+td {
+    a {
+        color: map-get($colors , lightGreen );
+        text-decoration: none;
+        &:hover {
+            color: map-get($colors , lightGreen );
+            text-decoration: underline;
+        }
+    }
+}
 
 @include mdScreen {
     .table_responsive {

@@ -19,7 +19,7 @@ import * as services from '../../../services';
 interface Props {
 	projectId: string;
 	onSubmitForm: (data: ISubContractor, event: EventType) => void;
-	onPreviousForm:()=>void;
+	onPrevious: () => void;
 	currencySymbol: string;
 	preliminaryState: Array<IPreliminariesComponentDetails>;
 	discountState: IDiscountActivity;
@@ -52,7 +52,7 @@ let SubcontractorForm: React.FC<Props & IReactIntl & InjectedFormProps<ISubContr
 					data-test="previous-click"
 					type="button"
 					name="previous"
-					onClick={() => props.onPreviousForm()}
+					onClick={() => props.onPrevious()}
 				>
 					<FormattedMessage id="BUTTON_PREVIOUS" />
 				</button>

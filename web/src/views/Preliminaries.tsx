@@ -194,10 +194,9 @@ const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps & ICountryH
 		} else if (saveData.length > 0) {
 			props.preliminaryAdd(saveData, event);
 		} else {
-			toast.error(formatMessage('MESSAGE_ERROR_DATA_CHANGED'));
 			if(event==EventType.next)
 			{
-				redirectionToComponent('Subcontractor');
+				props.history.push('/Subcontractor/' + props.match.params.projectId);
 			}
 		}
 	};

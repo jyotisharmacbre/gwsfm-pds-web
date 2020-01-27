@@ -21,7 +21,8 @@ import {
 	maxLimitTo,
 	restrictMinusAndAllowDecimal,
 	restrictMinusAndDecimal,
-	restrictMinusAndAllowDecimalForMaxRangeHundred
+	restrictMinusAndAllowDecimalForMaxRangeHundred,
+	displayUserName
 } from '../../../helpers/utility-helper';
 import PdsFormTypeAhead from '../../PdsFormHandlers/PdsFormTypeAhead';
 import { IProjectDetail } from '../../../store/CustomerEnquiryForm/Types/IProjectDetail';
@@ -30,11 +31,9 @@ import Currency from '../../../store/Lookups/InitialState/Currency';
 import IReactIntl from '../../../Translations/IReactIntl';
 import TypeAhead from '../../TypeAhead/TypeAhead';
 import NewTypeAhead from '../../TypeAhead/NewTypeAhead';
-import { dynamicsDivisions } from '../../../helpers/dynamicsDivisionData';
-import { dynamicBusinessUnits } from '../../../helpers/dynamicBusinessData';
 import { IUserServiceData } from '../../../store/UserService/Types/IUserService';
 import { any } from 'prop-types';
-import { IDynamicContractCustomerData, IDynamicCompanyData } from '../../../store/DynamicsData/Types/IDynamicData';
+import { IDynamicContractCustomerData, IDynamicCompanyData, IDynamicsDivision, IDynamicBusinessUnits } from '../../../store/DynamicsData/Types/IDynamicData';
 import { ICountry } from '../../../store/Lookups/Types/ICountry';
 import ValidatedNumericInput from '../../NumericInput';
 import { change } from "redux-form";
@@ -53,6 +52,8 @@ interface Props {
 	dynamicsContractCustomerData: Array<IDynamicContractCustomerData>;
 	dynamicsCompany: Array<IDynamicCompanyData>;
 	countries: Array<ICountry> | null;
+	listOfDivisions: Array<IDynamicsDivision>;
+	listOfBusinessUnits:Array<IDynamicBusinessUnits>;
 }
 
 const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = (props: any) => {
@@ -63,14 +64,15 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 		onSearchCompany,
 		userServiceData,
 		dynamicsContractCustomerData,
-		dynamicsCompany
+		dynamicsCompany,
+		listOfDivisions
 	} = props;
 
 	const onCountryChange = (event) => {
 		if (props.countries && props.currencies) {
 			const selectedCountryId = Number(event.target.value);
 			const selectedCurrencyId = props.countries.find(x => x.countryId === selectedCountryId)?.currencyId;
-			props.currencies.find(x=>x.currencyId === selectedCurrencyId) && props.changeCurrencyId(selectedCurrencyId);
+			props.currencies.find(x => x.currencyId === selectedCurrencyId) && props.changeCurrencyId(selectedCurrencyId);
 		}
 	}
 
@@ -143,9 +145,9 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 
 	const getUserServiceDropdown =
 		userServiceData &&
-		userServiceData.filter((user) => user.firstname && user.lastName).map((UserServiceData: any) => {
+		userServiceData.filter((user) => user.displayName).map((UserServiceData: any) => {
 			return {
-				label: `${UserServiceData.firstname} ${UserServiceData.lastName} (${UserServiceData.email === null
+				label: `${displayUserName(UserServiceData)} (${UserServiceData.email === null
 					? 'NA'
 					: UserServiceData.email})`,
 				id: UserServiceData.id,
@@ -157,7 +159,7 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 		let result: any = [];
 		data.map((UserServiceData: any) => {
 			result.push({
-				label: `${UserServiceData.firstname} ${UserServiceData.lastName} (${UserServiceData.email === null
+				label: `${displayUserName(UserServiceData)} (${UserServiceData.email === null
 					? 'NA'
 					: UserServiceData.email})`,
 				id: UserServiceData.id,
@@ -202,9 +204,9 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 												{(message) => <option value="">{message}</option>}
 											</FormattedMessage>
 
-											{dynamicsDivisions &&
-												dynamicsDivisions.map((data: any, i: number) => {
-													return <option value={data.DivisionId}>{data.Description}</option>;
+											{props.listOfDivisions &&
+												props.listOfDivisions.map((data: any, i: number) => {
+													return <option value={data.divisionId}>{data.description}</option>;
 												})}
 										</Field>
 									</div>
@@ -219,10 +221,10 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 											<FormattedMessage id="PLACEHOLDER_BUSINESS_UNIT">
 												{(message) => <option value="">{message}</option>}
 											</FormattedMessage>
-											{dynamicBusinessUnits &&
-												dynamicBusinessUnits.map((data: any, i: number) => {
+											{props.listOfBusinessUnits &&
+												props.listOfBusinessUnits.map((data: any, i: number) => {
 													return (
-														<option value={data.BusinessUnitId}>{data.Description}</option>
+														<option value={data.businessUnitId}>{data.description}</option>
 													);
 												})}
 										</Field>

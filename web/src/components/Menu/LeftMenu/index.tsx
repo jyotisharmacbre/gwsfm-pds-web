@@ -220,11 +220,7 @@ if( props.isProjectFormDirty||
 						</a>
 					</li>
 				)}
-				<li className={(isDisable ? '' : 'link_disabled')+" dirtyCheck"}>
-					<a className="cursorPntr" onClick={()=>isFormDirty('','')}>
-						<FormattedMessage id="MENU_LOGOUT" />
-					</a>
-				</li>
+				
 			</ul>
 		</nav>
 	);
