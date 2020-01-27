@@ -205,7 +205,7 @@ form {
                 @include borderRadius(50px);
                 border: 1px solid map-get($colors, grey03);
                 background: transparent;
-                z-index: 0;
+                z-index: -1;
             }
         }
         input[type='radio'] {
@@ -472,7 +472,17 @@ button[type="button"] {
 }
 
 
-/*table responsive*/
+/*table responsive and common table design style*/
+td {
+    a {
+        color: map-get($colors , lightGreen );
+        text-decoration: none;
+        &:hover {
+            color: map-get($colors , lightGreen );
+            text-decoration: underline;
+        }
+    }
+}
 
 @include mdScreen {
     .table_responsive {
