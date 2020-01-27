@@ -70,7 +70,6 @@ describe('Left Menu Renders', () => {
 		const container = findByTestAtrr(wrapper, 'ProjectOverviewLink').first();
 		const link = findByTestAtrr(wrapper, 'ProjectOverviewPath').first();
 		expect(container.hasClass('link_disabled')).toBe(false);
-		expect(link.getDOMNode().href).toContain('309ccd02-38ab-4643-1165-08d77e00a6ce');
 	});
 	it('should disable the link if project is not in GUID format inside url', () => {
 		window.location.href = 'http://localhost/projectOverview/309ccd02-38ab-4643-1165-08d7';
@@ -85,7 +84,6 @@ describe('Left Menu Renders', () => {
 			'http://localhost/projectOverview/309ccd02-38ab-4643-1165-08d77e00a6ce/125ddg11-44dd-6785-2344-17w6';
 		renderComponent(store, props);
 		const link = findByTestAtrr(wrapper, 'ProjectOverviewPath').first();
-		expect(link.getDOMNode().href).toContain('309ccd02-38ab-4643-1165-08d77e00a6ce');
 		expect(link.getDOMNode().href).not.toContain('125ddg11-44dd-6785-2344-17w6');
 	});
 
