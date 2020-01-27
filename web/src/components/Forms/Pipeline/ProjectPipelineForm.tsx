@@ -47,7 +47,7 @@ const ProjectPipelineForm: React.FC<Props & IReactIntl> = (props: any) => {
 	);
   const getPipelineValues = (pipelineData,allLookups, currencies,namesAndEmails) => {
     let data = pipelineData.map(function (rowProject) {
-      var mailObj =namesAndEmails && namesAndEmails.find(
+      var mailObj =namesAndEmails && rowProject.projectOwner && namesAndEmails.find(
         lk =>lk.email && rowProject.projectOwner && lk.email.toUpperCase() === rowProject.projectOwner.toUpperCase()
       );
       rowProject.projectOwner =mailObj && mailObj
