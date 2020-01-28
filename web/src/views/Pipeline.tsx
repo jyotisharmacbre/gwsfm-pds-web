@@ -80,6 +80,7 @@ const ProjectPipeline: React.FC<IMapStateToProps & IMapDispatchToProps> = (props
 										pipelineValues={props.projectPipeline}
 										currencies={props.currencies}
 										userNamesForEmailsValues={props.userNamesForEmails}
+										contractCustomerList={props.contractDetailsByIds}
 									/>
 								</React.Fragment>
 							</div>

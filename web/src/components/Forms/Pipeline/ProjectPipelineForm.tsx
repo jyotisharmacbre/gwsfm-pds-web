@@ -15,11 +15,13 @@ import Currency from '../../../store/Lookups/InitialState/Currency';
 import { ICurrency } from '../../../store/Lookups/Types/ICurrency';
 import { IUserServiceData } from '../../../store/UserService/Types/IUserService';
 import { IProjectPipelineGrid } from '../../../store/pipeline/Types/IProjectPipelineGrid';
+import { IDynamicContractCustomerData } from '../../../store/DynamicsData/Types/IDynamicData';
 interface Props {
   pipelineValues: any;
   lookupValues: any;
   currencies: Array<ICurrency> | null;
   userNamesForEmailsValues:Array<IUserServiceData>;
+  contractCustomerList:Array<IDynamicContractCustomerData>;
 }
 const ProjectPipelineForm: React.FC<Props & IReactIntl> = (props: any) => {
   const CurrencyObj = new Currency();
@@ -31,21 +33,23 @@ const ProjectPipelineForm: React.FC<Props & IReactIntl> = (props: any) => {
 				props.pipelineValues &&
 				props.currencies?.length>0  &&
 				props.lookupValues &&
-				props.userNamesForEmailsValues?.length>0
+        props.userNamesForEmailsValues?.length>0 &&
+        props.contractCustomerList?.length>0
 			) {
 				setGridData(
 					getPipelineValues(
             props.pipelineValues,
             props.lookupValues,
             props.currencies,
-						props.userNamesForEmailsValues,
+            props.userNamesForEmailsValues,
+            props.contractCustomerList
 					)
 				);
 			}
 		},
-		[props.pipelineValues,props.lookupValues,props.currencies,props.userNamesForEmailsValues]
+		[props.pipelineValues,props.lookupValues,props.currencies,props.userNamesForEmailsValues,props.contractCustomerList]
 	);
-  const getPipelineValues = (pipelineData,allLookups, currencies,namesAndEmails) => {
+  const getPipelineValues = (pipelineData,allLookups, currencies,namesAndEmails,contractCustomerList) => {
     let data = pipelineData.map(function (rowProject) {
       var mailObj =namesAndEmails && rowProject.projectOwner && namesAndEmails.find(
         lk =>lk.email && rowProject.projectOwner && lk.email.toUpperCase() === rowProject.projectOwner.toUpperCase()
@@ -60,6 +64,9 @@ const ProjectPipelineForm: React.FC<Props & IReactIntl> = (props: any) => {
           rowProject.status,
           LookupItems.Project_Status
         );
+      rowProject.contractorId = contractCustomerList && rowProject.contractorId && contractCustomerList.find(
+        lk =>lk.contractId && rowProject.contractorId && lk.contractId.toUpperCase() === rowProject.contractorId.toUpperCase()
+      ).contractName;
       const currencySymbol = getFilterElementFromArray(
         currencies,
         getPropertyName(CurrencyObj, (prop) => prop.currencyId),
