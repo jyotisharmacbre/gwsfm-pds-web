@@ -7,20 +7,20 @@ import Notify from '../../enums/Notify';
 const initialState: IProjectPipelineGridState = {
   pipelineDetails: [
     {
-      projectId: 'string',
-      name: 'string',
-      projectOwner: 'string',
-      contractorId: 1,
+      projectId: '',
+      name: '',
+      projectOwner: '',
+      contractorId: -1,
       probabilityOfWinning: 1,
       lastModified: moment().toString(),
-      status: 'string',
-      commenceDate: 'string',
+      status: '',
+      commenceDate: '',
       approxValue: 0,
       contractTypeId: 0,
       cdmNotifiable: false,
-      soldMargin: 'string',
-      weightedTCV: 'string',
-      rank: 'string'
+      soldMargin: '',
+      weightedTCV: '',
+      rank: ''
     }
   ],
   error: null

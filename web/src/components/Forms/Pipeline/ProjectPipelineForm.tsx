@@ -20,53 +20,51 @@ interface Props {
   pipelineValues: any;
   lookupValues: any;
   currencies: Array<ICurrency> | null;
-  userNamesForEmailsValues:Array<IUserServiceData>;
-  contractCustomerList:Array<IDynamicContractCustomerData>;
+  userNamesForEmailsValues: Array<IUserServiceData>;
+  contractCustomerList: Array<IDynamicContractCustomerData>;
 }
 const ProjectPipelineForm: React.FC<Props & IReactIntl> = (props: any) => {
   const CurrencyObj = new Currency();
   const { pipelineValues, lookupValues, currencies } = props;
   const [gridData, setGridData] = useState<Array<IProjectPipelineGrid>>([]);
-	useEffect(
-		() => {
-			if (
-				props.pipelineValues &&
-				props.currencies?.length>0  &&
-				props.lookupValues &&
-        props.userNamesForEmailsValues?.length>0 &&
-        props.contractCustomerList?.length>0
-			) {
-				setGridData(
-					getPipelineValues(
+  useEffect(
+    () => {
+      if (
+        props.pipelineValues && props.pipelineValues[0].projectId !== '' &&
+        props.currencies?.length > 0 &&
+        props.lookupValues &&
+        props.contractCustomerList?.length > 0 &&
+        props.userNamesForEmailsValues
+      ) {
+        setGridData(
+          getPipelineValues(
             props.pipelineValues,
             props.lookupValues,
             props.currencies,
             props.userNamesForEmailsValues,
             props.contractCustomerList
-					)
-				);
-			}
-		},
-		[props.pipelineValues,props.lookupValues,props.currencies,props.userNamesForEmailsValues,props.contractCustomerList]
-	);
-  const getPipelineValues = (pipelineData,allLookups, currencies,namesAndEmails,contractCustomerList) => {
+          )
+        );
+      }
+    },
+    [props.pipelineValues, props.lookupValues, props.currencies, props.userNamesForEmailsValues, props.contractCustomerList]
+  );
+  const getPipelineValues = (pipelineData, allLookups, currencies, namesAndEmails, contractCustomerList) => {
     let data = pipelineData.map(function (rowProject) {
-      var mailObj =namesAndEmails && rowProject.projectOwner && namesAndEmails.find(
-        lk =>lk.email && rowProject.projectOwner && lk.email.toUpperCase() === rowProject.projectOwner.toUpperCase()
+      var mailObj = namesAndEmails && rowProject.projectOwner && namesAndEmails.find(
+        lk => lk.email && rowProject.projectOwner && lk.email.toUpperCase() === rowProject.projectOwner.toUpperCase()
       );
-      rowProject.projectOwner =mailObj && mailObj
-						? `${displayUserName(mailObj)}`
-						: rowProject.projectOwner;
+      rowProject.projectOwner = mailObj && mailObj
+        ? `${displayUserName(mailObj)}`
+        : rowProject.projectOwner;
       var statusID = rowProject.status;
-      if (!isNaN(statusID) && allLookups.length > 0 )
+      if (!isNaN(statusID) && allLookups.length > 0)
         rowProject.status = getLookupDescription(
           allLookups,
           rowProject.status,
           LookupItems.Project_Status
         );
-      rowProject.contractorId = contractCustomerList && rowProject.contractorId && contractCustomerList.find(
-        lk =>lk.contractId && rowProject.contractorId && lk.contractId.toUpperCase() === rowProject.contractorId.toUpperCase()
-      ).contractName;
+      rowProject.contractorId = contractCustomerList && rowProject.contractorId && getFilterElementFromArray(contractCustomerList, 'contractId', rowProject.contractorId, 'customerName');
       const currencySymbol = getFilterElementFromArray(
         currencies,
         getPropertyName(CurrencyObj, (prop) => prop.currencyId),
