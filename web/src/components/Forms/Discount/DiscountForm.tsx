@@ -196,7 +196,6 @@ let DiscountForm: React.FC<
 									<div className="col-lg-7">
 										<div className="discount-subcontractor-section">
 											<Field
-												name={"clientName"}
 												input={{
 													value: contractor,
 													disabled: true
