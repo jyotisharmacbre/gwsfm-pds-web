@@ -123,22 +123,6 @@ const ProjectOverviewSummary: React.FC<IProps> = props => {
             <ul>
               <li>
                 <span>
-                  <FormattedMessage id="LABEL_CDMNOTIFIABLE" />
-                </span>
-                <p>
-                  	<FormattedMessage
-                    id={props.projectOverview.projectAdditionalDetail.cdmNotifiable ? 'LABEL_YES' : 'LABEL_NO'}
-                  />
-                </p>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-lg-4 col-sm-6">
-            <ul>
-              <li>
-                <span>
                   <FormattedMessage id="LABEL_FORM_OF_CONTRACT" />
                 </span>
                 <p data-test="form-of-contract">
@@ -147,6 +131,8 @@ const ProjectOverviewSummary: React.FC<IProps> = props => {
               </li>
             </ul>
           </div>
+        </div>
+        <div className="row">
           <div className="col-lg-4 col-sm-6">
             <ul>
               <li>
@@ -172,8 +158,6 @@ const ProjectOverviewSummary: React.FC<IProps> = props => {
               </li>
             </ul>
           </div>
-        </div>
-        <div className="row">
           <div className="col-lg-4 col-sm-6">
             <ul>
               <li>
@@ -186,6 +170,8 @@ const ProjectOverviewSummary: React.FC<IProps> = props => {
               </li>
             </ul>
           </div>
+        </div>
+        <div className="row">   
           <div className="col-lg-4 col-sm-6">
             <ul>
               <li>
