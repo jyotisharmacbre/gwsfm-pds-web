@@ -424,8 +424,7 @@ const mapDispatchToProps = (dispatch) => {
 		getLookups: () => dispatch(actions.getLookupsByLookupItems(lookupKeyList)),
 		getProjectActivities: (projectId) => dispatch(actions.getProjectActivities(projectId)),
 		handleGetUserNamesForEmails: (emails: Array<string>) => dispatch(actions.getUserNamesForEmailsService(emails)),
-		postComment: (projectId: string, comment: string, success, failure) =>
-			dispatch(actions.postComments(projectId, comment, success, failure)),
+		postComment: (projectId: string, comment, success, failure) => actions.postComments(projectId, comment, success, failure),
 		getProjectParameters: (countryId: number) => dispatch(actions.getProjectParameters(countryId)),
 		getAllCountries: () => dispatch(actions.getAllContries()),
 		resetProjectOverviewFormState:()=>dispatch(reset("projectOverviewForm"))

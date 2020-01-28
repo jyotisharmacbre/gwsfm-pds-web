@@ -160,6 +160,7 @@ const SubContractorActivityForm: React.FC<Props> = (props: Props) => {
 										name={`${member}.comments`}
 										rows="7"
 										component={PdsFormTextArea}
+										validate={[ Validate.maxLength(5000) ]}
 										placeholderKey="PLACEHOLDER_ADDITIONAL_COMMENTS"
 									/>
 								</div>

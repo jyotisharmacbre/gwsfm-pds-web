@@ -130,6 +130,10 @@
                 &:first-child {
                     font-weight: 700;
                 }
+                a {
+                    color: map-get($colors , lightGreen );
+                    text-decoration: underline;
+                }
             }
         }
         &.cost-table {
