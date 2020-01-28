@@ -41,7 +41,8 @@ describe('ProjectForm Fields', () => {
     currencies: [{
       currencyId: 64,
       currencyName: 'en',
-      currencySymbol: "$"
+      currencySymbol: "$",
+      isActive: true
     }]
   };
   beforeEach(() => {
@@ -157,7 +158,7 @@ describe('ProjectForm Fields', () => {
         field = wrapper.find('select[name="currencyId"]').first();
         wrapper.setProps({
           currencies: [
-            { currencyId: 1, currencySymbol: '$', currencyName: 'dollar' }
+            { currencyId: 1, currencySymbol: '$', currencyName: 'dollar', isActive: true }
           ],
           currencyId: 1
         });

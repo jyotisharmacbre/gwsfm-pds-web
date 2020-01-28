@@ -412,7 +412,7 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 												{(message) => <option value="">{message}</option>}
 											</FormattedMessage>
 											{props.currencies &&
-												props.currencies.map((data: ICurrency, i: number) => {
+												props.currencies.filter(x=>x.isActive === true).map((data: ICurrency, i: number) => {
 													return (
 														<option key={data.currencyId} value={data.currencyId}>
 															{data.currencyName} {data.currencySymbol && `(${data.currencySymbol})`}

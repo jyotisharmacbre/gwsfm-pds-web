@@ -19,7 +19,8 @@ export const currencies: Array<ICurrency> = [
   {
     currencyId: 4,
     currencyName: "AED",
-    currencySymbol: ""
+    currencySymbol: "",
+    isActive: true
   }
 ];
 export const languages: Array<ILanguage> = [{
