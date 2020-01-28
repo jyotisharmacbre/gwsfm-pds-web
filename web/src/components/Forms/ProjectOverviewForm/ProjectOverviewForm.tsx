@@ -334,6 +334,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						labelKey="LABEL_COMMENTS"
 						rows="7"
 						component={PdsFormTextArea}
+						validate={[ Validate.maxLength(5000) ]}
 						placeholderKey="PLACEHOLDER_ADDITIONAL_COMMENTS"
 					/>
 				</div>
