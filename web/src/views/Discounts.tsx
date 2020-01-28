@@ -1,4 +1,5 @@
 import React, { Component, useEffect } from 'react';
+import { reset, change, getFormValues } from 'redux-form';
 import DiscountForm from '../components/Forms/Discount/DiscountForm';
 import { FormattedMessage } from 'react-intl';
 import { IDiscountActivity } from '../store/DiscountForm/Types/IDiscountActivity';
@@ -19,6 +20,7 @@ import { formatMessage } from '../Translations/connectedIntlProvider';
 import { insuranceRateHoc, IInsuranceRateHoc } from '../hoc/InsuranceRateHoc';
 import { IAdminDefaults } from '../store/Admin/Types/IAdminDefault';
 import { IProjectDetail } from '../store/CustomerEnquiryForm/Types/IProjectDetail';
+import normalizeClientDiscount from '../helpers/discount-helper';
 
 interface IProps {
 	match: match<{ projectId: string }>;
@@ -51,6 +53,7 @@ interface IMapDispatchToProps {
 	getSubContractor: (projectId: string) => void;
 	getPreliminaryDetails: (projectId: string) => void;
 	getProjectParameters: (countryId: number) => void;
+	updateClientDiscount: (event) => void;
 }
 
 const Discounts: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & IInsuranceRateHoc> = (props) => {
@@ -133,6 +136,7 @@ const Discounts: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & IIns
 							projectId={props.match.params.projectId}
 							dynamicsContractCustomerData={props.dynamicsContractCustomerData}
 							insuranceRate={props.insuranceRate}
+							updateClientDiscount={props.updateClientDiscount}
 						/>
 					</div>
 				</div>
@@ -140,6 +144,15 @@ const Discounts: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & IIns
 		</div>
 	);
 };
+
+
+const updateClientDiscount = (event, value, dispatch) => {
+	let discountValue = value;
+	let discountType = parseInt(event.currentTarget.value);
+	let updatedDiscount = normalizeClientDiscount(discountType, discountValue);
+
+	dispatch(change('DiscountForm', 'clientDiscount.discount', updatedDiscount));
+}
 
 const mapStateToProps = (state: IState) => ({
 	form: state.discount.form,
@@ -167,7 +180,8 @@ const mapDispatchToProps = (dispatch) => {
 		getProjectDetail: (projectId) => dispatch(actions.getProjectDetail(projectId)),
 		getSubContractor: (projectId: string) => dispatch(actions.getSubContractor(projectId)),
 		getPreliminaryDetails: (projectId: string) => dispatch(actions.getPreliminaryDetails(projectId)),
-		getProjectParameters: (countryId: number) => dispatch(actions.getProjectParameters(countryId))
+		getProjectParameters: (countryId: number) => dispatch(actions.getProjectParameters(countryId)),
+		updateClientDiscount: (event, value) => updateClientDiscount(event, value, dispatch)
 	};
 };
 

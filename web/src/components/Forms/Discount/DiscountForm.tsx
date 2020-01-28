@@ -42,6 +42,7 @@ import DiscountType from '../../../enums/DiscountType';
 interface Props {
 	onNext: (data: IDiscountActivity) => void;
 	onSave: (data: IDiscountActivity) => void;
+	updateClientDiscount: (event, value) => void;
 	onPrevious: () => void;
 	projectstatus: any;
 	currencies: Array<ICurrency> | null;
@@ -64,7 +65,7 @@ interface IMapStateToProps {
 let DiscountForm: React.FC<
 	Props & IMapStateToProps & IReactIntl & InjectedFormProps<IDiscountActivity, Props & IMapStateToProps>
 > = (props) => {
-	const { handleSubmit, initialValues, clientDiscount, intl } = props;
+	const { handleSubmit, initialValues, clientDiscount, intl, updateClientDiscount } = props;
 	const normalize = (value) => (value ? parseInt(value) : null);
 	const CurrencyObj = new Currency();
 	const [currencySymbol, setCurrencySymbol] = useState<string>('');
@@ -231,6 +232,7 @@ let DiscountForm: React.FC<
 																		type="radio"
 																		value={+data.lookupKey}
 																		normalize={normalize}
+																		onClick={(event) => updateClientDiscount(event, clientDiscount.discount)}
 																	/>
 																	<label className="form-check-label">
 																		<FormattedMessage id={data.description} />

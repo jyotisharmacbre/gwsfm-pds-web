@@ -1,5 +1,5 @@
 enum DiscountType {
-    Percent,
+    Percent = 1,
     Value
 }
 
