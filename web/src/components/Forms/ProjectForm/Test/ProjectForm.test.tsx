@@ -43,6 +43,12 @@ describe('ProjectForm Fields', () => {
       currencyName: 'en',
       currencySymbol: "$",
       isActive: true
+    },
+    {
+      currencyId: 143,
+      currencyName: 'Rs',
+      currencySymbol: "R",
+      isActive: false
     }]
   };
   beforeEach(() => {
@@ -335,6 +341,13 @@ describe('ProjectForm Fields', () => {
           projectDetailReducer(initialState, getProjectDetailError)
         ).toMatchSnapshot();
       });
+
+      it('Should render in dropdown only currencies which has isActive flag true', () => {     
+        let fieldCurrency = wrapper.find('select[name="currencyId"]').first();        
+        //Note: Although we are passing only one currency with flag true but testing for length to be 2, becuase we have a default option tag as well.
+          expect(fieldCurrency.find('option')).toHaveLength(2);
+  
+        });
     });
   });
 });
