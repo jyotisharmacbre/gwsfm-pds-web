@@ -12,7 +12,7 @@ import {
 	getDiscountTypeValue,
 	getFilterElementFromArray,
 	maxLimitTo,
-	restrictMinusAndAllowDecimalForMaxRangeHundred,
+	restrictMinusAndAllowDecimalForMaxRangeHundred
 } from '../../../helpers/utility-helper';
 import { calculateClientDiscount, calculateTotalSum } from '../../../helpers/formulas';
 import { ICurrency } from '../../../store/Lookups/Types/ICurrency';
