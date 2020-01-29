@@ -1,6 +1,5 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { store } from '../../store';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
@@ -9,14 +8,50 @@ import { findByTestAtrr, checkProps } from '../../helpers/test-helper';
 import { IntlProvider } from 'react-intl';
 import translations from '../../Translations/translation';
 import configureStore from 'redux-mock-store';
-import { initialState as projectInitialState } from '../../store/CustomerEnquiryForm/InitialState';
-import { initialState as subContractorState } from '../../store/SubContractor/InitialState';
-import { initialState as preliminaryState } from '../../store/Preliminaries/InitialState';
-import { initialState as discountState } from '../../store/DiscountForm/InitialState';
-import ProjectStatus from '../../enums/ProjectStatus';
+import { initialState as preliminaryInitialState } from '../../store/Preliminaries/InitialState';
+import { initialState as projectOverViewInitialState } from '../../store/ProjectOverviewForm/InitialState';
+import { initialState as subContractorInitialState } from '../../store/SubContractor/InitialState';
+import { initialState as lookUpInitialState } from '../../store/Lookups/Reducer';
+import { initialState as customerEnquiryInitialState } from '../../store/CustomerEnquiryForm/InitialState';
+import { discountInitialState } from './Discount/DiscountTestData';
+import {
+	initialState as adminInitialState
+} from '../../store/Admin/InitialState';
 
+customerEnquiryInitialState.form.projectId = 'id';
+customerEnquiryInitialState.form.currencyId = 1;
+customerEnquiryInitialState.form.countryId = 1;
+lookUpInitialState.currencies = [{
+	currencyId: 1,
+	currencyName: 'INR',
+	currencySymbol: 'R',
+	isActive: true
+}];
+lookUpInitialState.countries = [{
+	currencyId: 143,
+	name: 'india',
+	code: 'IN',
+	isoAlpha2Code: "IND",
+	countryId: 1
+}];
 const history = { push: jest.fn() };
-const mockStore = configureStore([ thunk ]);
+const mockStore = configureStore([thunk]);
+const store = mockStore({
+	projectOverview: projectOverViewInitialState,
+	lookup: lookUpInitialState,
+	project: customerEnquiryInitialState,
+	subContractor: subContractorInitialState,
+	preliminary: preliminaryInitialState,
+	discount: discountInitialState,
+	admin: adminInitialState,
+	userService: { userServiceData: [{ email: 'test@pds.com' }], currentUserProfile: [{ email: 'test@pds.com' }] },
+	dynamicData: [{
+		contractId: 1,
+		contractName: "TestName",
+		customerId: 1,
+		customerName: "TestName"
+	}]
+});
 let wrapper;
 const mountComponent = () => {
 	wrapper = mount(

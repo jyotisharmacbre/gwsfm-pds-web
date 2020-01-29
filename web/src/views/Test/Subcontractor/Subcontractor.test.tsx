@@ -28,7 +28,7 @@ const setUpStore = (initialState, lookUpInitialState, customerEnquiryInitialStat
 	});
 	store.dispatch = jest.fn();
 };
-const mountPreliminaryComponent = (Props) => {
+const mountComponent = (Props) => {
 	wrapper = mount(
 		<Provider store={store}>
 			<IntlProvider locale="en" messages={translations['en'].messages}>
@@ -56,7 +56,7 @@ describe('Subcontractor component test cases', () => {
 	};
 	beforeEach(() => {
 		setUpStore(initialState, lookUpInitialState, customerEnquiryInitialState, subcontractorInitialState);
-		mountPreliminaryComponent(Props);
+		mountComponent(Props);
 	});
 
 	it('defines the component', () => {
@@ -77,7 +77,7 @@ describe('Subcontractor component test cases', () => {
 		let data = { ...customerEnquiryInitialState };
 		data.form.status = ProjectStatus.BidLost;
 		setUpStore(initialState, lookUpInitialState, data, subcontractorInitialState);
-		mountPreliminaryComponent(Props);
+		mountComponent(Props);
 		let container = findByTestAtrr(wrapper, 'sub_row_status').first();
 		expect(container.hasClass('link_disabled')).toBe(true);
 	});
@@ -85,21 +85,21 @@ describe('Subcontractor component test cases', () => {
 		let data = { ...customerEnquiryInitialState };
 		data.form.status = ProjectStatus.InReview;
 		setUpStore(initialState, lookUpInitialState, data, subcontractorInitialState);
-		mountPreliminaryComponent(Props);
+		mountComponent(Props);
 		expect(wrapper.find('.link_disabled').length).toBeGreaterThan(0);
 	});
 	it('should disable the form when state is OrderReceived', () => {
 		let data = { ...customerEnquiryInitialState };
 		data.form.status = ProjectStatus.OrderReceived;
 		setUpStore(initialState, lookUpInitialState, data, subcontractorInitialState);
-		mountPreliminaryComponent(Props);
+		mountComponent(Props);
 		expect(wrapper.find('.link_disabled').length).toBeGreaterThan(0);
 	});
 	it('should disable the form when state is OrderReceived', () => {
 		let data = { ...customerEnquiryInitialState };
 		data.form.status = ProjectStatus.JAApproved;
 		setUpStore(initialState, lookUpInitialState, data, subcontractorInitialState);
-		mountPreliminaryComponent(Props);
+		mountComponent(Props);
 		expect(wrapper.find('.link_disabled').length).toBeGreaterThan(0);
 	});
 });

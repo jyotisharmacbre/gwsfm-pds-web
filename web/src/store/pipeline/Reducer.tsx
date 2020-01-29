@@ -4,7 +4,7 @@ import { IProjectPipelineGridState } from './Types/IProjectPipelineGridState';
 import moment from 'moment';
 import Notify from '../../enums/Notify';
 
-const initialState: IProjectPipelineGridState = {
+export const initialState: IProjectPipelineGridState = {
   pipelineDetails: [
     {
       projectId: 'string',

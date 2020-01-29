@@ -31,7 +31,7 @@ const setUpStore = (lookUpInitialState, dashboardGridInitialState) => {
 	});
 	store.dispatch = jest.fn();
 };
-const mountPreliminaryComponent = (Props) => {
+const mountComponent = (Props) => {
 	wrapper = mount(
 		<Provider store={store}>
 			<IntlProvider locale="en" messages={translations['en'].messages}>
@@ -65,7 +65,7 @@ describe('Dashboard component test cases', () => {
         }
         ]
 		setUpStore(lookUpInitialState, initialState);
-		mountPreliminaryComponent(Props);
+		mountComponent(Props);
 	});
 
 	it('defines the component', () => {

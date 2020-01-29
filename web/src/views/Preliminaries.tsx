@@ -131,6 +131,7 @@ const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps & ICountryH
 
 	const [ isExpand, handleExpandAllEvent ] = useState(false);
 
+	/* istanbul ignore next */
 	const handleToggle = (id: string) => {
 		componentIds = componentIdList;
 		var element: any = document.getElementById('collapse_' + id);
@@ -150,6 +151,7 @@ const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps & ICountryH
 			setComponentId(componentData);
 		}
 	};
+	/* istanbul ignore next */
 	const handleSaveData = (saveAll: boolean, event: EventType, preliminaryDetails: any, index: number) => {
 		var editData: Array<IPreliminaries> = [];
 		var saveData: Array<IPreliminaries> = [];

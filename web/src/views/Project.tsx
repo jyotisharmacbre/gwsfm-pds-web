@@ -94,21 +94,23 @@ const Project: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = (prop
 			props.resetProjectDetailState();
 		}
 	}, [props.notify, props.event]);
+	/* istanbul ignore next */
 	const handleSave = (data: IProjectDetail) => {
 		data.projectId == ''
 			? props.handleProjectDetailsSubmit(data, EventType.save)
 			: props.handleProjectDetailsEdit(data, EventType.save);
 	};
+	/* istanbul ignore next */
 	const handleNext = (data: IProjectDetail) => {
 		data.projectId == ''
 			? props.handleProjectDetailsSubmit(data, EventType.next)
 			: props.handleProjectDetailsEdit(data, EventType.next);
 	};
-
+/* istanbul ignore next */
 	const onSearchContract = (values: any) => {
 		props.handleGetDynamicContractData(values);
 	};
-
+/* istanbul ignore next */
 	const onSearchCompany = (values: any) => {
 		props.handleGetDynamicCompanyData(values);
 	};

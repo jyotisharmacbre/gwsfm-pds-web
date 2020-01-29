@@ -21,7 +21,31 @@ import ProjectStatus from '../../../enums/ProjectStatus';
 const mockStore = configureStore([]);
 let store;
 let wrapper;
+const Props: any = {
+	form: discountInitialState.form,
+	notify: Notify.success,
+	projectId: 1,
+	event: EventType.none,
+	projectStatus: [],
+	currencies: [],
+	currencyId: 1,
+	customerName: 'test',
+	otherCustomerName: 'test',
+	status: 1,
+	match: { params: { projectId: 1 } },
+	history: { push: jest.fn() },
+	getProjectStatus: jest.fn(),
+	discountFormAdd: jest.fn(),
+	discountFormEdit: jest.fn(),
+	resetDiscountState: jest.fn(),
+	getDiscountData: jest.fn(),
+	getAllCurrencies: jest.fn()
+};
 
+discountInitialState.notify = Notify.success;
+discountInitialState.event = EventType.next;
+discountInitialState.form.clientDiscount.discountId = "1";
+customerEnquiryInitialState.form.countryId = 1;
 const setUpStore = (lookUpInitialState, customerEnquiryInitialState) => {
 	store = mockStore({
 		discount: discountInitialState,
@@ -34,7 +58,7 @@ const setUpStore = (lookUpInitialState, customerEnquiryInitialState) => {
 	});
 	store.dispatch = jest.fn();
 };
-const mountPreliminaryComponent = (Props) => {
+const mountComponent = (Props) => {
 	wrapper = mount(
 		<Provider store={store}>
 			<IntlProvider locale="en" messages={translations['en'].messages}>
@@ -44,29 +68,10 @@ const mountPreliminaryComponent = (Props) => {
 	);
 };
 describe('Discount component test cases', () => {
-	const Props: any = {
-		form: discountInitialState.form,
-		notify: Notify.success,
-		projectId: '',
-		event: EventType.none,
-		projectStatus: [],
-		currencies: [],
-		currencyId: 1,
-		customerName: 'test',
-		otherCustomerName: 'test',
-		status: 1,
-		match: { params: { projectId: 1 } },
-		history: { push: jest.fn() },
-		getProjectStatus: jest.fn(),
-		discountFormAdd: jest.fn(),
-		discountFormEdit: jest.fn(),
-		resetDiscountState: jest.fn(),
-		getDiscountData: jest.fn(),
-		getAllCurrencies: jest.fn()
-	};
+
 	beforeEach(() => {
 		setUpStore(lookUpInitialState, customerEnquiryInitialState);
-		mountPreliminaryComponent(Props);
+		mountComponent(Props);
 	});
 
 	it('defines the component', () => {
@@ -85,7 +90,7 @@ describe('Discount component test cases', () => {
 	it('should make preliminaries element into readonly if project status is not bidlost or onhold', () => {
 		customerEnquiryInitialState.form.status = ProjectStatus.BidLost;
 		setUpStore(lookUpInitialState, customerEnquiryInitialState);
-		mountPreliminaryComponent(Props);
+		mountComponent(Props);
 		let container = findByTestAtrr(wrapper, 'dis_row_status').first();
 		expect(container.hasClass('link_disabled')).toBe(true);
 	});
@@ -98,15 +103,60 @@ describe('Discount component test cases', () => {
 	it('should make discount element into readonly if project status is order received', () => {
 		customerEnquiryInitialState.form.status = ProjectStatus.OrderReceived;
 		setUpStore(lookUpInitialState, customerEnquiryInitialState);
-		mountPreliminaryComponent(Props);
+		mountComponent(Props);
 		let container = findByTestAtrr(wrapper, 'dis_row_status').first();
 		expect(container.hasClass('link_disabled')).toBe(true);
-  });
-  it('should make discount element into readonly if project status is order received', () => {
+	});
+	it('should make discount element into readonly if project status is order received', () => {
 		customerEnquiryInitialState.form.status = ProjectStatus.JAApproved;
 		setUpStore(lookUpInitialState, customerEnquiryInitialState);
-		mountPreliminaryComponent(Props);
+		mountComponent(Props);
 		let container = findByTestAtrr(wrapper, 'dis_row_status').first();
 		expect(container.hasClass('link_disabled')).toBe(true);
+	});
+	describe('Next button', () => {
+		let field;
+		beforeEach(() => {
+			field = wrapper.find('button[name="next"]').first();
+		});
+		it('Should simulate click of next button', () => {
+			expect(field.prop('type')).toBe('button');
+		});
+	});
+
+	describe('previous button', () => {
+		let field;
+		beforeEach(() => {
+			field = wrapper.find('button[name="previous"]').first();
+		});
+		it('Should renders previous button and click', () => {
+			field.simulate('click');
+			expect(field.prop('type')).toBe('button');
+		});
+	});
+
+	describe('save button click', () => {
+		let field;
+		beforeEach(() => {
+			field = wrapper.find('button[name="save"]').first();
+		});
+		it('Should renders save button', () => {
+			expect(field.prop('type')).toBe('button');
+		});
+	});
+});
+
+describe('Discount component props.event test', () => {
+	it('test for previous event', () => {
+		discountInitialState.event = EventType.previous;
+		setUpStore(lookUpInitialState, customerEnquiryInitialState);
+		mountComponent(Props);
+		expect(wrapper).toBeDefined();
+	});
+	it('test for previous save', () => {
+		discountInitialState.event = EventType.save;
+		setUpStore(lookUpInitialState, customerEnquiryInitialState);
+		mountComponent(Props);
+		expect(wrapper).toBeDefined();
 	});
 });

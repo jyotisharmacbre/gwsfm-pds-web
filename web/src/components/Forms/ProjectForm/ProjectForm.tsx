@@ -76,48 +76,6 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 		}
 	}
 
-	const otherDynamicsContract = props.dynamicsOtherContract.length > 0 ? props.dynamicsOtherContract[0].id : '';
-
-	const otherDynamicsCompany = props.dynamicsOtherCompany.length > 0 ? props.dynamicsOtherCompany[0].id : '';
-
-	const getFormattedCustomerId = (customerId: string) => {
-		return customerId === '' ? '' : `- ${customerId}`;
-	};
-
-	const getFormattedCustomer = (customerName: string, customerId: string) => {
-		return `${customerName === '' ? '' : `${customerName}`} ${getFormattedCustomerId(customerId)}`;
-	};
-
-	const getFormattedContractId = (contractId: string) => {
-		return contractId === '0' ? '' : `- ${contractId})`;
-	};
-
-	const getFormattedContract = (contractName: string, contractId: string) => {
-		return `${contractName === 'Other' ? `${contractName}` : `(${contractName}`} 
-    ${getFormattedContractId(contractId)}`;
-	};
-
-	const getDynamicsContractDropdown =
-		dynamicsContractCustomerData &&
-		dynamicsContractCustomerData.map((ContractData: any) => {
-			return {
-				label: ((ContractData.customerName === '' ? '' : ContractData.customerName) +
-					(ContractData.customerId === '' ? '' : '-' + ContractData.customerId) +
-					(ContractData.contractName === 'Other'
-						? ContractData.contractName
-						: '(' +
-						ContractData.contractName +
-						(ContractData.contractId === '0' ? '' : '-' + ContractData.contractId + ')'))).trim(),
-				id: ContractData.contractId
-			};
-		});
-
-	const getDynamicsCompanyDropdown =
-		dynamicsCompany &&
-		dynamicsCompany.map((CompanyData: any) => {
-			return { label: CompanyData.name, id: CompanyData.companyId };
-		});
-
 	const formatCompanyForTypeAhead = (data) => {
 		let result: any = [];
 		data.map((CompanyData: any) => {

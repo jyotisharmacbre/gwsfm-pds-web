@@ -160,7 +160,7 @@ const ProjectOverview: React.FC<
 		},
 		[ props.project.countryId ]
 	);
-
+/* istanbul ignore next */
 	const handlePrevious = () => {
 		props.history.push(`/Project/${props.match.params.projectId}`);
 	};
@@ -198,6 +198,7 @@ const ProjectOverview: React.FC<
 					services
 						.getContractsAndCustomers(props.enquiryOverview.contractorId)
 						.then((response) => {
+							/* istanbul ignore next */
 							getListOfContractSuccess(response.data);
 						})
 						.catch((error) => {
@@ -227,18 +228,20 @@ const ProjectOverview: React.FC<
 		},
 		[ props.userNamesForEmails, getProjectManagerName]
 	);
-
+/* istanbul ignore next */
 	const getListOfContractSuccess = (response) => {
 		setCustomerName(
 			getFilterElementFromArray(response, 'contractId', props.enquiryOverview.contractorId, 'customerName')
 		);
 	};
 	const failure = (error) => {};
+	/* istanbul ignore next */
 	const handleNext = (data: IProjectOverviewDetails) => {
 		data.projectAdditionalDetail.projectAddDetailId == ''
 			? props.projectOverviewFormAdd(props.match.params.projectId, data, EventType.next)
 			: props.projectOverviewFormEdit(data, EventType.next);
 	};
+	/* istanbul ignore next */
 	const handleSave = (data: IProjectOverviewDetails) => {
 		data.projectAdditionalDetail.projectAddDetailId == ''
 			? props.projectOverviewFormAdd(props.match.params.projectId, data, EventType.save)
@@ -276,10 +279,11 @@ const ProjectOverview: React.FC<
 	const notifyError = (error) => {
 		toast.error(formatMessage('MESSAGE_ERROR_MESSAGE'));
 	};
-
+/* istanbul ignore next */
 	const handleReactivateEvent = () => {
 		actions.reactivateProject(props.match.params.projectId, notifySucess, notifyError);
 	};
+	/* istanbul ignore next */
 	const handleOnHoldEvent = () => {
 		props.setProjectStatus(ProjectStatus.OnHold);
 		actions.changeProjectStatusToOnHold(props.match.params.projectId, notifySucess, notifyError);

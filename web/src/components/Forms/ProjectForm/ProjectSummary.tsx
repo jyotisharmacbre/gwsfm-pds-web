@@ -81,11 +81,11 @@ const ProjectSummary: React.FC<IProps> = (props) => {
 								failure(error);
 							});
 				}
-				let filterDivision = props.listOfDivisions.filter(
+				let filterDivision = props.listOfDivisions?.filter(
 					(element) => element.divisionId == props.project.divisionId
 				);
 				if (filterDivision && filterDivision[0]) setDivision(filterDivision[0].description);
-				let filterBusinessUnit = props.listOfBusinessUnits.filter(
+				let filterBusinessUnit = props.listOfBusinessUnits?.filter(
 					(element) => element.businessUnitId == props.project.businessUnitId
 				);
 				if (filterBusinessUnit && filterBusinessUnit[0]) setBusinessUnit(filterBusinessUnit[0].description);
