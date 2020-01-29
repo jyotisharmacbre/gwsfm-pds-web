@@ -88,6 +88,9 @@ const getDynamicBusinessUnitError=(oldState,action)=>
 {
   return updateObject(oldState,{error:action.payload})
 }
+const getDynamicContractListSuccess=(oldState,action)=>{return updateObject(oldState,{dynamicsContract:action.payload})};
+const getDynamicContractListError=(oldState,action)=>{return updateObject(oldState,{error:action.payload})};
+
 const dynamicDataReducer = (oldState = initialState, action) => {
   switch (action.type) {
     case ActionType.DYNAMIC_CONTRACT_DATA_GET_SUCCESS:
@@ -115,7 +118,13 @@ const dynamicDataReducer = (oldState = initialState, action) => {
     case ActionType.DYNAMIC_BUSINESSUNIT_SUCCESS:
       return getDynamicBusinessUnitSuccess(oldState, action);
     case ActionType.DYNAMIC_BUSINESSUNIT_ERROR:
+      return getDynamicBusinessUnitError(oldState,action);
+    case ActionType.DYNAMIC_BUSINESSUNIT_ERROR:
       return getDynamicDivisionError(oldState, action);
+     case ActionType.DYNAMIC_CONTRACTLIST_SUCCESS:
+       return getDynamicContractListSuccess(oldState,action);
+    case ActionType.DYNAMIC_CONTRACTLIST_ERROR:
+      return getDynamicContractListError(oldState,action);
     default:
       return oldState;
   }

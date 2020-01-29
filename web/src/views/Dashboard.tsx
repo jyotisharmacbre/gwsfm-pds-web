@@ -58,7 +58,11 @@ const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
 				allEmails = allEmails.filter(function(el) {
 					return el != '';
 				});
-				if (allEmails.length > 0) props.handleGetUserNamesForEmails(allEmails);
+				const disinctvals = (value,index,self) =>{
+					return self.indexOf(value) === index;
+				}
+				const uniqueVals = allEmails.filter(disinctvals);
+				if (allEmails.length > 0) props.handleGetUserNamesForEmails(uniqueVals);
 			}
 		},
 		[ props.dashboardGridValues ]
