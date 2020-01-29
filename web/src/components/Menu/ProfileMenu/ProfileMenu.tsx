@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import close_icon from '../../images/logo-black.png';
-import en_translation from '../../images/english-flag.png';
+import language_icon from '../../images/language_icon.svg';
 import * as actions from '../../../store/rootActions';
 import {
   FontAwesomeIcon
@@ -10,7 +10,8 @@ import {
   faUser,
   faBell,
   faHome,
-  faPoundSign
+  faPoundSign,
+  faCoins
 } from '@fortawesome/free-solid-svg-icons';
 
 // @ts-ignore
@@ -149,7 +150,6 @@ const ProfileMenu: React.FC<any> = props => {
                     <FontAwesomeIcon className="" icon={faUser} />
                     <span id="sm_none">{props.displayName ? props.displayName: '...'}</span>
                     <span className="down-arrow">
-                      <FontAwesomeIcon className="" icon={faAngleDown} />
                     </span>
                   </a>
 
@@ -189,7 +189,7 @@ const ProfileMenu: React.FC<any> = props => {
                         <li>
                           <a href="#">
                             <i>
-                              <img src={en_translation} alt="english translation icon" />
+                              <img src={language_icon} alt="english translation icon" />
                             </i>
                             <p className="title_name">{formatMessage('LABEL_PREFERED_LANGUAGE')}</p>
                             <span className="dsc">{props.languageName}</span>
@@ -198,7 +198,7 @@ const ProfileMenu: React.FC<any> = props => {
                         <li>
                           <a href="#">
                             <i>
-                              <FontAwesomeIcon className="" icon={faPoundSign} />
+                            <FontAwesomeIcon className="" icon={faCoins} />
                             </i>
                             <p className="title_name">{formatMessage('LABEL_PREFERED_CURRENCY')}</p>
                             <span className="dsc">{props.currencyName} {props.currencySymbol && `(${props.currencySymbol})`}</span>
