@@ -32,6 +32,7 @@ const ActivityFeedList: React.FC<IProps & IMapStateToProps> = (props) => {
 			if (props.projectActivities.length > 0) {
 				let emails: Array<string> = [];
 				props.projectActivities.map((data, index) => {
+					if(emails.length == 0 || !emails.some(x=>x == data.userId))
 					emails.push(data.userId);
 				});
 				services.getUsersForEmailsService(emails).then((response) => {
@@ -46,7 +47,10 @@ const ActivityFeedList: React.FC<IProps & IMapStateToProps> = (props) => {
 			if (userNamesForEmails.length > 0 && props.lookups) {
 				if (props.projectActivities.length > 0) {
 					let activityFeed: Array<IActivityFeed> = [];
-					props.projectActivities.map((data, index) => {
+					let sortedData = props.projectActivities.sort((a:IProjectApprovalActivitiy,b:IProjectApprovalActivitiy)=>{ 
+						let dateA= +new Date(a.createdOn), dateB= +new Date(b.createdOn);
+    					return (dateB-dateA)});
+						sortedData.map((data, index) => {
 						let username = filterUserByEmailId(userNamesForEmails, data.userId);
 						activityFeed.push({
 							activityType: data.activityType,
