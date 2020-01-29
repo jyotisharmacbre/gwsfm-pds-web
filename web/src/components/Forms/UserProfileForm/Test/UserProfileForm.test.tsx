@@ -53,11 +53,11 @@ describe('UserProfileForm Fields', () => {
       </Provider>
     );
   });
-  it('Defines the component', () => {
+it('Defines the component', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('Defines the Form', () => {
+it('Defines the Form', () => {
     let form = wrapper.find('[form="UserProfileForm"]').first();
 
     expect(form).toHaveLength(1);
@@ -70,10 +70,10 @@ describe('UserProfileForm Fields', () => {
       beforeEach(() => {
         field = wrapper.find('select[name="languageId"]').first();
       });
-      it('Should renders languageId field', () => {
+    it('Should renders languageId field', () => {
         expect(field.render());
       });
-      it('Should select language from state to french', () => {
+    it('Should select language from state to french', () => {
         wrapper.setProps({
           languageId: 2
         });
@@ -81,7 +81,7 @@ describe('UserProfileForm Fields', () => {
         expect(field.find('option').at(2).instance().selected).toBeTruthy;
       });
 
-      it('Should select language from state to english', () => {
+    it('Should select language from state to english', () => {
         wrapper.setProps({
           languageId: 1
         });
@@ -89,7 +89,7 @@ describe('UserProfileForm Fields', () => {
         expect(field.find('option').at(1).instance().selected).toBeTruthy;
       });
 
-      it('Shows error when languageId is set to blank', () => {
+    it('Shows error when languageId is set to blank', () => {
         field.simulate('blur');
         const errorBlock = wrapper.find('.text-danger');
         expect(errorBlock).toHaveLength(1);
@@ -100,28 +100,37 @@ describe('UserProfileForm Fields', () => {
       beforeEach(() => {
         field = wrapper.find('select[name="currencyId"]').first();
       });
-      it('Should renders currencyId field', () => {
+    it('Should renders currencyId field', () => {
         expect(field.render());
       });
-      it('Should select currency from state to frenc', () => {
-        wrapper.setProps({
-          currencyId: 2
-        });
-        wrapper.update();
-        expect(field.find('option').at(2).instance().selected).toBeTruthy;
-      });
-      it('Should select currency from state to dollor', () => {
+    it('Should select currency from state to frenc', () => {
         wrapper.setProps({
           currencyId: 1
         });
         wrapper.update();
         expect(field.find('option').at(1).instance().selected).toBeTruthy;
       });
-      it('Shows error when currencyId is set to blank', () => {
+    it('Should select currency from state to dollor', () => {
+        wrapper.setProps({
+          currencyId: 1
+        });
+        wrapper.update();
+        expect(field.find('option').at(1).instance().selected).toBeTruthy;
+      });
+    it('Shows error when currencyId is set to blank', () => {
         field.simulate('blur');
         const errorBlock = wrapper.find('.text-danger');
         expect(errorBlock).toHaveLength(1);
       });
+
+     it('Should render in dropdown only currencies which has isActive flag true', () => {
+      
+        let fieldCurrency = wrapper.find('select[name="currencyId"]').first();        
+        //Note: Although we are passing only one currency with flag true but testing for length to be 2, becuase we have a default option tag as well.
+          expect(fieldCurrency.find('option')).toHaveLength(2);
+  
+        });
+
     });
 
 
@@ -130,11 +139,11 @@ describe('UserProfileForm Fields', () => {
       beforeEach(() => {
         field = findByTestAtrr(wrapper, 'save').first();
       });
-      it('Should renders save button', () => {
+    it('Should renders save button', () => {
         expect(field).toHaveLength(1);
       });
 
-      it('should call save function on button click', () => {
+    it('should call save function on button click', () => {
         field.simulate('click');
         expect(props.onSubmitForm.mock.calls.length).toEqual(1);
       });
@@ -145,11 +154,11 @@ describe('UserProfileForm Fields', () => {
       beforeEach(() => {
         field = findByTestAtrr(wrapper, 'cancel').first();
       });
-      it('Should renders cancel button', () => {
+    it('Should renders cancel button', () => {
         expect(field).toHaveLength(1);
       });
 
-      it('should call save function on button click', () => {
+    it('should call save function on button click', () => {
         field.simulate('click');
         expect(props.redirectMenu.mock.calls.length).toEqual(1);
       });
@@ -157,7 +166,7 @@ describe('UserProfileForm Fields', () => {
     });
 
     describe('UserProfile form reducer', () => {
-      it('should handle get getUserPreferences successfully', () => {
+    it('should handle get getUserPreferences successfully', () => {
         const getUserPreferencesAction: any = {
           type: ActionType.USER_PREFERENCES_GET_SUCCESS,
           payload: { languageName: 'french', languageId: 2 }
@@ -167,7 +176,7 @@ describe('UserProfileForm Fields', () => {
         ).toMatchSnapshot();
       });
 
-      it('should handle edit userPreferences successfully', () => {
+    it('should handle edit userPreferences successfully', () => {
         const editUserPreferencesAction: any = {
           type: ActionType.USER_PREFERENCES_FORM_EDIT_SUCCESS,
           payload: { languageName: 'french', languageId: 2 }
@@ -177,7 +186,7 @@ describe('UserProfileForm Fields', () => {
         ).toMatchSnapshot();
       });
 
-      it('should handle add userPreferences successfully', () => {
+    it('should handle add userPreferences successfully', () => {
         const addUserPreferencesAction: any = {
           type: ActionType.USER_PREFERENCES_FORM_ADD_SUCCESS
         };
@@ -186,7 +195,7 @@ describe('UserProfileForm Fields', () => {
         ).toMatchSnapshot();
       });
 
-      it('should handle userPreferenceUpdateError with and return initialState', () => {
+    it('should handle userPreferenceUpdateError with and return initialState', () => {
         const userPreferenceUpdateError: any = {
           type: ActionType.USER_PREFERENCES_FORM_ERROR,
           error: { success: false }

@@ -12,7 +12,8 @@ import {
 	getDiscountTypeValue,
 	getFilterElementFromArray,
 	maxLimitTo,
-	restrictMinusAndAllowDecimalForMaxRangeHundred
+	restrictMinusAndAllowDecimalForMaxRangeHundred,
+	restrictMinusAndAllowDecimal
 } from '../../../helpers/utility-helper';
 import { calculateClientDiscount, calculateTotalSum } from '../../../helpers/formulas';
 import { ICurrency } from '../../../store/Lookups/Types/ICurrency';
@@ -36,10 +37,12 @@ import * as services from '../../../services';
 import DiscountSubContractorForm from './DiscountSubContractorForm';
 import IReactIntl from '../../../Translations/IReactIntl';
 import IClientDiscount from '../../../store/DiscountForm/Types/IClientDiscount';
+import DiscountType from '../../../enums/DiscountType';
 
 interface Props {
 	onNext: (data: IDiscountActivity) => void;
 	onSave: (data: IDiscountActivity) => void;
+	updateClientDiscount: (event, value) => void;
 	onPrevious: () => void;
 	projectstatus: any;
 	currencies: Array<ICurrency> | null;
@@ -55,7 +58,6 @@ interface IMapStateToProps {
 	initialValues: IDiscountActivity;
 	clientDiscount: IClientDiscount;
 	discountForm: {} | IDiscountActivity;
-	userPreferenceCurrencyId: number;
 	subContractorState: Array<ISubContractorActivity>;
 	preliminaryState: Array<IPreliminariesComponentDetails>;
 }
@@ -63,7 +65,7 @@ interface IMapStateToProps {
 let DiscountForm: React.FC<
 	Props & IMapStateToProps & IReactIntl & InjectedFormProps<IDiscountActivity, Props & IMapStateToProps>
 > = (props) => {
-	const { handleSubmit, initialValues, clientDiscount, intl } = props;
+	const { handleSubmit, initialValues, clientDiscount, intl, updateClientDiscount } = props;
 	const normalize = (value) => (value ? parseInt(value) : null);
 	const CurrencyObj = new Currency();
 	const [currencySymbol, setCurrencySymbol] = useState<string>('');
@@ -229,6 +231,7 @@ let DiscountForm: React.FC<
 																		type="radio"
 																		value={+data.lookupKey}
 																		normalize={normalize}
+																		onClick={(event) => updateClientDiscount(event, clientDiscount.discount)}
 																	/>
 																	<label className="form-check-label">
 																		<FormattedMessage id={data.description} />
@@ -246,7 +249,7 @@ let DiscountForm: React.FC<
 												messageKey="MESSAGE_DISCOUNT"
 												labelKey="LABEL_DISCOUNT"
 												placeholderKey="PLACEHOLDER_DISCOUNT"
-												normalize={restrictMinusAndAllowDecimalForMaxRangeHundred}
+												normalize={clientDiscount?.discountType === DiscountType.Percent ? restrictMinusAndAllowDecimalForMaxRangeHundred : restrictMinusAndAllowDecimal}
 												discountBind={getDiscountTypeValue(
 													props.projectstatus &&
 													props.projectstatus.filter(
@@ -322,7 +325,6 @@ const mapStateToProps = (state: IState) => ({
 	initialValues: state.discount.form,
 	clientDiscount: discountSelector(state, 'clientDiscount'),
 	discountForm: getFormValues('DiscountForm')(state),
-	userPreferenceCurrencyId: userPreferenceSelector(state, 'currencyId'),
 	subContractorState: state.subContractor.form.activities,
 	preliminaryState: state.preliminary.preliminaryDetails
 });
@@ -333,6 +335,5 @@ const form = reduxForm<IDiscountActivity, Props & IMapStateToProps>({
 })(injectIntl(DiscountForm));
 
 const discountSelector = formValueSelector('DiscountForm');
-const userPreferenceSelector = formValueSelector('UserProfileForm');
 
 export default connect(mapStateToProps)(form);

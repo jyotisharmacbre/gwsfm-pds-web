@@ -45,7 +45,8 @@ import { IPreliminariesComponentDetails } from '../../../store/Preliminaries/Typ
 import { IDiscountActivity } from '../../../store/DiscountForm/Types/IDiscountActivity';
 import ProjectApprovalForm from './ProjectApprovalForm';
 import ActivityFeedList from './ActivityFeedList';
-
+import PostCommentForm from '../PostComment/PostCommentForm';
+import {IPostCommentForm} from '../PostComment/IPostCommentForm';
 interface Props {
 	onNext: (data: IProjectOverviewDetails) => void;
 	onPrevious: () => void;
@@ -89,13 +90,13 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 	};
 
 	const normalize = (value) => (value ? parseInt(value) : null);
-	const handlePostComment = () => {
-		props.postComment(props.projectId, '', handlePostCommentSuccess, handlePostCommentError);
+	const handlePostComment = (data: IPostCommentForm) => {
+		props.postComment(props.projectId,`"${data.comment}"`, handlePostCommentSuccess, handlePostCommentError);
 	};
-	const handlePostCommentSuccess = () => {
+	const handlePostCommentSuccess = (response) => {
 		props.getProjectActivities(props.projectId);
 	};
-	const handlePostCommentError = () => {};
+	const handlePostCommentError = (error) => {};
 	return (
 		<form className="project-overview-form" noValidate={true} data-test="projectOverviewForm">
 			<div className={`${getClassNameForProjectStatus(props.status)} row`}>
@@ -333,6 +334,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						labelKey="LABEL_COMMENTS"
 						rows="7"
 						component={PdsFormTextArea}
+						validate={[ Validate.maxLength(5000) ]}
 						placeholderKey="PLACEHOLDER_ADDITIONAL_COMMENTS"
 					/>
 				</div>
@@ -359,6 +361,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						currencySymbol={props.currencySymbol}
 						handleGetUserNamesForEmails={props.handleGetUserNamesForEmails}
 					/>
+					<PostCommentForm postComment={handlePostComment}/>
 				</div>
 			</div>
 			<div className="row">
