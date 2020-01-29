@@ -19,8 +19,7 @@ const initialState: IProjectPipelineGridState = {
       contractTypeId: 0,
       cdmNotifiable: false,
       soldMargin: '',
-      weightedTCV: '',
-      rank: ''
+      weightedTCV: ''
     }
   ],
   error: null

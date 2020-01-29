@@ -14,5 +14,4 @@ export interface IProjectPipelineGrid {
   cdmNotifiable: false;
   soldMargin: string;
   weightedTCV: string;
-  rank: string;
 }

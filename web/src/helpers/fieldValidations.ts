@@ -48,7 +48,7 @@ export const Validate = {
 	require: (message) => (value) => fieldValidationRequired(value, message),
 	required: memoize((message) => (value) => fieldValidationRequired(value, message)),
 	maxLength: memoize((length) => (value) => fieldValidationLength(value, length)),
-	maxLimit:memoize((minlength,maxLength)=>(value)=>fieldValidationForMaxLimit(value, minlength,maxLength))
+	maxLimit: memoize((minlength, maxLength) => (value) => fieldValidationForMaxLimit(value, minlength, maxLength))
 };
 
 export const CheckConstraints = (id: string) => {
@@ -81,22 +81,19 @@ export const isCBRELabourOrAgencyLabourExists = (id: string) => {
 	}
 	return isExists;
 };
-export const OnlyDistinctAssetTypes = (currControl) => (value, allValues) => {
-	if (value && allValues) {
-		switch (currControl) {
-			case 1:
-				if ((value > 0 && allValues.secondAssetWorkedOn > 0 && allValues.secondAssetWorkedOn === value) ||
-					(value > 0 && allValues.thirdAssetWorkedOn > 0 && allValues.thirdAssetWorkedOn === value))
+export const OnlyDistinctAssetTypes = (value, allValues, props, name) => {
+	if (value && allValues && value > 0) {
+		switch (name) {
+			case 'firstAssetWorkedOn':
+				if (CheckIfValueExistsinArray(value, [allValues.secondAssetWorkedOn, allValues.thirdAssetWorkedOn]))
 					return formatMessage('ASSET_ALREADY_SELECTED_VALIDATION_KEY');
 				return null;
-			case 2:
-				if ((value > 0 && allValues.thirdAssetWorkedOn > 0 && allValues.thirdAssetWorkedOn === value) ||
-					(allValues.firstAssetWorkedOn > 0 && value > 0 && value === allValues.firstAssetWorkedOn))
+			case 'secondAssetWorkedOn':
+				if (CheckIfValueExistsinArray(value, [allValues.firstAssetWorkedOn, allValues.thirdAssetWorkedOn]))
 					return formatMessage('ASSET_ALREADY_SELECTED_VALIDATION_KEY');
 				return null;
-			case 3:
-				if ((allValues.firstAssetWorkedOn > 0 && value > 0 && value === allValues.firstAssetWorkedOn) ||
-					(allValues.secondAssetWorkedOn > 0 && value > 0 && value === allValues.secondAssetWorkedOn))
+			case 'thirdAssetWorkedOn':
+				if (CheckIfValueExistsinArray(value, [allValues.secondAssetWorkedOn, allValues.firstAssetWorkedOn]))
 					return formatMessage('ASSET_ALREADY_SELECTED_VALIDATION_KEY');
 				return null;
 		}
@@ -104,6 +101,10 @@ export const OnlyDistinctAssetTypes = (currControl) => (value, allValues) => {
 	}
 	return null;
 };
+
+const CheckIfValueExistsinArray = (val: string, arr: Array<string>) => {
+	return arr.indexOf(val) > -1;
+}
 export const isValidEmail = (email: string) => {
 	var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 	return re.test(String(email).toLowerCase());

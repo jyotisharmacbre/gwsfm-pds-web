@@ -502,7 +502,7 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 											messageKey="MESSAGE_FIRST_ASSET"
 											validate={[
 												Validate.required('LABEL_ASSETS_WORKED_ON'),
-												OnlyDistinctAssetTypes(1)
+												OnlyDistinctAssetTypes
 											]}
 											normalize={normalizeToNumber}
 										>
@@ -520,7 +520,7 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 											DropdownCheck="selectRound"
 											placeholderKey="PLACEHOLDER_SECOND_ASSET"
 											normalize={normalizeToNumber}
-											validate={[OnlyDistinctAssetTypes(2)]}
+											validate={OnlyDistinctAssetTypes}
 
 										>
 											<FormattedMessage id="PLACEHOLDER_SECOND_ASSET">
@@ -537,7 +537,7 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 											DropdownCheck="selectRound"
 											placeholderKey="PLACEHOLDER_THIRD_ASSET"
 											normalize={normalizeToNumber}
-											validate={[OnlyDistinctAssetTypes(3)]}
+											validate={OnlyDistinctAssetTypes}
 
 										>
 											<FormattedMessage id="PLACEHOLDER_THIRD_ASSET">
