@@ -95,7 +95,7 @@ let UserProfileForm: React.FC<Props &
                     {message => <option value="">{message}</option>}
                   </FormattedMessage>
                   {props.currencies &&
-                    props.currencies.map((data: ICurrency, i: number) => {
+                    props.currencies.filter(x=>x.isActive === true).map((data: ICurrency, i: number) => {
                       return (
                         <option
                           key={data.currencyId}

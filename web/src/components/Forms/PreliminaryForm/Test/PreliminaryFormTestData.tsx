@@ -42,7 +42,8 @@ export const currencies: Array<ICurrency> = [
   {
     currencyId: 1,
     currencyName: 'en',
-    currencySymbol: "$"
+    currencySymbol: "$",
+    isActive: true
   }
 
 ];

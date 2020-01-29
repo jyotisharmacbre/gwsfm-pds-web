@@ -45,7 +45,8 @@ export const preliminariesData: any = {
 				{
 					currencyId: 1,
 					currencyName: 'test',
-					currencySymbol: '$'
+					currencySymbol: '$',
+					isActive: true
 				}
 			],
 			error: 'test'
