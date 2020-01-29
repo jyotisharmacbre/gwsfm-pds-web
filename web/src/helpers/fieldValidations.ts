@@ -21,13 +21,13 @@ export function fieldValidationForMaxLimit(value, minLength,maxLength) {
 		return `${formatMessage('FIELD_VALIDATION_KEY_MAX_LIMIT', {
 			0: formatMessage(minLength),
 			1: formatMessage(maxLength)
-		} 
-	
-	)}`
+		}
+
+		)}`
 	}
 }
-	
-	
+
+
 
 export function fieldValidationRequired(value, message) {
 	if (
@@ -81,10 +81,28 @@ export const isCBRELabourOrAgencyLabourExists = (id: string) => {
 	}
 	return isExists;
 };
-export const OnlyDistinctAssetTypes = (first, second) => (value) => {
-	if ((second > 0 && value > 0 && second === value) || (first > 0 && value > 0 && first === value)) {
-		return formatMessage('ASSET_ALREADY_SELECTED_VALIDATION_KEY');
+export const OnlyDistinctAssetTypes = (currControl) => (value, allValues) => {
+	if (value && allValues) {
+		switch (currControl) {
+			case 1:
+				if ((value > 0 && allValues.secondAssetWorkedOn > 0 && allValues.secondAssetWorkedOn === value) ||
+					(value > 0 && allValues.thirdAssetWorkedOn > 0 && allValues.thirdAssetWorkedOn === value))
+					return formatMessage('ASSET_ALREADY_SELECTED_VALIDATION_KEY');
+				return null;
+			case 2:
+				if ((value > 0 && allValues.thirdAssetWorkedOn > 0 && allValues.thirdAssetWorkedOn === value) ||
+					(allValues.firstAssetWorkedOn > 0 && value > 0 && value === allValues.firstAssetWorkedOn))
+					return formatMessage('ASSET_ALREADY_SELECTED_VALIDATION_KEY');
+				return null;
+			case 3:
+				if ((allValues.firstAssetWorkedOn > 0 && value > 0 && value === allValues.firstAssetWorkedOn) ||
+					(allValues.secondAssetWorkedOn > 0 && value > 0 && value === allValues.secondAssetWorkedOn))
+					return formatMessage('ASSET_ALREADY_SELECTED_VALIDATION_KEY');
+				return null;
+		}
+		return null;
 	}
+	return null;
 };
 export const isValidEmail = (email: string) => {
 	var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
