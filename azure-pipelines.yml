@@ -144,11 +144,9 @@ steps:
   displayName: 'Prepare analysis on SonarQube'
   inputs:
     SonarQube: 'SonarQube'
-    scannerMode: 'CLI'
-    configMode: 'manual'
-    cliProjectKey: 'gws-fm-pds-web'
-    cliProjectName: 'gws-fm-pds-web'
-    cliSources: '.'
+    scannerMode: 'MSBuild'
+    projectKey: 'gws-fm-pds-web'
+    projectName: 'gws-fm-pds-web'
 
 - task: PowerShell@2
   displayName: 'Code Build start time'
