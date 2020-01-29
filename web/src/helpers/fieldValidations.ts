@@ -5,13 +5,14 @@ import PreliminaryComponentField from '../enums/PreliminaryComponentFields';
 export const onlyNumber = (value) => (value && isNaN(Number(value)) ? formatMessage('VALIDATION_NUMBER') : undefined);
 
 export function fieldValidationLength(value, maxLength) {
+	value = value ? value.toString() : "";
 	if (value && maxLength && value.length > maxLength) {
 		return `${formatMessage('FIELD_VALIDATION_KEY', {
 			0: formatMessage(maxLength)
 		})}`;
 	}
 }
-export function fieldValidationForMaxLimit(value, minLength,maxLength) {
+export function fieldValidationForMaxLimit(value, minLength, maxLength) {
 	if (value < minLength) {
 		return `${formatMessage('FIELD_VALIDATION_KEY_MAX_LIMIT', {
 			0: formatMessage(minLength),
@@ -21,15 +22,17 @@ export function fieldValidationForMaxLimit(value, minLength,maxLength) {
 		return `${formatMessage('FIELD_VALIDATION_KEY_MAX_LIMIT', {
 			0: formatMessage(minLength),
 			1: formatMessage(maxLength)
-		} 
-	
-	)}`
+		}
+
+		)}`
 	}
 }
-	
-	
+
+
 
 export function fieldValidationRequired(value, message) {
+	value = value ? value.toString() : "";
+
 	if (
 		!value ||
 		(typeof value.trim === 'function' && value.trim() === '') ||
@@ -48,7 +51,7 @@ export const Validate = {
 	require: (message) => (value) => fieldValidationRequired(value, message),
 	required: memoize((message) => (value) => fieldValidationRequired(value, message)),
 	maxLength: memoize((length) => (value) => fieldValidationLength(value, length)),
-	maxLimit:memoize((minlength,maxLength)=>(value)=>fieldValidationForMaxLimit(value, minlength,maxLength))
+	maxLimit: memoize((minlength, maxLength) => (value) => fieldValidationForMaxLimit(value, minlength, maxLength))
 };
 
 export const CheckConstraints = (id: string) => {

@@ -140,6 +140,12 @@ form {
     }
     .select-wrapper {
         position: relative;
+        &.header_select_wrapper {
+            margin-top: 5px;
+            &:before {
+                right: calc(100% - 169px);
+            }
+        }
         select {
             &.form-control {
                 max-width: 285px;
@@ -148,7 +154,7 @@ form {
                 appearance: none;
                 border: 1px solid map-get($colors, grey08);
                 position: relative;
-                @include borderRadius(6px);
+                @include borderRadius(3px);
                 padding: 10px 30px 10px 10px;
                 height: auto !important;
                 @include smScreen {
@@ -162,8 +168,8 @@ form {
             z-index: 9;
             background-repeat: no-repeat;
             background-position: center right;
-            width: 10px;
-            height: 10px;
+            width: 8px;
+            height: 8px;
             right: calc(100% - 272px);
             top: 14px;
             margin: auto 0;

@@ -14,7 +14,7 @@ const mountComponent = (Props) => {
 describe('ActivityFeed list test cases', () => {
 	const Props = {
 		project: { currencyId: 1 },
-		currencies: [ { currencyId: 1, currencySymbol: '$' }, { currencyId: 2, currencySymbol: '€' } ]
+		currencies: [ { currencyId: 1, currencySymbol: '$', isActive: true }, { currencyId: 2, currencySymbol: '€', isActive: true } ]
 	};
 	beforeEach(() => {
 		mountComponent(Props);
