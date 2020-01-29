@@ -306,6 +306,6 @@
     "MESSAGE_SUCCESSFUL_SUBMITED": "Submitted Successfully",
     "MESSAGE_QUERY_SUCCESS": "Query Saved Successfully",
     "MESSAGE_WARNING": "After submitting the query, project status will be changed to J&N and all previous approvals will be reset and will require approval again.",
-    "MESSAGE_DIRTY_CHECK":"You have unsaved changes on this page. Do you want to leave this page and discard your changes or stay on this page?"
+    "MESSAGE_DIRTY_CHECK":"You have unsaved changes on this page. Do you want to leave this page and discard your changes?"
 
 }
