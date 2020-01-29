@@ -13,7 +13,6 @@ import {
 	getFilterElementFromArray,
 	maxLimitTo,
 	restrictMinusAndAllowDecimalForMaxRangeHundred,
-	restrictMinusAndAllowDecimal
 } from '../../../helpers/utility-helper';
 import { calculateClientDiscount, calculateTotalSum } from '../../../helpers/formulas';
 import { ICurrency } from '../../../store/Lookups/Types/ICurrency';
