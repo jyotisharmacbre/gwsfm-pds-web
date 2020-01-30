@@ -6,6 +6,7 @@ import { IState } from './state';
 const middlewares: any[] = [];
 middlewares.push(thunk);
 if (process.env.NODE_ENV === `development`) {
+  /* istanbul ignore next */
   middlewares.push(logger);
 }
 
