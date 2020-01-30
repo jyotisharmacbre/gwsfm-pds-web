@@ -1,0 +1,108 @@
+.error_outer_wrap {
+    height: calc(100vh - 60px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .error_wrapper {
+        border: 1px solid rgba(0, 106, 77, 0.2);
+        @include borderRadius(110px 110px 110px 110px);
+        padding: 72px 50px 47px 50px;
+        position: relative;
+        max-width: 600px;
+        width: 100%;
+        color: map-get($colors , grey03 );
+        margin: 0 15px;
+        @include mdScreen {
+            padding: 50px 40px;
+        }
+        @include smScreen {
+            padding: 30px 20px;
+            @include borderRadius(10px);
+        }
+        .error_title {
+            position: absolute;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+            text-align: center;
+            top: -35px;
+            @include smScreen {
+                top: -21px;
+            }
+            h1 {
+                background: map-get($colors , grey04 );
+                display: inline-block;
+                padding: 0 30px;
+                margin-bottom: 0;
+                font-weight: 100;
+                font-size: 78px;
+                @include mdScreen {
+                    padding: 0 20px;
+                    font-size: 50px;
+                }
+                @include smScreen {
+                    padding: 0 15px;
+                    font-size: 40px;
+                }
+                img {
+                    width: 69px;
+                    margin: 0 18px;
+                    margin-top: -11px;
+                    height: 69px;
+                    @include mdScreen {
+                        width: 42px;
+                        margin: 0 10px;
+                        margin-top: -10px;
+                        height: 42px;
+                    }
+                    @include smScreen {
+                        width: 32px;
+                        margin: 0 5px;
+                        margin-top: -8px;
+                        height: 32px;
+                    }
+                }
+            }
+        }
+        .inner-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            h2 {
+                font-size: 39px;
+                text-transform: uppercase;
+                font-weight: 400;
+                text-align: center;
+                @include mdScreen {
+                    font-size: 30px;
+                }
+                @include smScreen {
+                    font-size: 22px;
+                }
+            }
+            p {
+                font-size: 22px;
+                text-transform: capitalize;
+                text-align: center;
+                @include mdScreen {
+                    font-size: 18px;
+                }
+                @include smScreen {
+                    font-size: 16px;
+                }            }
+            }
+        .btn-wrap {
+            position: absolute;
+            bottom: -21px;
+            text-align: center;
+            left: 0;
+            right: 0;
+            span {
+                background: map-get($colors , grey04 );
+                display: inline-block;
+                padding: 0 15px;
+            }
+        }
+    }
+}
