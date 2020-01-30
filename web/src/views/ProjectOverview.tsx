@@ -356,7 +356,7 @@ const ProjectOverview: React.FC<
 								],
 								content: props.project.scope,
 								editActionClick: () => {
-									handlePrevious();
+									redirectionToComponent();
 								}
 							}}
 						/>
