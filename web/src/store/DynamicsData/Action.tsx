@@ -94,6 +94,19 @@ const getDynamicBusinessUnitError =(error:any) =>
 		payload:error
 };
 };
+const getDynamicContractListSuccess=(response:any)=>{
+	return {
+		type:ActionType.DYNAMIC_CONTRACTLIST_SUCCESS,
+		payload:response
+	}
+};
+const getDynamicContractListError =(error:any) =>
+{
+	return {
+		type:ActionType.DYNAMIC_CONTRACTLIST_ERROR,
+		payload:error
+};
+};
 let config = {
 	headers: {
 		'Content-Type': 'application/json'
@@ -168,6 +181,21 @@ export const getDynamicSubContractorData = (searchSubContractor: string, success
 		.catch((error) => {
 			failure(error);
 		});
+};
+export const getContractDetailsByIds = (searchSubContractor: Array<string>) => {
+	return (dispatch: Dispatch) => {
+		axios.baseAPI
+		.post(
+			`/api/ERPLookup/getContractsAndCustomersList`,searchSubContractor,
+			config
+		)
+		.then((response) => {
+			dispatch(getDynamicContractListSuccess(response.data));
+		})
+		.catch((error) => {
+			dispatch(getDynamicContractListError(error)) ;
+		});
+	};
 };
 
 export const getListOfDivision = () => {

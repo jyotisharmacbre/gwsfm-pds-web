@@ -53,7 +53,7 @@ interface Props {
 	dynamicsCompany: Array<IDynamicCompanyData>;
 	countries: Array<ICountry> | null;
 	listOfDivisions: Array<IDynamicsDivision>;
-	listOfBusinessUnits:Array<IDynamicBusinessUnits>;
+	listOfBusinessUnits: Array<IDynamicBusinessUnits>;
 }
 
 const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = (props: any) => {
@@ -459,7 +459,8 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 											placeholderKey="PLACEHOLDER_FIRST_ASSET"
 											messageKey="MESSAGE_FIRST_ASSET"
 											validate={[
-												Validate.required('LABEL_ASSETS_WORKED_ON')
+												Validate.required('LABEL_ASSETS_WORKED_ON'),
+												OnlyDistinctAssetTypes
 											]}
 											normalize={normalizeToNumber}
 										>
@@ -477,6 +478,8 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 											DropdownCheck="selectRound"
 											placeholderKey="PLACEHOLDER_SECOND_ASSET"
 											normalize={normalizeToNumber}
+											validate={OnlyDistinctAssetTypes}
+
 										>
 											<FormattedMessage id="PLACEHOLDER_SECOND_ASSET">
 												{(message) => <option value="">{message}</option>}
@@ -492,6 +495,8 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 											DropdownCheck="selectRound"
 											placeholderKey="PLACEHOLDER_THIRD_ASSET"
 											normalize={normalizeToNumber}
+											validate={OnlyDistinctAssetTypes}
+
 										>
 											<FormattedMessage id="PLACEHOLDER_THIRD_ASSET">
 												{(message) => <option value="">{message}</option>}
