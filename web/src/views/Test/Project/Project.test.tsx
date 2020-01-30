@@ -86,11 +86,12 @@ describe('Project component test cases', () => {
 		expect(wrapper).toBeDefined();
 	});
 	it('should defines the component when paramProjectId is empty', () => {
-		customerEnquiryInitialState.form.projectId = '';
+		Props.match.params.projectId = '';	
 		setUpStore();
 		mountComponent(Props);
 		expect(wrapper).toBeDefined();
 	});
+	
 	it('should render the component when notify is success and event is next', () => {
 		customerEnquiryInitialState.notify = Notify.success;
 		customerEnquiryInitialState.event = EventType.next;

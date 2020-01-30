@@ -111,14 +111,14 @@ const Subcontractor: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & 
 		},
 		[ props.project.countryId ]
 	);
-
+/* istanbul ignore next */
 	const handleEvent = (data: ISubContractor, event: EventType) => {
 		paramProjectId = props.match.params.projectId;
 		props.subContractorState[0].subContrActivityId == ''
 			? props.subContractorFormAdd(paramProjectId, data, event)
 			: props.subContractorFormEdit(paramProjectId, props.subContractorState[0].subContrActivityId, data, event);
 	};
-
+/* istanbul ignore next */
 	const handlePrevious = () => {
 		props.history.push(`/preliminaries/${props.match.params.projectId}`);
 	};

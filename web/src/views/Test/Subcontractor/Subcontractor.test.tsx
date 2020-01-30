@@ -17,6 +17,21 @@ import ProjectStatus from '../../../enums/ProjectStatus';
 const mockStore = configureStore([]);
 let store;
 let wrapper;
+lookUpInitialState.currencies = [{
+	currencyId: 1,
+	currencyName: 'INR',
+	currencySymbol: 'R',
+	isActive: true
+}];
+lookUpInitialState.countries = [{
+	currencyId: 143,
+	name: 'india',
+	code: 'IN',
+	isoAlpha2Code: "IND",
+	countryId: 1
+}];
+customerEnquiryInitialState.form.currencyId = 1;
+customerEnquiryInitialState.form.countryId = 1;
 const setUpStore = (initialState, lookUpInitialState, customerEnquiryInitialState, subcontractorInitialState) => {
 	store = mockStore({
 		preliminary: initialState,
@@ -101,5 +116,45 @@ describe('Subcontractor component test cases', () => {
 		setUpStore(initialState, lookUpInitialState, data, subcontractorInitialState);
 		mountComponent(Props);
 		expect(wrapper.find('.link_disabled').length).toBeGreaterThan(0);
+	});
+
+	it('should render the component when notify is success and event is none', () => {
+		subcontractorInitialState.notify = Notify.success;
+		subcontractorInitialState.event = EventType.none;
+		setUpStore(initialState, lookUpInitialState, customerEnquiryInitialState, subcontractorInitialState);
+		mountComponent(Props);
+		expect(wrapper).toBeDefined();
+	});
+
+	it('should render the component when notify is success and event is none', () => {
+		subcontractorInitialState.notify = Notify.success;
+		subcontractorInitialState.event = EventType.none;
+		setUpStore(initialState, lookUpInitialState, customerEnquiryInitialState, subcontractorInitialState);
+		mountComponent(Props);
+		expect(wrapper).toBeDefined();
+	});
+
+	it('should render the component when notify is success and event is next', () => {
+		subcontractorInitialState.notify = Notify.success;
+		subcontractorInitialState.event = EventType.next;
+		setUpStore(initialState, lookUpInitialState, customerEnquiryInitialState, subcontractorInitialState);
+		mountComponent(Props);
+		expect(wrapper).toBeDefined();
+	});
+
+	it('should render the component when notify is success and event is save', () => {
+		subcontractorInitialState.notify = Notify.success;
+		subcontractorInitialState.event = EventType.save;
+		setUpStore(initialState, lookUpInitialState, customerEnquiryInitialState, subcontractorInitialState);
+		mountComponent(Props);
+		expect(wrapper).toBeDefined();
+	});
+
+	it('should render the component when notify is success and event is previou', () => {
+		subcontractorInitialState.notify = Notify.success;
+		subcontractorInitialState.event = EventType.previous;
+		setUpStore(initialState, lookUpInitialState, customerEnquiryInitialState, subcontractorInitialState);
+		mountComponent(Props);
+		expect(wrapper).toBeDefined();
 	});
 });

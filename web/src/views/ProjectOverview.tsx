@@ -266,7 +266,7 @@ const ProjectOverview: React.FC<
 		}
 		return projectStatusData.length > 0 ? projectStatusData[0].description : '';
 	};
-
+/* istanbul ignore next */
 	const notifySucess = (data, actionType) => {
 		if (actionType === 'reactivate') {
 			toast.success(formatMessage('MESSAGE_SUCCESSFUL_REACTIVATED'));
@@ -275,7 +275,7 @@ const ProjectOverview: React.FC<
 			toast.success(formatMessage('MESSAGE_SUCCESSFUL_STATUS_CHANGED'));
 		}
 	};
-
+/* istanbul ignore next */
 	const notifyError = (error) => {
 		toast.error(formatMessage('MESSAGE_ERROR_MESSAGE'));
 	};
@@ -288,10 +288,12 @@ const ProjectOverview: React.FC<
 		props.setProjectStatus(ProjectStatus.OnHold);
 		actions.changeProjectStatusToOnHold(props.match.params.projectId, notifySucess, notifyError);
 	};
+	/* istanbul ignore next */
 	const handleBidLostEvent = () => {
 		props.setProjectStatus(ProjectStatus.BidLost);
 		actions.changeProjectStatusToBidLost(props.match.params.projectId, notifySucess, notifyError);
 	};
+	/* istanbul ignore next */
 	const handleOrderReceivedEvent = () => {
 		props.setProjectStatus(ProjectStatus.OrderReceived);
 		actions.changeProjectStatusToOrderReceived(props.match.params.projectId, notifySucess, notifyError);

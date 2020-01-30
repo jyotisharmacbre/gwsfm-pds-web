@@ -32,6 +32,13 @@ const setUpStore = () => {
 	store = mockStore({     
 		lookup: lookupInitalState,
 		pipelineGrid: pipelineInitailState, 
+		dynamicData: [{
+			contractId: 1,
+			contractName: "TestName",
+			customerId: 1,
+			customerName: "TestName"
+		}],
+		userService: { userServiceData: [{ email: 'test@pds.com' }], currentUserProfile: [{ email: 'test@pds.com' }] }
 	});
 	store.dispatch = jest.fn();
 };
