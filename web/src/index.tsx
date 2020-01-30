@@ -10,9 +10,9 @@ import b2cauth from '@kdpw/msal-b2c-react';
 import appConfig from './helpers/config-helper';
 import { store } from './store';
 import { BrowserRouter as Router } from 'react-router-dom';
+import TelemetryProvider from './contexts/Telemetry/TelemetryProvider';
 
-import TelemetryProvider from './telemetry-provider';
-
+ 
 const config = appConfig();
 b2cauth.initialize({
   instance: config.REACT_APP_AUTH_INSTANCE,
@@ -25,14 +25,13 @@ b2cauth.initialize({
   postLogoutRedirectUri: window.location.origin,
   validateAuthority: false
 });
-
+  
 b2cauth.run(() => {
   ReactDOM.render(
     <Provider store={store}>
       <ConnectedIntlProvider>
         <Router>
-          <TelemetryProvider
-            instrumentationKey={config.REACT_APP_INSIGHTS_KEY} >
+          <TelemetryProvider instrumentationKey={config.REACT_APP_INSIGHTS_KEY}>
             <App />
           </TelemetryProvider>
         </Router>

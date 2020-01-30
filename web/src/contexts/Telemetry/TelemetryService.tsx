@@ -38,7 +38,6 @@ const createTelemetryService = () => {
                 }
             }
         });
-
         appInsights.loadAppInsights();
     };
 
