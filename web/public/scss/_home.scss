@@ -38,7 +38,7 @@
         align-items: center;
         display: inline-flex;
         float: right;
-        height: 50px;
+        height: 60px;
         li {
             display: inline-block;
             margin: 0 15px;
@@ -86,14 +86,28 @@
                     @include boxShadow(none);
                 }
                 .down-arrow {
-                    svg {
-                        margin-left: 10px;
-                        @include transition(all ease 0.2s);
+                    position: relative;
+                    padding-left: 18px;
+                    &:before {
+                        content: '';
+                        position: absolute;
+                        width: 8px;
+                        height: 8px;
+                        @include transform (rotate(45deg));
+                        border-top: 0;
+                        border-left: 0;
+                        border-bottom: 2px solid map-get($colors , whiteColor );
+                        border-right: 2px solid map-get($colors , whiteColor );
+                        @include transition(all ease 0.3s);
+                        top: 4px;
+                        right: 0;
                         @include smScreen {
                             display: none;
                         }
-                        &.active {
-                            transform: rotate(180deg);
+                    }
+                    &.active {
+                        &:before {
+                            @include transform (rotate(180deg));
                         }
                     }
                 }
@@ -136,7 +150,7 @@
         }
         .language_wrap {
             ul {
-                padding: 25px 25px 5px 25px;
+                padding: 25px 25px 5px 30px;
                 li {
                     margin: 0 0 20px 0;
                     display: block;
@@ -146,14 +160,15 @@
                         padding-left: 30px;
                         i {
                             position: absolute;
-                            left: 0px;
+                            left: -4px;
                             display: flex;
                             align-items: center;
                             height: 100%;
-                            font-size: 17px;
+                            font-size: 18px;
                             img {
-                                max-width: 18px;
-                                height: 18px;
+                                max-width: 22px;
+                                height: auto;
+                                @include transform (translate(-2px, -2px));
                             }
                         }
                         .title_name {
@@ -166,6 +181,7 @@
                         .dsc {
                             color: map-get($colors, grey005);
                             font-size: 14px;
+                            text-transform: initial;
                         }
                     }
                 }
@@ -174,7 +190,7 @@
                 background: map-get($colors, darkGreen);
                 display: flex;
                 justify-content: space-evenly;
-                padding: 14px 0;
+                padding: 15px 0 14px;
                 @include borderRadius(0 0 5px 5px);
                 a {
                     color: map-get($colors, whiteColor);

@@ -3,10 +3,11 @@ import {
   FontAwesomeIcon
 } from '@fortawesome/react-fontawesome';
 import {
-  faUser
+  faUser, faCoins
 } from '@fortawesome/free-solid-svg-icons';
 
 import { connect } from 'react-redux';
+import language_icon from '../../images/language_icon.svg';
 import { IState } from '../../../store/state';
 import { Field, InjectedFormProps, formValueSelector, reduxForm } from 'redux-form';
 import PdsFormSelect from '../../PdsFormHandlers/PdsFormSelect';
@@ -51,16 +52,18 @@ let UserProfileForm: React.FC<Props &
             <li>
               <a>
                 <i>
-                  <FontAwesomeIcon className="" icon={faUser} />
+                <img src={language_icon} alt="english translation icon" />
                 </i>
                 <p className="title_name">{formatMessage('LABEL_PREFERED_LANGUAGE')}</p>
-                <Field
+                <div className="select-wrapper header_select_wrapper">
+                  <Field
                   name="languageId"
                   component={PdsFormSelect}
                   validate={Validate.required('LABEL_LANGUAGE')}
                   placeholderKey="PLACEHOLDER_LANGUAGE"
                   messageKey="MESSAGE_LANGUAGE"
                 >
+                  
                   <FormattedMessage id="PLACEHOLDER_LANGUAGE">
                     {message => <option value="">{message}</option>}
                   </FormattedMessage>
@@ -76,14 +79,16 @@ let UserProfileForm: React.FC<Props &
                       );
                     })}
                 </Field>
+                </div>
               </a>
             </li>
             <li>
               <a href="#">
                 <i>
-                  <FontAwesomeIcon className="" icon={faUser} />
+                <FontAwesomeIcon className="" icon={faCoins} />
                 </i>
                 <p className="title_name">{formatMessage('LABEL_PREFERED_CURRENCY')}</p>
+                <div className="select-wrapper header_select_wrapper">
                 <Field
                   name="currencyId"
                   component={PdsFormSelect}
@@ -95,7 +100,7 @@ let UserProfileForm: React.FC<Props &
                     {message => <option value="">{message}</option>}
                   </FormattedMessage>
                   {props.currencies &&
-                    props.currencies.map((data: ICurrency, i: number) => {
+                    props.currencies.filter(x=>x.isActive === true).map((data: ICurrency, i: number) => {
                       return (
                         <option
                           key={data.currencyId}
@@ -106,6 +111,7 @@ let UserProfileForm: React.FC<Props &
                       );
                     })}
                 </Field>
+                </div>
               </a>
             </li>
           </ul>

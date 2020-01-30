@@ -33,7 +33,7 @@ const requestHandler = request => {
   if (isTokenHandlerEnabled(request)) {
     // Add request token here
     const token = authentication.getAccessToken();
-    request.headers['accessToken'] = token;
+    request.headers['authorization'] = 'Bearer ' + token;
   }
   return request;
 };
