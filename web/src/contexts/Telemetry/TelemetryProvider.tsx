@@ -3,7 +3,7 @@ import { withAITracking } from '@microsoft/applicationinsights-react-js';
 import { ai, getAppInsights } from './TelemetryService';
 import { History } from 'history';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
-import { TelemetryContext } from './TelemetryContext';
+import TelemetryContext from './TelemetryContext';
 
 interface IProps extends RouteComponentProps {
     history: History;
