@@ -166,23 +166,27 @@ const ProjectOverview: React.FC<
 		},
 		[ props.project.countryId ]
 	);
-	const redirectionToComponent=(componentName:string)=>{
+	const handleResetStateAndRedirection=(componentName:string)=>{
 		props.resetProjectOverviewFormState();
 		props.history.push(`/${componentName}/${props.match.params.projectId}`);
-	
-	  }
-	const handlePrevious = () => {
+
+	}
+	const redirectionToComponent=()=>{
 		if(props.isProjectOverviewFormDirty)
 		{
 			confirmAlert({
 				intl: props.intl,
 				titleKey: 'TITLE_CONFIRMATION',
 				contentKey: 'MESSAGE_DIRTY_CHECK',
-				handleConfirm: () => redirectionToComponent('Project')})
+				handleConfirm: () => handleResetStateAndRedirection("Project")})
 		}
 		else{
-			redirectionToComponent('Project');
+			handleResetStateAndRedirection("Project");
 		   }
+	
+	  }
+	const handlePrevious = () => {
+		redirectionToComponent();
 	  };
 	useEffect(
 		() => {

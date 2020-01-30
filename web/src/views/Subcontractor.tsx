@@ -117,23 +117,25 @@ const Subcontractor: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & 
 		},
 		[ props.project.countryId ]
 	);
-	const redirectionToComponent=(componentName:string)=>{
+	const handleResetStateAndRedirection=(componentName:string)=>{
 		props.resetSubcontractorFormState();
 		props.history.push(`/${componentName}/${props.match.params.projectId}`);
-	
-	  }
-	  const handlePrevious = () => {
+	}
+	const redirectionToComponent=()=>{
 		if(props.isSubcontractorFormDirty)
 		{
 			confirmAlert({
 				intl: props.intl,
 				titleKey: 'TITLE_CONFIRMATION',
 				contentKey: 'MESSAGE_DIRTY_CHECK',
-				handleConfirm: () => redirectionToComponent('preliminaries')})
+				handleConfirm: () => handleResetStateAndRedirection('preliminaries')})
 		}
 		else{
-			redirectionToComponent('preliminaries');
+			handleResetStateAndRedirection('preliminaries');
 		   }
+	  }
+	  const handlePrevious = () => {
+		redirectionToComponent();
 	  };
 	const handleEvent = (data: ISubContractor, event: EventType) => {
 		paramProjectId = props.match.params.projectId;

@@ -9,6 +9,7 @@ import ProjectStatus from '../../../enums/ProjectStatus';
 import { isDirty, reset } from 'redux-form';
 import { confirmAlert } from '../../Popup/CustomModalPopup';
 import IReactIntl from '../../../Translations/IReactIntl';
+import ClassType from '../../../enums/ClassType';
 
 interface IMapStateToProps {
 	projectId: string;
@@ -65,10 +66,10 @@ const LeftMenu: React.FC<IMapStateToProps&IMapDispatchToProps&IReactIntl> = (pro
 	let isDisable: boolean = urlProjectId && urlProjectId != 'undefined' ? true : false;
 	
 	const disableEnableMenu = (value: string) => {
-		return activeClass == value ? 'active' : '';
+		return activeClass == value ? ClassType.Active : '';
 	};
 	const disableEnableSubActiveClass = (value: string) => {
-		return activeClass == value ? 'subactive' : '';
+		return activeClass == value ? ClassType.SubActive : '';
 	};
 	const isFormDirty=(componentName:string,projectId:string,id?:string)=>{
 if( props.isProjectFormDirty||
@@ -100,18 +101,18 @@ if( props.isProjectFormDirty||
 		{
 			for(let i=0;i<element.length;i++)
 			{
-				element[i].classList.remove("active");
-				element[i].classList.remove("subactive");
+				element[i].classList.remove(ClassType.Active);
+				element[i].classList.remove(ClassType.SubActive);
 			}
 	 }
 	}
 	 const activeLink=()=>{
 		disableLinkClass();
-		if(props.isProjectFormDirty){enableLinkClass("projectLink","active")}
-		if(props.isProjectOverviewFormDirty){enableLinkClass("projectOverviewLink","active")}
-		if(props.isPreliminaryFormDirty){enableLinkClass("justificationauthorisationLink","active");enableLinkClass("preliminariesLink","subactive")}
-		if(props.isSubContractorFormDirty){enableLinkClass("justificationauthorisationLink","active");enableLinkClass("subcontractorLink","subactive")}
-		if(props.isDiscountFormDirty){enableLinkClass("justificationauthorisationLink","active");enableLinkClass("discountsLink","subactive")}
+		if(props.isProjectFormDirty){enableLinkClass("projectLink",ClassType.Active)}
+		if(props.isProjectOverviewFormDirty){enableLinkClass("projectOverviewLink",ClassType.Active)}
+		if(props.isPreliminaryFormDirty){enableLinkClass("justificationauthorisationLink",ClassType.Active);enableLinkClass("preliminariesLink",ClassType.SubActive)}
+		if(props.isSubContractorFormDirty){enableLinkClass("justificationauthorisationLink",ClassType.Active);enableLinkClass("subcontractorLink",ClassType.SubActive)}
+		if(props.isDiscountFormDirty){enableLinkClass("justificationauthorisationLink",ClassType.Active);enableLinkClass("discountsLink",ClassType.SubActive)}
 		
 	}
     const redirectionToComponent=(componentName:string,projectId:string)=>{

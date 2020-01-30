@@ -134,9 +134,23 @@ const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps & ICountryH
 	}, [props.lookupData]);
 
 	const [ isExpand, handleExpandAllEvent ] = useState(false);
-	const redirectionToComponent=(componentName:string)=>{
+	const handleResetStateAndRedirection=(componentName:string)=>{
 		props.resetPreliminaryFormState();
 		props.history.push(`/${componentName}/${props.match.params.projectId}`);
+	}
+	const redirectionToComponent=()=>{
+		if(props.isPreliminaryFormDirty)
+		{
+			confirmAlert({
+				intl: props.intl,
+				titleKey: 'TITLE_CONFIRMATION',
+				contentKey: 'MESSAGE_DIRTY_CHECK',
+				handleConfirm: () => handleResetStateAndRedirection("JustificationAuthorisation")})
+		}
+		else{
+			handleResetStateAndRedirection("JustificationAuthorisation");
+		   }
+		
 	  }
 	const handleToggle = (id: string) => {
 		componentIds = componentIdList;
@@ -158,19 +172,7 @@ const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps & ICountryH
 		}
 	};
 	const handlePrevious = () => {
-		if(props.isPreliminaryFormDirty)
-		{
-		  confirmAlert({
-			intl: props.intl,
-			titleKey: 'TITLE_CONFIRMATION',
-			contentKey: 'MESSAGE_DIRTY_CHECK',
-			handleConfirm: () => redirectionToComponent('JustificationAuthorisation')
-		  })
-		}
-		else{
-		  redirectionToComponent('JustificationAuthorisation')
-		}
-	 
+		redirectionToComponent();
 	  };
 	const handleSaveData = (saveAll: boolean, event: EventType, preliminaryDetails: any, index: number) => {
 		var editData: Array<IPreliminaries> = [];

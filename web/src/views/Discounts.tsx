@@ -58,6 +58,7 @@ interface IMapDispatchToProps {
 	getPreliminaryDetails: (projectId: string) => void;
 	getProjectParameters: (countryId: number) => void;
 	updateClientDiscount: (event) => void;
+	resetDiscountFormState:()=>void;
 }
 
 const Discounts: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & IInsuranceRateHoc&IReactIntl> = (props) => {
@@ -99,22 +100,26 @@ const Discounts: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & IIns
 		},
 		[props.project.countryId]
 	);
-	const redirectionToComponent=(componentName:string)=>{
+	const handleResetStateAndRedirection=(componentName:string)=>{
+		props.resetDiscountFormState();
 		props.history.push(`/${componentName}/${props.match.params.projectId}`);
-	
-	  }
-	  const handlePrevious = () => {
+	}
+	const redirectionToComponent=()=>{
 		if(props.isDiscountFormDirty)
 		{
 			confirmAlert({
 				intl: props.intl,
 				titleKey: 'TITLE_CONFIRMATION',
 				contentKey: 'MESSAGE_DIRTY_CHECK',
-				handleConfirm: () => redirectionToComponent('Subcontractor')})
+				handleConfirm: () => handleResetStateAndRedirection('Subcontractor')})
 		}
 		else{
-			redirectionToComponent('Subcontractor');
+			handleResetStateAndRedirection('Subcontractor');
 		   }
+	
+	  }
+	  const handlePrevious = () => {
+		redirectionToComponent();
 	  };
 
 	const handleNext = (data: IDiscountActivity) => {
