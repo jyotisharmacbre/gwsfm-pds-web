@@ -14,6 +14,7 @@ import { LookupItems } from '../../../../helpers/constants';
 import { IUserServiceData } from '../../../../store/UserService/Types/IUserService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExclamation } from '@fortawesome/free-solid-svg-icons';
+import { formatMessage } from '../../../../Translations/connectedIntlProvider';
 
 interface Props {
 	actionApprovalValues: Array<IProjectDashboardGrid>;
@@ -56,7 +57,7 @@ let DashboardActionApprovalForm: React.FC<Props & InjectedFormProps<Array<IProje
 						LookupItems.Project_Approval_Sign_Off_Status
 					) : rowProject.approvalStatus;
 					var mailObj = namesAndEmails.find(
-						lk =>lk.email && rowProject.modifiedBy && lk.email.toUpperCase() === rowProject.modifiedBy.toUpperCase()
+						lk => lk.email && rowProject.modifiedBy && lk.email.toUpperCase() === rowProject.modifiedBy.toUpperCase()
 					);
 					rowProject.modifiedBy = mailObj
 						? `${displayUserName(mailObj)}`
@@ -100,19 +101,19 @@ let DashboardActionApprovalForm: React.FC<Props & InjectedFormProps<Array<IProje
 const getTableColumns = () => {
 	return [
 		{
-			title: <FormattedMessage id="HOMESCREEN_GRID_COLUMN_NAME" />,
+			title: formatMessage("HOMESCREEN_GRID_COLUMN_NAME"),
 			field: 'name'
 		},
 		{
-			title: <FormattedMessage id="HOMESCREEN_GRID_COLUMN_UPDATEDBY" />,
+			title: formatMessage("HOMESCREEN_GRID_COLUMN_UPDATEDBY"),
 			field: 'modifiedBy'
 		},
 		{
-			title: <FormattedMessage id="HOMESCREEN_GRID_COLUMN_DATE" />,
+			title: formatMessage("HOMESCREEN_GRID_COLUMN_DATE"),
 			field: 'modifiedOn'
 		},
 		{
-			title: <FormattedMessage id="HOMESCREEN_GRID_COLUMN_STATUS" />,
+			title: formatMessage("HOMESCREEN_GRID_COLUMN_STATUS"),
 			field: 'approvalStatus'
 		}
 	];
