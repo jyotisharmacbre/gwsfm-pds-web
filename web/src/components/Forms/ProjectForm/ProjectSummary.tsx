@@ -136,11 +136,12 @@ const ProjectSummary: React.FC<IProps> = (props) => {
 		},
 		[props.project, props.userNamesForEmails]
 	);
-
+/* istanbul ignore next */ 
 	const getContractorSuccess = (response) => {
 		let filter = response.find((ele) => ele.contractId == props.project.contractorId);
 		if (filter) setContractor(filter.contractName);
 	};
+	/* istanbul ignore next */ 
 	const listOfCompaniesSuccess = (response) => {
 		if (response && response.length > 0) {
 			setCompanyName(
@@ -153,7 +154,7 @@ const ProjectSummary: React.FC<IProps> = (props) => {
 			);
 		}
 	};
-
+/* istanbul ignore next */ 
 	const failure = error => {
 		toast.error(formatMessage("MESSAGE_ERROR"));
 	};
