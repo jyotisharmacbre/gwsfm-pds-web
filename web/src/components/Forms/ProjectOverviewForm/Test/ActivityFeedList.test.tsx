@@ -1,23 +1,21 @@
-import React from 'react';
-import { mount } from 'enzyme';
+import React, { useState } from 'react';
+import { mount, shallow } from 'enzyme';
 import configureStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import ActivityFeedList from '../ActivityFeedList';
 import { findByTestAtrr } from '../../../../helpers/test-helper';
 import { IntlProvider } from 'react-intl';
 import translations from '../../../../Translations/translation';
-import { lookUpInitialState } from './ActivityFeedListTestData';
-import { initialState as projectOverviewState } from '../../../../store/ProjectOverviewForm/InitialState';
-
+import { lookUpInitialState, initialStatePO, InitialEmailsForUsersState } from './ActivityFeedListTestData';
+import { getProjectActivities } from '../../../../store/rootActions';
 const mockStore = configureStore([]);
 let store;
 let wrapper;
-
-const setUpStore = (projectOverviewState, lookUpInitialState) => {
+const setUpStore = (ProjectOverview, lookups, usernamesemails) => {
 	store = mockStore({
-		projectOverview: projectOverviewState,
-		lookup: lookUpInitialState,
-		userService: []
+		projectOverview: ProjectOverview,
+		lookup: lookups,
+		userService: usernamesemails
 	});
 };
 const mountComponent = (Props) => {
@@ -29,12 +27,14 @@ const mountComponent = (Props) => {
 		</Provider>
 	);
 };
+const realUseState = React.useState;
 describe('ActivityFeed list test cases', () => {
 	const Props = {
-		currencySymbol: '$'
+		currencySymbol: '$',
+		handleGetUserNamesForEmails: jest.fn()
 	};
 	beforeEach(() => {
-		setUpStore(projectOverviewState, lookUpInitialState);
+		setUpStore(initialStatePO, lookUpInitialState, InitialEmailsForUsersState);
 		mountComponent(Props);
 	});
 
@@ -44,5 +44,13 @@ describe('ActivityFeed list test cases', () => {
 
 	it('should match the snapshot', () => {
 		expect(wrapper).toMatchSnapshot();
+	});
+	it('should fill activityfeed grid with 2 rows', () => {
+		const section = findByTestAtrr(wrapper, 'activityFeedSection').first();
+		expect(section.find('.feed-block-content')).toHaveLength(2);
+	});
+	it('should sort the activityfeed before rendering', () => {
+		const section = findByTestAtrr(wrapper, 'activityFeedSection').first();
+		expect(section.find('.feed-block-content').first().find('span').first().text()).toEqual('User2');
 	});
 });

@@ -12,6 +12,7 @@ const initialState: IUserServiceState = {
 		groups: null,
 	},
 	userServiceData: [],
+	activityFeedUserServiceData: [],
 	error: null
 };
 
@@ -29,8 +30,17 @@ const getCurrentUserProfileSuccess = (oldState, action) => {
 		currentUserProfile: action.payload
 	});
 };
+const getNamesForEmailsActivitiesFeedSuccess = (oldState, action) => {
+	return updateObject(oldState,
+		{
+			erorr: null,
+			activityFeedUserServiceData: action.payload,
 
-
+		});
+}
+const getNamesForEmailsActivitiesFeedError = (oldState, action) => {
+	return updateObject(oldState, { error: action.payload });
+}
 const getUSerServiceError = (oldState, action) => {
 	return updateObject(oldState, {
 		error: action.payload
@@ -49,6 +59,10 @@ const userServiceReducer = (oldState = initialState, action) => {
 			return getUSerServiceError(oldState, action);
 		case ActionType.CURRENT_USER_PROFILE_FOR_EMAILSSERVICE_GET_SUCCESS:
 			return getCurrentUserProfileSuccess(oldState, action);
+		case ActionType.NAMES_FOR_EMAILSSERVICE_ACTIVITIES_FEED_GET_SUCCESS:
+			return getNamesForEmailsActivitiesFeedSuccess(oldState, action);
+		case ActionType.NAMES_FOR_EMAILSSERVICE_ACTIVITIES_FEED_GET_ERROR:
+			return getNamesForEmailsActivitiesFeedError(oldState, action);
 		default:
 			return oldState;
 	}

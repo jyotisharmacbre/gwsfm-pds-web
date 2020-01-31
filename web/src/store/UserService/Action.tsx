@@ -12,6 +12,12 @@ const getUserNamesForEmailsServiceSuccess = (response: any) => {
 		payload: response
 	};
 };
+const getNamesForEmailsActivitiesFeedSuccess = (response: any) => {
+	return {
+		type: ActionType.NAMES_FOR_EMAILSSERVICE_ACTIVITIES_FEED_GET_SUCCESS,
+		payload: response
+	};
+};
 
 const getUserProfileForEmailsServiceSuccess = (response: any) => {
 	return {
@@ -26,17 +32,23 @@ const getUserNamesForEmailsServiceError = (error: any) => {
 		payload: error
 	};
 };
+const getNamesForEmailsActivitiesFeedError = (error: any) => {
+	return {
+		type: ActionType.NAMES_FOR_EMAILSSERVICE_ACTIVITIES_FEED_GET_ERROR,
+		payload: error
+	};
+};
 
 export const getCurrentUserProfileForEmailsService = () => {
 	return (dispatch: Dispatch) => {
 		const email = getDisplayEmail();
 		getUsersForEmailsService([email])
-				.then((response) => {
-					dispatch(getUserProfileForEmailsServiceSuccess(response.data[0]));
-				})
-				.catch((error) => {
-					dispatch(getUserNamesForEmailsServiceError(error));
-				});
+			.then((response) => {
+				dispatch(getUserProfileForEmailsServiceSuccess(response.data[0]));
+			})
+			.catch((error) => {
+				dispatch(getUserNamesForEmailsServiceError(error));
+			});
 	}
 }
 
@@ -60,3 +72,16 @@ export const getUserNamesForEmailsService = (data: Array<string>) => {
 		}
 	};
 };
+
+export const getNamesForEmailActivitiesFeed = (data: Array<string>) => {
+	return (dispatch: Dispatch) => {
+		getUsersForEmailsService(data)
+			.then((response) => {
+				dispatch(getNamesForEmailsActivitiesFeedSuccess(response.data));
+			})
+			.catch((error) => {
+				dispatch(getNamesForEmailsActivitiesFeedError(error));
+			});
+	};
+};
+
