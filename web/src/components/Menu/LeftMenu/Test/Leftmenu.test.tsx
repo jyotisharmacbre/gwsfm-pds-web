@@ -111,7 +111,8 @@ describe('Left Menu Renders', () => {
 		const link = findByTestAtrr(wrapper, 'ProjectOverviewPath').first();
 		link.simulate('click'); 
 		expect( window.location.href ).toContain( 'ProjectOverview' );
-		expect( window.location.href ).toContain( '309ccd02-38ab-4643-1165-08d77e00a6ce' );
+		expect(window.location.href).toContain('309ccd02-38ab-4643-1165-08d77e00a6ce');
+
 	});
 	it('should not redirect to component if form is dirty', () => {
 		let prop={isProjectFormDirty:true};
