@@ -1,7 +1,6 @@
 import React, { Component, useEffect } from 'react';
-import { reset, change, getFormValues } from 'redux-form';
 import DiscountForm from '../components/Forms/Discount/DiscountForm';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import { IDiscountActivity } from '../store/DiscountForm/Types/IDiscountActivity';
 import EventType from '../enums/EventType';
 import Notify from '../enums/Notify';
@@ -21,10 +20,15 @@ import { insuranceRateHoc, IInsuranceRateHoc } from '../hoc/InsuranceRateHoc';
 import { IAdminDefaults } from '../store/Admin/Types/IAdminDefault';
 import { IProjectDetail } from '../store/CustomerEnquiryForm/Types/IProjectDetail';
 import normalizeClientDiscount from '../helpers/discount-helper';
+import { isDirty, reset,change, getFormValues } from 'redux-form';
+import { confirmAlert } from '../components/Popup/CustomModalPopup';
+import IReactIntl from '../Translations/IReactIntl';
 
 interface IProps {
 	match: match<{ projectId: string }>;
 	history: History;
+	isDiscountFormDirty:boolean;
+	intl:any;
 }
 
 interface IMapStateToProps {
@@ -54,9 +58,10 @@ interface IMapDispatchToProps {
 	getPreliminaryDetails: (projectId: string) => void;
 	getProjectParameters: (countryId: number) => void;
 	updateClientDiscount: (event) => void;
+	resetDiscountFormState:()=>void;
 }
 
-const Discounts: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & IInsuranceRateHoc> = (props) => {
+const Discounts: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & IInsuranceRateHoc&IReactIntl> = (props) => {
 	const paramProjectId = props.match.params.projectId;
 
 	useEffect(() => {
@@ -95,9 +100,27 @@ const Discounts: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & IIns
 		},
 		[props.project.countryId]
 	);
-	const handlePrevious = () => {
-		props.history.push(`/Subcontractor/${props.match.params.projectId}`);
-	};
+	const handleResetStateAndRedirection=(componentName:string)=>{
+		props.resetDiscountFormState();
+		props.history.push(`/${componentName}/${props.match.params.projectId}`);
+	}
+	const redirectionToComponent=()=>{
+		if(props.isDiscountFormDirty)
+		{
+			confirmAlert({
+				intl: props.intl,
+				titleKey: 'TITLE_CONFIRMATION',
+				contentKey: 'MESSAGE_DIRTY_CHECK',
+				handleConfirm: () => handleResetStateAndRedirection('Subcontractor')})
+		}
+		else{
+			handleResetStateAndRedirection('Subcontractor');
+		   }
+	
+	  }
+	  const handlePrevious = () => {
+		redirectionToComponent();
+	  };
 
 	const handleNext = (data: IDiscountActivity) => {
 		data.clientDiscount.discountId == ''
@@ -166,7 +189,8 @@ const mapStateToProps = (state: IState) => ({
 	otherCustomerName: state.project.form.otherContractName,
 	dynamicsContractCustomerData: state.dynamicData.dynamicsContract,
 	adminDefaultValues: state.admin.adminDefaultValues,
-	project: state.project.form
+	project: state.project.form,
+	isDiscountFormDirty:isDirty("DiscountForm")(state),
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -181,8 +205,9 @@ const mapDispatchToProps = (dispatch) => {
 		getSubContractor: (projectId: string) => dispatch(actions.getSubContractor(projectId)),
 		getPreliminaryDetails: (projectId: string) => dispatch(actions.getPreliminaryDetails(projectId)),
 		getProjectParameters: (countryId: number) => dispatch(actions.getProjectParameters(countryId)),
-		updateClientDiscount: (event, value) => updateClientDiscount(event, value, dispatch)
+		updateClientDiscount: (event, value) => updateClientDiscount(event, value, dispatch),
+		resetDiscountFormState:()=>dispatch(reset("DiscountForm"))
 	};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(insuranceRateHoc(Discounts));
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(insuranceRateHoc(Discounts)));

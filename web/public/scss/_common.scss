@@ -618,3 +618,7 @@ td {
         @include transform (rotate(360deg));
     } 
     }
+    .cursorPntr
+{
+    cursor: pointer!important;
+}
