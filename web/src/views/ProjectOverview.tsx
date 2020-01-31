@@ -41,6 +41,9 @@ import { IAdminDefaults } from '../store/Admin/Types/IAdminDefault';
 import ProjectStatus from '../enums/ProjectStatus';
 import { ICountryHoc, countryHoc } from '../hoc/CountryHoc';
 import { ICountry } from '../store/Lookups/Types/ICountry';
+import { injectIntl } from 'react-intl';
+import { reset, isDirty } from 'redux-form';
+import { confirmAlert } from '../components/Popup/CustomModalPopup';
 
 const tableHeaders: IGeneralTableHeaderProps[] = [
 	{ heading: 'End Client Name', subHeading: 'ING' },
@@ -81,6 +84,8 @@ interface IMapStateToProps {
 	userNamesForEmails: Array<IUserServiceData>;
 	countries: Array<ICountry> | null;
 	adminDefaultValues: Array<IAdminDefaults>;
+	isProjectOverviewFormDirty:boolean;
+	intl:any;
 }
 interface IMapDispatchToProps {
 	getProjectStatus: () => void;
@@ -102,10 +107,12 @@ interface IMapDispatchToProps {
 	getLookups: () => void;
 	setupPojectApprovalsInitialData: (lookupdata, currencySymbol, projectId) => void;
 	getProjectActivities: (projectId: string) => void;
-	handleGetUserNamesForEmails: (emails: Array<string>) => void;
+	handleGetUserNamesForEmails: (emails: Array<string>) => Array<IUserServiceData>;
+	getUserNamesForEmails: (emails: Array<string>) => Array<IUserServiceData>;
 	postComment: (projectId: string, comment: string, success, failure) => void;
 	getProjectParameters: (countryId: number) => void;
 	getAllCountries: () => void;
+	resetProjectOverviewFormState:()=>void;
 }
 interface IProps {
 	projectId: string;
@@ -116,9 +123,9 @@ const ProjectOverview: React.FC<
 	IProps & IMapStateToProps & IMapDispatchToProps & ICurrencyHoc & ICountryHoc & IInsuranceRateHoc
 > = (props) => {
 	const projectId = props.match.params.projectId;
-	const [ customerName, setCustomerName ] = useState<string>('');
-	const [ projectManager, setProjectManager ] = useState<string>('');
-	const [ getProjectManagerName, setGetProjectManagerName ] = useState<boolean>(false);
+	const [customerName, setCustomerName] = useState<string>('');
+	const [projectManager, setProjectManager] = useState<string>('');
+	const [getProjectManagerName, setGetProjectManagerName] = useState<boolean>(false);
 	useEffect(() => {
 		window.scrollTo(0, 0);
 		props.getAllCurrencies();
@@ -148,7 +155,7 @@ const ProjectOverview: React.FC<
 				props.resetProjectOverviewState();
 			}
 		},
-		[ props.notify, props.event ]
+		[props.notify, props.event]
 	);
 
 	useEffect(
@@ -158,13 +165,33 @@ const ProjectOverview: React.FC<
 				props.setAdminDefaultValues(props.project.countryId);
 			}
 		},
-		[ props.project.countryId ]
+		[props.project.countryId]
 	);
-/* istanbul ignore next */
-	const handlePrevious = () => {
-		props.history.push(`/Project/${props.match.params.projectId}`);
-	};
+	/* istanbul ignore next */
+	const handleResetStateAndRedirection=(componentName:string)=>{
+		props.resetProjectOverviewFormState();
+		props.history.push(`/${componentName}/${props.match.params.projectId}`);
 
+	}
+	/* istanbul ignore next */
+	const redirectionToComponent=()=>{
+		if(props.isProjectOverviewFormDirty)
+		{
+			confirmAlert({
+				intl: props.intl,
+				titleKey: 'TITLE_CONFIRMATION',
+				contentKey: 'MESSAGE_DIRTY_CHECK',
+				handleConfirm: () => handleResetStateAndRedirection("Project")})
+		}
+		else{
+			handleResetStateAndRedirection("Project");
+		   }
+	
+	  }
+	  /* istanbul ignore next */
+	const handlePrevious = () => {
+		redirectionToComponent();
+	  };
 	useEffect(
 		() => {
 			if (
@@ -180,14 +207,14 @@ const ProjectOverview: React.FC<
 				);
 			}
 		},
-		[ props.lookups, props.project.currencyId, props.currencies ]
+		[props.lookups, props.project.currencyId, props.currencies]
 	);
 
 	useEffect(
 		() => {
 			if (props.form.projectApprovals.length > 0) props.getAdditionalDetails(props.match.params.projectId);
 		},
-		[ props.initialStateSetForProjectApprovals ]
+		[props.initialStateSetForProjectApprovals]
 	);
 	useEffect(
 		() => {
@@ -206,17 +233,17 @@ const ProjectOverview: React.FC<
 						});
 			}
 		},
-		[ props.enquiryOverview ]
+		[props.enquiryOverview]
 	);
 
 	useEffect(
 		() => {
 			if (props.enquiryOverview.projectManager) {
 				setGetProjectManagerName(true);
-				props.handleGetUserNamesForEmails([ props.enquiryOverview.projectManager ]);
+				props.handleGetUserNamesForEmails([props.enquiryOverview.projectManager]);
 			}
 		},
-		[ props.enquiryOverview ]
+		[props.enquiryOverview]
 	);
 
 	useEffect(
@@ -226,7 +253,7 @@ const ProjectOverview: React.FC<
 				if (filter) setProjectManager(displayUserName(filter));
 			}
 		},
-		[ props.userNamesForEmails, getProjectManagerName]
+		[props.userNamesForEmails, getProjectManagerName]
 	);
 /* istanbul ignore next */
 	const getListOfContractSuccess = (response) => {
@@ -234,7 +261,8 @@ const ProjectOverview: React.FC<
 			getFilterElementFromArray(response, 'contractId', props.enquiryOverview.contractorId, 'customerName')
 		);
 	};
-	const failure = (error) => {};
+	/* istanbul ignore next */
+	const failure = (error) => { };
 	/* istanbul ignore next */
 	const handleNext = (data: IProjectOverviewDetails) => {
 		data.projectAdditionalDetail.projectAddDetailId == ''
@@ -339,7 +367,7 @@ const ProjectOverview: React.FC<
 								],
 								content: props.project.scope,
 								editActionClick: () => {
-									props.history.push(`/Project/${props.match.params.projectId}`);
+									redirectionToComponent();
 								}
 							}}
 						/>
@@ -357,6 +385,7 @@ const ProjectOverview: React.FC<
 							discountState={props.discountState}
 							currencySymbol={props.currencySymbol}
 							handleGetUserNamesForEmails={props.handleGetUserNamesForEmails}
+							getUserNamesForEmails={props.getUserNamesForEmails}
 							postComment={props.postComment}
 							getProjectActivities={props.getProjectActivities}
 							countryCode={props.countryCode}
@@ -386,7 +415,8 @@ const mapStateToProps = (state: IState) => ({
 	initialStateSetForProjectApprovals: state.projectOverview.initialStateSetForProjectApprovals,
 	userNamesForEmails: state.userService.userServiceData,
 	adminDefaultValues: state.admin.adminDefaultValues,
-	countries: state.lookup.countries
+	countries: state.lookup.countries,
+	isProjectOverviewFormDirty:isDirty("projectOverviewForm")(state)
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -410,10 +440,12 @@ const mapDispatchToProps = (dispatch) => {
 		getLookups: () => dispatch(actions.getLookupsByLookupItems(lookupKeyList)),
 		getProjectActivities: (projectId) => dispatch(actions.getProjectActivities(projectId)),
 		handleGetUserNamesForEmails: (emails: Array<string>) => dispatch(actions.getUserNamesForEmailsService(emails)),
+		getUserNamesForEmails: (emails: Array<string>) => dispatch(actions.getNamesForEmailActivitiesFeed(emails)),
 		postComment: (projectId: string, comment, success, failure) => actions.postComments(projectId, comment, success, failure),
 		getProjectParameters: (countryId: number) => dispatch(actions.getProjectParameters(countryId)),
-		getAllCountries: () => dispatch(actions.getAllContries())
+		getAllCountries: () => dispatch(actions.getAllContries()),
+		resetProjectOverviewFormState:()=>dispatch(reset("projectOverviewForm"))
 	};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(currencyHoc(countryHoc(insuranceRateHoc(ProjectOverview))));
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(currencyHoc(countryHoc(insuranceRateHoc(ProjectOverview)))));

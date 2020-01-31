@@ -12,6 +12,12 @@ export const getUserNamesForEmailsServiceSuccess = (response: any) => {
 		payload: response
 	};
 };
+const getNamesForEmailsActivitiesFeedSuccess = (response: any) => {
+	return {
+		type: ActionType.NAMES_FOR_EMAILSSERVICE_ACTIVITIES_FEED_GET_SUCCESS,
+		payload: response
+	};
+};
 
 export const getUserProfileForEmailsServiceSuccess = (response: any) => {
 	return {
@@ -23,6 +29,12 @@ export const getUserProfileForEmailsServiceSuccess = (response: any) => {
 export const getUserNamesForEmailsServiceError = (error: any) => {
 	return {
 		type: ActionType.USER_NAMES_FOR_EMAILS_SERVICE_GET_ERROR,
+		payload: error
+	};
+};
+const getNamesForEmailsActivitiesFeedError = (error: any) => {
+	return {
+		type: ActionType.NAMES_FOR_EMAILSSERVICE_ACTIVITIES_FEED_GET_ERROR,
 		payload: error
 	};
 };
@@ -64,3 +76,16 @@ export const getUserNamesForEmailsService = (data: Array<string>) => {
 		}
 	};
 };
+
+export const getNamesForEmailActivitiesFeed = (data: Array<string>) => {
+	return (dispatch: Dispatch) => {
+		getUsersForEmailsService(data)
+			.then((response) => {
+				dispatch(getNamesForEmailsActivitiesFeedSuccess(response.data));
+			})
+			.catch((error) => {
+				dispatch(getNamesForEmailsActivitiesFeedError(error));
+			});
+	};
+};
+

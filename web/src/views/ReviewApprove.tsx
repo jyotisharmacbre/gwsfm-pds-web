@@ -63,7 +63,8 @@ interface IMapDispatchToProps {
 	getProjectDetail: (projectId: string) => void;
 	getAdditionalDetails: (projectId: string) => void;
 	getProjectStatus: () => void;
-	handleGetUserNamesForEmails: (emails: Array<string>) => void;
+	handleGetUserNamesForEmails: (emails: Array<string>) => Array<IUserServiceData>;
+	getUserNamesForEmails: (emails: Array<string>) => Array<IUserServiceData>;
 	getLookups: () => void;
 	getProjectActivities: (projectId: string) => void;
 	queryAdd: (projectId: string, formValue: string, event: EventType) => void;
@@ -222,7 +223,7 @@ const ReviewApprove: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & 
 								<ActivityFeedList
 									data-test="activity-feed-list"
 									currencySymbol={currencySymbol}
-									handleGetUserNamesForEmails={props.handleGetUserNamesForEmails}
+									handleGetUserNamesForEmails={props.getUserNamesForEmails}
 								/>
 							</div>
 						</div>
@@ -268,6 +269,7 @@ const mapDispatchToProps = (dispatch) => {
 		getProjectDetail: (projectId) => dispatch(actions.getProjectDetail(projectId)),
 		getAdditionalDetails: (projectId) => dispatch(actions.getAdditionalDetails(projectId)),
 		handleGetUserNamesForEmails: (emails: Array<string>) => dispatch(actions.getUserNamesForEmailsService(emails)),
+		getUserNamesForEmails: (emails: Array<string>) => dispatch(actions.getNamesForEmailActivitiesFeed(emails)),
 		getLookups: () => dispatch(actions.getLookupsByLookupItems(lookupKeyList)),
 		getProjectActivities: (projectId) => dispatch(actions.getProjectActivities(projectId)),
 		getProjectParameters: (countryId: number) => dispatch(actions.getProjectParameters(countryId)),

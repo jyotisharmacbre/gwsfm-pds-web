@@ -56,7 +56,7 @@ export {
 	getListOfBusinessUnits
 } from './DynamicsData/Action';
 
-export { getUserNamesForEmailsService, getCurrentUserProfileForEmailsService } from './UserService/Action';
+export { getUserNamesForEmailsService, getCurrentUserProfileForEmailsService, getNamesForEmailActivitiesFeed } from './UserService/Action';
 
 export {
 	changeProjectStatusToBidLost,
