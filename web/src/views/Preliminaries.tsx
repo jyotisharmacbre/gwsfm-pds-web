@@ -4,15 +4,15 @@ import { IState } from '../store/state';
 import { IPreliminariesComponentDetails } from '../store/Preliminaries/Types/IPreliminariesComponentDetails';
 import * as actions from '../store/rootActions';
 import { IPreliminaries } from '../store/Preliminaries/Types/IPreliminaries';
-import { convertIntoDatabaseModel } from '../store/Preliminaries/DataWrapper';
+import { convertIntoDatabaseModel, bindUserData } from '../store/Preliminaries/DataWrapper';
 import { toast } from 'react-toastify';
 import Notify from '../enums/Notify';
 import { ILookup } from '../store/Lookups/Types/ILookup';
 import { ICurrency } from '../store/Lookups/Types/ICurrency';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import EventType from '../enums/EventType';
 import { getPropertyName, getFilterElementFromArray, getClassNameForProjectStatus } from '../helpers/utility-helper';
-import { formValueSelector } from 'redux-form';
+import { formValueSelector, isDirty, reset } from 'redux-form';
 import Currency from '../store/Lookups/InitialState/Currency';
 import { History } from 'history';
 import { ISubContractorActivity } from '../store/SubContractor/Types/ISubContractorActivity';
@@ -25,6 +25,8 @@ import { IAdminDefaults } from '../store/Admin/Types/IAdminDefault';
 import { ICountryHoc, countryHoc } from '../hoc/CountryHoc';
 import { ICountry } from '../store/Lookups/Types/ICountry';
 import { IProjectDetail } from '../store/CustomerEnquiryForm/Types/IProjectDetail';
+import { confirmAlert } from '../components/Popup/CustomModalPopup';
+import IReactIntl from '../Translations/IReactIntl';
 
 interface IMapStateToProps {
 	preliminaryDetails: Array<IPreliminariesComponentDetails>;
@@ -42,6 +44,8 @@ interface IMapStateToProps {
 	countries: Array<ICountry> | null;
 	adminDefaultValues: Array<IAdminDefaults>;
 	project: IProjectDetail;
+	isPreliminaryFormDirty:boolean;
+	intl:any;
 }
 interface IMapDispatchToProps {
 	preliminaryAdd: (preliminaryDetails: Array<IPreliminaries>, event: EventType) => void;
@@ -55,10 +59,12 @@ interface IMapDispatchToProps {
 	getDiscountData: (projectId: string) => void;
 	getProjectParameters: (countryId: number) => void;
 	getAllCountries: () => void;
+	resetPreliminaryFormState:()=>void;
 	resetPreliminaryState:()=>void;
 }
 
-const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps & ICountryHoc & IInsuranceRateHoc> = (props) => {
+const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps & ICountryHoc & IInsuranceRateHoc&IReactIntl> = (props) => {
+	
 	const CurrencyObj = new Currency();
 	const [ currencySymbol, setCurrencySymbol ] = useState<string>('');
 	let componentIds: Array<string> = [];
@@ -67,7 +73,6 @@ const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps & ICountryH
 		sessionStorage.getItem('lookupData') != null &&
 		sessionStorage.getItem('lookupData') != undefined &&
 		sessionStorage.getItem('lookupData') != '';
-
 	useEffect(() => {
 		window.scrollTo(0, 0);
 		props.getProjectDetail(props.match.params.projectId);
@@ -84,7 +89,6 @@ const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps & ICountryH
 
 	useEffect(
 		() => {
-			window.scrollTo(0, 0);
 			if (props.notify == Notify.success) {
 				toast.success(formatMessage('MESSAGE_SUCCESSFUL'));
 				if (props.event == EventType.next) {
@@ -130,7 +134,24 @@ const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps & ICountryH
 	}, [props.lookupData]);
 
 	const [ isExpand, handleExpandAllEvent ] = useState(false);
-
+	const handleResetStateAndRedirection=(componentName:string)=>{
+		props.resetPreliminaryFormState();
+		props.history.push(`/${componentName}/${props.match.params.projectId}`);
+	}
+	const redirectionToComponent=()=>{
+		if(props.isPreliminaryFormDirty)
+		{
+			confirmAlert({
+				intl: props.intl,
+				titleKey: 'TITLE_CONFIRMATION',
+				contentKey: 'MESSAGE_DIRTY_CHECK',
+				handleConfirm: () => handleResetStateAndRedirection("JustificationAuthorisation")})
+		}
+		else{
+			handleResetStateAndRedirection("JustificationAuthorisation");
+		   }
+		
+	  }
 	const handleToggle = (id: string) => {
 		componentIds = componentIdList;
 		var element: any = document.getElementById('collapse_' + id);
@@ -150,6 +171,9 @@ const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps & ICountryH
 			setComponentId(componentData);
 		}
 	};
+	const handlePrevious = () => {
+		redirectionToComponent();
+	  };
 	const handleSaveData = (saveAll: boolean, event: EventType, preliminaryDetails: any, index: number) => {
 		var editData: Array<IPreliminaries> = [];
 		var saveData: Array<IPreliminaries> = [];
@@ -178,10 +202,7 @@ const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps & ICountryH
 			}
 		}
 	};
-	const handlePrevious = () => {
-		props.history.push(`/JustificationAuthorisation/${props.match.params.projectId}`);
-	};
-
+	
 	return (
 		<div className="container-fluid">
 			<div data-test="pre_row_status" className={`${getClassNameForProjectStatus(props.status)} row`}>
@@ -292,7 +313,8 @@ const mapStateToProps = (state: IState) => {
 		discountState: state.discount.form,
 		adminDefaultValues: state.admin.adminDefaultValues,
 		countries: state.lookup.countries,
-		project: state.project.form
+		project: state.project.form,
+		isPreliminaryFormDirty:isDirty("PreliminaryForm")(state),
 	};
 };
 
@@ -308,8 +330,9 @@ const mapDispatchToProps = (dispatch) => {
 		getDiscountData: (projectId: string) => dispatch(actions.getDiscountData(projectId)),
 		getProjectParameters: (countryId: number) => dispatch(actions.getProjectParameters(countryId)),
 		getAllCountries: () => dispatch(actions.getAllContries()),
+		resetPreliminaryFormState:()=>dispatch(reset("PreliminaryForm")),
 		resetPreliminaryState:()=>dispatch(actions.resetPreliminaryState())
 	};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(countryHoc(insuranceRateHoc(Preliminaries)));
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(countryHoc(insuranceRateHoc(Preliminaries))));

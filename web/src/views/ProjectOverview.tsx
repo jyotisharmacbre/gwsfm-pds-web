@@ -41,6 +41,9 @@ import { IAdminDefaults } from '../store/Admin/Types/IAdminDefault';
 import ProjectStatus from '../enums/ProjectStatus';
 import { ICountryHoc, countryHoc } from '../hoc/CountryHoc';
 import { ICountry } from '../store/Lookups/Types/ICountry';
+import { injectIntl } from 'react-intl';
+import { reset, isDirty } from 'redux-form';
+import { confirmAlert } from '../components/Popup/CustomModalPopup';
 
 const tableHeaders: IGeneralTableHeaderProps[] = [
 	{ heading: 'End Client Name', subHeading: 'ING' },
@@ -81,6 +84,8 @@ interface IMapStateToProps {
 	userNamesForEmails: Array<IUserServiceData>;
 	countries: Array<ICountry> | null;
 	adminDefaultValues: Array<IAdminDefaults>;
+	isProjectOverviewFormDirty:boolean;
+	intl:any;
 }
 interface IMapDispatchToProps {
 	getProjectStatus: () => void;
@@ -107,6 +112,7 @@ interface IMapDispatchToProps {
 	postComment: (projectId: string, comment: string, success, failure) => void;
 	getProjectParameters: (countryId: number) => void;
 	getAllCountries: () => void;
+	resetProjectOverviewFormState:()=>void;
 }
 interface IProps {
 	projectId: string;
@@ -161,11 +167,28 @@ const ProjectOverview: React.FC<
 		},
 		[props.project.countryId]
 	);
+	const handleResetStateAndRedirection=(componentName:string)=>{
+		props.resetProjectOverviewFormState();
+		props.history.push(`/${componentName}/${props.match.params.projectId}`);
 
+	}
+	const redirectionToComponent=()=>{
+		if(props.isProjectOverviewFormDirty)
+		{
+			confirmAlert({
+				intl: props.intl,
+				titleKey: 'TITLE_CONFIRMATION',
+				contentKey: 'MESSAGE_DIRTY_CHECK',
+				handleConfirm: () => handleResetStateAndRedirection("Project")})
+		}
+		else{
+			handleResetStateAndRedirection("Project");
+		   }
+	
+	  }
 	const handlePrevious = () => {
-		props.history.push(`/Project/${props.match.params.projectId}`);
-	};
-
+		redirectionToComponent();
+	  };
 	useEffect(
 		() => {
 			if (
@@ -334,7 +357,7 @@ const ProjectOverview: React.FC<
 								],
 								content: props.project.scope,
 								editActionClick: () => {
-									props.history.push(`/Project/${props.match.params.projectId}`);
+									redirectionToComponent();
 								}
 							}}
 						/>
@@ -382,7 +405,8 @@ const mapStateToProps = (state: IState) => ({
 	initialStateSetForProjectApprovals: state.projectOverview.initialStateSetForProjectApprovals,
 	userNamesForEmails: state.userService.userServiceData,
 	adminDefaultValues: state.admin.adminDefaultValues,
-	countries: state.lookup.countries
+	countries: state.lookup.countries,
+	isProjectOverviewFormDirty:isDirty("projectOverviewForm")(state)
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -409,8 +433,9 @@ const mapDispatchToProps = (dispatch) => {
 		getUserNamesForEmails: (emails: Array<string>) => dispatch(actions.getNamesForEmailActivitiesFeed(emails)),
 		postComment: (projectId: string, comment, success, failure) => actions.postComments(projectId, comment, success, failure),
 		getProjectParameters: (countryId: number) => dispatch(actions.getProjectParameters(countryId)),
-		getAllCountries: () => dispatch(actions.getAllContries())
+		getAllCountries: () => dispatch(actions.getAllContries()),
+		resetProjectOverviewFormState:()=>dispatch(reset("projectOverviewForm"))
 	};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(currencyHoc(countryHoc(insuranceRateHoc(ProjectOverview))));
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(currencyHoc(countryHoc(insuranceRateHoc(ProjectOverview)))));
