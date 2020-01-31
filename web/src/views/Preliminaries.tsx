@@ -159,7 +159,7 @@ const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps & ICountryH
 			? convertIntoDatabaseModel(preliminaryDetails.preliminaryDetails, props.match.params.projectId)
 			: convertIntoDatabaseModel(preData, props.match.params.projectId);
 		editData = preliminariesData.filter((data) => {
-			return data.TotalCost > 0 && data.PreliminaryId != '';
+			return data.PreliminaryId != '';
 		});
 		saveData = preliminariesData.filter((data) => {
 			return data.TotalCost > 0 && data.PreliminaryId == '';
