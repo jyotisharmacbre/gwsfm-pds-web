@@ -63,7 +63,8 @@ interface IMapDispatchToProps {
 	getProjectDetail: (projectId: string) => void;
 	getAdditionalDetails: (projectId: string) => void;
 	getProjectStatus: () => void;
-	handleGetUserNamesForEmails: (emails: Array<string>) => void;
+	handleGetUserNamesForEmails: (emails: Array<string>) => Array<IUserServiceData>;
+	getUserNamesForEmails: (emails: Array<string>) => Array<IUserServiceData>;
 	getLookups: () => void;
 	getProjectActivities: (projectId: string) => void;
 	queryAdd: (projectId: string, formValue: string, event: EventType) => void;
@@ -157,8 +158,7 @@ const ReviewApprove: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & 
 	const actionEditBtnOverview = () => {
 		props.history.push(`/ProjectOverview/${props.match.params.projectId}`);
 	}
-	const handleQueryCancel=() =>
-	{setShowQueryPopup(false);}
+	const handleQueryCancel = () => { setShowQueryPopup(false); }
 	return (
 		<div className="container-fluid" data-test="review-approve-component">
 			{showQueryPopup && (
@@ -180,17 +180,17 @@ const ReviewApprove: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & 
 							</h1>
 						</div>
 						<ProjectSummary
-						oneditclick={actionEditBtn}
+							oneditclick={actionEditBtn}
 							project={props.project}
 							lookUpData={props.projectStatus}
 							currencySymbol={currencySymbol}
 							userNamesForEmails={props.userNamesForEmails}
 							handleGetUserNamesForEmails={props.handleGetUserNamesForEmails}
 							listOfDivisions={props.getListOfDivisions}
-							listOfBusinessUnits ={props.getListOfBusinessUnit}
+							listOfBusinessUnits={props.getListOfBusinessUnit}
 						/>
 						<ProjectOverviewSummary
-						oneditOverview={actionEditBtnOverview}
+							oneditOverview={actionEditBtnOverview}
 							projectOverview={props.projectOverview}
 							lookUpData={props.projectStatus}
 						/>
@@ -224,7 +224,7 @@ const ReviewApprove: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & 
 								<ActivityFeedList
 									data-test="activity-feed-list"
 									currencySymbol={currencySymbol}
-									handleGetUserNamesForEmails={props.handleGetUserNamesForEmails}
+									handleGetUserNamesForEmails={props.getUserNamesForEmails}
 								/>
 							</div>
 						</div>
@@ -257,7 +257,7 @@ const mapStateToProps = (state: IState) => ({
 	adminDefaultValues: state.admin.adminDefaultValues,
 	countries: state.lookup.countries,
 	getListOfDivisions: state.dynamicData.dynamicsListOfDivision,
-	getListOfBusinessUnit:state.dynamicData.dynamicsListOfBusinessUnits
+	getListOfBusinessUnit: state.dynamicData.dynamicsListOfBusinessUnits
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -270,12 +270,13 @@ const mapDispatchToProps = (dispatch) => {
 		getProjectDetail: (projectId) => dispatch(actions.getProjectDetail(projectId)),
 		getAdditionalDetails: (projectId) => dispatch(actions.getAdditionalDetails(projectId)),
 		handleGetUserNamesForEmails: (emails: Array<string>) => dispatch(actions.getUserNamesForEmailsService(emails)),
+		getUserNamesForEmails: (emails: Array<string>) => dispatch(actions.getNamesForEmailActivitiesFeed(emails)),
 		getLookups: () => dispatch(actions.getLookupsByLookupItems(lookupKeyList)),
 		getProjectActivities: (projectId) => dispatch(actions.getProjectActivities(projectId)),
 		getProjectParameters: (countryId: number) => dispatch(actions.getProjectParameters(countryId)),
 		getAllCountries: () => dispatch(actions.getAllContries()),
 		getDynamicsListOfDivision: () => dispatch(actions.getListOfDivision()),
-		getListOfBusinessUnits:() =>dispatch(actions.getListOfBusinessUnits())
+		getListOfBusinessUnits: () => dispatch(actions.getListOfBusinessUnits())
 	};
 };
 

@@ -102,7 +102,8 @@ interface IMapDispatchToProps {
 	getLookups: () => void;
 	setupPojectApprovalsInitialData: (lookupdata, currencySymbol, projectId) => void;
 	getProjectActivities: (projectId: string) => void;
-	handleGetUserNamesForEmails: (emails: Array<string>) => void;
+	handleGetUserNamesForEmails: (emails: Array<string>) => Array<IUserServiceData>;
+	getUserNamesForEmails: (emails: Array<string>) => Array<IUserServiceData>;
 	postComment: (projectId: string, comment: string, success, failure) => void;
 	getProjectParameters: (countryId: number) => void;
 	getAllCountries: () => void;
@@ -116,9 +117,9 @@ const ProjectOverview: React.FC<
 	IProps & IMapStateToProps & IMapDispatchToProps & ICurrencyHoc & ICountryHoc & IInsuranceRateHoc
 > = (props) => {
 	const projectId = props.match.params.projectId;
-	const [ customerName, setCustomerName ] = useState<string>('');
-	const [ projectManager, setProjectManager ] = useState<string>('');
-	const [ getProjectManagerName, setGetProjectManagerName ] = useState<boolean>(false);
+	const [customerName, setCustomerName] = useState<string>('');
+	const [projectManager, setProjectManager] = useState<string>('');
+	const [getProjectManagerName, setGetProjectManagerName] = useState<boolean>(false);
 	useEffect(() => {
 		window.scrollTo(0, 0);
 		props.getAllCurrencies();
@@ -148,7 +149,7 @@ const ProjectOverview: React.FC<
 				props.resetProjectOverviewState();
 			}
 		},
-		[ props.notify, props.event ]
+		[props.notify, props.event]
 	);
 
 	useEffect(
@@ -158,7 +159,7 @@ const ProjectOverview: React.FC<
 				props.setAdminDefaultValues(props.project.countryId);
 			}
 		},
-		[ props.project.countryId ]
+		[props.project.countryId]
 	);
 
 	const handlePrevious = () => {
@@ -180,14 +181,14 @@ const ProjectOverview: React.FC<
 				);
 			}
 		},
-		[ props.lookups, props.project.currencyId, props.currencies ]
+		[props.lookups, props.project.currencyId, props.currencies]
 	);
 
 	useEffect(
 		() => {
 			if (props.form.projectApprovals.length > 0) props.getAdditionalDetails(props.match.params.projectId);
 		},
-		[ props.initialStateSetForProjectApprovals ]
+		[props.initialStateSetForProjectApprovals]
 	);
 	useEffect(
 		() => {
@@ -205,17 +206,17 @@ const ProjectOverview: React.FC<
 						});
 			}
 		},
-		[ props.enquiryOverview ]
+		[props.enquiryOverview]
 	);
 
 	useEffect(
 		() => {
 			if (props.enquiryOverview.projectManager) {
 				setGetProjectManagerName(true);
-				props.handleGetUserNamesForEmails([ props.enquiryOverview.projectManager ]);
+				props.handleGetUserNamesForEmails([props.enquiryOverview.projectManager]);
 			}
 		},
-		[ props.enquiryOverview ]
+		[props.enquiryOverview]
 	);
 
 	useEffect(
@@ -225,7 +226,7 @@ const ProjectOverview: React.FC<
 				if (filter) setProjectManager(displayUserName(filter));
 			}
 		},
-		[ props.userNamesForEmails, getProjectManagerName]
+		[props.userNamesForEmails, getProjectManagerName]
 	);
 
 	const getListOfContractSuccess = (response) => {
@@ -233,7 +234,7 @@ const ProjectOverview: React.FC<
 			getFilterElementFromArray(response, 'contractId', props.enquiryOverview.contractorId, 'customerName')
 		);
 	};
-	const failure = (error) => {};
+	const failure = (error) => { };
 	const handleNext = (data: IProjectOverviewDetails) => {
 		data.projectAdditionalDetail.projectAddDetailId == ''
 			? props.projectOverviewFormAdd(props.match.params.projectId, data, EventType.next)
@@ -351,6 +352,7 @@ const ProjectOverview: React.FC<
 							discountState={props.discountState}
 							currencySymbol={props.currencySymbol}
 							handleGetUserNamesForEmails={props.handleGetUserNamesForEmails}
+							getUserNamesForEmails={props.getUserNamesForEmails}
 							postComment={props.postComment}
 							getProjectActivities={props.getProjectActivities}
 							countryCode={props.countryCode}
@@ -404,6 +406,7 @@ const mapDispatchToProps = (dispatch) => {
 		getLookups: () => dispatch(actions.getLookupsByLookupItems(lookupKeyList)),
 		getProjectActivities: (projectId) => dispatch(actions.getProjectActivities(projectId)),
 		handleGetUserNamesForEmails: (emails: Array<string>) => dispatch(actions.getUserNamesForEmailsService(emails)),
+		getUserNamesForEmails: (emails: Array<string>) => dispatch(actions.getNamesForEmailActivitiesFeed(emails)),
 		postComment: (projectId: string, comment, success, failure) => actions.postComments(projectId, comment, success, failure),
 		getProjectParameters: (countryId: number) => dispatch(actions.getProjectParameters(countryId)),
 		getAllCountries: () => dispatch(actions.getAllContries())
