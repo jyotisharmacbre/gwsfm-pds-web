@@ -182,9 +182,12 @@ const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps & ICountryH
 		var preliminariesData: Array<IPreliminaries> = saveAll
 			? convertIntoDatabaseModel(preliminaryDetails.preliminaryDetails, props.match.params.projectId)
 			: convertIntoDatabaseModel(preData, props.match.params.projectId);
+		
+		//user can edit the data if already save entry is there in database. without checking any parameters	
 		editData = preliminariesData.filter((data) => {
-			return data.TotalCost > 0 && data.PreliminaryId != '';
+			return data.PreliminaryId != '';
 		});
+		// user can save the data only if there is total cost value greater than zero as discussed with ram
 		saveData = preliminariesData.filter((data) => {
 			return data.TotalCost > 0 && data.PreliminaryId == '';
 		});
