@@ -117,10 +117,12 @@ const Subcontractor: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & 
 		},
 		[ props.project.countryId ]
 	);
+	/* istanbul ignore next */
 	const handleResetStateAndRedirection=(componentName:string)=>{
 		props.resetSubcontractorFormState();
 		props.history.push(`/${componentName}/${props.match.params.projectId}`);
 	}
+	/* istanbul ignore next */
 	const redirectionToComponent=()=>{
 		if(props.isSubcontractorFormDirty)
 		{
@@ -134,9 +136,11 @@ const Subcontractor: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & 
 			handleResetStateAndRedirection('preliminaries');
 		   }
 	  }
+	  /* istanbul ignore next */
 	  const handlePrevious = () => {
 		redirectionToComponent();
 	  };
+	  /* istanbul ignore next */
 	const handleEvent = (data: ISubContractor, event: EventType) => {
 		paramProjectId = props.match.params.projectId;
 		props.subContractorState[0].subContrActivityId == ''

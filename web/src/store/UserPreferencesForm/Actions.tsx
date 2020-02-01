@@ -13,7 +13,7 @@ let config = {
   }
 };
 
-const userPreferencesFormAddSuccess = (
+export const userPreferencesFormAddSuccess = (
   response: IUserPreferences,
   event: EventType
 ) => {
@@ -24,7 +24,7 @@ const userPreferencesFormAddSuccess = (
   };
 };
 
-const userPreferencesFormEditSuccess = (response: any, event: EventType) => {
+export const userPreferencesFormEditSuccess = (response: any, event: EventType) => {
   return {
     type: ActionType.USER_PREFERENCES_FORM_EDIT_SUCCESS,
     payload: response,
@@ -32,14 +32,14 @@ const userPreferencesFormEditSuccess = (response: any, event: EventType) => {
   };
 };
 
-const userPreferencesGetSuccess = (response: any) => {
+export const userPreferencesGetSuccess = (response: any) => {
   return {
     type: ActionType.USER_PREFERENCES_GET_SUCCESS,
     payload: response
   };
 };
 
-const userPreferencesFormError = (error: string) => {
+export const userPreferencesFormError = (error: string) => {
   return {
     type: ActionType.USER_PREFERENCES_FORM_ERROR,
     payload: error
@@ -55,9 +55,11 @@ export const userPreferencesFormAdd = (
       axios.baseAPI
         .post('/api/Users/addUserPreferences', data, config)
         .then(response => {         
+          /* istanbul ignore next */ 
           dispatch(userPreferencesFormAddSuccess(response.data, event));
         })
         .catch(error => {
+          /* istanbul ignore next */ 
           dispatch(userPreferencesFormError(error));
         });
     };
@@ -74,10 +76,11 @@ export const userPreferencesFormEdit = (
       axios.baseAPI
         .put('/api/Users/updateUserPreferences', data, config)
         .then(response => {
-          userPreferencesGet();
+          /* istanbul ignore next */ 
           dispatch(userPreferencesFormEditSuccess(response.data, event));
         })
         .catch(error => {
+          /* istanbul ignore next */
           dispatch(userPreferencesFormError(error));
         });
     };
@@ -89,8 +92,10 @@ export const userPreferencesGet = () => {
     {
       try {
         let res = await getUserPreferences();
+        /* istanbul ignore next */ 
         dispatch(userPreferencesGetSuccess(res.data));
       } catch (err) {
+        /* istanbul ignore next */ 
         dispatch(userPreferencesFormError(err));
       }
     }

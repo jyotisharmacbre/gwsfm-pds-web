@@ -134,10 +134,12 @@ const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps & ICountryH
 	}, [props.lookupData]);
 
 	const [ isExpand, handleExpandAllEvent ] = useState(false);
+	/* istanbul ignore next */
 	const handleResetStateAndRedirection=(componentName:string)=>{
 		props.resetPreliminaryFormState();
 		props.history.push(`/${componentName}/${props.match.params.projectId}`);
 	}
+	/* istanbul ignore next */
 	const redirectionToComponent=()=>{
 		if(props.isPreliminaryFormDirty)
 		{
@@ -152,6 +154,7 @@ const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps & ICountryH
 		   }
 		
 	  }
+	  /* istanbul ignore next */
 	const handleToggle = (id: string) => {
 		componentIds = componentIdList;
 		var element: any = document.getElementById('collapse_' + id);
@@ -171,9 +174,11 @@ const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps & ICountryH
 			setComponentId(componentData);
 		}
 	};
+	/* istanbul ignore next */
 	const handlePrevious = () => {
 		redirectionToComponent();
 	  };
+	  /* istanbul ignore next */
 	const handleSaveData = (saveAll: boolean, event: EventType, preliminaryDetails: any, index: number) => {
 		var editData: Array<IPreliminaries> = [];
 		var saveData: Array<IPreliminaries> = [];

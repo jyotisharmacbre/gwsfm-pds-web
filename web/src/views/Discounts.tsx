@@ -168,7 +168,7 @@ const Discounts: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & IIns
 	);
 };
 
-
+/* istanbul ignore next */
 const updateClientDiscount = (event, value, dispatch) => {
 	let discountValue = value;
 	let discountType = parseInt(event.currentTarget.value);

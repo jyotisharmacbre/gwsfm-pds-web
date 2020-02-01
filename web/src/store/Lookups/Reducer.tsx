@@ -4,7 +4,7 @@ import { ILookupState } from './Types/ILookupState';
 import moment from 'moment';
 import { ILookup } from './Types/ILookup';
 
-const initialState: ILookupState = {
+export const initialState: ILookupState = {
   projectstatus: [],
   lookups: [],
   currencies: null,
