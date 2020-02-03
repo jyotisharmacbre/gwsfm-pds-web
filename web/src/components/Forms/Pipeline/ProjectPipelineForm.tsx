@@ -68,8 +68,6 @@ const ProjectPipelineForm: React.FC<Props & IReactIntl> = (props: any) => {
         lk => lk.contractId && rowProject.contractorId && lk.contractId.toUpperCase() === rowProject.contractorId.toUpperCase()
       );
       rowProject.contractorId = customerObj ? customerObj.customerName : rowProject.contractorId;
-
-      //contractCustomerList && rowProject.contractorId && getFilterElementFromArray(contractCustomerList, 'contractId', rowProject.contractorId, 'customerName');
       const currencySymbol = getFilterElementFromArray(
         currencies,
         getPropertyName(CurrencyObj, (prop) => prop.currencyId),
