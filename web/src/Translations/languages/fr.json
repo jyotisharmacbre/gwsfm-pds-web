@@ -72,7 +72,7 @@
   "LABEL_PREFERED_CURRENCY": "devise préférée",
   "LABEL_QUOTE_VALUE": "Valeur du devis",
   "LABEL_CLIENT": "Client",
-  "LABEL_CLIENT_CUSTOMER": "Client/cliente",
+  "LABEL_CLIENT_CUSTOMER": "Client / cliente",
   "LABEL_TOTAL_SELL": "Vente totale",
   "LABEL_TOTAL_COST": "Coût total",
   "LABEL_GROSS_MARGIN": "Marge brute",
