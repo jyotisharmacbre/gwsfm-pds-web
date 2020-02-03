@@ -36,7 +36,7 @@ const CustomModalPopup:React.FC<IProps&IReactIntl> = props =>
                       {props.intl.formatMessage({ id: props.titleKey})}
 
                       </h5>
-                                      <span onClick={()=>removeBodyClass()} className="close" aria-label="Close">
+                                      <span onClick={()=>reject()} className="close" aria-label="Close">
                                           <span aria-hidden="true">&times;</span>
                                       </span>
                                   </div>

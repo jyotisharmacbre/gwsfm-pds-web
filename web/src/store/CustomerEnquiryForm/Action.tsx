@@ -42,6 +42,7 @@ const headers = {
 };
 
 export const projectDetailAdd = (data: IProjectDetail, event: EventType) => {
+	
 	return (dispatch: Dispatch) => {
 		if (isProjectStateInReview()) dispatch(projectDetailError('error'));
 		axios.baseAPI

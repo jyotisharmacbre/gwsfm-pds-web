@@ -71,7 +71,7 @@ const ProjectPipelineForm: React.FC<Props & IReactIntl> = (props: any) => {
         rowProject.currencyId,
         getPropertyName(CurrencyObj, (prop) => prop.currencySymbol)
       );
-      rowProject.approxValue = `${currencySymbol}${rowProject.approxValue}`;
+      rowProject.approxValue = rowProject.approxValue.toString().indexOf(currencySymbol) > -1 ? rowProject.approxValue : `${currencySymbol}${rowProject.approxValue}`;
       var contractID = rowProject.contractTypeId;
       if (contractID > 0 && allLookups.length > 0)
         rowProject.contractTypeId = getLookupDescription(
@@ -84,7 +84,7 @@ const ProjectPipelineForm: React.FC<Props & IReactIntl> = (props: any) => {
       );
       rowProject.cdmNotifiable = rowProject.cdmNotifiable ? formatMessage('LABEL_YES') : formatMessage('LABEL_NO');
       rowProject.soldmargin = rowProject.soldmargin ? rowProject.soldmargin : 0;
-      rowProject.weightedTCV = `${currencySymbol}${rowProject.weightedTCV ? rowProject.weightedTCV : 0}`;
+      rowProject.weightedTCV = rowProject.weightedTCV.toString().indexOf(currencySymbol) > -1 ? rowProject.weightedTCV : `${currencySymbol}${rowProject.weightedTCV ? rowProject.weightedTCV : 0}`;
       rowProject.name = (
         <Link
           to={{

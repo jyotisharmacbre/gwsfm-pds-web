@@ -30,7 +30,7 @@ import ProjectStatus from '../enums/ProjectStatus';
 import { IDynamicsDivision, IDynamicBusinessUnits } from '../store/DynamicsData/Types/IDynamicData';
 
 interface IProps {
-	match: match<{ projectId: string }>;	
+	match: match<{ projectId: string }>;
 }
 
 interface IMapStateToProps {
@@ -46,7 +46,7 @@ interface IMapStateToProps {
 	adminDefaultValues: Array<IAdminDefaults>;
 	countries: Array<ICountry> | null;
 	getListOfDivisions: Array<IDynamicsDivision>;
-	getListOfBusinessUnit:Array<IDynamicBusinessUnits>;
+	getListOfBusinessUnit: Array<IDynamicBusinessUnits>;
 }
 
 interface IMapDispatchToProps {
@@ -61,14 +61,14 @@ interface IMapDispatchToProps {
 	getProjectParameters: (countryId: number) => void;
 	getAllCountries: () => void;
 	getDynamicsListOfDivision: () => void;
-	getListOfBusinessUnits:()=>void;
+	getListOfBusinessUnits: () => void;
 }
 
 const ReviewSubmit: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & ICountryHoc & IInsuranceRateHoc> = (
 	props
 ) => {
 	const CurrencyObj = new Currency();
-	const [ currencySymbol, setCurrencySymbol ] = useState<string>('');
+	const [currencySymbol, setCurrencySymbol] = useState<string>('');
 	const projectId = props.match.params.projectId;
 
 	useEffect(() => {
@@ -98,19 +98,19 @@ const ReviewSubmit: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & I
 				);
 			}
 		},
-		[ props.project.currencyId, props.currencies ]
+		[props.project.currencyId, props.currencies]
 	);
 	useEffect(
 		() => {
 			if (props.project.countryId > 0) props.getProjectParameters(props.project.countryId);
 		},
-		[ props.project.countryId ]
+		[props.project.countryId]
 	);
 
 	const redirect = (module: string) => {
 		return props.history.push(`/${module}/${props.match.params.projectId}`);
 	};
-
+	/* istanbul ignore next */
 	const updateProjectStatusToInReview = () => {
 		actions.updateProjectStatusToInReview(
 			props.match.params.projectId,
@@ -118,20 +118,20 @@ const ReviewSubmit: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & I
 			updateProjectStatusToInReviewError
 		);
 	};
-
+	/* istanbul ignore next */
 	const updateProjectStatusToInReviewSuccess = (data) => {
 		toast.success(formatMessage('MESSAGE_SUCCESSFUL_SUBMITED'));
 		props.history.push('/');
 	};
-
+	/* istanbul ignore next */
 	const updateProjectStatusToInReviewError = (data) => {
 		toast.error(formatMessage('MESSAGE_ERROR'));
 	};
-
+	/* istanbul ignore next */
 	const actionEditBtn = () => {
 		props.history.push(`/Project/${props.match.params.projectId}`);
 	}
-
+	/* istanbul ignore next */
 	const actionEditBtnOverview = () => {
 		props.history.push(`/ProjectOverview/${props.match.params.projectId}`);
 	}
@@ -154,7 +154,7 @@ const ReviewSubmit: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & I
 							userNamesForEmails={props.userNamesForEmails}
 							handleGetUserNamesForEmails={props.handleGetUserNamesForEmails}
 							listOfDivisions={props.getListOfDivisions}
-							listOfBusinessUnits ={props.getListOfBusinessUnit}
+							listOfBusinessUnits={props.getListOfBusinessUnit}
 						/>
 						<ProjectOverviewSummary
 							oneditOverview={actionEditBtnOverview}
@@ -226,7 +226,7 @@ const mapStateToProps = (state: IState) => ({
 	adminDefaultValues: state.admin.adminDefaultValues,
 	countries: state.lookup.countries,
 	getListOfDivisions: state.dynamicData.dynamicsListOfDivision,
-	getListOfBusinessUnit:state.dynamicData.dynamicsListOfBusinessUnits
+	getListOfBusinessUnit: state.dynamicData.dynamicsListOfBusinessUnits
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -242,7 +242,7 @@ const mapDispatchToProps = (dispatch) => {
 		getProjectParameters: (countryId: number) => dispatch(actions.getProjectParameters(countryId)),
 		getAllCountries: () => dispatch(actions.getAllContries()),
 		getDynamicsListOfDivision: () => dispatch(actions.getListOfDivision()),
-		getListOfBusinessUnits:() =>dispatch(actions.getListOfBusinessUnits())
+		getListOfBusinessUnits: () => dispatch(actions.getListOfBusinessUnits())
 
 	};
 };
