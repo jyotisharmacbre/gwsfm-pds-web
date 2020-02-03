@@ -1,6 +1,9 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import NewTypeAhead from '../../TypeAhead/NewTypeAhead';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheckCircle, faClock, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
+import { ProjectSignOffStatus } from '../../../store/ProjectOverviewForm/Types/ProjectApprovalEnums';
 
 interface IProps {
 	fields: any;
@@ -10,7 +13,29 @@ interface IProps {
 
 const ProjectApprovalForm: React.FC<IProps> = (props) => {
 	const { fields, formatUserData, getListOfUsers } = props;
-
+	const getClassAndIcon = (approverType) => {
+		let className: string = '', iconType: any;
+		switch (approverType) {
+			case ProjectSignOffStatus.Approved:
+				className = "green";
+				iconType = faCheckCircle
+				break;
+			case ProjectSignOffStatus.Pending:
+				className = "orange";
+				iconType = faClock
+				break;
+			case ProjectSignOffStatus.Draft:
+				className = "orange";
+				iconType = faExclamationTriangle
+				break;
+			default:
+				break;
+		}
+		return {
+			className: className,
+			iconType: iconType
+		};
+	}
 	return (
 		<div>
 			<div className="row">
@@ -41,11 +66,12 @@ const ProjectApprovalForm: React.FC<IProps> = (props) => {
 						</div>
 					</div>
 					<div className="col-lg-3">
-						<div className="approve_state">
-							{/* <span className="icon"><FontAwesomeIcon className="green" icon={faCheckCircle} /></span> */}
+						{fields.get(index).userId && <div className="approve_state">
+							{
+								<span className="icon"><FontAwesomeIcon className={getClassAndIcon(fields.get(index).approvalStatus).className} icon={getClassAndIcon(fields.get(index).approvalStatus).iconType} /></span>}
 							{/* <label className='approv_label'><FormattedMessage id="LABEL_APPROVED" /> </label> */}
 						</div>
-					</div>
+						}	</div>
 				</div>
 			))}
 		</div>
