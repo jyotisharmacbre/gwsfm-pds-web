@@ -69,7 +69,6 @@ const ProjectApprovalForm: React.FC<IProps> = (props) => {
 						{fields.get(index).userId && <div className="approve_state">
 							{
 								<span className="icon"><FontAwesomeIcon className={getClassAndIcon(fields.get(index).approvalStatus).className} icon={getClassAndIcon(fields.get(index).approvalStatus).iconType} /></span>}
-							{/* <label className='approv_label'><FormattedMessage id="LABEL_APPROVED" /> </label> */}
 						</div>
 						}	</div>
 				</div>
