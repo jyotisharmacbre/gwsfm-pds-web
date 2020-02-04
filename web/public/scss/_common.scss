@@ -594,12 +594,15 @@ td {
 /* toaster message design */
 .custom_toast_block {
     .Toastify__toast--error {
-        background-color: map-get($colors, red );
+        background: map-get($colors, red );
+    }
+
+    .Toastify__toast--success {
+        background: #028239;
     }
 
     .Toastify__toast--success,
     .Toastify__toast--error {
-        background: #028239;
         border-radius: 5px;
         display: flex;
         align-items: center;
