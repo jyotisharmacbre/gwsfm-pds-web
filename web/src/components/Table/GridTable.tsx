@@ -34,7 +34,7 @@ const GridTable: React.FC<IGridTableProps> = props => {
         {props.data.map(x => (
           <tr>
             {props.columns.map(yy => (
-              <td data-column={yy.title}>{yy.type ? getColumnValue(yy, x) : x[yy.field]}</td>
+              <td data-column={yy.title}>{yy.type ? getColumnValue(yy, x) : x[yy.field]}&nbsp;</td>
             ))}
           </tr>
         ))}
