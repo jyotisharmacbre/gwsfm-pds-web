@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Pipeline reducer test cases should handle PROJECT_PIPELINE_GRID_DETAILS  1`] = `
+Object {
+  "error": null,
+  "loading": false,
+  "pipelineDetails": Object {
+    "error": null,
+    "pipelineDetails": Array [
+      Object {
+        "approxValue": 0,
+        "cdmNotifiable": false,
+        "commenceDate": "",
+        "contractTypeId": 0,
+        "contractorId": -1,
+        "lastModified": "",
+        "name": "",
+        "probabilityOfWinning": 1,
+        "projectId": "",
+        "projectOwner": "",
+        "soldMargin": "",
+        "status": "",
+        "weightedTCV": "",
+      },
+    ],
+  },
+}
+`;
+
+exports[`Pipeline reducer test cases should handle PROJECT_PIPELINE_GRID_ERROR  1`] = `
+Object {
+  "error": undefined,
+  "loading": false,
+  "notify": 2,
+  "pipelineDetails": Array [
+    Object {
+      "approxValue": 0,
+      "cdmNotifiable": false,
+      "commenceDate": "",
+      "contractTypeId": 0,
+      "contractorId": -1,
+      "lastModified": "",
+      "name": "",
+      "probabilityOfWinning": 1,
+      "projectId": "",
+      "projectOwner": "",
+      "soldMargin": "",
+      "status": "",
+      "weightedTCV": "",
+    },
+  ],
+}
+`;

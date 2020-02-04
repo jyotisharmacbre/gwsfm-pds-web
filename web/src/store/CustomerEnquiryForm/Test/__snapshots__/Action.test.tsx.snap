@@ -1,3 +1,56 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`add user redux should dispatch changeProjectStatus 1`] = `
+Array [
+  Object {
+    "payload": 1,
+    "type": "CHANGE_PROJECT_STATUS_STATE",
+  },
+]
+`;
+
+exports[`add user redux should dispatch getEnquiryOverview 1`] = `Array []`;
+
+exports[`add user redux should dispatch projectDetailEdit 1`] = `Array []`;
+
+exports[`add user redux should dispatch resetCustomerEnquiryStateDispatch 1`] = `
+Array [
+  Object {
+    "type": "RESET_CUSTOMER_ENQUIRY_STATE",
+  },
+]
+`;
+
+exports[`add user redux should dispatch resetProjectDetailState 1`] = `
+Array [
+  Object {
+    "type": "RESET_PROJECT_DETAIL_STATE",
+  },
+]
+`;
+
+exports[`add user redux should dispatch resetProjectDetailState 2`] = `
+Array [
+  Object {
+    "type": "RESET_PROJECT_DETAIL_STATE",
+  },
+]
+`;
+
+exports[`add user redux should dispatch resetProjectDetailStateToInitial 1`] = `
+Array [
+  Object {
+    "type": "RESET_PROJECT_DETAIL_STATE_TO_INITIAL",
+  },
+]
+`;
+
+exports[`add user redux should dispatch setProjectId 1`] = `
+Array [
+  Object {
+    "type": "SET_PROJECT_ID_STATE",
+  },
+]
+`;
+
 exports[`add user redux should dispatch the default action when requested project detail add in store 1`] = `Array []`;

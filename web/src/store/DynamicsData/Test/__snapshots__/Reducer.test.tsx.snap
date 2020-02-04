@@ -1,0 +1,321 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dynamic data reducer test cases should handle DYNAMIC_BUSINESSUNIT_ERROR  1`] = `
+Object {
+  "dynamicsCompany": Array [],
+  "dynamicsContract": Array [],
+  "dynamicsListOfBusinessUnits": Array [],
+  "dynamicsListOfDivision": Array [],
+  "dynamicsOtherCompany": Array [],
+  "dynamicsOtherContract": Array [],
+  "dynamicsOtherSubContractor": Array [],
+  "dynamicsSubcontractor": Array [],
+  "error": Object {
+    "error": true,
+  },
+}
+`;
+
+exports[`Dynamic data reducer test cases should handle DYNAMIC_BUSINESSUNIT_SUCCESS  1`] = `
+Object {
+  "dynamicsCompany": Array [],
+  "dynamicsContract": Array [],
+  "dynamicsListOfBusinessUnits": Object {
+    "dynamicsCompany": Array [],
+    "dynamicsContract": Array [],
+    "dynamicsListOfBusinessUnits": Array [],
+    "dynamicsListOfDivision": Array [],
+    "dynamicsOtherCompany": Array [],
+    "dynamicsOtherContract": Array [],
+    "dynamicsOtherSubContractor": Array [],
+    "dynamicsSubcontractor": Array [],
+    "error": null,
+  },
+  "dynamicsListOfDivision": Array [],
+  "dynamicsOtherCompany": Array [],
+  "dynamicsOtherContract": Array [],
+  "dynamicsOtherSubContractor": Array [],
+  "dynamicsSubcontractor": Array [],
+  "error": null,
+}
+`;
+
+exports[`Dynamic data reducer test cases should handle DYNAMIC_COMPANY_DATA_GET_ERROR  1`] = `
+Object {
+  "dynamicsCompany": Array [],
+  "dynamicsContract": Array [],
+  "dynamicsListOfBusinessUnits": Array [],
+  "dynamicsListOfDivision": Array [],
+  "dynamicsOtherCompany": Array [],
+  "dynamicsOtherContract": Array [],
+  "dynamicsOtherSubContractor": Array [],
+  "dynamicsSubcontractor": Array [],
+  "error": Object {
+    "error": true,
+  },
+}
+`;
+
+exports[`Dynamic data reducer test cases should handle DYNAMIC_CONTRACT_DATA_GET_SUCCESS  1`] = `
+Object {
+  "dynamicsCompany": Array [],
+  "dynamicsContract": Object {
+    "dynamicsCompany": Array [],
+    "dynamicsContract": Array [],
+    "dynamicsListOfBusinessUnits": Array [],
+    "dynamicsListOfDivision": Array [],
+    "dynamicsOtherCompany": Array [],
+    "dynamicsOtherContract": Array [],
+    "dynamicsOtherSubContractor": Array [],
+    "dynamicsSubcontractor": Array [],
+    "error": null,
+  },
+  "dynamicsListOfBusinessUnits": Array [],
+  "dynamicsListOfDivision": Array [],
+  "dynamicsOtherCompany": Array [],
+  "dynamicsOtherContract": Array [],
+  "dynamicsOtherSubContractor": Array [],
+  "dynamicsSubcontractor": Array [],
+  "error": null,
+}
+`;
+
+exports[`Dynamic data reducer test cases should handle DYNAMIC_CONTRACT_DATA_GET_SUCCESS  2`] = `
+Object {
+  "dynamicsCompany": Array [],
+  "dynamicsContract": Array [],
+  "dynamicsListOfBusinessUnits": Array [],
+  "dynamicsListOfDivision": Array [],
+  "dynamicsOtherCompany": Array [],
+  "dynamicsOtherContract": Array [],
+  "dynamicsOtherSubContractor": Array [],
+  "dynamicsSubcontractor": Array [],
+  "error": Object {
+    "error": true,
+  },
+}
+`;
+
+exports[`Dynamic data reducer test cases should handle DYNAMIC_CONTRACT_DATA_GET_SUCCESS  3`] = `
+Object {
+  "dynamicsCompany": Object {
+    "dynamicsCompany": Array [],
+    "dynamicsContract": Array [],
+    "dynamicsListOfBusinessUnits": Array [],
+    "dynamicsListOfDivision": Array [],
+    "dynamicsOtherCompany": Array [],
+    "dynamicsOtherContract": Array [],
+    "dynamicsOtherSubContractor": Array [],
+    "dynamicsSubcontractor": Array [],
+    "error": null,
+  },
+  "dynamicsContract": Array [],
+  "dynamicsListOfBusinessUnits": Array [],
+  "dynamicsListOfDivision": Array [],
+  "dynamicsOtherCompany": Array [],
+  "dynamicsOtherContract": Array [],
+  "dynamicsOtherSubContractor": Array [],
+  "dynamicsSubcontractor": Array [],
+  "error": null,
+}
+`;
+
+exports[`Dynamic data reducer test cases should handle DYNAMIC_CONTRACTLIST_ERROR  1`] = `
+Object {
+  "dynamicsCompany": Array [],
+  "dynamicsContract": Array [],
+  "dynamicsListOfBusinessUnits": Array [],
+  "dynamicsListOfDivision": Array [],
+  "dynamicsOtherCompany": Array [],
+  "dynamicsOtherContract": Array [],
+  "dynamicsOtherSubContractor": Array [],
+  "dynamicsSubcontractor": Array [],
+  "error": Object {
+    "dynamicsCompany": Array [],
+    "dynamicsContract": Array [],
+    "dynamicsListOfBusinessUnits": Array [],
+    "dynamicsListOfDivision": Array [],
+    "dynamicsOtherCompany": Array [],
+    "dynamicsOtherContract": Array [],
+    "dynamicsOtherSubContractor": Array [],
+    "dynamicsSubcontractor": Array [],
+    "error": null,
+  },
+}
+`;
+
+exports[`Dynamic data reducer test cases should handle DYNAMIC_CONTRACTLIST_SUCCESS  1`] = `
+Object {
+  "dynamicsCompany": Array [],
+  "dynamicsContract": Object {
+    "dynamicsCompany": Array [],
+    "dynamicsContract": Array [],
+    "dynamicsListOfBusinessUnits": Array [],
+    "dynamicsListOfDivision": Array [],
+    "dynamicsOtherCompany": Array [],
+    "dynamicsOtherContract": Array [],
+    "dynamicsOtherSubContractor": Array [],
+    "dynamicsSubcontractor": Array [],
+    "error": null,
+  },
+  "dynamicsListOfBusinessUnits": Array [],
+  "dynamicsListOfDivision": Array [],
+  "dynamicsOtherCompany": Array [],
+  "dynamicsOtherContract": Array [],
+  "dynamicsOtherSubContractor": Array [],
+  "dynamicsSubcontractor": Array [],
+  "error": null,
+}
+`;
+
+exports[`Dynamic data reducer test cases should handle DYNAMIC_DIVISION_DATA_GET_ERROR  1`] = `
+Object {
+  "dynamicsCompany": Array [],
+  "dynamicsContract": Array [],
+  "dynamicsListOfBusinessUnits": Array [],
+  "dynamicsListOfDivision": Array [],
+  "dynamicsOtherCompany": Array [],
+  "dynamicsOtherContract": Array [],
+  "dynamicsOtherSubContractor": Array [],
+  "dynamicsSubcontractor": Array [],
+  "error": Object {
+    "error": true,
+  },
+}
+`;
+
+exports[`Dynamic data reducer test cases should handle DYNAMIC_DIVISION_DATA_GET_SUCCESS  1`] = `
+Object {
+  "dynamicsCompany": Array [],
+  "dynamicsContract": Array [],
+  "dynamicsListOfBusinessUnits": Array [],
+  "dynamicsListOfDivision": Object {
+    "dynamicsCompany": Array [],
+    "dynamicsContract": Array [],
+    "dynamicsListOfBusinessUnits": Array [],
+    "dynamicsListOfDivision": Array [],
+    "dynamicsOtherCompany": Array [],
+    "dynamicsOtherContract": Array [],
+    "dynamicsOtherSubContractor": Array [],
+    "dynamicsSubcontractor": Array [],
+    "error": null,
+  },
+  "dynamicsOtherCompany": Array [],
+  "dynamicsOtherContract": Array [],
+  "dynamicsOtherSubContractor": Array [],
+  "dynamicsSubcontractor": Array [],
+  "error": null,
+}
+`;
+
+exports[`Dynamic data reducer test cases should handle DYNAMIC_OTHER_COMPANY_SUCCESS  1`] = `
+Object {
+  "dynamicsCompany": Array [],
+  "dynamicsContract": Array [],
+  "dynamicsListOfBusinessUnits": Array [],
+  "dynamicsListOfDivision": Array [],
+  "dynamicsOtherCompany": Object {
+    "dynamicsCompany": Array [],
+    "dynamicsContract": Array [],
+    "dynamicsListOfBusinessUnits": Array [],
+    "dynamicsListOfDivision": Array [],
+    "dynamicsOtherCompany": Array [],
+    "dynamicsOtherContract": Array [],
+    "dynamicsOtherSubContractor": Array [],
+    "dynamicsSubcontractor": Array [],
+    "error": null,
+  },
+  "dynamicsOtherContract": Array [],
+  "dynamicsOtherSubContractor": Array [],
+  "dynamicsSubcontractor": Array [],
+  "error": null,
+}
+`;
+
+exports[`Dynamic data reducer test cases should handle DYNAMIC_OTHER_CONTRACT_SUCCESS  1`] = `
+Object {
+  "dynamicsCompany": Array [],
+  "dynamicsContract": Array [],
+  "dynamicsListOfBusinessUnits": Array [],
+  "dynamicsListOfDivision": Array [],
+  "dynamicsOtherCompany": Array [],
+  "dynamicsOtherContract": Object {
+    "dynamicsCompany": Array [],
+    "dynamicsContract": Array [],
+    "dynamicsListOfBusinessUnits": Array [],
+    "dynamicsListOfDivision": Array [],
+    "dynamicsOtherCompany": Array [],
+    "dynamicsOtherContract": Array [],
+    "dynamicsOtherSubContractor": Array [],
+    "dynamicsSubcontractor": Array [],
+    "error": null,
+  },
+  "dynamicsOtherSubContractor": Array [],
+  "dynamicsSubcontractor": Array [],
+  "error": null,
+}
+`;
+
+exports[`Dynamic data reducer test cases should handle DYNAMIC_OTHER_SUB_CONTRACTOR_SUCCESS  1`] = `
+Object {
+  "dynamicsCompany": Array [],
+  "dynamicsContract": Array [],
+  "dynamicsListOfBusinessUnits": Array [],
+  "dynamicsListOfDivision": Array [],
+  "dynamicsOtherCompany": Array [],
+  "dynamicsOtherContract": Array [],
+  "dynamicsOtherSubContractor": Object {
+    "dynamicsCompany": Array [],
+    "dynamicsContract": Array [],
+    "dynamicsListOfBusinessUnits": Array [],
+    "dynamicsListOfDivision": Array [],
+    "dynamicsOtherCompany": Array [],
+    "dynamicsOtherContract": Array [],
+    "dynamicsOtherSubContractor": Array [],
+    "dynamicsSubcontractor": Array [],
+    "error": null,
+  },
+  "dynamicsSubcontractor": Array [],
+  "error": null,
+}
+`;
+
+exports[`Dynamic data reducer test cases should handle DYNAMIC_SUB_CONTRACTOR_DATA_GET_ERROR  1`] = `
+Object {
+  "dynamicsCompany": Array [],
+  "dynamicsContract": Array [],
+  "dynamicsListOfBusinessUnits": Array [],
+  "dynamicsListOfDivision": Array [],
+  "dynamicsOtherCompany": Array [],
+  "dynamicsOtherContract": Array [],
+  "dynamicsOtherSubContractor": Array [],
+  "dynamicsSubcontractor": Array [],
+  "error": Object {
+    "error": true,
+  },
+}
+`;
+
+exports[`Dynamic data reducer test cases should handle DYNAMIC_SUB_CONTRACTOR_DATA_GET_SUCCESS  1`] = `
+Object {
+  "dynamicsCompany": Array [],
+  "dynamicsContract": Array [],
+  "dynamicsListOfBusinessUnits": Array [],
+  "dynamicsListOfDivision": Array [],
+  "dynamicsOtherCompany": Array [],
+  "dynamicsOtherContract": Array [],
+  "dynamicsOtherSubContractor": Array [],
+  "dynamicsSubcontractor": Object {
+    "dynamicsCompany": Array [],
+    "dynamicsContract": Array [],
+    "dynamicsListOfBusinessUnits": Array [],
+    "dynamicsListOfDivision": Array [],
+    "dynamicsOtherCompany": Array [],
+    "dynamicsOtherContract": Array [],
+    "dynamicsOtherSubContractor": Array [],
+    "dynamicsSubcontractor": Array [],
+    "error": null,
+  },
+  "error": null,
+}
+`;

@@ -88,6 +88,26 @@ describe('Lookup reducer', () => {
     ).toMatchSnapshot();
   });
 
+  it('should handle LOOKUPS_GET_SUCCESS', () => {
+    const getLooupsAction: any = {
+      type: ActionType.LOOKUPS_GET_SUCCESS,
+      payload: currencies
+    };
+    expect(
+      lookupReducer(initialState, getLooupsAction)
+    ).toMatchSnapshot();
+  });
+
+  it('should handle LOOKUPS_GET_ERROR', () => {
+    const LOOKUPS_GET_ERROR: any = {
+      type: ActionType.LOOKUPS_GET_ERROR,
+      payload: {error:true}
+    };
+    expect(
+      lookupReducer(initialState, LOOKUPS_GET_ERROR)
+    ).toMatchSnapshot();
+  });
+
   it('should handle GET_ALL_CURRENCIES_ERROR', () => {
     const getCurrenciesErrorAction: any = {
       type: ActionType.GET_ALL_CURRENCIES_ERROR,

@@ -7,28 +7,28 @@ import { ILanguage } from './Types/ILanguage';
 import { de } from 'date-fns/esm/locale';
 import { ICountry } from './Types/ICountry';
 import { getDefaultState } from '../Common/Action';
-
+/* istanbul ignore next */
 const getProjectStatusSuccess = (response: any) => {
   return {
     type: ActionType.LOOKUP_PROJECT_STATUS_GET_SUCCESS,
     payload: response
   };
 };
-
+/* istanbul ignore next */
 const getProjectStatusError = (error: any) => {
   return {
     type: ActionType.LOOKUP_PROJECT_STATUS_GET_ERROR,
     payload: error
   };
 };
-
+/* istanbul ignore next */
 const getLookupsByLookupItemsSuccess = (response: any) => {
   return {
     type: ActionType.LOOKUPS_GET_SUCCESS,
     payload: response
   };
 };
-
+/* istanbul ignore next */
 const getLookupsByLookupItemsError = (error: any) => {
   return {
     type: ActionType.LOOKUPS_GET_ERROR,
@@ -57,9 +57,11 @@ export const getProjectStatus = () => {
     axios.baseAPI
       .post('api/LookupData/GetLookupsByIds', data, { headers: headers })
       .then(response => {
+        /* istanbul ignore next */
         dispatch(getProjectStatusSuccess(response.data));
       })
       .catch(error => {
+        /* istanbul ignore next */
         dispatch(getProjectStatusError(error));
       });
   };
@@ -70,9 +72,11 @@ export const getLookupsByLookupItems = (lookupItems: string[]) => {
     axios.baseAPI
       .post('api/LookupData/GetLookupsByIds', lookupItems, { headers: headers })
       .then(response => {
+        /* istanbul ignore next */
         dispatch(getLookupsByLookupItemsSuccess(response.data));
       })
       .catch(error => {
+        /* istanbul ignore next */
         dispatch(getLookupsByLookupItemsError(error));
       });
   };
@@ -101,12 +105,6 @@ const getAllLanguagesSuccess = (response: Array<ILanguage>) => {
   };
 };
 
-const getAllLanguagesError = (error: any) => {
-  return {
-    type: ActionType.GET_ALL_LANGUAGE_ERROR,
-    payload: error
-  };
-};
 
 export const getAllCurrencies = (cache: boolean = true) => {
   return (dispatch: Dispatch) => {
@@ -116,9 +114,11 @@ export const getAllCurrencies = (cache: boolean = true) => {
       axios.baseAPI
         .get('api/LookupData/GetAllCurrencies')
         .then(response => {
+          /* istanbul ignore next */
           dispatch(getAllCurrenciesSuccess(response.data));
         })
         .catch(error => {
+          /* istanbul ignore next */
           dispatch(getAllCurrenciesError(error));
         });
     }
@@ -144,9 +144,11 @@ export const getAllContries = () => {
     axios.baseAPI
       .get('/api/LookupData/Countries')
       .then(response => {
+        /* istanbul ignore next */
         dispatch(getAllCountriesSuccess(response.data));
       })
       .catch(error => {
+        /* istanbul ignore next */
         dispatch(getAllCountriesError(error));
       });
   };
@@ -157,9 +159,11 @@ export const getAllLanguages = () => {
     axios.baseAPI
       .get('api/LookupData/GetLanguages')
       .then(response => {
+        /* istanbul ignore next */
         dispatch(getAllLanguagesSuccess(response.data));
       })
       .catch(error => {
+        /* istanbul ignore next */
         dispatch(getAllCurrenciesError(error));
       });
   };
