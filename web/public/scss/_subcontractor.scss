@@ -26,6 +26,11 @@
         font-size: 14px;
         letter-spacing: 0.5px;
         cursor: pointer;
+        @include mdScreen {
+            border: 0;
+            right: 0;
+            top: 13px;
+        }
         svg {
             margin-left: 10px;
             font-size: 16px;
