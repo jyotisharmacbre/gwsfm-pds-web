@@ -12,7 +12,7 @@ const Error: React.FC<IError> = (props) => {
             <div className="error_outer_wrap">
                 <div className="error_wrapper">
                     {
-                        props.location?.state?.type === ErrorType.pageNotFound ?
+                        props.location?.state && props.location?.state['type'] === ErrorType.pageNotFound ?
                             <React.Fragment >
                                 <div className="error_title" data-test="pagenotFoundHeader">
                                     <h1>
@@ -28,7 +28,7 @@ const Error: React.FC<IError> = (props) => {
                                 </div>
                             </React.Fragment> : null}
                     {
-                        props.location?.state?.type === ErrorType.unauthorised ?
+                        props.location?.state && props.location?.state['type'] === ErrorType.unauthorised ?
                             <React.Fragment>
                                 <div className="error_title" data-test="unauthorisedHeader">
                                     <h1>
@@ -48,7 +48,7 @@ const Error: React.FC<IError> = (props) => {
                             </React.Fragment> : null}
 
                     {
-                        props.location?.state?.type === ErrorType.warning ?
+                        props.location?.state && props.location?.state['type'] === ErrorType.warning ?
                             <React.Fragment>
                                 <div className="error_title" data-test="pageWarningHeader">
                                     <h1>
