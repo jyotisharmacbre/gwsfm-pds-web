@@ -97,12 +97,11 @@ const ProfileMenu: React.FC<any> = props => {
   }
 
   const handleBlur = (e) => {
-    if (e.relatedTarget == null || !e.currentTarget.contains(e.relatedTarget))
-      {
-        setMenuVisibility(false);        
-      }else{
-        e && e.target.focus();
-      }       
+    if (e.relatedTarget == null || !e.currentTarget.contains(e.relatedTarget)) {
+      setMenuVisibility(false);
+    } else {
+      e && e.target.focus();
+    }
   }
 
   return (
@@ -111,7 +110,8 @@ const ProfileMenu: React.FC<any> = props => {
         <div className="row d-flex align-items-center">
           <div className="col-sm-12">
 
-            <div className={history.location.pathname == "/" || history.location.pathname == "/Pipeline" ? "d-md-block logo" : "logo"} >
+            <div data-test="test-logo" className=
+              {history.location.pathname == "/" || history.location.pathname == "/Pipeline" || history.location.pathname == "/Error" ? "d-md-block logo" : "logo"} >
               <Link data-test=""
                 to={{
                   pathname: "/"
@@ -136,88 +136,88 @@ const ProfileMenu: React.FC<any> = props => {
                 </a>
               </li>
               <li data-test='menu-container' onBlur={handleBlur}>
-              <a href="#">
-                 <div className="dropdown show">
-                  <a                  
-                    onClick={() => setMenuVisibility(!showMenu)}
-                    className="btn btn-secondary dropdown-toggle p-0"
-                    href="#"
-                    id="js-usertext"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
-                    <FontAwesomeIcon className="" icon={faUser} />
-                    <span id="sm_none">{props.displayName ? props.displayName: '...'}</span>
-                    <span className="down-arrow">
-                    </span>
-                  </a>
+                <a href="#">
+                  <div className="dropdown show">
+                    <a
+                      onClick={() => setMenuVisibility(!showMenu)}
+                      className="btn btn-secondary dropdown-toggle p-0"
+                      href="#"
+                      id="js-usertext"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      <FontAwesomeIcon className="" icon={faUser} />
+                      <span id="sm_none">{props.displayName ? props.displayName : '...'}</span>
+                      <span className="down-arrow">
+                      </span>
+                    </a>
 
-                  <div
-                  id="dropLanguage"
-                    className={`dropdown-menu dropdown-menu-right user-dropdown ${showMenu ? 'show' : 'hide'}`}
-                    aria-labelledby="dropdownMenuLink"
+                    <div
+                      id="dropLanguage"
+                      className={`dropdown-menu dropdown-menu-right user-dropdown ${showMenu ? 'show' : 'hide'}`}
+                      aria-labelledby="dropdownMenuLink"
                     >
 
-                    <div className='language_wrap'>
+                      <div className='language_wrap'>
 
-                      {/* START EDIT FORM SECTION */}
+                        {/* START EDIT FORM SECTION */}
 
-                      <div className={`${isEditable ? 'show' : 'hide'}`}>
+                        <div className={`${isEditable ? 'show' : 'hide'}`}>
 
-                        <UserProfileForm onSubmitForm={handleEvent}
-                          redirectMenu={closePanel}
-                          currencies={props.currencies}
-                          languages={props.languages}
-                          displayName={props.displayName}
-                          displayEmail={props.displayEmail}
-                        />
-                      </div>
-
-                      {/* END EDIT FORM SECTION */}
-
-                      <ul className={`${!isEditable ? 'show' : 'hide'}`}>
-                        <li>
-                          <a href="#">
-                            <i>
-                              <FontAwesomeIcon className="" icon={faUser} />
-                            </i>
-                            <p className="title_name">{props.displayName}</p>
-                            <span className="dsc">{props.displayEmail}</span>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#">
-                            <i>
-                              <img src={language_icon} alt="english translation icon" />
-                            </i>
-                            <p className="title_name">{formatMessage('LABEL_PREFERED_LANGUAGE')}</p>
-                            <span className="dsc">{props.languageName}</span>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#">
-                            <i>
-                            <FontAwesomeIcon className="" icon={faCoins} />
-                            </i>
-                            <p className="title_name">{formatMessage('LABEL_PREFERED_CURRENCY')}</p>
-                            <span className="dsc">{props.currencyName} {props.currencySymbol && `(${props.currencySymbol})`}</span>
-                          </a>
-                        </li>
-                      </ul>
-                      <div className={`${!isEditable ? 'show' : 'hide'}`}>
-
-                        <div className='link_group'>
-                          <a href="#" onClick={() => makeEditable(true)}>{formatMessage('BUTTON_EDIT')}</a>
-                          <span>|</span>
-                          <a href="#" onClick={logOut}>{formatMessage('BUTTON_SIGNOUT')}</a>
+                          <UserProfileForm onSubmitForm={handleEvent}
+                            redirectMenu={closePanel}
+                            currencies={props.currencies}
+                            languages={props.languages}
+                            displayName={props.displayName}
+                            displayEmail={props.displayEmail}
+                          />
                         </div>
 
+                        {/* END EDIT FORM SECTION */}
+
+                        <ul className={`${!isEditable ? 'show' : 'hide'}`}>
+                          <li>
+                            <a href="#">
+                              <i>
+                                <FontAwesomeIcon className="" icon={faUser} />
+                              </i>
+                              <p className="title_name">{props.displayName}</p>
+                              <span className="dsc">{props.displayEmail}</span>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="#">
+                              <i>
+                                <img src={language_icon} alt="english translation icon" />
+                              </i>
+                              <p className="title_name">{formatMessage('LABEL_PREFERED_LANGUAGE')}</p>
+                              <span className="dsc">{props.languageName}</span>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="#">
+                              <i>
+                                <FontAwesomeIcon className="" icon={faCoins} />
+                              </i>
+                              <p className="title_name">{formatMessage('LABEL_PREFERED_CURRENCY')}</p>
+                              <span className="dsc">{props.currencyName} {props.currencySymbol && `(${props.currencySymbol})`}</span>
+                            </a>
+                          </li>
+                        </ul>
+                        <div className={`${!isEditable ? 'show' : 'hide'}`}>
+
+                          <div className='link_group'>
+                            <a href="#" onClick={() => makeEditable(true)}>{formatMessage('BUTTON_EDIT')}</a>
+                            <span>|</span>
+                            <a href="#" onClick={logOut}>{formatMessage('BUTTON_SIGNOUT')}</a>
+                          </div>
+
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </a>
+                </a>
               </li>
               <li>
                 <button

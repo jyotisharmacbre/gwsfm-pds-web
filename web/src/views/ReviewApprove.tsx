@@ -31,6 +31,10 @@ import { ICountry } from '../store/Lookups/Types/ICountry';
 import { ICountryHoc, countryHoc } from '../hoc/CountryHoc';
 import { insuranceRateHoc, IInsuranceRateHoc } from '../hoc/InsuranceRateHoc';
 import { IDynamicBusinessUnits, IDynamicsDivision } from '../store/DynamicsData/Types/IDynamicData';
+import { getDisplayEmail } from '../helpers/auth-helper';
+import { ProjectSignOffStatus } from '../store/ProjectOverviewForm/Types/ProjectApprovalEnums';
+import ProjectStatus from '../enums/ProjectStatus';
+import ErrorType from '../enums/ErrorType';
 
 interface IProps {
 	match: match<{ projectId: string }>;
@@ -87,11 +91,13 @@ const ReviewApprove: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & 
 	const [currencySymbol, setCurrencySymbol] = useState<string>('');
 	const projectId = props.match.params.projectId;
 	const [showQueryPopup, setShowQueryPopup] = useState<boolean>(false);
+	const [showQueryApproveButton, setShowQueryApproveButton] = useState<boolean>(true);
+
 	useEffect(() => {
 		window.scrollTo(0, 0);
+		props.getAdditionalDetails(projectId);
 		props.getAllCurrencies();
 		props.getProjectStatus();
-		props.getAdditionalDetails(projectId);
 		props.getProjectDetail(projectId);
 		props.getSubContractor(projectId);
 		props.getPreliminaryDetails(projectId);
@@ -122,6 +128,44 @@ const ReviewApprove: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & 
 		},
 		[props.project.countryId]
 	);
+
+	// Redirect page to unauthorised page in case of approver status is pending
+	useEffect(
+		() => {
+			if (props.projectOverview.projectApprovals?.length > 0 && props.project.projectId !== '') {
+				let message = "";
+				let email = getDisplayEmail();
+				let loggedInApprover = props.projectOverview.projectApprovals.find(x => x.userId?.toLowerCase() == email.toLowerCase());
+
+				if (!loggedInApprover) redirect('Error', ErrorType.unauthorised);
+				else {
+					let isReviewRequestApproved = loggedInApprover?.approvalStatus === ProjectSignOffStatus.Approved;
+					let isReviewRequestPending = loggedInApprover?.approvalStatus === ProjectSignOffStatus.Pending;
+					let isReviewRequestInDraft = loggedInApprover?.approvalStatus === ProjectSignOffStatus.Draft;
+
+					let isProjectInReview = parseInt(props.project.status.toString()) === ProjectStatus.InReview;
+
+					if (isReviewRequestApproved) message = formatMessage('MESSAGE_ALREADY_APPROVED');
+					if (isReviewRequestInDraft) message = formatMessage('MESSAGE_NOT_IN_REVIEW');
+
+					if (!(isReviewRequestPending && isProjectInReview)) {
+						handleApproveUnauthorizedError(message);
+					}
+				}
+			}
+		},
+		[props.projectOverview, props.project]
+	);
+
+	const redirect = (module: string, errorType: ErrorType) => {
+		return props.history.push({
+			pathname: `/${module}`,
+			state: {
+				type: errorType
+			}
+		});
+	};
+
 	/* istanbul ignore next */
 	const handleApproval = () => {
 		actions.projectApprove(props.match.params.projectId, handleApprovalSuccess, handleApprovalError);
@@ -158,6 +202,13 @@ const ReviewApprove: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & 
 	}
 	/* istanbul ignore next */
 	const handleQueryCancel = () => { setShowQueryPopup(false); }
+
+	const handleApproveUnauthorizedError = (message: string) => {
+		if (showQueryApproveButton) {
+			toast.error(message);
+			setShowQueryApproveButton(false);
+		}
+	}
 	return (
 		<div className="container-fluid" data-test="review-approve-component">
 			{showQueryPopup && (
@@ -228,10 +279,10 @@ const ReviewApprove: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & 
 							</div>
 						</div>
 						<div className="two-side-btn pt-2">
-							<button type="button" onClick={() => setShowQueryPopup(true)}>
+							<button data-test="btnQuery" type="button" onClick={() => setShowQueryPopup(true)} hidden={!showQueryApproveButton}>
 								<FormattedMessage id="BUTTON_QUERY" />
 							</button>
-							<button type="button" name="next" onClick={handleApproval}>
+							<button data-test="btnApprove" type="button" name="next" onClick={handleApproval} hidden={!showQueryApproveButton}>
 								<FormattedMessage id="BUTTON_APPROVE" />
 							</button>
 						</div>

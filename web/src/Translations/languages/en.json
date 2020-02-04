@@ -63,6 +63,7 @@
     "BUTTON_SAVE_AND_CLOSE": "SAVE AND CLOSE",
     "BUTTON_DELETE": "DELETE",
     "BUTTON_SIGNOUT": "SIGN OUT",
+    "BUTTON_BACK_TO_DASHBAORD": "BACK TO DASHBOARD",
     "LABEL_SGA": "SG&A",
     "LABEL_INSURANCE_COST": "Insurance Cost",
     "LABEL_SGA_COST": "SG&A Cost",
@@ -306,6 +307,13 @@
     "MESSAGE_SUCCESSFUL_SUBMITED": "Submitted Successfully",
     "MESSAGE_QUERY_SUCCESS": "Query Saved Successfully",
     "MESSAGE_WARNING": "After submitting the query, project status will be changed to J&N and all previous approvals will be reset and will require approval again.",
-    "MESSAGE_DIRTY_CHECK":"You have unsaved changes on this page. Do you want to leave this page and discard your changes?"
-
+    "MESSAGE_DIRTY_CHECK": "You have unsaved changes on this page. Do you want to leave this page and discard your changes?",
+    "MESSAGE_ALREADY_APPROVED": "You have already taken an action on the Project",
+    "MESSAGE_NOT_IN_REVIEW": "The Project is currently not available for review as another approver has raised a query",
+    "MESSAGE_ERROR_PAGE_NOT_FOUND": "Page not found",
+    "MESSAGE_ERROR_WARNING": "view unsafe sites, content &amp; downloads",
+    "MESSAGE_ERROR_UNAUTHORISED_Header": "UNAUTHORIZED ERROR",
+    "MESSAGE_ERROR_UNAUTHORISED": "unauthorized: access to this resource is denied",
+    "MESSAGE_PAGE_WARNING_HEADER": "DECEPTIVE SITE AHEAD",
+    "MESSAGE_PAGE_WARNING": "view unsafe sites, content &amp; downloads"
 }

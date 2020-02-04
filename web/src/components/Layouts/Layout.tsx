@@ -7,17 +7,18 @@ import { getDisplayName } from '../../helpers/auth-helper';
 import { useHistory } from 'react-router-dom';
 
 
-const Layout :React.FC<IAppProps> = (props:any) => {
+const Layout: React.FC<IAppProps> = (props: any) => {
   let history = useHistory();
   const { Theme, UseStyles } = props;
 
 
   return (
     <div className="wrapper">
-      {(history.location.pathname != '/' && history.location.pathname!='/Pipeline')?
-      <Nav Theme={Theme} UseStyles={UseStyles} />:
-      null}
-      <div id="content" className={history.location.pathname == '/'?"w-100":"" || history.location.pathname == '/Pipeline'?"w-100":""}>
+      {(history.location.pathname != '/' && history.location.pathname != '/Pipeline' && history.location.pathname != '/Error') ?
+        <Nav Theme={Theme} UseStyles={UseStyles} /> :
+        null}
+      <div id="content" className={history.location.pathname == '/' || history.location.pathname == '/Pipeline' || history.location.pathname == '/Error'
+        ? "w-100" : ""}>
         <ProfileMenu />
         <Body Theme={Theme} UseStyles={UseStyles} />
       </div>

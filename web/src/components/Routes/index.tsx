@@ -10,7 +10,8 @@ import Discounts from '../../views/Discounts';
 import Subcontractor from '../../views/Subcontractor';
 import ReviewSubmit from '../../views/ReviewSubmit';
 import ReviewApprove from '../../views/ReviewApprove';
-const Preliminaries=React.lazy(()=>import('../../views/Preliminaries'))
+import Error from '../../views/Error/Error';
+const Preliminaries = React.lazy(() => import('../../views/Preliminaries'))
 const Routes: React.FC = props => {
   return (
     <Switch>
@@ -29,6 +30,8 @@ const Routes: React.FC = props => {
       <Route path="/Subcontractor/:projectId" component={Subcontractor} />
       <Route path="/ReviewSubmit/:projectId" component={ReviewSubmit} />
       <Route path="/ReviewApprove/:projectId" component={ReviewApprove} />
+      <Route path="/Error" component={Error} />
+
     </Switch>
   );
 };
