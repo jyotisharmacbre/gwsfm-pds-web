@@ -48,9 +48,11 @@ export const projectDetailAdd = (data: IProjectDetail, event: EventType) => {
 		axios.baseAPI
 			.post('/api/Projects/customerEnquiry', data, { headers: headers })
 			.then((response) => {
+				/* istanbul ignore next */
 				dispatch(projectDetailAddSuccess(response.data, event));
 			})
 			.catch((error) => {
+				/* istanbul ignore next */
 				dispatch(projectDetailError(error));
 			});
 	};
@@ -62,9 +64,11 @@ export const projectDetailEdit = (data: IProjectDetail, event: EventType) => {
 		axios.baseAPI
 			.put('/api/Projects/updatecustomerEnquiry', data, { headers: headers })
 			.then((response) => {
+				/* istanbul ignore next */
 				dispatch(projectDetailEditSuccess(response.data, event));
 			})
 			.catch((error) => {
+				/* istanbul ignore next */
 				dispatch(projectDetailError(error));
 			});
 	};
@@ -89,9 +93,11 @@ export const getEnquiryOverview = (projectId: string) => {
 		axios.baseAPI
 			.get(`api/Projects/${projectId}/enquiryOverview`)
 			.then((response) => {
+				/* istanbul ignore next */
 				dispatch(getEnquiryOverviewSuccess(response.data));
 			})
 			.catch((error) => {
+				/* istanbul ignore next */
 				dispatch(getEnquiryOverviewError(error));
 			});
 	};
@@ -120,9 +126,11 @@ export const getProjectDetail = (projectId: string, cache: boolean = true) => {
 		axios.baseAPI
 			.get(`api/Projects/${projectId}/customerEnquiry`)
 			.then((response) => {
+				/* istanbul ignore next */
 				dispatch(getProjectDetailSuccess(response.data));
 			})
 			.catch((error) => {
+				/* istanbul ignore next */
 				dispatch(getProjectDetailError(error));
 			});
 	};

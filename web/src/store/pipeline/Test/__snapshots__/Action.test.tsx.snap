@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Pipeline action tests should dispatch the projectPipelineDetail 1`] = `Array []`;

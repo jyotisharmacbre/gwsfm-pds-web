@@ -1,106 +1,108 @@
 import * as axios from '../../client';
 import { ActionType } from './Types/ActionType';
 import { Dispatch } from 'redux';
-
-const getDynamicContractSuccess = (response: any) => {
+/* istanbul ignore next */
+export const getDynamicContractSuccess = (response: any) => {
 	return {
 		type: ActionType.DYNAMIC_CONTRACT_DATA_GET_SUCCESS,
 		payload: response
 	};
 };
-
-const getDynamicContractError = (error: any) => {
+/* istanbul ignore next */
+export const getDynamicContractError = (error: any) => {
 	return {
 		type: ActionType.DYNAMIC_CONTRACT_DATA_GET_ERROR,
 		payload: error
 	};
 };
-
-const getDynamicCompanySuccess = (response: any) => {
+/* istanbul ignore next */
+export const getDynamicCompanySuccess = (response: any) => {
 	return {
 		type: ActionType.DYNAMIC_COMPANY_DATA_GET_SUCCESS,
 		payload: response
 	};
 };
-const getDynamicDivisionError = (error: any) => {
+/* istanbul ignore next */
+export const getDynamicDivisionError = (error: any) => {
 	return {
 		type: ActionType.DYNAMIC_COMPANY_DATA_GET_ERROR,
 		payload: error
 	};
 };
-const getDynamicDivisionSuccess = (response: any) => {
+/* istanbul ignore next */
+export const getDynamicDivisionSuccess = (response: any) => {
 	return {
 		type: ActionType.DYNAMIC_DIVISION_DATA_GET_SUCCESS,
 		payload: response
 	};
 };
-const getDynamicCompanyError = (error: any) => {
+export const getDynamicCompanyError = (error: any) => {
 	return {
 		type: ActionType.DYNAMIC_COMPANY_DATA_GET_ERROR,
 		payload: error
 	};
 };
 
-const getDynamicContractOtherSuccess = (response: any) => {
+export const getDynamicContractOtherSuccess = (response: any) => {
 	return {
 		type: ActionType.DYNAMIC_OTHER_CONTRACT_SUCCESS,
 		payload: response
 	};
 };
 
-const getDynamicCompanyOtherSuccess = (response: any) => {
+export const getDynamicCompanyOtherSuccess = (response: any) => {
 	return {
 		type: ActionType.DYNAMIC_OTHER_COMPANY_SUCCESS,
 		payload: response
 	};
 };
 
-const getDynamicSubContractorSuccess = (response: any) => {
+export const getDynamicSubContractorSuccess = (response: any) => {
 	return {
 		type: ActionType.DYNAMIC_SUB_CONTRACTOR_DATA_GET_SUCCESS,
 		payload: response
 	};
 };
 
-const getDynamicSubContractorError = (error: any) => {
+export const getDynamicSubContractorError = (error: any) => {
 	return {
 		type: ActionType.DYNAMIC_SUB_CONTRACTOR_DATA_GET_ERROR,
 		payload: error
 	};
 };
 
-const getDynamicSubContractorOtherSuccess = (response: any) => {
+export const getDynamicSubContractorOtherSuccess = (response: any) => {
 	return {
 		type: ActionType.DYNAMIC_OTHER_SUB_CONTRACTOR_SUCCESS,
 		payload: response
 	};
 };
 
-const getDefaultSuccess = (response: any) => {
+export const getDefaultSuccess = (response: any) => {
 	return {
 		type: ActionType.DYNAMIC_OTHER_DEFAULT_SUCCESS
 	};
 };
-const getDynamicBusinessUnitSuccess=(response:any)=>{
+export const getDynamicBusinessUnitSuccess=(response:any)=>{
 	return {
 		type:ActionType.DYNAMIC_BUSINESSUNIT_SUCCESS,
 		payload:response
 	}
 };
-const getDynamicBusinessUnitError =(error:any) =>
+export const getDynamicBusinessUnitError =(error:any) =>
 {
 	return {
 		type:ActionType.DYNAMIC_BUSINESSUNIT_ERROR,
 		payload:error
 };
 };
-const getDynamicContractListSuccess=(response:any)=>{
+export const getDynamicContractListSuccess=(response:any)=>{
 	return {
 		type:ActionType.DYNAMIC_CONTRACTLIST_SUCCESS,
 		payload:response
 	}
 };
-const getDynamicContractListError =(error:any) =>
+export const getDynamicContractListError =(error:any) =>
 {
 	return {
 		type:ActionType.DYNAMIC_CONTRACTLIST_ERROR,
@@ -122,9 +124,11 @@ export const getDynamicContractData = (searchContract: string) => {
 				config
 			)
 			.then((response) => {
+				/* istanbul ignore next */
 				dispatch(getDynamicContractSuccess(response.data));
 			})
 			.catch((error) => {
+				/* istanbul ignore next */
 				dispatch(getDynamicContractError(error));
 			});
 	};
@@ -139,9 +143,11 @@ export const getDynamicCompanyData = (searchCompany: string) => {
 				config
 			)
 			.then((response) => {
+				/* istanbul ignore next */
 				dispatch(getDynamicCompanySuccess(response.data));
 			})
 			.catch((error) => {
+				/* istanbul ignore next */
 				dispatch(getDynamicCompanyError(error));
 			});
 	};
@@ -171,14 +177,15 @@ export const getDynamicOther = (data: any, type: string) => {
 export const getDynamicSubContractorData = (searchSubContractor: string, success, failure) => {
 	axios.baseAPI
 		.get(
-			`/api/ERPLookup/getSubContractors/${searchSubContractor}?topCount=50
-    `,
+			`/api/ERPLookup/getSubContractors/${searchSubContractor}?topCount=50`,
 			config
 		)
 		.then((response) => {
+			/* istanbul ignore next */
 			success(response.data);
 		})
 		.catch((error) => {
+			/* istanbul ignore next */
 			failure(error);
 		});
 };
@@ -190,9 +197,11 @@ export const getContractDetailsByIds = (searchSubContractor: Array<string>) => {
 			config
 		)
 		.then((response) => {
+			/* istanbul ignore next */
 			dispatch(getDynamicContractListSuccess(response.data));
 		})
 		.catch((error) => {
+			/* istanbul ignore next */
 			dispatch(getDynamicContractListError(error)) ;
 		});
 	};
@@ -206,9 +215,11 @@ export const getListOfDivision = () => {
 			config
 		)
 		.then(response => {
+			/* istanbul ignore next */
 			dispatch(getDynamicDivisionSuccess(response.data));
 		})
 		.catch(error => {
+			/* istanbul ignore next */
 			dispatch(getDynamicDivisionError(error)) ;
 		});
 	};
@@ -221,9 +232,11 @@ export const getListOfBusinessUnits = () => {
 			config
 		)
 		.then(response => {
+			/* istanbul ignore next */
 			dispatch(getDynamicBusinessUnitSuccess(response.data));
 		})
 		.catch(error => {
+			/* istanbul ignore next */
 			dispatch(getDynamicBusinessUnitError(error)) ;
 		});
 	};
