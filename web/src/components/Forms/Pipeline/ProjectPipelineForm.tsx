@@ -30,11 +30,11 @@ const ProjectPipelineForm: React.FC<Props & IReactIntl> = (props: any) => {
   useEffect(
     () => {
       if (
-        props.pipelineValues && props.pipelineValues[0].projectId !== '' &&
+        props.pipelineValues?.length > 0 && props.pipelineValues[0].projectId !== '' &&
         props.currencies?.length > 0 &&
-        props.lookupValues &&
+        props.lookupValues?.length > 0 &&
         props.contractCustomerList?.length > 0 &&
-        props.userNamesForEmailsValues
+        props.userNamesForEmailsValues && props.userNamesForEmailsValues.length > 0
       ) {
         setGridData(
           getPipelineValues(
@@ -64,7 +64,10 @@ const ProjectPipelineForm: React.FC<Props & IReactIntl> = (props: any) => {
           rowProject.status,
           LookupItems.Project_Status
         );
-      rowProject.contractorId = contractCustomerList && rowProject.contractorId && getFilterElementFromArray(contractCustomerList, 'contractId', rowProject.contractorId, 'customerName');
+      var customerObj = contractCustomerList && rowProject.contractorId && contractCustomerList.find(
+        lk => lk.contractId && rowProject.contractorId && lk.contractId.toUpperCase() === rowProject.contractorId.toUpperCase()
+      );
+      rowProject.contractorId = customerObj ? customerObj.customerName : rowProject.contractorId;
       const currencySymbol = getFilterElementFromArray(
         currencies,
         getPropertyName(CurrencyObj, (prop) => prop.currencyId),
