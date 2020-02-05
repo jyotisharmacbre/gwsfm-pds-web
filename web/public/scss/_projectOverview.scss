@@ -332,32 +332,7 @@
 
     /*Post comment Button*/
     button[type="submit"] {
-    background-color: #006a4d;
-    border: 0;
-    font-weight: 600;
-    padding: 12px 20px 10px;
-    font-size: 16px;
-    min-width: 160px;
-    border: 2px solid map-get($colors, darkGreen);
-    text-align: center;
     margin-right:0px;
     float:right;
-    letter-spacing: initial;
-    @include borderRadius(5px);
-    color: map-get($colors, whiteColor);
-    cursor: pointer;
-    &:hover,
-    &.active,
-    &:focus {
-        color: map-get($colors, darkGreen);
-        border: 2px solid map-get($colors, darkGreen);
-        background-color: transparent;
-    }
-    @include mdScreen {
-        padding: 10px 25px;
-    }
-    @include smScreen {
-        padding: 8px 15px;
-        font-size: 14px;
-    }
+   
 }
