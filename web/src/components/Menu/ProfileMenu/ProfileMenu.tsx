@@ -104,6 +104,11 @@ const ProfileMenu: React.FC<any> = props => {
     }
   }
 
+  const showNav = () => {
+    return history.location.pathname == "/" ||
+      history.location.pathname == "/Pipeline" ||
+      history.location.pathname == "/Error";
+  }
   return (
     <nav className="topbar">
       <div className="container-fluid">
@@ -111,7 +116,7 @@ const ProfileMenu: React.FC<any> = props => {
           <div className="col-sm-12">
 
             <div data-test="test-logo" className=
-              {history.location.pathname == "/" || history.location.pathname == "/Pipeline" || history.location.pathname == "/Error" ? "d-md-block logo" : "logo"} >
+              {showNav() ? "d-md-block logo" : "logo"} >
               <Link data-test=""
                 to={{
                   pathname: "/"

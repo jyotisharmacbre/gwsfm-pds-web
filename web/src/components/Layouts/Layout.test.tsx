@@ -94,24 +94,24 @@ describe('Layout component test cases', () => {
         expect(wrapper).toBeDefined();
     });
 
-    it('should have profileMenu Length 1', () => {
+    it('should have profileMenu Length equals 1', () => {
         mockContainer('/');
         expect(wrapper.find('ProfileMenu')).toHaveLength(1);
     });
-    it('should have body Length 1', () => {
+    it('should have body Length equals 1', () => {
         mockContainer('/');
         expect(wrapper.find('Body')).toHaveLength(1);
     });
 
     const historyPathNames = ['/', '/Pipeline', '/Error'];
     test.each(historyPathNames)(
-        'should not show Nav component if url is from %s the component',
+        'should not show Nav component if url is like %s ',
         (pathName) => {
             mockContainer(pathName);
             expect(wrapper.find('Nav')).toHaveLength(0);
         }
     )
-    it('should not show Nav component if url is from not from dashboard,pipeline and error the component', () => {
+    it('should not show Nav component if url is not from dashboard,pipeline and error the component', () => {
         mockContainer('/Notifications');
         expect(wrapper.find('Nav')).toHaveLength(1);
     });
