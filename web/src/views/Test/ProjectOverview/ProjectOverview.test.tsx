@@ -94,7 +94,7 @@ const Props: any = {
 	postComment: jest.fn(),
 	getProjectParameters: jest.fn(),
 	getAllCountries: jest.fn(),
-	isPostCommentFormDirty: true
+	isPostCommentFormDirty: false
 };
 
 const mountComponent = (Props) => {
