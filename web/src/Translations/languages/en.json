@@ -130,6 +130,8 @@
     "LABEL_POTENTIAL_CUSTOMER": "Potential Customer",
     "LABEL_PROBABILITY_OF_WINING": "Probability of winning (%)",
     "LABEL_PROJECT": "Project",
+    "LABEL_POST_COMMENT": "Post Comment",
+    "LABEL_ADD_YOUR_COMMENT_HERE": "Add your comment here",
     "LABEL_PROJECT_BUDGET": "Project Budget",
     "LABEL_PROJECT_IS_LIVE": "Project is Live",
     "LABEL_PROJECT_MANAGER": "Project Manager",
@@ -306,6 +308,7 @@
     "MESSAGE_SUCCESSFUL_SUBMITED": "Submitted Successfully",
     "MESSAGE_QUERY_SUCCESS": "Query Saved Successfully",
     "MESSAGE_WARNING": "After submitting the query, project status will be changed to J&N and all previous approvals will be reset and will require approval again.",
-    "MESSAGE_DIRTY_CHECK":"You have unsaved changes on this page. Do you want to leave this page and discard your changes?"
+    "MESSAGE_DIRTY_CHECK":"You have unsaved changes on this page. Do you want to leave this page and discard your changes?",
+    "MESSAGE_DIRTY_CHECK_COMMENT":"You have unposted comment. Do you want to discard it and continue?"
 
 }
