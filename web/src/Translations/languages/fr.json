@@ -72,6 +72,8 @@
   "LABEL_PREFERED_CURRENCY": "devise préférée",
   "LABEL_QUOTE_VALUE": "Valeur du devis",
   "LABEL_CLIENT": "Client",
+  "LABEL_POST_COMMENT": "Poster un commentaire",
+  "LABEL_ADD_YOUR_COMMENT_HERE": "Ajoutez votre commentaire ici",
   "LABEL_CLIENT_CUSTOMER": "Client / cliente",
   "LABEL_TOTAL_SELL": "Vente totale",
   "LABEL_TOTAL_COST": "Coût total",
@@ -310,6 +312,7 @@
   "MESSAGE_SUCCESSFUL_SUBMITED": "Soumis avec succès",
   "MESSAGE_QUERY_SUCCESS": "Requête enregistrée avec succès",
   "MESSAGE_WARNING": "Après avoir soumis la requête, le statut du projet sera changé en J&N et toutes les approbations précédentes seront réinitialisées et devront à nouveau être approuvées.",
-  "MESSAGE_DIRTY_CHECK":"Vous avez des modifications non enregistrées sur cette page. Voulez-vous quitter cette page et annuler vos modifications?"
+  "MESSAGE_DIRTY_CHECK":"Vous avez des modifications non enregistrées sur cette page. Voulez-vous quitter cette page et annuler vos modifications?",
+  "MESSAGE_DIRTY_CHECK_COMMENT":"Vous avez un commentaire non publié. Voulez-vous le supprimer et continuer?"
 
 }
