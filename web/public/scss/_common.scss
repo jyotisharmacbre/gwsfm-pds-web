@@ -277,8 +277,6 @@ button[type="button"] {
     border: 2px solid map-get($colors, darkGreen);
     text-align: center;
     letter-spacing: initial;
-    margin-right:0px;
-    float:right;
     @include borderRadius(5px);
     color: map-get($colors, whiteColor);
     cursor: pointer;
