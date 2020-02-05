@@ -26,6 +26,7 @@ class Notifications extends React.Component<
       {
         title: 'Name',
         field: 'name',
+        /* istanbul ignore next */
         customFilterAndSearch: (term: any, rowData: any) =>
           (term = rowData.name.length)
       },
@@ -94,6 +95,7 @@ class Notifications extends React.Component<
     e: React.MouseEvent<Element, MouseEvent> | undefined,
     rowData: any
   ) => {
+    /* istanbul ignore next */
     alert(rowData.id);
   };
 

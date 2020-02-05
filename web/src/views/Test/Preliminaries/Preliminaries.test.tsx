@@ -12,8 +12,45 @@ import { initialState as subcontractorInitialState } from '../../../store/SubCon
 import { preliminariesData, lookUpInitialState, customerEnquiryInitialState } from './PreliminariesTestData';
 import { initialState as discountInitialState } from '../../../store/DiscountForm/InitialState';
 import ProjectStatus from '../../../enums/ProjectStatus';
+import Notify from '../../../enums/Notify';
 
 const mockStore = configureStore([]);
+const Props: any = {
+	preliminary: preliminariesData,
+	lookupData: preliminariesData,
+	currencies: preliminariesData,
+	match: { params: { projectId: 1 } },
+	notify: initialState.notify,
+	event: EventType,
+	currencyId: 1,
+	status: 1,
+	preliminaryForm: preliminariesData,
+	history: { push: jest.fn() },
+	preliminaryAdd: jest.fn(),
+	preliminaryEdit: jest.fn(),
+	getPreliminaryDetails: jest.fn(),
+	updateInputField: jest.fn(),
+	getAllCurrencies: jest.fn(),
+	getProjectStatus: jest.fn(),
+	getProjectDetail: jest.fn()
+};
+lookUpInitialState.currencies = [{
+	currencyId: 1,
+	currencyName: 'INR',
+	currencySymbol: 'R',
+	isActive: true
+  }];
+  lookUpInitialState.countries = [{
+	currencyId: 143,
+	name: 'india',
+	code: 'IN',
+	isoAlpha2Code: "IND",
+	countryId: 1	
+  }];
+  customerEnquiryInitialState.form.projectId = 'id';
+  customerEnquiryInitialState.form.currencyId = 1;
+  customerEnquiryInitialState.form.countryId = 1;
+
 let store;
 let wrapper;
 const setUpStore = (initialState, lookUpInitialState, customerEnquiryInitialState, subcontractorInitialState) => {
@@ -37,26 +74,9 @@ const mountPreliminaryComponent = (Props) => {
 	);
 };
 describe('Preliminaries component test cases', () => {
-	const Props: any = {
-		preliminary: preliminariesData,
-		lookupData: preliminariesData,
-		currencies: preliminariesData,
-		match: { params: { projectId: 1 } },
-		notify: initialState.notify,
-		event: EventType,
-		currencyId: 1,
-		status: 1,
-		preliminaryForm: preliminariesData,
-		history: { push: jest.fn() },
-		preliminaryAdd: jest.fn(),
-		preliminaryEdit: jest.fn(),
-		getPreliminaryDetails: jest.fn(),
-		updateInputField: jest.fn(),
-		getAllCurrencies: jest.fn(),
-		getProjectStatus: jest.fn(),
-		getProjectDetail: jest.fn()
-	};
+	
 	beforeEach(() => {
+		initialState.preliminaryDetails
 		setUpStore(initialState, lookUpInitialState, customerEnquiryInitialState, subcontractorInitialState);
 		mountPreliminaryComponent(Props);
 	});
@@ -116,4 +136,23 @@ describe('Preliminaries component test cases', () => {
 		let container = findByTestAtrr(wrapper, 'pre_row_status').first();
 		expect(container.hasClass('link_disabled')).toBe(true);
 	});
+});
+
+describe('Preliminaries defined with differnt notification', () => {
+	
+	it('defines the component when notify success', () => {
+		initialState.notify = Notify.success;
+		initialState.event = 1;		
+		setUpStore(initialState, lookUpInitialState, customerEnquiryInitialState, subcontractorInitialState);
+		mountPreliminaryComponent(Props);
+		expect(wrapper).toBeDefined();
+	});
+
+	it('defines the component when notify error', () => {
+		initialState.notify = Notify.error;
+		setUpStore(initialState, lookUpInitialState, customerEnquiryInitialState, subcontractorInitialState);
+		mountPreliminaryComponent(Props);
+		expect(wrapper).toBeDefined();
+	});
+
 });

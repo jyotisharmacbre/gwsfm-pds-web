@@ -5,6 +5,7 @@ import { makeStyles, createMuiTheme } from '@material-ui/core/styles';
 import { ToastContainer, Zoom, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { injectIntl } from 'react-intl';
+import ErrorBoundary from './components/Error/ErrorBoundary';
 
 const App: React.FC = (props: any) => {
 	const drawerWidth = 250;
@@ -123,10 +124,12 @@ const App: React.FC = (props: any) => {
 	}));
 
 	return (
+		<ErrorBoundary>
 		<div>
 			<Layout Theme={theme} UseStyles={useStyles()} />
 			<ToastContainer autoClose={5000} className="custom_toast_block" transition={Bounce} />
-		</div>
+			</div>
+		</ErrorBoundary>
 	);
 };
 

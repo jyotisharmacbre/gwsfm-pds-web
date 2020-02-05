@@ -12,6 +12,8 @@ import nock from 'nock';
 import { baseURL } from '../../../../client/client';
 import { findByTestAtrr } from '../../../../helpers/test-helper';
 import { currencies, languages, initialState } from './testData';
+import * as actions from '../../../../store/UserPreferencesForm/Actions';
+import EventType from '../../../../enums/EventType';
 
 nock(baseURL)
   .post('/api/Users/addUserPreferences')
@@ -25,6 +27,8 @@ nock(baseURL)
   .get('/api/Users/getUserPreferences')
   .reply(200, { languageName: 'en', languageId: 1 });
 
+let dispatch = jest.fn();
+
 describe('UserProfileForm Fields', () => {
   let wrapper: any;
   const props: any = {
@@ -35,6 +39,7 @@ describe('UserProfileForm Fields', () => {
     languages: languages
   };
   beforeEach(() => {
+
     const formatMessage = jest.mock(
       './../../../../Translations/connectedIntlProvider'
     );
@@ -204,6 +209,68 @@ it('Defines the Form', () => {
           UserPreferencesReducer(initialState, userPreferenceUpdateError)
         ).toMatchSnapshot();
       });
+
+      it('should handle get resetUserPreferencesState successfully', () => {
+        const resetUserPreferencesState: any = {
+          type: ActionType.RESET_USER_PREFERENCES_STATE,
+          payload: { languageName: 'en', languageId: 1 }
+        };
+        expect(
+          UserPreferencesReducer(initialState, resetUserPreferencesState)
+        ).toMatchSnapshot();
+      });
+
+      it('should return userPreferencesFormAdd action', () => {
+        let dispatch = jest.fn();
+        const data = {
+          event: 0,
+          payload: "Preferences added successfully",
+          type: ActionType.USER_PREFERENCES_FORM_ADD_SUCCESS
+        }
+        expect(actions.userPreferencesFormAddSuccess(initialState.preferences, EventType.save)).toMatchSnapshot();
+        let result = actions.userPreferencesFormAdd(initialState.preferences, EventType.save)(dispatch);
+        result.then(() => {
+          expect(dispatch).toBeCalledWith(data);
+        });
+
+      });
+
+      it('should return userPreferencesFormEdit action', () => {
+        let dispatch = jest.fn();
+        const data = {
+          event: 0,
+          payload: "Preferences updated successfully",
+          type: ActionType.USER_PREFERENCES_FORM_EDIT_SUCCESS
+        }
+
+        expect(actions.userPreferencesFormEditSuccess(initialState.preferences, EventType.save)).toMatchSnapshot();
+        let result = actions.userPreferencesFormEdit(initialState.preferences, EventType.save)(dispatch)
+        result.then(() => {
+          expect(dispatch).toBeCalledWith(data);
+        });
+      });
+
+      it('should return userPreferencesGet action', () => {
+        let dispatch = jest.fn();
+        const data = {         
+          payload: { languageName: 'en', languageId: 1 },
+          type: ActionType.USER_PREFERENCES_GET_SUCCESS
+        }
+        expect(actions.userPreferencesGetSuccess(data.payload)).toMatchSnapshot();
+       let result = actions.userPreferencesGet()(dispatch)
+        result.then(() => {
+          expect(dispatch).toBeCalledWith(data);
+        });
+      });
     });
+
+    it('should return resetUserPreferencesState action', () => {
+      expect(actions.resetUserPreferencesState()(dispatch)).toMatchSnapshot();
+    });
+
+    it('should return resetUserPreferencesState action', () => {
+      expect(actions.userPreferencesFormError('error')).toMatchSnapshot();
+    });
+
   });
 });

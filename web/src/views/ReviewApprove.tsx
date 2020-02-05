@@ -52,7 +52,7 @@ interface IMapStateToProps {
 	adminDefaultValues: Array<IAdminDefaults>;
 	countries: Array<ICountry> | null;
 	getListOfDivisions: Array<IDynamicsDivision>;
-	getListOfBusinessUnit:Array<IDynamicBusinessUnits>;
+	getListOfBusinessUnit: Array<IDynamicBusinessUnits>;
 }
 
 interface IMapDispatchToProps {
@@ -63,14 +63,15 @@ interface IMapDispatchToProps {
 	getProjectDetail: (projectId: string) => void;
 	getAdditionalDetails: (projectId: string) => void;
 	getProjectStatus: () => void;
-	handleGetUserNamesForEmails: (emails: Array<string>) => void;
+	handleGetUserNamesForEmails: (emails: Array<string>) => Array<IUserServiceData>;
+	getUserNamesForEmails: (emails: Array<string>) => Array<IUserServiceData>;
 	getLookups: () => void;
 	getProjectActivities: (projectId: string) => void;
 	queryAdd: (projectId: string, formValue: string, event: EventType) => void;
 	getProjectParameters: (countryId: number) => void;
 	getAllCountries: () => void;
 	getDynamicsListOfDivision: () => void;
-	getListOfBusinessUnits:()=>void;
+	getListOfBusinessUnits: () => void;
 }
 
 const lookupKeyList: string[] = [
@@ -82,11 +83,10 @@ const lookupKeyList: string[] = [
 const ReviewApprove: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & ICountryHoc & IInsuranceRateHoc> = (
 	props
 ) => {
-	let urlProjectId: string = '';
 	const CurrencyObj = new Currency();
-	const [ currencySymbol, setCurrencySymbol ] = useState<string>('');
+	const [currencySymbol, setCurrencySymbol] = useState<string>('');
 	const projectId = props.match.params.projectId;
-	const [ showQueryPopup, setShowQueryPopup ] = useState<boolean>(false);
+	const [showQueryPopup, setShowQueryPopup] = useState<boolean>(false);
 	useEffect(() => {
 		window.scrollTo(0, 0);
 		props.getAllCurrencies();
@@ -114,51 +114,50 @@ const ReviewApprove: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & 
 				);
 			}
 		},
-		[ props.project.currencyId, props.currencies ]
+		[props.project.currencyId, props.currencies]
 	);
 	useEffect(
 		() => {
 			if (props.project.countryId > 0) props.getProjectParameters(props.project.countryId);
 		},
-		[ props.project.countryId ]
+		[props.project.countryId]
 	);
-
-	const redirect = (module: string) => {
-		return props.history.push(`/${module}/${props.match.params.projectId}`);
-	};
-
+	/* istanbul ignore next */
 	const handleApproval = () => {
 		actions.projectApprove(props.match.params.projectId, handleApprovalSuccess, handleApprovalError);
 	};
-
+	/* istanbul ignore next */
 	const handleApprovalSuccess = (data) => {
 		toast.success(formatMessage('MESSAGE_SUCCESSFUL_APPROVED'));
 		props.history.push('/');
 	};
-
+	/* istanbul ignore next */
 	const handleApprovalError = (data) => {
 		toast.error(formatMessage('MESSAGE_ERROR'));
 	};
+	/* istanbul ignore next */
 	const handleQuerySuccess = (data) => {
 		toast.success(formatMessage('MESSAGE_QUERY_SUCCESS'));
 		props.history.push('/');
 	};
+	/* istanbul ignore next */
 	const handleQueryError = (data) => {
 		toast.error(formatMessage('MESSAGE_ERROR'));
 	};
+	/* istanbul ignore next */
 	const handleQuerySave = (data: string) => {
 		actions.postQuery(props.match.params.projectId, data, handleQuerySuccess, handleQueryError);
 	};
-
+	/* istanbul ignore next */
 	const actionEditBtn = () => {
 		props.history.push(`/Project/${props.match.params.projectId}`);
 	}
-
+	/* istanbul ignore next */
 	const actionEditBtnOverview = () => {
 		props.history.push(`/ProjectOverview/${props.match.params.projectId}`);
 	}
-	const handleQueryCancel=() =>
-	{setShowQueryPopup(false);}
+	/* istanbul ignore next */
+	const handleQueryCancel = () => { setShowQueryPopup(false); }
 	return (
 		<div className="container-fluid" data-test="review-approve-component">
 			{showQueryPopup && (
@@ -180,17 +179,17 @@ const ReviewApprove: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & 
 							</h1>
 						</div>
 						<ProjectSummary
-						oneditclick={actionEditBtn}
+							oneditclick={actionEditBtn}
 							project={props.project}
 							lookUpData={props.projectStatus}
 							currencySymbol={currencySymbol}
 							userNamesForEmails={props.userNamesForEmails}
 							handleGetUserNamesForEmails={props.handleGetUserNamesForEmails}
 							listOfDivisions={props.getListOfDivisions}
-							listOfBusinessUnits ={props.getListOfBusinessUnit}
+							listOfBusinessUnits={props.getListOfBusinessUnit}
 						/>
 						<ProjectOverviewSummary
-						oneditOverview={actionEditBtnOverview}
+							oneditOverview={actionEditBtnOverview}
 							projectOverview={props.projectOverview}
 							lookUpData={props.projectStatus}
 						/>
@@ -224,7 +223,7 @@ const ReviewApprove: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & 
 								<ActivityFeedList
 									data-test="activity-feed-list"
 									currencySymbol={currencySymbol}
-									handleGetUserNamesForEmails={props.handleGetUserNamesForEmails}
+									handleGetUserNamesForEmails={props.getUserNamesForEmails}
 								/>
 							</div>
 						</div>
@@ -257,7 +256,7 @@ const mapStateToProps = (state: IState) => ({
 	adminDefaultValues: state.admin.adminDefaultValues,
 	countries: state.lookup.countries,
 	getListOfDivisions: state.dynamicData.dynamicsListOfDivision,
-	getListOfBusinessUnit:state.dynamicData.dynamicsListOfBusinessUnits
+	getListOfBusinessUnit: state.dynamicData.dynamicsListOfBusinessUnits
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -270,12 +269,13 @@ const mapDispatchToProps = (dispatch) => {
 		getProjectDetail: (projectId) => dispatch(actions.getProjectDetail(projectId)),
 		getAdditionalDetails: (projectId) => dispatch(actions.getAdditionalDetails(projectId)),
 		handleGetUserNamesForEmails: (emails: Array<string>) => dispatch(actions.getUserNamesForEmailsService(emails)),
+		getUserNamesForEmails: (emails: Array<string>) => dispatch(actions.getNamesForEmailActivitiesFeed(emails)),
 		getLookups: () => dispatch(actions.getLookupsByLookupItems(lookupKeyList)),
 		getProjectActivities: (projectId) => dispatch(actions.getProjectActivities(projectId)),
 		getProjectParameters: (countryId: number) => dispatch(actions.getProjectParameters(countryId)),
 		getAllCountries: () => dispatch(actions.getAllContries()),
 		getDynamicsListOfDivision: () => dispatch(actions.getListOfDivision()),
-		getListOfBusinessUnits:() =>dispatch(actions.getListOfBusinessUnits())
+		getListOfBusinessUnits: () => dispatch(actions.getListOfBusinessUnits())
 	};
 };
 

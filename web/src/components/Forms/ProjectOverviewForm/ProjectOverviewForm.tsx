@@ -47,6 +47,7 @@ import ProjectApprovalForm from './ProjectApprovalForm';
 import ActivityFeedList from './ActivityFeedList';
 import PostCommentForm from '../PostComment/PostCommentForm';
 import { IPostCommentForm } from '../PostComment/IPostCommentForm';
+import { IUserServiceData } from '../../../store/UserService/Types/IUserService';
 interface Props {
 	onNext: (data: IProjectOverviewDetails) => void;
 	onPrevious: () => void;
@@ -60,7 +61,8 @@ interface Props {
 	currencySymbol: string;
 	lookups: any;
 	getListOfUsers: (value: any) => Promise<any>;
-	handleGetUserNamesForEmails: (emails: Array<string>) => void;
+	handleGetUserNamesForEmails: (emails: Array<string>) => Array<IUserServiceData>;
+	getUserNamesForEmails: (emails: Array<string>) => Array<IUserServiceData>;
 	postComment: (projectId: string, comment: string, success, failure) => void;
 	getProjectActivities: (projectId: string) => void;
 	countryCode: string;
@@ -360,7 +362,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 				<div className="col-xl-6">
 					<ActivityFeedList
 						currencySymbol={props.currencySymbol}
-						handleGetUserNamesForEmails={props.handleGetUserNamesForEmails}
+						handleGetUserNamesForEmails={props.getUserNamesForEmails}
 					/>
 					<PostCommentForm postComment={handlePostComment} />
 				</div>
