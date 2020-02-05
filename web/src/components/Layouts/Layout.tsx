@@ -11,10 +11,16 @@ const Layout: React.FC<IAppProps> = (props: any) => {
   let history = useHistory();
   const { Theme, UseStyles } = props;
 
+  const showNav = () => {
+    return history.location.pathname != '/' &&
+      history.location.pathname != '/Pipeline' &&
+      history.location.pathname != '/Error'
+  }
+
 
   return (
     <div className="wrapper">
-      {(history.location.pathname != '/' && history.location.pathname != '/Pipeline' && history.location.pathname != '/Error') ?
+      {showNav() ?
         <Nav Theme={Theme} UseStyles={UseStyles} /> :
         null}
       <div id="content" className={history.location.pathname == '/' || history.location.pathname == '/Pipeline' || history.location.pathname == '/Error'
