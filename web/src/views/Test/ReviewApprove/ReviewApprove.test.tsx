@@ -129,10 +129,10 @@ describe('review and approve component test cases', () => {
 			.spyOn(helper, 'getDisplayEmail').mockImplementationOnce(() => {
 				return 'test1@pds.com';
 			});
-		const toastError = jest.spyOn(toast, "error");
+		const toastWarning = jest.spyOn(toast, "warn");
 
 		mountComponent(store);
-		expect(toastError).toHaveBeenCalledWith('The Project is currently not available for review as another approver has raised a query');
+		expect(toastWarning).toHaveBeenCalledWith('The Project is currently not available for review as another approver has raised a query');
 
 		const btnQuery = findByTestAtrr(wrapper, 'btnQuery');
 		expect(btnQuery.prop('hidden')).toBe(true);
@@ -152,10 +152,10 @@ describe('review and approve component test cases', () => {
 			.spyOn(helper, 'getDisplayEmail').mockImplementationOnce(() => {
 				return 'test1@pds.com';
 			});
-		const toastError = jest.spyOn(toast, "error");
+		const toastWarning = jest.spyOn(toast, "warn");
 		mountComponent(store);
 
-		expect(toastError).toHaveBeenCalledWith('You have already taken an action on the Project');
+		expect(toastWarning).toHaveBeenCalledWith('You have already taken an action on the Project');
 
 		const btnQuery = findByTestAtrr(wrapper, 'btnQuery');
 		expect(btnQuery.prop('hidden')).toBe(true);

@@ -132,13 +132,14 @@ const ReviewApprove: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & 
 	// Redirect page to unauthorised page in case of approver status is pending
 	useEffect(
 		() => {
-			if (props.projectOverview.projectApprovals?.length > 0 && props.project.projectId !== '') {
-				let message = "";
+			if (props.projectOverview.projectId !== '' && props.project.projectId !== '') {
 				let email = getDisplayEmail();
-				let loggedInApprover = props.projectOverview.projectApprovals.find(x => x.userId?.toLowerCase() == email.toLowerCase());
-
-				if (!loggedInApprover) redirect('Error', ErrorType.unauthorised);
+				let loggedInApprover = props.projectOverview.projectApprovals.find(x => x.userId?.toLowerCase() === email.toLowerCase());
+				if (props.projectOverview.projectApprovals.length === 0 || !loggedInApprover) {
+					redirect('Error', ErrorType.unauthorised);
+				}
 				else {
+					let message = "";
 					let isReviewRequestApproved = loggedInApprover?.approvalStatus === ProjectSignOffStatus.Approved;
 					let isReviewRequestPending = loggedInApprover?.approvalStatus === ProjectSignOffStatus.Pending;
 					let isReviewRequestInDraft = loggedInApprover?.approvalStatus === ProjectSignOffStatus.Draft;
@@ -205,10 +206,11 @@ const ReviewApprove: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & 
 
 	const handleApproveUnauthorizedError = (message: string) => {
 		if (showQueryApproveButton) {
-			toast.error(message);
+			toast.warn(message);
 			setShowQueryApproveButton(false);
 		}
 	}
+
 	return (
 		<div className="container-fluid" data-test="review-approve-component">
 			{showQueryPopup && (
