@@ -33,9 +33,12 @@ const ProjectApprovalForm: React.FC<IProps> = (props) => {
 		return {
 			className: className,
 			iconType: iconType,
-			labelID: labelID
+			labelKey: labelID
 		};
 	}
+	const shouldDisplay = (currVal) => {
+		return currVal.userId && currVal.projectApprovalId && props.status == ProjectStatus.InReview
+	};
 	return (
 		<div>
 			<div className="row">
@@ -66,9 +69,9 @@ const ProjectApprovalForm: React.FC<IProps> = (props) => {
 						</div>
 					</div>
 					<div className="col-lg-3">
-						{fields.get(index).userId && fields.get(index).projectApprovalId && props.status == ProjectStatus.InReview && <div className="approve_state">
-							{<span className="icon"><FontAwesomeIcon className={getClassAndIcon(fields.get(index).approvalStatus).className} icon={getClassAndIcon(fields.get(index).approvalStatus).iconType} /></span>}
-							{<label className='approv_label'><FormattedMessage id={getClassAndIcon(fields.get(index).approvalStatus).labelID} /> </label>}
+						{shouldDisplay(fields.get(index)) && <div className="approve_state">
+							{<span data-test="icons-approval-status" className="icon"><FontAwesomeIcon className={getClassAndIcon(fields.get(index).approvalStatus).className} icon={getClassAndIcon(fields.get(index).approvalStatus).iconType} /></span>}
+							{<label className='approv_label'><FormattedMessage id={getClassAndIcon(fields.get(index).approvalStatus).labelKey} /> </label>}
 						</div>
 						}	</div>
 				</div>
