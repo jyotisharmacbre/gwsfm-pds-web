@@ -17,13 +17,20 @@ const Layout: React.FC<IAppProps> = (props: any) => {
       history.location.pathname != '/Error'
   }
 
+  const addClassW100 = () => {
+    return history.location.pathname == '/' ||
+      history.location.pathname == '/Pipeline' ||
+      history.location.pathname == '/Error'
+  }
+
+
 
   return (
     <div className="wrapper">
       {showNav() ?
         <Nav Theme={Theme} UseStyles={UseStyles} /> :
         null}
-      <div id="content" className={history.location.pathname == '/' || history.location.pathname == '/Pipeline' || history.location.pathname == '/Error'
+      <div id="content" className={addClassW100()
         ? "w-100" : ""}>
         <ProfileMenu />
         <Body Theme={Theme} UseStyles={UseStyles} />
