@@ -4,11 +4,13 @@ import NewTypeAhead from '../../TypeAhead/NewTypeAhead';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle, faClock, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 import { ProjectSignOffStatus } from '../../../store/ProjectOverviewForm/Types/ProjectApprovalEnums';
+import ProjectStatus from '../../../enums/ProjectStatus';
 
 interface IProps {
 	fields: any;
 	formatUserData: any;
 	getListOfUsers: (value: any) => Promise<any>;
+	status: number
 }
 
 const ProjectApprovalForm: React.FC<IProps> = (props) => {
@@ -22,18 +24,10 @@ const ProjectApprovalForm: React.FC<IProps> = (props) => {
 				iconType = faCheckCircle;
 				labelID = "LABEL_APPROVED"
 				break;
-			case ProjectSignOffStatus.Pending:
+			default:
 				className = "orange";
 				iconType = faClock;
 				labelID = "LABEL_PENDING";
-				break;
-			case ProjectSignOffStatus.Draft:
-			case ProjectSignOffStatus.Response_Awaited:
-				className = "orange";
-				iconType = faExclamationTriangle;
-				labelID = "LABEL_RESPONSE_AWAITED";
-				break;
-			default:
 				break;
 		}
 		return {
@@ -53,7 +47,7 @@ const ProjectApprovalForm: React.FC<IProps> = (props) => {
 				</div>
 			</div>
 			{fields.map((member, index) => (
-				<div className="row align-items-stretch" key={index} data-test="project-approval-form">{console.log(fields.get(index))}
+				<div className="row align-items-stretch" key={index} data-test="project-approval-form">
 					<div className="col-lg-9">
 						<div className="form-group">
 							<NewTypeAhead
@@ -72,7 +66,7 @@ const ProjectApprovalForm: React.FC<IProps> = (props) => {
 						</div>
 					</div>
 					<div className="col-lg-3">
-						{fields.get(index).userId && fields.get(index).projectApprovalId && <div className="approve_state">
+						{fields.get(index).userId && fields.get(index).projectApprovalId && props.status == ProjectStatus.InReview && <div className="approve_state">
 							{<span className="icon"><FontAwesomeIcon className={getClassAndIcon(fields.get(index).approvalStatus).className} icon={getClassAndIcon(fields.get(index).approvalStatus).iconType} /></span>}
 							{<label className='approv_label'><FormattedMessage id={getClassAndIcon(fields.get(index).approvalStatus).labelID} /> </label>}
 						</div>
