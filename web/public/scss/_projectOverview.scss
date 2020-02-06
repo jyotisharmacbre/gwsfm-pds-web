@@ -331,8 +331,8 @@
     }
 
     /*Post comment Button*/
-    button[type="submit"] {
-    margin-right:0px;
-    float:right;
-   
-}
+    .pds_button_align
+    {
+        margin:0px;
+        float:right;
+    }
