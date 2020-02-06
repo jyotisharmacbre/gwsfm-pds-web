@@ -93,7 +93,8 @@ const Props: any = {
 	handleGetUserNamesForEmails: jest.fn(),
 	postComment: jest.fn(),
 	getProjectParameters: jest.fn(),
-	getAllCountries: jest.fn()
+	getAllCountries: jest.fn(),
+	isPostCommentFormDirty: false
 };
 
 const mountComponent = (Props) => {
@@ -201,6 +202,13 @@ describe('Project component test cases', () => {
 		setUpStore();
 		mountComponent(Props);
 		expect(wrapper).toBeDefined();
+	});
+
+	it('should show conirmation popup when PostCommentForm is Dirty', () => {	
+		Props.isPostCommentFormDirty = true;
+		setUpStore();
+		mountComponent(Props);
+		expect(wrapper.find('.modal-dialog')).toBeDefined();
 	});
 
 });

@@ -25,26 +25,26 @@ const DiscountSubContractorForm: React.FC<Props> = (props: Props) => {
             {fields.map((member, index) => (
                 <div className="forms_wrap" key={index}>
                     <div className="row" key={index} data-test="discount-sub-contractor-form">
-                        <div className="col-lg-7">
-                            {fields.length > 1 ? (
+                        {fields.length > 1 ? (
 
-                                <button
-                                    data-test="deleteDiscountSubContractor"
-                                    className="delete_text"
-                                    onClick={() =>
-                                        confirmAlert({
-                                            intl: intl,
-                                            titleKey: 'TITLE_CONFIRMATION',
-                                            contentKey: 'MESSAGE_DISCOUNT_SUBCONTRACTOR_DELETE_ACTIVITY',
-                                            handleConfirm: () => fields.remove(index)
-                                        })
-                                    }
-                                >
-                                    <FormattedMessage id="BUTTON_DELETE" />
-                                    <FontAwesomeIcon className="" icon={faTrash} />
-                                </button>
-                            ) : null}
-                            <div className="discount-subcontractor-section">
+                            <button
+                                data-test="deleteDiscountSubContractor"
+                                className="delete_text"
+                                onClick={() =>
+                                    confirmAlert({
+                                        intl: intl,
+                                        titleKey: 'TITLE_CONFIRMATION',
+                                        contentKey: 'MESSAGE_DISCOUNT_SUBCONTRACTOR_DELETE_ACTIVITY',
+                                        handleConfirm: () => fields.remove(index)
+                                    })
+                                }
+                            >
+                                <span className="d-none d-lg-inline"><FormattedMessage id="BUTTON_DELETE" /></span>
+                                <FontAwesomeIcon className="" icon={faTrash} />
+                            </button>
+                        ) : null}
+                        <div className="col-lg-7">
+                            <div className="discount-subcontractor-section m-0">
                                 <Field
                                     name={`${member}.supplierName`}
                                     type="text"

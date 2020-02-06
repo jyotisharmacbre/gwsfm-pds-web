@@ -84,8 +84,9 @@ interface IMapStateToProps {
 	userNamesForEmails: Array<IUserServiceData>;
 	countries: Array<ICountry> | null;
 	adminDefaultValues: Array<IAdminDefaults>;
-	isProjectOverviewFormDirty:boolean;
-	intl:any;
+	isProjectOverviewFormDirty: boolean;
+	isPostCommentFormDirty: boolean;
+	intl: any;
 }
 interface IMapDispatchToProps {
 	getProjectStatus: () => void;
@@ -112,7 +113,7 @@ interface IMapDispatchToProps {
 	postComment: (projectId: string, comment: string, success, failure) => void;
 	getProjectParameters: (countryId: number) => void;
 	getAllCountries: () => void;
-	resetProjectOverviewFormState:()=>void;
+	resetProjectOverviewFormState: () => void;
 }
 interface IProps {
 	projectId: string;
@@ -168,30 +169,30 @@ const ProjectOverview: React.FC<
 		[props.project.countryId]
 	);
 	/* istanbul ignore next */
-	const handleResetStateAndRedirection=(componentName:string)=>{
+	const handleResetStateAndRedirection = (componentName: string) => {
 		props.resetProjectOverviewFormState();
 		props.history.push(`/${componentName}/${props.match.params.projectId}`);
 
 	}
 	/* istanbul ignore next */
-	const redirectionToComponent=()=>{
-		if(props.isProjectOverviewFormDirty)
-		{
+	const redirectionToComponent = () => {
+		if (props.isProjectOverviewFormDirty || props.isPostCommentFormDirty) {
 			confirmAlert({
 				intl: props.intl,
 				titleKey: 'TITLE_CONFIRMATION',
 				contentKey: 'MESSAGE_DIRTY_CHECK',
-				handleConfirm: () => handleResetStateAndRedirection("Project")})
+				handleConfirm: () => handleResetStateAndRedirection("Project")
+			})
 		}
-		else{
+		else {
 			handleResetStateAndRedirection("Project");
-		   }
-	
-	  }
-	  /* istanbul ignore next */
+		}
+
+	}
+	/* istanbul ignore next */
 	const handlePrevious = () => {
 		redirectionToComponent();
-	  };
+	};
 	useEffect(
 		() => {
 			if (
@@ -255,7 +256,7 @@ const ProjectOverview: React.FC<
 		},
 		[props.userNamesForEmails, getProjectManagerName]
 	);
-/* istanbul ignore next */
+	/* istanbul ignore next */
 	const getListOfContractSuccess = (response) => {
 		setCustomerName(
 			getFilterElementFromArray(response, 'contractId', props.enquiryOverview.contractorId, 'customerName')
@@ -265,9 +266,22 @@ const ProjectOverview: React.FC<
 	const failure = (error) => { };
 	/* istanbul ignore next */
 	const handleNext = (data: IProjectOverviewDetails) => {
-		data.projectAdditionalDetail.projectAddDetailId == ''
-			? props.projectOverviewFormAdd(props.match.params.projectId, data, EventType.next)
-			: props.projectOverviewFormEdit(data, EventType.next);
+		if (props.isPostCommentFormDirty) {
+			confirmAlert({
+				intl: props.intl,
+				titleKey: 'TITLE_CONFIRMATION',
+				contentKey: 'MESSAGE_DIRTY_CHECK_COMMENT',
+				handleConfirm: () => {
+					data.projectAdditionalDetail.projectAddDetailId == ''
+						? props.projectOverviewFormAdd(props.match.params.projectId, data, EventType.next)
+						: props.projectOverviewFormEdit(data, EventType.next);
+				}
+			})
+		} else {
+			data.projectAdditionalDetail.projectAddDetailId == ''
+				? props.projectOverviewFormAdd(props.match.params.projectId, data, EventType.next)
+				: props.projectOverviewFormEdit(data, EventType.next);
+		}
 	};
 	/* istanbul ignore next */
 	const handleSave = (data: IProjectOverviewDetails) => {
@@ -294,7 +308,7 @@ const ProjectOverview: React.FC<
 		}
 		return projectStatusData.length > 0 ? projectStatusData[0].description : '';
 	};
-/* istanbul ignore next */
+	/* istanbul ignore next */
 	const notifySucess = (data, actionType) => {
 		if (actionType === 'reactivate') {
 			toast.success(formatMessage('MESSAGE_SUCCESSFUL_REACTIVATED'));
@@ -303,11 +317,11 @@ const ProjectOverview: React.FC<
 			toast.success(formatMessage('MESSAGE_SUCCESSFUL_STATUS_CHANGED'));
 		}
 	};
-/* istanbul ignore next */
+	/* istanbul ignore next */
 	const notifyError = (error) => {
 		toast.error(formatMessage('MESSAGE_ERROR_MESSAGE'));
 	};
-/* istanbul ignore next */
+	/* istanbul ignore next */
 	const handleReactivateEvent = () => {
 		actions.reactivateProject(props.match.params.projectId, notifySucess, notifyError);
 	};
@@ -416,7 +430,8 @@ const mapStateToProps = (state: IState) => ({
 	userNamesForEmails: state.userService.userServiceData,
 	adminDefaultValues: state.admin.adminDefaultValues,
 	countries: state.lookup.countries,
-	isProjectOverviewFormDirty:isDirty("projectOverviewForm")(state)
+	isProjectOverviewFormDirty: isDirty("projectOverviewForm")(state),
+	isPostCommentFormDirty: isDirty("PostCommentForm")(state)
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -444,7 +459,7 @@ const mapDispatchToProps = (dispatch) => {
 		postComment: (projectId: string, comment, success, failure) => actions.postComments(projectId, comment, success, failure),
 		getProjectParameters: (countryId: number) => dispatch(actions.getProjectParameters(countryId)),
 		getAllCountries: () => dispatch(actions.getAllContries()),
-		resetProjectOverviewFormState:()=>dispatch(reset("projectOverviewForm"))
+		resetProjectOverviewFormState: () => dispatch(reset("projectOverviewForm"))
 	};
 };
 

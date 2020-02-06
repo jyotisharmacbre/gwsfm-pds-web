@@ -70,7 +70,7 @@ interface Props {
 }
 
 let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDetails, Props>> = (props) => {
-	const { handleSubmit, initialValues, getListOfUsers } = props;
+	const { handleSubmit, initialValues, getListOfUsers, status } = props;
 	const DropdownOptions = projectStatusData.map((status: any, i: number) => (
 		<option key={i} value={status.value}>
 			{status.label}
@@ -354,6 +354,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 								component={ProjectApprovalForm}
 								formatUserData={formatUserData}
 								getListOfUsers={getListOfUsers}
+								status={props.status}
 							/>
 						</div>
 					</div>

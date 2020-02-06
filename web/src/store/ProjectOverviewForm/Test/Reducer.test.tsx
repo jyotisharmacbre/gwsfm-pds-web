@@ -56,4 +56,19 @@ describe('Project overview Reducer', () => {
 		expect(newState.form.projectApprovals[0].approverType).toEqual(ProjectApproverType.HOP);
 		expect(newState.form.projectApprovals[0].projectId).toEqual(testData.existingProjectId);
 	});
+
+	it('should handle get additional details successfully and return db data directly when no intial data has been set up', () => {
+		const getAdditionalDetailsAction: any = {
+			type: ActionType.GET_ADDITIONALS_DETAILS_SUCCESS,
+			payload: {
+				projectId: testData.existingProjectId,
+				projectApprovals: testData.existingProjectApprovalData,
+				projectAdditionalDetail: {}
+			}
+		};
+		let newState = projectOverviewFormReducer(testData.initialDataWithoutProjectApprovals, getAdditionalDetailsAction);
+		expect(newState.form.projectApprovals[0].userId).toEqual(testData.test_emailId_1);
+		expect(newState.form.projectApprovals[0].approverType).toEqual(ProjectApproverType.HOP);
+		expect(newState.form.projectApprovals[0].projectId).toEqual(testData.existingProjectId);
+	});
 });

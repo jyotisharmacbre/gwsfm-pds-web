@@ -19,6 +19,7 @@ interface IMapStateToProps {
 	isPreliminaryFormDirty:boolean,
 	isSubContractorFormDirty:boolean,
 	isDiscountFormDirty:boolean,
+	isPostCommentFormDirty: boolean,
 	intl:any
 }
 interface IMapDispatchToProps {
@@ -76,7 +77,8 @@ if( props.isProjectFormDirty||
 	props.isProjectOverviewFormDirty||
 	props.isPreliminaryFormDirty||
 	props.isSubContractorFormDirty||
-	props.isDiscountFormDirty)
+	props.isDiscountFormDirty ||
+	props.isPostCommentFormDirty)
 	{
 		confirmAlert({
 			intl: props.intl,
@@ -235,7 +237,8 @@ const mapStateToProps = (state: IState) => {
 		isSubContractorFormDirty:isDirty("subContractorForm")(state),
 		isDiscountFormDirty:isDirty("DiscountForm")(state),
 		projectId: state.project.form.projectId,
-		status: state.project.form.status
+		status: state.project.form.status,
+		isPostCommentFormDirty:isDirty("PostCommentForm")(state)
 	};
 };
 const mapDispatchToProps = (dispatch) => {

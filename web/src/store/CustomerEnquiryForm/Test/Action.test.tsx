@@ -35,4 +35,43 @@ describe('add user redux', () => {
 		reduxStore.dispatch(actions.projectDetailAdd(initialState.form, EventType.save));
 		expect(reduxStore.getActions()).toMatchSnapshot();
 	});
+
+	it('should dispatch getEnquiryOverview', () => {
+		reduxStore.dispatch(actions.getEnquiryOverview('1'));
+		expect(reduxStore.getActions()).toMatchSnapshot();
+	});
+
+	
+	it('should dispatch projectDetailEdit', () => {
+		reduxStore.dispatch(actions.projectDetailEdit(initialState.form, EventType.save));
+		expect(reduxStore.getActions()).toMatchSnapshot();
+	});
+
+	it('should dispatch resetCustomerEnquiryStateDispatch', () => {	
+		reduxStore.dispatch(actions.resetCustomerEnquiryState());
+		expect(reduxStore.getActions()).toMatchSnapshot();
+	});
+
+	it('should dispatch resetProjectDetailStateToInitial', () => {	
+		reduxStore.dispatch(actions.resetProjectDetailStateToInitial());
+		expect(reduxStore.getActions()).toMatchSnapshot();
+	});
+
+	it('should dispatch changeProjectStatus', () => {	
+		reduxStore.dispatch(actions.changeProjectStatus(1));
+		expect(reduxStore.getActions()).toMatchSnapshot();
+	});
+
+	it('should dispatch setProjectId', () => {	
+		reduxStore.dispatch(actions.setProjectId('1'));
+		expect(reduxStore.getActions()).toMatchSnapshot();
+	});
+	it('should dispatch resetProjectDetailState', () => {	
+		reduxStore.dispatch(actions.resetProjectDetailState());
+		expect(reduxStore.getActions()).toMatchSnapshot();
+	});
+	it('should dispatch resetProjectDetailState', () => {	
+		reduxStore.dispatch(actions.resetProjectDetailState());
+		expect(reduxStore.getActions()).toMatchSnapshot();
+	});
 });

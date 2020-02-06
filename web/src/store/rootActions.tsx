@@ -17,7 +17,8 @@ export {
 	projectDetailEdit,
 	changeProjectStatus,
 	resetProjectDetailStateToInitial,
-	resetCustomerEnquiryState
+	resetCustomerEnquiryState,
+	setProjectId
 } from './CustomerEnquiryForm/Action';
 
 export {
@@ -53,7 +54,8 @@ export {
 	getDynamicSubContractorData,
 	getDynamicOther,
 	getListOfDivision,
-	getListOfBusinessUnits
+	getListOfBusinessUnits,
+	getContractDetailsByIds
 } from './DynamicsData/Action';
 
 export { getUserNamesForEmailsService, getCurrentUserProfileForEmailsService, getNamesForEmailActivitiesFeed } from './UserService/Action';
