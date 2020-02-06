@@ -31,6 +31,11 @@ import { ICountry } from '../store/Lookups/Types/ICountry';
 import { ICountryHoc, countryHoc } from '../hoc/CountryHoc';
 import { insuranceRateHoc, IInsuranceRateHoc } from '../hoc/InsuranceRateHoc';
 import { IDynamicBusinessUnits, IDynamicsDivision } from '../store/DynamicsData/Types/IDynamicData';
+import { getDisplayEmail } from '../helpers/auth-helper';
+import { ProjectSignOffStatus } from '../store/ProjectOverviewForm/Types/ProjectApprovalEnums';
+import ProjectStatus from '../enums/ProjectStatus';
+import ErrorType from '../enums/ErrorType';
+import { IProjectApprovals } from '../store/ProjectOverviewForm/Types/IProjectApprovals';
 
 interface IProps {
 	match: match<{ projectId: string }>;
@@ -87,11 +92,14 @@ const ReviewApprove: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & 
 	const [currencySymbol, setCurrencySymbol] = useState<string>('');
 	const projectId = props.match.params.projectId;
 	const [showQueryPopup, setShowQueryPopup] = useState<boolean>(false);
+	const [showQueryApproveButton, setShowQueryApproveButton] = useState<boolean>(true);
+	const [renderReviewApprove, setRenderReviewApprove] = useState<boolean>(false);
+
 	useEffect(() => {
 		window.scrollTo(0, 0);
+		props.getAdditionalDetails(projectId);
 		props.getAllCurrencies();
 		props.getProjectStatus();
-		props.getAdditionalDetails(projectId);
 		props.getProjectDetail(projectId);
 		props.getSubContractor(projectId);
 		props.getPreliminaryDetails(projectId);
@@ -122,6 +130,49 @@ const ReviewApprove: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & 
 		},
 		[props.project.countryId]
 	);
+
+	// Redirect page to unauthorised page in case of approver status is pending
+	useEffect(
+		() => {
+			if (props.projectOverview.projectId !== '' && props.project.projectId !== '') {
+				let email = getDisplayEmail();
+				let loggedInApprover = props.projectOverview.projectApprovals.find(x => x.userId?.toLowerCase() === email.toLowerCase());
+				if (props.projectOverview.projectApprovals.length === 0 || !loggedInApprover) {
+					redirect('Error', ErrorType.unauthorised);
+					return;
+				}
+				handleInvalidApproverAction(loggedInApprover);
+			}
+		},
+		[props.projectOverview, props.project]
+	);
+
+	const handleInvalidApproverAction = (loggedInApprover: IProjectApprovals) => {
+		let message = "";
+		setRenderReviewApprove(true);
+		let isReviewRequestApproved = loggedInApprover?.approvalStatus === ProjectSignOffStatus.Approved;
+		let isReviewRequestPending = loggedInApprover?.approvalStatus === ProjectSignOffStatus.Pending;
+		let isReviewRequestInDraft = loggedInApprover?.approvalStatus === ProjectSignOffStatus.Draft;
+
+		let isProjectInReview = parseInt(props.project.status.toString()) === ProjectStatus.InReview;
+
+		if (isReviewRequestApproved) message = formatMessage('MESSAGE_ALREADY_APPROVED');
+		if (isReviewRequestInDraft) message = formatMessage('MESSAGE_NOT_IN_REVIEW');
+
+		if (!(isReviewRequestPending && isProjectInReview)) {
+			handleApproveUnauthorizedError(message);
+		}
+	}
+
+	const redirect = (module: string, errorType: ErrorType) => {
+		return props.history.push({
+			pathname: `/${module}`,
+			state: {
+				type: errorType
+			}
+		});
+	};
+
 	/* istanbul ignore next */
 	const handleApproval = () => {
 		actions.projectApprove(props.match.params.projectId, handleApprovalSuccess, handleApprovalError);
@@ -158,87 +209,100 @@ const ReviewApprove: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & 
 	}
 	/* istanbul ignore next */
 	const handleQueryCancel = () => { setShowQueryPopup(false); }
+
+	const handleApproveUnauthorizedError = (message: string) => {
+		if (showQueryApproveButton) {
+			toast.warn(message);
+			setShowQueryApproveButton(false);
+		}
+	}
+
 	return (
-		<div className="container-fluid" data-test="review-approve-component">
-			{showQueryPopup && (
-				<QueryPopup
-					intl={props.intl}
-					handleConfirm={handleQuerySave}
-					handleCancel={handleQueryCancel}
-					titleKey={<FormattedMessage id="TITLE_QUERY" />}
-					subTitleKey={<FormattedMessage id="SUB_TITLE_QUERY" />}
-					contentKey={<FormattedMessage id="PLACEHOLDER_QUERY" />}
-				/>
-			)}
-			<div className="row">
-				<div className="col-lg-12">
-					<div className="custom-wrap">
-						<div className="heading-subtitle">
-							<h1>
-								<FormattedMessage id="LABEL_REVIEW_APPROVE" />
-							</h1>
-						</div>
-						<ProjectSummary
-							oneditclick={actionEditBtn}
-							project={props.project}
-							lookUpData={props.projectStatus}
-							currencySymbol={currencySymbol}
-							userNamesForEmails={props.userNamesForEmails}
-							handleGetUserNamesForEmails={props.handleGetUserNamesForEmails}
-							listOfDivisions={props.getListOfDivisions}
-							listOfBusinessUnits={props.getListOfBusinessUnit}
+		<React.Fragment>
+			{
+				renderReviewApprove &&
+				<div className="container-fluid" data-test="review-approve-component">
+					{showQueryPopup && (
+						<QueryPopup
+							intl={props.intl}
+							handleConfirm={handleQuerySave}
+							handleCancel={handleQueryCancel}
+							titleKey={<FormattedMessage id="TITLE_QUERY" />}
+							subTitleKey={<FormattedMessage id="SUB_TITLE_QUERY" />}
+							contentKey={<FormattedMessage id="PLACEHOLDER_QUERY" />}
 						/>
-						<ProjectOverviewSummary
-							oneditOverview={actionEditBtnOverview}
-							projectOverview={props.projectOverview}
-							lookUpData={props.projectStatus}
-						/>
-						<div className="row">
-							<div className="col-xl-9">
-								<PricingSummaryTable
-									data-test="pricing-summary"
-									preliminary={props.preliminaryState}
-									subContractor={props.subContractorState}
-									discount={props.discountState}
+					)}
+					<div className="row">
+						<div className="col-lg-12">
+							<div className="custom-wrap">
+								<div className="heading-subtitle">
+									<h1>
+										<FormattedMessage id="LABEL_REVIEW_APPROVE" />
+									</h1>
+								</div>
+								<ProjectSummary
+									oneditclick={actionEditBtn}
+									project={props.project}
+									lookUpData={props.projectStatus}
 									currencySymbol={currencySymbol}
-									insuranceRate={props.insuranceRate}
-									countryCode={props.countryCode}
-									showDiscount={true}
-									showContractor={true}
-									showPreliminary={true}
-									showInsurance={true}
+									userNamesForEmails={props.userNamesForEmails}
+									handleGetUserNamesForEmails={props.handleGetUserNamesForEmails}
+									listOfDivisions={props.getListOfDivisions}
+									listOfBusinessUnits={props.getListOfBusinessUnit}
 								/>
-								<CalculationsSummaryTable
-									data-test="calculation-summary"
-									preliminary={props.preliminaryState}
-									subContractor={props.subContractorState}
-									discount={props.discountState}
-									currencySymbol={currencySymbol}
-									insuranceRate={props.insuranceRate}
+								<ProjectOverviewSummary
+									oneditOverview={actionEditBtnOverview}
+									projectOverview={props.projectOverview}
+									lookUpData={props.projectStatus}
 								/>
+								<div className="row">
+									<div className="col-xl-9">
+										<PricingSummaryTable
+											data-test="pricing-summary"
+											preliminary={props.preliminaryState}
+											subContractor={props.subContractorState}
+											discount={props.discountState}
+											currencySymbol={currencySymbol}
+											insuranceRate={props.insuranceRate}
+											countryCode={props.countryCode}
+											showDiscount={true}
+											showContractor={true}
+											showPreliminary={true}
+											showInsurance={true}
+										/>
+										<CalculationsSummaryTable
+											data-test="calculation-summary"
+											preliminary={props.preliminaryState}
+											subContractor={props.subContractorState}
+											discount={props.discountState}
+											currencySymbol={currencySymbol}
+											insuranceRate={props.insuranceRate}
+										/>
+									</div>
+								</div>
+								<div className="row">
+									<div className="col-xl-12">
+										<ActivityFeedList
+											data-test="activity-feed-list"
+											currencySymbol={currencySymbol}
+											handleGetUserNamesForEmails={props.getUserNamesForEmails}
+										/>
+									</div>
+								</div>
+								<div className="two-side-btn pt-2">
+									<button data-test="btnQuery" type="button" onClick={() => setShowQueryPopup(true)} hidden={!showQueryApproveButton}>
+										<FormattedMessage id="BUTTON_QUERY" />
+									</button>
+									<button data-test="btnApprove" type="button" name="next" onClick={handleApproval} hidden={!showQueryApproveButton}>
+										<FormattedMessage id="BUTTON_APPROVE" />
+									</button>
+								</div>
 							</div>
-						</div>
-						<div className="row">
-							<div className="col-xl-12">
-								<ActivityFeedList
-									data-test="activity-feed-list"
-									currencySymbol={currencySymbol}
-									handleGetUserNamesForEmails={props.getUserNamesForEmails}
-								/>
-							</div>
-						</div>
-						<div className="two-side-btn pt-2">
-							<button type="button" onClick={() => setShowQueryPopup(true)}>
-								<FormattedMessage id="BUTTON_QUERY" />
-							</button>
-							<button type="button" name="next" onClick={handleApproval}>
-								<FormattedMessage id="BUTTON_APPROVE" />
-							</button>
 						</div>
 					</div>
 				</div>
-			</div>
-		</div>
+			}
+		</React.Fragment>
 	);
 };
 

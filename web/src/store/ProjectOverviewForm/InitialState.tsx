@@ -47,10 +47,12 @@ export const initialState: IProjectOverviewState = {
     notify: Notify.none,
     event: EventType.none,
     initialStateSetForProjectApprovals: false,
-    projectActivities:{
-        error:null,
-        loading:false,
+    projectActivities: {
+        error: null,
+        loading: false,
         notify: Notify.none,
-        data:[]
+        data: []
     }
 };
+
+let initialStateWithProjectApprovers = { ...initialState }.form.projectApprovals;
