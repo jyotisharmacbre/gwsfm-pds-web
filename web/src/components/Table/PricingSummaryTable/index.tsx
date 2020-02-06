@@ -60,14 +60,14 @@ const PricingSummaryTable: React.FC<Props> = (props) => {
 					{(props.showPreliminary || props.showContractor) && (
 						<thead>
 							<tr>
-								<th />
-								<th>
+								<th className="width-percent25"/>
+								<th className="width-percent25">
 									<FormattedMessage id="TITLE_COST" /> ({props.currencySymbol})
 								</th>
-								<th>
+								<th className="width-percent25">
 									<FormattedMessage id="TITLE_MARGIN" /> (%)
 								</th>
-								<th>
+								<th className="width-percent25">
 									<FormattedMessage id="TITLE_SELL" /> ({props.currencySymbol})
 								</th>
 							</tr>
@@ -111,11 +111,29 @@ const PricingSummaryTable: React.FC<Props> = (props) => {
 								</td>
 							</tr>
 						) : null}
+					</tbody>
+				</table>
+
+				<table className="price-table table_responsive">
+					{(props.showPreliminary || props.showContractor) && (
+						<thead>
+							<tr>
+								<th className="width-percent25"/>
+								<th className="width-percent25">
+									<FormattedMessage id="TITLE_COST" /> ({props.currencySymbol})
+								</th>
+								<th className="width-percent25">
+									<FormattedMessage id="TITLE_MARGIN" /> (%)
+								</th>
+								<th className="width-percent25">
+									<FormattedMessage id="TITLE_SELL" /> ({props.currencySymbol})
+								</th>
+							</tr>
+						</thead>
+					)}
+					<tbody>
 						{props.showDiscount && props.discount ? (
 							<React.Fragment>
-								<tr>
-									<br />
-								</tr>
 								<tr data-test="discount-data">
 									<td data-column="&nbsp;">
 										<FormattedMessage id="TITLE_DISOUNT" />
@@ -157,11 +175,29 @@ const PricingSummaryTable: React.FC<Props> = (props) => {
 								</tr>
 							</React.Fragment>
 						) : null}
+					</tbody>
+				</table>
+
+				<table className="price-table table_responsive">
+					{(props.showPreliminary || props.showContractor) && (
+						<thead>
+							<tr>
+								<th className="width-percent25"/>
+								<th className="width-percent25">
+									<FormattedMessage id="TITLE_COST" /> ({props.currencySymbol})
+								</th>
+								<th className="width-percent25">
+									<FormattedMessage id="TITLE_MARGIN" /> (%)
+								</th>
+								<th className="width-percent25">
+									<FormattedMessage id="TITLE_SELL" /> ({props.currencySymbol})
+								</th>
+							</tr>
+						</thead>
+					)}
+					<tbody>
 						{props.showInsurance ? (
 							<React.Fragment>
-								<tr>
-									<br />
-								</tr>
 								<tr>
 									<td data-column="&nbsp;">
 										<FormattedMessage id={props.countryCode.toLowerCase() == 'gbr' ? 'LABEL_INSURANCE' : 'LABEL_SGA'} />

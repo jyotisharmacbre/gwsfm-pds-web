@@ -418,7 +418,8 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 					/>
 				</div>
 			</div>
-
+			<div className="hr_line mb-0 mt-3"></div>
+			
 			<div className={`${getClassNameForProjectStatus(props.status)} mr-35 three-btn`}>
 				<button className="active" type="button" onClick={() => props.onPrevious()}>
 					<FormattedMessage id="BUTTON_PREVIOUS" />

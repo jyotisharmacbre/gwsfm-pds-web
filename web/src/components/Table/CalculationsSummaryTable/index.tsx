@@ -60,7 +60,7 @@ const CalculationsSummaryTable: React.FC<Props> = (props) => {
 	);
  
 	return (
-		<div className="col-lg-9 px-0">
+		<div className="col-lg-12 px-0">
 			<div className="price-sumry discount_table">
 				<div className="inner-block">
 					<table className="price-table table_responsive">
