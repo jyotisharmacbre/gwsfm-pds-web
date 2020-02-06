@@ -17,7 +17,7 @@ const Layout: React.FC<IAppProps> = (props: any) => {
       history.location.pathname != '/Error'
   }
 
-  const addClassW100 = () => {
+  const IsAddWithClassW100 = () => {
     return history.location.pathname == '/' ||
       history.location.pathname == '/Pipeline' ||
       history.location.pathname == '/Error'
@@ -30,7 +30,7 @@ const Layout: React.FC<IAppProps> = (props: any) => {
       {showNav() ?
         <Nav Theme={Theme} UseStyles={UseStyles} /> :
         null}
-      <div id="content" className={addClassW100()
+      <div id="content" className={IsAddWithClassW100()
         ? "w-100" : ""}>
         <ProfileMenu />
         <Body Theme={Theme} UseStyles={UseStyles} />

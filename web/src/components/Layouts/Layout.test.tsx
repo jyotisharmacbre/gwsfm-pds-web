@@ -111,7 +111,7 @@ describe('Layout component test cases', () => {
             expect(wrapper.find('Nav')).toHaveLength(0);
         }
     )
-    it('should not show Nav component if url is not from dashboard,pipeline and error the component', () => {
+    it('should not show Nav component if url is not from dashboard or pipeline or error component', () => {
         mockContainer('/Notifications');
         expect(wrapper.find('Nav')).toHaveLength(1);
     });

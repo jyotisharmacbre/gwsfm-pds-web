@@ -35,6 +35,7 @@ import { getDisplayEmail } from '../helpers/auth-helper';
 import { ProjectSignOffStatus } from '../store/ProjectOverviewForm/Types/ProjectApprovalEnums';
 import ProjectStatus from '../enums/ProjectStatus';
 import ErrorType from '../enums/ErrorType';
+import { IProjectApprovals } from '../store/ProjectOverviewForm/Types/IProjectApprovals';
 
 interface IProps {
 	match: match<{ projectId: string }>;
@@ -138,27 +139,30 @@ const ReviewApprove: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & 
 				let loggedInApprover = props.projectOverview.projectApprovals.find(x => x.userId?.toLowerCase() === email.toLowerCase());
 				if (props.projectOverview.projectApprovals.length === 0 || !loggedInApprover) {
 					redirect('Error', ErrorType.unauthorised);
+					return;
 				}
-				else {
-					let message = "";
-					setRenderReviewApprove(true);
-					let isReviewRequestApproved = loggedInApprover?.approvalStatus === ProjectSignOffStatus.Approved;
-					let isReviewRequestPending = loggedInApprover?.approvalStatus === ProjectSignOffStatus.Pending;
-					let isReviewRequestInDraft = loggedInApprover?.approvalStatus === ProjectSignOffStatus.Draft;
-
-					let isProjectInReview = parseInt(props.project.status.toString()) === ProjectStatus.InReview;
-
-					if (isReviewRequestApproved) message = formatMessage('MESSAGE_ALREADY_APPROVED');
-					if (isReviewRequestInDraft) message = formatMessage('MESSAGE_NOT_IN_REVIEW');
-
-					if (!(isReviewRequestPending && isProjectInReview)) {
-						handleApproveUnauthorizedError(message);
-					}
-				}
+				handleInvalidApproverAction(loggedInApprover);
 			}
 		},
 		[props.projectOverview, props.project]
 	);
+
+	const handleInvalidApproverAction = (loggedInApprover: IProjectApprovals) => {
+		let message = "";
+		setRenderReviewApprove(true);
+		let isReviewRequestApproved = loggedInApprover?.approvalStatus === ProjectSignOffStatus.Approved;
+		let isReviewRequestPending = loggedInApprover?.approvalStatus === ProjectSignOffStatus.Pending;
+		let isReviewRequestInDraft = loggedInApprover?.approvalStatus === ProjectSignOffStatus.Draft;
+
+		let isProjectInReview = parseInt(props.project.status.toString()) === ProjectStatus.InReview;
+
+		if (isReviewRequestApproved) message = formatMessage('MESSAGE_ALREADY_APPROVED');
+		if (isReviewRequestInDraft) message = formatMessage('MESSAGE_NOT_IN_REVIEW');
+
+		if (!(isReviewRequestPending && isProjectInReview)) {
+			handleApproveUnauthorizedError(message);
+		}
+	}
 
 	const redirect = (module: string, errorType: ErrorType) => {
 		return props.history.push({
