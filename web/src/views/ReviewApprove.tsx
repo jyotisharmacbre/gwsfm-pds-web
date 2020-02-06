@@ -92,6 +92,7 @@ const ReviewApprove: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & 
 	const projectId = props.match.params.projectId;
 	const [showQueryPopup, setShowQueryPopup] = useState<boolean>(false);
 	const [showQueryApproveButton, setShowQueryApproveButton] = useState<boolean>(true);
+	const [renderReviewApprove, setRenderReviewApprove] = useState<boolean>(false);
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
@@ -140,6 +141,7 @@ const ReviewApprove: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & 
 				}
 				else {
 					let message = "";
+					setRenderReviewApprove(true);
 					let isReviewRequestApproved = loggedInApprover?.approvalStatus === ProjectSignOffStatus.Approved;
 					let isReviewRequestPending = loggedInApprover?.approvalStatus === ProjectSignOffStatus.Pending;
 					let isReviewRequestInDraft = loggedInApprover?.approvalStatus === ProjectSignOffStatus.Draft;
@@ -212,86 +214,91 @@ const ReviewApprove: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & 
 	}
 
 	return (
-		<div className="container-fluid" data-test="review-approve-component">
-			{showQueryPopup && (
-				<QueryPopup
-					intl={props.intl}
-					handleConfirm={handleQuerySave}
-					handleCancel={handleQueryCancel}
-					titleKey={<FormattedMessage id="TITLE_QUERY" />}
-					subTitleKey={<FormattedMessage id="SUB_TITLE_QUERY" />}
-					contentKey={<FormattedMessage id="PLACEHOLDER_QUERY" />}
-				/>
-			)}
-			<div className="row">
-				<div className="col-lg-12">
-					<div className="custom-wrap">
-						<div className="heading-subtitle">
-							<h1>
-								<FormattedMessage id="LABEL_REVIEW_APPROVE" />
-							</h1>
-						</div>
-						<ProjectSummary
-							oneditclick={actionEditBtn}
-							project={props.project}
-							lookUpData={props.projectStatus}
-							currencySymbol={currencySymbol}
-							userNamesForEmails={props.userNamesForEmails}
-							handleGetUserNamesForEmails={props.handleGetUserNamesForEmails}
-							listOfDivisions={props.getListOfDivisions}
-							listOfBusinessUnits={props.getListOfBusinessUnit}
+		<React.Fragment>
+			{
+				renderReviewApprove &&
+				<div className="container-fluid" data-test="review-approve-component">
+					{showQueryPopup && (
+						<QueryPopup
+							intl={props.intl}
+							handleConfirm={handleQuerySave}
+							handleCancel={handleQueryCancel}
+							titleKey={<FormattedMessage id="TITLE_QUERY" />}
+							subTitleKey={<FormattedMessage id="SUB_TITLE_QUERY" />}
+							contentKey={<FormattedMessage id="PLACEHOLDER_QUERY" />}
 						/>
-						<ProjectOverviewSummary
-							oneditOverview={actionEditBtnOverview}
-							projectOverview={props.projectOverview}
-							lookUpData={props.projectStatus}
-						/>
-						<div className="row">
-							<div className="col-xl-9">
-								<PricingSummaryTable
-									data-test="pricing-summary"
-									preliminary={props.preliminaryState}
-									subContractor={props.subContractorState}
-									discount={props.discountState}
+					)}
+					<div className="row">
+						<div className="col-lg-12">
+							<div className="custom-wrap">
+								<div className="heading-subtitle">
+									<h1>
+										<FormattedMessage id="LABEL_REVIEW_APPROVE" />
+									</h1>
+								</div>
+								<ProjectSummary
+									oneditclick={actionEditBtn}
+									project={props.project}
+									lookUpData={props.projectStatus}
 									currencySymbol={currencySymbol}
-									insuranceRate={props.insuranceRate}
-									countryCode={props.countryCode}
-									showDiscount={true}
-									showContractor={true}
-									showPreliminary={true}
-									showInsurance={true}
+									userNamesForEmails={props.userNamesForEmails}
+									handleGetUserNamesForEmails={props.handleGetUserNamesForEmails}
+									listOfDivisions={props.getListOfDivisions}
+									listOfBusinessUnits={props.getListOfBusinessUnit}
 								/>
-								<CalculationsSummaryTable
-									data-test="calculation-summary"
-									preliminary={props.preliminaryState}
-									subContractor={props.subContractorState}
-									discount={props.discountState}
-									currencySymbol={currencySymbol}
-									insuranceRate={props.insuranceRate}
+								<ProjectOverviewSummary
+									oneditOverview={actionEditBtnOverview}
+									projectOverview={props.projectOverview}
+									lookUpData={props.projectStatus}
 								/>
+								<div className="row">
+									<div className="col-xl-9">
+										<PricingSummaryTable
+											data-test="pricing-summary"
+											preliminary={props.preliminaryState}
+											subContractor={props.subContractorState}
+											discount={props.discountState}
+											currencySymbol={currencySymbol}
+											insuranceRate={props.insuranceRate}
+											countryCode={props.countryCode}
+											showDiscount={true}
+											showContractor={true}
+											showPreliminary={true}
+											showInsurance={true}
+										/>
+										<CalculationsSummaryTable
+											data-test="calculation-summary"
+											preliminary={props.preliminaryState}
+											subContractor={props.subContractorState}
+											discount={props.discountState}
+											currencySymbol={currencySymbol}
+											insuranceRate={props.insuranceRate}
+										/>
+									</div>
+								</div>
+								<div className="row">
+									<div className="col-xl-12">
+										<ActivityFeedList
+											data-test="activity-feed-list"
+											currencySymbol={currencySymbol}
+											handleGetUserNamesForEmails={props.getUserNamesForEmails}
+										/>
+									</div>
+								</div>
+								<div className="two-side-btn pt-2">
+									<button data-test="btnQuery" type="button" onClick={() => setShowQueryPopup(true)} hidden={!showQueryApproveButton}>
+										<FormattedMessage id="BUTTON_QUERY" />
+									</button>
+									<button data-test="btnApprove" type="button" name="next" onClick={handleApproval} hidden={!showQueryApproveButton}>
+										<FormattedMessage id="BUTTON_APPROVE" />
+									</button>
+								</div>
 							</div>
-						</div>
-						<div className="row">
-							<div className="col-xl-12">
-								<ActivityFeedList
-									data-test="activity-feed-list"
-									currencySymbol={currencySymbol}
-									handleGetUserNamesForEmails={props.getUserNamesForEmails}
-								/>
-							</div>
-						</div>
-						<div className="two-side-btn pt-2">
-							<button data-test="btnQuery" type="button" onClick={() => setShowQueryPopup(true)} hidden={!showQueryApproveButton}>
-								<FormattedMessage id="BUTTON_QUERY" />
-							</button>
-							<button data-test="btnApprove" type="button" name="next" onClick={handleApproval} hidden={!showQueryApproveButton}>
-								<FormattedMessage id="BUTTON_APPROVE" />
-							</button>
 						</div>
 					</div>
 				</div>
-			</div>
-		</div>
+			}
+		</React.Fragment>
 	);
 };
 
