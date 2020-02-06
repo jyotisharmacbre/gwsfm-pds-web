@@ -594,7 +594,11 @@ const mapStateToProps = (state: IState) => ({
 
 const form = reduxForm<IProjectDetail, Props>({
 	form: 'ProjectForm',
-	enableReinitialize: true
+	enableReinitialize: true,
+	onSubmitFail: (errors: any) =>	{	
+		debugger;	
+		document.getElementsByName(Object.keys(errors)[0])[0]?.focus();
+	}
 })(ProjectForm);
 
 const selector = formValueSelector('ProjectForm');
