@@ -29,7 +29,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 import { projectStatusData, engagementData } from '../../../helpers/dropDownFormValues';
-import { Validate, alphaNumeric } from '../../../helpers/fieldValidations';
+import { Validate, alphaNumeric, onErrorScrollToField } from '../../../helpers/fieldValidations';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import IReactIntl from '../../../Translations/IReactIntl';
 import TypeAhead from '../../TypeAhead/TypeAhead';
@@ -448,7 +448,15 @@ const form = reduxForm<IProjectOverviewDetails, Props>({
 	destroyOnUnmount: false,
 	forceUnregisterOnUnmount: false,
 	form: 'projectOverviewForm',
-	enableReinitialize: true
+	enableReinitialize: true,
+	onSubmitFail: (errors: any) => {
+		let err = {};
+		Object.keys(errors.projectAdditionalDetail).forEach((key) => {
+			err['projectAdditionalDetail.' + key] = errors.projectAdditionalDetail[key];
+		});
+
+		onErrorScrollToField(err);
+	}
 })(ProjectOverviewForm);
 
 export default connect(mapStateToProps)(form);

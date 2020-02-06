@@ -7,7 +7,7 @@ import PdsFormSelect from '../../PdsFormHandlers/PdsFormSelect';
 import PdsFormTextArea from '../../PdsFormHandlers/PdsFormTextArea';
 import PdsFormButton from '../../PdsFormHandlers/PdsFormButton';
 import { selectionButtons } from '../../../helpers/constants';
-import { Validate, alphaNumeric, onlyNumber, OnlyDistinctAssetTypes } from '../../../helpers/fieldValidations';
+import { Validate, alphaNumeric, onlyNumber, OnlyDistinctAssetTypes, onErrorScrollToField } from '../../../helpers/fieldValidations';
 import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
 import { FormattedMessage, injectIntl } from 'react-intl';
@@ -370,7 +370,7 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 												{(message) => <option value="">{message}</option>}
 											</FormattedMessage>
 											{props.currencies &&
-												props.currencies.filter(x=>x.isActive === true).map((data: ICurrency, i: number) => {
+												props.currencies.filter(x => x.isActive === true).map((data: ICurrency, i: number) => {
 													return (
 														<option key={data.currencyId} value={data.currencyId}>
 															{data.currencyName} {data.currencySymbol && `(${data.currencySymbol})`}
@@ -595,9 +595,8 @@ const mapStateToProps = (state: IState) => ({
 const form = reduxForm<IProjectDetail, Props>({
 	form: 'ProjectForm',
 	enableReinitialize: true,
-	onSubmitFail: (errors: any) =>	{	
-		debugger;	
-		document.getElementsByName(Object.keys(errors)[0])[0]?.focus();
+	onSubmitFail: (errors: any) => {
+		onErrorScrollToField(errors);
 	}
 })(ProjectForm);
 

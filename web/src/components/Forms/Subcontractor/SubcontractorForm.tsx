@@ -15,6 +15,7 @@ import EventType from '../../../enums/EventType';
 import { IPreliminariesComponentDetails } from '../../../store/Preliminaries/Types/IPreliminariesComponentDetails';
 import { IDiscountActivity } from '../../../store/DiscountForm/Types/IDiscountActivity';
 import * as services from '../../../services';
+import { onErrorScrollToField } from '../../../helpers/fieldValidations';
 
 interface Props {
 	projectId: string;
@@ -89,7 +90,16 @@ const form = reduxForm<ISubContractor, Props>({
 	destroyOnUnmount: false,
 	forceUnregisterOnUnmount: false,
 	form: 'subContractorForm',
-	enableReinitialize: true
+	enableReinitialize: true,
+	onSubmitFail: (errors: any) => {
+		const errorsWithoutUndefiendKeys = errors.activities.filter(x=>x)[0];
+		let err = {};
+		Object.keys(errorsWithoutUndefiendKeys).forEach((key, index) => {
+			err['activities['+index+'].' + key] = errorsWithoutUndefiendKeys[key];
+		});
+
+		onErrorScrollToField(err);
+	}
 })(injectIntl(SubcontractorForm));
 
 export default connect(mapStateToProps)(form);
