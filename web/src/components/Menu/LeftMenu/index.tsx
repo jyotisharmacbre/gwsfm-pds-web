@@ -92,9 +92,9 @@ if( props.isProjectFormDirty||
 	{
 		//Add code to hide navigation on mobile screen post click on any menu link
 		let element:any=document.getElementsByClassName("sidebar");
-		var len:any= element.length;
-		console.log(len);
-		element[0]?.classList.remove('active');	
+		if( element && element.length>0) {
+			element[0].classList.remove('active');
+			}
 		
 		redirectionToComponent(componentName,projectId);
 	}
