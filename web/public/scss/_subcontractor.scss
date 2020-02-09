@@ -46,9 +46,13 @@
             box-shadow: none;
             background: map-get($colors , grey003 );
             padding: 25px 25px 0 25px;
+            cursor: initial;
             margin: 0;
             @include mdScreen {
                 margin: 5px 0;
+            }
+            &:hover {
+                @include transform(translateY(0));
             }
         }
         .card {
