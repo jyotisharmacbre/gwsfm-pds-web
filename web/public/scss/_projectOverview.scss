@@ -90,6 +90,9 @@
  .price-sumry {
     width: 100%;
     margin: 30px 0;
+    @include mdScreen {
+        margin: 0 0;
+    }
     .inner-block {
         @include mdScreen {
             overflow-x: auto;
@@ -119,6 +122,9 @@
         }
         &.price-table {
             margin-bottom: 15px;
+            @include mdScreen {
+                margin-bottom: 0;
+            }
             th {
                 color: map-get($colors , grey03 );
                 text-transform: capitalize;

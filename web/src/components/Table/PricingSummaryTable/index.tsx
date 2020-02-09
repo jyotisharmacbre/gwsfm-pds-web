@@ -201,12 +201,15 @@ const PricingSummaryTable: React.FC<Props> = (props) => {
 								<tr>
 									<td data-column="&nbsp;">
 										<FormattedMessage id={props.countryCode.toLowerCase() == 'gbr' ? 'LABEL_INSURANCE' : 'LABEL_SGA'} />
+										&nbsp;
 									</td>
 									<td data-column={`Cost (${props.currencySymbol})`}>
 										<FormattedMessage id={props.countryCode.toLowerCase() == 'gbr' ? 'LABEL_INSURANCE_COST' : 'LABEL_SGA_COST'} />
+										&nbsp;
 									</td>
 									<td data-column={`Margin (%)`}>
 										<FormattedMessage id={props.countryCode.toLowerCase() == 'gbr' ? ('LABEL_INSURANCE_PERCENTAGE') : ('LABEL_SGA_PERCENTAGE')} />
+										&nbsp;
 									</td>
 									<td>&nbsp;</td>
 								</tr>
@@ -228,6 +231,7 @@ const PricingSummaryTable: React.FC<Props> = (props) => {
 									</td>
 									<td data-column="Margin (%)">
 										<span>{props.insuranceRate ? `${props.insuranceRate}(%)` : null}</span>
+										&nbsp;
 									</td>
 									<td data-column={`Sell (${props.currencySymbol})`}>&nbsp;</td>
 								</tr>

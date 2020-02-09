@@ -511,6 +511,11 @@ td {
 }
 
 @include mdScreen {
+    .green-tr {
+        tr {
+            background: map-get($colors , Green03 ) !important;
+        }
+    }
     .table_responsive {
         width: 100%;
         display: block;
