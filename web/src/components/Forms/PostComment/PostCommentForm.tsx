@@ -24,9 +24,12 @@ const PostCommentForm = (props: Props & InjectedFormProps<IPostCommentForm, Prop
                     validate={[Validate.maxLength(5000)]}
                     placeholderKey="LABEL_ADD_YOUR_COMMENT_HERE"
                 />
-               <div className="text-right"> <button type="submit" className="pds_button_align mr-4 mb-4" disabled={props.pristine || props.submitting} onClick={props.handleSubmit((values:IPostCommentForm) => props.postComment(values))}>
+                </div>
+               <div className="text-right"> 
+               <button type="submit" className="pds_button_align mr-4 mb-4" disabled={props.pristine || props.submitting} onClick={props.handleSubmit((values:IPostCommentForm) => props.postComment(values))}>
                     Post Comment
-            </button></div>
+            </button>
+            </div>
         </form>          
 	);
 };
