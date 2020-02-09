@@ -24,14 +24,11 @@ const PostCommentForm = (props: Props & InjectedFormProps<IPostCommentForm, Prop
                     validate={[Validate.maxLength(5000)]}
                     placeholderKey="LABEL_ADD_YOUR_COMMENT_HERE"
                 />
-            </div>
-            <div className="text-right">
-                <button className="mr-4 mb-4" type="submit" disabled={props.pristine || props.submitting} onClick={props.handleSubmit((values: IPostCommentForm) => props.postComment(values))}>
-                    <FormattedMessage id='LABEL_POST_COMMENT' />
-                </button>
-            </div>
-        </form>
-    );
+               <div className="text-right"> <button type="submit" className="pds_button_align mr-4 mb-4" disabled={props.pristine || props.submitting} onClick={props.handleSubmit((values:IPostCommentForm) => props.postComment(values))}>
+                    Post Comment
+            </button></div>
+        </form>          
+	);
 };
 
 
