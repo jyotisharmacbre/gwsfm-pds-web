@@ -70,7 +70,7 @@ interface Props {
 }
 
 let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDetails, Props>> = (props) => {
-	const { handleSubmit, initialValues, getListOfUsers } = props;
+	const { handleSubmit, initialValues, getListOfUsers, status } = props;
 	const DropdownOptions = projectStatusData.map((status: any, i: number) => (
 		<option key={i} value={status.value}>
 			{status.label}
@@ -354,6 +354,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 								component={ProjectApprovalForm}
 								formatUserData={formatUserData}
 								getListOfUsers={getListOfUsers}
+								status={props.status}
 							/>
 						</div>
 					</div>
@@ -391,32 +392,37 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 					/>
 				</div>
 			</div>
-			<div className={`${getClassNameForProjectStatus(props.status)} row`}>
-				<div className="col-lg-4">
-					<ProjectOverviewRiskForm
-						riskName="projectAdditionalDetail.projectRisk1"
-						riskLabelName="LABEL_PROJECT_RISK_1"
-						riskControlMeasureName="projectAdditionalDetail.projectRiskControlMeasure1"
-						riskControlMeasureLabelName="LABEL_RISK_1_CONTROL_MEASURE"
-					/>
-				</div>
-				<div className="col-lg-4">
-					<ProjectOverviewRiskForm
-						riskName="projectAdditionalDetail.projectRisk2"
-						riskLabelName="LABEL_PROJECT_RISK_2"
-						riskControlMeasureName="projectAdditionalDetail.projectRiskControlMeasure2"
-						riskControlMeasureLabelName="LABEL_RISK_2_CONTROL_MEASURE"
-					/>
-				</div>
-				<div className="col-lg-4">
-					<ProjectOverviewRiskForm
-						riskName="projectAdditionalDetail.projectRisk3"
-						riskLabelName="LABEL_PROJECT_RISK_3"
-						riskControlMeasureName="projectAdditionalDetail.projectRiskControlMeasure3"
-						riskControlMeasureLabelName="LABEL_RISK_3_CONTROL_MEASURE"
-					/>
+			<div className="card_outer_wrap quote_wrap">
+				<div className={`${getClassNameForProjectStatus(props.status)} row`}>
+					<div className="col-lg-4 px-2">
+						<ProjectOverviewRiskForm
+							riskName="projectAdditionalDetail.projectRisk1"
+							riskLabelName="LABEL_PROJECT_RISK_1"
+							riskControlMeasureName="projectAdditionalDetail.projectRiskControlMeasure1"
+							riskControlMeasureLabelName="LABEL_RISK_1_CONTROL_MEASURE"
+						/>
+					</div>
+					<div className="col-lg-4 px-2">
+						<ProjectOverviewRiskForm
+							riskName="projectAdditionalDetail.projectRisk2"
+							riskLabelName="LABEL_PROJECT_RISK_2"
+							riskControlMeasureName="projectAdditionalDetail.projectRiskControlMeasure2"
+							riskControlMeasureLabelName="LABEL_RISK_2_CONTROL_MEASURE"
+						/>
+					</div>
+					<div className="col-lg-4 px-2">
+						<ProjectOverviewRiskForm
+							riskName="projectAdditionalDetail.projectRisk3"
+							riskLabelName="LABEL_PROJECT_RISK_3"
+							riskControlMeasureName="projectAdditionalDetail.projectRiskControlMeasure3"
+							riskControlMeasureLabelName="LABEL_RISK_3_CONTROL_MEASURE"
+						/>
+					</div>
 				</div>
 			</div>
+
+
+			<div className="hr_line mb-0 mt-5"></div>
 
 			<div className={`${getClassNameForProjectStatus(props.status)} mr-35 three-btn`}>
 				<button className="active" type="button" onClick={() => props.onPrevious()}>

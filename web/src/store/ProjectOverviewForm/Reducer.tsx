@@ -76,15 +76,16 @@ const projectOverviewFormError = (oldState, action) => {
 const getAdditionalDetailsSuccess = (oldState, action) => {
 	let updatedApproverList: Array<IProjectApprovals> = [];
 	if (action.payload != '') {
-		if (oldState.form.projectApprovals && action.payload.projectApprovals) {
+		if (oldState.form.projectApprovals?.length > 0 && action.payload.projectApprovals) {
 			updatedApproverList = oldState.form.projectApprovals.map((item) => {
 				let savedApproverItem = action.payload.projectApprovals.find(
 					(x) => x.approverType === item.approverType
 				);
 				return savedApproverItem ? { ...item, ...savedApproverItem } : item;
 			});
+			action.payload.projectApprovals = updatedApproverList;
+
 		}
-		action.payload.projectApprovals = updatedApproverList;
 		return updateObject(oldState, {
 			form: updateObject(oldState.form, action.payload)
 		});
