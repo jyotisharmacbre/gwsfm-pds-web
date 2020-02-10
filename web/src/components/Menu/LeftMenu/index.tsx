@@ -90,6 +90,12 @@ if( props.isProjectFormDirty||
 	}
 	else
 	{
+		//Add code to hide navigation on mobile screen post click on any menu link
+		let element:any=document.getElementsByClassName("sidebar");
+		if( element && element.length>0) {
+			element[0].classList.remove('active');
+			}
+		
 		redirectionToComponent(componentName,projectId);
 	}
 	}
@@ -126,7 +132,7 @@ if( props.isProjectFormDirty||
 		componentName?history.push(`/${componentName}/${projectId}`):history.push("/");
 	}
 	return (
-		<nav id="sidebar">
+		<nav id="sidebar" className="sidebar">
 			<div className="sidebar-header">
 				<div id="sm_none" className="logo">
 					<a className="cursorPntr"

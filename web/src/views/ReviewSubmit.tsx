@@ -162,7 +162,7 @@ const ReviewSubmit: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & I
 							lookUpData={props.projectStatus}
 						/>
 						<div className="row">
-							<div className="col-xl-9">
+							<div className="col-xl-12">
 								<PricingSummaryTable
 									data-test="pricing-summary"
 									preliminary={props.preliminaryState}

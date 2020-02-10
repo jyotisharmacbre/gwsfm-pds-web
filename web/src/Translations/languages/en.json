@@ -74,7 +74,7 @@
     "LABEL_PREFERED_CURRENCY": "preferred currency",
     "LABEL_QUOTE_VALUE": "Quote Value",
     "LABEL_CLIENT": "Client",
-    "LABEL_CLIENT_CUSTOMER": "Client / customer",
+    "LABEL_CLIENT_CUSTOMER": "Client/customer",
     "LABEL_TOTAL_SELL": "Total Sell",
     "LABEL_TOTAL_COST": "Total Cost",
     "LABEL_GROSS_MARGIN": "Gross Margin",
