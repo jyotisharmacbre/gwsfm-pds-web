@@ -35,10 +35,6 @@ const ActivityFeed: React.FC<IActivityFeed> = (props) => {
 					{formatDateAndTime(props.createdDate)}
 				</span>
 				<p className="MultiLine" data-test="activity-query">{props.query}</p>
-				{/* {props.query.split("\n").map((i, key) => {
-					return <div data-test="activity-query" key={key}>{i}</div>;
-				})
-				} */}
 			</div>
 		</div>
 	);
