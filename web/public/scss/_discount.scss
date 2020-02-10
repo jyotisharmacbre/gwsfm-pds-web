@@ -1,0 +1,54 @@
+.price-sumry {
+    &.discount_table {
+        table {
+            &.price-table {
+                th {
+                    color: map-get($colors , darkGreen );
+                }
+                td {
+                    padding: 10px 5px 8px 15px;
+                    background: map-get($colors , Green03 );
+                    font-weight: 500;
+                    font-size: 16px;
+                    color: map-get($colors , darkGreen );
+                    &:first-child {
+                        font-weight: 500;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+.newDiscountSubcontractor_btn {
+    text-align: right;
+    margin: 40px 0 30px;
+    // position: relative;
+    button {
+        margin-right: 0;
+    }
+    svg {
+        margin-right: 10px;
+        font-size: 20px;
+        vertical-align: middle;
+    }
+    &:before {
+        content: '';
+        position: absolute;
+        left: 0;
+        background: map-get($colors , grey001 );
+        width: 100%;
+        height: 1px;
+        bottom: -40px;
+    }
+
+   
+}
+ .discount-subcontractor-section{
+        margin-top: 20px;
+}
+.discount-supplierTotalDiscount{
+        padding-top: 5px;
+}
+

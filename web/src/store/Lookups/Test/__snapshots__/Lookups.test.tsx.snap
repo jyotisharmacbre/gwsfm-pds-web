@@ -1,0 +1,415 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Lookup reducer should handle GET_ALL_COUNTRIES_ERROR 1`] = `
+Object {
+  "countries": Array [
+    Object {
+      "code": "AFG",
+      "countryId": 1,
+      "currencyId": 64,
+      "isoAlpha2Code": "AF",
+      "name": "Afghanistan",
+    },
+  ],
+  "currencies": Array [
+    Object {
+      "currencyId": 4,
+      "currencyName": "AED",
+      "currencySymbol": "",
+      "isActive": true,
+    },
+  ],
+  "error": undefined,
+  "languages": Array [
+    Object {
+      "languageID": 1,
+      "name": "English",
+      "shortName": "en",
+    },
+  ],
+  "lookups": Array [
+    Object {
+      "description": "HOP(HOP)",
+      "lookupId": 1,
+      "lookupItem": "Project_Approver_Type",
+      "lookupKey": 1,
+    },
+  ],
+  "projectstatus": Array [
+    Object {
+      "description": "Initial Customer Inquiry",
+      "lookupId": 1,
+      "lookupItem": "Project_Status",
+      "lookupKey": 1,
+    },
+  ],
+}
+`;
+
+exports[`Lookup reducer should handle GET_ALL_COUNTRIES_SUCCESS 1`] = `
+Object {
+  "countries": Array [
+    Object {
+      "code": "AFG",
+      "countryId": 1,
+      "currencyId": 64,
+      "isoAlpha2Code": "AF",
+      "name": "Afghanistan",
+    },
+  ],
+  "currencies": Array [
+    Object {
+      "currencyId": 4,
+      "currencyName": "AED",
+      "currencySymbol": "",
+      "isActive": true,
+    },
+  ],
+  "error": null,
+  "languages": Array [
+    Object {
+      "languageID": 1,
+      "name": "English",
+      "shortName": "en",
+    },
+  ],
+  "lookups": Array [
+    Object {
+      "description": "HOP(HOP)",
+      "lookupId": 1,
+      "lookupItem": "Project_Approver_Type",
+      "lookupKey": 1,
+    },
+  ],
+  "projectstatus": Array [
+    Object {
+      "description": "Initial Customer Inquiry",
+      "lookupId": 1,
+      "lookupItem": "Project_Status",
+      "lookupKey": 1,
+    },
+  ],
+}
+`;
+
+exports[`Lookup reducer should handle GET_ALL_CURRENCIES_ERROR 1`] = `
+Object {
+  "countries": Array [
+    Object {
+      "code": "AFG",
+      "countryId": 1,
+      "currencyId": 64,
+      "isoAlpha2Code": "AF",
+      "name": "Afghanistan",
+    },
+  ],
+  "currencies": Array [
+    Object {
+      "currencyId": 4,
+      "currencyName": "AED",
+      "currencySymbol": "",
+      "isActive": true,
+    },
+  ],
+  "error": undefined,
+  "languages": Array [
+    Object {
+      "languageID": 1,
+      "name": "English",
+      "shortName": "en",
+    },
+  ],
+  "lookups": Array [
+    Object {
+      "description": "HOP(HOP)",
+      "lookupId": 1,
+      "lookupItem": "Project_Approver_Type",
+      "lookupKey": 1,
+    },
+  ],
+  "projectstatus": Array [
+    Object {
+      "description": "Initial Customer Inquiry",
+      "lookupId": 1,
+      "lookupItem": "Project_Status",
+      "lookupKey": 1,
+    },
+  ],
+}
+`;
+
+exports[`Lookup reducer should handle GET_ALL_CURRENCIES_SUCCESS 1`] = `
+Object {
+  "countries": Array [
+    Object {
+      "code": "AFG",
+      "countryId": 1,
+      "currencyId": 64,
+      "isoAlpha2Code": "AF",
+      "name": "Afghanistan",
+    },
+  ],
+  "currencies": Array [
+    Object {
+      "currencyId": 4,
+      "currencyName": "AED",
+      "currencySymbol": "",
+      "isActive": true,
+    },
+  ],
+  "error": null,
+  "languages": Array [
+    Object {
+      "languageID": 1,
+      "name": "English",
+      "shortName": "en",
+    },
+  ],
+  "lookups": Array [
+    Object {
+      "description": "HOP(HOP)",
+      "lookupId": 1,
+      "lookupItem": "Project_Approver_Type",
+      "lookupKey": 1,
+    },
+  ],
+  "projectstatus": Array [
+    Object {
+      "description": "Initial Customer Inquiry",
+      "lookupId": 1,
+      "lookupItem": "Project_Status",
+      "lookupKey": 1,
+    },
+  ],
+}
+`;
+
+exports[`Lookup reducer should handle GET_ALL_LANGUAGES_ERROR 1`] = `
+Object {
+  "countries": Array [
+    Object {
+      "code": "AFG",
+      "countryId": 1,
+      "currencyId": 64,
+      "isoAlpha2Code": "AF",
+      "name": "Afghanistan",
+    },
+  ],
+  "currencies": Array [
+    Object {
+      "currencyId": 4,
+      "currencyName": "AED",
+      "currencySymbol": "",
+      "isActive": true,
+    },
+  ],
+  "error": undefined,
+  "languages": Array [
+    Object {
+      "languageID": 1,
+      "name": "English",
+      "shortName": "en",
+    },
+  ],
+  "lookups": Array [
+    Object {
+      "description": "HOP(HOP)",
+      "lookupId": 1,
+      "lookupItem": "Project_Approver_Type",
+      "lookupKey": 1,
+    },
+  ],
+  "projectstatus": Array [
+    Object {
+      "description": "Initial Customer Inquiry",
+      "lookupId": 1,
+      "lookupItem": "Project_Status",
+      "lookupKey": 1,
+    },
+  ],
+}
+`;
+
+exports[`Lookup reducer should handle GET_ALL_LANGUAGES_SUCCESS 1`] = `
+Object {
+  "countries": Array [
+    Object {
+      "code": "AFG",
+      "countryId": 1,
+      "currencyId": 64,
+      "isoAlpha2Code": "AF",
+      "name": "Afghanistan",
+    },
+  ],
+  "currencies": Array [
+    Object {
+      "currencyId": 4,
+      "currencyName": "AED",
+      "currencySymbol": "",
+      "isActive": true,
+    },
+  ],
+  "error": null,
+  "languages": Array [
+    Object {
+      "languageID": 1,
+      "name": "English",
+      "shortName": "en",
+    },
+  ],
+  "lookups": Array [
+    Object {
+      "description": "HOP(HOP)",
+      "lookupId": 1,
+      "lookupItem": "Project_Approver_Type",
+      "lookupKey": 1,
+    },
+  ],
+  "projectstatus": Array [
+    Object {
+      "description": "Initial Customer Inquiry",
+      "lookupId": 1,
+      "lookupItem": "Project_Status",
+      "lookupKey": 1,
+    },
+  ],
+}
+`;
+
+exports[`Lookup reducer should handle LOOKUP_PROJECT_STATUS_GET_SUCCESS successfully 1`] = `
+Object {
+  "countries": Array [
+    Object {
+      "code": "AFG",
+      "countryId": 1,
+      "currencyId": 64,
+      "isoAlpha2Code": "AF",
+      "name": "Afghanistan",
+    },
+  ],
+  "currencies": Array [
+    Object {
+      "currencyId": 4,
+      "currencyName": "AED",
+      "currencySymbol": "",
+      "isActive": true,
+    },
+  ],
+  "error": null,
+  "languages": Array [
+    Object {
+      "languageID": 1,
+      "name": "English",
+      "shortName": "en",
+    },
+  ],
+  "lookups": Array [
+    Object {
+      "description": "HOP(HOP)",
+      "lookupId": 1,
+      "lookupItem": "Project_Approver_Type",
+      "lookupKey": 1,
+    },
+  ],
+  "projectstatus": Array [
+    Object {
+      "description": "Initial Customer Inquiry",
+      "lookupId": 1,
+      "lookupItem": "Project_Status",
+      "lookupKey": 1,
+    },
+  ],
+}
+`;
+
+exports[`Lookup reducer should handle default action 1`] = `
+Object {
+  "countries": Array [
+    Object {
+      "code": "AFG",
+      "countryId": 1,
+      "currencyId": 64,
+      "isoAlpha2Code": "AF",
+      "name": "Afghanistan",
+    },
+  ],
+  "currencies": Array [
+    Object {
+      "currencyId": 4,
+      "currencyName": "AED",
+      "currencySymbol": "",
+      "isActive": true,
+    },
+  ],
+  "error": null,
+  "languages": Array [
+    Object {
+      "languageID": 1,
+      "name": "English",
+      "shortName": "en",
+    },
+  ],
+  "lookups": Array [
+    Object {
+      "description": "HOP(HOP)",
+      "lookupId": 1,
+      "lookupItem": "Project_Approver_Type",
+      "lookupKey": 1,
+    },
+  ],
+  "projectstatus": Array [
+    Object {
+      "description": "Initial Customer Inquiry",
+      "lookupId": 1,
+      "lookupItem": "Project_Status",
+      "lookupKey": 1,
+    },
+  ],
+}
+`;
+
+exports[`Lookup reducer should handle getProjectStatus error 1`] = `
+Object {
+  "countries": Array [
+    Object {
+      "code": "AFG",
+      "countryId": 1,
+      "currencyId": 64,
+      "isoAlpha2Code": "AF",
+      "name": "Afghanistan",
+    },
+  ],
+  "currencies": Array [
+    Object {
+      "currencyId": 4,
+      "currencyName": "AED",
+      "currencySymbol": "",
+      "isActive": true,
+    },
+  ],
+  "error": undefined,
+  "languages": Array [
+    Object {
+      "languageID": 1,
+      "name": "English",
+      "shortName": "en",
+    },
+  ],
+  "lookups": Array [
+    Object {
+      "description": "HOP(HOP)",
+      "lookupId": 1,
+      "lookupItem": "Project_Approver_Type",
+      "lookupKey": 1,
+    },
+  ],
+  "projectstatus": Array [
+    Object {
+      "description": "Initial Customer Inquiry",
+      "lookupId": 1,
+      "lookupItem": "Project_Status",
+      "lookupKey": 1,
+    },
+  ],
+}
+`;

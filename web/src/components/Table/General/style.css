@@ -1,0 +1,53 @@
+.general-table{
+    width:100%;
+    background-color: #E8ECF3;
+    color: rgb(91,91,91);
+    padding: 10px;
+}
+
+.general-table thead tr:first-child th{
+    text-align: left;
+    width: 150px;
+}
+
+.general-table thead tr th:last-child{
+    text-align: right;
+}
+
+.general-table thead tr:first-child th:last-child{
+   
+}
+
+.general-table thead tr:last-child th{
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.general-table-title
+{
+    font-size: 14px;
+    color: rgb(91,91,91);
+    font-weight: normal;
+}
+
+.general-table-title span
+{
+    color: black;
+    font-size: 16px;
+}
+
+ul.listitems{
+    list-style-type: none;
+}
+
+ul.listitems li::before{
+    content: "■";
+    color: #00684d;
+    font-size: 15px;
+    font-weight:bold;
+padding-right: 5px;
+}
+
+ul.listitems li{
+    color: black;
+}

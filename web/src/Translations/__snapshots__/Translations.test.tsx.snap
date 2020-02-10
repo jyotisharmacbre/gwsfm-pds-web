@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ConnectedIntlProvider should return ConnectedIntlProvider 1`] = `"Connect(IntlProvider)"`;
+
+exports[`Translation should return formatted message when passing a key 1`] = `"Name is required"`;
+
+exports[`Translation should return formatted message when passing key as FIELD_VALIDATION_KEY 1`] = `"Must have a maximum of 552 characters"`;

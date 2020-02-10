@@ -1,0 +1,60 @@
+@mixin borderRadius($radiusVal...) {
+    border-radius: $radiusVal;
+    -moz-border-radius: $radiusVal;
+    -webkit-border-radius: $radiusVal;
+}
+
+@mixin transition($transVal...) {
+    -webkit-transition: $transVal;
+    -moz-transition: $transVal;
+    -ms-transition: $transVal;
+    -o-transition: $transVal;
+    transition: $transVal;
+}
+
+@mixin transform($transVal...) {
+    -webkit-transform: $transVal;
+    -moz-transform: $transVal;
+    -ms-transform: $transVal;
+    -o-transform: $transVal;
+    transform: $transVal;
+}
+
+@mixin boxShadow($shadowVal...) {
+    box-shadow: $shadowVal;
+    -moz-box-shadow: $shadowVal;
+    -webkit-box-shadow: $shadowVal;
+}
+
+
+/*Responsive Media Query*/
+
+@mixin lgScreen {
+    @media only screen and (max-width: 1199px) {
+        @content;
+    }
+}
+
+@mixin mdScreen {
+    @media only screen and (max-width: 991px) {
+        @content;
+    }
+}
+
+@mixin smScreen {
+    @media only screen and (max-width: 767px) {
+        @content;
+    }
+}
+
+@mixin smsScreen {
+    @media only screen and (max-width: 575px) {
+        @content;
+    }
+}
+
+@mixin xsScreen {
+    @media only screen and (max-width: 480px) {
+        @content;
+    }
+}

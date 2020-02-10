@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`add user redux should dispatch the default action when requested project detail add in store 1`] = `Array []`;

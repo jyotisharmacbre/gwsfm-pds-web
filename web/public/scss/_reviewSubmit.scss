@@ -1,0 +1,160 @@
+.title_edit_btn {
+    background: map-get($colors , darkGreen );
+    border-radius: 5px 5px 0 0;
+    padding: 10px 15px 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+     h4 {
+        color: map-get($colors , whiteColor );
+        font-size: 16px;
+        margin: 0;
+    }
+    .edit-btn {
+        height: fit-content;
+        margin-top: 0;
+        border-width: 1px !important;
+        padding: 6px 25px 3px;
+        border-width: 1px;
+        min-width: auto;
+        background: transparent;
+        color: map-get($colors , whiteColor );
+        border-radius: 2px;
+        border-color: map-get($colors , whiteColor );
+        &:hover {
+            color: map-get($colors , whiteColor );
+            border-color: map-get($colors , whiteColor );
+        }
+        @include mdScreen {
+            padding: 6px 16px 3px;
+        }
+        &:focus {
+            outline: none;
+        }
+        &.active {
+            border-width: 1px;
+        }
+    }
+}
+
+.RS_custom_block,
+.RS_project_block {
+    background: map-get($colors , whiteColor );
+    border-radius: 5px;
+    margin-top: 15px;
+    margin-bottom: 24px;
+    .RS_custom_inner,
+    .RS_project_inner {
+        padding: 25px;
+        ul {
+            padding: 0 0 0 5px;
+            margin: 0;
+            list-style: none;
+            li {
+                margin-bottom: 25px;
+                &:last-child {
+                    margin-bottom: 15px;
+                }
+                span {
+                    font-size: 14px;
+                    font-weight: 700;
+                    color: #006a4d;
+                    text-transform: capitalize;
+                }
+            }
+        }
+        .scope_block,
+        .plan_block {
+            ul {
+                padding: 0;
+                list-style: square;
+                li {
+                    font-size: 14px;
+                    color: #526061;
+                    margin-left: 18px;
+                    white-space: pre-line;
+                    margin-bottom: 0;
+                }
+                label {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+    .comment_block {
+        margin-top: 20px;
+        margin-bottom: 15px;
+    }
+    h5 {
+        font-size: 14px;
+        font-weight: 700;
+        color: #006a4d;
+        text-transform: capitalize;
+    }
+    p {
+        color: #526061;
+        font-size: 14px;
+        font-weight: 500;
+        margin-bottom: 0;
+    }
+}
+
+/*Query popup*/
+.question_mark_icon {
+    max-width: 40px;
+    margin-bottom: 15px;
+}
+.custom_modal {
+    &.query_modal {
+        &.modal{
+            &.show {
+                .modal-dialog {
+                    max-width: 500px;
+                    width: 100%;
+                }
+                .modal-content {
+                    padding: 20px;
+                    .form-control {
+                        font-size: 13px;
+                    }
+                    .modal-title {
+                        font-weight: 700;
+                        margin-bottom: 0;
+                        font-size: 20px;
+                    }
+                    p {
+                        margin-bottom: 10px;
+                        font-size: 16px;
+                    }
+                    .warn_msg {
+                        color: map-get($colors , grey004);
+                        padding-top: 5px;
+                        text-align: left;
+                        background: map-get($colors , lightgrey );
+                        padding: 20px 20px 20px 50px;
+                        font-size: 13px;
+                        font-weight: 500;
+                        margin-top: 12px;
+                        position: relative;
+                        @include borderRadius (5px);
+                        .warn_icon {
+                            position: absolute;
+                            left: 20px;
+                            top: 0;
+                            bottom: 0;
+                            margin: auto 0;
+                        }
+                        i{color:red}
+                    }
+                }
+                .close {
+                    position: absolute;
+                    right: 6px;
+                    top: 3px;
+                    color: #818A8F;
+                    font-weight: 400;
+                }
+            }
+        }
+    }
+}

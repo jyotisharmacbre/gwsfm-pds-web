@@ -1,0 +1,102 @@
+.heading-subtitle {
+    h1 {
+        margin-bottom: 10px;
+    }
+    p {
+        font-weight: 500;
+        color: map-get($colors , grey07 );
+    }
+}
+
+.card_outer_wrap {
+    .row {
+        padding-left: 8px;
+        padding-right: 8px;
+        @include smScreen {
+            padding-right: 0;
+            padding-left: 0;
+        }
+    }
+    .col-lg-4 {
+        &:last-child {
+            .card_wrap {
+                margin-bottom: 0;
+            }
+        }
+    }
+}
+
+.card_wrap {
+    background: map-get($colors , whiteColor );
+    @include borderRadius (3px);
+    padding: 38px 20px 10px 20px; 
+    @include transition(all 0.4s cubic-bezier(0.4, 0, 1, 1));
+    @include boxShadow(0 0 13px rgba(0, 0, 0, 0.1));
+    margin: 10px 0;
+    height: 100%;
+    &:hover {
+        @include transform(translateY(-10px));
+        @include boxShadow(0 10px 13px rgba(0, 0, 0, 0.1));
+        .card {
+            .title {
+                color: map-get($colors , lightGreen );
+            }
+        }
+    }
+    cursor: pointer;
+    @include mdScreen {
+        height: auto;
+    }
+    @include lgScreen {
+        padding: 20px 15px 10px;
+    }
+    .tick_wrap {
+        position: absolute;
+        z-index: 1;
+        width: 40px;
+        background: map-get($colors , lightGreen02 );
+        height: 40px;
+        right: 8px;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        top: 10px;
+        @include smScreen {
+            right: 15px;
+        }
+        svg {
+            color: map-get($colors , whiteColor );
+            font-size: 20px;
+        }
+        &.active {
+            display: flex;
+        }
+    }
+    .card {
+        text-align: center;
+        border: 0;
+        padding: 0 15px 8px 15px;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        background: map-get($colors , whiteColor );
+        @include lgScreen {
+            padding: 0 5px 8px 5px;
+        }
+        .title {
+            font-size: 24px;
+            color: map-get($colors , darkGreen );
+            font-weight: 600;
+            @include transition(all 0.4s cubic-bezier(0.4, 0, 1, 1));
+            @include lgScreen {
+                margin-top: 0;
+            }
+        }
+        .text {
+            color: map-get($colors , grey002 );
+            font-size: 14px;
+            margin-bottom: 0;
+        }
+    }
+}
+ 

@@ -1,0 +1,624 @@
+body {
+    background-color: map-get($colors, grey04);
+    font-family: 'Hind', sans-serif !important;
+    word-break: break-word;
+}
+
+p {
+    word-wrap: break-word;
+}
+
+#content {
+    width: calc(100% - 250px);
+    min-height: 100vh;
+    @include transition(all 0.3s);
+    @include smScreen {
+        width: 100%;
+    }
+}
+
+div#RouteDiv {
+    height: calc(100% - 60px);
+}
+
+.hr_line {
+    border: 1px solid map-get($colors, grey001);
+    margin-bottom: 25px;
+    margin-top: 10px;
+}
+
+.width-250 {
+    max-width: 250px;
+}
+
+.text-green {
+    color: map-get($colors, darkGreen) !important;
+}
+
+.bg-green {
+    background: map-get($colors, Green03);
+}
+
+::placeholder {
+    /* Firefox, Chrome, Opera */
+    color: map-get($colors, grey002) !important;
+    font-weight: 500 !important;
+}
+
+:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: map-get($colors, grey002) !important;
+    font-weight: 500 !important;
+}
+
+::-ms-input-placeholder {
+    /* Microsoft Edge */
+    color: map-get($colors, grey002) !important;
+    font-weight: 500 !important;
+}
+
+
+/*scrollbar */
+
+.style-3::-webkit-scrollbar-track {
+    // box-shadow: inset 0 0 6px rgba(0,0,0,0.0);
+    // -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.0);
+    background-color: #f1f1f1;
+    ;
+}
+
+.style-3::-webkit-scrollbar {
+    width: 6px;
+    background-color: #f1f1f1;
+    ;
+}
+
+.style-3::-webkit-scrollbar-thumb {
+    background-color: #f1f1f1;
+}
+
+form {
+    label {
+        color: map-get($colors, grey03);
+        margin-bottom: 8px;
+        font-size: 14px;
+        font-weight: 600;
+    }
+    .form-group {
+        margin-bottom: 25px;
+        position: relative;
+        mark {
+            padding: 0;
+        }
+        .symbol_fix {
+            position: absolute;
+            left: 15px;
+            top: 43px;
+            color: map-get($colors, grey06);
+            font-size: 14px;
+            margin-right: 10px;
+        }
+    }
+    .form-control {
+        @include borderRadius(3px);
+        border: 1px solid map-get($colors, grey05);
+        height: auto;
+        padding: 10px;
+        font-size: 13px;
+        font-weight: 500;
+        text-transform: initial;
+        color: map-get($colors, grey002);
+        &:focus {
+            @include boxShadow(1px 0px 7px rgba(170, 169, 169, 0.2));
+            border: 1px solid transparent;
+        }
+        &.custom-space {
+            padding: 12px 10px 8px 30px;
+        }
+    }
+    textarea {
+        resize: none;
+    }
+    button {
+        background: map-get($colors, whiteColor);
+        border: 1px solid map-get($colors, grey06);
+        @include borderRadius(2px);
+        color: map-get($colors, grey06);
+        padding: 8px 25px;
+        font-size: 13px;
+        line-height: normal;
+        margin-right: 8px;
+        cursor: pointer;
+        &:focus {
+            outline: none;
+        }
+        &.active {
+            background: map-get($colors, lightGreen02);
+            color: map-get($colors, whiteColor);
+            border: 1px solid map-get($colors, lightGreen02);
+        }
+    }
+    .select-wrapper {
+        position: relative;
+        &.header_select_wrapper {
+            margin-top: 5px;
+            &:before {
+                right: calc(100% - 169px);
+            }
+        }
+        select {
+            &.form-control {
+                max-width: 285px;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                appearance: none;
+                border: 1px solid map-get($colors, grey08);
+                position: relative;
+                @include borderRadius(3px);
+                padding: 10px 30px 10px 10px;
+                height: auto !important;
+                @include smScreen {
+                    max-width: 100%;
+                }
+            }
+        }
+        &:before {
+            content: '';
+            position: absolute;
+            z-index: 9;
+            background-repeat: no-repeat;
+            background-position: center right;
+            width: 8px;
+            height: 8px;
+            right: calc(100% - 272px);
+            top: 14px;
+            margin: auto 0;
+            border: 2px solid #006a4d;
+            border-top: 0;
+            border-left: 0;
+            @include transform(rotate(45deg));
+            @include transition(all 0.3s);
+            @include smScreen {
+                right: 10px;
+            }
+        }
+        &.active {
+            &:before {
+                @include transform(rotate(225deg));
+                top: 18px;
+            }
+        }
+    }
+    .form-check {
+        position: relative;
+        input[type='radio'] {
+            opacity: 0;
+        }
+        label {
+            padding-left: 10px;
+            color: map-get($colors, grey03);
+            cursor: pointer;
+            margin-bottom: 7px !important;
+            font-weight: 500;
+            &:before {
+                width: 15px;
+                height: 15px;
+                position: absolute;
+                top: 4px;
+                left: 0;
+                content: '';
+                display: inline-block;
+                @include borderRadius(50px);
+                border: 1px solid map-get($colors, grey03);
+                background: transparent;
+                z-index: -1;
+            }
+        }
+        input[type='radio'] {
+            margin: 3px 0 0 -17px;
+            //     &:disabled + label {
+            //     color: #999;
+            //     &:before {
+            //       background-color: #000;
+            //     }
+            //   }
+            &:checked+label {
+                color: map-get($colors, black);
+                &:after {
+                    content: '';
+                    position: absolute;
+                    top: 8px;
+                    left: 4px;
+                    display: inline-block;
+                    font-size: 11px;
+                    width: 7px;
+                    height: 7px;
+                    background-color: map-get($colors, lightGreen02);
+                    @include borderRadius(50px);
+                }
+                &:before {
+                    border: 1px solid map-get($colors, lightGreen02);
+                }
+            }
+        }
+        label.error {
+            &:before {
+                border: 1px solid #e13e3e !important;
+            }
+        }
+    }
+    //   .rdio-default input[type="radio"]:checked + label:before {
+    //     border-color: #fbc52d;
+    //   }
+    //   .rdio-primary input[type="radio"]:checked + label {
+    //     &:before {
+    //       border-color: #fbc52d;
+    //     }
+    //     &::after {
+    //       background-color: #fbc52d;
+    //     }
+    //   }
+}
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none !important;
+    margin: 0 !important;
+}
+
+button[type="submit"],
+button[type="button"] {
+    background-color: #006a4d;
+    border: 0;
+    font-weight: 600;
+    padding: 12px 20px 10px;
+    font-size: 16px;
+    min-width: 160px;
+    border: 2px solid map-get($colors, darkGreen);
+    text-align: center;
+    letter-spacing: initial;
+    @include borderRadius(5px);
+    color: map-get($colors, whiteColor);
+    cursor: pointer;
+    &:hover,
+    &.active,
+    &:focus {
+        color: map-get($colors, darkGreen);
+        border: 2px solid map-get($colors, darkGreen);
+        background-color: transparent;
+    }
+    @include mdScreen {
+        padding: 10px 25px;
+    }
+    @include smScreen {
+        padding: 8px 15px;
+        font-size: 14px;
+    }
+}
+
+.width-100 {
+    max-width: 100px;
+}
+
+.width-120 {
+    max-width: 120px;
+}
+
+.width-285 {
+    max-width: 285px;
+}
+
+.pl-20 {
+    padding-left: 25px !important;
+}
+
+.pl-30 {
+    padding-left: 30px !important;
+}
+
+.rbt-input-hint {
+    display: none !important;
+}
+.mr-t-40 {
+    margin-top: 40px;
+}
+
+.mx-35 {
+    margin: 0 35px;
+    @include smScreen {
+        margin: 0 0;
+    }
+}
+
+
+/*override bootstrap*/
+
+.btn-secondary:not(:disabled):not(.disabled):active:focus,
+.show>.btn-secondary.dropdown-toggle:focus {
+    @include boxShadow(none);
+}
+
+.three-btn {
+    padding: 40px 0;
+    display: flex;
+    justify-content: space-between;
+    @include mdScreen {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    button {
+        margin-right: 20px;
+        @include mdScreen {
+            margin-bottom: 15px;
+        }
+        &:last-child {
+            margin-right: 0;
+        }
+        &:nth-child(2) {
+            @include smsScreen {
+                margin-left: 0 !important;
+            }
+        }
+    }
+}
+
+.two-side-btn {
+    padding: 40px 0;
+    display: flex;
+    justify-content: space-between;
+    @include mdScreen {
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 20px 0;
+    }
+    button {
+        margin-right: 20px;
+        @include mdScreen {
+            margin: 8px 8px;
+        }
+        &:nth-child(2) {
+            margin-right: 0;
+            @include mdScreen {
+                margin-right: 8px;
+            }
+        }
+    }
+}
+
+
+/*custom modal*/
+
+.custom_modal {
+    background: rgba(0, 0, 0, 0.5);
+    &.modal {
+        &.show {
+            .modal-dialog {
+                max-width: 400px;
+                margin: 1.75rem auto;
+                padding: 10px;
+                width: 100%;
+            }
+            .modal-content {
+                border: 0;
+                padding: 20px;
+                p {
+                    margin-bottom: 10px;
+                    font-size: 16px;
+                    text-align: center;
+                }
+                .modal-header {
+                    padding: 0;
+                    border: 0;
+                }
+                .modal-title {
+                    color: map-get($colors, grey03);
+                    font-weight: 700;
+                    margin-bottom: 0;
+                    font-size: 20px;
+                }
+                .modal-body {
+                    padding: 0;
+                    font-size: 11px;
+                    color: map-get($colors, grey03);
+                    font-weight: 400;
+                }
+            }
+            .modal-footer {
+                border: 0;
+                padding: 15px 0 0 0;
+                display: flex;
+                justify-content: space-between;
+                button {
+                    min-width: 120px;
+                }
+            }
+            .close {
+                position: absolute;
+                right: 6px;
+                top: 3px;
+                color: #818A8F;
+                font-weight: 400;
+            }
+        }
+    }
+}
+
+.button-type {
+    background: map-get($colors, whiteColor) !important;
+    border: 1px solid map-get($colors, grey06) !important;
+    @include borderRadius(2px);
+    color: map-get($colors, grey002) !important;
+    padding: 6px 25px !important;
+    font-size: 13px !important;
+    line-height: normal !important;
+    margin-right: 8px !important;
+    font-weight: 400 !important;
+    min-width: 0 !important;
+    cursor: pointer !important;
+    border-radius: 0 !important;
+    letter-spacing: inherit !important;
+    &:focus {
+        outline: none !important;
+    }
+    &.active {
+        background: map-get($colors, lightGreen02) !important;
+        color: map-get($colors, whiteColor) !important;
+        border: 1px solid map-get($colors, lightGreen02) !important;
+    }
+}
+
+.DashboardGrid {
+    width: 90%;
+}
+
+.DashboardGridButtons {
+    background-color: greenyellow;
+    text-align: center;
+    border-radius: 10px;
+}
+
+
+/*table responsive and common table design style*/
+td {
+    a {
+        color: map-get($colors , lightGreen );
+        text-decoration: none;
+        &:hover {
+            color: map-get($colors , lightGreen );
+            text-decoration: underline;
+        }
+    }
+}
+
+@include mdScreen {
+    .table_responsive {
+        width: 100%;
+        display: block;
+        overflow-x: hidden !important;
+        thead,
+        tbody,
+        th,
+        td,
+        tr {
+            display: block;
+        }
+        thead {
+            tr {
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+        }
+        tr {
+            border-bottom: solid 1px #cad0d8;
+            background: transparent;
+            &:nth-child(odd) {
+                background-color: #e8ecf3;
+            }
+            td {
+                border: none !important;
+                position: relative;
+                padding-left: 50% !important;
+                background-color: transparent !important;
+                margin: 5px 0;
+                min-height: 31px;
+                padding-top: 5px !important;
+                padding-bottom: 5px !important;
+                &:before {
+                    position: absolute;
+                    top: 6px;
+                    left: 10px;
+                    width: 45%;
+                    padding-right: 10px;
+                    content: attr(data-column);
+                    font-weight: 700;
+                }
+            }
+        }
+    }
+}
+
+
+/*activate button*/
+
+.activate_btn {
+    svg {
+        margin-right: 8px;
+    }
+}
+
+
+/*custom typehead*/
+
+.custom_typehead {
+    ul {
+        li {
+            a {
+                color: map-get($colors, black);
+                font-size: 14px;
+                padding: 10px 10px;
+            }
+        }
+    }
+}
+
+/* toaster message design */
+.custom_toast_block {
+    .Toastify__toast--error {
+        background-color: map-get($colors, red );
+    }
+
+    .Toastify__toast--success,
+    .Toastify__toast--error {
+        background: #028239;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+    }
+
+    .Toastify__close-button {
+        background-color: transparent;
+        padding: 0;
+        opacity: 1;
+        align-self: auto;
+        min-width: 0;
+        margin-right: 10px;
+        border: none;
+    }
+
+    .Toastify__toast {
+        padding: 8px 8px 8px 18px;
+        font-family: hind;
+    }
+
+    .Toastify__close-button {
+        &:hover {
+            color: #fff;
+        }
+    }
+}
+
+/*Loader Styling*/
+.sbl-circ-path {
+    height: 48px;
+    width: 48px;
+    color: rgba(90, 90, 90, 0.2);
+    position: relative;
+    display: inline-block;
+    border: 5px solid;
+    border-radius: 50%;
+    border-right-color: #5a5a5a;
+    animation: rotate 1s linear infinite; }
+  
+  @keyframes rotate {
+    0% {
+        @include transform (rotate(0));
+    }
+    100% {
+        @include transform (rotate(360deg));
+    } 
+    }
+    .cursorPntr
+{
+    cursor: pointer!important;
+}

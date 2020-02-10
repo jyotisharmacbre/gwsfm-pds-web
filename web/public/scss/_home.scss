@@ -1,0 +1,443 @@
+.wrapper {
+    display: flex;
+    align-items: stretch;
+}
+
+
+/*topbar*/
+
+.logo {
+    padding: 14px 0;
+    cursor: pointer;
+    img {
+        max-width: 140px;
+    }
+}
+
+.topbar {
+    background: map-get($colors, darkgreen);
+    height: 60px;
+    display: flex;
+    align-items: center;
+    .logo {
+        display: none;
+        max-width: 133px;
+        float: left;
+        cursor: pointer;
+        @include smScreen {
+            display: block;
+            img {
+                max-width: 110px;
+            }
+        }
+    }
+    .icons-blocks {
+        list-style: none;
+        margin: 0;
+        padding: 8px 0;
+        align-items: center;
+        display: inline-flex;
+        float: right;
+        height: 60px;
+        li {
+            display: inline-block;
+            margin: 0 15px;
+            &:last-child {
+                margin: 0;
+            }
+            @include smScreen {
+                margin: 0 10px;
+            }
+            &:nth-child(2) {
+                .badge {
+                    background: map-get($colors, whiteColor);
+                    border: 1px solid map-get($colors, darkGreen);
+                    width: 14px;
+                    height: 14px;
+                    font-style: initial;
+                    font-weight: 600;
+                    @include borderRadius(50%);
+                    padding: 0;
+                    position: absolute;
+                    top: -9px;
+                    right: -6px;
+                    display: flex;
+                    align-items: center;
+                    color: map-get($colors, darkGreen);
+                    justify-content: center;
+                    font-size: 10px;
+                }
+            }
+            a {
+                color: map-get($colors, whiteColor);
+                display: block;
+                font-size: 14px;
+                text-transform: capitalize;
+                position: relative;
+                background-color: transparent !important;
+                border: 0;
+                text-decoration: none;
+                &:after {
+                    border: 0;
+                }
+                &:hover,
+                &:focus {
+                    color: map-get($colors, whiteColor);
+                    @include boxShadow(none);
+                }
+                .down-arrow {
+                    position: relative;
+                    padding-left: 18px;
+                    &:before {
+                        content: '';
+                        position: absolute;
+                        width: 8px;
+                        height: 8px;
+                        @include transform (rotate(45deg));
+                        border-top: 0;
+                        border-left: 0;
+                        border-bottom: 2px solid map-get($colors , whiteColor );
+                        border-right: 2px solid map-get($colors , whiteColor );
+                        @include transition(all ease 0.3s);
+                        top: 4px;
+                        right: 0;
+                        @include smScreen {
+                            display: none;
+                        }
+                    }
+                    &.active {
+                        &:before {
+                            @include transform (rotate(180deg));
+                        }
+                    }
+                }
+                #sm_none {
+                    padding-left: 10px;
+                }
+                .fa-home {
+                    font-size: 15px;
+                    outline: none;
+                }
+            }
+        }
+    }
+}
+
+.dropdown-menu {
+    &.user-dropdown {
+        z-index: 20;
+        top: 24px !important;
+        padding: 0;
+        display: inherit;
+        width: 265px;
+        right: -20px;
+        left: auto;
+        @include borderRadius(5px);
+        @include boxShadow(0px 7px 11px rgba(204, 204, 204, 0.86));
+        border-right: 0;
+        border-left: 0;
+        border-bottom: 0;
+        &:after {
+            width: 0;
+            height: 0;
+            border-left: 9px solid transparent;
+            border-right: 9px solid transparent;
+            border-bottom: 11px solid #fff;
+            position: absolute;
+            top: -11px;
+            right: 20px;
+            content: '';
+        }
+        .language_wrap {
+            ul {
+                padding: 25px 25px 5px 30px;
+                li {
+                    margin: 0 0 20px 0;
+                    display: block;
+                    a {
+                        position: relative;
+                        color: map-get($colors, grey002);
+                        padding-left: 30px;
+                        i {
+                            position: absolute;
+                            left: -4px;
+                            display: flex;
+                            align-items: center;
+                            height: 100%;
+                            font-size: 18px;
+                            img {
+                                max-width: 22px;
+                                height: auto;
+                                @include transform (translate(-2px, -2px));
+                            }
+                        }
+                        .title_name {
+                            color: map-get($colors, grey002);
+                            font-weight: 500;
+                            font-size: 15px;
+                            margin: 0;
+                            line-height: 18px;
+                        }
+                        .dsc {
+                            color: map-get($colors, grey005);
+                            font-size: 14px;
+                            text-transform: initial;
+                        }
+                    }
+                }
+            }
+            .link_group {
+                background: map-get($colors, darkGreen);
+                display: flex;
+                justify-content: space-evenly;
+                padding: 15px 0 14px;
+                @include borderRadius(0 0 5px 5px);
+                a {
+                    color: map-get($colors, whiteColor);
+                    font-size: 14px;
+                    font-weight: 500;
+                }
+                span {
+                    color: map-get($colors, whiteColor);
+                    font-size: unset;
+                }
+            }
+        }
+    }
+}
+
+
+/*sidebar*/
+
+#sidebar {
+    z-index: 10;
+    position: relative;
+    min-width: 250px;
+    max-width: 250px;
+    background: map-get($colors, grey01);
+    color: #fff;
+    @include transition(all 0.6s cubic-bezier(0, 0.4, 0.58, 1));
+    transform-origin: center left;
+    @include mdScreen {
+        min-width: 250px;
+        max-width: 250px;
+    }
+    @include smScreen {
+        margin-left: -250px;
+    }
+    &.active {
+        margin-left: -250px;
+        transform: rotateY(100deg);
+        @include smScreen {
+            margin-left: 0;
+            transform: none;
+            min-width: 100%;
+            max-width: 100%;
+        }
+    }
+    .sidebar-header {
+        padding: 0px 0 0px 15px;
+    }
+    .upload {
+        background: #006a4d;
+        padding: 10px 12px;
+        font-size: 18px;
+        text-transform: capitalize;
+        img {
+            padding-right: 8px;
+        }
+    }
+    ul#homeMenu {
+        >li {
+            &.active {
+                >a {
+                    color: map-get($colors, whiteColor);
+                    background: map-get($colors, black);
+                    &:before {
+                        background: map-get($colors, lightGreen);
+                        content: '';
+                        width: 6px;
+                        height: 100%;
+                        position: absolute;
+                        left: 0;
+                        top: 0;
+                    }
+                }
+            }
+            a {
+                padding: 14px 0 14px 20px;
+                display: block;
+                color: map-get($colors, grey10);
+                text-transform: capitalize;
+                font-size: 18px;
+                position: relative;
+                text-decoration: none;
+                background: map-get($colors, grey02);
+                @include transition(all ease-in-out 0.5s);
+                &:after {
+                    content: '';
+                    border: 0;
+                }
+            }
+        }
+    }
+    ul#homeSubmenu {
+        transition: 200ms ease;
+        li {
+            &.subactive {
+                >a {
+                    color: map-get($colors, lightGreen);
+                    &:before {
+                        background: none;
+                    }
+                }
+            }
+            a {
+                font-weight: 300;
+                font-size: 16px;
+                padding-left: 44px;
+            }
+        }
+    }
+    .cross-menu {
+        @include smScreen {
+            display: block;
+        }
+        padding-top: 30px;
+        padding-bottom: 30px;
+        font-size: 18px;
+        font-weight: 500;
+        display: none;
+        .cross-sidebar {
+            width: 35px;
+            height: 35px;
+            background: transparent;
+            border: none;
+            position: absolute;
+            right: 15px;
+            cursor: pointer;
+            min-width: initial;
+            padding: 0;
+            span {
+                width: 100%;
+                height: 4px;
+                margin: 0 auto;
+                display: block;
+                background: map-get($colors, whiteColor);
+                @include transition(all 0.8s cubic-bezier(0.81, -0.33, 0.345, 1.375));
+            }
+            span {
+                &:first-of-type {
+                    transform: rotate(45deg) translate(0px, -2px);
+                }
+                &:nth-of-type(2) {
+                    opacity: 0;
+                    @include smScreen {
+                        opacity: 0;
+                    }
+                }
+                &:last-of-type {
+                    transform: rotate(-45deg) translate(8px, -6px);
+                }
+            }
+        }
+    }
+}
+
+#sidebarCollapse {
+    width: 30px;
+    height: 30px;
+    min-width: auto;
+    background: map-get($colors, darkGreen02);
+    border: none;
+    display: none;
+    padding: 0 6px;
+    border-radius: 0;
+    @include smScreen {
+        display: block;
+        cursor: pointer;
+    }
+    span {
+        width: 100%;
+        height: 2px;
+        margin: 0 auto;
+        display: block;
+        background: map-get($colors, whiteColor);
+        @include transition(all 0.8s cubic-bezier(0.81, -0.33, 0.345, 1.375));
+    }
+}
+
+
+/*customer enquiry*/
+
+.customer-enquiry,
+.custom-wrap {
+    padding: 23px 35px 0 35px;
+    @include smScreen {
+        padding: 23px 0 0 0px;
+    }
+    h2 {
+        font-size: 26px;
+        font-weight: 500;
+        color: map-get($colors, darkBlack);
+    }
+    h1 {
+        margin-bottom: 40px;
+        margin-top: 30px;
+        font-size: 38px;
+        font-weight: 300;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1;
+        letter-spacing: normal;
+        color: map-get($colors, grey07);
+        @include mdScreen {
+            margin-bottom: 30px;
+            margin-top: 20px;
+            font-size: 32px;
+        }
+        @include smScreen {
+            margin-bottom: 20px;
+            margin-top: 10px;
+            font-size: 28px;
+        }
+    }
+}
+
+
+/*media query*/
+
+@include smScreen {
+    #sidebarCollapse span:first-of-type,
+    #sidebarCollapse span:nth-of-type(2),
+    #sidebarCollapse span:last-of-type {
+        transform: none;
+        opacity: 1;
+        margin: 5px auto;
+    }
+    #sm_none {
+        display: none;
+    }
+}
+
+.error {
+    border-color: #e13e3e !important;
+}
+
+.text-danger {
+    font-size: 12px;
+    font-style: italic;
+    font-weight: 300;
+    position: relative;
+}
+
+.width-288 {
+    width: 288px !important;
+}
+
+.static-field {
+    background: none !important;
+    border: 0 !important;
+    font-size: 20px !important;
+    padding-left: 0 !important;
+}
