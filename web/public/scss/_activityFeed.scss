@@ -30,6 +30,9 @@ h3.feed_head {
             margin:0;
             background: map-get($colors, whiteColor ); 
             padding-left: 20px;
+            &:last-child {
+                border-bottom: 1px solid map-get($colors , grey05 );
+            }
             &:nth-child(even) {
                 background: map-get($colors, grey08 );
             }
@@ -261,3 +264,13 @@ h3.feed_head {
 }
 
 /* Status Button Ends*/
+
+.MultiLine
+{
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap; /* Firefox */    
+    white-space: -pre-wrap;     /* Opera <7 */   
+    white-space: -o-pre-wrap;   /* Opera 7 */    
+    word-wrap: break-word;      /* IE */
+}
+

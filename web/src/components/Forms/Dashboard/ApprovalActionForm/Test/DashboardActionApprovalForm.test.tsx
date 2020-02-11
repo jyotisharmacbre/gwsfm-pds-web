@@ -19,6 +19,7 @@ import { initialState } from '../../../../../store/Dashboard/Reducer';
 import DashboardGridDetailReducer from '../../../../../store/Dashboard/Reducer';
 import nock from 'nock';
 import { baseURL, userServiceURL } from '../../../../../client/client';
+import { payload } from '../../../../../store/ProjectOverviewForm/Test/DataWrapperTestData';
 
 nock(baseURL)
   .get('/api/users/pendingApprovals')
@@ -65,6 +66,25 @@ describe('Dashboard form reducer', () => {
     };
     expect(
       DashboardGridDetailReducer(initialState, projectDashboardGridAction)
+    ).toMatchSnapshot();
+  });
+
+  it('should handle PROJECT DASHBOARD GRID ERROR successfully', () => {
+    const projectDashboardGridErrorAction: any = {
+      type: ActionType.PROJECT_DASHBOARD_GRID_ERROR,
+      payload: {error:true}
+    };
+    expect(
+      DashboardGridDetailReducer(initialState, projectDashboardGridErrorAction)
+    ).toMatchSnapshot();
+  });
+
+  it('should handle Get RESET DASHBOARD STATE successfully', () => {
+    const projectDashboardGridResetStateAction: any = {
+      type: ActionType.RESET_DASHBOARD_STATE
+    };
+    expect(
+      DashboardGridDetailReducer(initialState, projectDashboardGridResetStateAction)
     ).toMatchSnapshot();
   });
 });

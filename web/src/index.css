@@ -11,3 +11,17 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* style for top progress bar */
+#nprogress .bar {
+  background: orange !important;
+}
+
+#nprogress .peg {
+  box-shadow: 0 0 10px orange, 0 0 5px #20c997 !important;
+}
+
+#nprogress .spinner-icon {
+  border-top-color: orange !important;
+  border-left-color: orange !important;
+}
