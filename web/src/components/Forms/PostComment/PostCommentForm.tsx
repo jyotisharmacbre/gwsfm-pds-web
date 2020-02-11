@@ -3,6 +3,7 @@ import { Field, reduxForm, InjectedFormProps,reset } from 'redux-form';
 import PdsFormTextArea from '../../PdsFormHandlers/PdsFormTextArea';
 import { Validate, alphaNumeric, onlyNumber, OnlyDistinctAssetTypes } from '../../../helpers/fieldValidations';
 import {IPostCommentForm} from './IPostCommentForm';
+import { FormattedMessage } from 'react-intl';
 
 interface Props {
 	postComment:(data:IPostCommentForm) => void;
@@ -20,14 +21,15 @@ const PostCommentForm = (props:Props & InjectedFormProps<IPostCommentForm,Props>
                 rows="3"
                 component={PdsFormTextArea}
                 validate={[Validate.maxLength(5000)]}
-                placeholderKey="Add your comment here"
+                placeholderKey="LABEL_ADD_YOUR_COMMENT_HERE"
                 />
-            <button type="submit" disabled={props.pristine || props.submitting} onClick={props.handleSubmit((values:IPostCommentForm) => props.postComment(values))}>
+            <button type="submit" className="pds_button_align"disabled={props.pristine || props.submitting} onClick={props.handleSubmit((values:IPostCommentForm) => props.postComment(values))}>
             Post Comment
             </button>
         </form>          
 	);
 };
+
 
 const form = reduxForm<IPostCommentForm,Props>({
 	form: 'PostCommentForm',

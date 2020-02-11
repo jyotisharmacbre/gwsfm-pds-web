@@ -11,49 +11,45 @@ import translations from '../../../Translations/translation';
 import { BrowserRouter } from 'react-router-dom';
 import * as helper from '../../../helpers/auth-helper';
 import { findByTestAtrr } from '../../../helpers/test-helper';
-
-
+import routeData from 'react-router';
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
 describe('Profile Menu', () => {
   let store;
   let wrapper;
-  let props: any = {
-    userPreferences: {},
-    languageId: 1,
-    languageName: 'en',
-    currencyId: 1,
-    currencySymbol: '$',
-    currencyName: 'dollor',
-    currencies: null,
-    languages: null,
-    notify: '',
-    displayName: 'TestName',
-    displayEmail: 'TestEmail'
+
+  const mockhistory = (pathname: string) => {
+    let history: any = {
+      length: 13,
+      push: jest.fn(),
+      block: jest.fn(),
+      createHref: jest.fn(),
+      go: jest.fn(),
+      goBack: jest.fn(),
+      goForward: jest.fn(),
+      liten: jest.fn(),
+      replace: jest.fn(),
+      action: "REPLACE",
+      location: {
+        pathname: pathname
+      }
+    }
+    jest.spyOn(routeData, 'useHistory').mockReturnValue(history);
   };
-  beforeEach(() => {
-    jest.mock('jwt-decode', () => jest.fn().mockReturnValue({
-      exp: 12345,
-      somethingElse: 'test_value'
-    }));
 
-    const getDisplayEmail = jest.mock(
-      '../../../helpers/auth-helper'
+  const mountProfileMenuComponent = (Props) => {
+    wrapper = mount(
+      <Provider store={store}>
+        <IntlProvider locale="en" messages={translations['en'].messages}>
+          <BrowserRouter>
+            <ProfileMenu {...props} />
+          </BrowserRouter>
+        </IntlProvider>
+      </Provider>
     );
-
-    const getDisplayName = jest.mock(
-      '../../../helpers/auth-helper'
-    );
-
-    const getFirstName = jest.mock(
-      '../../../helpers/auth-helper'
-    );
-
-    const logOut = jest.mock(
-      '../../../helpers/auth-helper'
-    );
-
+  };
+  const mockHelper = () => {
     jest
       .spyOn(helper, 'getDisplayEmail')
       .mockImplementationOnce(() => {
@@ -75,37 +71,45 @@ describe('Profile Menu', () => {
         return 'testName';
       });
 
+  };
+
+  const mockingStore = () => {
     store = mockStore({
       userPreferences: { preferences: {} },
       lookup: {},
-      userService: {currentUserProfile: {displayName: 'testName', email: 'test@pds.com'}}
+      userService: { currentUserProfile: { displayName: 'testName', email: 'test@pds.com' } }
 
     });
-    jest.mock('react-router-dom', () => ({
-      useHistory: jest.fn().mockReturnValue({
-        length: 13,
-        push: jest.fn(),
-        block: jest.fn(),
-        createHref: jest.fn(),
-        go: jest.fn(),
-        goBack: jest.fn(),
-        goForward: jest.fn(),
-        liten: jest.fn(),
-        replace: jest.fn(),
-        action: "REPLACE",
-        location: null
-      }),
-    }));
+  };
 
-    wrapper = mount(
-      <Provider store={store}>
-        <IntlProvider locale="en" messages={translations['en'].messages}>
-          <BrowserRouter>
-            <ProfileMenu {...props} />
-          </BrowserRouter>
-        </IntlProvider>
-      </Provider>
-    );
+  const mockJWT = () => {
+    jest.mock('jwt-decode', () => jest.fn().mockReturnValue({
+      exp: 12345,
+      somethingElse: 'test_value'
+    }));
+  };
+
+
+  let props: any = {
+    userPreferences: {},
+    languageId: 1,
+    languageName: 'en',
+    currencyId: 1,
+    currencySymbol: '$',
+    currencyName: 'dollor',
+    currencies: null,
+    languages: null,
+    notify: '',
+    displayName: 'TestName',
+    displayEmail: 'TestEmail'
+  };
+  beforeEach(() => {
+
+    mockJWT();
+    mockHelper();
+    mockingStore();
+    mockhistory('/');
+    mountProfileMenuComponent(props);
   });
 
 
@@ -134,5 +138,25 @@ describe('Profile Menu', () => {
     field.simulate('click');
     field.simulate('blur');
     expect(field.hasClass('hide')).toBeTruthy;
+  });
+
+  it('should show logo in case of Error page', () => {
+    mockJWT();
+    mockHelper();
+    mockingStore();
+    mockhistory('/Error');
+    mountProfileMenuComponent(props);
+    const field = findByTestAtrr(wrapper, 'test-logo').first();
+    expect(field.hasClass('d-md-block logo')).toEqual(true);
+  });
+
+  it('should show logo in case of Error page', () => {
+    mockJWT();
+    mockHelper();
+    mockingStore();
+    mockhistory('/test');
+    mountProfileMenuComponent(props);
+    const field = findByTestAtrr(wrapper, 'test-logo').first();
+    expect(field.hasClass('d-md-block logo')).toEqual(false);
   });
 });

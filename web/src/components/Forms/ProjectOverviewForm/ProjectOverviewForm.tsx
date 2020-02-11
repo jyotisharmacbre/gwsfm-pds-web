@@ -46,7 +46,8 @@ import { IDiscountActivity } from '../../../store/DiscountForm/Types/IDiscountAc
 import ProjectApprovalForm from './ProjectApprovalForm';
 import ActivityFeedList from './ActivityFeedList';
 import PostCommentForm from '../PostComment/PostCommentForm';
-import {IPostCommentForm} from '../PostComment/IPostCommentForm';
+import { IPostCommentForm } from '../PostComment/IPostCommentForm';
+import { IUserServiceData } from '../../../store/UserService/Types/IUserService';
 interface Props {
 	onNext: (data: IProjectOverviewDetails) => void;
 	onPrevious: () => void;
@@ -60,7 +61,8 @@ interface Props {
 	currencySymbol: string;
 	lookups: any;
 	getListOfUsers: (value: any) => Promise<any>;
-	handleGetUserNamesForEmails: (emails: Array<string>) => void;
+	handleGetUserNamesForEmails: (emails: Array<string>) => Array<IUserServiceData>;
+	getUserNamesForEmails: (emails: Array<string>) => Array<IUserServiceData>;
 	postComment: (projectId: string, comment: string, success, failure) => void;
 	getProjectActivities: (projectId: string) => void;
 	countryCode: string;
@@ -68,7 +70,7 @@ interface Props {
 }
 
 let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDetails, Props>> = (props) => {
-	const { handleSubmit, initialValues, getListOfUsers } = props;
+	const { handleSubmit, initialValues, getListOfUsers, status } = props;
 	const DropdownOptions = projectStatusData.map((status: any, i: number) => (
 		<option key={i} value={status.value}>
 			{status.label}
@@ -91,12 +93,12 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 
 	const normalize = (value) => (value ? parseInt(value) : null);
 	const handlePostComment = (data: IPostCommentForm) => {
-		props.postComment(props.projectId,`"${data.comment}"`, handlePostCommentSuccess, handlePostCommentError);
+		props.postComment(props.projectId, `"${data.comment}"`, handlePostCommentSuccess, handlePostCommentError);
 	};
 	const handlePostCommentSuccess = (response) => {
 		props.getProjectActivities(props.projectId);
 	};
-	const handlePostCommentError = (error) => {};
+	const handlePostCommentError = (error) => { };
 	return (
 		<form className="project-overview-form" noValidate={true} data-test="projectOverviewForm">
 			<div className={`${getClassNameForProjectStatus(props.status)} row`}>
@@ -106,7 +108,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						type="text"
 						component={PdsFormInput}
 						className="required"
-						validate={[ Validate.required('LABEL_MAIN_CONTRACTOR') ]}
+						validate={[Validate.required('LABEL_MAIN_CONTRACTOR')]}
 						labelKey="LABEL_MAIN_CONTRACTOR"
 						placeholderKey="PLACEHOLDER_CONTRACTORS_NAME"
 					/>
@@ -116,26 +118,26 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						type="text"
 						component={PdsFormInput}
 						className="required"
-						validate={[ Validate.required('LABEL_ENQUIRY_RECEIVED_FROM'), Validate.maxLength(1000) ]}
+						validate={[Validate.required('LABEL_ENQUIRY_RECEIVED_FROM'), Validate.maxLength(1000)]}
 						labelKey="LABEL_ENQUIRY_RECEIVED_FROM"
 						placeholderKey="PLACEHOLDER_ENQUIRY_SENDER_NAME"
 					/>
 					<Field
-					 	name="projectAdditionalDetail.enquiryTypeId"
-					 	component={PdsFormRadio}
-					 	data = {props.projectstatus && props.projectstatus.filter((element) => element.lookupItem == LookupType.Enquiry_Type)}
-					 	className="required"
-						labelKey="LABEL_TYPE_OF_ENQUIRY"												  
-						normalize ={normalize}   
-						validate={[ Validate.required('LABEL_TYPE_OF_ENQUIRY') ]}
-					/>												
+						name="projectAdditionalDetail.enquiryTypeId"
+						component={PdsFormRadio}
+						data={props.projectstatus && props.projectstatus.filter((element) => element.lookupItem == LookupType.Enquiry_Type)}
+						className="required"
+						labelKey="LABEL_TYPE_OF_ENQUIRY"
+						normalize={normalize}
+						validate={[Validate.required('LABEL_TYPE_OF_ENQUIRY')]}
+					/>
 					<Field
 						name="projectAdditionalDetail.creditCheckResult"
 						data-test="creditCheckResult"
 						type="text"
 						component={PdsFormInput}
 						className="required"
-						validate={[ Validate.required('LABEL_CREDIT_CHECK_RESULT'), Validate.maxLength(1000) ]}
+						validate={[Validate.required('LABEL_CREDIT_CHECK_RESULT'), Validate.maxLength(1000)]}
 						labelKey="LABEL_CREDIT_CHECK_RESULT"
 						placeholderKey="PLACEHOLDER_CREDIT_CHECK_DETAILS"
 					/>
@@ -145,7 +147,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						type="text"
 						component={PdsFormInput}
 						className="required"
-						validate={[ Validate.required('LABEL_SITE_ADDRESS'), Validate.maxLength(1000) ]}
+						validate={[Validate.required('LABEL_SITE_ADDRESS'), Validate.maxLength(1000)]}
 						labelKey="LABEL_SITE_ADDRESS"
 						placeholderKey="PLACEHOLDER_ADD_SITE_ADDRESS"
 					/>
@@ -165,7 +167,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						type="text"
 						component={PdsFormInput}
 						className="required"
-						validate={[ Validate.required('LABEL_FORM_OF_CONTRACT'), Validate.maxLength(1000) ]}
+						validate={[Validate.required('LABEL_FORM_OF_CONTRACT'), Validate.maxLength(1000)]}
 						labelKey="LABEL_FORM_OF_CONTRACT"
 						placeholderKey="PLACEHOLDER_FORM_OF_CONTRACT"
 					/>
@@ -174,7 +176,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						data-test="retention"
 						type="text"
 						component={PdsFormInput}
-						validate={[ Validate.maxLength(1000) ]}
+						validate={[Validate.maxLength(1000)]}
 						labelKey="LABEL_RETENTION"
 						placeholderKey="PLACEHOLDER_ADD_RETENTION"
 					/>
@@ -183,7 +185,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						data-test="liquidatedDamages"
 						type="text"
 						component={PdsFormInput}
-						validate={[ Validate.maxLength(1000) ]}
+						validate={[Validate.maxLength(1000)]}
 						labelKey="LABEL_LIQUIDATED_DAMAGES"
 						placeholderKey="PLACEHOLDER_ADD_LIQUIDATED_DAMAGES"
 					/>
@@ -193,7 +195,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						type="text"
 						component={PdsFormInput}
 						className="required"
-						validate={[ Validate.required('LABEL_INSURANCE'), Validate.maxLength(1000) ]}
+						validate={[Validate.required('LABEL_INSURANCE'), Validate.maxLength(1000)]}
 						labelKey="LABEL_INSURANCE"
 						placeholderKey="PLACEHOLDER_ADD_INSURANCE"
 					/>
@@ -206,7 +208,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 								name="projectAdditionalDetail.workTypeId"
 								component={PdsFormSelect}
 								className="required"
-								validate={[ Validate.required('MESSAGE_WORK_TYPE') ]}
+								validate={[Validate.required('MESSAGE_WORK_TYPE')]}
 								placeholderKey="PLACEHOLDER_WORK_TYPES"
 								messageKey="MESSAGE_WORK_TYPE"
 							>
@@ -251,7 +253,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 												labelKey="LABEL_PROJECTMILE_STONES"
 												rows="7"
 												className="required"
-												validate={[ Validate.required('LABEL_PROJECTMILE_STONES') ]}
+												validate={[Validate.required('LABEL_PROJECTMILE_STONES')]}
 												component={PdsFormTextArea}
 												placeholderKey="PLACEHOLDER_PROJECT_MILESTONES"
 											/>
@@ -294,7 +296,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 												data-test="valuationIntervals"
 												type="text"
 												className="required"
-												validate={[ Validate.required('LABEL_VALUATION_INTERVALS') ]}
+												validate={[Validate.required('LABEL_VALUATION_INTERVALS')]}
 												component={PdsFormInput}
 												labelKey="LABEL_VALUATION_INTERVALS"
 												placeholderKey="PLACEHOLDER_VALUATION_INTERVALS"
@@ -308,7 +310,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 												data-test="paymentTerms"
 												type="text"
 												className="required"
-												validate={[ Validate.required('LABEL_PAYMENT_TERMS') ]}
+												validate={[Validate.required('LABEL_PAYMENT_TERMS')]}
 												component={PdsFormInput}
 												labelKey="LABEL_PAYMENT_TERMS"
 												placeholderKey="PLACEHOLDER_PAYMENT_TERMS"
@@ -334,7 +336,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						labelKey="LABEL_COMMENTS"
 						rows="7"
 						component={PdsFormTextArea}
-						validate={[ Validate.maxLength(5000) ]}
+						validate={[Validate.maxLength(5000)]}
 						placeholderKey="PLACEHOLDER_ADDITIONAL_COMMENTS"
 					/>
 				</div>
@@ -352,6 +354,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 								component={ProjectApprovalForm}
 								formatUserData={formatUserData}
 								getListOfUsers={getListOfUsers}
+								status={props.status}
 							/>
 						</div>
 					</div>
@@ -359,9 +362,9 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 				<div className="col-xl-6">
 					<ActivityFeedList
 						currencySymbol={props.currencySymbol}
-						handleGetUserNamesForEmails={props.handleGetUserNamesForEmails}
+						handleGetUserNamesForEmails={props.getUserNamesForEmails}
 					/>
-					<PostCommentForm postComment={handlePostComment}/>
+					<PostCommentForm postComment={handlePostComment} />
 				</div>
 			</div>
 			<div className="row">

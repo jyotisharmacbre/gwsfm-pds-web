@@ -30,11 +30,11 @@ const ProjectPipelineForm: React.FC<Props & IReactIntl> = (props: any) => {
   useEffect(
     () => {
       if (
-        props.pipelineValues && props.pipelineValues[0].projectId !== '' &&
+        props.pipelineValues?.length > 0 && props.pipelineValues[0].projectId !== '' &&
         props.currencies?.length > 0 &&
-        props.lookupValues &&
+        props.lookupValues?.length > 0 &&
         props.contractCustomerList?.length > 0 &&
-        props.userNamesForEmailsValues
+        props.userNamesForEmailsValues && props.userNamesForEmailsValues.length > 0
       ) {
         setGridData(
           getPipelineValues(
@@ -64,14 +64,17 @@ const ProjectPipelineForm: React.FC<Props & IReactIntl> = (props: any) => {
           rowProject.status,
           LookupItems.Project_Status
         );
-      rowProject.contractorId = contractCustomerList && rowProject.contractorId && getFilterElementFromArray(contractCustomerList, 'contractId', rowProject.contractorId, 'customerName');
+      var customerObj = contractCustomerList && rowProject.contractorId && contractCustomerList.find(
+        lk => lk.contractId && rowProject.contractorId && lk.contractId.toUpperCase() === rowProject.contractorId.toUpperCase()
+      );
+      rowProject.contractorId = customerObj ? customerObj.customerName : rowProject.contractorId;
       const currencySymbol = getFilterElementFromArray(
         currencies,
         getPropertyName(CurrencyObj, (prop) => prop.currencyId),
         rowProject.currencyId,
         getPropertyName(CurrencyObj, (prop) => prop.currencySymbol)
       );
-      rowProject.approxValue = `${currencySymbol}${rowProject.approxValue}`;
+      rowProject.approxValue = rowProject.approxValue.toString().indexOf(currencySymbol) > -1 ? rowProject.approxValue : `${currencySymbol}${rowProject.approxValue}`;
       var contractID = rowProject.contractTypeId;
       if (contractID > 0 && allLookups.length > 0)
         rowProject.contractTypeId = getLookupDescription(
@@ -84,7 +87,7 @@ const ProjectPipelineForm: React.FC<Props & IReactIntl> = (props: any) => {
       );
       rowProject.cdmNotifiable = rowProject.cdmNotifiable ? formatMessage('LABEL_YES') : formatMessage('LABEL_NO');
       rowProject.soldmargin = rowProject.soldmargin ? rowProject.soldmargin : 0;
-      rowProject.weightedTCV = `${currencySymbol}${rowProject.weightedTCV ? rowProject.weightedTCV : 0}`;
+      rowProject.weightedTCV = rowProject.weightedTCV.toString().indexOf(currencySymbol) > -1 ? rowProject.weightedTCV : `${currencySymbol}${rowProject.weightedTCV ? rowProject.weightedTCV : 0}`;
       rowProject.name = (
         <Link
           to={{

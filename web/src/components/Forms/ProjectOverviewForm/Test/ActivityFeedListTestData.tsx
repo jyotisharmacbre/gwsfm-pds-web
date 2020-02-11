@@ -2,6 +2,11 @@ import Notify from '../../../../enums/Notify';
 import EventType from '../../../../enums/EventType';
 import { ILookupState } from '../../../../store/Lookups/Types/ILookupState';
 import { IProjectDetailState } from '../../../../store/CustomerEnquiryForm/Types/IProjectDetailState';
+import { IProjectOverviewState } from '../../../../store/ProjectOverviewForm/Types/IProjectOverviewState';
+import ProjectApprovalActivityType from '../../../../enums/ProjectApprovalActivityType';
+import moment from 'moment';
+import { LookupType } from '../../../../store/Lookups/Types/LookupType';
+import { IProjectApprovalActivitiy } from '../../../../store/ProjectOverviewForm/Types/IProjectApprovalActivitiy';
 export const preliminariesData: any = {
 	preliminary: {
 		preliminaryDetails: [
@@ -76,7 +81,17 @@ export const lookUpInitialState: ILookupState = {
 	projectstatus: [],
 	countries: [],
 	languages: [],
-	lookups: [],
+	lookups: [{
+		lookupId: 1,
+		lookupItem: LookupType.Project_Approver_Type,
+		lookupKey: 1,
+		description: 'string'
+	}, {
+		lookupId: 2,
+		lookupItem: LookupType.Project_Approver_Type,
+		lookupKey: 2,
+		description: 'string2',
+	}],
 	currencies: null,
 	error: null
 };
@@ -133,4 +148,92 @@ export const dynamicsInitialState = {
 	contractName: '',
 	customerId: '',
 	customerName: ''
+};
+export const initialStatePO: IProjectOverviewState = {
+	form: {
+		projectId: '1',
+		projectAdditionalDetail: {
+			projectAddDetailId: '',
+			projectId: '',
+			mainContractor: '',
+			enquiryReceivedFrom: '',
+			enquiryTypeId: 0,
+			creditCheckResult: '',
+			siteAddress: '',
+			cdmNotifiable: false,
+			formOfContract: '',
+			retention: '',
+			liquidatedDamages: '',
+			insurance: '',
+			workTypeId: 0,
+			commenceDate: new Date().toJSON(),
+			completionDate: new Date().toJSON(),
+			milestones: '',
+			firstValuationDate: new Date().toJSON(),
+			finalAccountDate: new Date().toJSON(),
+			valuationIntervals: '',
+			paymentTerms: '',
+			isProjectLive: false,
+			comments: '',
+			authorizedByHop: '',
+			budget: 1,
+			authorizedBy: '',
+			authorizedBySecond: '',
+			authorizedByThird: '',
+			projectRisk1: '',
+			projectRisk2: '',
+			projectRisk3: '',
+			projectRiskControlMeasure1: '',
+			projectRiskControlMeasure2: '',
+			projectRiskControlMeasure3: ''
+		},
+		projectApprovals: []
+	},
+	error: null,
+	loading: false,
+	notify: Notify.none,
+	event: EventType.none,
+	initialStateSetForProjectApprovals: false,
+	projectActivities: {
+		error: null,
+		loading: false,
+		notify: Notify.none,
+		data: [{
+			projectActivityId: '1',
+			projectId: '1',
+			approverType: 1,
+			userId: '1',
+			query: '1',
+			activityType: ProjectApprovalActivityType.SystemGenerated,
+			createdBy: '1',
+			createdOn: moment().toJSON()
+		}, {
+			projectActivityId: '2',
+			projectId: '1',
+			approverType: 2,
+			userId: '2',
+			query: '1',
+			activityType: ProjectApprovalActivityType.SystemGenerated,
+			createdBy: '2',
+			createdOn: moment().add(1, 'day').toJSON()
+		}]
+	}
+};
+export const InitialEmailsForUsersState = {
+	activityFeedUserServiceData: [{
+		id: '1',
+		lastName: 'lastName1',
+		firstname: 'FirstName1',
+		email: '1',
+		displayName: 'User1',
+		groups: []
+	},
+	{
+		id: '2',
+		lastName: 'lastName2',
+		firstname: 'FirstName2',
+		email: '2',
+		displayName: 'User2',
+		groups: []
+	}]
 };

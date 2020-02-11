@@ -29,12 +29,13 @@ if(selectedDate&&selectedDate<todaysDate)
 }
  return true;
 }
-class ReactDates extends PureComponent<Props & InjectedFormProps<{}, Props>> {
+class ReactDates extends PureComponent<Props & InjectedFormProps<{}, Props>>
+ {
   state = {
     focused: false,
-    day: this.props.input.value.date(),
-    month: this.props.input.value.month() + 1,
-    year: this.props.input.value.year()
+    day: this.props.input.value?.date(),
+    month: this.props.input.value?.month() + 1,
+    year: this.props.input.value?.year()
   };
   constructor(props) {
     super(props);

@@ -16,42 +16,44 @@ import { IUserServiceData } from '../../../store/UserService/Types/IUserService'
 import { displayUserName } from '../../../helpers/utility-helper';
 interface IProps {
 	currencySymbol: string;
-	handleGetUserNamesForEmails: (emails: Array<string>) => void;
+	handleGetUserNamesForEmails: (emails: Array<string>) => Array<IUserServiceData>;
 }
 
 interface IMapStateToProps {
 	projectActivities: Array<IProjectApprovalActivitiy>;
 	lookups: Array<ILookup>;
+	userNamesForEmails: Array<IUserServiceData>;
 }
 
 const ActivityFeedList: React.FC<IProps & IMapStateToProps> = (props) => {
-	const [ activityFeedData, setActivityFeedData ] = useState<Array<IActivityFeed>>([]);
-	const [ userNamesForEmails, setUserNamesForEmails ] = useState<Array<IUserServiceData>>([]);
+	const [activityFeedData, setActivityFeedData] = useState<Array<IActivityFeed>>([]);
+
 	useEffect(
 		() => {
 			if (props.projectActivities.length > 0) {
 				let emails: Array<string> = [];
 				props.projectActivities.map((data, index) => {
-					if(emails.length == 0 || !emails.some(x=>x == data.userId))
-					emails.push(data.userId);
+					if (emails.length == 0 || !emails.some(x => x == data.userId))
+						emails.push(data.userId);
 				});
-				services.getUsersForEmailsService(emails).then((response) => {
-					setUserNamesForEmails(response.data);
-				});
+				props.handleGetUserNamesForEmails(emails);
 			}
 		},
-		[ props.projectActivities ]
+		[props.projectActivities]
 	);
 	useEffect(
 		() => {
-			if (userNamesForEmails.length > 0 && props.lookups) {
+
+			if (props.userNamesForEmails?.length > 0 && props.lookups) {
+
 				if (props.projectActivities.length > 0) {
 					let activityFeed: Array<IActivityFeed> = [];
-					let sortedData = props.projectActivities.sort((a:IProjectApprovalActivitiy,b:IProjectApprovalActivitiy)=>{ 
-						let dateA= +new Date(a.createdOn), dateB= +new Date(b.createdOn);
-    					return (dateB-dateA)});
-						sortedData.map((data, index) => {
-						let username = filterUserByEmailId(userNamesForEmails, data.userId);
+					let sortedData = props.projectActivities.sort((a: IProjectApprovalActivitiy, b: IProjectApprovalActivitiy) => {
+						let dateA = +new Date(a.createdOn), dateB = +new Date(b.createdOn);
+						return (dateB - dateA)
+					});
+					sortedData.map((data, index) => {
+						let username = filterUserByEmailId(props.userNamesForEmails, data.userId);
 						activityFeed.push({
 							activityType: data.activityType,
 							approvedBy: username,
@@ -71,7 +73,7 @@ const ActivityFeedList: React.FC<IProps & IMapStateToProps> = (props) => {
 				}
 			}
 		},
-		[ props.lookups, props.projectActivities, userNamesForEmails ]
+		[props.lookups, props.projectActivities, props.userNamesForEmails]
 	);
 	const filterUserByEmailId = (data, emailId) => {
 		let userName = '';
@@ -104,7 +106,7 @@ const ActivityFeedList: React.FC<IProps & IMapStateToProps> = (props) => {
 					<FormattedMessage id="LABEL_ACTIVITY_FEED" />
 				</h3>
 			)}
-			<section className="activity_feed">
+			<section className="activity_feed" data-test='activityFeedSection'>
 				{activityFeedData &&
 					activityFeedData.map((data) => (
 						<ActivityFeed
@@ -121,7 +123,8 @@ const ActivityFeedList: React.FC<IProps & IMapStateToProps> = (props) => {
 
 const mapStateToProps = (state: IState) => ({
 	projectActivities: state.projectOverview.projectActivities.data,
-	lookups: state.lookup.lookups
+	lookups: state.lookup.lookups,
+	userNamesForEmails: state.userService.activityFeedUserServiceData
 });
 
 export default connect(mapStateToProps)(ActivityFeedList);

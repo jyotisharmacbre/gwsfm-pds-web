@@ -1,16 +1,44 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import NewTypeAhead from '../../TypeAhead/NewTypeAhead';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheckCircle, faClock, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
+import { ProjectSignOffStatus } from '../../../store/ProjectOverviewForm/Types/ProjectApprovalEnums';
+import ProjectStatus from '../../../enums/ProjectStatus';
 
 interface IProps {
 	fields: any;
 	formatUserData: any;
 	getListOfUsers: (value: any) => Promise<any>;
+	status: number
 }
 
 const ProjectApprovalForm: React.FC<IProps> = (props) => {
 	const { fields, formatUserData, getListOfUsers } = props;
-
+	const getClassAndIcon = (approverType) => {
+		let className: string = '', iconType: any;
+		let labelID: string = '';
+		switch (approverType) {
+			case ProjectSignOffStatus.Approved:
+				className = "green";
+				iconType = faCheckCircle;
+				labelID = "LABEL_APPROVED"
+				break;
+			default:
+				className = "orange";
+				iconType = faClock;
+				labelID = "LABEL_PENDING";
+				break;
+		}
+		return {
+			className: className,
+			iconType: iconType,
+			labelKey: labelID
+		};
+	}
+	const shouldDisplay = (currVal) => {
+		return currVal.userId && currVal.projectApprovalId && props.status == ProjectStatus.InReview
+	};
 	return (
 		<div>
 			<div className="row">
@@ -41,11 +69,11 @@ const ProjectApprovalForm: React.FC<IProps> = (props) => {
 						</div>
 					</div>
 					<div className="col-lg-3">
-						<div className="approve_state">
-							{/* <span className="icon"><FontAwesomeIcon className="green" icon={faCheckCircle} /></span> */}
-							{/* <label className='approv_label'><FormattedMessage id="LABEL_APPROVED" /> </label> */}
+						{shouldDisplay(fields.get(index)) && <div className="approve_state">
+							{<span data-test="icons-approval-status" className="icon"><FontAwesomeIcon className={getClassAndIcon(fields.get(index).approvalStatus).className} icon={getClassAndIcon(fields.get(index).approvalStatus).iconType} /></span>}
+							{<label className='approv_label'><FormattedMessage id={getClassAndIcon(fields.get(index).approvalStatus).labelKey} /> </label>}
 						</div>
-					</div>
+						}	</div>
 				</div>
 			))}
 		</div>

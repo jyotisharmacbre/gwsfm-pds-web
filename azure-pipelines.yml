@@ -140,6 +140,20 @@ steps:
     workingDir: web
     verbose: false
 
+- task: SonarQubePrepare@4
+  displayName: 'Prepare analysis on SonarQube'
+  inputs:
+    SonarQube: 'SonarQube'
+    scannerMode: 'CLI'
+    configMode: 'manual'
+    cliProjectKey: 'gws-fm-pds-web'
+    cliProjectName: 'gws-fm-pds-web'
+    cliSources: './web'
+    extraProperties: |
+      # Additional properties that will be passed to the scanner, 
+      # Put one key=value per line, example
+      sonar.exclusions=**/*.bin,**/*.js,**/*.scss
+
 - task: PowerShell@2
   displayName: 'Code Build start time'
   inputs:
@@ -189,6 +203,12 @@ steps:
       }
     contentType: 'application/json'
     allowInvalidSSLCertificate: false
+
+- task: SonarQubeAnalyze@4
+
+- task: SonarQubePublish@4
+  inputs:
+    pollingTimeoutSec: '300'
 
 - task: PowerShell@2
   displayName: 'Unit Test Start Time'

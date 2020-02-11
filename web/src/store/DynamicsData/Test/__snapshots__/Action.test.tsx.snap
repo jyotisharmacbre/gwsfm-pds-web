@@ -1,0 +1,217 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dynamics data action tests should dispatch the getDefaultSuccess 1`] = `
+Array [
+  Object {
+    "type": "DYNAMIC_OTHER_DEFAULT_SUCCESS",
+  },
+]
+`;
+
+exports[`Dynamics data action tests should dispatch the getDynamicCompanyData 1`] = `Array []`;
+
+exports[`Dynamics data action tests should dispatch the getDynamicCompanyOtherSuccess 1`] = `
+Array [
+  Object {
+    "payload": Object {
+      "dynamicsCompany": Array [],
+      "dynamicsContract": Array [],
+      "dynamicsListOfBusinessUnits": Array [],
+      "dynamicsListOfDivision": Array [],
+      "dynamicsOtherCompany": Array [],
+      "dynamicsOtherContract": Array [],
+      "dynamicsOtherSubContractor": Array [],
+      "dynamicsSubcontractor": Array [],
+      "error": null,
+    },
+    "type": "DYNAMIC_OTHER_COMPANY_SUCCESS",
+  },
+]
+`;
+
+exports[`Dynamics data action tests should dispatch the getDynamicContractData 1`] = `Array []`;
+
+exports[`Dynamics data action tests should dispatch the getDynamicContractListSuccess 1`] = `Array []`;
+
+exports[`Dynamics data action tests should dispatch the getDynamicContractOtherSuccess 1`] = `
+Array [
+  Object {
+    "payload": Object {
+      "dynamicsCompany": Array [],
+      "dynamicsContract": Array [],
+      "dynamicsListOfBusinessUnits": Array [],
+      "dynamicsListOfDivision": Array [],
+      "dynamicsOtherCompany": Array [],
+      "dynamicsOtherContract": Array [],
+      "dynamicsOtherSubContractor": Array [],
+      "dynamicsSubcontractor": Array [],
+      "error": null,
+    },
+    "type": "DYNAMIC_OTHER_CONTRACT_SUCCESS",
+  },
+]
+`;
+
+exports[`Dynamics data action tests should dispatch the getDynamicDivisionSuccess 1`] = `Array []`;
+
+exports[`Dynamics data action tests should dispatch the getDynamicSubContractorData 1`] = `Array []`;
+
+exports[`Dynamics data action tests should dispatch the getDynamicSubContractorOtherSuccess 1`] = `
+Array [
+  Object {
+    "payload": Object {
+      "dynamicsCompany": Array [],
+      "dynamicsContract": Array [],
+      "dynamicsListOfBusinessUnits": Array [],
+      "dynamicsListOfDivision": Array [],
+      "dynamicsOtherCompany": Array [],
+      "dynamicsOtherContract": Array [],
+      "dynamicsOtherSubContractor": Array [],
+      "dynamicsSubcontractor": Array [],
+      "error": null,
+    },
+    "type": "DYNAMIC_OTHER_SUB_CONTRACTOR_SUCCESS",
+  },
+]
+`;
+
+exports[`Dynamics data action tests should return getDefaultSuccess 1`] = `
+Object {
+  "type": "DYNAMIC_OTHER_DEFAULT_SUCCESS",
+}
+`;
+
+exports[`Dynamics data action tests should return getDynamicBusinessUnitError 1`] = `
+Object {
+  "payload": Object {
+    "error": "test",
+  },
+  "type": "DYNAMIC_BUSINESSUNIT_ERROR",
+}
+`;
+
+exports[`Dynamics data action tests should return getDynamicBusinessUnitSuccess 1`] = `
+Object {
+  "payload": Object {
+    "data": "test",
+  },
+  "type": "DYNAMIC_BUSINESSUNIT_SUCCESS",
+}
+`;
+
+exports[`Dynamics data action tests should return getDynamicCompanyError 1`] = `
+Object {
+  "payload": Object {
+    "error": "test",
+  },
+  "type": "DYNAMIC_COMPANY_DATA_GET_ERROR",
+}
+`;
+
+exports[`Dynamics data action tests should return getDynamicCompanyOtherSuccess 1`] = `
+Object {
+  "payload": Object {
+    "data": "test",
+  },
+  "type": "DYNAMIC_OTHER_COMPANY_SUCCESS",
+}
+`;
+
+exports[`Dynamics data action tests should return getDynamicCompanySuccess 1`] = `
+Object {
+  "payload": Object {
+    "data": "test",
+  },
+  "type": "DYNAMIC_COMPANY_DATA_GET_SUCCESS",
+}
+`;
+
+exports[`Dynamics data action tests should return getDynamicContractError 1`] = `
+Object {
+  "payload": Object {
+    "error": "test",
+  },
+  "type": "DYNAMIC_CONTRACT_DATA_GET_SUCCESS",
+}
+`;
+
+exports[`Dynamics data action tests should return getDynamicContractListError 1`] = `
+Object {
+  "payload": Object {
+    "error": "test",
+  },
+  "type": "DYNAMIC_CONTRACTLIST_ERROR",
+}
+`;
+
+exports[`Dynamics data action tests should return getDynamicContractListSuccess 1`] = `
+Object {
+  "payload": Object {
+    "data": "test",
+  },
+  "type": "DYNAMIC_CONTRACTLIST_SUCCESS",
+}
+`;
+
+exports[`Dynamics data action tests should return getDynamicContractOtherSuccess 1`] = `
+Object {
+  "payload": Object {
+    "data": "test",
+  },
+  "type": "DYNAMIC_OTHER_CONTRACT_SUCCESS",
+}
+`;
+
+exports[`Dynamics data action tests should return getDynamicContractSuccess 1`] = `
+Object {
+  "payload": Object {
+    "data": "test",
+  },
+  "type": "DYNAMIC_CONTRACT_DATA_GET_SUCCESS",
+}
+`;
+
+exports[`Dynamics data action tests should return getDynamicDivisionError 1`] = `
+Object {
+  "payload": Object {
+    "error": "test",
+  },
+  "type": "DYNAMIC_COMPANY_DATA_GET_ERROR",
+}
+`;
+
+exports[`Dynamics data action tests should return getDynamicDivisionSuccess 1`] = `
+Object {
+  "payload": Object {
+    "data": "test",
+  },
+  "type": "DYNAMIC_DIVISION_DATA_GET_SUCCESS",
+}
+`;
+
+exports[`Dynamics data action tests should return getDynamicSubContractorError 1`] = `
+Object {
+  "payload": Object {
+    "error": "test",
+  },
+  "type": "DYNAMIC_SUB_CONTRACTOR_DATA_GET_ERROR",
+}
+`;
+
+exports[`Dynamics data action tests should return getDynamicSubContractorOtherSuccess 1`] = `
+Object {
+  "payload": Object {
+    "data": "test",
+  },
+  "type": "DYNAMIC_OTHER_SUB_CONTRACTOR_SUCCESS",
+}
+`;
+
+exports[`Dynamics data action tests should return getDynamicSubContractorSuccess 1`] = `
+Object {
+  "payload": Object {
+    "data": "test",
+  },
+  "type": "DYNAMIC_SUB_CONTRACTOR_DATA_GET_SUCCESS",
+}
+`;

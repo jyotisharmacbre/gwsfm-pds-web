@@ -2,7 +2,7 @@ import { ActionType } from './Types/ActionType';
 import { updateObject } from '../../helpers/utility-helper';
 import { IDynamicDataState } from './Types/IDynamicDataState';
 
-const initialState: IDynamicDataState = {
+export const initialState: IDynamicDataState = {
   dynamicsCompany: [],
   dynamicsContract: [],
   error: null,

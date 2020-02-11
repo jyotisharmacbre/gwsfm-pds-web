@@ -17,6 +17,7 @@ Object {
       "currencyName": "AED",
       "currencySymbol": "",
       "isActive": true,
+      "lookupKey": NaN,
     },
   ],
   "error": undefined,
@@ -63,6 +64,7 @@ Object {
       "currencyName": "AED",
       "currencySymbol": "",
       "isActive": true,
+      "lookupKey": NaN,
     },
   ],
   "error": null,
@@ -109,6 +111,7 @@ Object {
       "currencyName": "AED",
       "currencySymbol": "",
       "isActive": true,
+      "lookupKey": NaN,
     },
   ],
   "error": undefined,
@@ -201,6 +204,7 @@ Object {
       "currencyName": "AED",
       "currencySymbol": "",
       "isActive": true,
+      "lookupKey": NaN,
     },
   ],
   "error": undefined,
@@ -247,6 +251,7 @@ Object {
       "currencyName": "AED",
       "currencySymbol": "",
       "isActive": true,
+      "lookupKey": NaN,
     },
   ],
   "error": null,
@@ -309,6 +314,103 @@ Object {
       "lookupId": 1,
       "lookupItem": "Project_Approver_Type",
       "lookupKey": 1,
+    },
+  ],
+  "projectstatus": Array [
+    Object {
+      "description": "Initial Customer Inquiry",
+      "lookupId": 1,
+      "lookupItem": "Project_Status",
+      "lookupKey": 1,
+    },
+  ],
+}
+`;
+
+exports[`Lookup reducer should handle LOOKUPS_GET_ERROR 1`] = `
+Object {
+  "countries": Array [
+    Object {
+      "code": "AFG",
+      "countryId": 1,
+      "currencyId": 64,
+      "isoAlpha2Code": "AF",
+      "name": "Afghanistan",
+    },
+  ],
+  "currencies": Array [
+    Object {
+      "currencyId": 4,
+      "currencyName": "AED",
+      "currencySymbol": "",
+      "isActive": true,
+      "lookupKey": NaN,
+    },
+  ],
+  "error": Object {
+    "error": true,
+  },
+  "languages": Array [
+    Object {
+      "languageID": 1,
+      "name": "English",
+      "shortName": "en",
+    },
+  ],
+  "lookups": Array [
+    Object {
+      "description": "HOP(HOP)",
+      "lookupId": 1,
+      "lookupItem": "Project_Approver_Type",
+      "lookupKey": 1,
+    },
+  ],
+  "projectstatus": Array [
+    Object {
+      "description": "Initial Customer Inquiry",
+      "lookupId": 1,
+      "lookupItem": "Project_Status",
+      "lookupKey": 1,
+    },
+  ],
+}
+`;
+
+exports[`Lookup reducer should handle LOOKUPS_GET_SUCCESS 1`] = `
+Object {
+  "countries": Array [
+    Object {
+      "code": "AFG",
+      "countryId": 1,
+      "currencyId": 64,
+      "isoAlpha2Code": "AF",
+      "name": "Afghanistan",
+    },
+  ],
+  "currencies": Array [
+    Object {
+      "currencyId": 4,
+      "currencyName": "AED",
+      "currencySymbol": "",
+      "isActive": true,
+      "lookupKey": NaN,
+    },
+  ],
+  "error": null,
+  "languages": Array [
+    Object {
+      "languageID": 1,
+      "name": "English",
+      "shortName": "en",
+    },
+  ],
+  "lookups": Array [
+    Object {
+      "currencyId": 4,
+      "currencyName": "AED",
+      "currencySymbol": "",
+      "isActive": true,
+      "lookupKey": NaN,
     },
   ],
   "projectstatus": Array [

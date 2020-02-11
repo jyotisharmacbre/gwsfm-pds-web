@@ -17,6 +17,21 @@ import ProjectStatus from '../../../enums/ProjectStatus';
 const mockStore = configureStore([]);
 let store;
 let wrapper;
+lookUpInitialState.currencies = [{
+	currencyId: 1,
+	currencyName: 'INR',
+	currencySymbol: 'R',
+	isActive: true
+}];
+lookUpInitialState.countries = [{
+	currencyId: 143,
+	name: 'india',
+	code: 'IN',
+	isoAlpha2Code: "IND",
+	countryId: 1
+}];
+customerEnquiryInitialState.form.currencyId = 1;
+customerEnquiryInitialState.form.countryId = 1;
 const setUpStore = (initialState, lookUpInitialState, customerEnquiryInitialState, subcontractorInitialState) => {
 	store = mockStore({
 		preliminary: initialState,
@@ -28,7 +43,7 @@ const setUpStore = (initialState, lookUpInitialState, customerEnquiryInitialStat
 	});
 	store.dispatch = jest.fn();
 };
-const mountPreliminaryComponent = (Props) => {
+const mountComponent = (Props) => {
 	wrapper = mount(
 		<Provider store={store}>
 			<IntlProvider locale="en" messages={translations['en'].messages}>
@@ -56,7 +71,7 @@ describe('Subcontractor component test cases', () => {
 	};
 	beforeEach(() => {
 		setUpStore(initialState, lookUpInitialState, customerEnquiryInitialState, subcontractorInitialState);
-		mountPreliminaryComponent(Props);
+		mountComponent(Props);
 	});
 
 	it('defines the component', () => {
@@ -77,7 +92,7 @@ describe('Subcontractor component test cases', () => {
 		let data = { ...customerEnquiryInitialState };
 		data.form.status = ProjectStatus.BidLost;
 		setUpStore(initialState, lookUpInitialState, data, subcontractorInitialState);
-		mountPreliminaryComponent(Props);
+		mountComponent(Props);
 		let container = findByTestAtrr(wrapper, 'sub_row_status').first();
 		expect(container.hasClass('link_disabled')).toBe(true);
 	});
@@ -85,21 +100,61 @@ describe('Subcontractor component test cases', () => {
 		let data = { ...customerEnquiryInitialState };
 		data.form.status = ProjectStatus.InReview;
 		setUpStore(initialState, lookUpInitialState, data, subcontractorInitialState);
-		mountPreliminaryComponent(Props);
+		mountComponent(Props);
 		expect(wrapper.find('.link_disabled').length).toBeGreaterThan(0);
 	});
 	it('should disable the form when state is OrderReceived', () => {
 		let data = { ...customerEnquiryInitialState };
 		data.form.status = ProjectStatus.OrderReceived;
 		setUpStore(initialState, lookUpInitialState, data, subcontractorInitialState);
-		mountPreliminaryComponent(Props);
+		mountComponent(Props);
 		expect(wrapper.find('.link_disabled').length).toBeGreaterThan(0);
 	});
 	it('should disable the form when state is OrderReceived', () => {
 		let data = { ...customerEnquiryInitialState };
 		data.form.status = ProjectStatus.JAApproved;
 		setUpStore(initialState, lookUpInitialState, data, subcontractorInitialState);
-		mountPreliminaryComponent(Props);
+		mountComponent(Props);
 		expect(wrapper.find('.link_disabled').length).toBeGreaterThan(0);
+	});
+
+	it('should render the component when notify is success and event is none', () => {
+		subcontractorInitialState.notify = Notify.success;
+		subcontractorInitialState.event = EventType.none;
+		setUpStore(initialState, lookUpInitialState, customerEnquiryInitialState, subcontractorInitialState);
+		mountComponent(Props);
+		expect(wrapper).toBeDefined();
+	});
+
+	it('should render the component when notify is success and event is none', () => {
+		subcontractorInitialState.notify = Notify.success;
+		subcontractorInitialState.event = EventType.none;
+		setUpStore(initialState, lookUpInitialState, customerEnquiryInitialState, subcontractorInitialState);
+		mountComponent(Props);
+		expect(wrapper).toBeDefined();
+	});
+
+	it('should render the component when notify is success and event is next', () => {
+		subcontractorInitialState.notify = Notify.success;
+		subcontractorInitialState.event = EventType.next;
+		setUpStore(initialState, lookUpInitialState, customerEnquiryInitialState, subcontractorInitialState);
+		mountComponent(Props);
+		expect(wrapper).toBeDefined();
+	});
+
+	it('should render the component when notify is success and event is save', () => {
+		subcontractorInitialState.notify = Notify.success;
+		subcontractorInitialState.event = EventType.save;
+		setUpStore(initialState, lookUpInitialState, customerEnquiryInitialState, subcontractorInitialState);
+		mountComponent(Props);
+		expect(wrapper).toBeDefined();
+	});
+
+	it('should render the component when notify is success and event is previou', () => {
+		subcontractorInitialState.notify = Notify.success;
+		subcontractorInitialState.event = EventType.previous;
+		setUpStore(initialState, lookUpInitialState, customerEnquiryInitialState, subcontractorInitialState);
+		mountComponent(Props);
+		expect(wrapper).toBeDefined();
 	});
 });
