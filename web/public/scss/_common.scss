@@ -307,7 +307,9 @@ button[type="button"] {
 .width-285 {
     max-width: 285px;
 }
-
+.width-percent25 {
+    width: 25%;
+}
 .pl-20 {
     padding-left: 25px !important;
 }
@@ -353,11 +355,24 @@ button[type="button"] {
         }
         &:last-child {
             margin-right: 0;
+            @include xsScreen {
+                margin-left: 20px;
+                margin-right: 20px;
+            }
         }
         &:nth-child(2) {
             @include smsScreen {
                 margin-left: 0 !important;
             }
+            @include xsScreen {
+                margin-left: 20px !important;
+                margin-right: 20px;
+            }
+        }
+        @include xsScreen {
+            width: 100%;
+            margin-left: 20px;
+            margin-right: 20px;
         }
     }
 }
@@ -381,6 +396,11 @@ button[type="button"] {
             @include mdScreen {
                 margin-right: 8px;
             }
+        }
+        @include xsScreen {
+            width: 100%;
+            margin-left: 20px;
+            margin-right: 20px !important;
         }
     }
 }
@@ -491,6 +511,11 @@ td {
 }
 
 @include mdScreen {
+    .green-tr {
+        tr {
+            background: map-get($colors , Green03 ) !important;
+        }
+    }
     .table_responsive {
         width: 100%;
         display: block;

@@ -95,6 +95,9 @@
                 .down-arrow {
                     position: relative;
                     padding-left: 18px;
+                    @include smScreen {
+                        padding-left: 0;
+                    }
                     &:before {
                         content: '';
                         position: absolute;

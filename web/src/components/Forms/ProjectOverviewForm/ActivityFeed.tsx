@@ -14,10 +14,10 @@ const ActivityFeed: React.FC<IActivityFeed> = (props) => {
 					<FontAwesomeIcon className="" icon={faUser} />
 				</div>
 			) : (
-				<div className="feed-block-img check-icon" data-test="approved-icon">
-					<FontAwesomeIcon className="" icon={faCheck} />
-				</div>
-			)}
+					<div className="feed-block-img check-icon" data-test="approved-icon">
+						<FontAwesomeIcon className="" icon={faCheck} />
+					</div>
+				)}
 			<div className="feed-block-content">
 				<h2>
 					<FormattedMessage
@@ -25,8 +25,8 @@ const ActivityFeed: React.FC<IActivityFeed> = (props) => {
 							props.activityType == ProjectApprovalActivityType.UserQuery ? (
 								'LABEL_COMMENT_FROM'
 							) : (
-								'LABEL_APPROVED_BY'
-							)
+									'LABEL_APPROVED_BY'
+								)
 						}
 					/>{' '}
 					<span>{props.approvedBy}</span>
@@ -34,7 +34,7 @@ const ActivityFeed: React.FC<IActivityFeed> = (props) => {
 				<span className="feed-date-time" data-test="formated-date">
 					{formatDateAndTime(props.createdDate)}
 				</span>
-				<p data-test="activity-query">{props.query}</p>
+				<p className="MultiLine" data-test="activity-query">{props.query}</p>
 			</div>
 		</div>
 	);
