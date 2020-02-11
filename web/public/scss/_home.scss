@@ -168,7 +168,7 @@
                             img {
                                 max-width: 22px;
                                 height: auto;
-                                @include transform (translate(-2px, -2px));
+                                @include transform (translate(-2px, 0px));
                             }
                         }
                         .title_name {
@@ -189,13 +189,15 @@
             .link_group {
                 background: map-get($colors, darkGreen);
                 display: flex;
-                justify-content: space-evenly;
+                justify-content: space-around;
                 padding: 15px 0 14px;
                 @include borderRadius(0 0 5px 5px);
                 a {
                     color: map-get($colors, whiteColor);
                     font-size: 14px;
                     font-weight: 500;
+                    width: 50%;
+                    text-align: center;
                 }
                 span {
                     color: map-get($colors, whiteColor);
@@ -384,7 +386,7 @@
     h1 {
         margin-bottom: 40px;
         margin-top: 30px;
-        font-size: 38px;
+        font-size: 32px;
         font-weight: 300;
         font-stretch: normal;
         font-style: normal;
@@ -394,12 +396,12 @@
         @include mdScreen {
             margin-bottom: 30px;
             margin-top: 20px;
-            font-size: 32px;
+            font-size: 28px;
         }
         @include smScreen {
             margin-bottom: 20px;
             margin-top: 10px;
-            font-size: 28px;
+            font-size: 24px;
         }
     }
 }
