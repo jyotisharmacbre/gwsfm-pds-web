@@ -34,16 +34,17 @@
     .icons-blocks {
         list-style: none;
         margin: 0;
-        padding: 8px 0;
         align-items: center;
-        display: inline-flex;
-        float: right;
+        display: flex;
         height: 60px;
         li {
             display: inline-block;
             margin: 0 15px;
             &:last-child {
                 margin: 0;
+                @include smScreen {
+                    margin: 0 0 0 15px;
+                }
             }
             @include smScreen {
                 margin: 0 10px;
@@ -66,6 +67,12 @@
                     color: map-get($colors, darkGreen);
                     justify-content: center;
                     font-size: 10px;
+                }
+            }
+            &:nth-child(3) {
+                margin-right: 0;
+                @include smScreen {
+                    margin-right: -4px;
                 }
             }
             a {
@@ -110,6 +117,9 @@
                             @include transform (rotate(180deg));
                         }
                     }
+                    @include smScreen {
+                        padding-left: 0;
+                    }
                 }
                 #sm_none {
                     padding-left: 10px;
@@ -126,11 +136,11 @@
 .dropdown-menu {
     &.user-dropdown {
         z-index: 20;
-        top: 24px !important;
+        top: 26px !important;
         padding: 0;
         display: inherit;
         width: 265px;
-        right: -20px;
+        right: -5px;
         left: auto;
         @include borderRadius(5px);
         @include boxShadow(0px 7px 11px rgba(204, 204, 204, 0.86));
@@ -147,6 +157,9 @@
             top: -11px;
             right: 20px;
             content: '';
+            @include smScreen {
+                right: 6px;
+            }
         }
         .language_wrap {
             ul {
@@ -204,6 +217,10 @@
                     font-size: unset;
                 }
             }
+        }
+        @include smScreen {
+            top: 28px !important;
+            right: -5px;
         }
     }
 }

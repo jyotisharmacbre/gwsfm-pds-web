@@ -109,11 +109,22 @@ const ProfileMenu: React.FC<any> = props => {
       history.location.pathname == "/Pipeline" ||
       history.location.pathname == "/Error";
   }
+
+ //add & remove class for pipeline and dashboard page
+  const showClass = () => {
+    return history.location.pathname == "/" ||
+      history.location.pathname == "/Pipeline"
+  }
+  
   return (
     <nav className="topbar">
       <div className="container-fluid">
         <div className="row d-flex align-items-center">
-          <div className="col-sm-12">
+          <div className=
+          {
+          showClass() ? 
+          "col-sm-12 d-flex justify-content-between align-items-center" :
+          "col-sm-12 d-flex justify-content-between align-items-center justify-content-md-end"} >
 
             <div data-test="test-logo" className=
               {showNav() ? "d-md-block logo" : "logo"} >
@@ -224,7 +235,12 @@ const ProfileMenu: React.FC<any> = props => {
                   </div>
                 </a>
               </li>
-              <li>
+              <li className=
+          {
+          showClass() ? 
+          "m-0" :
+          "default"}
+          >
                 <button
                   type="button"
                   id="sidebarCollapse"
