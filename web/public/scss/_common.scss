@@ -399,7 +399,7 @@ button[type="button"] {
         }
         @include xsScreen {
             width: 100%;
-            margin-left: 20px;
+            margin-left: 20px !important;
             margin-right: 20px !important;
         }
     }
