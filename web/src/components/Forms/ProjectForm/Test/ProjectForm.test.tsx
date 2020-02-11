@@ -195,7 +195,7 @@ describe('ProjectForm Fields', () => {
         expect(field.render());
       });
       it('Should change currency on countryId change', () => {
-      let fieldCurrency = wrapper.find('select[name="currencyId"]').first();
+        let fieldCurrency = wrapper.find('select[name="currencyId"]').first();
         field.simulate('change', { target: { value: '1' } })
         wrapper.update();
         expect(fieldCurrency.find('option').at(1).instance().selected).toBeTruthy;
@@ -282,6 +282,13 @@ describe('ProjectForm Fields', () => {
       it('Should renders next button', () => {
         expect(field.prop('type')).toBe('button');
       });
+       it('Should focus on project name on click of next button when name field is empty and required', () => {
+        field.simulate('click');
+        let nameField = wrapper.find('input[name="name"]').first();
+        const focusedElement = document.activeElement;
+
+        expect(nameField.matchesElement(focusedElement)).toBeTruthy;
+      });
     });
 
     describe('SaveAndClose button', () => {
@@ -290,6 +297,13 @@ describe('ProjectForm Fields', () => {
       });
       it('Should renders saveAndClose button', () => {
         expect(field.prop('type')).toBe('button');
+      });
+      it('Should focus on project name on click of save button name field is empty and required', () => {
+        field.simulate('click');
+        let nameField = wrapper.find('input[name="name"]').first();
+        const focusedElement = document.activeElement;
+
+        expect(nameField.matchesElement(focusedElement)).toBeTruthy;
       });
     });
 
@@ -342,12 +356,12 @@ describe('ProjectForm Fields', () => {
         ).toMatchSnapshot();
       });
 
-      it('Should render in dropdown only currencies which has isActive flag true', () => {     
-        let fieldCurrency = wrapper.find('select[name="currencyId"]').first();        
+      it('Should render in dropdown only currencies which has isActive flag true', () => {
+        let fieldCurrency = wrapper.find('select[name="currencyId"]').first();
         //Note: Although we are passing only one currency with flag true but testing for length to be 2, becuase we have a default option tag as well.
-          expect(fieldCurrency.find('option')).toHaveLength(2);
-  
-        });
+        expect(fieldCurrency.find('option')).toHaveLength(2);
+
+      });
     });
   });
 });
