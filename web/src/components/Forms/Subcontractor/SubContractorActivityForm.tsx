@@ -63,7 +63,7 @@ const SubContractorActivityForm: React.FC<Props> = (props: Props) => {
 											handleConfirm: () => fields.remove(index)
 										})}
 								>
-									<span className="d-none d-lg-inline"><FormattedMessage id="BUTTON_DELETE" /></span>
+									<FormattedMessage id="BUTTON_DELETE" />
 									<FontAwesomeIcon className="" icon={faTrash} />
 								</button>
 							) : null}
@@ -74,6 +74,7 @@ const SubContractorActivityForm: React.FC<Props> = (props: Props) => {
 										data-test="activityName"
 										type="text"
 										component={PdsFormInput}
+										validate={[ Validate.maxLength(250) ]}
 										labelKey="LABEL_ACTIVITY_NAME"
 										placeholderKey="PLACEHOLDER_ACTIVITY_NAME"
 									/>
@@ -103,7 +104,7 @@ const SubContractorActivityForm: React.FC<Props> = (props: Props) => {
 											labelKey="LABEL_OTHER_SUBCONTRACTOR"
 											placeholderKey="PLACEHOLDER_OTHER_SUBCONTRACTOR"
 											className="required"
-											validate={[Validate.required('LABEL_OTHER_SUBCONTRACTOR')]}
+											validate={[Validate.required('LABEL_OTHER_SUBCONTRACTOR'), Validate.maxLength(250)]}
 										/>
 									)}
 
@@ -118,7 +119,7 @@ const SubContractorActivityForm: React.FC<Props> = (props: Props) => {
 										type="text"
 										component={PdsFormInput}
 										className="width-120 pl-20"
-										validate={[ onlyNumber ]}
+										validate={[ Validate.maxLength(1000), onlyNumber ]}
 										currency={props.currencySymbol}
 										normalize={restrictMinusAndAllowDecimal}
 										divPosition="relative"
@@ -130,7 +131,7 @@ const SubContractorActivityForm: React.FC<Props> = (props: Props) => {
 										type="text"
 										component={PdsFormInput}
 										className="width-120 pl-20"
-										validate={[onlyNumber ]}
+										validate={[ Validate.maxLength(5000), onlyNumber ]}
 										currency="%"
 										normalize={restrictMinusAndAllowDecimalForMaxRangeHundred}
 										divPosition="relative"
@@ -159,6 +160,7 @@ const SubContractorActivityForm: React.FC<Props> = (props: Props) => {
 										name={`${member}.comments`}
 										rows="7"
 										component={PdsFormTextArea}
+										validate={[ Validate.maxLength(5000) ]}
 										placeholderKey="PLACEHOLDER_ADDITIONAL_COMMENTS"
 									/>
 								</div>
