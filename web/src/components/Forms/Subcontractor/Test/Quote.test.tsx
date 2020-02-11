@@ -9,13 +9,18 @@ import   * as connectedIntlProvider from './../../../../Translations/connectedIn
 import {newQuote,initialState} from '../../../../store/SubContractor/InitialState';
 import {findByTestAtrr} from '../../../../helpers/test-helper';
 
-describe('Sub Contractor Quote Form component tests', () => {
-  let wrapper: any;
-  let quotes =[{...newQuote},{...newQuote},{...newQuote}]
-  beforeEach(() => {
+let wrapper: any;
+let quotes = [{ ...newQuote }, { ...newQuote }, { ...newQuote }]
+const mountComponent = () => {
     wrapper = shallow(
-      <Quote fields={initialState.form.activities[0].quotes}/>
+        <Quote fields={quotes} />
     );
+}
+
+describe('Sub Contractor Quote Form component tests', () => {
+  
+  beforeEach(() => {
+      mountComponent();
   });
 
 it('should match the snapshot', () => { 
@@ -30,5 +35,14 @@ it('should match the snapshot', () => {
     expect(findByTestAtrr(wrapper,'sub-contractor-quote-member').length).toEqual(3);
   });
 
-  
+    it('should not renders the delete button with 3 quotes', () => {
+        expect(findByTestAtrr(wrapper, 'deletequote').length).toEqual(0);
+    });
+
+    it('should renders 4 delete button with 4 quotes', () => {
+        quotes.push(newQuote);
+        mountComponent();
+        expect(findByTestAtrr(wrapper, 'deletequote').length).toEqual(4);
+    });
+    
 });
