@@ -174,6 +174,13 @@ describe('ProjectOverviewForm Fields', () => {
 			it('Should renders next button', () => {
 				expect(field.prop('type')).toBe('button');
 			});
+			it('Should focus on mainContractor name field on click of next button when field is empty and required', () => {
+				field.simulate('click');
+				let nameField = wrapper.find('input[name="projectAdditionalDetail.mainContractor"]').first();
+				const focusedElement = document.activeElement;
+		
+				expect(nameField.matchesElement(focusedElement)).toBeTruthy;
+			  });
 		});
 
 		describe('Project form reducer', () => {
