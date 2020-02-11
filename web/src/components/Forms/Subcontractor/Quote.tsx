@@ -27,9 +27,6 @@ const Quote = ({ fields, currencySymbol }) => (
                     data-test="supplierName"
                     type="text"
                     component={PdsFormInput}
-                    validate={[
-                      Validate.maxLength(1000)
-                    ]}
                     labelKey="LABEL_ACTIVITY_NAME"
                     placeholderKey="PLACEHOLDER_SUPPLIER_NAME"
                   />
@@ -39,7 +36,6 @@ const Quote = ({ fields, currencySymbol }) => (
                     component={PdsFormInput}
                     className="pl-20"
                     validate={[
-                      Validate.maxLength(1000),
                       onlyNumber
                     ]}
                     currency={currencySymbol}
