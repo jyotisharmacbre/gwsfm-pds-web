@@ -2,7 +2,7 @@ import React,{useState,useEffect} from "react";
 import { AsyncTypeahead } from "react-bootstrap-typeahead";
 import { FormattedMessage, injectIntl } from 'react-intl';
 
-const AdaptedTypeahead = ({ input, render, meta, labelName, className, ...rest }) => {
+const AdaptedTypeahead = ({ input, render, meta, labelName, className, id, ...rest }) => {
     const [init,setInit] = useState<boolean>(false);
 
     useEffect(() => {
@@ -30,7 +30,7 @@ const AdaptedTypeahead = ({ input, render, meta, labelName, className, ...rest }
         minLength={3}
         selected={formatValue()}
       />
-      {meta.error && meta.touched && <span className="text-danger">{meta.error}</span>}
+      {meta.error && meta.touched && <span id={id + '_error'} className="text-danger">{meta.error}</span>}
     </div>
   )
 };

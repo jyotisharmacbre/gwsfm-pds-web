@@ -112,3 +112,19 @@ export const isValidEmail = (email: string) => {
 	var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 	return re.test(String(email).toLowerCase());
 };
+
+export const onErrorScrollToField = (errors) => {
+	const errElm = document.getElementsByName(Object.keys(errors)[0])[0];
+	if (errElm) {
+		errElm.focus();
+	} else {
+		//For typeahead
+		setTimeout(() => {
+			const key = Object.keys(errors)[0];
+			const id = key.includes('.') ? key.split('.')[key.split('.').length - 1] : key;
+			const errElm = document.getElementById(id + '_error');
+			const closestElement = errElm?.parentElement?.getElementsByTagName('input')[0];
+			closestElement?.focus();
+		}, 10);
+	}
+}
