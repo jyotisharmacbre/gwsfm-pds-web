@@ -63,7 +63,7 @@ const SubContractorActivityForm: React.FC<Props> = (props: Props) => {
 											handleConfirm: () => fields.remove(index)
 										})}
 								>
-									<span className="d-none d-lg-inline"><FormattedMessage id="BUTTON_DELETE" /></span>
+									<FormattedMessage id="BUTTON_DELETE" />
 									<FontAwesomeIcon className="" icon={faTrash} />
 								</button>
 							) : null}
