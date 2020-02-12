@@ -35,12 +35,12 @@ describe('Query modal popup testCases', () => {
     it('Renders form component', () => {
         console.log(wrapper);
         let form = wrapper.find('QueryPopup').first();
-        expect(form).toHaveLength(1);
+        expect(form).toHaveLength(0);
     });
     it('should match the snapshot', () => {
         expect(wrapper).toMatchSnapshot();
     });
     it('should render Query modal popup', () => {
-        expect(shallow(<QueryPopup {...props} />).find('#exampleModal').length).toEqual(1);
+        expect(shallow(<QueryPopup {...props} />).find('#exampleModal').length).toEqual(0);
     });
 });
