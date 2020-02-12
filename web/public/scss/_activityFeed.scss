@@ -3,6 +3,9 @@ h3.feed_head {
     font-size: 14px;
     font-weight: 600;
     color: map-get($colors , grey03 );
+    @include lgScreen {
+        margin-top: 25px;
+    }
 }
 .activity_feed {
     position: relative;

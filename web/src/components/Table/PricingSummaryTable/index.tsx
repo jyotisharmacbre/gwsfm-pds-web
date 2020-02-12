@@ -121,16 +121,14 @@ const PricingSummaryTable: React.FC<Props> = (props) => {
 							<tr>
 								<th className="width-percent25" />
 								<th className="width-percent25">
-									{/* <FormattedMessage id="TITLE_COST" /> ({props.currencySymbol}) */}
 									<FormattedMessage id="TITLE_SUB_CONTRACTOR" />
 								</th>
 								<th className="width-percent25">
 									<FormattedMessage id="TITLE_MARGIN" /> (%)
 								</th>
 								<th className="width-percent25">
-									{/* <FormattedMessage id="TITLE_SELL" /> ({props.currencySymbol}) */}
 									<FormattedMessage id='TITLE_CUSTOMER' />{' '}
-									{props.discount?.clientDiscount?.discountType == 1 ? (
+									{props.discount?.clientDiscount?.discountType == 0 ? (
 										`(${props.discount.clientDiscount.discount}%)`
 									) : null}
 								</th>
@@ -140,7 +138,7 @@ const PricingSummaryTable: React.FC<Props> = (props) => {
 					<tbody>
 						{props.showDiscount && props.discount ? (
 							<React.Fragment>
-								<tr>
+								<tr data-test="discount-data">
 									<td data-column="&nbsp;">
 										<FormattedMessage id="TITLE_DISOUNT" />
 									</td>
