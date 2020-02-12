@@ -31,7 +31,8 @@ export function fieldValidationForMaxLimit(value, minLength, maxLength) {
 
 
 export function fieldValidationRequired(value, message) {
-	value = value ? value.toString() : "";
+
+	value = value || value=== 0 ? value.toString() : "";
 
 	if (
 		!value ||
@@ -85,7 +86,10 @@ export const isCBRELabourOrAgencyLabourExists = (id: string) => {
 	return isExists;
 };
 export const OnlyDistinctAssetTypes = (value, allValues, props, name) => {
-	if (value && allValues && value > 0) {
+	if (value === 0) {
+		return;
+	}
+	else if (value && allValues) {
 		switch (name) {
 			case 'firstAssetWorkedOn':
 				if (CheckIfValueExistsinArray(value, [allValues.secondAssetWorkedOn, allValues.thirdAssetWorkedOn]))

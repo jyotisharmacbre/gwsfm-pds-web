@@ -85,7 +85,11 @@ export const projectDetail: IProjectDetailState = {
     divisionId: '',
     businessUnitId: '',
     weightedTCV: 0,
-    soldMargin: 0
+    soldMargin: 0,
+    otherEngagementType: '',
+    otherFirstAssetWorkedOn: '',
+    otherSecondAssetWorkedOn: '',
+    otherThirdAssetWorkedOn: ''
   },
   enquiryOverview: {
     projectName: '',

@@ -32,7 +32,11 @@ export const form:IProjectDetail={
         businessUnitId: '',
         divisionId: '',
         weightedTCV: 0,
-        soldMargin: 0
+        soldMargin: 0,
+        otherEngagementType: '',
+        otherFirstAssetWorkedOn: '',
+        otherSecondAssetWorkedOn: '',
+        otherThirdAssetWorkedOn: ''
 }
 export const enquiryOverview:IProject={
   projectName: '',
