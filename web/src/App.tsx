@@ -12,7 +12,7 @@ import { baseAPI } from './client';
 
 const App: React.FC = (props: any) => {
 	//Loading progressbar
-	loadProgressBar({}, baseAPI);
+	loadProgressBar({ showSpinner: false }, baseAPI);
 
 	const drawerWidth = 250;
 
