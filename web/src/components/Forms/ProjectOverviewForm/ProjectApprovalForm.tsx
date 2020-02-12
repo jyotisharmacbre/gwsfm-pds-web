@@ -44,14 +44,14 @@ const ProjectApprovalForm: React.FC<IProps> = (props) => {
 			<div className="row">
 				<div className="col-md-12 d-flex">
 					<label />
-					<h6 className="mb-0 d-none d-lg-block">
+					<h6 className="mb-0 d-none">
 						<FormattedMessage id="LABEL_SIGN_OFF_STATUS" />{' '}
 					</h6>
 				</div>
 			</div>
 			{fields.map((member, index) => (
 				<div className="row align-items-stretch" key={index} data-test="project-approval-form">
-					<div className="col-lg-9">
+					<div className="col-11">
 						<div className="form-group">
 							<NewTypeAhead
 								name={`${member}.userId`}
@@ -68,11 +68,12 @@ const ProjectApprovalForm: React.FC<IProps> = (props) => {
 							<span className="right_fix_txt">{fields.get(index).approverTypeDescription}</span>
 						</div>
 					</div>
-					<div className="col-lg-3">
-						{shouldDisplay(fields.get(index)) && <div className="approve_state">
+					<div className="col-1 pl-0">
+						{shouldDisplay(fields.get(index)) && <div className="approve_state ">
+							<div className="form-group d-flex">
 							{<span data-test="icons-approval-status" className="icon"><FontAwesomeIcon className={getClassAndIcon(fields.get(index).approvalStatus).className} icon={getClassAndIcon(fields.get(index).approvalStatus).iconType} /></span>}
 							{<label className='approv_label'><FormattedMessage id={getClassAndIcon(fields.get(index).approvalStatus).labelKey} /> </label>}
-						</div>
+						</div></div>
 						}	</div>
 				</div>
 			))}
