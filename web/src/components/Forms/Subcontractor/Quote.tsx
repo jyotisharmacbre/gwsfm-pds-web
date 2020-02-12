@@ -22,7 +22,7 @@ const Quote = ({ fields, currencySymbol, intl }) => (
             <div className="card_outer_wrap quote_wrap">
                 <div className="row">
                     {fields.map((member, index) => (
-                        <div key={index} className="col-lg-4 pl-md-2" data-test="sub-contractor-quote-member">
+                        <div key={index} className="col-lg-4 pl-md-2 pr-md-2 mb-2 mt-2" data-test="sub-contractor-quote-member">
                             <div className="card_wrap">
                                 <div className="card">
                                     <h6 className="title"><FormattedMessage id='TITLE_QUOTE'></FormattedMessage> {index + 1}</h6>
@@ -38,7 +38,6 @@ const Quote = ({ fields, currencySymbol, intl }) => (
                                                     handleConfirm: () => fields.remove(index)
                                                 })}
                                         >
-                                            <span className="d-none d-lg-inline"><FormattedMessage id="BUTTON_DELETE" /></span>
                                             <FontAwesomeIcon className="" icon={faTrash} />
                                         </button>
                                     ) : null}
