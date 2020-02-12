@@ -131,7 +131,7 @@ const SubContractorActivityForm: React.FC<Props> = (props: Props) => {
 										type="text"
 										component={PdsFormInput}
 										className="width-120 pl-20"
-										validate={[ Validate.maxLength(5000), onlyNumber ]}
+										validate={[ Validate.maxLength(1000), onlyNumber ]}
 										currency="%"
 										normalize={restrictMinusAndAllowDecimalForMaxRangeHundred}
 										divPosition="relative"
