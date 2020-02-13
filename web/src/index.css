@@ -12,6 +12,10 @@ code {
     monospace;
 }
 
+.select-wrapper .form-group{
+  margin-top: 20px;
+}
+
 /* style for top progress bar */
 #nprogress .bar {
   background: orange !important;
