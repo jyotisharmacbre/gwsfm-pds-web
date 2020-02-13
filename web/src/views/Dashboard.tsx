@@ -73,7 +73,7 @@ const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
 	}, [props.lookupDetails]);
 	return (
 		<div>
-			<div className="container">
+			<div className="container-fluid">
 				<div className="row">
 					<div className="col-xl-12">
 						<div className="custom-wrap">

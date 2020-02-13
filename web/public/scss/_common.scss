@@ -63,18 +63,18 @@ div#RouteDiv {
 .style-3::-webkit-scrollbar-track {
     // box-shadow: inset 0 0 6px rgba(0,0,0,0.0);
     // -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.0);
-    background-color: #f1f1f1;
+    background-color: #f1f1f1 !important;
     ;
 }
 
 .style-3::-webkit-scrollbar {
-    width: 6px;
-    background-color: #f1f1f1;
+    width: 6px !important;
+    background-color: #f1f1f1 !important;
     ;
 }
 
 .style-3::-webkit-scrollbar-thumb {
-    background-color: #f1f1f1;
+    background-color: #f1f1f1 !important;
 }
 
 form {
@@ -399,7 +399,7 @@ button[type="button"] {
         }
         @include xsScreen {
             width: 100%;
-            margin-left: 20px;
+            margin-left: 20px !important;
             margin-right: 20px !important;
         }
     }
