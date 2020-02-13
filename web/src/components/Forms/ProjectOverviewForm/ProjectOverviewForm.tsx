@@ -343,7 +343,8 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 			</div>
 			{/* AUTHORISED SECTION */}
 			<div className="row">
-				<div className={`${getClassNameForProjectStatus(props.status)} col-xl-6`}>
+				<div className={`${getClassNameForProjectStatus(props.status)} col-xl-6`}> 
+				
 					<div className="authorised_form_wrap">
 						<h6 className="ml-0">
 							<FormattedMessage id="LABEL_PROJECT_AUTHORISED" />
@@ -368,7 +369,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 				</div>
 			</div>
 			<div className="row">
-				<div className="col-xl-12">
+				<div className="col-xl-12 mt-4 mt-lg-0">
 					<PricingSummaryTable
 						data-test="pricing-summary"
 						preliminary={props.preliminaryState}

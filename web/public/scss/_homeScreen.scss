@@ -1,6 +1,6 @@
 .top_Title {
     &.top_Title2 {
-        padding: 0px 20px 5px 0px;
+        padding: 0px 20px 0 0px;
         display: flex;
         align-items: center;
         position: inherit;
@@ -12,9 +12,9 @@
             font-size: 13px;
             font-weight: 600;
             text-transform: capitalize;
-            margin: 10px 0 10px;
+            margin: 5px 0 5px;
             position: relative;
-            padding-left: 30px;
+            padding-left: 15px;
             line-height: 30px;
             &:before{
                 background: map-get($colors , lightGreen03 );
@@ -44,5 +44,15 @@
                 font-size: 12px;
             }
         }
+    }
+}
+
+.table-row-no-pending-actions {
+    text-align: center;
+    display: block;
+    padding: 10px 0;
+    background: map-get($colors, whiteColor );
+    svg {
+        margin-right: 5px;
     }
 }
