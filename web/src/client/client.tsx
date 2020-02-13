@@ -30,6 +30,7 @@ const isSuccessHandlerEnabled = (config = {}) => {
 };
 
 const requestHandler = request => {
+  request.headers['Pragma'] = 'no-cache';
   if (isTokenHandlerEnabled(request)) {
     // Add request token here
     const token = authentication.getAccessToken();
