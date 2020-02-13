@@ -74,7 +74,7 @@ const SubContractorActivityForm: React.FC<Props> = (props: Props) => {
 										data-test="activityName"
 										type="text"
 										component={PdsFormInput}
-										validate={[ Validate.maxLength(1000) ]}
+										validate={[ Validate.maxLength(250) ]}
 										labelKey="LABEL_ACTIVITY_NAME"
 										placeholderKey="PLACEHOLDER_ACTIVITY_NAME"
 									/>
@@ -104,7 +104,7 @@ const SubContractorActivityForm: React.FC<Props> = (props: Props) => {
 											labelKey="LABEL_OTHER_SUBCONTRACTOR"
 											placeholderKey="PLACEHOLDER_OTHER_SUBCONTRACTOR"
 											className="required"
-											validate={[Validate.required('LABEL_OTHER_SUBCONTRACTOR'), Validate.maxLength(1000)]}
+											validate={[Validate.required('LABEL_OTHER_SUBCONTRACTOR'), Validate.maxLength(250)]}
 										/>
 									)}
 

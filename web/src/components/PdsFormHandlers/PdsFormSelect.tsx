@@ -1,5 +1,8 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import { Field } from 'redux-form';
+import PdsFormInput from './PdsFormInput';
+import { Validate } from '../../helpers/fieldValidations';
 
 export function PdsFormSelect({
   input,
@@ -8,8 +11,15 @@ export function PdsFormSelect({
   messageKey,
   children,
   DropdownCheck,
-  disabled
+  disabled,
+  showOtherField,
+  otherFieldName,
+  otherFieldLabelKey,
+  otherFieldPlaceHolderKey
 }) {
+  
+  const isOtherOption = input?.value === 0 && otherFieldName ? true : false;
+
   const errorClass = `${error && touched ? 'error' : ''}`;
   
   return (
@@ -23,6 +33,20 @@ export function PdsFormSelect({
       </select>
 
       {touched && error && <span className="text-danger">{error}</span>}
+
+      {isOtherOption && (
+        <Field
+									name={otherFieldName}
+									type="text"
+									component={PdsFormInput}
+									className="required"
+									validate={
+										[Validate.required(otherFieldLabelKey), Validate.maxLength(1000)]}
+									messageKey={otherFieldLabelKey}
+									labelKey={otherFieldLabelKey}
+									placeholderKey={otherFieldPlaceHolderKey}
+								/>)
+      }
     </React.Fragment>
   );
 }

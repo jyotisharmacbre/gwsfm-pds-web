@@ -251,13 +251,16 @@
         }
         .approve_state {
             display: flex;
-            align-items: center;
+            align-items: flex-end;
             height: 100%;
+            .form-group {
+                margin-bottom: 30px;
+            }
             .icon {
                 margin-right: 10px;
                 svg {
-                    width: 13px;
-                    height: 13px;
+                    width: 20px;
+                    height: 20px;
                 }
             }
             .approv_label {
@@ -266,6 +269,7 @@
                 text-transform: capitalize;
                 font-weight: 500;
                 margin-bottom: 0;
+                display: none;
             }
         }
         .right_label {
@@ -360,14 +364,9 @@
     }
     .risk_card {
         @include mdScreen {
-            border-bottom: 1px solid #006a4d;
+            box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.16) !important;
             margin-bottom: 15px;
         }
     }
 
     /*Post comment Button*/
-    .pds_button_align
-    {
-        margin:0px;
-        float:right;
-    }

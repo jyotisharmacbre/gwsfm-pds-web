@@ -1,7 +1,7 @@
 /*pipeline page*/
 .top_Title {
     background: #fff;
-    padding: 12px 20px 5px 30px;
+    padding: 5px 20px 5px 15px;
     border: 1px solid #ccc;
     border-radius: 5px 5px 0 0;
     position: relative;
@@ -13,6 +13,7 @@
     h2 {
         color: #006a4d;
         font-size: 26px;
+        margin-bottom: 0;
         &:before {
             content: '';
             position: absolute;

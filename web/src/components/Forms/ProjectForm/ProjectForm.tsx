@@ -316,9 +316,12 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 											name="engagementId"
 											component={PdsFormSelect}
 											normalize={normalizeToNumber}
+											otherFieldName="otherEngagementType"
+											otherFieldLabelKey="LABEL_OTHER_TYPE_OF_ENGAGEMENT"
+											otherFieldPlaceHolderKey="PLACEHOLDER_OTHER_TYPE_OF_ENGAGEMENT"
 										>
 											<FormattedMessage id="PLACEHOLDER_TYPE_OF_ENGAGEMENT">
-												{(message) => <option value="">{message}</option>}
+												{(message) => <option value="null">{message}</option>}
 											</FormattedMessage>
 											{getDropdown(props.projectstatus, LookupType.Engagement_Type)}
 										</Field>
@@ -337,7 +340,7 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 											placeholderKey="PLACEHOLDER_COUNTRY"
 											messageKey="MESSAGE_COUNTRY"
 											normalize={normalizeToNumber}
-											onChange={onCountryChange}
+											onChange={onCountryChange}									
 										>
 											<FormattedMessage id="PLACEHOLDER_COUNTRY">
 												{(message) => <option value="">{message}</option>}
@@ -459,13 +462,16 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 											placeholderKey="PLACEHOLDER_FIRST_ASSET"
 											messageKey="MESSAGE_FIRST_ASSET"
 											validate={[
-												Validate.required('LABEL_ASSETS_WORKED_ON'),
+												Validate.requiredWithOtherOption('LABEL_ASSETS_WORKED_ON'),
 												OnlyDistinctAssetTypes
 											]}
-											normalize={normalizeToNumber}
+											normalize={normalizeToNumber}												
+											otherFieldName="otherFirstAssetWorkedOn"
+											otherFieldLabelKey="LABEL_OTHER_ASSETS_WORKED_ON"
+											otherFieldPlaceHolderKey="PLACEHOLDER_OTHER_FIRST_ASSET"
 										>
 											<FormattedMessage id="PLACEHOLDER_FIRST_ASSET">
-												{(message) => <option value="">{message}</option>}
+												{(message) => <option value="null">{message}</option>}
 											</FormattedMessage>
 											>{getDropdown(props.projectstatus, LookupType.Asset_Type)}
 										</Field>
@@ -479,10 +485,13 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 											placeholderKey="PLACEHOLDER_SECOND_ASSET"
 											normalize={normalizeToNumber}
 											validate={OnlyDistinctAssetTypes}
+											otherFieldName="otherSecondAssetWorkedOn"
+											otherFieldLabelKey="LABEL_OTHER_ASSETS_WORKED_ON"
+											otherFieldPlaceHolderKey="PLACEHOLDER_OTHER_SECOND_ASSET"
 
 										>
 											<FormattedMessage id="PLACEHOLDER_SECOND_ASSET">
-												{(message) => <option value="">{message}</option>}
+												{(message) => <option value="null">{message}</option>}
 											</FormattedMessage>
 											{getDropdown(props.projectstatus, LookupType.Asset_Type)}
 										</Field>
@@ -496,10 +505,13 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 											placeholderKey="PLACEHOLDER_THIRD_ASSET"
 											normalize={normalizeToNumber}
 											validate={OnlyDistinctAssetTypes}
+											otherFieldName="otherThirdAssetWorkedOn"
+											otherFieldLabelKey="LABEL_OTHER_ASSETS_WORKED_ON"
+											otherFieldPlaceHolderKey="PLACEHOLDER_OTHER_THIRD_ASSET"
 
 										>
 											<FormattedMessage id="PLACEHOLDER_THIRD_ASSET">
-												{(message) => <option value="">{message}</option>}
+												{(message) => <option value="null">{message}</option>}
 											</FormattedMessage>
 											{getDropdown(props.projectstatus, LookupType.Asset_Type)}
 										</Field>
