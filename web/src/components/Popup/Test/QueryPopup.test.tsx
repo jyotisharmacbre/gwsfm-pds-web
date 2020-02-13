@@ -3,9 +3,8 @@ import configureStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import { IntlProvider } from 'react-intl';
 import QueryPopup from '../QueryPopup';
-import { findByTestAtrr } from '../../../helpers/test-helper';
 import translations from '../../../Translations/translation';
-import { mount, ShallowWrapper, shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import { store } from '../../../store';
 
 describe('Query modal popup testCases', () => {
@@ -21,7 +20,7 @@ describe('Query modal popup testCases', () => {
         handleReject: jest.fn(),
     };
     beforeEach(() => {
-        wrapper = shallow(
+        wrapper = mount(
             <Provider store={store}>
                 <IntlProvider locale="en" messages={translations['en'].messages}>
                     <QueryPopup {...props} />
@@ -35,12 +34,12 @@ describe('Query modal popup testCases', () => {
     it('Renders form component', () => {
         console.log(wrapper);
         let form = wrapper.find('QueryPopup').first();
-        expect(form).toHaveLength(0);
+        expect(form).toHaveLength(1);
     });
     it('should match the snapshot', () => {
         expect(wrapper).toMatchSnapshot();
     });
     it('should render Query modal popup', () => {
-        expect(shallow(<QueryPopup {...props} />).find('#exampleModal').length).toEqual(0);
+        expect(wrapper.find('#exampleModal').length).toEqual(1);
     });
 });
