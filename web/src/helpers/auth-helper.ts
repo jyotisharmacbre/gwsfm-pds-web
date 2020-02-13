@@ -1,7 +1,6 @@
-// @ts-ignore
-import authentication from '@kdpw/msal-b2c-react';
-import jwtDecode from 'jwt-decode';
+import JwtDecode from 'jwt-decode';
 import { DecodedToken } from '../models/decodedToken';
+import { authProvider } from '../authProvider';
 
 export const getDisplayName = () => {
   const decoded: DecodedToken = decodeToken();
@@ -23,12 +22,15 @@ export const getDisplayEmail = () => {
 };
 
 export const logOut = () => {
-  authentication.signOut();
+  authProvider.logout();
 }
 
 function decodeToken() {
-  const token = authentication.getAccessToken();
-  const decoded: DecodedToken = jwtDecode(token);
+  const accessToken: any = getAccessToken();
+  const decoded: DecodedToken = JwtDecode(accessToken);
   return decoded;
 }
 
+export function getAccessToken(): string | null {
+  return sessionStorage.getItem("msal.idtoken");
+}

@@ -1,6 +1,6 @@
 import axios from 'axios';
-import authentication from '@kdpw/msal-b2c-react';
 import appConfig from '../helpers/config-helper';
+import { getAccessToken } from '../helpers/auth-helper';
 
 const config = appConfig();
 export const baseURL = config.REACT_APP_MIDDLETIER_URL;
@@ -32,7 +32,7 @@ const isSuccessHandlerEnabled = (config = {}) => {
 const requestHandler = request => {
   if (isTokenHandlerEnabled(request)) {
     // Add request token here
-    const token = authentication.getAccessToken();
+    const token = getAccessToken();
     request.headers['authorization'] = 'Bearer ' + token;
   }
   return request;

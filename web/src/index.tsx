@@ -5,29 +5,17 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
 import ConnectedIntlProvider from './Translations/connectedIntlProvider';
-// @ts-ignore
-import b2cauth from '@kdpw/msal-b2c-react';
 import appConfig from './helpers/config-helper';
 import { store } from './store';
 import { BrowserRouter as Router } from 'react-router-dom';
 import TelemetryProvider from './contexts/Telemetry/TelemetryProvider';
+import { AzureAD } from 'react-aad-msal';
+import { authProvider } from './authProvider';
 
- 
 const config = appConfig();
-b2cauth.initialize({
-  instance: config.REACT_APP_AUTH_INSTANCE,
-  tenant: config.REACT_APP_AUTH_TENANT,
-  signInPolicy: config.REACT_APP_AUTH_SIGNINPOLICY,
-  applicationId: config.REACT_APP_AUTH_APPID,
-  cacheLocation: 'sessionStorage',
-  scopes: ['openid'],
-  redirectUri: window.location.origin,
-  postLogoutRedirectUri: window.location.origin,
-  validateAuthority: false
-});
-  
-b2cauth.run(() => {
-  ReactDOM.render(
+
+ReactDOM.render(
+  <AzureAD provider={authProvider} forceLogin={true}>
     <Provider store={store}>
       <ConnectedIntlProvider>
         <Router>
@@ -36,8 +24,8 @@ b2cauth.run(() => {
           </TelemetryProvider>
         </Router>
       </ConnectedIntlProvider>
-    </Provider>,
-    document.getElementById('root') as HTMLElement
-  );
-  serviceWorker.unregister();
-});
+    </Provider>
+  </AzureAD>,
+  document.getElementById('root') as HTMLElement
+);
+serviceWorker.unregister();
