@@ -460,7 +460,7 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 											placeholderKey="PLACEHOLDER_FIRST_ASSET"
 											messageKey="MESSAGE_FIRST_ASSET"
 											validate={[
-												Validate.required('LABEL_ASSETS_WORKED_ON'),
+												Validate.requiredWithOtherOption('LABEL_ASSETS_WORKED_ON'),
 												OnlyDistinctAssetTypes
 											]}
 											normalize={normalizeToNumber}												

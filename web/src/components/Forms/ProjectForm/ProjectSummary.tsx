@@ -107,8 +107,10 @@ const ProjectSummary: React.FC<IProps> = (props) => {
 						element.lookupItem == LookupType.Engagement_Type &&
 						element.lookupKey == props.project.engagementId
 				);
-				if (filterEngagementType && filterEngagementType[0])
-					setTypeOfEngagement(filterEngagementType[0].description);
+				let engagementLookupItem = filterEngagementType[0];
+				if (filterEngagementType && engagementLookupItem)
+				debugger;
+					setTypeOfEngagement(engagementLookupItem.lookupKey === 0 && props.project.otherEngagementType!='' ? props.project.otherEngagementType: engagementLookupItem.description );
 			}
 		},
 		[props.project, props.lookUpData]
