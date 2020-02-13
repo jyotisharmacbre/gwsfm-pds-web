@@ -226,3 +226,6 @@ export const formatDateAndTime = (date: string) => {
 export const displayUserName = (userProfile: IUserServiceData) => {
 	return userProfile?.displayName;
 };
+
+// Internet Explorer 6-11
+export const isIE = /*@cc_on!@*/false || !!document['documentMode'];
