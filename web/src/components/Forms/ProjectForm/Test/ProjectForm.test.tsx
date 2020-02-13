@@ -49,7 +49,8 @@ describe('ProjectForm Fields', () => {
       currencyName: 'Rs',
       currencySymbol: "R",
       isActive: false
-    }]
+    }],
+    lookUpData: [{ lookupItem: 'Project_Status', lookupKey: 1 }, { lookupItem: 'Engagement_Type', lookupKey: 0 }, { lookupItem: 'Asset_Type', lookupKey: 0 }]
   };
   beforeEach(() => {
     const formatMessage = jest.mock(
@@ -282,7 +283,7 @@ describe('ProjectForm Fields', () => {
       it('Should renders next button', () => {
         expect(field.prop('type')).toBe('button');
       });
-       it('Should focus on project name on click of next button when name field is empty and required', () => {
+      it('Should focus on project name on click of next button when name field is empty and required', () => {
         field.simulate('click');
         let nameField = wrapper.find('input[name="name"]').first();
         const focusedElement = document.activeElement;
@@ -363,5 +364,106 @@ describe('ProjectForm Fields', () => {
 
       });
     });
+
+    describe('Asset_Type field', () => {
+      beforeEach(() => {
+        field = wrapper.find('select[name="engagementId"]').first();
+      });
+
+      it('Should renders engagementId field', () => {
+        expect(field.render());
+      });
+      it('Should render otherEngagementType field on engagementId change to 0', () => {
+        let fieldEngagementId = wrapper.find('select[name="engagementId"]').first();
+
+        fieldEngagementId.simulate('change', { target: { value: '0' } })
+        wrapper.update();
+
+        let otherEngagementTypeField = wrapper.find('input[name="otherEngagementType"]').first();
+
+        expect(otherEngagementTypeField).toBeDefined();
+
+        otherEngagementTypeField.simulate('blur');
+        const errorBlock = wrapper.find('.text-danger');
+        expect(errorBlock).toHaveLength(1);
+      });
+    });
+
+    describe('firstAssetWorkedOn field', () => {
+      beforeEach(() => {
+        field = wrapper.find('select[name="firstAssetWorkedOn"]').first();
+      });
+
+      it('Should renders firstAssetWorkedOn field', () => {
+        expect(field.render());
+      });
+
+      it('Should be required field', () => {
+        field.simulate('blur');
+        const errorBlock = wrapper.find('.text-danger');
+        expect(errorBlock).toHaveLength(1);
+      });
+
+      it('Should render otherFirstAssetWorkedOn field on firstAssetWorkedOn change to 0', () => {
+        let fieldFirstAssetWorkedOn = wrapper.find('select[name="firstAssetWorkedOn"]').first();
+        fieldFirstAssetWorkedOn.simulate('change', { target: { value: '0' } })
+        wrapper.update();
+
+        let otherFirstAssetWorkedOn = wrapper.find('input[name="otherFirstAssetWorkedOn"]').first();
+
+        expect(otherFirstAssetWorkedOn).toBeDefined();
+
+        otherFirstAssetWorkedOn.simulate('blur');
+        const errorBlock = wrapper.find('.text-danger');
+        expect(errorBlock).toHaveLength(1);
+      });
+    });
+
+    describe('secondAssetWorkedOn field', () => {
+      beforeEach(() => {
+        field = wrapper.find('select[name="secondAssetWorkedOn"]').first();
+      });
+
+      it('Should renders secondAssetWorkedOn field', () => {
+        expect(field.render());
+      });
+      it('Should render otherSecondAssetWorkedOn field on secondAssetWorkedOn change to 0', () => {
+        let fieldFirstAssetWorkedOn = wrapper.find('select[name="secondAssetWorkedOn"]').first();
+        fieldFirstAssetWorkedOn.simulate('change', { target: { value: '0' } })
+        wrapper.update();
+
+        let otherSecondAssetWorkedOn = wrapper.find('input[name="otherSecondAssetWorkedOn"]').first();
+
+        expect(otherSecondAssetWorkedOn).toBeDefined();
+
+        otherSecondAssetWorkedOn.simulate('blur');
+        const errorBlock = wrapper.find('.text-danger');
+        expect(errorBlock).toHaveLength(1);
+      });
+    });
+
+    describe('thirdAssetWorkedOn field', () => {
+      beforeEach(() => {
+        field = wrapper.find('select[name="thirdAssetWorkedOn"]').first();
+      });
+
+      it('Should renders thirdAssetWorkedOn field', () => {
+        expect(field.render());
+      });
+      it('Should render otherThirdAssetWorkedOn field on thirdAssetWorkedOn change to 0', () => {
+        let fieldFirstAssetWorkedOn = wrapper.find('select[name="thirdAssetWorkedOn"]').first();
+        fieldFirstAssetWorkedOn.simulate('change', { target: { value: '0' } })
+        wrapper.update();
+
+        let otherThirdAssetWorkedOn = wrapper.find('input[name="otherThirdAssetWorkedOn"]').first();
+
+        expect(otherThirdAssetWorkedOn).toBeDefined();
+
+        otherThirdAssetWorkedOn.simulate('blur');
+        const errorBlock = wrapper.find('.text-danger');
+        expect(errorBlock).toHaveLength(1);
+      });
+    });
+
   });
 });
