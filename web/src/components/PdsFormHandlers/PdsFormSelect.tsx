@@ -13,7 +13,9 @@ export function PdsFormSelect({
   DropdownCheck,
   disabled,
   showOtherField,
-  otherFieldName
+  otherFieldName,
+  otherFieldLabelKey,
+  otherFieldPlaceHolderKey
 }) {
   
   const isOtherOption = input?.value === 0 && otherFieldName ? true : false;
@@ -32,18 +34,18 @@ export function PdsFormSelect({
 
       {touched && error && <span className="text-danger">{error}</span>}
 
-      {isOtherOption && 
+      {isOtherOption && (
         <Field
 									name={otherFieldName}
 									type="text"
 									component={PdsFormInput}
 									className="required"
 									validate={
-										[Validate.required('LABEL_OTHER'), Validate.maxLength(1000)]}
-									messageKey="MESSAGE_OTHER"
-									labelKey="LABEL_OTHER"
-									placeholderKey="PLACEHOLDER_OTHER_NAME"
-								/>
+										[Validate.required(otherFieldLabelKey), Validate.maxLength(1000)]}
+									messageKey={otherFieldLabelKey}
+									labelKey={otherFieldLabelKey}
+									placeholderKey={otherFieldPlaceHolderKey}
+								/>)
       }
     </React.Fragment>
   );

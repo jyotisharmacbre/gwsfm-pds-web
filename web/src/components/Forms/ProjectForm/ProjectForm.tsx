@@ -317,6 +317,8 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 											component={PdsFormSelect}
 											normalize={normalizeToNumber}
 											otherFieldName="otherEngagementType"
+											otherFieldLabelKey="LABEL_OTHER_TYPE_OF_ENGAGEMENT"
+											otherFieldPlaceHolderKey="PLACEHOLDER_OTHER_TYPE_OF_ENGAGEMENT"
 										>
 											<FormattedMessage id="PLACEHOLDER_TYPE_OF_ENGAGEMENT">
 												{(message) => <option value="null">{message}</option>}
@@ -465,6 +467,8 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 											]}
 											normalize={normalizeToNumber}												
 											otherFieldName="otherFirstAssetWorkedOn"
+											otherFieldLabelKey="LABEL_OTHER_ASSETS_WORKED_ON"
+											otherFieldPlaceHolderKey="PLACEHOLDER_OTHER_FIRST_ASSET"
 										>
 											<FormattedMessage id="PLACEHOLDER_FIRST_ASSET">
 												{(message) => <option value="null">{message}</option>}
@@ -482,6 +486,8 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 											normalize={normalizeToNumber}
 											validate={OnlyDistinctAssetTypes}
 											otherFieldName="otherSecondAssetWorkedOn"
+											otherFieldLabelKey="LABEL_OTHER_ASSETS_WORKED_ON"
+											otherFieldPlaceHolderKey="PLACEHOLDER_OTHER_SECOND_ASSET"
 
 										>
 											<FormattedMessage id="PLACEHOLDER_SECOND_ASSET">
@@ -500,6 +506,8 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 											normalize={normalizeToNumber}
 											validate={OnlyDistinctAssetTypes}
 											otherFieldName="otherThirdAssetWorkedOn"
+											otherFieldLabelKey="LABEL_OTHER_ASSETS_WORKED_ON"
+											otherFieldPlaceHolderKey="PLACEHOLDER_OTHER_THIRD_ASSET"
 
 										>
 											<FormattedMessage id="PLACEHOLDER_THIRD_ASSET">

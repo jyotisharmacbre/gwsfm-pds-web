@@ -27,7 +27,7 @@ interface IProps {
 	userNamesForEmails: Array<IUserServiceData>;
 	handleGetUserNamesForEmails: (emails: Array<string>) => void;
 	listOfDivisions: Array<IDynamicsDivision>;
-	listOfBusinessUnits:Array<IDynamicBusinessUnits>;
+	listOfBusinessUnits: Array<IDynamicBusinessUnits>;
 }
 const ProjectSummary: React.FC<IProps> = (props) => {
 	let urlProjectId: string = '';
@@ -108,8 +108,10 @@ const ProjectSummary: React.FC<IProps> = (props) => {
 						element.lookupKey == props.project.engagementId
 				);
 				let engagementLookupItem = filterEngagementType[0];
-				if (filterEngagementType && engagementLookupItem)
-					setTypeOfEngagement(engagementLookupItem.lookupKey === 0 && props.project.otherEngagementType!='' ? props.project.otherEngagementType: engagementLookupItem.description );
+				if (filterEngagementType && engagementLookupItem) {
+					const engagementVal = engagementLookupItem.lookupKey === 0 && props.project.otherEngagementType ? props.project.otherEngagementType : engagementLookupItem.description;
+					setTypeOfEngagement(engagementVal);
+				}
 			}
 		},
 		[props.project, props.lookUpData]
@@ -137,12 +139,12 @@ const ProjectSummary: React.FC<IProps> = (props) => {
 		},
 		[props.project, props.userNamesForEmails]
 	);
-/* istanbul ignore next */ 
+	/* istanbul ignore next */
 	const getContractorSuccess = (response) => {
 		let filter = response.find((ele) => ele.contractId == props.project.contractorId);
 		if (filter) setContractor(filter.contractName);
 	};
-	/* istanbul ignore next */ 
+	/* istanbul ignore next */
 	const listOfCompaniesSuccess = (response) => {
 		if (response && response.length > 0) {
 			setCompanyName(
@@ -155,7 +157,7 @@ const ProjectSummary: React.FC<IProps> = (props) => {
 			);
 		}
 	};
-/* istanbul ignore next */ 
+	/* istanbul ignore next */
 	const failure = error => {
 		toast.error(formatMessage("MESSAGE_ERROR"));
 	};
