@@ -244,6 +244,13 @@
                 color: map-get($colors, darkGreen);
                 font-weight: 600;
             }
+            .placehold {
+                font-size: 11px;
+                position: absolute;
+                left: 10px;
+                top: calc(100% - 30px);
+                color: map-get($colors, grey001);
+            }
             .form-control {
                 border: 1px solid map-get($colors , grey001 );
                 padding-right: 100px;
@@ -370,3 +377,5 @@
     }
 
     /*Post comment Button*/
+
+    
