@@ -129,6 +129,29 @@ steps:
     contentType: 'application/json'
     allowInvalidSSLCertificate: false
 
+- task: restCallBuildTask@0
+  displayName: 'Post Regression Test Metrics'
+  inputs:
+    webserviceEndpoint: 'Metrics'
+    relativeUrl: 
+    httpVerb: 'POST'
+    body: |
+      {
+      "ApplicationId": $(appID),
+      "AutomationProcessId": 16,
+      "AutomationToolId": 19,
+      "Description": "Regression Test",
+      "Version": "$(BUILD.BUILDID)",
+      "Cycle": "$(BUILD.BUILDID)",
+      "Passed": 1,
+      "Failed": 0,
+      "Blocked": 0,
+      "StartDateTime": "$(startTime)",
+      "EndDateTime": "$(endTime)"
+      }
+    contentType: 'application/json'
+    allowInvalidSSLCertificate: false
+
 - task: NodeTool@0
   inputs:
     versionSpec: '10.x'
@@ -204,11 +227,73 @@ steps:
     contentType: 'application/json'
     allowInvalidSSLCertificate: false
 
+- task: PowerShell@2
+  displayName: 'static code analysis start time'
+  inputs:
+    targetType: 'inline'
+    script: |
+      $StaticStartdate=$(Get-Date -Format s);
+      Write-Host "##vso[task.setvariable variable=StaticStartTime]$StaticStartdate"
+
 - task: SonarQubeAnalyze@4
 
 - task: SonarQubePublish@4
   inputs:
     pollingTimeoutSec: '300'
+
+- task: PowerShell@2
+  displayName: 'static code analysis end time '
+  inputs:
+    targetType: 'inline'
+    script: |
+      $StaticEnddate=$(Get-Date -Format s);
+      Write-Host "##vso[task.setvariable variable=StaticEndTime]$StaticEnddate"
+
+- task: restCallBuildTask@0
+  displayName: 'Post Static code analysis Matrics'
+  inputs:
+    webserviceEndpoint: 'Metrics'
+    relativeUrl: 
+    httpVerb: 'POST'
+    body: |
+      {
+      "ApplicationId": $(appID),
+      "AutomationProcessId": 45,
+      "AutomationToolId": 22,
+      "Description": "Static code analysis",
+      "Version": "$(BUILD.BUILDID)",
+      "Cycle": "$(BUILD.BUILDID)",
+      "Passed": 1,
+      "Failed": 0,
+      "Blocked": 0,
+      "StartDateTime": "$(StaticStartTime)",
+      "EndDateTime": "$(StaticEndTime)"
+      }
+    contentType: 'application/json'
+    allowInvalidSSLCertificate: false
+
+- task: restCallBuildTask@0
+  displayName: 'Post Security Scan Matrics'
+  inputs:
+    webserviceEndpoint: 'Metrics'
+    relativeUrl: 
+    httpVerb: 'POST'
+    body: |
+      {
+      "ApplicationId": $(appID),
+      "AutomationProcessId": 19,
+      "AutomationToolId": 22,
+      "Description": "Security Scan",
+      "Version": "$(BUILD.BUILDID)",
+      "Cycle": "$(BUILD.BUILDID)",
+      "Passed": 1,
+      "Failed": 0,
+      "Blocked": 0,
+      "StartDateTime": "$(StaticStartTime)",
+      "EndDateTime": "$(StaticEndTime)"
+      }
+    contentType: 'application/json'
+    allowInvalidSSLCertificate: false
 
 - task: PowerShell@2
   displayName: 'Unit Test Start Time'
