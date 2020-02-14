@@ -23,7 +23,6 @@ class AuthProvider extends Component {
 
     // Authentication Parameters
     authenticationParameters = {
-        scopes: ["user.read"]
     }
 
     // Options
