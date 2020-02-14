@@ -127,7 +127,6 @@
             }
             th {
                 color: map-get($colors , grey03 );
-                text-transform: capitalize;
             }
             td {
                 background-color: map-get($colors , grey05 );
@@ -243,6 +242,13 @@
                 top: calc(100% - 28px);
                 color: map-get($colors, darkGreen);
                 font-weight: 600;
+            }
+            .placehold {
+                font-size: 11px;
+                position: absolute;
+                left: 10px;
+                top: calc(100% - 30px);
+                color: map-get($colors, grey001);
             }
             .form-control {
                 border: 1px solid map-get($colors , grey001 );
@@ -370,3 +376,5 @@
     }
 
     /*Post comment Button*/
+
+    
