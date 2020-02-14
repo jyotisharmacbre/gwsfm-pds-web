@@ -72,5 +72,3 @@ export {
 } from './WorkflowService/Actions';
 
 export { getProjectParameters } from './Admin/Actions';
-
-export { logout } from './Auth/Actions';

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import close_icon from '../../images/logo-black.png';
 import language_icon from '../../images/language_icon.svg';
 import * as actions from '../../../store/rootActions';
@@ -29,6 +29,7 @@ import { toast } from 'react-toastify';
 import { formatMessage } from '../../../Translations/connectedIntlProvider';
 import { FormattedMessage } from 'react-intl';
 import { displayUserName } from '../../../helpers/utility-helper';
+import useAuthContext from '../../../hooks/useAuthContext';
 
 
 interface IMapDispatchToProps {
@@ -46,8 +47,7 @@ interface IMapDispatchToProps {
   getAllCurrencies: () => void;
   resetUserPreferencesState: () => void;
   getProjectStatus: () => void;
-    getCurrentUserProfile: () => void;
-    logout: () => void;
+  getCurrentUserProfile: () => void;
 }
 
 interface IProps {
@@ -60,7 +60,8 @@ interface IMapStateToProps {
 }
 
 const ProfileMenu: React.FC<any> = props => {
-  let history = useHistory();
+    let history = useHistory();
+    const authProvider = useAuthContext();
   const [showMenu, setMenuVisibility] = useState(false);
   const [isEditable, makeEditable] = useState(false);
 
@@ -116,7 +117,10 @@ const ProfileMenu: React.FC<any> = props => {
   const showClass = () => {
     return history.location.pathname == "/" ||
       history.location.pathname == "/Pipeline"
-  }
+    }
+    const logout = () => {
+        authProvider.logout();
+    }
   
   return (
     <nav className="topbar">
@@ -228,7 +232,7 @@ const ProfileMenu: React.FC<any> = props => {
                           <div className='link_group'>
                             <a href="#" onClick={() => makeEditable(true)}>{formatMessage('BUTTON_EDIT')}</a>
                             <span>|</span>
-                            <a href="#" onClick={props.logout}>{formatMessage('BUTTON_SIGNOUT')}</a>
+                            <a href="#" onClick={logout}>{formatMessage('BUTTON_SIGNOUT')}</a>
                           </div>
 
                         </div>
@@ -287,7 +291,6 @@ const mapDispatchToProps = dispatch => {
     resetUserPreferencesState: () => dispatch(resetUserPreferencesState()),
     getProjectStatus: () => dispatch(actions.getProjectStatus()),
       getCurrentUserProfile: () => dispatch(actions.getCurrentUserProfileForEmailsService()),
-      logout: () => dispatch(actions.logout())
   }
 }
 
