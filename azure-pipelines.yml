@@ -175,7 +175,8 @@ steps:
     extraProperties: |
       # Additional properties that will be passed to the scanner, 
       # Put one key=value per line, example
-      sonar.exclusions=**/*.bin,**/*.js,**/*.scss
+      sonar.exclusions=**/*.bin,**/*.js,**/*.scss,**/*.yml
+      sonar.cobertura.reportPath=coverage/cobertura/cobertura-coverage.xml
 
 - task: PowerShell@2
   displayName: 'Code Build start time'
@@ -223,51 +224,6 @@ steps:
       "Blocked": 0,
       "StartDateTime": "$(CodeBuildstartTime)",
       "EndDateTime": "$(CodeBuildendTime)"
-      }
-    contentType: 'application/json'
-    allowInvalidSSLCertificate: false
-
-- task: PowerShell@2
-  displayName: 'static code analysis start time'
-  inputs:
-    targetType: 'inline'
-    script: |
-      $StaticStartdate=$(Get-Date -Format s);
-      Write-Host "##vso[task.setvariable variable=StaticStartTime]$StaticStartdate"
-
-- task: SonarQubeAnalyze@4
-
-- task: SonarQubePublish@4
-  inputs:
-    pollingTimeoutSec: '300'
-
-- task: PowerShell@2
-  displayName: 'static code analysis end time '
-  inputs:
-    targetType: 'inline'
-    script: |
-      $StaticEnddate=$(Get-Date -Format s);
-      Write-Host "##vso[task.setvariable variable=StaticEndTime]$StaticEnddate"
-
-- task: restCallBuildTask@0
-  displayName: 'Post Static code analysis Matrics'
-  inputs:
-    webserviceEndpoint: 'Metrics'
-    relativeUrl: 
-    httpVerb: 'POST'
-    body: |
-      {
-      "ApplicationId": $(appID),
-      "AutomationProcessId": 45,
-      "AutomationToolId": 22,
-      "Description": "Static code analysis",
-      "Version": "$(BUILD.BUILDID)",
-      "Cycle": "$(BUILD.BUILDID)",
-      "Passed": 1,
-      "Failed": 0,
-      "Blocked": 0,
-      "StartDateTime": "$(StaticStartTime)",
-      "EndDateTime": "$(StaticEndTime)"
       }
     contentType: 'application/json'
     allowInvalidSSLCertificate: false
@@ -351,6 +307,51 @@ steps:
     codeCoverageTool: 'Cobertura'
     summaryFileLocation: '$(System.DefaultWorkingDirectory)/web/coverage/cobertura-coverage.xml'
     reportDirectory: '$(System.DefaultWorkingDirectory)/coverage/'
+
+- task: PowerShell@2
+  displayName: 'static code analysis start time'
+  inputs:
+    targetType: 'inline'
+    script: |
+      $StaticStartdate=$(Get-Date -Format s);
+      Write-Host "##vso[task.setvariable variable=StaticStartTime]$StaticStartdate"
+
+- task: SonarQubeAnalyze@4
+
+- task: SonarQubePublish@4
+  inputs:
+    pollingTimeoutSec: '300'
+
+- task: PowerShell@2
+  displayName: 'static code analysis end time '
+  inputs:
+    targetType: 'inline'
+    script: |
+      $StaticEnddate=$(Get-Date -Format s);
+      Write-Host "##vso[task.setvariable variable=StaticEndTime]$StaticEnddate"
+
+- task: restCallBuildTask@0
+  displayName: 'Post Static code analysis Matrics'
+  inputs:
+    webserviceEndpoint: 'Metrics'
+    relativeUrl: 
+    httpVerb: 'POST'
+    body: |
+      {
+      "ApplicationId": $(appID),
+      "AutomationProcessId": 45,
+      "AutomationToolId": 22,
+      "Description": "Static code analysis",
+      "Version": "$(BUILD.BUILDID)",
+      "Cycle": "$(BUILD.BUILDID)",
+      "Passed": 1,
+      "Failed": 0,
+      "Blocked": 0,
+      "StartDateTime": "$(StaticStartTime)",
+      "EndDateTime": "$(StaticEndTime)"
+      }
+    contentType: 'application/json'
+    allowInvalidSSLCertificate: false
 
 - task: ArchiveFiles@2
   inputs:
