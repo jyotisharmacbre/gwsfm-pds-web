@@ -10,6 +10,7 @@ import { IProjectPipelineGridState } from './pipeline/Types/IProjectPipelineGrid
 import { IUserPreferencesState } from './UserPreferencesForm/Types/IUserPreferencesState';
 import { IProjectDashboardGridState } from './Dashboard/Types/IProjectDashboardGridState';
 import { IAdminState } from './Admin/Types/IAdminState';
+import { IAuth } from './Auth/Types/IAuth';
 
 export type IState = {
 	form: any;
@@ -25,4 +26,5 @@ export type IState = {
 	userPreferences: IUserPreferencesState;
 	dashboardGrid: IProjectDashboardGridState;
 	admin: IAdminState;
+	auth: IAuth;
 };

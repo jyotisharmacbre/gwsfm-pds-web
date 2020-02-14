@@ -9,13 +9,13 @@ import appConfig from './helpers/config-helper';
 import { store } from './store';
 import { BrowserRouter as Router } from 'react-router-dom';
 import TelemetryProvider from './contexts/Telemetry/TelemetryProvider';
-import { AzureAD } from 'react-aad-msal';
-import { authProvider } from './authProvider';
+import AuthProvider from './contexts/AuthProvider/AuthProvider';
+
 
 const config = appConfig();
 
 ReactDOM.render(
-  <AzureAD provider={authProvider} forceLogin={true}>
+    <AuthProvider>
     <Provider store={store}>
       <ConnectedIntlProvider>
         <Router>
@@ -25,7 +25,7 @@ ReactDOM.render(
         </Router>
       </ConnectedIntlProvider>
     </Provider>
-  </AzureAD>,
+    </AuthProvider>,
   document.getElementById('root') as HTMLElement
 );
 serviceWorker.unregister();

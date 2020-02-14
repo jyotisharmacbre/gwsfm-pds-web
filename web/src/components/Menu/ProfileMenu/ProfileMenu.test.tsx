@@ -56,11 +56,6 @@ describe('Profile Menu', () => {
         return 'testEmail';
       });
     jest
-      .spyOn(helper, 'logOut')
-      .mockImplementationOnce(() => {
-        return 'logout';
-      });
-    jest
       .spyOn(helper, 'getFirstName')
       .mockImplementationOnce(() => {
         return 'testFirstName';

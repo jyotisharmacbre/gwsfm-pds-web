@@ -1,36 +1,18 @@
-import JwtDecode from 'jwt-decode';
-import { DecodedToken } from '../models/decodedToken';
-import { authProvider } from '../authProvider';
+import { store } from '../store';
 
 export const getDisplayName = () => {
-  const decoded: DecodedToken = decodeToken();
-  return decoded.name;
+    return store.getState().auth.name;
 };
 
 export const getFirstName = () => {
-  const decoded: DecodedToken = decodeToken();
-  return decoded.given_name;
+   return store.getState().auth.firstName;
 };
 
 export const getDisplayEmail = () => {
-  const decoded: DecodedToken = decodeToken();
-  return decoded.email ?
-    decoded.email :
-    decoded.emails && decoded.emails.length > 0 ?
-      decoded.emails[0] :
-      '';
+    let email = store.getState().auth.email;
+    return email ? email : '';
 };
 
-export const logOut = () => {
-  authProvider.logout();
-}
-
-function decodeToken() {
-  const accessToken: any = getAccessToken();
-  const decoded: DecodedToken = JwtDecode(accessToken);
-  return decoded;
-}
-
 export function getAccessToken(): string | null {
-  return sessionStorage.getItem("msal.idtoken");
-}
+    return store.getState().auth.token;
+} 

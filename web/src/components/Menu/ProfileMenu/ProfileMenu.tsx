@@ -24,11 +24,12 @@ import { IUserPreferences } from '../../../store/UserPreferencesForm/Types/IUser
 import EventType from '../../../enums/EventType';
 import Notify from '../../../enums/Notify';
 import { ICurrency } from '../../../store/Lookups/Types/ICurrency';
-import { getDisplayName, getDisplayEmail, logOut, getFirstName } from '../../../helpers/auth-helper';
+import { getDisplayName, getDisplayEmail, getFirstName } from '../../../helpers/auth-helper';
 import { toast } from 'react-toastify';
 import { formatMessage } from '../../../Translations/connectedIntlProvider';
 import { FormattedMessage } from 'react-intl';
 import { displayUserName } from '../../../helpers/utility-helper';
+
 
 interface IMapDispatchToProps {
   userPreferencesFormAdd: (
@@ -45,7 +46,8 @@ interface IMapDispatchToProps {
   getAllCurrencies: () => void;
   resetUserPreferencesState: () => void;
   getProjectStatus: () => void;
-  getCurrentUserProfile: () => void;
+    getCurrentUserProfile: () => void;
+    logout: () => void;
 }
 
 interface IProps {
@@ -226,7 +228,7 @@ const ProfileMenu: React.FC<any> = props => {
                           <div className='link_group'>
                             <a href="#" onClick={() => makeEditable(true)}>{formatMessage('BUTTON_EDIT')}</a>
                             <span>|</span>
-                            <a href="#" onClick={logOut}>{formatMessage('BUTTON_SIGNOUT')}</a>
+                            <a href="#" onClick={props.logout}>{formatMessage('BUTTON_SIGNOUT')}</a>
                           </div>
 
                         </div>
@@ -284,7 +286,8 @@ const mapDispatchToProps = dispatch => {
     getAllCurrencies: () => dispatch(actions.getAllCurrencies()),
     resetUserPreferencesState: () => dispatch(resetUserPreferencesState()),
     getProjectStatus: () => dispatch(actions.getProjectStatus()),
-    getCurrentUserProfile: () => dispatch(actions.getCurrentUserProfileForEmailsService())
+      getCurrentUserProfile: () => dispatch(actions.getCurrentUserProfileForEmailsService()),
+      logout: () => dispatch(actions.logout())
   }
 }
 
