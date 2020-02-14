@@ -28,6 +28,7 @@ interface IMapDispatchToProps {
 	resetPreliminaryFormState:()=>void;
 	resetSubContractorFormState:()=>void;
 	resetDiscountFormState:()=>void;
+	resetPostCommentFormDirty: ()=> void;
 }
 const LeftMenu: React.FC<IMapStateToProps&IMapDispatchToProps&IReactIntl> = (props) => {
 	let urlProjectId: string = '';
@@ -79,7 +80,7 @@ if( props.isProjectFormDirty||
 	props.isSubContractorFormDirty||
 	props.isDiscountFormDirty ||
 	props.isPostCommentFormDirty)
-	{
+	{	
 		confirmAlert({
 			intl: props.intl,
 			titleKey: 'TITLE_CONFIRMATION',
@@ -117,7 +118,7 @@ if( props.isProjectFormDirty||
 	 const activeLink=()=>{
 		disableLinkClass();
 		if(props.isProjectFormDirty){enableLinkClass("projectLink",ClassType.Active)}
-		if(props.isProjectOverviewFormDirty){enableLinkClass("projectOverviewLink",ClassType.Active)}
+		if(props.isProjectOverviewFormDirty || props.isPostCommentFormDirty){enableLinkClass("projectOverviewLink",ClassType.Active)}
 		if(props.isPreliminaryFormDirty){enableLinkClass("justificationauthorisationLink",ClassType.Active);enableLinkClass("preliminariesLink",ClassType.SubActive)}
 		if(props.isSubContractorFormDirty){enableLinkClass("justificationauthorisationLink",ClassType.Active);enableLinkClass("subcontractorLink",ClassType.SubActive)}
 		if(props.isDiscountFormDirty){enableLinkClass("justificationauthorisationLink",ClassType.Active);enableLinkClass("discountsLink",ClassType.SubActive)}
@@ -129,6 +130,7 @@ if( props.isProjectFormDirty||
 		if(props.isProjectOverviewFormDirty){props.resetProjectOverviewFormState();}
 		if(props.isPreliminaryFormDirty){props.resetPreliminaryFormState();}
 		if(props.isSubContractorFormDirty){props.resetSubContractorFormState();}
+		if(props.isPostCommentFormDirty){props.resetPostCommentFormDirty();}		
 		componentName?history.push(`/${componentName}/${projectId}`):history.push("/");
 	}
 	return (
@@ -253,7 +255,8 @@ const mapDispatchToProps = (dispatch) => {
 		resetProjectOverviewFormState:()=>dispatch(reset("projectOverviewForm")),
 		resetPreliminaryFormState:()=>dispatch(reset("PreliminaryForm")),
 		resetSubContractorFormState:()=>dispatch(reset("subContractorForm")),
-		resetDiscountFormState:()=>dispatch(reset("DiscountForm"))
+		resetDiscountFormState:()=>dispatch(reset("DiscountForm")),
+		resetPostCommentFormDirty:()=>dispatch(reset("PostCommentForm"))
 	};
 };
 export default injectIntl(connect(mapStateToProps,mapDispatchToProps)(LeftMenu));
