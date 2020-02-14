@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import close_icon from '../../images/logo-black.png';
 import language_icon from '../../images/language_icon.svg';
 import * as actions from '../../../store/rootActions';
@@ -24,11 +24,13 @@ import { IUserPreferences } from '../../../store/UserPreferencesForm/Types/IUser
 import EventType from '../../../enums/EventType';
 import Notify from '../../../enums/Notify';
 import { ICurrency } from '../../../store/Lookups/Types/ICurrency';
-import { getDisplayName, getDisplayEmail, logOut, getFirstName } from '../../../helpers/auth-helper';
+import { getDisplayName, getDisplayEmail, getFirstName } from '../../../helpers/auth-helper';
 import { toast } from 'react-toastify';
 import { formatMessage } from '../../../Translations/connectedIntlProvider';
 import { FormattedMessage } from 'react-intl';
 import { displayUserName } from '../../../helpers/utility-helper';
+import useAuthContext from '../../../hooks/useAuthContext';
+
 
 interface IMapDispatchToProps {
   userPreferencesFormAdd: (
@@ -58,7 +60,8 @@ interface IMapStateToProps {
 }
 
 const ProfileMenu: React.FC<any> = props => {
-  let history = useHistory();
+    let history = useHistory();
+    const authProvider = useAuthContext();
   const [showMenu, setMenuVisibility] = useState(false);
   const [isEditable, makeEditable] = useState(false);
 
@@ -114,7 +117,10 @@ const ProfileMenu: React.FC<any> = props => {
   const showClass = () => {
     return history.location.pathname == "/" ||
       history.location.pathname == "/Pipeline"
-  }
+    }
+    const logout = () => {
+        authProvider.logout();
+    }
   
   return (
     <nav className="topbar">
@@ -226,7 +232,7 @@ const ProfileMenu: React.FC<any> = props => {
                           <div className='link_group'>
                             <a href="#" onClick={() => makeEditable(true)}>{formatMessage('BUTTON_EDIT')}</a>
                             <span>|</span>
-                            <a href="#" onClick={logOut}>{formatMessage('BUTTON_SIGNOUT')}</a>
+                            <a href="#" onClick={logout}>{formatMessage('BUTTON_SIGNOUT')}</a>
                           </div>
 
                         </div>
@@ -284,7 +290,7 @@ const mapDispatchToProps = dispatch => {
     getAllCurrencies: () => dispatch(actions.getAllCurrencies()),
     resetUserPreferencesState: () => dispatch(resetUserPreferencesState()),
     getProjectStatus: () => dispatch(actions.getProjectStatus()),
-    getCurrentUserProfile: () => dispatch(actions.getCurrentUserProfileForEmailsService())
+      getCurrentUserProfile: () => dispatch(actions.getCurrentUserProfileForEmailsService()),
   }
 }
 

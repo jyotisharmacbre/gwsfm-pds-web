@@ -1,6 +1,6 @@
 import axios from 'axios';
-import authentication from '@kdpw/msal-b2c-react';
 import appConfig from '../helpers/config-helper';
+import { getAccessToken } from '../helpers/auth-helper';
 import { isIE } from '../helpers/utility-helper';
 
 const config = appConfig();
@@ -35,7 +35,7 @@ const requestHandler = request => {
         request.headers['Pragma'] = 'no-cache';
     if (isTokenHandlerEnabled(request)) {
         // Add request token here
-        const token = authentication.getAccessToken();
+        const token = getAccessToken();
         request.headers['authorization'] = 'Bearer ' + token;
     }
     return request;
