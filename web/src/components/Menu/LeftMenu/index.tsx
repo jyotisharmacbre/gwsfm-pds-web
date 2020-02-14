@@ -80,8 +80,7 @@ if( props.isProjectFormDirty||
 	props.isSubContractorFormDirty||
 	props.isDiscountFormDirty ||
 	props.isPostCommentFormDirty)
-	{
-		
+	{	
 		confirmAlert({
 			intl: props.intl,
 			titleKey: 'TITLE_CONFIRMATION',
@@ -126,7 +125,6 @@ if( props.isProjectFormDirty||
 		
 	}
     const redirectionToComponent=(componentName:string,projectId:string)=>{
-		debugger;
 		if(props.isDiscountFormDirty){props.resetDiscountFormState();}
 		if(props.isProjectFormDirty){props.resetProjectFormState();}
 		if(props.isProjectOverviewFormDirty){props.resetProjectOverviewFormState();}
