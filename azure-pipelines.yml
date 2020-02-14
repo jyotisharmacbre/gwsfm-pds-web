@@ -228,29 +228,6 @@ steps:
     contentType: 'application/json'
     allowInvalidSSLCertificate: false
 
-- task: restCallBuildTask@0
-  displayName: 'Post Security Scan Matrics'
-  inputs:
-    webserviceEndpoint: 'Metrics'
-    relativeUrl: 
-    httpVerb: 'POST'
-    body: |
-      {
-      "ApplicationId": $(appID),
-      "AutomationProcessId": 19,
-      "AutomationToolId": 22,
-      "Description": "Security Scan",
-      "Version": "$(BUILD.BUILDID)",
-      "Cycle": "$(BUILD.BUILDID)",
-      "Passed": 1,
-      "Failed": 0,
-      "Blocked": 0,
-      "StartDateTime": "$(StaticStartTime)",
-      "EndDateTime": "$(StaticEndTime)"
-      }
-    contentType: 'application/json'
-    allowInvalidSSLCertificate: false
-
 - task: PowerShell@2
   displayName: 'Unit Test Start Time'
   inputs:
@@ -342,6 +319,29 @@ steps:
       "AutomationProcessId": 45,
       "AutomationToolId": 22,
       "Description": "Static code analysis",
+      "Version": "$(BUILD.BUILDID)",
+      "Cycle": "$(BUILD.BUILDID)",
+      "Passed": 1,
+      "Failed": 0,
+      "Blocked": 0,
+      "StartDateTime": "$(StaticStartTime)",
+      "EndDateTime": "$(StaticEndTime)"
+      }
+    contentType: 'application/json'
+    allowInvalidSSLCertificate: false
+
+- task: restCallBuildTask@0
+  displayName: 'Post Security Scan Matrics'
+  inputs:
+    webserviceEndpoint: 'Metrics'
+    relativeUrl: 
+    httpVerb: 'POST'
+    body: |
+      {
+      "ApplicationId": $(appID),
+      "AutomationProcessId": 19,
+      "AutomationToolId": 22,
+      "Description": "Security Scan",
       "Version": "$(BUILD.BUILDID)",
       "Cycle": "$(BUILD.BUILDID)",
       "Passed": 1,
