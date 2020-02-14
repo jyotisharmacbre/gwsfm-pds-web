@@ -10,16 +10,16 @@ export interface IProjectDetail {
   scope: string;
   cnNumber: string;
   status: number;
-  engagementId: number;
+  engagementId?: number;
   countryId: number;
   currencyId: number;
   probabilityOfWinning: String;
   approxValue: string;
   contractTypeId: string;
   cdmNotifiable: boolean;
-  firstAssetWorkedOn: number;
-  secondAssetWorkedOn: number;
-  thirdAssetWorkedOn: number;
+  firstAssetWorkedOn?: number;
+  secondAssetWorkedOn?: number;
+  thirdAssetWorkedOn?: number;
   comment: string;
   otherCompanyName: string;
   otherContractName: string;
@@ -27,4 +27,8 @@ export interface IProjectDetail {
   divisionId: string;
   weightedTCV: number | undefined;
   soldMargin: number | undefined;
+  otherEngagementType: string;
+  otherFirstAssetWorkedOn: string;
+  otherSecondAssetWorkedOn: string;
+  otherThirdAssetWorkedOn: string;
 }

@@ -31,7 +31,23 @@ export function fieldValidationForMaxLimit(value, minLength, maxLength) {
 
 
 export function fieldValidationRequired(value, message) {
+
 	value = value ? value.toString() : "";
+
+	if (
+		!value ||
+		(typeof value.trim === 'function' && value.trim() === '') ||
+		(Array.isArray(value) && !value.length)
+	) {
+		return `${formatMessage('VALIDATION_IS_REQUIRED', {
+			0: formatMessage(message)
+		})}`;
+	}
+}
+
+export function fieldValidationRequiredForDDLHavingOther(value, message) {
+
+	value = value || value=== 0 ? value.toString() : "";
 
 	if (
 		!value ||
@@ -50,6 +66,7 @@ export const alphaNumeric = (value) =>
 export const Validate = {
 	require: (message) => (value) => fieldValidationRequired(value, message),
 	required: memoize((message) => (value) => fieldValidationRequired(value, message)),
+	requiredWithOtherOption: memoize((message) => (value) => fieldValidationRequiredForDDLHavingOther(value, message)),
 	maxLength: memoize((length) => (value) => fieldValidationLength(value, length)),
 	maxLimit: memoize((minlength, maxLength) => (value) => fieldValidationForMaxLimit(value, minlength, maxLength))
 };
@@ -85,7 +102,10 @@ export const isCBRELabourOrAgencyLabourExists = (id: string) => {
 	return isExists;
 };
 export const OnlyDistinctAssetTypes = (value, allValues, props, name) => {
-	if (value && allValues && value > 0) {
+	if (value === 0) {
+		return;
+	}
+	else if (value && allValues) {
 		switch (name) {
 			case 'firstAssetWorkedOn':
 				if (CheckIfValueExistsinArray(value, [allValues.secondAssetWorkedOn, allValues.thirdAssetWorkedOn]))
