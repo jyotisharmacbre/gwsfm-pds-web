@@ -40,16 +40,6 @@ const ProjectApprovalForm: React.FC<IProps> = (props) => {
 		return currVal.userId && currVal.projectApprovalId && props.status == ProjectStatus.InReview
 	};
 	
-	let placeClass:any=document.getElementsByClassName("placehold")[0];
-	const handleBlur2 = (e) => {
-		if (e.currentTarget == null) {
-			placeClass.classList?.remove('placeClass');
-			alert('hello');
-		} else {
-		  e || e.currentTarget.focus();
-		}
-	  }
-
 	return (
 		<div>
 			<div className="row">
@@ -63,7 +53,7 @@ const ProjectApprovalForm: React.FC<IProps> = (props) => {
 			{fields.map((member, index) => (
 				<div className="row align-items-stretch" key={index} data-test="project-approval-form">
 					<div className="col-11">
-						<div className="form-group" onFocus={handleBlur2}>
+						<div className="form-group">
 							<NewTypeAhead
 								name={`${member}.userId`}
 								onSearch={getListOfUsers}
