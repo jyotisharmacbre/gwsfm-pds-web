@@ -46,12 +46,20 @@ export const userPreferencesFormError = (error: string) => {
   };
 };
 
+const setloadingTrue = (event: EventType) => {
+	return {
+		type: ActionType.SET_LOADING_TRUE,		
+		event: event
+	};
+};
+
 export const userPreferencesFormAdd = (
   data: IUserPreferences,
   event: EventType
 ) => {
   return async (dispatch: Dispatch) => {
     {
+      dispatch(setloadingTrue(EventType.save));
       axios.baseAPI
         .post('/api/Users/addUserPreferences', data, config)
         .then(response => {         
@@ -73,6 +81,7 @@ export const userPreferencesFormEdit = (
 ) => {
   return async (dispatch: Dispatch) => {
     {
+      dispatch(setloadingTrue(EventType.save));
       axios.baseAPI
         .put('/api/Users/updateUserPreferences', data, config)
         .then(response => {

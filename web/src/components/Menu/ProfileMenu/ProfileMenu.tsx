@@ -57,6 +57,7 @@ interface IProps {
 interface IMapStateToProps {
   preferences: IUserPreferences;
   notify: Notify;
+  loading: boolean;
 }
 
 const ProfileMenu: React.FC<any> = props => {
@@ -193,6 +194,7 @@ const ProfileMenu: React.FC<any> = props => {
                             languages={props.languages}
                             displayName={props.displayName}
                             displayEmail={props.displayEmail}
+                            loading = {props.loading}
                           />
                         </div>
 
@@ -275,7 +277,8 @@ const mapStateToProps = (state: IState) => {
     languages: state.lookup.languages,
     notify: state.userPreferences.notify,
     displayName: displayUserName(state.userService.currentUserProfile),
-    displayEmail: state.userService.currentUserProfile.email
+    displayEmail: state.userService.currentUserProfile.email,
+    loading: state.userPreferences.loading
   }
 }
 

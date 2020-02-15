@@ -46,6 +46,7 @@ interface IMapStateToProps {
 	project: IProjectDetail;
 	isPreliminaryFormDirty:boolean;
 	intl:any;
+	loading: boolean;
 }
 interface IMapDispatchToProps {
 	preliminaryAdd: (preliminaryDetails: Array<IPreliminaries>, event: EventType) => void;
@@ -295,6 +296,8 @@ const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps & ICountryH
 									subContractorState={props.subContractorState}
 									discountState={props.discountState}
 									projectStatus = {props.status}
+									loading = {props.loading}
+									event = {props.event}
 								/>
 							</div>
 						) : null}
@@ -315,6 +318,7 @@ const mapStateToProps = (state: IState) => {
 		notify: state.preliminary.notify,
 		currencyId: state.project.form.currencyId,
 		event: state.preliminary.event,
+		loading: state.preliminary.loading,
 		status: state.project.form.status,
 		preliminaryForm: selector(state, 'preliminaryDetails'),
 		subContractorState: state.subContractor.form.activities,
