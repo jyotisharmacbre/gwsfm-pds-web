@@ -59,7 +59,7 @@ export const userPreferencesFormAdd = (
 ) => {
   return async (dispatch: Dispatch) => {
     {
-      dispatch(setloadingTrue(EventType.save));
+      dispatch(setloadingTrue(event));
       axios.baseAPI
         .post('/api/Users/addUserPreferences', data, config)
         .then(response => {         
@@ -81,7 +81,7 @@ export const userPreferencesFormEdit = (
 ) => {
   return async (dispatch: Dispatch) => {
     {
-      dispatch(setloadingTrue(EventType.save));
+      dispatch(setloadingTrue(event));
       axios.baseAPI
         .put('/api/Users/updateUserPreferences', data, config)
         .then(response => {

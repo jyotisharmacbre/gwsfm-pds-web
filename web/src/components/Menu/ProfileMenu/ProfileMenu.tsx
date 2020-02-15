@@ -58,6 +58,7 @@ interface IMapStateToProps {
   preferences: IUserPreferences;
   notify: Notify;
   loading: boolean;
+  event: EventType;
 }
 
 const ProfileMenu: React.FC<any> = props => {
@@ -65,6 +66,7 @@ const ProfileMenu: React.FC<any> = props => {
     const authProvider = useAuthContext();
   const [showMenu, setMenuVisibility] = useState(false);
   const [isEditable, makeEditable] = useState(false);
+  const [loading, setLoading] = useState(false);
 
 
   useEffect(() => {
@@ -82,6 +84,7 @@ const ProfileMenu: React.FC<any> = props => {
       props.getProjectStatus();
       setMenuVisibility(true);
       makeEditable(false);
+      setLoading(false);
     }
   }, [props.notify]);
 
@@ -89,6 +92,7 @@ const ProfileMenu: React.FC<any> = props => {
 
 
   const handleEvent = (userPreferences: IUserPreferences, event: EventType) => {
+    setLoading(true);
     userPreferences.userPreferenceId == '' ||
       userPreferences.userPreferenceId == '00000000-0000-0000-0000-000000000000'
       ? props.userPreferencesFormAdd(userPreferences, event)
@@ -194,7 +198,8 @@ const ProfileMenu: React.FC<any> = props => {
                             languages={props.languages}
                             displayName={props.displayName}
                             displayEmail={props.displayEmail}
-                            loading = {props.loading}
+                            loading = {loading}
+                            event = {props.event}
                           />
                         </div>
 
@@ -278,7 +283,8 @@ const mapStateToProps = (state: IState) => {
     notify: state.userPreferences.notify,
     displayName: displayUserName(state.userService.currentUserProfile),
     displayEmail: state.userService.currentUserProfile.email,
-    loading: state.userPreferences.loading
+    loading: state.userPreferences.loading,
+    event: state.userPreferences.event
   }
 }
 

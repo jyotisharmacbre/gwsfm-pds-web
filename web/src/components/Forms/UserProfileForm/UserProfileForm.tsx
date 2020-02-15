@@ -28,14 +28,13 @@ interface Props {
   displayName: string;
   displayEmail: string;
   loading: boolean;
+  event: EventType;
 
 }
 
 let UserProfileForm: React.FC<Props &
   InjectedFormProps<IUserPreferences, Props>> = (props: any, Name: any) => {
-
     const { handleSubmit, redirectMenu } = props;
-
     return (
       <form onSubmit={handleSubmit} noValidate={true}>
         <div>
@@ -120,7 +119,9 @@ let UserProfileForm: React.FC<Props &
 
 
           <div className='link_group'>
-            <a href="#" data-test="save" onClick={handleSubmit(values => props.onSubmitForm(values))}>
+            <a href="#" data-test="save"
+           onClick = {handleSubmit((values) => props.onSubmitForm(values))}
+            >
             {(props.loading) && <CircularProgress />}
               <FormattedMessage id="BUTTON_SAVE" /></a>
             <span>|</span>
