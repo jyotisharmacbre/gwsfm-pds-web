@@ -87,6 +87,7 @@ interface IMapStateToProps {
 	isProjectOverviewFormDirty: boolean;
 	isPostCommentFormDirty: boolean;
 	intl: any;
+	loading: boolean;
 }
 interface IMapDispatchToProps {
 	getProjectStatus: () => void;
@@ -404,6 +405,8 @@ const ProjectOverview: React.FC<
 							getProjectActivities={props.getProjectActivities}
 							countryCode={props.countryCode}
 							insuranceRate={props.insuranceRate}
+							loading={props.loading}
+							event={props.event}
 						/>
 					</div>
 				</div>
@@ -419,6 +422,7 @@ const mapStateToProps = (state: IState) => ({
 	projectStatus: state.lookup.projectstatus,
 	enquiryOverview: state.project.enquiryOverview,
 	event: state.projectOverview.event,
+	loading: state.projectOverview.loading,
 	dynamicsSubcontractor: state.dynamicData.dynamicsSubcontractor,
 	dynamicsContractCustomerData: state.dynamicData.dynamicsContract,
 	subContractorState: state.subContractor.form.activities,

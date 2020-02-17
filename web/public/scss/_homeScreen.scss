@@ -56,3 +56,11 @@
         margin-right: 5px;
     }
 }
+
+.dashboard_bts {
+    a {
+        @include xsScreen {
+            width: calc(100% - 38px);
+        }
+    }
+}

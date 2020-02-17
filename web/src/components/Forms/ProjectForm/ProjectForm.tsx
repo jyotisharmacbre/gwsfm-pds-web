@@ -37,6 +37,8 @@ import { IDynamicContractCustomerData, IDynamicCompanyData, IDynamicsDivision, I
 import { ICountry } from '../../../store/Lookups/Types/ICountry';
 import ValidatedNumericInput from '../../NumericInput';
 import { change } from "redux-form";
+import { CircularProgress } from '@material-ui/core';
+import EventType from '../../../enums/EventType';
 
 interface Props {
 	projectstatus: any;
@@ -54,6 +56,8 @@ interface Props {
 	countries: Array<ICountry> | null;
 	listOfDivisions: Array<IDynamicsDivision>;
 	listOfBusinessUnits: Array<IDynamicBusinessUnits>;
+	loading: boolean;
+	event: EventType;
 }
 
 const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = (props: any) => {
@@ -574,10 +578,13 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 								type="button"
 								name="saveAndClose"
 								onClick={handleSubmit((values) => props.onSave(values))}
-							>
+							disabled = {(props.loading && props.event == EventType.save)}>								
+								{(props.loading && props.event == EventType.save) && <CircularProgress />}
 								<FormattedMessage id="BUTTON_SAVE" />
 							</button>
-							<button type="button" name="next" onClick={handleSubmit((values) => props.onNext(values))}>
+							<button type="button" name="next" onClick={handleSubmit((values) => props.onNext(values))}
+							disabled = {(props.loading && props.event == EventType.next)}>
+							{(props.loading && props.event == EventType.next) && <CircularProgress />}
 								<FormattedMessage id="BUTTON_NEXT" />
 							</button>
 						</div>

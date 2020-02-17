@@ -39,7 +39,8 @@ const Props: any = {
 	discountFormEdit: jest.fn(),
 	resetDiscountState: jest.fn(),
 	getDiscountData: jest.fn(),
-	getAllCurrencies: jest.fn()
+	getAllCurrencies: jest.fn(),
+	loading: false
 };
 
 discountInitialState.notify = Notify.success;
@@ -158,5 +159,29 @@ describe('Discount component props.event test', () => {
 		setUpStore(lookUpInitialState, customerEnquiryInitialState);
 		mountComponent(Props);
 		expect(wrapper).toBeDefined();
+	});
+
+	describe('Inline loading test', () => {
+		it('should not load loader when loading is false', () => {
+			discountInitialState.loading = false;
+			setUpStore(lookUpInitialState, customerEnquiryInitialState);
+			mountComponent(Props);
+			expect(wrapper.hasClass('MuiCircularProgress-root')).toBe(false);
+		});
+			it('should load loader when loading is true and event is save', () => {
+				discountInitialState.loading = true;
+				discountInitialState.event = EventType.save;
+				setUpStore(lookUpInitialState, customerEnquiryInitialState);
+				mountComponent(Props);
+				expect(wrapper.find('.MuiCircularProgress-svg')).toBeDefined();
+			});
+	
+			it('should load loader when loading is true and event is next', () => {
+				discountInitialState.loading = true;
+				discountInitialState.event = EventType.next;
+				setUpStore(lookUpInitialState, customerEnquiryInitialState);
+				mountComponent(Props);
+				expect(wrapper.find('.MuiCircularProgress-svg')).toBeDefined();
+			});
 	});
 });

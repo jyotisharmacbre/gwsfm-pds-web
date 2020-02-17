@@ -71,6 +71,15 @@ export const setupPojectApprovalsInitialData = (
 		});
 	};
 };
+
+const setloadingTrue = (event: EventType) => {
+	return {
+		type: ActionType.SET_LOADING_TRUE,		
+		event: event
+	};
+};
+
+
 let config = {
 	headers: {
 		'Content-Type': 'application/json'
@@ -81,6 +90,7 @@ export const projectOverviewFormAdd = (projectId: string, data: IProjectOverview
 		if (isProjectStateInReview()) dispatch(projectOverviewFormError('error'));
 		data.projectId = projectId;
 		data.projectAdditionalDetail.projectId = projectId;
+		dispatch(setloadingTrue(event));
 		axios.baseAPI
 			.post('api/Projects/additionalDetails', data, config)
 			.then((response) => {
@@ -95,6 +105,7 @@ export const projectOverviewFormAdd = (projectId: string, data: IProjectOverview
 export const projectOverviewFormEdit = (data: IProjectOverviewState, event: EventType) => {
 	return (dispatch: Dispatch) => {
 		if (isProjectStateInReview()) dispatch(projectOverviewFormError('error'));
+		dispatch(setloadingTrue(event));
 		axios.baseAPI
 			.put('api/Projects/additionalDetails', data, config)
 			.then((response) => {

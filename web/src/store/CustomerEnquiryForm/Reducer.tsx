@@ -35,19 +35,22 @@ const projectDetailError = (oldState, action) => {
 const getEnquiryOverviewSuccess = (oldState, action) => {
   return updateObject(oldState, {
     enquiryOverviewError: null,
-    enquiryOverview: action.payload
+    enquiryOverview: action.payload,
+    loading: false
   });
 };
 
 const getEnquiryOverviewError = (oldState, action) => {
   return updateObject(oldState, {
-    enquiryOverviewError: action.error
+    enquiryOverviewError: action.error,
+    loading: false
   });
 };
 
 const getProjectDetailSuccess = (oldState, action) => {
   return updateObject(oldState, {
-    form: action.payload
+    form: action.payload,
+    loading: false
   });
 };
 
@@ -58,7 +61,8 @@ const getProjectDetailError = (oldState, action) => {
 const resetProjectDetailState = (oldState, action) => {
   return updateObject(oldState, {
     notify: Notify.none,
-    event: EventType.none
+    event: EventType.none,
+    loading: false
   });
 };
 
@@ -79,6 +83,13 @@ const resetProjectDetailStateToInitial = (oldState, action) => {
 
 const resetCustomerEnquiryState = (oldState, action) => {
   return initialState;
+};
+
+const setloadingTrue = (oldState, action) => {
+  return updateObject(oldState, {
+    loading: true,
+    event: action.event
+  });
 };
 
 
@@ -108,7 +119,9 @@ const projectDetailReducer = (oldState = initialState, action) => {
       return resetProjectDetailStateToInitial(oldState, action);
     case ActionType.RESET_CUSTOMER_ENQUIRY_STATE:
       return resetCustomerEnquiryState(oldState, action);
-      default:
+    case ActionType.SET_LOADING_TRUE:
+      return setloadingTrue(oldState, action);
+    default:
       return oldState;
   }
 };

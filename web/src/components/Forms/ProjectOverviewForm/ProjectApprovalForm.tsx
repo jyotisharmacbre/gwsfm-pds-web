@@ -2,7 +2,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import NewTypeAhead from '../../TypeAhead/NewTypeAhead';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheckCircle, faClock, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
+import { faCheckCircle, faClock, faExclamationTriangle, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { ProjectSignOffStatus } from '../../../store/ProjectOverviewForm/Types/ProjectApprovalEnums';
 import ProjectStatus from '../../../enums/ProjectStatus';
 
@@ -39,6 +39,7 @@ const ProjectApprovalForm: React.FC<IProps> = (props) => {
 	const shouldDisplay = (currVal) => {
 		return currVal.userId && currVal.projectApprovalId && props.status == ProjectStatus.InReview
 	};
+	
 	return (
 		<div>
 			<div className="row">
@@ -56,6 +57,7 @@ const ProjectApprovalForm: React.FC<IProps> = (props) => {
 							<NewTypeAhead
 								name={`${member}.userId`}
 								onSearch={getListOfUsers}
+								className="empty"
 								formatData={formatUserData}
 								DynamicsType={fields.get(index).approverTypeDescription}
 								labelName={
@@ -65,7 +67,9 @@ const ProjectApprovalForm: React.FC<IProps> = (props) => {
 								}
 								submitParam="email"
 							/>
-							<span className="right_fix_txt">{fields.get(index).approverTypeDescription}</span>
+							
+							<span className="placehold"><FontAwesomeIcon className="" icon={faSearch} /></span>
+							<span className="right_fix_txt">{fields.get(index).approverTypeDescription}</span>							
 						</div>
 					</div>
 					<div className="col-1 pl-0">

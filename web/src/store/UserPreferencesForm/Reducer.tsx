@@ -3,6 +3,7 @@ import { updateObject } from '../../helpers/utility-helper';
 import { IUserPreferencesState } from './Types/IUserPreferencesState';
 import Notify from '../../enums/Notify';
 import EventType from '../../enums/EventType';
+import actions from 'redux-form/lib/actions';
 
 const initialState: IUserPreferencesState = {
 	preferences: {
@@ -57,7 +58,15 @@ const userPreferencesFormError = (oldState, action) => {
 
 const resetUserPreferencesState = (oldState) => {
 	return updateObject(oldState, {
-		notify: Notify.none
+		notify: Notify.none,
+		loading: false
+	});
+};
+
+const setloadingTrue = (oldState, action) => {
+	return updateObject(oldState, {
+		loading: true,
+		event: action.event
 	});
 };
 
@@ -73,6 +82,8 @@ const userPreferencesFormReducer = (oldState = initialState, action) => {
 			return userPreferencesFormError(oldState, action);
 		case ActionType.RESET_USER_PREFERENCES_STATE:
 			return resetUserPreferencesState(oldState);
+		case ActionType.SET_LOADING_TRUE:
+			return setloadingTrue(oldState, actions);
 		default:
 			return oldState;
 	}

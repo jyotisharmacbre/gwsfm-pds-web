@@ -8,6 +8,7 @@ import { faAngleUp, faCheck } from '@fortawesome/free-solid-svg-icons';
 import PreliminaryInsurranceForm from './PreliminaryInsurranceForm';
 import { CheckConstraints } from '../../../helpers/fieldValidations';
 import { getClassNameForProjectStatus } from '../../../helpers/utility-helper';
+import { CircularProgress } from '@material-ui/core';
 
 interface Props {
   submitHandler: (
@@ -22,9 +23,10 @@ interface Props {
       prelimData:any;
       handleSubmit:any;
       currencySymbol:string;
-      
+      loading: boolean;
+      event: EventType;
 }  
-const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleEvent,prelimData,currencySymbol, isExpand,componentIdList, projectStatus}) => (
+const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleEvent,prelimData,currencySymbol, isExpand,componentIdList, projectStatus, loading, event}) => (
 
   <div>
   {fields.map((member, index) => {
@@ -104,7 +106,9 @@ const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleE
                 </div>
                 </form>
         <div className="text-right preliminary_btn" >
-                  <button type="button" data-test="componentSave" className="text-center btn-sm" onClick={handleSubmit(values=>submitHandler(false,EventType.none,values,index))} >
+                  <button type="button" data-test="componentSave" className="text-center btn-sm" onClick={handleSubmit(values=>submitHandler(false,EventType.none,values,index))} 
+                  disabled = {(loading && event == EventType.none)}>
+                  {(loading && event == EventType.none) && <CircularProgress />}
                   <FormattedMessage id="BUTTON_SAVE" />
                   </button>
                 </div>

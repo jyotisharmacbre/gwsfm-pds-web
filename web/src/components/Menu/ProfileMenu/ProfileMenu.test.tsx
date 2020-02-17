@@ -56,11 +56,6 @@ describe('Profile Menu', () => {
         return 'testEmail';
       });
     jest
-      .spyOn(helper, 'logOut')
-      .mockImplementationOnce(() => {
-        return 'logout';
-      });
-    jest
       .spyOn(helper, 'getFirstName')
       .mockImplementationOnce(() => {
         return 'testFirstName';
@@ -77,8 +72,8 @@ describe('Profile Menu', () => {
     store = mockStore({
       userPreferences: { preferences: {} },
       lookup: {},
-      userService: { currentUserProfile: { displayName: 'testName', email: 'test@pds.com' } }
-
+      userService: { currentUserProfile: { displayName: 'testName', email: 'test@pds.com' } },
+      auth:{token: '' },
     });
   };
 
@@ -101,7 +96,8 @@ describe('Profile Menu', () => {
     languages: null,
     notify: '',
     displayName: 'TestName',
-    displayEmail: 'TestEmail'
+    displayEmail: 'TestEmail',
+    auth:{token: '' }
   };
   beforeEach(() => {
 

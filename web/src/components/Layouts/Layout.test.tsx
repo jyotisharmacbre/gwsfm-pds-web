@@ -4,7 +4,6 @@ import { IntlProvider } from 'react-intl';
 import translations from '../../Translations/translation';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { findByTestAtrr } from '../../helpers/test-helper';
 import Layout from './Layout';
 import configureMockStore from 'redux-mock-store';
 import { initialState } from '../../store/Dashboard/Reducer';
@@ -38,12 +37,12 @@ customerEnquiryInitialState.form.countryId = 1;
 
 const mockingStore = () => {
     store = mockStore({
-        userPreferences: { preferences: {} },
+        userPreferences: { preferences: { }},
         lookup: {},
         userService: { currentUserProfile: { displayName: 'testName', email: 'test@pds.com' } },
         dashboardGrid: initialState,
         project: customerEnquiryInitialState,
-
+        auth:{token: '' },
     });
 };
 
