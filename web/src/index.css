@@ -29,3 +29,13 @@ code {
   border-top-color: orange !important;
   border-left-color: orange !important;
 }
+
+/* Style text with dots */
+
+.text-with-dots-20pr {
+  display: block;
+  max-width: 58%;
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+}
