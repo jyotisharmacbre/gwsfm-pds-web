@@ -24,7 +24,6 @@ interface IProps {
 
 const Quote: React.FC<IProps> = props => {
     const deleteQuote = (index) => {
-        debugger;
         props.fields.remove(index);
     }
     return (
