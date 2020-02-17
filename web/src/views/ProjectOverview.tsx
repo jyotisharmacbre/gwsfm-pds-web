@@ -265,6 +265,12 @@ const ProjectOverview: React.FC<
 	};
 	/* istanbul ignore next */
 	const failure = (error) => { };
+	const saveHandler = (data: IProjectOverviewDetails,eventType:EventType) => {
+		data.projectAdditionalDetail.projectAddDetailId == ''
+			? props.projectOverviewFormAdd(props.match.params.projectId, data, EventType.save)
+			: props.projectOverviewFormEdit(data,eventType);
+			props.resetProjectOverviewFormState();	
+	};
 	/* istanbul ignore next */
 	const handleNext = (data: IProjectOverviewDetails) => {
 		if (props.isPostCommentFormDirty) {
@@ -273,22 +279,16 @@ const ProjectOverview: React.FC<
 				titleKey: 'TITLE_CONFIRMATION',
 				contentKey: 'MESSAGE_DIRTY_CHECK_COMMENT',
 				handleConfirm: () => {
-					data.projectAdditionalDetail.projectAddDetailId == ''
-						? props.projectOverviewFormAdd(props.match.params.projectId, data, EventType.next)
-						: props.projectOverviewFormEdit(data, EventType.next);
+					saveHandler(data,EventType.next);
 				}
 			})
 		} else {
-			data.projectAdditionalDetail.projectAddDetailId == ''
-				? props.projectOverviewFormAdd(props.match.params.projectId, data, EventType.next)
-				: props.projectOverviewFormEdit(data, EventType.next);
+			saveHandler(data,EventType.next);
 		}
 	};
 	/* istanbul ignore next */
 	const handleSave = (data: IProjectOverviewDetails) => {
-		data.projectAdditionalDetail.projectAddDetailId == ''
-			? props.projectOverviewFormAdd(props.match.params.projectId, data, EventType.save)
-			: props.projectOverviewFormEdit(data, EventType.save);
+		saveHandler(data,EventType.save);
 	};
 	const convertToString = (id) => {
 		let data = '';
