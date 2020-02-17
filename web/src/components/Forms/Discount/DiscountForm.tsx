@@ -38,6 +38,8 @@ import DiscountSubContractorForm from './DiscountSubContractorForm';
 import IReactIntl from '../../../Translations/IReactIntl';
 import IClientDiscount from '../../../store/DiscountForm/Types/IClientDiscount';
 import DiscountType from '../../../enums/DiscountType';
+import EventType from '../../../enums/EventType';
+import { CircularProgress } from '@material-ui/core';
 
 interface Props {
 	onNext: (data: IDiscountActivity) => void;
@@ -52,6 +54,8 @@ interface Props {
 	projectId: string;
 	dynamicsContractCustomerData: Array<IDynamicContractCustomerData>;
 	insuranceRate: number;
+	event: EventType;
+	loading: boolean;
 }
 
 interface IMapStateToProps {
@@ -301,7 +305,9 @@ let DiscountForm: React.FC<
 									name="save"
 									style={{ marginLeft: '35%' }}
 									onClick={handleSubmit((values) => props.onSave(values))}
+									disabled = {(props.loading && props.event == EventType.save)}
 								>
+									{(props.loading && props.event == EventType.save) && <CircularProgress />}
 									<FormattedMessage id="BUTTON_SAVE" />
 								</button>
 								<button
@@ -309,7 +315,10 @@ let DiscountForm: React.FC<
 									name="next"
 									className=""
 									onClick={handleSubmit((values) => props.onNext(values))}
+									disabled = {(props.loading && props.event == EventType.next)}
 								>
+									{(props.loading && props.event == EventType.next) && <CircularProgress />}
+
 									<FormattedMessage id="BUTTON_NEXT" />
 								</button>
 							</div>

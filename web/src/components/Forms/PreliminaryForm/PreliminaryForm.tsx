@@ -8,6 +8,7 @@ import PreliminaryComponentsForm from './PreliminaryComponentsForm';
 import IReactIntl from '../../../Translations/IReactIntl';
 import EventType from '../../../enums/EventType';
 import PricingSummaryTable from '../../../components/Table/PricingSummaryTable';
+import { CircularProgress } from '@material-ui/core';
 interface Props {
 	onSave: (saveAll: boolean, event: EventType, prelimComponentDetails: any, index: number) => void;
 	onPrevious: () => void;
@@ -22,6 +23,8 @@ interface Props {
 	subContractorState: any;
 	discountState: any;
 	projectStatus: number;
+	event: EventType;
+	loading: boolean;
 }
 let PreliminaryForm: React.FC<Props & IReactIntl & InjectedFormProps<IPreliminaryForm, Props>> = (props: any) => {
 	const { handleSubmit } = props;
@@ -38,6 +41,8 @@ let PreliminaryForm: React.FC<Props & IReactIntl & InjectedFormProps<IPreliminar
 				isExpand={props.isExpand}
 				componentIdList={props.componentIdList}
 				projectStatus = {props.projectStatus}
+				loading= {props.loading}
+				event = {props.event}
 			/>
 			<PricingSummaryTable
 				data-test="pricing-summary"
@@ -67,8 +72,10 @@ let PreliminaryForm: React.FC<Props & IReactIntl & InjectedFormProps<IPreliminar
 					className="active ml-auto"
 					data-test="save"
 					type="button"
-					onClick={handleSubmit((values) => props.onSave(true, EventType.none, values))}
+					onClick={handleSubmit((values) => props.onSave(true, EventType.save, values))}
+					disabled = {(props.loading && props.event == EventType.save)}
 				>
+					  {(props.loading && props.event == EventType.save) && <CircularProgress />}
 					<FormattedMessage id="BUTTON_SAVE" />
 				</button>
 				<button
@@ -76,7 +83,9 @@ let PreliminaryForm: React.FC<Props & IReactIntl & InjectedFormProps<IPreliminar
 					name="next"
 					data-test="next"
 					onClick={handleSubmit((values) => props.onSave(true, EventType.next, values))}
+					disabled = {(props.loading && props.event == EventType.next)}
 				>
+					  {(props.loading && props.event == EventType.next) && <CircularProgress />}
 					<FormattedMessage id="BUTTON_NEXT" />
 				</button>
 			</div>

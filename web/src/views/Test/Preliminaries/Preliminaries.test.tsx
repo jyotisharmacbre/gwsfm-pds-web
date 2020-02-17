@@ -153,6 +153,21 @@ describe('Preliminaries defined with differnt notification', () => {
 		setUpStore(initialState, lookUpInitialState, customerEnquiryInitialState, subcontractorInitialState);
 		mountPreliminaryComponent(Props);
 		expect(wrapper).toBeDefined();
-	});
+	});	
 
+	describe('Inline loading test', () => {
+		it('should not load loader when loading is false', () => {
+			discountInitialState.loading = false;
+			setUpStore(initialState, lookUpInitialState, customerEnquiryInitialState, subcontractorInitialState);
+			mountPreliminaryComponent(Props);
+			expect(wrapper.hasClass('MuiCircularProgress-root')).toBe(false);
+		});
+			it('should load loader when loading is true', () => {
+				initialState.loading = true;
+				setUpStore(initialState, lookUpInitialState, customerEnquiryInitialState, subcontractorInitialState);
+				mountPreliminaryComponent(Props);
+				expect(wrapper.find('.MuiCircularProgress-svg')).toBeDefined();
+			});
+	});
 });
+

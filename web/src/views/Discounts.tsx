@@ -35,6 +35,7 @@ interface IMapStateToProps {
 	form: IDiscountActivity;
 	notify: Notify;
 	event: EventType;
+	loading: boolean;
 	projectStatus: Array<ILookup>;
 	currencies: Array<ICurrency> | null;
 	currencyId: number;
@@ -160,6 +161,8 @@ const Discounts: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & IIns
 							dynamicsContractCustomerData={props.dynamicsContractCustomerData}
 							insuranceRate={props.insuranceRate}
 							updateClientDiscount={props.updateClientDiscount}
+							event = {props.event}
+							loading = {props.loading}
 						/>
 					</div>
 				</div>
@@ -181,6 +184,7 @@ const mapStateToProps = (state: IState) => ({
 	form: state.discount.form,
 	notify: state.discount.notify,
 	event: state.discount.event,
+	loading: state.discount.loading,
 	projectStatus: state.lookup.projectstatus,
 	currencies: state.lookup.currencies,
 	currencyId: state.project.form.currencyId,

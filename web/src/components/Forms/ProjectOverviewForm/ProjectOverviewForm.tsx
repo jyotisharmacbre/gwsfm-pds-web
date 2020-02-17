@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Field, reduxForm, InjectedFormProps, FieldArray } from 'redux-form';
 import { connect } from 'react-redux';
 import PdsFormInput from '../../PdsFormHandlers/PdsFormInput';
@@ -48,6 +48,7 @@ import ActivityFeedList from './ActivityFeedList';
 import PostCommentForm from '../PostComment/PostCommentForm';
 import { IPostCommentForm } from '../PostComment/IPostCommentForm';
 import { IUserServiceData } from '../../../store/UserService/Types/IUserService';
+import { CircularProgress } from '@material-ui/core';
 interface Props {
 	onNext: (data: IProjectOverviewDetails) => void;
 	onPrevious: () => void;
@@ -67,6 +68,8 @@ interface Props {
 	getProjectActivities: (projectId: string) => void;
 	countryCode: string;
 	insuranceRate: number;
+	event: EventType;
+	loading: boolean;
 }
 
 let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDetails, Props>> = (props) => {
@@ -91,14 +94,20 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 		return returnValue;
 	};
 
+	const [comentLoading, setCommentLoading] = useState(false);
+
 	const normalize = (value) => (value ? parseInt(value) : null);
 	const handlePostComment = (data: IPostCommentForm) => {
+		setCommentLoading(true);
 		props.postComment(props.projectId, `"${data.comment}"`, handlePostCommentSuccess, handlePostCommentError);
 	};
 	const handlePostCommentSuccess = (response) => {
+		setCommentLoading(false);
 		props.getProjectActivities(props.projectId);
 	};
-	const handlePostCommentError = (error) => { };
+	const handlePostCommentError = (error) => {
+		setCommentLoading(false);
+	 };
 	return (
 		<form className="project-overview-form" noValidate={true} data-test="projectOverviewForm">
 			<div className={`${getClassNameForProjectStatus(props.status)} row`}>
@@ -365,7 +374,9 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						currencySymbol={props.currencySymbol}
 						handleGetUserNamesForEmails={props.getUserNamesForEmails}
 					/>
-					<PostCommentForm postComment={handlePostComment} />
+					<PostCommentForm 
+					postComment={handlePostComment}
+					loading = {comentLoading}/>
 				</div>
 			</div>
 			<div className="row">
@@ -435,10 +446,15 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 					data-test="save"
 					type="button"
 					onClick={handleSubmit((values) => props.onSave(values))}
+					disabled = {(props.loading && props.event == EventType.save)}
 				>
+					{(props.loading && props.event == EventType.save) && <CircularProgress />}
 					<FormattedMessage id="BUTTON_SAVE" />
 				</button>
-				<button type="button" name="next" onClick={handleSubmit((values) => props.onNext(values))} className="">
+				<button type="button" name="next" onClick={handleSubmit((values) => props.onNext(values))} className=""
+				disabled = {(props.loading && props.event == EventType.next)}
+				>
+				{(props.loading && props.event == EventType.next) && <CircularProgress />}
 					<FormattedMessage id="BUTTON_NEXT" />
 				</button>
 			</div>

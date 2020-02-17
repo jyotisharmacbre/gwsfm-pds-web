@@ -56,24 +56,27 @@ interface IProps {
 
 interface IMapStateToProps {
   preferences: IUserPreferences;
-    notify: Notify;
-    token: string;
+  loading: boolean;
+  event: EventType;
+  notify: Notify;
+  token: string;
 }
 
 const ProfileMenu: React.FC<any> = props => {
-    let history = useHistory();
-    const authProvider = useAuthContext();
+  let history = useHistory();
+  const authProvider = useAuthContext();
   const [showMenu, setMenuVisibility] = useState(false);
   const [isEditable, makeEditable] = useState(false);
+  const [loading, setLoading] = useState(false);
 
 
-    useEffect(() => {
-        if (props.token) {
-            props.getUserPreferences();
-            props.getAllLanguages();
-            props.getAllCurrencies();
-            props.getCurrentUserProfile();
-        }
+  useEffect(() => {
+    if (props.token) {
+      props.getUserPreferences();
+      props.getAllLanguages();
+      props.getAllCurrencies();
+      props.getCurrentUserProfile();
+    }
   }, [props.token])
 
   useEffect(() => {
@@ -84,6 +87,7 @@ const ProfileMenu: React.FC<any> = props => {
       props.getProjectStatus();
       setMenuVisibility(true);
       makeEditable(false);
+      setLoading(false);
     }
   }, [props.notify]);
 
@@ -91,6 +95,7 @@ const ProfileMenu: React.FC<any> = props => {
 
 
   const handleEvent = (userPreferences: IUserPreferences, event: EventType) => {
+    setLoading(true);
     userPreferences.userPreferenceId == '' ||
       userPreferences.userPreferenceId == '00000000-0000-0000-0000-000000000000'
       ? props.userPreferencesFormAdd(userPreferences, event)
@@ -116,24 +121,24 @@ const ProfileMenu: React.FC<any> = props => {
       history.location.pathname == "/Error";
   }
 
- //add & remove class for pipeline and dashboard page
+  //add & remove class for pipeline and dashboard page
   const showClass = () => {
     return history.location.pathname == "/" ||
       history.location.pathname == "/Pipeline"
-    }
-    const logout = () => {
-        authProvider.logout();
-    }
-  
+  }
+  const logout = () => {
+    authProvider.logout();
+  }
+
   return (
     <nav className="topbar">
       <div className="container-fluid">
         <div className="row d-flex align-items-center">
           <div className=
-          {
-          showClass() ? 
-          "col-sm-12 d-flex justify-content-between align-items-center" :
-          "col-sm-12 d-flex justify-content-between align-items-center justify-content-md-end"} >
+            {
+              showClass() ?
+                "col-sm-12 d-flex justify-content-between align-items-center" :
+                "col-sm-12 d-flex justify-content-between align-items-center justify-content-md-end"} >
 
             <div data-test="test-logo" className=
               {showNav() ? "d-md-block logo" : "logo"} >
@@ -196,6 +201,8 @@ const ProfileMenu: React.FC<any> = props => {
                             languages={props.languages}
                             displayName={props.displayName}
                             displayEmail={props.displayEmail}
+                            loading={loading}
+                            event={props.event}
                           />
                         </div>
 
@@ -245,11 +252,11 @@ const ProfileMenu: React.FC<any> = props => {
                 </a>
               </li>
               <li className=
-          {
-          showClass() ? 
-          "m-0" :
-          "default"}
-          >
+                {
+                  showClass() ?
+                    "m-0" :
+                    "default"}
+              >
                 <button
                   type="button"
                   id="sidebarCollapse"
@@ -278,8 +285,10 @@ const mapStateToProps = (state: IState) => {
     languages: state.lookup.languages,
     notify: state.userPreferences.notify,
     displayName: displayUserName(state.userService.currentUserProfile),
-      displayEmail: state.userService.currentUserProfile.email,
-      token: state.auth.token
+    displayEmail: state.userService.currentUserProfile.email,
+    loading: state.userPreferences.loading,
+    event: state.userPreferences.event,
+    token: state.auth.token
   }
 }
 
@@ -294,7 +303,7 @@ const mapDispatchToProps = dispatch => {
     getAllCurrencies: () => dispatch(actions.getAllCurrencies()),
     resetUserPreferencesState: () => dispatch(resetUserPreferencesState()),
     getProjectStatus: () => dispatch(actions.getProjectStatus()),
-      getCurrentUserProfile: () => dispatch(actions.getCurrentUserProfileForEmailsService()),
+    getCurrentUserProfile: () => dispatch(actions.getCurrentUserProfileForEmailsService()),
   }
 }
 
