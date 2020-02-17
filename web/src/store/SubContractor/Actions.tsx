@@ -87,6 +87,7 @@ export const subContractorFormEdit = (
 		dispatch(setloadingTrue(event));
 		data.activities.map((element) => {
 			element.projectId = projectId;
+			element.quotes.map(inner => inner.subContrActivityId = element.quotes[0].subContrActivityId)
 		});
 		axios.baseAPI
 			.put('api/SubContractor/activities', data.activities, config)
