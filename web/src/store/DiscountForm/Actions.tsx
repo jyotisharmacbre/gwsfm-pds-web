@@ -44,6 +44,13 @@ const getDiscountDataError = (error: string) => {
 	};
 };
 
+const setloadingTrue = (event: EventType) => {
+	return {
+		type: ActionType.SET_LOADING_TRUE,		
+		event: event
+	};
+};
+
 const headers = {
 	'Content-Type': 'application/json'
 };
@@ -51,6 +58,7 @@ const headers = {
 export const discountFormAdd = (projectId: string, data: IDiscountActivity, event: EventType) => {
 	return (dispatch: Dispatch) => {
 		if (isProjectStateInReview()) dispatch(discountFormError('error'));
+		dispatch(setloadingTrue(event));
 		data.projectId = projectId;
 		data.clientDiscount.projectId = projectId;
 		data.subContractorDiscounts.forEach(x => x.projectId = projectId);
@@ -69,6 +77,7 @@ export const discountFormAdd = (projectId: string, data: IDiscountActivity, even
 export const discountFormEdit = (data: IDiscountActivity, event: EventType) => {
 	return (dispatch: Dispatch) => {
 		if (isProjectStateInReview()) dispatch(discountFormError('error'));
+		dispatch(setloadingTrue(event));
 		data.clientDiscount.projectId = data.projectId;
 		data.subContractorDiscounts.forEach(x => x.projectId = data.projectId);
 		axios.baseAPI

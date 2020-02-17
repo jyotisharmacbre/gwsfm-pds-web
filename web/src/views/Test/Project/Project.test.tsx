@@ -58,27 +58,29 @@ const mountComponent = (Props) => {
 		</Provider>
 	);
 };
+
+const Props: any = {
+	match: { params: { projectId: 1 } },
+	history: { push: jest.fn() },
+	handleGetDynamicContractData: jest.fn(),
+	handleGetDynamicCompanyData: jest.fn(),
+	getDynamicsListOfDivision: jest.fn(),
+	getListOfBusinessUnits:jest.fn(),
+	getProjectStatus: jest.fn(),
+	getProjectDetail: jest.fn(),
+	resetProjectDetailState: jest.fn(),
+	getAllCurrencies: jest.fn(),
+	getAllCountries: jest.fn(),
+	getDynamicContractData: jest.fn(),
+	getDynamicCompanyData: jest.fn(),
+	getDynamicSubContractorData: jest.fn(),
+	getUserService: jest.fn(),
+	handleProjectDetailsSubmit: jest.fn(),
+	handleProjectDetailsEdit: jest.fn(),
+	resetProjectDetailStateToInitial: jest.fn()
+};
+
 describe('Project component test cases', () => {
-	const Props: any = {
-		match: { params: { projectId: 1 } },
-		history: { push: jest.fn() },
-		handleGetDynamicContractData: jest.fn(),
-		handleGetDynamicCompanyData: jest.fn(),
-		getDynamicsListOfDivision: jest.fn(),
-		getListOfBusinessUnits:jest.fn(),
-		getProjectStatus: jest.fn(),
-		getProjectDetail: jest.fn(),
-		resetProjectDetailState: jest.fn(),
-		getAllCurrencies: jest.fn(),
-		getAllCountries: jest.fn(),
-		getDynamicContractData: jest.fn(),
-		getDynamicCompanyData: jest.fn(),
-		getDynamicSubContractorData: jest.fn(),
-		getUserService: jest.fn(),
-		handleProjectDetailsSubmit: jest.fn(),
-		handleProjectDetailsEdit: jest.fn(),
-		resetProjectDetailStateToInitial: jest.fn()
-	};
 
 	it('should defines the component', () => {
 		setUpStore();
@@ -114,5 +116,29 @@ describe('Project component test cases', () => {
 		setUpStore();
 		mountComponent(Props);
 		expect(wrapper).toBeDefined();
+	});
+
+	describe('Inline loading test', () => {
+		it('should not load loader when loading is false', () => {
+			customerEnquiryInitialState.loading = false;
+			setUpStore();
+			mountComponent(Props);
+			expect(wrapper.hasClass('MuiCircularProgress-root')).toBe(false);
+		});
+			it('should load loader when loading is true and event is save', () => {
+				customerEnquiryInitialState.loading = true;
+				customerEnquiryInitialState.event = EventType.save;
+				setUpStore();
+				mountComponent(Props);
+				expect(wrapper.find('.MuiCircularProgress-svg')).toBeDefined();
+			});
+	
+			it('should load loader when loading is true and event is next', () => {
+				customerEnquiryInitialState.loading = true;
+				customerEnquiryInitialState.event = EventType.next;
+				setUpStore();
+				mountComponent(Props);
+				expect(wrapper.find('.MuiCircularProgress-svg')).toBeDefined();
+			});
 	});
 });

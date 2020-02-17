@@ -52,6 +52,22 @@ const mountComponent = (Props) => {
 		</Provider>
 	);
 };
+const Props: any = {
+	form: subcontractorInitialState.form,
+	notify: Notify.none,
+	event: EventType.none,
+	currencyId: 1,
+	currencies: [],
+	status: 1,
+	history: { push: jest.fn() },
+	match: { params: { projectId: 1 } },
+	subContractorFormAdd: jest.fn(),
+	subContractorFormEdit: jest.fn(),
+	getSubContractor: jest.fn(),
+	getProjectDetail: jest.fn(),
+	resetSubContractorState: jest.fn(),
+	getAllCurrencies: jest.fn()
+};
 describe('Subcontractor component test cases', () => {
 	const Props: any = {
 		form: subcontractorInitialState.form,
@@ -157,4 +173,29 @@ describe('Subcontractor component test cases', () => {
 		mountComponent(Props);
 		expect(wrapper).toBeDefined();
 	});
+
+	describe('Inline loading test', () => {
+		it('should not load loader when loading is false', () => {
+			subcontractorInitialState.loading = false;
+			setUpStore(initialState, lookUpInitialState, customerEnquiryInitialState, subcontractorInitialState);
+			mountComponent(Props);
+			expect(wrapper.hasClass('MuiCircularProgress-root')).toBe(false);
+		});
+			it('should load loader when loading is true and event is save', () => {
+				subcontractorInitialState.loading = true;
+				subcontractorInitialState.event = EventType.save;
+				setUpStore(initialState, lookUpInitialState, customerEnquiryInitialState, subcontractorInitialState);
+				mountComponent(Props);
+				expect(wrapper.find('.MuiCircularProgress-svg')).toBeDefined();
+			});
+	
+			it('should load loader when loading is true and event is next', () => {
+				subcontractorInitialState.loading = true;
+				subcontractorInitialState.event = EventType.next;
+				setUpStore(initialState, lookUpInitialState, customerEnquiryInitialState, subcontractorInitialState);
+				mountComponent(Props);
+				expect(wrapper.find('.MuiCircularProgress-svg')).toBeDefined();
+			});
+	});
 });
+

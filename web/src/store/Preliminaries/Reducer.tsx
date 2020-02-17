@@ -22,14 +22,16 @@ const preliminaryAddSuccess = (oldState, action) => {
   return updateObject(oldState, {
     notify: Notify.success,
     event: action.event,
-    preliminaryDetails
+    preliminaryDetails,
+    loading: false
     
   });
 };
 const preliminaryAddError = (oldState, action) => {
   return updateObject(oldState, {
     notify: Notify.error,
-    event: action.event
+    event: action.event,
+    loading: false
   });
 }
 const preliminaryEditSuccess = (oldState, action) => {
@@ -37,20 +39,23 @@ const preliminaryEditSuccess = (oldState, action) => {
   return updateObject(oldState, {
     notify: Notify.success,
     event: action.event,
-    preliminaryDetails
+    preliminaryDetails,
+    loading: false
     
   });
 }
 const preliminaryEditError = (oldState, action) => {
   return updateObject(oldState, {
     notify: Notify.error,
-    event: action.event
+    event: action.event,
+    loading: false
   });
 };
 const preliminaryGetSuccess = (oldState, action) => {
   return updateObject(oldState, {
     notify:Notify.none,
-    preliminaryDetails:action.payload
+    preliminaryDetails:action.payload,
+    loading: false
   });
 };
 
@@ -60,7 +65,15 @@ const preliminaryGetError = (oldState, action) => {
 
 const resetPreliminaryState = (oldState, action) => {
 	return updateObject(oldState, {
-    notify:Notify.none
+    notify:Notify.none,
+    loading: false
+  });
+};
+
+const setloadingTrue = (oldState, action) => {
+  return updateObject(oldState, {
+    loading: true,
+    event: action.event
   });
 };
 
@@ -80,6 +93,8 @@ const preliminaryReducer = (oldState = initialState, action) => {
       return preliminaryGetError(oldState, action);
       case ActionType.RESET_PRELIMINARY_STATE:
       return resetPreliminaryState(oldState, action);
+      case ActionType.SET_LOADING_TRUE:
+        return setloadingTrue(oldState, action);
     default:
       return oldState;
   }

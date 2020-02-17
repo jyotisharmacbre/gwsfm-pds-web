@@ -15,6 +15,26 @@ code {
 .select-wrapper .form-group{
   margin-top: 20px;
 }
+button, .link_group a{
+  position: relative;
+}
+button .MuiCircularProgress-colorPrimary {
+  color: #006a4d;
+  position: absolute;
+  left: 10px;
+}
+
+a .MuiCircularProgress-colorPrimary {
+  color: white;
+  position: absolute;
+  left: 10px;
+}
+
+button .MuiCircularProgress-root, a .MuiCircularProgress-root{
+  width: 25px !important;
+  height: 25px !important;
+}
+
 
 /* style for top progress bar */
 #nprogress .bar {

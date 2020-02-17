@@ -39,6 +39,7 @@ interface IMapStateToProps {
 	countries: Array<ICountry> | null;
 	getListOfDivisions: Array<IDynamicsDivision>;
 	getListOfBusinessUnit:Array<IDynamicBusinessUnits>;
+	loading: boolean;
 }
 
 interface IMapDispatchToProps {
@@ -132,6 +133,8 @@ const Project: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = (prop
 				getListOfContract={services.getContractsAndCustomers}
 				listOfDivisions={props.getListOfDivisions}
 				listOfBusinessUnits ={props.getListOfBusinessUnit}
+				loading = {props.loading}
+				event = {props.event}
 			/>
 		</div>
 	);
@@ -146,6 +149,7 @@ const mapStateToProps = (state: IState) => {
 		getListOfBusinessUnit:state.dynamicData.dynamicsListOfBusinessUnits,
 		userServiceData: state.userService.userServiceData,
 		notify: state.project.notify,
+		loading: state.project.loading,
 		event: state.project.event,
 		projectId: state.project.form.projectId,
 		currencies: state.lookup.currencies,
