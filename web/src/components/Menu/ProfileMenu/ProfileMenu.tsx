@@ -56,7 +56,8 @@ interface IProps {
 
 interface IMapStateToProps {
   preferences: IUserPreferences;
-  notify: Notify;
+    notify: Notify;
+    token: string;
 }
 
 const ProfileMenu: React.FC<any> = props => {
@@ -66,12 +67,14 @@ const ProfileMenu: React.FC<any> = props => {
   const [isEditable, makeEditable] = useState(false);
 
 
-  useEffect(() => {
-    props.getUserPreferences();
-    props.getAllLanguages();
-    props.getAllCurrencies();
-    props.getCurrentUserProfile();
-  }, [])
+    useEffect(() => {
+        if (props.token) {
+            props.getUserPreferences();
+            props.getAllLanguages();
+            props.getAllCurrencies();
+            props.getCurrentUserProfile();
+        }
+  }, [props.token])
 
   useEffect(() => {
     if (props.notify == Notify.success) {
@@ -275,7 +278,8 @@ const mapStateToProps = (state: IState) => {
     languages: state.lookup.languages,
     notify: state.userPreferences.notify,
     displayName: displayUserName(state.userService.currentUserProfile),
-    displayEmail: state.userService.currentUserProfile.email
+      displayEmail: state.userService.currentUserProfile.email,
+      token: state.auth.token
   }
 }
 
