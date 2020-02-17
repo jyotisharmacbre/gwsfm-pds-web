@@ -10,6 +10,15 @@ export const updateObject = (oldState, updatedProperties) => {
 	};
 };
 
+export const calendarStrings = {
+	lastDay : '[Yesterday at] LT',
+	sameDay : '[Today at] LT',
+	nextDay : '[Tomorrow at] LT',
+	lastWeek : '[last] dddd [at] LT',
+	nextWeek : 'dddd [at] LT',
+	sameElse : 'L'
+};
+
 export const getPropertyName = (obj, expression) => {
 	var res = {};
 	Object.keys(obj).map((k) => {
