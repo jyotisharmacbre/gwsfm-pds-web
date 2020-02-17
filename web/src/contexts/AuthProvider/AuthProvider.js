@@ -27,7 +27,7 @@ class AuthProvider extends Component {
 
     // Options
     options = {
-        loginType: LoginType.Popup,
+        loginType: LoginType.Redirect,
         tokenRefreshUri: window.location.origin + '/auth.html'
     }
 
