@@ -8,6 +8,7 @@ import EventType from '../../enums/EventType';
 import { isProjectStateInReview, isDataExists } from '../store-helper';
 import { getDefaultState } from '../Common/Action';
 import { payload } from '../ProjectOverviewForm/Test/DataWrapperTestData';
+import { initialize } from 'redux-form';
 const projectDetailAddSuccess = (response: IProjectDetail, event: EventType) => {
 	return {
 		type: ActionType.PROJECT_ADD,
@@ -58,6 +59,7 @@ export const projectDetailAdd = (data: IProjectDetail, event: EventType) => {
 			.then((response) => {
 				/* istanbul ignore next */
 				dispatch(projectDetailAddSuccess(response.data, event));
+				dispatch(initialize('ProjectForm', response.data, false, { keepSubmitSucceeded: true }));
 			})
 			.catch((error) => {
 				/* istanbul ignore next */
@@ -75,6 +77,7 @@ export const projectDetailEdit = (data: IProjectDetail, event: EventType) => {
 			.then((response) => {
 				/* istanbul ignore next */
 				dispatch(projectDetailEditSuccess(response.data, event));
+				dispatch(initialize('ProjectForm', response.data, false, { keepSubmitSucceeded: true }));
 			})
 			.catch((error) => {
 				/* istanbul ignore next */
