@@ -25,6 +25,7 @@ import { getUserPreferences } from '../services/lookup.service';
 import { getClassNameForProjectStatus } from '../helpers/utility-helper';
 import * as services from '../services';
 import { formatMessage } from '../Translations/connectedIntlProvider';
+import { reset } from 'redux-form';
 
 interface IMapStateToProps {
 	notify: Notify;
@@ -38,7 +39,7 @@ interface IMapStateToProps {
 	status: number;
 	countries: Array<ICountry> | null;
 	getListOfDivisions: Array<IDynamicsDivision>;
-	getListOfBusinessUnit:Array<IDynamicBusinessUnits>;
+	getListOfBusinessUnit: Array<IDynamicBusinessUnits>;
 	loading: boolean;
 }
 
@@ -46,10 +47,11 @@ interface IMapDispatchToProps {
 	handleGetDynamicContractData: (searchContract: string) => void;
 	handleGetDynamicCompanyData: (searchCompany: string) => void;
 	getDynamicsListOfDivision: () => void;
-	getListOfBusinessUnits:()=>void;
+	getListOfBusinessUnits: () => void;
 	getProjectStatus: () => void;
 	getProjectDetail: (projectId: string) => void;
 	resetProjectDetailState: () => void;
+	resetProjectForm: () => void;
 	getAllCurrencies: () => void;
 	getAllCountries: () => void;
 	getDynamicContractData: () => void;
@@ -92,6 +94,7 @@ const Project: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = (prop
 			} else if (props.event == EventType.save) {
 				toast.success(formatMessage("MESSAGE_SUCCESSFUL"));
 			}
+			props.resetProjectForm();
 			props.resetProjectDetailState();
 		}
 	}, [props.notify, props.event]);
@@ -107,11 +110,11 @@ const Project: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = (prop
 			? props.handleProjectDetailsSubmit(data, EventType.next)
 			: props.handleProjectDetailsEdit(data, EventType.next);
 	};
-/* istanbul ignore next */
+	/* istanbul ignore next */
 	const onSearchContract = (values: any) => {
 		props.handleGetDynamicContractData(values);
 	};
-/* istanbul ignore next */
+	/* istanbul ignore next */
 	const onSearchCompany = (values: any) => {
 		props.handleGetDynamicCompanyData(values);
 	};
@@ -132,9 +135,9 @@ const Project: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = (prop
 				getListOfCompanies={services.getCompanies}
 				getListOfContract={services.getContractsAndCustomers}
 				listOfDivisions={props.getListOfDivisions}
-				listOfBusinessUnits ={props.getListOfBusinessUnit}
-				loading = {props.loading}
-				event = {props.event}
+				listOfBusinessUnits={props.getListOfBusinessUnit}
+				loading={props.loading}
+				event={props.event}
 			/>
 		</div>
 	);
@@ -146,7 +149,7 @@ const mapStateToProps = (state: IState) => {
 		dynamicsContract: state.dynamicData.dynamicsContract,
 		dynamicsCompany: state.dynamicData.dynamicsCompany,
 		getListOfDivisions: state.dynamicData.dynamicsListOfDivision,
-		getListOfBusinessUnit:state.dynamicData.dynamicsListOfBusinessUnits,
+		getListOfBusinessUnit: state.dynamicData.dynamicsListOfBusinessUnits,
 		userServiceData: state.userService.userServiceData,
 		notify: state.project.notify,
 		loading: state.project.loading,
@@ -171,7 +174,8 @@ const mapDispatchToProps = (dispatch) => {
 		handleGetDynamicCompanyData: (searchCompany) => dispatch(getDynamicCompanyData(searchCompany)),
 		resetProjectDetailStateToInitial: () => dispatch(actions.resetProjectDetailStateToInitial()),
 		getDynamicsListOfDivision: () => dispatch(actions.getListOfDivision()),
-		getListOfBusinessUnits:() =>dispatch(actions.getListOfBusinessUnits())
+		getListOfBusinessUnits: () => dispatch(actions.getListOfBusinessUnits()),
+		resetProjectForm: () => dispatch(reset('ProjectForm'))
 	};
 };
 
