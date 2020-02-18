@@ -262,7 +262,7 @@ const ProjectOverview: React.FC<
 	const failure = error => {};
   const saveHandler = (data: IProjectOverviewDetails, eventType: EventType) => {
     if (data.projectAdditionalDetail.projectAddDetailId == '') {
-      props.projectOverviewFormAdd(props.match.params.projectId,data,EventType.save);
+      props.projectOverviewFormAdd(props.match.params.projectId,data,eventType);
     } else {
       props.projectOverviewFormEdit(data, eventType);
     }
