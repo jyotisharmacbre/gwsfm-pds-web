@@ -24,7 +24,7 @@ const PostCommentForm = (props: Props & InjectedFormProps<IPostCommentForm, Prop
                     name="comment"
                     rows="5"
                     component={PdsFormTextArea}
-                    validate={[Validate.maxLength(5000)]}
+                    validate={[Validate.required('LABEL_COMMENT'), Validate.maxLength(5000)]}
                     placeholderKey="LABEL_ADD_YOUR_COMMENT_HERE"
                 />
             </div>

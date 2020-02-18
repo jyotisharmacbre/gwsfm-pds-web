@@ -17,16 +17,11 @@ import { toast } from 'react-toastify';
 import { formatMessage } from '../Translations/connectedIntlProvider';
 import {
 	getFilterElementFromArray,
-	getClassNameForProjectStatus,
-	getPropertyName,
 	displayUserName
 } from '../helpers/utility-helper';
 import ProjectOverviewStatusTab from '../components/Forms/ProjectOverviewForm/ProjectOverviewStatusTab';
-import { getDynamicSubContractorData } from '../store/DynamicsData/Action';
 import { IDynamicSubContractorData, IDynamicContractCustomerData } from '../store/DynamicsData/Types/IDynamicData';
 import { IProjectOverviewDetails } from '../store/ProjectOverviewForm/Types/IProjectOverviewDetails';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDownload } from '@fortawesome/free-solid-svg-icons';
 import { ICurrency } from '../store/Lookups/Types/ICurrency';
 import { ISubContractorActivity } from '../store/SubContractor/Types/ISubContractorActivity';
 import { IPreliminariesComponentDetails } from '../store/Preliminaries/Types/IPreliminariesComponentDetails';
