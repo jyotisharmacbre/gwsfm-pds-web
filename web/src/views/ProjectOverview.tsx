@@ -264,13 +264,15 @@ const ProjectOverview: React.FC<
 		);
 	};
 	/* istanbul ignore next */
-	const failure = (error) => { };
-	const saveHandler = (data: IProjectOverviewDetails,eventType:EventType) => {
-		data.projectAdditionalDetail.projectAddDetailId == ''
-			? props.projectOverviewFormAdd(props.match.params.projectId, data, EventType.save)
-			: props.projectOverviewFormEdit(data,eventType);
-			props.resetProjectOverviewFormState();	
-	};
+	const failure = error => {};
+  const saveHandler = (data: IProjectOverviewDetails, eventType: EventType) => {
+    if (data.projectAdditionalDetail.projectAddDetailId == '') {
+      props.projectOverviewFormAdd(props.match.params.projectId,data,EventType.save);
+    } else {
+      props.projectOverviewFormEdit(data, eventType);
+    }
+    props.resetProjectOverviewFormState();
+  };
 	/* istanbul ignore next */
 	const handleNext = (data: IProjectOverviewDetails) => {
 		if (props.isPostCommentFormDirty) {
@@ -279,11 +281,11 @@ const ProjectOverview: React.FC<
 				titleKey: 'TITLE_CONFIRMATION',
 				contentKey: 'MESSAGE_DIRTY_CHECK_COMMENT',
 				handleConfirm: () => {
-					saveHandler(data,EventType.next);
+					saveHandler(data, EventType.next);
 				}
 			})
 		} else {
-			saveHandler(data,EventType.next);
+			saveHandler(data, EventType.next);
 		}
 	};
 	/* istanbul ignore next */
