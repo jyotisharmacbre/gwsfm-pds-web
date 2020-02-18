@@ -11,7 +11,14 @@ Array [
 
 exports[`add user redux should dispatch getEnquiryOverview 1`] = `Array []`;
 
-exports[`add user redux should dispatch projectDetailEdit 1`] = `Array []`;
+exports[`add user redux should dispatch projectDetailEdit 1`] = `
+Array [
+  Object {
+    "event": 0,
+    "type": "SET_LOADING_TRUE",
+  },
+]
+`;
 
 exports[`add user redux should dispatch resetCustomerEnquiryStateDispatch 1`] = `
 Array [
@@ -53,4 +60,11 @@ Array [
 ]
 `;
 
-exports[`add user redux should dispatch the default action when requested project detail add in store 1`] = `Array []`;
+exports[`add user redux should dispatch the default action when requested project detail add in store 1`] = `
+Array [
+  Object {
+    "event": 0,
+    "type": "SET_LOADING_TRUE",
+  },
+]
+`;

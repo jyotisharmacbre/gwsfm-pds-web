@@ -10,7 +10,7 @@ let props: IActivityFeed = {
 	activityType: ProjectApprovalActivityType.UserQuery,
 	approvedBy: 'test',
 	query: 'Testing query',
-	createdDate: '10/11/2019 11:44'
+	createdDate: new Date() + ''
 };
 const mountComponent = (props) => {
 	wrapper = shallow(<ActivityFeed {...props} />);
@@ -46,8 +46,9 @@ describe('Activity feed test cases', () => {
 	it('should not renders the user icon if in approval state', () => {
 		expect(findByTestAtrr(wrapper, 'user-icon').length).toEqual(0);
 	});
-	it('should renders the date in correct format', () => {
-		expect(findByTestAtrr(wrapper, 'formated-date').text()).toEqual('11/10/2019 | 11:44 AM');
+    it('should renders the date in correct format', () => {
+		const dateAttr = findByTestAtrr(wrapper, 'formated-date').find('span').find('t');		
+		expect(dateAttr.html()).toContain('Today');
 	});
 	it('should renders the query correctly', () => {
 		expect(findByTestAtrr(wrapper, 'activity-query').text()).toEqual('Testing query');

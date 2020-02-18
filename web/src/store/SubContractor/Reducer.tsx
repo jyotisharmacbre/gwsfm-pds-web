@@ -41,7 +41,8 @@ const subContractorFormError = (oldState, action) => {
 
 const getSubContractorSuccess = (oldState, action) => {
 	return updateObject(oldState, {
-		form: updateObject(oldState.form, { activities: action.payload })
+		form: updateObject(oldState.form, { activities: action.payload }),
+		loading: false
 	});
 };
 
@@ -56,7 +57,14 @@ const resetSubContractorState = (oldState, action) => {
 const resetSubContractorNotifier = (oldState, action) => {
 	return updateObject(oldState, {
 		notify: Notify.none,
-		event: EventType.none
+		event: EventType.none,
+		loading: false
+	});
+};
+const setloadingTrue = (oldState, action) => {
+	return updateObject(oldState, {
+		loading: true,
+		event: action.event
 	});
 };
 const subContractorReducer = (oldState = initialState, action) => {
@@ -75,6 +83,8 @@ const subContractorReducer = (oldState = initialState, action) => {
 			return resetSubContractorState(oldState, action);
 		case ActionType.RESET_SUB_CONTRACTOR_NOTIFIER:
 			return resetSubContractorNotifier(oldState, action);
+		case ActionType.SET_LOADING_TRUE:
+			return setloadingTrue(oldState, action);
 		default:
 			return oldState;
 	}

@@ -18,6 +18,7 @@ import { ICurrency } from '../../../store/Lookups/Types/ICurrency';
 import EventType from '../../../enums/EventType';
 import { ILanguage } from '../../../store/Lookups/Types/ILanguage';
 import { formatMessage } from '../../../Translations/connectedIntlProvider';
+import { CircularProgress } from '@material-ui/core';
 
 interface Props {
   onSubmitForm: (data: IUserPreferences, event: EventType) => void;
@@ -26,14 +27,14 @@ interface Props {
   languages: ILanguage;
   displayName: string;
   displayEmail: string;
+  loading: boolean;
+  event: EventType;
 
 }
 
 let UserProfileForm: React.FC<Props &
   InjectedFormProps<IUserPreferences, Props>> = (props: any, Name: any) => {
-
     const { handleSubmit, redirectMenu } = props;
-
     return (
       <form onSubmit={handleSubmit} noValidate={true}>
         <div>
@@ -118,7 +119,11 @@ let UserProfileForm: React.FC<Props &
 
 
           <div className='link_group'>
-            <a href="#" data-test="save" onClick={handleSubmit(values => props.onSubmitForm(values))}><FormattedMessage id="BUTTON_SAVE" /></a>
+            <a href="#" data-test="save"
+           onClick = {handleSubmit((values) => props.onSubmitForm(values))}
+            >
+            {(props.loading) && <CircularProgress />}
+              <FormattedMessage id="BUTTON_SAVE" /></a>
             <span>|</span>
             <a href="#" data-test="cancel" onClick={redirectMenu}>{formatMessage('BUTTON_CANCEL')}</a>
           </div>

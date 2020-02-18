@@ -24,6 +24,13 @@ const projectDetailEditSuccess = (response: IProjectDetail, event: EventType) =>
 	};
 };
 
+const setloadingTrue = (event: EventType) => {
+	return {
+		type: ActionType.SET_LOADING_TRUE,		
+		event: event
+	};
+};
+
 const projectDetailError = (error: string) => {
 	return {
 		type: ActionType.PROJECT_ADD_ERROR,
@@ -45,11 +52,12 @@ export const projectDetailAdd = (data: IProjectDetail, event: EventType) => {
 	
 	return (dispatch: Dispatch) => {
 		if (isProjectStateInReview()) dispatch(projectDetailError('error'));
+		dispatch(setloadingTrue(event));
 		axios.baseAPI
 			.post('/api/Projects/customerEnquiry', data, { headers: headers })
 			.then((response) => {
 				/* istanbul ignore next */
-				dispatch(projectDetailAddSuccess(response.data, event));
+				dispatch(projectDetailAddSuccess(response.data, event));				
 			})
 			.catch((error) => {
 				/* istanbul ignore next */
@@ -61,11 +69,12 @@ export const projectDetailAdd = (data: IProjectDetail, event: EventType) => {
 export const projectDetailEdit = (data: IProjectDetail, event: EventType) => {
 	return (dispatch: Dispatch) => {
 		if (isProjectStateInReview()) dispatch(projectDetailError('error'));
+		dispatch(setloadingTrue(event));
 		axios.baseAPI
 			.put('/api/Projects/updatecustomerEnquiry', data, { headers: headers })
 			.then((response) => {
 				/* istanbul ignore next */
-				dispatch(projectDetailEditSuccess(response.data, event));
+				dispatch(projectDetailEditSuccess(response.data, event));				
 			})
 			.catch((error) => {
 				/* istanbul ignore next */

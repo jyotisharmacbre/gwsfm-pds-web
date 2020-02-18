@@ -4,9 +4,12 @@ import PdsFormTextArea from '../../PdsFormHandlers/PdsFormTextArea';
 import { Validate, alphaNumeric, onlyNumber, OnlyDistinctAssetTypes } from '../../../helpers/fieldValidations';
 import { IPostCommentForm } from './IPostCommentForm';
 import { FormattedMessage } from 'react-intl';
+import EventType from '../../../enums/EventType';
+import { CircularProgress } from '@material-ui/core';
 
 interface Props {
     postComment: (data: IPostCommentForm) => void;
+    loading: boolean;
 }
 
 const afterSubmit = (result, dispatch) =>
@@ -21,17 +24,18 @@ const PostCommentForm = (props: Props & InjectedFormProps<IPostCommentForm, Prop
                     name="comment"
                     rows="5"
                     component={PdsFormTextArea}
-                    validate={[Validate.maxLength(5000)]}
+                    validate={[Validate.required('LABEL_COMMENT'), Validate.maxLength(5000)]}
                     placeholderKey="LABEL_ADD_YOUR_COMMENT_HERE"
                 />
-                </div>
-               <div className="text-right"> 
-                <button type="submit" className="pds_button_align mr-4 mb-4" disabled={props.pristine || props.submitting} onClick={props.handleSubmit((values:IPostCommentForm) => props.postComment(values))}>
-                    Post Comment
-            </button>
             </div>
-        </form>          
-	);
+            <div className="text-right">
+                <button type="submit" className="pds_button_align mr-4 mb-4" disabled={props.pristine || props.submitting || props.loading} onClick={props.handleSubmit((values: IPostCommentForm) => props.postComment(values))}>
+                    {props.loading && <CircularProgress />}
+                    <FormattedMessage id='LABEL_POST_COMMENT' />
+                </button>
+            </div>
+        </form>
+    );
 };
 
 

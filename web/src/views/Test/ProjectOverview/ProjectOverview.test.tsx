@@ -211,4 +211,27 @@ describe('Project component test cases', () => {
 		expect(wrapper.find('.modal-dialog')).toBeDefined();
 	});
 
+	describe('Inline loading test', () => {
+		it('should not load loader when loading is false', () => {
+			customerEnquiryInitialState.loading = false;
+			setUpStore();
+			mountComponent(Props);
+			expect(wrapper.hasClass('MuiCircularProgress-root')).toBe(false);
+		});
+			it('should load loader when loading is true and event is save', () => {
+				customerEnquiryInitialState.loading = true;
+				customerEnquiryInitialState.event = EventType.save;
+				setUpStore();
+				mountComponent(Props);
+				expect(wrapper.find('.MuiCircularProgress-svg')).toBeDefined();
+			});
+	
+			it('should load loader when loading is true and event is next', () => {
+				customerEnquiryInitialState.loading = true;
+				customerEnquiryInitialState.event = EventType.next;
+				setUpStore();
+				mountComponent(Props);
+				expect(wrapper.find('.MuiCircularProgress-svg')).toBeDefined();
+			});
+	});
 });

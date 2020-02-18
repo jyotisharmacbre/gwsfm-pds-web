@@ -58,6 +58,14 @@ export const resetPreliminaryState = () => {
 	};
 };
 
+const setloadingTrue = (event: EventType) => {
+	return {
+		type: ActionType.SET_LOADING_TRUE,		
+		event: event
+	};
+};
+
+
 let config = {
 	headers: {
 		'Content-Type': 'application/json'
@@ -66,6 +74,7 @@ let config = {
 export const preliminaryAdd = (preliminaryDetails: Array<IPreliminaries>, event: EventType) => {
 	return (dispatch: Dispatch) => {
 		if (isProjectStateInReview()) dispatch(preliminaryAddError('error'));
+		dispatch(setloadingTrue(event));
 		axios.baseAPI
 			.post('api/Preliminaries/preliminaryDetails', preliminaryDetails, config)
 			.then((response) => {
@@ -80,6 +89,7 @@ export const preliminaryAdd = (preliminaryDetails: Array<IPreliminaries>, event:
 export const preliminaryEdit = (preliminaryDetails: Array<IPreliminaries>, event: EventType) => {
 	return (dispatch: Dispatch) => {
 		if (isProjectStateInReview()) dispatch(preliminaryEditError('error'));
+		dispatch(setloadingTrue(event));
 		axios.baseAPI
 			.put('api/Preliminaries/preliminaryDetails', preliminaryDetails, config)
 			.then((response) => {
@@ -93,6 +103,7 @@ export const preliminaryEdit = (preliminaryDetails: Array<IPreliminaries>, event
 
 export const getPreliminaryDetails = (projectId: string) => {
 	return (dispatch: Dispatch) => {
+		dispatch(setloadingTrue(Event.NONE));
 		axios.baseAPI
 			.get(`api/Preliminaries/${projectId}/preliminaryDetails`, config)
 			.then((response) => {

@@ -36,6 +36,7 @@ import { ProjectSignOffStatus } from '../store/ProjectOverviewForm/Types/Project
 import ProjectStatus from '../enums/ProjectStatus';
 import ErrorType from '../enums/ErrorType';
 import { IProjectApprovals } from '../store/ProjectOverviewForm/Types/IProjectApprovals';
+import { CircularProgress } from '@material-ui/core';
 
 interface IProps {
 	match: match<{ projectId: string }>;
@@ -173,30 +174,39 @@ const ReviewApprove: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & 
 		});
 	};
 
+	const [queryLoading, setQueryLoading] = useState(false);
+	const [approveLoading, setApproveLoading] = useState(false);
+
 	/* istanbul ignore next */
 	const handleApproval = () => {
+		setApproveLoading(true);
 		actions.projectApprove(props.match.params.projectId, handleApprovalSuccess, handleApprovalError);
 	};
 	/* istanbul ignore next */
 	const handleApprovalSuccess = (data) => {
+		setApproveLoading(false);
 		toast.success(formatMessage('MESSAGE_SUCCESSFUL_APPROVED'));
 		props.history.push('/');
 	};
 	/* istanbul ignore next */
 	const handleApprovalError = (data) => {
+		setApproveLoading(false);
 		toast.error(formatMessage('MESSAGE_ERROR'));
 	};
 	/* istanbul ignore next */
 	const handleQuerySuccess = (data) => {
+		setQueryLoading(false);
 		toast.success(formatMessage('MESSAGE_QUERY_SUCCESS'));
 		props.history.push('/');
 	};
 	/* istanbul ignore next */
 	const handleQueryError = (data) => {
+		setQueryLoading(false);
 		toast.error(formatMessage('MESSAGE_ERROR'));
 	};
 	/* istanbul ignore next */
 	const handleQuerySave = (data: string) => {
+		setQueryLoading(true);
 		actions.postQuery(props.match.params.projectId, data, handleQuerySuccess, handleQueryError);
 	};
 	/* istanbul ignore next */
@@ -290,10 +300,14 @@ const ReviewApprove: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & 
 									</div>
 								</div>
 								<div className="two-side-btn pt-2">
-									<button data-test="btnQuery" type="button" onClick={() => setShowQueryPopup(true)} hidden={!showQueryApproveButton}>
+									<button data-test="btnQuery" type="button" onClick={() => setShowQueryPopup(true)} hidden={!showQueryApproveButton}
+									disabled = {(queryLoading)}>
+										{(queryLoading) && <CircularProgress />}
 										<FormattedMessage id="BUTTON_QUERY" />
 									</button>
-									<button data-test="btnApprove" type="button" name="next" onClick={handleApproval} hidden={!showQueryApproveButton}>
+									<button data-test="btnApprove" type="button" name="next" onClick={handleApproval} hidden={!showQueryApproveButton}
+									disabled = {(approveLoading)}>
+										{(approveLoading) && <CircularProgress />}
 										<FormattedMessage id="BUTTON_APPROVE" />
 									</button>
 								</div>
