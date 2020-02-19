@@ -200,7 +200,6 @@ const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps & ICountryH
 		saveData = preliminariesData.filter((data) => {
 			return data.TotalCost > 0 && data.PreliminaryId == '';
 		});
-		debugger;
 		if (editData.length > 0 && saveData.length > 0) {
 			props.preliminaryEdit(editData, event);
 			props.preliminaryAdd(saveData, event);
