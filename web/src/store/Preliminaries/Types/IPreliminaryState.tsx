@@ -8,7 +8,4 @@ export interface IPreliminaryForm {
 export interface IPreliminaryState {
   preliminaryDetails:Array<IPreliminariesComponentDetails>;
   notify: Notify;
-  event:EventType.none;
-  loading: boolean;
-
 }
