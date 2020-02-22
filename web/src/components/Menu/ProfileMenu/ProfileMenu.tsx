@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import close_icon from '../../images/logo-black.png';
+import close_icon from '../../images/PDS_Logo_White.png';
 import language_icon from '../../images/language_icon.svg';
 import * as actions from '../../../store/rootActions';
 import {

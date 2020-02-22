@@ -1,6 +1,6 @@
 import React from 'react';
 import {useHistory } from 'react-router-dom';
-import cbre_icon from '../../images/logo-black.png';
+import cbre_icon from '../../images/PDS_Logo_White.png';
 import { IState } from '../../../store/state';
 import { connect } from 'react-redux';
 import { isValidGUID } from '../../../helpers/utility-helper';
