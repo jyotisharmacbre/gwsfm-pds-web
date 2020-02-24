@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle, faClock, faExclamationTriangle, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { ProjectSignOffStatus } from '../../../store/ProjectOverviewForm/Types/ProjectApprovalEnums';
 import ProjectStatus from '../../../enums/ProjectStatus';
+import { getClassNameForProjectStatus } from '../../../helpers/utility-helper';
 
 interface IProps {
 	fields: any;
@@ -52,7 +53,7 @@ const ProjectApprovalForm: React.FC<IProps> = (props) => {
 			</div>
 			{fields.map((member, index) => (
 				<div className="row align-items-stretch" key={index} data-test="project-approval-form">
-					<div className="col-11">
+					<div className={`${getClassNameForProjectStatus(props.status)} col-11`}>
 						<div className="form-group">
 							<NewTypeAhead
 								name={`${member}.userId`}
@@ -69,7 +70,7 @@ const ProjectApprovalForm: React.FC<IProps> = (props) => {
 							/>
 							
 							<span className="placehold"><FontAwesomeIcon className="" icon={faSearch} /></span>
-							<span className="right_fix_txt">{fields.get(index).approverTypeDescription}</span>							
+							<span className={`${getClassNameForProjectStatus(props.status)} right_fix_txt`}>{fields.get(index).approverTypeDescription}</span>							
 						</div>
 					</div>
 					<div className="col-1 pl-0">
