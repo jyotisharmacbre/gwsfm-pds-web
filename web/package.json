@@ -87,7 +87,7 @@
         "typescript": "^3.4.5"
     },
     "scripts": {
-        "build-css": "node-sass --include -path scss public/scss/style.scss public/css/style.css",
+        "build-css": "node-sass --include -path scss public/scss/style.scss src/css/style.css",
         "watch-css": "nodemon -e scss -x \"npm run build-css\"",
         "pretty": "prettier -l \"src/**/*.tsx\" \"src/**/*.ts\" --write",
         "start": "npm-run-all -p watch-css start-js",
