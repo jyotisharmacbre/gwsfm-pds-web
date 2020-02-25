@@ -108,6 +108,9 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 	const handlePostCommentError = (error) => {
 		setCommentLoading(false);
 	 };
+
+	 const disableClass =  getClassNameForProjectStatus(props.status);
+
 	return (
 		<form className="project-overview-form" noValidate={true} data-test="projectOverviewForm">
 			<div className="row">
@@ -116,7 +119,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						name="projectAdditionalDetail.mainContractor"
 						type="text"
 						component={PdsFormInput}
-						className={`${getClassNameForProjectStatus(props.status)} required`}
+						className={`${disableClass} required`}
 						validate={[Validate.required('LABEL_MAIN_CONTRACTOR')]}
 						labelKey="LABEL_MAIN_CONTRACTOR"
 						placeholderKey="PLACEHOLDER_CONTRACTORS_NAME"
@@ -126,7 +129,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						data-test="enquiryReceivedFrom"
 						type="text"
 						component={PdsFormInput}
-						className={`${getClassNameForProjectStatus(props.status)} required`}
+						className={`${disableClass} required`}
 						validate={[Validate.required('LABEL_ENQUIRY_RECEIVED_FROM'), Validate.maxLength(1000)]}
 						labelKey="LABEL_ENQUIRY_RECEIVED_FROM"
 						placeholderKey="PLACEHOLDER_ENQUIRY_SENDER_NAME"
@@ -135,7 +138,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						name="projectAdditionalDetail.enquiryTypeId"
 						component={PdsFormRadio}
 						data={props.projectstatus && props.projectstatus.filter((element) => element.lookupItem == LookupType.Enquiry_Type)}
-						className={`${getClassNameForProjectStatus(props.status)} required`}
+						className={`${disableClass} required`}
 						labelKey="LABEL_TYPE_OF_ENQUIRY"
 						normalize={normalize}
 						validate={[Validate.required('LABEL_TYPE_OF_ENQUIRY')]}
@@ -145,7 +148,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						data-test="creditCheckResult"
 						type="text"
 						component={PdsFormInput}
-						className={`${getClassNameForProjectStatus(props.status)} required`}
+						className={`${disableClass} required`}
 						validate={[Validate.required('LABEL_CREDIT_CHECK_RESULT'), Validate.maxLength(1000)]}
 						labelKey="LABEL_CREDIT_CHECK_RESULT"
 						placeholderKey="PLACEHOLDER_CREDIT_CHECK_DETAILS"
@@ -155,14 +158,14 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						data-test="siteAddress"
 						type="text"
 						component={PdsFormInput}
-						className={`${getClassNameForProjectStatus(props.status)} required`}
+						className={`${disableClass} required`}
 						validate={[Validate.required('LABEL_SITE_ADDRESS'), Validate.maxLength(1000)]}
 						labelKey="LABEL_SITE_ADDRESS"
 						placeholderKey="PLACEHOLDER_ADD_SITE_ADDRESS"
 					/>
 					{false && (
 						<Field
-							className={`${getClassNameForProjectStatus(props.status)} d-none`}
+							className={`${disableClass} d-none`}
 							name="projectAdditionalDetail.cdmNotifiable"
 							data-test="cdmNotifiable"
 							component={PdsFormButton}
@@ -175,7 +178,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						data-test="formOfContract"
 						type="text"
 						component={PdsFormInput}
-						className={`${getClassNameForProjectStatus(props.status)} required`}
+						className={`${disableClass} required`}
 						validate={[Validate.required('LABEL_FORM_OF_CONTRACT'), Validate.maxLength(1000)]}
 						labelKey="LABEL_FORM_OF_CONTRACT"
 						placeholderKey="PLACEHOLDER_FORM_OF_CONTRACT"
@@ -188,7 +191,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						validate={[Validate.maxLength(1000)]}
 						labelKey="LABEL_RETENTION"
 						placeholderKey="PLACEHOLDER_ADD_RETENTION"
-						className={`${getClassNameForProjectStatus(props.status)}`}
+						className={`${disableClass}`}
 
 					/>
 					<Field
@@ -199,7 +202,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						validate={[Validate.maxLength(1000)]}
 						labelKey="LABEL_LIQUIDATED_DAMAGES"
 						placeholderKey="PLACEHOLDER_ADD_LIQUIDATED_DAMAGES"
-						className={`${getClassNameForProjectStatus(props.status)}`}
+						className={`${disableClass}`}
 
 					/>
 					<Field
@@ -207,7 +210,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						data-test="insurance"
 						type="text"
 						component={PdsFormInput}
-						className={`${getClassNameForProjectStatus(props.status)} required`}
+						className={`${disableClass} required`}
 						validate={[Validate.required('LABEL_INSURANCE'), Validate.maxLength(1000)]}
 						labelKey="LABEL_INSURANCE"
 						placeholderKey="PLACEHOLDER_ADD_INSURANCE"
@@ -220,7 +223,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 							<Field
 								name="projectAdditionalDetail.workTypeId"
 								component={PdsFormSelect}
-								className={`${getClassNameForProjectStatus(props.status)} required`}
+								className={`${disableClass} required`}
 								validate={[Validate.required('MESSAGE_WORK_TYPE')]}
 								placeholderKey="PLACEHOLDER_WORK_TYPES"
 								messageKey="MESSAGE_WORK_TYPE"
@@ -228,7 +231,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 								<FormattedMessage id="PLACEHOLDER_WORK_TYPES">
 									{(message) => <option value="">{message}</option>}
 								</FormattedMessage>
-								className={`${getClassNameForProjectStatus(props.status)}`}
+								className={`${disableClass}`}
 								{getDropdown(props.projectstatus, LookupType.Work_Type)}
 
 							</Field>
@@ -243,14 +246,14 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 								</label>
 								<div className="calender-wrap">
 									<div className="row">
-										<div className={`${getClassNameForProjectStatus(props.status)} required col-md-6 mt-2 position-relative manipulate-calendar`}>
+										<div className={`${disableClass} required col-md-6 mt-2 position-relative manipulate-calendar`}>
 											<DatePicker
 												name="projectAdditionalDetail.commenceDate"
 												data-test="commenceDate"
 												labelKey="LABEL_COMMENCE_DATE"
 											/>
 										</div>
-										<div className={`${getClassNameForProjectStatus(props.status)} required col-md-6 mt-2 position-relative manipulate-calendar`}>
+										<div className={`${disableClass} required col-md-6 mt-2 position-relative manipulate-calendar`}>
 											<DatePicker
 												name="projecatAdditionalDetail.completionDate"
 												data-test="completionDate"
@@ -265,7 +268,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 												data-test="milestones"
 												labelKey="LABEL_PROJECTMILE_STONES"
 												rows="7"
-												className={`${getClassNameForProjectStatus(props.status)} required`}
+												className={`${disableClass} required`}
 												validate={[Validate.required('LABEL_PROJECTMILE_STONES')]}
 												component={PdsFormTextArea}
 												placeholderKey="PLACEHOLDER_PROJECT_MILESTONES"
@@ -285,19 +288,19 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 								</label>
 								<div className="calender-wrap">
 									<div className="row">
-									<div className={`${getClassNameForProjectStatus(props.status)} required col-md-6 mt-2 position-relative manipulate-calendar`}>
+									<div className={`${disableClass} required col-md-6 mt-2 position-relative manipulate-calendar`}>
 											<DatePicker
 												name="projectAdditionalDetail.firstValuationDate"
 												data-test="firstValuationDate"
-												className={`${getClassNameForProjectStatus(props.status)} required`}
+												className={`${disableClass} required`}
 												labelKey="LABEL_FIRST_VALUATION_DATE"
 											/>
 										</div>
-										<div className={`${getClassNameForProjectStatus(props.status)} required col-md-6 mt-2 position-relative manipulate-calendar`}>
+										<div className={`${disableClass} required col-md-6 mt-2 position-relative manipulate-calendar`}>
 											<DatePicker
 												name="projectAdditionalDetail.finalAccountDate"
 												data-test="finalAccountDate"
-												className={`${getClassNameForProjectStatus(props.status)} required`}
+												className={`${disableClass} required`}
 												labelKey="LABEL_FIRST_ACCOUNT_DATE"
 											/>
 										</div>
@@ -308,7 +311,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 												name="projectAdditionalDetail.valuationIntervals"
 												data-test="valuationIntervals"
 												type="text"
-												className={`${getClassNameForProjectStatus(props.status)} required`}
+												className={`${disableClass} required`}
 												validate={[Validate.required('LABEL_VALUATION_INTERVALS')]}
 												component={PdsFormInput}
 												labelKey="LABEL_VALUATION_INTERVALS"
@@ -322,7 +325,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 												name="projectAdditionalDetail.paymentTerms"
 												data-test="paymentTerms"
 												type="text"
-												className={`${getClassNameForProjectStatus(props.status)} required`}
+												className={`${disableClass} required`}
 												validate={[Validate.required('LABEL_PAYMENT_TERMS')]}
 												component={PdsFormInput}
 												labelKey="LABEL_PAYMENT_TERMS"
@@ -341,7 +344,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 							component={PdsFormButton}
 							buttons={selectionButtons}
 							labelKey="LABEL_PROJECT_IS_LIVE"
-							className={`${getClassNameForProjectStatus(props.status)}`}
+							className={`${disableClass}`}
 
 						/>
 					)}
@@ -353,7 +356,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						component={PdsFormTextArea}
 						validate={[Validate.maxLength(5000)]}
 						placeholderKey="PLACEHOLDER_ADDITIONAL_COMMENTS"
-						className={`${getClassNameForProjectStatus(props.status)}`}
+						className={`${disableClass}`}
 
 					/>
 				</div>
@@ -416,7 +419,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 			</div>
 			<div className="card_outer_wrap quote_wrap">
 				<div className="row">
-					<div className={`${getClassNameForProjectStatus(props.status)} col-lg-z4 px-2`}>
+					<div className={`${disableClass} col-lg-z4 px-2`}>
 						<ProjectOverviewRiskForm
 							riskName="projectAdditionalDetail.projectRisk1"
 							riskLabelName="LABEL_PROJECT_RISK_1"
@@ -424,7 +427,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 							riskControlMeasureLabelName="LABEL_RISK_1_CONTROL_MEASURE"
 						/>
 					</div>
-					<div className={`${getClassNameForProjectStatus(props.status)} col-lg-z4 px-2`}>
+					<div className={`${disableClass} col-lg-z4 px-2`}>
 						<ProjectOverviewRiskForm
 							riskName="projectAdditionalDetail.projectRisk2"
 							riskLabelName="LABEL_PROJECT_RISK_2"
@@ -432,7 +435,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 							riskControlMeasureLabelName="LABEL_RISK_2_CONTROL_MEASURE"
 						/>
 					</div>
-					<div className={`${getClassNameForProjectStatus(props.status)} col-lg-z4 px-2`}>
+					<div className={`${disableClass} col-lg-z4 px-2`}>
 						<ProjectOverviewRiskForm
 							riskName="projectAdditionalDetail.projectRisk3"
 							riskLabelName="LABEL_PROJECT_RISK_3"
@@ -447,12 +450,12 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 			<div className="hr_line mb-0 mt-5"></div>
 
 			<div className="mr-35 three-btn">
-				<button className="active" type="button" onClick={() => props.onPrevious()}>
+				<button className={`${disableClass} active`} type="button" onClick={() => props.onPrevious()}>
 					<FormattedMessage id="BUTTON_PREVIOUS" />
 				</button>
 				<button
 					name="save"
-					className="active active ml-auto"
+					className={`${disableClass} active active ml-auto`}
 					data-test="save"
 					type="button"
 					onClick={handleSubmit((values) => props.onSave(values))}
@@ -461,7 +464,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 					{(props.loading && props.event == EventType.save) && <CircularProgress />}
 					<FormattedMessage id="BUTTON_SAVE" />
 				</button>
-				<button type="button" name="next" onClick={handleSubmit((values) => props.onNext(values))} className= " "				
+				<button type="button" name="next" onClick={handleSubmit((values) => props.onNext(values))} className={`${disableClass}    `} 				
 				disabled = {(props.loading && props.event == EventType.next)}
 				>
 				{(props.loading && props.event == EventType.next) && <CircularProgress />}
