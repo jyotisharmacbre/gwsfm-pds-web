@@ -36,9 +36,9 @@ const Notification: React.FC<IMapStateToProps & IReactIntl> = (props) => {
 		<div>
 			<i>
 				<FontAwesomeIcon className="" icon={faBell} />
-				{getUnreadNotificationCount()>0 && <span className="badge badge-light"></span>}
+				{getUnreadNotificationCount() > 0 && <span className="badge badge-light"></span>}
 			</i>
-			<div className={`dropdown-menu notify_dropdown user-dropdown ${props.showNotification ? 'show' : 'hide'}
+			{getUnreadNotificationCount()>0 ? <div className={`dropdown-menu notify_dropdown user-dropdown ${props.showNotification ? 'show' : 'hide'}
 	  ${showClass() ? 'default' : 'all_pages'} `}>
 				<ul>
 					<li>
@@ -61,7 +61,17 @@ const Notification: React.FC<IMapStateToProps & IReactIntl> = (props) => {
 					})}
 				</ul>
 			</div>
+			:
+     <div className={`dropdown-menu notify_dropdown user-dropdown ${props.showNotification ? 'show' : 'hide'}
+	  ${showClass() ? 'default' : 'all_pages'} `}>
+				<ul>
+					<li>
+						<p>No Notification for you</p>
+					</li>
+				</ul>
+			</div>}
 		</div>
+
 	);
 };
 
