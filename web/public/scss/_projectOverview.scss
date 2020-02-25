@@ -286,9 +286,10 @@
             margin-left: auto;
         }
     }
-    .link_disabled {
-        pointer-events:none; 
-        opacity:0.6;         
+    .link_disabled input,.link_disabled button{
+        pointer-events:none !important; 
+        opacity:0.6;  
+
     }
     .mrgnlft10
     {
