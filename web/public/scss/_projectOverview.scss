@@ -286,7 +286,7 @@
             margin-left: auto;
         }
     }
-    .link_disabled input,.link_disabled button{
+    .link_disabled input,.link_disabled button,.link_disabled textarea ,.link_disabled select{
         pointer-events:none !important; 
         opacity:0.6;  
 
