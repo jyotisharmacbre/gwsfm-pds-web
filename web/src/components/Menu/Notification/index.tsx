@@ -49,12 +49,14 @@ const Notification: React.FC<IMapStateToProps & IReactIntl> = (props) => {
 					</li>
 					{props.notifications.map(notification => {
 						return (<li className="bg-grey">
+							<a href={`/ReviewApprove/${notification.projectId}`}>
 							<h4 className="title">
 								{`${getTemplate(notification.notificationType)}`}
 							</h4>
 							<p className="brief">
 								{notification.description}
 							</p>
+							</a>
 							<span className="mark_sign">MARK READ</span>
 						</li>)
 
