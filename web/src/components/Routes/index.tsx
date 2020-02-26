@@ -14,7 +14,7 @@ import Error from '../../views/Error/Error';
 import ProfileMenu from '../Menu/ProfileMenu/ProfileMenu';
 import Nav from '../Nav/Nav';
 import Preliminaries from '../../views/Preliminaries';
-//const Test = React.lazy(() => import('../../views/Error/Error'))
+const Test = React.lazy(() => import('../../views/Error/Error'))
 
 const NavRoute = ({ component: Component, showLeftMenu, ...rest }) => {
     return (
