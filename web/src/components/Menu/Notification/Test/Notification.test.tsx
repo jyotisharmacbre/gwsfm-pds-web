@@ -77,11 +77,39 @@ describe('Notification Renders', () => {
 	});
 
 	
+	it('should have badge when unread notification', () => {			
+		renderComponent(store, props);
+		console.log(wrapper.debug());
+		expect(wrapper.find('.badge')).toHaveLength(1);
+	});
+	
 	it('should not render list of notifications', () => {	
 	props.notifications =	[];	
 		renderComponent(store, props);
 		expect(wrapper.find('.brief')).toHaveLength(0);
 	});
+
+	it('should not have bedge when no unread message', () => {	
+		props.notifications = [{
+			notificationId: 1,
+			projectId: 1,
+			senderId: "test@pds.com",
+			receiverId: "test@pds1.com",
+			notificationType: 1,
+			description: 1,
+			status: 1,
+			createdOn: null,
+			modifiedOn: null
+		}]	
+			renderComponent(store, props);
+			expect(wrapper.find('.badge')).toHaveLength(0);
+		});
+
+		it('should not have bedge when no message', () => {	
+			props.notifications =	[];	
+				renderComponent(store, props);
+				expect(wrapper.find('.badge')).toHaveLength(0);
+			});
 
 });
 
