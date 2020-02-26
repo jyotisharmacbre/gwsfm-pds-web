@@ -123,9 +123,6 @@ const PricingSummaryTable: React.FC<Props> = (props) => {
 								<th className="width-percent25">
 									<FormattedMessage id="TITLE_SUB_CONTRACTOR" />
 								</th>
-								{/* <th className="width-percent25">
-									<FormattedMessage id="TITLE_MARGIN" /> (%)
-								</th> */}
 								<th className="width-percent25">
 									<FormattedMessage id='TITLE_CUSTOMER' />{' '}
 									{props.discount?.clientDiscount?.discountType == 0 ? (
@@ -152,7 +149,6 @@ const PricingSummaryTable: React.FC<Props> = (props) => {
 										</span>
 										&nbsp;
 									</td>
-									{/* <td data-column="Margin (%)">&nbsp;</td> */}
 
 									<td data-column={`${formatMessage('TITLE_CUSTOMER')} 
 									${props.discount?.clientDiscount?.discountType == 1 ? (
@@ -187,9 +183,6 @@ const PricingSummaryTable: React.FC<Props> = (props) => {
 								<FormattedMessage id=
 			{props.countryCode.toLowerCase() == 'gbr' ? ('LABEL_INSURANCE_PERCENTAGE') : ('LABEL_SGA_PERCENTAGE')} />
 								</th>
-								{/* <th className="width-percent25">
-									<FormattedMessage id="TITLE_SELL" /> ({props.currencySymbol})
-								</th> */}
 							</tr>
 						</thead>
 					)}
@@ -219,7 +212,7 @@ const PricingSummaryTable: React.FC<Props> = (props) => {
 										<span>{props.insuranceRate ? `${props.insuranceRate}(%)` : null}</span>
 										&nbsp;
 									</td>
-									{/* <td data-column={`Sell (${props.currencySymbol})`}>&nbsp;</td> */}
+									
 								</tr>
 							</React.Fragment>
 						) : null}
