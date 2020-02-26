@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import close_icon from '../../images/logo-black.png';
+import close_icon from '../../images/PDS_Logo_White.png';
 import language_icon from '../../images/language_icon.svg';
 import * as actions from '../../../store/rootActions';
 import {
@@ -66,6 +66,7 @@ const ProfileMenu: React.FC<any> = props => {
   let history = useHistory();
   const authProvider = useAuthContext();
   const [showMenu, setMenuVisibility] = useState(false);
+  const [showNotify, setNotificationVisibility] = useState(false);
   const [isEditable, makeEditable] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -86,6 +87,7 @@ const ProfileMenu: React.FC<any> = props => {
       props.resetUserPreferencesState();
       props.getProjectStatus();
       setMenuVisibility(true);
+      setNotificationVisibility(true);
       makeEditable(false);
       setLoading(false);
     }
@@ -104,12 +106,14 @@ const ProfileMenu: React.FC<any> = props => {
 
   const closePanel = () => {
     setMenuVisibility(true);
+    setNotificationVisibility(true);
     makeEditable(false);
   }
 
   const handleBlur = (e) => {
     if (e.relatedTarget == null || !e.currentTarget.contains(e.relatedTarget)) {
       setMenuVisibility(false);
+      setNotificationVisibility(false);
     } else {
       e && e.target.focus();
     }
@@ -157,12 +161,58 @@ const ProfileMenu: React.FC<any> = props => {
                   <FontAwesomeIcon className="" icon={faHome} />
                 </a>
               </li>
-              <li>
-                <a href="#">
+              <li onBlur={handleBlur}>
+                <a href="#"
+                onClick={() => setNotificationVisibility(!showNotify)}>
                   <i>
                     <FontAwesomeIcon className="" icon={faBell} />
-                    <span className="badge badge-light">3</span>
+                    <span className="badge badge-light"></span>
                   </i>
+                  <div className={`dropdown-menu notify_dropdown user-dropdown ${showNotify ? 'show' : 'hide'}
+                  ${showClass() ? 'default' : 'all_pages'} `}>
+                   <ul>
+                     <li>
+                       <div className="notify_topbar">
+                         <span>(5) New Notifications</span>
+                         <span>Mark all as Read</span>
+                       </div>
+                     </li>
+                     <li className="bg-grey">
+                       <h4 className="title">
+                         New Approver Request Received
+                       </h4>
+                       <p className="brief">
+                         A new request has been received for the project Project Test.
+                       </p>
+                       <span className="mark_sign">MARK READ</span>
+                     </li>
+                     <li className="bg-grey">
+                       <h4 className="title">
+                         New Approver Request Received
+                       </h4>
+                       <p className="brief">
+                         A new request has been received for the project Project Test.
+                       </p>
+                       <span className="mark_sign">MARK READ</span>
+                     </li>
+                     <li>
+                       <h4 className="title">
+                         New Approver Request Received
+                       </h4>
+                       <p className="brief">
+                         A new request has been received for the project Project Test.
+                       </p>
+                     </li>
+                     <li>
+                       <h4 className="title">
+                         New Approver Request Received
+                       </h4>
+                       <p className="brief">
+                         A new request has been received for the project Project Test.
+                       </p>
+                     </li>
+                   </ul>
+                   </div>
                 </a>
               </li>
               <li data-test='menu-container' onBlur={handleBlur}>

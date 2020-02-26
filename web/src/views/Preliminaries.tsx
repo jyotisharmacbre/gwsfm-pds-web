@@ -220,7 +220,9 @@ const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps & ICountryH
 			<div data-test="pre_row_status" className={`${getClassNameForProjectStatus(props.status)} row`}>
 				<div className="col-lg-12">
 					<form className="custom-wrap">
-						<div className="heading-subtitle">
+						<div className="row align-items-center">
+							<div className="col-lg-9">
+							<div className="heading-subtitle">
 							<h1>
 								<span className="d-md-block d-none">
 									<FormattedMessage id="TITLE_JUSTIFICATION" />
@@ -236,22 +238,9 @@ const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps & ICountryH
 							</p>
 						</div>
 
-						<div className="row">
-							<div className="col-lg-12">
-								<div className="row">
-									<div className="col-lg-9">
-										<div className="table-responsive">
-											<CalculationsSummaryTable
-												preliminary={props.preliminaryForm}
-												subContractor={props.subContractorState}
-												discount={props.discountState}
-												currencySymbol={currencySymbol}
-												insuranceRate={props.insuranceRate}
-											/>
-										</div>
-									</div>
-									<div className="col-lg-3">
-										<div className="text-left text-lg-right">
+							</div>
+							<div className="col-lg-3">
+							<div className="text-left text-lg-right float-lg-right">
 											<button
 												type="button"
 												className={`active fltRght mb-3 mb-lg-0 btn-collapseall" ${isExpand
@@ -273,6 +262,25 @@ const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps & ICountryH
 												<FormattedMessage id="BUTTON_COLLAPSE_ALL" />
 											</button>
 										</div>
+							</div>
+						</div>
+						
+						<div className="row">
+							<div className="col-lg-12">
+								<div className="row">
+									<div className="col-lg-9">
+										<div className="table-responsive">
+											<CalculationsSummaryTable
+												preliminary={props.preliminaryForm}
+												subContractor={props.subContractorState}
+												discount={props.discountState}
+												currencySymbol={currencySymbol}
+												insuranceRate={props.insuranceRate}
+											/>
+										</div>
+									</div>
+									<div className="col-lg-3">
+										
 									</div>
 								</div>
 							</div>
