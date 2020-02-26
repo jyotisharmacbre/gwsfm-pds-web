@@ -10,7 +10,6 @@ import Discounts from '../../views/Discounts';
 import Subcontractor from '../../views/Subcontractor';
 import ReviewSubmit from '../../views/ReviewSubmit';
 import ReviewApprove from '../../views/ReviewApprove';
-//import Error from '../../views/Error/Error';
 import ProfileMenu from '../Menu/ProfileMenu/ProfileMenu';
 import Nav from '../Nav/Nav';
 import Preliminaries from '../../views/Preliminaries';
