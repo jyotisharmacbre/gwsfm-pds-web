@@ -15,7 +15,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 // @ts-ignore
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, match } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
 import { userPreferencesGet, userPreferencesFormEdit, userPreferencesFormAdd, resetUserPreferencesState } from '../../../store/UserPreferencesForm/Actions';
@@ -30,6 +30,8 @@ import { formatMessage } from '../../../Translations/connectedIntlProvider';
 import { FormattedMessage } from 'react-intl';
 import { displayUserName } from '../../../helpers/utility-helper';
 import useAuthContext from '../../../hooks/useAuthContext';
+import { IProjectDetail } from '../../../store/CustomerEnquiryForm/Types/IProjectDetail';
+import { Label } from '@material-ui/icons';
 
 
 interface IMapDispatchToProps {
@@ -48,10 +50,12 @@ interface IMapDispatchToProps {
   resetUserPreferencesState: () => void;
   getProjectStatus: () => void;
   getCurrentUserProfile: () => void;
+  getProjectDetail: (projectId: string) => void;
+
 }
 
 interface IProps {
-  match: any;
+  match: match<{ projectId: string }>;
 }
 
 interface IMapStateToProps {
@@ -60,15 +64,36 @@ interface IMapStateToProps {
   event: EventType;
   notify: Notify;
   token: string;
+  project: IProjectDetail;
+
 }
 
 const ProfileMenu: React.FC<any> = props => {
+
   let history = useHistory();
   const authProvider = useAuthContext();
   const [showMenu, setMenuVisibility] = useState(false);
   const [isEditable, makeEditable] = useState(false);
   const [loading, setLoading] = useState(false);
+	const projectId = props.project.projectId;
 
+	useEffect(() => {
+
+		props.getProjectDetail(projectId);
+	
+	}, []);
+
+
+  useEffect(
+    () => {
+      if (props.project.projectId > 0 && props.Project) {
+        actions.getProjectDetail(
+          props.project.projectId,
+        )
+      }
+    },
+    [props.project.projectId]
+  );
 
   useEffect(() => {
     if (props.token) {
@@ -133,7 +158,7 @@ const ProfileMenu: React.FC<any> = props => {
   return (
     <nav className="topbar">
       <div className="container-fluid">
-        {/* <div className="LeftMenu"><label>Project Name</label></div> */}
+       {props.project?.name && (<div className="LeftMenu"><label>{props.project.name}</label></div>) }
         <div className="row d-flex align-items-center">
           <div className=
             {
@@ -289,7 +314,11 @@ const mapStateToProps = (state: IState) => {
     displayEmail: state.userService.currentUserProfile.email,
     loading: state.userPreferences.loading,
     event: state.userPreferences.event,
-    token: state.auth.token
+    token: state.auth.token,
+    projectOverview: state.projectOverview.form,
+    project: state.project.form,
+
+
   }
 }
 
@@ -305,6 +334,8 @@ const mapDispatchToProps = dispatch => {
     resetUserPreferencesState: () => dispatch(resetUserPreferencesState()),
     getProjectStatus: () => dispatch(actions.getProjectStatus()),
     getCurrentUserProfile: () => dispatch(actions.getCurrentUserProfileForEmailsService()),
+    getProjectDetail: (projectId) => dispatch(actions.getProjectDetail(projectId)),
+
   }
 }
 

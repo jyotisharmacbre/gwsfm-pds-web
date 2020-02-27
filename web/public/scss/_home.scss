@@ -31,12 +31,7 @@
             }
         }
     }
-    .LeftMenu>label
-    {
-        display: flex;
-        color:white;
-     
-    }
+
     .icons-blocks {
         list-style: none;
         margin: 0;
@@ -470,4 +465,13 @@
     border: 0 !important;
     font-size: 20px !important;
     padding-left: 0 !important;
+}
+.LeftMenu>label
+{
+    align-items: center;
+    display: flex;
+    color: #fff;
+    height: 60px;
+     float: left;
+ 
 }
