@@ -49,14 +49,21 @@ const GridTableNew: React.FC<IGridTableProps> = props => {
   };
 
   const sizePerPageRenderer = ({ options, currSizePerPage, onSizePerPageChange }) => (
-    <div className="customSizeFilter">
-      {
-        options.map((option) => (
-          <a className="" href="#" onClick={() => onSizePerPageChange(option.page)}>{option.text}</a>
+    <form>
+      <div className="customSizeFilter form-group">
+        <div className="select-wrapper record-select">
+          <select className="form-control">
+            {
+              options.map((option) => (
+                <option className="form-control" onClick={() => onSizePerPageChange(option.page)}>{option.text}
+                </option>
 
-        ))
-      }
-    </div>
+              ))
+            }
+          </select>
+        </div>
+      </div>
+    </form>
   );
 
   const options = {
@@ -94,15 +101,14 @@ const GridTableNew: React.FC<IGridTableProps> = props => {
             <div>
               <SizePerPageDropdownStandalone
                 {...paginationProps} />
-
               <BootstrapTable
                 remote
                 keyField="projectId"
                 data={props.data}
                 columns={props.columns}
-                defaultSorted={props.defaultSorted}
+                // defaultSorted={props.defaultSorted}
                 classes={`${props.className} table_responsive`}
-                onTableChange={props.onTableChange}
+                // onTableChange={props.onTableChange}
                 {...paginationTableProps}
               />
             </div>

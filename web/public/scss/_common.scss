@@ -684,30 +684,43 @@ td {
 }
 
 /*pagination*/
+.pagination_outer > div{
+    display: flex;
+    justify-content: center;
+}
 .pagination_outer {
     width: 100%;
     text-align: center;
+    margin-bottom: 16px;
     a {
         font-size: 14px;
+        text-align: center;
         font-weight: 600;
         color: #333;
         padding: 0 10px;
         margin: 0 5px;
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
         position: relative;
+        display: block;
         &.active,
         &:hover {
             background: #dfdfdf;
-            width: 30px;
-            height: 30px;
             border-radius: 50%;
             &:nth-child(1),
             &:nth-child(2),
             &:nth-last-child(2),
             &:last-child {
+                &:before,
+                &:after {
+                    display: inline-block;
+                }
                 background: transparent;
             }
         }
         &.disabled {
+            display: inline-block;
             &:nth-child(1),
             &:nth-child(2),
             &:nth-last-child(2),
@@ -729,9 +742,11 @@ td {
         &:last-child {
             &:before {
                 content: '';
+                display: inline-block;
                 position: absolute;
-                left: 0;
-                top: 5px;
+                left: 50%;
+                margin-left: -4px;
+                top: 10px;
                 border: 2px solid #333333;
                 width: 8px;
                 height: 8px;
@@ -742,8 +757,10 @@ td {
             &:after {
                 content: '';
                 position: absolute;
-                left: -6px;
-                top: 3px;
+                display: inline-block;
+                left: 50%;
+                top: 8px;
+                margin-left: -9px;
                 width: 2px;
                 height: 12px;
                 background: #333333;
@@ -768,6 +785,18 @@ td {
                 left: auto;
                 background: #333333;
             }
+        }
+    }
+}
+
+/*number of records*/
+.select-wrapper {
+    &.record-select {
+        .form-control {
+            max-width: 80px;
+        }
+        &::before {
+            right: calc(100% - 70px);
         }
     }
 }
