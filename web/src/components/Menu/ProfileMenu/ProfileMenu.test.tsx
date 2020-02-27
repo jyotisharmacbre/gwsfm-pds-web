@@ -73,6 +73,8 @@ describe('Profile Menu', () => {
       userPreferences: { preferences: {} },
       lookup: {},
       userService: { currentUserProfile: { displayName: 'testName', email: 'test@pds.com' } },
+      project: {form: {name: "testName"}},
+      projectOverview: {form: {name: "testName"}},
       auth:{token: '' },
     });
   };
@@ -98,6 +100,7 @@ describe('Profile Menu', () => {
     displayName: 'TestName',
     displayEmail: 'TestEmail',
     auth:{token: '' }
+    
   };
   beforeEach(() => {
 
@@ -118,6 +121,16 @@ describe('Profile Menu', () => {
     expect(field).toBeDefined();
   });
 
+  it('should contain LeftMenu', () => {
+    const leftmenu = wrapper.find('.LeftMenu');
+    expect(leftmenu).toBeDefined();
+  });
+
+  it('should contain LeftMenu', () => {
+    const text = wrapper.find('.LeftMenu').find('label').text();
+    expect(text).toEqual('testName');
+  });
+
   it('should hide menu onload', () => {
     const field = findByTestAtrr(wrapper, 'menu-container').first();
     expect(field.hasClass('hide')).toBeTruthy;
@@ -135,6 +148,8 @@ describe('Profile Menu', () => {
     field.simulate('blur');
     expect(field.hasClass('hide')).toBeTruthy;
   });
+
+
 
   it('should show logo in case of Error page', () => {
     mockJWT();
