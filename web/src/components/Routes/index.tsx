@@ -13,7 +13,7 @@ import ReviewApprove from '../../views/ReviewApprove';
 import ProfileMenu from '../Menu/ProfileMenu/ProfileMenu';
 import Nav from '../Nav/Nav';
 import Preliminaries from '../../views/Preliminaries';
-import Error from '../../views/Error/Error';//const Error = React.lazy(() => import('../../views/Error/Error'))
+import Error from '../../views/Error/Error';
 
 const NavRoute = ({ component: Component, showLeftMenu, ...rest }) => {
   return (
