@@ -133,6 +133,7 @@ const ProfileMenu: React.FC<any> = props => {
   return (
     <nav className="topbar">
       <div className="container-fluid">
+        {/* <div className="LeftMenu"><label>Project Name</label></div> */}
         <div className="row d-flex align-items-center">
           <div className=
             {
