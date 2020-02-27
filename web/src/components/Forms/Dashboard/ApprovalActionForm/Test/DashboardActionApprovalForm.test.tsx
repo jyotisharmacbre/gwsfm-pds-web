@@ -58,6 +58,10 @@ describe('Dashboard Form testCases', () => {
     componentMount({ props });
     expect(wrapper).toMatchSnapshot();
   });
+    it('should insert pending class', () => {
+        componentMount( props );
+       expect(wrapper.find('.status_pending')).toHaveLength(1);
+    });
 });
 describe('Dashboard form reducer', () => {
   it('should handle Get PROJECT DASHBOARD GRID DETAILS successfully', () => {
@@ -77,7 +81,7 @@ describe('Dashboard form reducer', () => {
     expect(
       DashboardGridDetailReducer(initialState, projectDashboardGridErrorAction)
     ).toMatchSnapshot();
-  });
+  }); 
 
   it('should handle Get RESET DASHBOARD STATE successfully', () => {
     const projectDashboardGridResetStateAction: any = {

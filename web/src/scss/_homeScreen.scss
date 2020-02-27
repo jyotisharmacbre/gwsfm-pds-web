@@ -64,3 +64,25 @@
         }
     }
 }
+.status_design {
+    padding: 2px 10px !important;
+    border-radius: 50px;
+    border: 1px solid transparent;
+}
+
+.status_draft {
+    background-color: #006A4D;
+    color: white;
+}
+.status_approved {
+    background-color: #69BE28;
+    color: white;
+}
+.status_pending {
+    background-color: #F58220;
+    color: white;
+}
+.status_responseawaited {
+    background-color: #FFDD00;
+    color: white;
+}

@@ -56,6 +56,7 @@ let DashboardActionApprovalForm: React.FC<Props & InjectedFormProps<Array<IProje
 						rowProject.approvalStatus,
 						LookupItems.Project_Approval_Sign_Off_Status
 					) : rowProject.approvalStatus;
+					rowProject['approvalStatusClass'] = 'status_design status_' + rowProject.approvalStatus.replace(/ /g, '').toLowerCase()
 					var mailObj = namesAndEmails.find(
 						lk => lk.email && rowProject.modifiedBy && lk.email.toUpperCase() === rowProject.modifiedBy.toUpperCase()
 					);
@@ -114,7 +115,8 @@ const getTableColumns = () => {
 		},
 		{
 			title: formatMessage("HOMESCREEN_GRID_COLUMN_STATUS"),
-			field: 'approvalStatus'
+			field: 'approvalStatus',
+			class:'approvalStatusClass'
 		}
 	];
 };
