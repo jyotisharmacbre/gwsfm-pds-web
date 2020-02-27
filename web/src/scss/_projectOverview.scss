@@ -314,10 +314,10 @@
                 font-weight: 600;
             }
             .placehold {
-                font-size: 14px;
+                font-size: 12px;
                 position: absolute;
                 left: 10px;
-                top: calc(100% - 31px);
+                top: calc(100% - 28px);
                 color: map-get($colors, grey001);
             }
             .form-control {
@@ -325,6 +325,7 @@
                 padding-right: 100px;
             }
         }
+        
         .approve_state {
             display: flex;
             align-items: flex-end;

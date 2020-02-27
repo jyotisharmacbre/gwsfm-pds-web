@@ -31,3 +31,4 @@ package-lock.json
 /web/coverage
 /web/junit.xml
 web/public/css/style.css
+/web/src/css/style.css
