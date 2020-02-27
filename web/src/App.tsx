@@ -9,6 +9,7 @@ import ErrorBoundary from './components/Error/ErrorBoundary';
 import { loadProgressBar } from 'axios-progress-bar'
 import 'axios-progress-bar/dist/nprogress.css'
 import { baseAPI } from './client';
+import preval from 'preval.macro';
 
 const App: React.FC = (props: any) => {
 	//Loading progressbar
@@ -134,6 +135,9 @@ const App: React.FC = (props: any) => {
 			<div>
 				<Layout Theme={theme} UseStyles={useStyles()} />
 				<ToastContainer autoClose={5000} className="custom_toast_block" transition={Bounce} />
+				<p style={{ display: 'hidden' }}>
+					Build Date: {preval`module.exports = new Date().toLocaleString();`}.
+        		</p>
 			</div>
 		</ErrorBoundary>
 	);
