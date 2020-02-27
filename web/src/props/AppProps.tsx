@@ -80,12 +80,18 @@ export interface IGridTableProps {
   ActionList: IBtnActionProps[];
   sorting: boolean;
   className: string;
+  defaultSorted?: any;
   onRowClick?: (
     e: React.MouseEvent<Element, MouseEvent> | undefined,
     rowData: any
   ) => void;
+  onTableChange?: (type, params) => void;
+  page?: number;
+  sizePerPage?: number;
+  totalSize?: number;
+
 }
-export interface ITableFilterProps extends ITableProps {}
+export interface ITableFilterProps extends ITableProps { }
 
 export interface INotificationProps {
   handleClick: () => void;

@@ -1,5 +1,7 @@
 import { IProjectPipelineGrid } from './IProjectPipelineGrid';
 export interface IProjectPipelineGridState {
-  pipelineDetails: Array<IProjectPipelineGrid>;
+
+  totalNumberOfRecord: number;
+  data: Array<IProjectPipelineGrid>
   error: string | null;
 }

@@ -16,21 +16,26 @@ import { ICurrency } from '../../../store/Lookups/Types/ICurrency';
 import { IUserServiceData } from '../../../store/UserService/Types/IUserService';
 import { IProjectPipelineGrid } from '../../../store/pipeline/Types/IProjectPipelineGrid';
 import { IDynamicContractCustomerData } from '../../../store/DynamicsData/Types/IDynamicData';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowDown, faArrowUp } from '@fortawesome/free-solid-svg-icons';
+import GridTableNew from '../../Table/GridTableNew';
+import { columnFormatter, sortCaret } from '../../Table/TableHelper';
+import { IProjectPipelineGridState } from '../../../store/pipeline/Types/IProjectPipelineGridState';
 interface Props {
-  pipelineValues: any;
+  pipelineValues: IProjectPipelineGridState;
   lookupValues: any;
   currencies: Array<ICurrency> | null;
   userNamesForEmailsValues: Array<IUserServiceData>;
   contractCustomerList: Array<IDynamicContractCustomerData>;
+  handleTableChange: (type, params) => void;
 }
 const ProjectPipelineForm: React.FC<Props & IReactIntl> = (props: any) => {
   const CurrencyObj = new Currency();
-  const { pipelineValues, lookupValues, currencies } = props;
   const [gridData, setGridData] = useState<Array<IProjectPipelineGrid>>([]);
   useEffect(
     () => {
       if (
-        props.pipelineValues?.length > 0 && props.pipelineValues[0].projectId !== '' &&
+        props.pipelineValues?.totalNumberOfRecord > 0 && props.pipelineValues.data[0].projectId !== '' &&
         props.currencies?.length > 0 &&
         props.lookupValues?.length > 0 &&
         props.contractCustomerList?.length > 0 &&
@@ -38,7 +43,7 @@ const ProjectPipelineForm: React.FC<Props & IReactIntl> = (props: any) => {
       ) {
         setGridData(
           getPipelineValues(
-            props.pipelineValues,
+            props.pipelineValues.data,
             props.lookupValues,
             props.currencies,
             props.userNamesForEmailsValues,
@@ -102,75 +107,131 @@ const ProjectPipelineForm: React.FC<Props & IReactIntl> = (props: any) => {
     });
     return data;
   };
+
+  const getTableColumns = () => {
+    return [
+      {
+        dataField: 'name',
+        text: formatMessage('MESSAGE_PROJECT_NAME'),
+        sort: true,
+        sortCaret: sortCaret,
+        formatter: columnFormatter
+      },
+      {
+        dataField: 'projectOwner',
+        text: formatMessage('LABEL_OWNER'),
+        sort: true,
+        sortCaret: sortCaret,
+        formatter: columnFormatter
+      },
+      {
+        dataField: 'lastModified',
+        text: formatMessage('LABEL_LAST_UPDATE'),
+        sort: true,
+        sortCaret: sortCaret,
+        formatter: columnFormatter
+      },
+      {
+        dataField: 'contractorId',
+        text: formatMessage('LABEL_CLIENT_CUSTOMER'),
+        sort: true,
+        sortCaret: sortCaret,
+        formatter: columnFormatter
+      },
+      {
+        dataField: 'probabilityOfWinning',
+        text: formatMessage('LABEL_PROBABILITY_OF_WINING'),
+        sort: true,
+        sortCaret: sortCaret,
+        formatter: columnFormatter,
+        formatExtraData: { type: ColumnTypeEnum.percentage },
+      },
+      {
+        dataField: 'status',
+        text: formatMessage('LABEL_STATUS'),
+        sort: true,
+        sortCaret: sortCaret,
+        formatter: columnFormatter
+      },
+      {
+        dataField: 'commenceDate',
+        text: formatMessage('LABEL_EXPECTED_START_DATE'),
+        sort: true,
+        sortCaret: sortCaret,
+        formatter: columnFormatter,
+        formatExtraData: { type: ColumnTypeEnum.date }
+      },
+      {
+        dataField: 'approxValue',
+        text: formatMessage('LABEL_APPROX_VALUE'),
+        sort: true,
+        sortCaret: sortCaret,
+        formatter: columnFormatter,
+        formatExtraData: { type: ColumnTypeEnum.currency }
+      },
+
+      {
+        dataField: 'contractTypeId',
+        text: formatMessage('LABEL_CONTRACT_TYPE'),
+        sort: true,
+        sortCaret: sortCaret,
+        formatter: columnFormatter
+      },
+      {
+        dataField: 'cdmNotifiable',
+        text: formatMessage('LABEL_CMD_NOTIFIABLE'),
+        sort: true,
+        sortCaret: sortCaret,
+        formatter: columnFormatter,
+      },
+      {
+        dataField: 'soldMargin',
+        text: formatMessage('LABEL_SOLD_MARGIN'),
+        sort: true,
+        sortCaret: sortCaret,
+        formatter: columnFormatter,
+        formatExtraData: { type: ColumnTypeEnum.percentage }
+      },
+      {
+        dataField: 'weightedTCV',
+        text: formatMessage('LABEL_WEIGHTED_TCV'),
+        sort: true,
+        sortCaret: sortCaret,
+        formatter: columnFormatter,
+        formatExtraData: { type: ColumnTypeEnum.currency }
+      },
+    ];
+  };
+
+
+
+  const DefaultSorted = [{
+    dataField: 'lastModified',
+    order: 'desc'
+  }];
+
   return (
     <React.Fragment>
-      <GridTable
+      <GridTableNew
         columns={getTableColumns()}
         data={gridData}
         sorting={true}
+        defaultSorted={DefaultSorted}
         className="price-table"
         ActionList={[]}
+        onTableChange={props.handleTableChange}
+        totalSize={props.pipelineValues.totalNumberOfRecord}
       />
     </React.Fragment>
   );
 };
 
-const getTableColumns = () => {
-  return [
-    {
-      title: formatMessage('MESSAGE_PROJECT_NAME'),
-      field: 'name',
-      customFilterAndSearch: (term: any, rowData: any) =>
-        (term = rowData.name.length)
-    },
-    { title: formatMessage('LABEL_OWNER'), field: 'projectOwner' },
-    { title: formatMessage('LABEL_LAST_UPDATE'), field: 'lastModified' },
-    {
-      title: formatMessage('LABEL_CLIENT_CUSTOMER'),
-      field: 'contractorId'
-    },
-    {
-      title: formatMessage('LABEL_PROBABILITY_OF_WINING'),
-      field: 'probabilityOfWinning',
-      type: ColumnTypeEnum.percentage
-    },
-    {
-      title: formatMessage('LABEL_STATUS'),
-      field: 'status'
-    },
-    {
-      title: formatMessage('LABEL_EXPECTED_START_DATE'),
-      field: 'commenceDate',
-      type: ColumnTypeEnum.date
-    },
-    {
-      title: formatMessage('LABEL_APPROX_VALUE'),
-      field: 'approxValue',
-      type: ColumnTypeEnum.currency
-    },
-    {
-      title: formatMessage('LABEL_CONTRACT_TYPE'),
-      field: 'contractTypeId'
-    },
-    {
-      title: formatMessage('LABEL_CMD_NOTIFIABLE'),
-      field: 'cdmNotifiable'
-    },
-    {
-      title: formatMessage('LABEL_SOLD_MARGIN'),
-      field: 'soldMargin',
-      type: ColumnTypeEnum.percentage
-    },
-    {
-      title: formatMessage('LABEL_WEIGHTED_TCV'),
-      field: 'weightedTCV',
-      type: ColumnTypeEnum.currency
-    }
-  ];
-};
+
+
+
 
 const mapStateToProps = (state: IState) => ({
-  initialValues: state.pipelineGrid.pipelineDetails
+  initialValues: state.pipelineGrid.data
 });
 
 export default connect(mapStateToProps)(injectIntl(ProjectPipelineForm));

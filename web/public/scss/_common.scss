@@ -682,3 +682,92 @@ td {
 {
     cursor: pointer!important;
 }
+
+/*pagination*/
+.pagination_outer {
+    width: 100%;
+    text-align: center;
+    a {
+        font-size: 14px;
+        font-weight: 600;
+        color: #333;
+        padding: 0 10px;
+        margin: 0 5px;
+        position: relative;
+        &.active,
+        &:hover {
+            background: #dfdfdf;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            &:nth-child(1),
+            &:nth-child(2),
+            &:nth-last-child(2),
+            &:last-child {
+                background: transparent;
+            }
+        }
+        &.disabled {
+            &:nth-child(1),
+            &:nth-child(2),
+            &:nth-last-child(2),
+            &:last-child {
+                &:before {
+                        border-color: #818a8f;
+                }
+            }
+            &:nth-child(1),
+            &:last-child {
+                &:after {
+                    background: #818a8f;
+                }
+            }
+        }
+        &:nth-child(1),
+        &:nth-child(2),
+        &:nth-last-child(2),
+        &:last-child {
+            &:before {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 5px;
+                border: 2px solid #333333;
+                width: 8px;
+                height: 8px;
+                border-left: 0;
+                border-bottom: 0;
+                transform: rotate(-140deg);
+            }
+            &:after {
+                content: '';
+                position: absolute;
+                left: -6px;
+                top: 3px;
+                width: 2px;
+                height: 12px;
+                background: #333333;
+            }
+        }
+        &:nth-child(2),
+        &:nth-last-child(2) {
+            &:after {
+                background: transparent;
+            }
+        }
+        &:nth-last-child(2),
+        &:last-child {
+            &:before {
+                transform: rotate(40deg);
+                border-color: #333333;
+            }
+        }
+        &:last-child {
+            &:after {
+                right: 6px;
+                left: auto;
+                background: #333333;
+            }
+        }
+    }
+}

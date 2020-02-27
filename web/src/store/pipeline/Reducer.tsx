@@ -5,7 +5,8 @@ import moment from 'moment';
 import Notify from '../../enums/Notify';
 
 export const initialState: IProjectPipelineGridState = {
-  pipelineDetails: [
+  totalNumberOfRecord: 1,
+  data: [
     {
       projectId: '',
       name: '',
@@ -29,7 +30,8 @@ const projectPipelineDetailSuccess = (oldState, action) => {
   return updateObject(oldState, {
     error: null,
     loading: false,
-    pipelineDetails: action.payload
+    data: action.payload.data,
+    totalNumberOfRecord: action.payload.totalNumberOfRecord
   });
 };
 
