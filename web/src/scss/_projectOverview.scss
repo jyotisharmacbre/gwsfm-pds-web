@@ -170,6 +170,15 @@
             @include smScreen {
                 right: -108px !important;
             }
+            &:before {
+                content: '';
+                border-top: 1px solid #E8ECF3;
+                width: 107%;
+                position: absolute;
+                left: 0;
+                top: 60px;
+                z-index: 1;
+            }
         }
         .SingleDatePickerInput_calendarIcon {
             background: transparent;
@@ -184,6 +193,19 @@
             @include mdScreen {
                 width: 40px;
             }
+        }
+        .CalendarDay__selected {
+            background: #69be28;
+            border: 1px solid #69be28;
+        }
+        .DayPicker_weekHeader {
+            padding-top: 10px !important;
+        }
+        .CalendarMonth_table {
+            margin-top: 20px !important;
+        }
+        .DayPicker_focusRegion {
+            padding-bottom: 20px;
         }
     }
     .DayPicker_transitionContainer {
@@ -205,13 +227,61 @@
         }
     }
     .DayPickerNavigation_rightButton__horizontalDefault {
+        &:before {
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            left: 0;
+            transform: rotate(320deg);
+            border-top: 0;
+            border-left: 0;
+            border-bottom: 2px solid #006a4d;
+            border-right: 2px solid #006a4d;
+        }
         @include smScreen {
             right: 29px;
         }
     }
     .DayPickerNavigation_leftButton__horizontalDefault {
+        &:before {
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            left: 0;
+            transform: rotate(130deg);
+            border-top: 0;
+            border-left: 0;
+            border-bottom: 2px solid #006a4d;
+            border-right: 2px solid #006a4d;
+        }
         @include smScreen {
             left: 13px;
+        }
+    }
+    .CalendarMonth_caption {
+        strong {
+            color: #006a4d;
+            top: -5px;
+            position: relative;
+            font-weight: 600;
+            font-size: 18px;
+        }
+    }
+    .DayPickerNavigation_leftButton__horizontalDefault {
+        left: 24px;
+    }
+    .DayPickerNavigation_rightButton__horizontalDefault {
+        right: 18px;
+    }
+    .DayPickerNavigation_button__default {
+        border: none;
+        .DayPickerNavigation_svg__horizontal {
+            display: none;
+        }
+        &:hover {
+            border: none;
         }
     }
 }
@@ -244,10 +314,10 @@
                 font-weight: 600;
             }
             .placehold {
-                font-size: 11px;
+                font-size: 12px;
                 position: absolute;
                 left: 10px;
-                top: calc(100% - 30px);
+                top: calc(100% - 28px);
                 color: map-get($colors, grey001);
             }
             .form-control {
@@ -255,18 +325,19 @@
                 padding-right: 100px;
             }
         }
+        
         .approve_state {
             display: flex;
             align-items: flex-end;
             height: 100%;
             .form-group {
-                margin-bottom: 30px;
+                margin-bottom: 25px;
             }
             .icon {
                 margin-right: 10px;
                 svg {
-                    width: 20px;
-                    height: 20px;
+                    width: 30px;
+                    height: 30px;
                 }
             }
             .approv_label {

@@ -79,7 +79,6 @@ const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleE
                     <th><FormattedMessage id="T_HEADING_COMMENTS" /></th>
                   </tr>
                 </thead>
-                <Suspense fallback={<div>Loading...</div>}>
                  {((!CheckConstraints(prelimData[index].componentId)&&componentIdList.includes(prelimData[index].componentId))||(isExpand&&!CheckConstraints(prelimData[index].componentId)))?<FieldArray 
               name={`${member}.items`} 
               component={PreliminaryItemsForm}
@@ -100,7 +99,6 @@ const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleE
             currencySymbol={currencySymbol}
             key={index}/>:null} 
            
-           </Suspense>
             </table>
                 </div>
                 </div>

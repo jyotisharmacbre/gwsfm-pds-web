@@ -30,7 +30,7 @@
     background: map-get($colors , whiteColor );
     @include borderRadius (3px);
     padding: 38px 20px 10px 20px; 
-    @include transition(all 0.4s cubic-bezier(0.4, 0, 1, 1));
+    @include transition(all .2s cubic-bezier(0.4, 0, 1, 1));
     @include boxShadow(0 0 13px rgba(0, 0, 0, 0.1));
     margin: 10px 0;
     height: 100%;
@@ -75,7 +75,7 @@
     .card {
         text-align: center;
         border: 0;
-        padding: 0 15px 8px 15px;
+        padding: 0 30px 8px 30px;
         display: flex;
         flex-direction: column;
         height: 100%;
@@ -89,7 +89,11 @@
             font-weight: 600;
             @include transition(all 0.4s cubic-bezier(0.4, 0, 1, 1));
             @include lgScreen {
+                font-size: 20px;
                 margin-top: 0;
+            }
+            @include mdScreen {
+                font-size: 18px;
             }
         }
         .text {

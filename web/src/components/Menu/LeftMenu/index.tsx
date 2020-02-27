@@ -1,6 +1,6 @@
 import React from 'react';
 import {useHistory } from 'react-router-dom';
-import cbre_icon from '../../images/logo-black.png';
+import cbre_icon from '../../images/PDS_Logo_White.png';
 import { IState } from '../../../store/state';
 import { connect } from 'react-redux';
 import { isValidGUID } from '../../../helpers/utility-helper';
@@ -73,6 +73,12 @@ const LeftMenu: React.FC<IMapStateToProps&IMapDispatchToProps&IReactIntl> = (pro
 	const disableEnableSubActiveClass = (value: string) => {
 		return activeClass == value ? ClassType.SubActive : '';
 	};
+
+	const hideLeftMenu = ()=>{
+		//Code here for remove left menu panel on click of any confirmation popup
+		let sidebarElement:any = document.getElementById("sidebar");
+		sidebarElement.classList.remove('active');
+	}
 	const isFormDirty=(componentName:string,projectId:string,id?:string)=>{
 if( props.isProjectFormDirty||
 	props.isProjectOverviewFormDirty||
@@ -85,8 +91,14 @@ if( props.isProjectFormDirty||
 			intl: props.intl,
 			titleKey: 'TITLE_CONFIRMATION',
 			contentKey: 'MESSAGE_DIRTY_CHECK',
-			handleConfirm: () => redirectionToComponent(componentName,projectId),
-			handleReject:()=>activeLink()
+			handleConfirm: () => {
+				hideLeftMenu();
+				redirectionToComponent(componentName,projectId)
+			},
+			handleReject:()=>{
+				hideLeftMenu();
+				activeLink();
+			}
 		})
 	}
 	else

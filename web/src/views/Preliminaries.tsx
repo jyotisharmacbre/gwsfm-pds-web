@@ -34,7 +34,6 @@ interface IMapStateToProps {
 	currencies: Array<ICurrency> | null;
 	match: any;
 	notify: Notify;
-	event: EventType;
 	currencyId: number;
 	status: number;
 	preliminaryForm: Array<IPreliminariesComponentDetails>;
@@ -46,7 +45,6 @@ interface IMapStateToProps {
 	project: IProjectDetail;
 	isPreliminaryFormDirty:boolean;
 	intl:any;
-	loading: boolean;
 }
 interface IMapDispatchToProps {
 	preliminaryAdd: (preliminaryDetails: Array<IPreliminaries>, event: EventType) => void;
@@ -67,7 +65,9 @@ interface IMapDispatchToProps {
 const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps & ICountryHoc & IInsuranceRateHoc&IReactIntl> = (props) => {
 	
 	const CurrencyObj = new Currency();
-	const [ currencySymbol, setCurrencySymbol ] = useState<string>('');
+	const [currencySymbol, setCurrencySymbol] = useState<string>('');
+	const [event, setEvent] = useState<EventType>(EventType.none);
+	const [loading, setLoading] = useState<boolean>(false);
 	let componentIds: Array<string> = [];
 	const [ componentIdList, setComponentId ] = useState(componentIds);
 	let isLookupSessionExists: boolean =
@@ -92,15 +92,16 @@ const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps & ICountryH
 		() => {
 			if (props.notify == Notify.success) {
 				toast.success(formatMessage('MESSAGE_SUCCESSFUL'));
-				if (props.event == EventType.next) {
+				if (event == EventType.next) {
 					props.history.push('/Subcontractor/' + props.match.params.projectId);
 				}
 			} else if (props.notify == Notify.error) {
 				toast.error(formatMessage('MESSAGE_ERROR_MESSAGE'));
 			}
+			setLoading(false);
 			props.resetPreliminaryState();
 		},
-		[ props.notify, props.event ]
+		[ props.notify]
 	);
 	useEffect(
 		() => {
@@ -181,6 +182,8 @@ const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps & ICountryH
 	  };
 	  /* istanbul ignore next */
 	const handleSaveData = (saveAll: boolean, event: EventType, preliminaryDetails: any, index: number) => {
+		setLoading(true);
+		setEvent(event);
 		var editData: Array<IPreliminaries> = [];
 		var saveData: Array<IPreliminaries> = [];
 		let preData: Array<IPreliminariesComponentDetails> = [];
@@ -217,7 +220,9 @@ const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps & ICountryH
 			<div data-test="pre_row_status" className={`${getClassNameForProjectStatus(props.status)} row`}>
 				<div className="col-lg-12">
 					<form className="custom-wrap">
-						<div className="heading-subtitle">
+						<div className="row align-items-center">
+							<div className="col-lg-9">
+							<div className="heading-subtitle">
 							<h1>
 								<span className="d-md-block d-none">
 									<FormattedMessage id="TITLE_JUSTIFICATION" />
@@ -233,22 +238,9 @@ const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps & ICountryH
 							</p>
 						</div>
 
-						<div className="row">
-							<div className="col-lg-12">
-								<div className="row">
-									<div className="col-lg-9">
-										<div className="table-responsive">
-											<CalculationsSummaryTable
-												preliminary={props.preliminaryForm}
-												subContractor={props.subContractorState}
-												discount={props.discountState}
-												currencySymbol={currencySymbol}
-												insuranceRate={props.insuranceRate}
-											/>
-										</div>
-									</div>
-									<div className="col-lg-3">
-										<div className="text-left text-lg-right">
+							</div>
+							<div className="col-lg-3">
+							<div className="text-left text-lg-right float-lg-right">
 											<button
 												type="button"
 												className={`active fltRght mb-3 mb-lg-0 btn-collapseall" ${isExpand
@@ -270,6 +262,25 @@ const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps & ICountryH
 												<FormattedMessage id="BUTTON_COLLAPSE_ALL" />
 											</button>
 										</div>
+							</div>
+						</div>
+						
+						<div className="row">
+							<div className="col-lg-12">
+								<div className="row">
+									<div className="col-lg-9">
+										<div className="table-responsive">
+											<CalculationsSummaryTable
+												preliminary={props.preliminaryForm}
+												subContractor={props.subContractorState}
+												discount={props.discountState}
+												currencySymbol={currencySymbol}
+												insuranceRate={props.insuranceRate}
+											/>
+										</div>
+									</div>
+									<div className="col-lg-3">
+										
 									</div>
 								</div>
 							</div>
@@ -296,8 +307,8 @@ const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps & ICountryH
 									subContractorState={props.subContractorState}
 									discountState={props.discountState}
 									projectStatus = {props.status}
-									loading = {props.loading}
-									event = {props.event}
+									loading = {loading}
+									event = {event}
 								/>
 							</div>
 						) : null}
@@ -317,8 +328,6 @@ const mapStateToProps = (state: IState) => {
 		currencies: state.lookup.currencies,
 		notify: state.preliminary.notify,
 		currencyId: state.project.form.currencyId,
-		event: state.preliminary.event,
-		loading: state.preliminary.loading,
 		status: state.project.form.status,
 		preliminaryForm: selector(state, 'preliminaryDetails'),
 		subContractorState: state.subContractor.form.activities,

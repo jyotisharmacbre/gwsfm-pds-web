@@ -90,6 +90,7 @@
   "LABEL_ACTIVITY_NAME": "Activity Name",
   "LABEL_SUPPLIER_NAME": "Supplier Name",
   "LABEL_COMMENTS": "Comments",
+  "LABEL_COMMENT": "Comment",
   "LABEL_CURRENCY": "Currency",
   "LABEL_LANGUAGE": "Language",
   "LABEL_APPROXIMATE_VALUE": "Approximate value",
