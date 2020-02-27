@@ -154,7 +154,7 @@ steps:
 
 - task: NodeTool@0
   inputs:
-    versionSpec: '10.x'
+    versionSpec: '12.x'
   displayName: 'Install Node.js'
 
 - task: Npm@1
@@ -193,7 +193,7 @@ steps:
     command: custom
     workingDir: web
     verbose: false
-    customCommand: 'run build'
+    customCommand: 'run build:ci'
 
 
 - task: PowerShell@2

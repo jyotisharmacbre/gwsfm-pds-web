@@ -13,44 +13,44 @@ import ReviewApprove from '../../views/ReviewApprove';
 import ProfileMenu from '../Menu/ProfileMenu/ProfileMenu';
 import Nav from '../Nav/Nav';
 import Preliminaries from '../../views/Preliminaries';
-const Error = React.lazy(() => import('../../views/Error/Error'))
+import Error from '../../views/Error/Error';
 
 const NavRoute = ({ component: Component, showLeftMenu, ...rest }) => {
-    return (
-        <Route {...rest} render={props => (
-            <React.Fragment>
-                {showLeftMenu && <Nav />}
-                <div id="content">
-                    <ProfileMenu />
-                    <Component {...props} />
-                </div>
-            </React.Fragment>)}>
-        </Route>
-    )
+  return (
+    <Route {...rest} render={props => (
+      <React.Fragment>
+        {showLeftMenu && <Nav />}
+        <div id="content">
+          <ProfileMenu />
+          <Component {...props} />
+        </div>
+      </React.Fragment>)}>
+    </Route>
+  )
 }
 
 const Routes: React.FC = props => {
-    return (
-        <Switch>
-            <NavRoute exact path="/" component={Dashboard} showLeftMenu={false} />
-            <NavRoute path="/Pipeline" component={Pipeline} showLeftMenu={false} />
-            <NavRoute path="/Project/:projectId?" component={Project} showLeftMenu={true} />
-            <Route path="/Notifications" component={Notifications} />
-            <NavRoute path="/ProjectOverview/:projectId" component={ProjectOverview} showLeftMenu={true} />
-            <NavRoute path="/Discounts/:projectId" component={Discounts} showLeftMenu={true} />
-            <NavRoute path="/Subcontractor/:projectId" component={Subcontractor} showLeftMenu={true} />
-            <NavRoute
-                path="/JustificationAuthorisation/:projectId"
-                component={JustificationAuthorisation}
-                showLeftMenu={true}
-            />
-            <NavRoute path="/Preliminaries/:projectId" component={Preliminaries} showLeftMenu={true} />
-            <NavRoute path="/Subcontractor/:projectId" component={Subcontractor} showLeftMenu={true} />
-            <NavRoute path="/ReviewSubmit/:projectId" component={ReviewSubmit} showLeftMenu={true} />
-            <NavRoute path="/ReviewApprove/:projectId" component={ReviewApprove} showLeftMenu={true} />
-            <Route path="/Error" component={Error} />
-        </Switch>
-    );
+  return (
+    <Switch>
+      <NavRoute exact path="/" component={Dashboard} showLeftMenu={false} />
+      <NavRoute path="/Pipeline" component={Pipeline} showLeftMenu={false} />
+      <NavRoute path="/Project/:projectId?" component={Project} showLeftMenu={true} />
+      <Route path="/Notifications" component={Notifications} />
+      <NavRoute path="/ProjectOverview/:projectId" component={ProjectOverview} showLeftMenu={true} />
+      <NavRoute path="/Discounts/:projectId" component={Discounts} showLeftMenu={true} />
+      <NavRoute path="/Subcontractor/:projectId" component={Subcontractor} showLeftMenu={true} />
+      <NavRoute
+        path="/JustificationAuthorisation/:projectId"
+        component={JustificationAuthorisation}
+        showLeftMenu={true}
+      />
+      <NavRoute path="/Preliminaries/:projectId" component={Preliminaries} showLeftMenu={true} />
+      <NavRoute path="/Subcontractor/:projectId" component={Subcontractor} showLeftMenu={true} />
+      <NavRoute path="/ReviewSubmit/:projectId" component={ReviewSubmit} showLeftMenu={true} />
+      <NavRoute path="/ReviewApprove/:projectId" component={ReviewApprove} showLeftMenu={true} />
+      <Route path="/Error" component={Error} />
+    </Switch>
+  );
 };
 
 export default Routes;
