@@ -91,6 +91,12 @@
                 &:focus {
                     color: map-get($colors , limeGreen );
                     @include boxShadow(none);
+                    .down-arrow {
+                        &:before {
+                            border-bottom: 2px solid map-get($colors , limeGreen );
+                            border-right: 2px solid map-get($colors , limeGreen );
+                        }
+                    }
                 }
                 i {
                     position: relative;
@@ -120,7 +126,8 @@
                     }
                     &.active {
                         &:before {
-                            @include transform (rotate(180deg));
+                            @include transform (rotate(220deg));
+                            top: 8px;
                         }
                     }
                     @include smScreen {

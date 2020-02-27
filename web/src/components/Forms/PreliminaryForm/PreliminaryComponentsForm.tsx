@@ -39,7 +39,7 @@ const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleE
     <div className="accordion" key={index}>
           <div className="card">
             <div
-              className="card-header p-l-43"
+              className="card-header"
               data-toggle="collapse"
               data-test="tickWrap"
               onClick={()=>onToggleEvent(prelimData[index].componentId)}
@@ -64,7 +64,7 @@ const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleE
             onSubmit={handleSubmit}
             noValidate={true}
           >
-                <div className="card-body pt-0">
+                <div className="card-body">
             <div className="table-responsive price-sumry mt-0">
               <table className="table table-bordered">
                 <thead>
