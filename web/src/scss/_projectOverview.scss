@@ -357,9 +357,10 @@
             margin-left: auto;
         }
     }
-    .link_disabled {
-        pointer-events:none; 
-        opacity:0.6;         
+    .link_disabled input,.link_disabled button,.link_disabled textarea ,.link_disabled select{
+        pointer-events:none !important; 
+        opacity:0.6;  
+
     }
     .mrgnlft10
     {
