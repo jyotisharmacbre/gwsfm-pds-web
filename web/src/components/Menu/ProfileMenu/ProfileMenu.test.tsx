@@ -74,6 +74,7 @@ describe('Profile Menu', () => {
       lookup: {},
       userService: { currentUserProfile: { displayName: 'testName', email: 'test@pds.com' } },
       auth:{token: '' },
+      notifications: {notifications: []}
     });
   };
 

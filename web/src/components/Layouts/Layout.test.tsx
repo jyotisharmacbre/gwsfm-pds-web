@@ -43,6 +43,7 @@ const mockingStore = () => {
         dashboardGrid: initialState,
         project: customerEnquiryInitialState,
         auth:{token: '' },
+        notifications: {notifications: []}
     });
 };
 
