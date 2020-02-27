@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Notification Renders should match the snapshot 1`] = `ReactWrapper {}`;
+
+exports[`Notification reducer should handle get notification success action 1`] = `
+Object {
+  "error": null,
+  "loading": false,
+  "notifications": Array [
+    Object {},
+  ],
+}
+`;
+
+exports[`Notification reducer should handle get notifications failure 1`] = `
+Object {
+  "error": undefined,
+  "loading": false,
+  "notifications": Array [],
+}
+`;

@@ -14,6 +14,7 @@ import DashboardGridDetailReducer from './Dashboard/Reducer';
 import userPreferencesFormReducer from './UserPreferencesForm/Reducer';
 import adminReducer from './Admin/Reducer';
 import authReducer from './Auth/Reducer';
+import notificationReducer from './Notifications/Reducer';
 
 export default combineReducers<IState>({
 	form: reducerForm,
@@ -29,5 +30,6 @@ export default combineReducers<IState>({
 	dashboardGrid: DashboardGridDetailReducer,
 	userPreferences: userPreferencesFormReducer,
 	admin: adminReducer,
-	auth: authReducer
+	auth: authReducer,
+	notifications: notificationReducer
 });

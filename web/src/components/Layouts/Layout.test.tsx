@@ -42,7 +42,8 @@ const mockingStore = () => {
         userService: { currentUserProfile: { displayName: 'testName', email: 'test@pds.com' } },
         dashboardGrid: initialState,
         project: customerEnquiryInitialState,
-        auth: { token: '' },
+        auth:{token: '' },
+        notifications: {notifications: []}
     });
 };
 
