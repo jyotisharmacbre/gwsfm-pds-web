@@ -21,36 +21,30 @@ const preliminaryAddSuccess = (oldState, action) => {
   let preliminaryDetails =updatePreliminaryState(oldState.preliminaryDetails,action);
   return updateObject(oldState, {
     notify: Notify.success,
-    event: action.event,
-    preliminaryDetails
-    
+    preliminaryDetails,
   });
 };
 const preliminaryAddError = (oldState, action) => {
   return updateObject(oldState, {
     notify: Notify.error,
-    event: action.event
   });
 }
 const preliminaryEditSuccess = (oldState, action) => {
   let preliminaryDetails = updatePreliminaryState(oldState.preliminaryDetails,action);
   return updateObject(oldState, {
     notify: Notify.success,
-    event: action.event,
-    preliminaryDetails
-    
+    preliminaryDetails,
   });
 }
 const preliminaryEditError = (oldState, action) => {
   return updateObject(oldState, {
     notify: Notify.error,
-    event: action.event
   });
 };
 const preliminaryGetSuccess = (oldState, action) => {
   return updateObject(oldState, {
     notify:Notify.none,
-    preliminaryDetails:action.payload
+    preliminaryDetails:action.payload,
   });
 };
 
@@ -60,7 +54,7 @@ const preliminaryGetError = (oldState, action) => {
 
 const resetPreliminaryState = (oldState, action) => {
 	return updateObject(oldState, {
-    notify:Notify.none
+    notify:Notify.none,
   });
 };
 

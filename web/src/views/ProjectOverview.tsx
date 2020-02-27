@@ -17,16 +17,11 @@ import { toast } from 'react-toastify';
 import { formatMessage } from '../Translations/connectedIntlProvider';
 import {
 	getFilterElementFromArray,
-	getClassNameForProjectStatus,
-	getPropertyName,
 	displayUserName
 } from '../helpers/utility-helper';
 import ProjectOverviewStatusTab from '../components/Forms/ProjectOverviewForm/ProjectOverviewStatusTab';
-import { getDynamicSubContractorData } from '../store/DynamicsData/Action';
 import { IDynamicSubContractorData, IDynamicContractCustomerData } from '../store/DynamicsData/Types/IDynamicData';
 import { IProjectOverviewDetails } from '../store/ProjectOverviewForm/Types/IProjectOverviewDetails';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDownload } from '@fortawesome/free-solid-svg-icons';
 import { ICurrency } from '../store/Lookups/Types/ICurrency';
 import { ISubContractorActivity } from '../store/SubContractor/Types/ISubContractorActivity';
 import { IPreliminariesComponentDetails } from '../store/Preliminaries/Types/IPreliminariesComponentDetails';
@@ -84,8 +79,10 @@ interface IMapStateToProps {
 	userNamesForEmails: Array<IUserServiceData>;
 	countries: Array<ICountry> | null;
 	adminDefaultValues: Array<IAdminDefaults>;
-	isProjectOverviewFormDirty:boolean;
-	intl:any;
+	isProjectOverviewFormDirty: boolean;
+	isPostCommentFormDirty: boolean;
+	intl: any;
+	loading: boolean;
 }
 interface IMapDispatchToProps {
 	getProjectStatus: () => void;
@@ -112,7 +109,7 @@ interface IMapDispatchToProps {
 	postComment: (projectId: string, comment: string, success, failure) => void;
 	getProjectParameters: (countryId: number) => void;
 	getAllCountries: () => void;
-	resetProjectOverviewFormState:()=>void;
+	resetProjectOverviewFormState: () => void;
 }
 interface IProps {
 	projectId: string;
@@ -168,30 +165,30 @@ const ProjectOverview: React.FC<
 		[props.project.countryId]
 	);
 	/* istanbul ignore next */
-	const handleResetStateAndRedirection=(componentName:string)=>{
+	const handleResetStateAndRedirection = (componentName: string) => {
 		props.resetProjectOverviewFormState();
 		props.history.push(`/${componentName}/${props.match.params.projectId}`);
 
 	}
 	/* istanbul ignore next */
-	const redirectionToComponent=()=>{
-		if(props.isProjectOverviewFormDirty)
-		{
+	const redirectionToComponent = () => {
+		if (props.isProjectOverviewFormDirty || props.isPostCommentFormDirty) {
 			confirmAlert({
 				intl: props.intl,
 				titleKey: 'TITLE_CONFIRMATION',
 				contentKey: 'MESSAGE_DIRTY_CHECK',
-				handleConfirm: () => handleResetStateAndRedirection("Project")})
+				handleConfirm: () => handleResetStateAndRedirection("Project")
+			})
 		}
-		else{
+		else {
 			handleResetStateAndRedirection("Project");
-		   }
-	
-	  }
-	  /* istanbul ignore next */
+		}
+
+	}
+	/* istanbul ignore next */
 	const handlePrevious = () => {
 		redirectionToComponent();
-	  };
+	};
 	useEffect(
 		() => {
 			if (
@@ -255,25 +252,40 @@ const ProjectOverview: React.FC<
 		},
 		[props.userNamesForEmails, getProjectManagerName]
 	);
-/* istanbul ignore next */
+	/* istanbul ignore next */
 	const getListOfContractSuccess = (response) => {
 		setCustomerName(
 			getFilterElementFromArray(response, 'contractId', props.enquiryOverview.contractorId, 'customerName')
 		);
 	};
 	/* istanbul ignore next */
-	const failure = (error) => { };
+	const failure = error => {};
+  const saveHandler = (data: IProjectOverviewDetails, eventType: EventType) => {
+    if (data.projectAdditionalDetail.projectAddDetailId == '') {
+      props.projectOverviewFormAdd(props.match.params.projectId,data,eventType);
+    } else {
+      props.projectOverviewFormEdit(data, eventType);
+    }
+    props.resetProjectOverviewFormState();
+  };
 	/* istanbul ignore next */
 	const handleNext = (data: IProjectOverviewDetails) => {
-		data.projectAdditionalDetail.projectAddDetailId == ''
-			? props.projectOverviewFormAdd(props.match.params.projectId, data, EventType.next)
-			: props.projectOverviewFormEdit(data, EventType.next);
+		if (props.isPostCommentFormDirty) {
+			confirmAlert({
+				intl: props.intl,
+				titleKey: 'TITLE_CONFIRMATION',
+				contentKey: 'MESSAGE_DIRTY_CHECK_COMMENT',
+				handleConfirm: () => {
+					saveHandler(data, EventType.next);
+				}
+			})
+		} else {
+			saveHandler(data, EventType.next);
+		}
 	};
 	/* istanbul ignore next */
 	const handleSave = (data: IProjectOverviewDetails) => {
-		data.projectAdditionalDetail.projectAddDetailId == ''
-			? props.projectOverviewFormAdd(props.match.params.projectId, data, EventType.save)
-			: props.projectOverviewFormEdit(data, EventType.save);
+		saveHandler(data,EventType.save);
 	};
 	const convertToString = (id) => {
 		let data = '';
@@ -294,7 +306,7 @@ const ProjectOverview: React.FC<
 		}
 		return projectStatusData.length > 0 ? projectStatusData[0].description : '';
 	};
-/* istanbul ignore next */
+	/* istanbul ignore next */
 	const notifySucess = (data, actionType) => {
 		if (actionType === 'reactivate') {
 			toast.success(formatMessage('MESSAGE_SUCCESSFUL_REACTIVATED'));
@@ -303,11 +315,11 @@ const ProjectOverview: React.FC<
 			toast.success(formatMessage('MESSAGE_SUCCESSFUL_STATUS_CHANGED'));
 		}
 	};
-/* istanbul ignore next */
+	/* istanbul ignore next */
 	const notifyError = (error) => {
 		toast.error(formatMessage('MESSAGE_ERROR_MESSAGE'));
 	};
-/* istanbul ignore next */
+	/* istanbul ignore next */
 	const handleReactivateEvent = () => {
 		actions.reactivateProject(props.match.params.projectId, notifySucess, notifyError);
 	};
@@ -390,6 +402,8 @@ const ProjectOverview: React.FC<
 							getProjectActivities={props.getProjectActivities}
 							countryCode={props.countryCode}
 							insuranceRate={props.insuranceRate}
+							loading={props.loading}
+							event={props.event}
 						/>
 					</div>
 				</div>
@@ -405,6 +419,7 @@ const mapStateToProps = (state: IState) => ({
 	projectStatus: state.lookup.projectstatus,
 	enquiryOverview: state.project.enquiryOverview,
 	event: state.projectOverview.event,
+	loading: state.projectOverview.loading,
 	dynamicsSubcontractor: state.dynamicData.dynamicsSubcontractor,
 	dynamicsContractCustomerData: state.dynamicData.dynamicsContract,
 	subContractorState: state.subContractor.form.activities,
@@ -416,7 +431,8 @@ const mapStateToProps = (state: IState) => ({
 	userNamesForEmails: state.userService.userServiceData,
 	adminDefaultValues: state.admin.adminDefaultValues,
 	countries: state.lookup.countries,
-	isProjectOverviewFormDirty:isDirty("projectOverviewForm")(state)
+	isProjectOverviewFormDirty: isDirty("projectOverviewForm")(state),
+	isPostCommentFormDirty: isDirty("PostCommentForm")(state)
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -444,7 +460,7 @@ const mapDispatchToProps = (dispatch) => {
 		postComment: (projectId: string, comment, success, failure) => actions.postComments(projectId, comment, success, failure),
 		getProjectParameters: (countryId: number) => dispatch(actions.getProjectParameters(countryId)),
 		getAllCountries: () => dispatch(actions.getAllContries()),
-		resetProjectOverviewFormState:()=>dispatch(reset("projectOverviewForm"))
+		resetProjectOverviewFormState: () => dispatch(reset("projectOverviewForm"))
 	};
 };
 

@@ -34,7 +34,6 @@ interface IMapStateToProps {
 	currencies: Array<ICurrency> | null;
 	match: any;
 	notify: Notify;
-	event: EventType;
 	currencyId: number;
 	status: number;
 	preliminaryForm: Array<IPreliminariesComponentDetails>;
@@ -66,7 +65,9 @@ interface IMapDispatchToProps {
 const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps & ICountryHoc & IInsuranceRateHoc&IReactIntl> = (props) => {
 	
 	const CurrencyObj = new Currency();
-	const [ currencySymbol, setCurrencySymbol ] = useState<string>('');
+	const [currencySymbol, setCurrencySymbol] = useState<string>('');
+	const [event, setEvent] = useState<EventType>(EventType.none);
+	const [loading, setLoading] = useState<boolean>(false);
 	let componentIds: Array<string> = [];
 	const [ componentIdList, setComponentId ] = useState(componentIds);
 	let isLookupSessionExists: boolean =
@@ -91,15 +92,16 @@ const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps & ICountryH
 		() => {
 			if (props.notify == Notify.success) {
 				toast.success(formatMessage('MESSAGE_SUCCESSFUL'));
-				if (props.event == EventType.next) {
+				if (event == EventType.next) {
 					props.history.push('/Subcontractor/' + props.match.params.projectId);
 				}
 			} else if (props.notify == Notify.error) {
 				toast.error(formatMessage('MESSAGE_ERROR_MESSAGE'));
 			}
+			setLoading(false);
 			props.resetPreliminaryState();
 		},
-		[ props.notify, props.event ]
+		[ props.notify]
 	);
 	useEffect(
 		() => {
@@ -180,6 +182,8 @@ const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps & ICountryH
 	  };
 	  /* istanbul ignore next */
 	const handleSaveData = (saveAll: boolean, event: EventType, preliminaryDetails: any, index: number) => {
+		setLoading(true);
+		setEvent(event);
 		var editData: Array<IPreliminaries> = [];
 		var saveData: Array<IPreliminaries> = [];
 		let preData: Array<IPreliminariesComponentDetails> = [];
@@ -295,6 +299,8 @@ const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps & ICountryH
 									subContractorState={props.subContractorState}
 									discountState={props.discountState}
 									projectStatus = {props.status}
+									loading = {loading}
+									event = {event}
 								/>
 							</div>
 						) : null}
@@ -314,7 +320,6 @@ const mapStateToProps = (state: IState) => {
 		currencies: state.lookup.currencies,
 		notify: state.preliminary.notify,
 		currencyId: state.project.form.currencyId,
-		event: state.preliminary.event,
 		status: state.project.form.status,
 		preliminaryForm: selector(state, 'preliminaryDetails'),
 		subContractorState: state.subContractor.form.activities,

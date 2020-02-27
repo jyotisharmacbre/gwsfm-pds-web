@@ -28,6 +28,7 @@ import { ICountryHoc, countryHoc } from '../hoc/CountryHoc';
 import { insuranceRateHoc, IInsuranceRateHoc } from '../hoc/InsuranceRateHoc';
 import ProjectStatus from '../enums/ProjectStatus';
 import { IDynamicsDivision, IDynamicBusinessUnits } from '../store/DynamicsData/Types/IDynamicData';
+import { CircularProgress } from '@material-ui/core';
 
 interface IProps {
 	match: match<{ projectId: string }>;
@@ -110,8 +111,11 @@ const ReviewSubmit: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & I
 	const redirect = (module: string) => {
 		return props.history.push(`/${module}/${props.match.params.projectId}`);
 	};
+
+	const [loading, setLoading] = useState(false);
 	/* istanbul ignore next */
 	const updateProjectStatusToInReview = () => {
+		setLoading(true);
 		actions.updateProjectStatusToInReview(
 			props.match.params.projectId,
 			updateProjectStatusToInReviewSuccess,
@@ -120,11 +124,13 @@ const ReviewSubmit: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & I
 	};
 	/* istanbul ignore next */
 	const updateProjectStatusToInReviewSuccess = (data) => {
+		setLoading(false);
 		toast.success(formatMessage('MESSAGE_SUCCESSFUL_SUBMITED'));
 		props.history.push('/');
 	};
 	/* istanbul ignore next */
 	const updateProjectStatusToInReviewError = (data) => {
+		setLoading(false);
 		toast.error(formatMessage('MESSAGE_ERROR'));
 	};
 	/* istanbul ignore next */
@@ -162,7 +168,7 @@ const ReviewSubmit: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & I
 							lookUpData={props.projectStatus}
 						/>
 						<div className="row">
-							<div className="col-xl-9">
+							<div className="col-xl-12">
 								<PricingSummaryTable
 									data-test="pricing-summary"
 									preliminary={props.preliminaryState}
@@ -202,7 +208,9 @@ const ReviewSubmit: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & I
 									type="button"
 									name="next"
 									data-test="submit-button"
+									disabled={(loading)}
 								>
+									{(loading) && <CircularProgress />}
 									<FormattedMessage id="BUTTON_SUBMIT" />
 								</button>
 							) : null}

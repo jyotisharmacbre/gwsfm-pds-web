@@ -24,6 +24,13 @@ const projectDetailEditSuccess = (response: IProjectDetail, event: EventType) =>
 	};
 };
 
+const setloadingTrue = (event: EventType) => {
+	return {
+		type: ActionType.SET_LOADING_TRUE,		
+		event: event
+	};
+};
+
 const projectDetailError = (error: string) => {
 	return {
 		type: ActionType.PROJECT_ADD_ERROR,
@@ -45,12 +52,15 @@ export const projectDetailAdd = (data: IProjectDetail, event: EventType) => {
 	
 	return (dispatch: Dispatch) => {
 		if (isProjectStateInReview()) dispatch(projectDetailError('error'));
+		dispatch(setloadingTrue(event));
 		axios.baseAPI
 			.post('/api/Projects/customerEnquiry', data, { headers: headers })
 			.then((response) => {
-				dispatch(projectDetailAddSuccess(response.data, event));
+				/* istanbul ignore next */
+				dispatch(projectDetailAddSuccess(response.data, event));				
 			})
 			.catch((error) => {
+				/* istanbul ignore next */
 				dispatch(projectDetailError(error));
 			});
 	};
@@ -59,12 +69,15 @@ export const projectDetailAdd = (data: IProjectDetail, event: EventType) => {
 export const projectDetailEdit = (data: IProjectDetail, event: EventType) => {
 	return (dispatch: Dispatch) => {
 		if (isProjectStateInReview()) dispatch(projectDetailError('error'));
+		dispatch(setloadingTrue(event));
 		axios.baseAPI
 			.put('/api/Projects/updatecustomerEnquiry', data, { headers: headers })
 			.then((response) => {
-				dispatch(projectDetailEditSuccess(response.data, event));
+				/* istanbul ignore next */
+				dispatch(projectDetailEditSuccess(response.data, event));				
 			})
 			.catch((error) => {
+				/* istanbul ignore next */
 				dispatch(projectDetailError(error));
 			});
 	};
@@ -89,9 +102,11 @@ export const getEnquiryOverview = (projectId: string) => {
 		axios.baseAPI
 			.get(`api/Projects/${projectId}/enquiryOverview`)
 			.then((response) => {
+				/* istanbul ignore next */
 				dispatch(getEnquiryOverviewSuccess(response.data));
 			})
 			.catch((error) => {
+				/* istanbul ignore next */
 				dispatch(getEnquiryOverviewError(error));
 			});
 	};
@@ -120,9 +135,11 @@ export const getProjectDetail = (projectId: string, cache: boolean = true) => {
 		axios.baseAPI
 			.get(`api/Projects/${projectId}/customerEnquiry`)
 			.then((response) => {
+				/* istanbul ignore next */
 				dispatch(getProjectDetailSuccess(response.data));
 			})
 			.catch((error) => {
+				/* istanbul ignore next */
 				dispatch(getProjectDetailError(error));
 			});
 	};

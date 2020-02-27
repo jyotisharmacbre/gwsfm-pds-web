@@ -107,7 +107,11 @@ export const customerEnquiryInitialState: IProjectDetailState = {
     divisionId: '',
     businessUnitId: '',
     weightedTCV: undefined,
-    soldMargin: undefined
+    soldMargin: undefined,
+    otherEngagementType: '',
+    otherFirstAssetWorkedOn: '',
+    otherSecondAssetWorkedOn: '',
+    otherThirdAssetWorkedOn: ''
   },
   enquiryOverview: {
     projectName: '',

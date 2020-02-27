@@ -63,7 +63,7 @@ const SubContractorActivityForm: React.FC<Props> = (props: Props) => {
 											handleConfirm: () => fields.remove(index)
 										})}
 								>
-									<FormattedMessage id="BUTTON_DELETE" />
+									<span className="d-none d-lg-inline"><FormattedMessage id="BUTTON_DELETE" /></span>
 									<FontAwesomeIcon className="" icon={faTrash} />
 								</button>
 							) : null}
@@ -74,7 +74,7 @@ const SubContractorActivityForm: React.FC<Props> = (props: Props) => {
 										data-test="activityName"
 										type="text"
 										component={PdsFormInput}
-										validate={[ Validate.maxLength(1000) ]}
+										validate={[ Validate.maxLength(250) ]}
 										labelKey="LABEL_ACTIVITY_NAME"
 										placeholderKey="PLACEHOLDER_ACTIVITY_NAME"
 									/>
@@ -104,7 +104,7 @@ const SubContractorActivityForm: React.FC<Props> = (props: Props) => {
 											labelKey="LABEL_OTHER_SUBCONTRACTOR"
 											placeholderKey="PLACEHOLDER_OTHER_SUBCONTRACTOR"
 											className="required"
-											validate={[Validate.required('LABEL_OTHER_SUBCONTRACTOR'), Validate.maxLength(1000)]}
+											validate={[Validate.required('LABEL_OTHER_SUBCONTRACTOR'), Validate.maxLength(250)]}
 										/>
 									)}
 
@@ -165,7 +165,7 @@ const SubContractorActivityForm: React.FC<Props> = (props: Props) => {
 									/>
 								</div>
 							</div>
-							<FieldArray name={`${member}.quotes`} currencySymbol = {props.currencySymbol} component={Quote} key={index} />
+							<FieldArray name={`${member}.quotes`} currencySymbol={props.currencySymbol} intl={props.intl} component={Quote} key={index} />
 						</div>
 					</div>
 				</div>

@@ -6,8 +6,15 @@ import { ToastContainer, Zoom, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { injectIntl } from 'react-intl';
 import ErrorBoundary from './components/Error/ErrorBoundary';
+import { loadProgressBar } from 'axios-progress-bar'
+import 'axios-progress-bar/dist/nprogress.css'
+import { baseAPI } from './client';
+import preval from 'preval.macro';
 
 const App: React.FC = (props: any) => {
+	//Loading progressbar
+	loadProgressBar({ showSpinner: false }, baseAPI);
+
 	const drawerWidth = 250;
 
 	const theme = createMuiTheme({
@@ -49,7 +56,7 @@ const App: React.FC = (props: any) => {
 		},
 		appBar: {
 			zIndex: theme.zIndex.drawer + 1,
-			transition: theme.transitions.create([ 'width', 'margin' ], {
+			transition: theme.transitions.create(['width', 'margin'], {
 				easing: theme.transitions.easing.sharp,
 				duration: theme.transitions.duration.leavingScreen
 			})
@@ -60,7 +67,7 @@ const App: React.FC = (props: any) => {
 			//width: '100%',
 			marginLeft: drawerWidth,
 			width: `calc(100% - ${drawerWidth}px)`,
-			transition: theme.transitions.create([ 'width', 'margin' ], {
+			transition: theme.transitions.create(['width', 'margin'], {
 				easing: theme.transitions.easing.sharp,
 				duration: theme.transitions.duration.enteringScreen
 			})
@@ -125,9 +132,12 @@ const App: React.FC = (props: any) => {
 
 	return (
 		<ErrorBoundary>
-		<div>
-			<Layout Theme={theme} UseStyles={useStyles()} />
-			<ToastContainer autoClose={5000} className="custom_toast_block" transition={Bounce} />
+			<div>
+				<Layout Theme={theme} UseStyles={useStyles()} />
+				<ToastContainer autoClose={5000} className="custom_toast_block" transition={Bounce} />
+				<p style={{ display: 'hidden' }}>
+					Build Date: {preval`module.exports = new Date().toLocaleString();`}.
+        		</p>
 			</div>
 		</ErrorBoundary>
 	);

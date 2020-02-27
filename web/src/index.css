@@ -11,3 +11,51 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.select-wrapper .form-group{
+  margin-top: 20px;
+}
+button, .link_group a{
+  position: relative;
+}
+button .MuiCircularProgress-colorPrimary {
+  color: #006a4d;
+  position: absolute;
+  left: 10px;
+}
+
+a .MuiCircularProgress-colorPrimary {
+  color: white;
+  position: absolute;
+  left: 10px;
+}
+
+button .MuiCircularProgress-root, a .MuiCircularProgress-root{
+  width: 25px !important;
+  height: 25px !important;
+}
+
+
+/* style for top progress bar */
+#nprogress .bar {
+  background: orange !important;
+}
+
+#nprogress .peg {
+  box-shadow: 0 0 10px orange, 0 0 5px #20c997 !important;
+}
+
+#nprogress .spinner-icon {
+  border-top-color: orange !important;
+  border-left-color: orange !important;
+}
+
+/* Style text with dots */
+
+.text-with-dots-20pr {
+  display: block;
+  max-width: 58%;
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+}

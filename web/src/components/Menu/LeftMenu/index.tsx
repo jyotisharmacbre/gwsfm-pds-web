@@ -19,6 +19,7 @@ interface IMapStateToProps {
 	isPreliminaryFormDirty:boolean,
 	isSubContractorFormDirty:boolean,
 	isDiscountFormDirty:boolean,
+	isPostCommentFormDirty: boolean,
 	intl:any
 }
 interface IMapDispatchToProps {
@@ -27,6 +28,7 @@ interface IMapDispatchToProps {
 	resetPreliminaryFormState:()=>void;
 	resetSubContractorFormState:()=>void;
 	resetDiscountFormState:()=>void;
+	resetPostCommentFormDirty: ()=> void;
 }
 const LeftMenu: React.FC<IMapStateToProps&IMapDispatchToProps&IReactIntl> = (props) => {
 	let urlProjectId: string = '';
@@ -76,8 +78,9 @@ if( props.isProjectFormDirty||
 	props.isProjectOverviewFormDirty||
 	props.isPreliminaryFormDirty||
 	props.isSubContractorFormDirty||
-	props.isDiscountFormDirty)
-	{
+	props.isDiscountFormDirty ||
+	props.isPostCommentFormDirty)
+	{	
 		confirmAlert({
 			intl: props.intl,
 			titleKey: 'TITLE_CONFIRMATION',
@@ -88,6 +91,12 @@ if( props.isProjectFormDirty||
 	}
 	else
 	{
+		//Add code to hide navigation on mobile screen post click on any menu link
+		let element:any=document.getElementsByClassName("sidebar");
+		if( element && element.length>0) {
+			element[0].classList.remove('active');
+			}
+		
 		redirectionToComponent(componentName,projectId);
 	}
 	}
@@ -109,7 +118,7 @@ if( props.isProjectFormDirty||
 	 const activeLink=()=>{
 		disableLinkClass();
 		if(props.isProjectFormDirty){enableLinkClass("projectLink",ClassType.Active)}
-		if(props.isProjectOverviewFormDirty){enableLinkClass("projectOverviewLink",ClassType.Active)}
+		if(props.isProjectOverviewFormDirty || props.isPostCommentFormDirty){enableLinkClass("projectOverviewLink",ClassType.Active)}
 		if(props.isPreliminaryFormDirty){enableLinkClass("justificationauthorisationLink",ClassType.Active);enableLinkClass("preliminariesLink",ClassType.SubActive)}
 		if(props.isSubContractorFormDirty){enableLinkClass("justificationauthorisationLink",ClassType.Active);enableLinkClass("subcontractorLink",ClassType.SubActive)}
 		if(props.isDiscountFormDirty){enableLinkClass("justificationauthorisationLink",ClassType.Active);enableLinkClass("discountsLink",ClassType.SubActive)}
@@ -121,10 +130,11 @@ if( props.isProjectFormDirty||
 		if(props.isProjectOverviewFormDirty){props.resetProjectOverviewFormState();}
 		if(props.isPreliminaryFormDirty){props.resetPreliminaryFormState();}
 		if(props.isSubContractorFormDirty){props.resetSubContractorFormState();}
+		if(props.isPostCommentFormDirty){props.resetPostCommentFormDirty();}		
 		componentName?history.push(`/${componentName}/${projectId}`):history.push("/");
 	}
 	return (
-		<nav id="sidebar">
+		<nav id="sidebar" className="sidebar">
 			<div className="sidebar-header">
 				<div id="sm_none" className="logo">
 					<a className="cursorPntr"
@@ -235,7 +245,8 @@ const mapStateToProps = (state: IState) => {
 		isSubContractorFormDirty:isDirty("subContractorForm")(state),
 		isDiscountFormDirty:isDirty("DiscountForm")(state),
 		projectId: state.project.form.projectId,
-		status: state.project.form.status
+		status: state.project.form.status,
+		isPostCommentFormDirty:isDirty("PostCommentForm")(state)
 	};
 };
 const mapDispatchToProps = (dispatch) => {
@@ -244,7 +255,8 @@ const mapDispatchToProps = (dispatch) => {
 		resetProjectOverviewFormState:()=>dispatch(reset("projectOverviewForm")),
 		resetPreliminaryFormState:()=>dispatch(reset("PreliminaryForm")),
 		resetSubContractorFormState:()=>dispatch(reset("subContractorForm")),
-		resetDiscountFormState:()=>dispatch(reset("DiscountForm"))
+		resetDiscountFormState:()=>dispatch(reset("DiscountForm")),
+		resetPostCommentFormDirty:()=>dispatch(reset("PostCommentForm"))
 	};
 };
 export default injectIntl(connect(mapStateToProps,mapDispatchToProps)(LeftMenu));

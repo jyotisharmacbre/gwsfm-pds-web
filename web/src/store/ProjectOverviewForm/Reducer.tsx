@@ -44,6 +44,7 @@ const projectOverviewFormAddSuccess = (oldState, action) => {
 const setupPojectApprovalsInitialData = (oldState, action) => {
 	return updateObject(oldState, {
 		notify: Notify.none,
+		loading: false,
 		form: updateObject(oldState.form, {
 			projectApprovals: setupInitialApprovalData(action.payload)
 		}),
@@ -76,15 +77,16 @@ const projectOverviewFormError = (oldState, action) => {
 const getAdditionalDetailsSuccess = (oldState, action) => {
 	let updatedApproverList: Array<IProjectApprovals> = [];
 	if (action.payload != '') {
-		if (oldState.form.projectApprovals && action.payload.projectApprovals) {
+		if (oldState.form.projectApprovals?.length > 0 && action.payload.projectApprovals) {
 			updatedApproverList = oldState.form.projectApprovals.map((item) => {
 				let savedApproverItem = action.payload.projectApprovals.find(
 					(x) => x.approverType === item.approverType
 				);
 				return savedApproverItem ? { ...item, ...savedApproverItem } : item;
 			});
+			action.payload.projectApprovals = updatedApproverList;
+
 		}
-		action.payload.projectApprovals = updatedApproverList;
 		return updateObject(oldState, {
 			form: updateObject(oldState.form, action.payload)
 		});
@@ -104,7 +106,8 @@ const resetProjectOverviewState = (oldState, action) => {
 const resetProjectOverviewNotifier = (oldState, action) => {
 	return updateObject(oldState, {
 		notify: Notify.none,
-		event: EventType.none
+		event: EventType.none,
+		loading: false,
 	});
 };
 
@@ -113,7 +116,8 @@ const getProjectActivitiesSuccess = (oldState, action) => {
 		projectActivities: updateObject(oldState.projectActivities, {
 			data: action.payload,
 			error: null,
-			notify: Notify.success
+			notify: Notify.success,
+			loading: false,
 		})
 	});
 };
@@ -121,11 +125,19 @@ const getProjectActivitiesSuccess = (oldState, action) => {
 const getProjectActivitiesError = (oldState, action) => {
 	return updateObject(oldState, {
 		projectActivities: updateObject(oldState.projectActivities, {
+			loading: false,
 			error: action.payload,
 			notify: Notify.none
 		})
 	});
 };
+
+const setloadingTrue = (oldState, action) => {
+	return updateObject(oldState, {
+	  loading: true,
+	  event: action.event
+	});
+  };
 
 const projectOverviewFormReducer = (oldState = initialState, action) => {
 	switch (action.type) {
@@ -151,6 +163,8 @@ const projectOverviewFormReducer = (oldState = initialState, action) => {
 			return resetProjectOverviewState(oldState, action);
 		case ActionType.RESET_PROJECT_OVERVIEW_NOTIFIER:
 			return resetProjectOverviewNotifier(oldState, action);
+	    case ActionType.SET_LOADING_TRUE:
+			return setloadingTrue(oldState, action);
 		default:
 			return oldState;
 	}

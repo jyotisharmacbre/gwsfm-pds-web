@@ -11,6 +11,7 @@ import { IPreliminariesComponentDetails } from '../../../store/Preliminaries/Typ
 import { IDiscountActivity } from '../../../store/DiscountForm/Types/IDiscountActivity';
 import { calculateClientDiscount, calculateTotalSum } from '../../../helpers/formulas';
 import { FormattedMessage } from 'react-intl';
+import { formatMessage } from '../../../Translations/connectedIntlProvider';
 
 interface Props {
 	preliminary: Array<IPreliminariesComponentDetails>;
@@ -60,14 +61,14 @@ const PricingSummaryTable: React.FC<Props> = (props) => {
 					{(props.showPreliminary || props.showContractor) && (
 						<thead>
 							<tr>
-								<th />
-								<th>
+								<th className="width-percent25" />
+								<th className="width-percent25">
 									<FormattedMessage id="TITLE_COST" /> ({props.currencySymbol})
 								</th>
-								<th>
+								<th className="width-percent25">
 									<FormattedMessage id="TITLE_MARGIN" /> (%)
 								</th>
-								<th>
+								<th className="width-percent25">
 									<FormattedMessage id="TITLE_SELL" /> ({props.currencySymbol})
 								</th>
 							</tr>
@@ -111,29 +112,38 @@ const PricingSummaryTable: React.FC<Props> = (props) => {
 								</td>
 							</tr>
 						) : null}
+					</tbody>
+				</table>
+
+				<table className="price-table table_responsive">
+					{(props.showPreliminary || props.showContractor) && (
+						<thead>
+							<tr>
+								<th className="width-percent25" />
+								<th className="width-percent25">
+									<FormattedMessage id="TITLE_SUB_CONTRACTOR" />
+								</th>
+								<th className="width-percent25">
+									<FormattedMessage id="TITLE_MARGIN" /> (%)
+								</th>
+								<th className="width-percent25">
+									<FormattedMessage id='TITLE_CUSTOMER' />{' '}
+									{props.discount?.clientDiscount?.discountType == 0 ? (
+										`(${props.discount.clientDiscount.discount}%)`
+									) : null}
+								</th>
+							</tr>
+						</thead>
+					)}
+					<tbody>
 						{props.showDiscount && props.discount ? (
 							<React.Fragment>
-								<tr>
-									<br />
-								</tr>
 								<tr data-test="discount-data">
 									<td data-column="&nbsp;">
 										<FormattedMessage id="TITLE_DISOUNT" />
 									</td>
-									<td data-column={`Cost (${props.currencySymbol})`}>
-										<FormattedMessage id="TITLE_SUB_CONTRACTOR" />
-									</td>
-									<td data-column={`Margin (%)`}>&nbsp;</td>
-									<td data-column={`Sell (${props.currencySymbol})`}>
-										<FormattedMessage id='TITLE_CUSTOMER' />{' '}
-										{props.discount?.clientDiscount?.discountType == 1 ? (
-											`(${props.discount.clientDiscount.discount}%)`
-										) : null}
-									</td>
-								</tr>
-								<tr>
-									<td data-column="&nbsp;">&nbsp;</td>
-									<td data-column={`Cost (${props.currencySymbol})`}>
+									<td data-column=
+									{formatMessage('TITLE_SUB_CONTRACTOR')}>
 										{props.currencySymbol}
 										<span data-test="sub-contractor-discount">
 											{
@@ -143,7 +153,11 @@ const PricingSummaryTable: React.FC<Props> = (props) => {
 										&nbsp;
 									</td>
 									<td data-column="Margin (%)">&nbsp;</td>
-									<td data-column={`Sell (${props.currencySymbol})`}>
+
+									<td data-column={`${formatMessage('TITLE_CUSTOMER')} 
+									${props.discount?.clientDiscount?.discountType == 1 ? (
+										`(${props.discount.clientDiscount.discount}%)`
+									) : null}`}>
 										{props.currencySymbol}
 										<span data-test="customer-discount">
 											{props.discount && props.discount.clientDiscount &&
@@ -157,26 +171,37 @@ const PricingSummaryTable: React.FC<Props> = (props) => {
 								</tr>
 							</React.Fragment>
 						) : null}
+					</tbody>
+				</table>
+
+				<table className="price-table table_responsive">
+					{(props.showPreliminary || props.showContractor) && (
+						<thead>
+							<tr>
+								<th className="width-percent25" />
+								<th className="width-percent25">
+								<FormattedMessage id=
+					{props.countryCode.toLowerCase() == 'gbr' ? 'LABEL_INSURANCE_COST' : 'LABEL_SGA_COST'} />
+								</th>
+								<th className="width-percent25">
+								<FormattedMessage id=
+			{props.countryCode.toLowerCase() == 'gbr' ? ('LABEL_INSURANCE_PERCENTAGE') : ('LABEL_SGA_PERCENTAGE')} />
+								</th>
+								<th className="width-percent25">
+									<FormattedMessage id="TITLE_SELL" /> ({props.currencySymbol})
+								</th>
+							</tr>
+						</thead>
+					)}
+					<tbody>
 						{props.showInsurance ? (
 							<React.Fragment>
 								<tr>
-									<br />
-								</tr>
-								<tr>
 									<td data-column="&nbsp;">
 										<FormattedMessage id={props.countryCode.toLowerCase() == 'gbr' ? 'LABEL_INSURANCE' : 'LABEL_SGA'} />
+										&nbsp;
 									</td>
-									<td data-column={`Cost (${props.currencySymbol})`}>
-										<FormattedMessage id={props.countryCode.toLowerCase() == 'gbr' ? 'LABEL_INSURANCE_COST' : 'LABEL_SGA_COST'} />
-									</td>
-									<td data-column={`Margin (%)`}>
-										<FormattedMessage id={props.countryCode.toLowerCase() == 'gbr' ? ('LABEL_INSURANCE_PERCENTAGE') : ('LABEL_SGA_PERCENTAGE')} />
-									</td>
-									<td>&nbsp;</td>
-								</tr>
-								<tr>
-									<td data-column="&nbsp;">&nbsp;</td>
-									<td data-column={`Cost (${props.currencySymbol})`}>
+						<td data-column={formatMessage(props.countryCode.toLowerCase() == 'gbr' ? 'LABEL_INSURANCE_COST' : 'LABEL_SGA_COST')}>
 										{props.currencySymbol}
 										<span>
 											{props.insuranceRate ? (
@@ -190,8 +215,9 @@ const PricingSummaryTable: React.FC<Props> = (props) => {
 										</span>
 										&nbsp;
 									</td>
-									<td data-column="Margin (%)">
+									<td data-column={formatMessage(props.countryCode.toLowerCase() == 'gbr' ? ('LABEL_INSURANCE_PERCENTAGE') : ('LABEL_SGA_PERCENTAGE'))}>
 										<span>{props.insuranceRate ? `${props.insuranceRate}(%)` : null}</span>
+										&nbsp;
 									</td>
 									<td data-column={`Sell (${props.currencySymbol})`}>&nbsp;</td>
 								</tr>

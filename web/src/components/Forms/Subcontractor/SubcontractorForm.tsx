@@ -15,6 +15,8 @@ import EventType from '../../../enums/EventType';
 import { IPreliminariesComponentDetails } from '../../../store/Preliminaries/Types/IPreliminariesComponentDetails';
 import { IDiscountActivity } from '../../../store/DiscountForm/Types/IDiscountActivity';
 import * as services from '../../../services';
+import { onErrorScrollToField } from '../../../helpers/fieldValidations';
+import { CircularProgress } from '@material-ui/core';
 
 interface Props {
 	projectId: string;
@@ -24,6 +26,8 @@ interface Props {
 	preliminaryState: Array<IPreliminariesComponentDetails>;
 	discountState: IDiscountActivity;
 	insuranceRate: number;
+	event: EventType;
+	loading: boolean;
 }
 
 let SubcontractorForm: React.FC<Props & IReactIntl & InjectedFormProps<ISubContractor, Props>> = (props: any) => {
@@ -62,7 +66,9 @@ let SubcontractorForm: React.FC<Props & IReactIntl & InjectedFormProps<ISubContr
 					className="active ml-auto"
 					type="button"
 					onClick={handleSubmit((values) => props.onSubmitForm(values, EventType.save))}
+					disabled = {(props.loading && props.event == EventType.save)}
 				>
+					{(props.loading && props.event == EventType.save) && <CircularProgress />}
 					<FormattedMessage id="BUTTON_SAVE" />
 				</button>
 				<button
@@ -70,7 +76,9 @@ let SubcontractorForm: React.FC<Props & IReactIntl & InjectedFormProps<ISubContr
 					type="button"
 					name="next"
 					onClick={handleSubmit((values) => props.onSubmitForm(values, EventType.next))}
+					disabled = {(props.loading && props.event == EventType.next)}
 				>
+					{(props.loading && props.event == EventType.next) && <CircularProgress />}
 					<FormattedMessage id="BUTTON_NEXT" />
 				</button>
 			</div>
@@ -89,7 +97,16 @@ const form = reduxForm<ISubContractor, Props>({
 	destroyOnUnmount: false,
 	forceUnregisterOnUnmount: false,
 	form: 'subContractorForm',
-	enableReinitialize: true
+	enableReinitialize: true,
+	onSubmitFail: (errors: any) => {
+		const errorsWithoutUndefiendKeys = errors.activities.filter(x=>x)[0];
+		let err = {};
+		Object.keys(errorsWithoutUndefiendKeys).forEach((key, index) => {
+			err['activities['+index+'].' + key] = errorsWithoutUndefiendKeys[key];
+		});
+
+		onErrorScrollToField(err);
+	}
 })(injectIntl(SubcontractorForm));
 
 export default connect(mapStateToProps)(form);

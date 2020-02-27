@@ -43,6 +43,7 @@ interface IMapStateToProps {
 	subContractorState: Array<ISubContractorActivity>;
 	adminDefaultValues: Array<IAdminDefaults>;
 	project: IProjectDetail;
+	loading: boolean;
 }
 
 interface IMapDispatchToProps {
@@ -176,6 +177,8 @@ const Subcontractor: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & 
 							preliminaryState={props.preliminaryState}
 							discountState={props.discountState}
 							insuranceRate={props.insuranceRate}
+							event = {props.event}
+							loading = {props.loading}
 						/>
 					</div>
 				</div>
@@ -188,6 +191,7 @@ const mapStateToProps = (state: IState) => ({
 	form: state.subContractor.form,
 	notify: state.subContractor.notify,
 	event: state.subContractor.event,
+	loading: state.subContractor.loading,
 	currencyId: state.project.form.currencyId,
 	currencies: state.lookup.currencies,
 	status: state.project.form.status,

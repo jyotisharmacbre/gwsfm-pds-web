@@ -9,3 +9,19 @@ Object {
   "loading": false,
 }
 `;
+
+exports[`Dashboard form reducer should handle Get RESET DASHBOARD STATE successfully 1`] = `
+Object {
+  "actionApprovalDetails": Array [],
+  "error": null,
+}
+`;
+
+exports[`Dashboard form reducer should handle PROJECT DASHBOARD GRID ERROR successfully 1`] = `
+Object {
+  "actionApprovalDetails": Array [],
+  "error": undefined,
+  "loading": false,
+  "notify": 2,
+}
+`;

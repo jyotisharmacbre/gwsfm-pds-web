@@ -45,6 +45,14 @@ const getSubContractorError = (error: string) => {
 		payload: error
 	};
 };
+
+const setloadingTrue = (event: EventType) => {
+	return {
+		type: ActionType.SET_LOADING_TRUE,		
+		event: event
+	};
+};
+
 let config = {
 	headers: {
 		'Content-Type': 'application/json'
@@ -53,6 +61,7 @@ let config = {
 export const subContractorFormAdd = (projectId: string, data: ISubContractor, event: EventType) => {
 	return (dispatch: Dispatch) => {
 		if (isProjectStateInReview()) dispatch(subContractorFormError('error'));
+		dispatch(setloadingTrue(event));
 		data.activities.map((element) => {
 			element.projectId = projectId;
 		});
@@ -75,8 +84,10 @@ export const subContractorFormEdit = (
 ) => {
 	return (dispatch: Dispatch) => {
 		if (isProjectStateInReview()) dispatch(subContractorFormError('error'));
+		dispatch(setloadingTrue(event));
 		data.activities.map((element) => {
 			element.projectId = projectId;
+			element.quotes.map(inner => inner.subContrActivityId = element.quotes[0].subContrActivityId)
 		});
 		axios.baseAPI
 			.put('api/SubContractor/activities', data.activities, config)

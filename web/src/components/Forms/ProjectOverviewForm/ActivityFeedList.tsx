@@ -101,11 +101,11 @@ const ActivityFeedList: React.FC<IProps & IMapStateToProps> = (props) => {
 
 	return (
 		<React.Fragment>
-			{activityFeedData.length > 0 && (
-				<h3 className="feed_head">
-					<FormattedMessage id="LABEL_ACTIVITY_FEED" />
-				</h3>
-			)}
+
+			<h3 className="feed_head">
+				<FormattedMessage id="LABEL_ACTIVITY_FEED" />
+			</h3>
+
 			<section className="activity_feed" data-test='activityFeedSection'>
 				{activityFeedData &&
 					activityFeedData.map((data) => (

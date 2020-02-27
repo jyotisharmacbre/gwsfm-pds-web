@@ -90,6 +90,9 @@
  .price-sumry {
     width: 100%;
     margin: 30px 0;
+    @include mdScreen {
+        margin: 0 0;
+    }
     .inner-block {
         @include mdScreen {
             overflow-x: auto;
@@ -119,6 +122,9 @@
         }
         &.price-table {
             margin-bottom: 15px;
+            @include mdScreen {
+                margin-bottom: 0;
+            }
             th {
                 color: map-get($colors , grey03 );
             }
@@ -131,7 +137,7 @@
                     font-weight: 700;
                 }
                 a {
-                    color: map-get($colors , lightGreen );
+                    color: map-get($colors , Green04);
                     text-decoration: underline;
                 }
             }
@@ -160,6 +166,10 @@
             right: -37px !important;
             width: 300px!important;
             left: auto !important;
+            z-index: 10;
+            @include smScreen {
+                right: -108px !important;
+            }
         }
         .SingleDatePickerInput_calendarIcon {
             background: transparent;
@@ -178,6 +188,31 @@
     }
     .DayPicker_transitionContainer {
         width: 300px !important;
+    }
+    .DayPicker__withBorder {
+        @include smScreen {
+            width: 300px !important;
+        }
+    }
+    .CalendarMonth {
+        @include smScreen {
+            padding: 0px 13px 0 5px !important;
+        }
+    }
+    .DayPicker_weekHeader {
+        @include smScreen {
+            padding: 0px 5px !important;
+        }
+    }
+    .DayPickerNavigation_rightButton__horizontalDefault {
+        @include smScreen {
+            right: 29px;
+        }
+    }
+    .DayPickerNavigation_leftButton__horizontalDefault {
+        @include smScreen {
+            left: 13px;
+        }
     }
 }
 
@@ -208,20 +243,31 @@
                 color: map-get($colors, darkGreen);
                 font-weight: 600;
             }
+            .placehold {
+                font-size: 12px;
+                position: absolute;
+                left: 10px;
+                top: calc(100% - 28px);
+                color: map-get($colors, grey001);
+            }
             .form-control {
                 border: 1px solid map-get($colors , grey001 );
                 padding-right: 100px;
             }
         }
+        
         .approve_state {
             display: flex;
-            align-items: center;
+            align-items: flex-end;
             height: 100%;
+            .form-group {
+                margin-bottom: 30px;
+            }
             .icon {
                 margin-right: 10px;
                 svg {
-                    width: 13px;
-                    height: 13px;
+                    width: 20px;
+                    height: 20px;
                 }
             }
             .approv_label {
@@ -230,6 +276,7 @@
                 text-transform: capitalize;
                 font-weight: 500;
                 margin-bottom: 0;
+                display: none;
             }
         }
         .right_label {
@@ -324,7 +371,11 @@
     }
     .risk_card {
         @include mdScreen {
-            border-bottom: 1px solid #006a4d;
+            box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.16) !important;
             margin-bottom: 15px;
         }
     }
+
+    /*Post comment Button*/
+
+    

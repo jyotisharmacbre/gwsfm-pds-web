@@ -7,7 +7,7 @@ import PdsFormSelect from '../../PdsFormHandlers/PdsFormSelect';
 import PdsFormTextArea from '../../PdsFormHandlers/PdsFormTextArea';
 import PdsFormButton from '../../PdsFormHandlers/PdsFormButton';
 import { selectionButtons } from '../../../helpers/constants';
-import { Validate, alphaNumeric, onlyNumber, OnlyDistinctAssetTypes } from '../../../helpers/fieldValidations';
+import { Validate, alphaNumeric, onlyNumber, OnlyDistinctAssetTypes, onErrorScrollToField } from '../../../helpers/fieldValidations';
 import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
 import { FormattedMessage, injectIntl } from 'react-intl';
@@ -37,6 +37,8 @@ import { IDynamicContractCustomerData, IDynamicCompanyData, IDynamicsDivision, I
 import { ICountry } from '../../../store/Lookups/Types/ICountry';
 import ValidatedNumericInput from '../../NumericInput';
 import { change } from "redux-form";
+import { CircularProgress } from '@material-ui/core';
+import EventType from '../../../enums/EventType';
 
 interface Props {
 	projectstatus: any;
@@ -54,6 +56,8 @@ interface Props {
 	countries: Array<ICountry> | null;
 	listOfDivisions: Array<IDynamicsDivision>;
 	listOfBusinessUnits: Array<IDynamicBusinessUnits>;
+	loading: boolean;
+	event: EventType;
 }
 
 const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = (props: any) => {
@@ -316,9 +320,12 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 											name="engagementId"
 											component={PdsFormSelect}
 											normalize={normalizeToNumber}
+											otherFieldName="otherEngagementType"
+											otherFieldLabelKey="LABEL_OTHER_TYPE_OF_ENGAGEMENT"
+											otherFieldPlaceHolderKey="PLACEHOLDER_OTHER_TYPE_OF_ENGAGEMENT"
 										>
 											<FormattedMessage id="PLACEHOLDER_TYPE_OF_ENGAGEMENT">
-												{(message) => <option value="">{message}</option>}
+												{(message) => <option value="null">{message}</option>}
 											</FormattedMessage>
 											{getDropdown(props.projectstatus, LookupType.Engagement_Type)}
 										</Field>
@@ -337,7 +344,7 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 											placeholderKey="PLACEHOLDER_COUNTRY"
 											messageKey="MESSAGE_COUNTRY"
 											normalize={normalizeToNumber}
-											onChange={onCountryChange}
+											onChange={onCountryChange}									
 										>
 											<FormattedMessage id="PLACEHOLDER_COUNTRY">
 												{(message) => <option value="">{message}</option>}
@@ -370,7 +377,7 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 												{(message) => <option value="">{message}</option>}
 											</FormattedMessage>
 											{props.currencies &&
-												props.currencies.filter(x=>x.isActive === true).map((data: ICurrency, i: number) => {
+												props.currencies.filter(x => x.isActive === true).map((data: ICurrency, i: number) => {
 													return (
 														<option key={data.currencyId} value={data.currencyId}>
 															{data.currencyName} {data.currencySymbol && `(${data.currencySymbol})`}
@@ -459,13 +466,16 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 											placeholderKey="PLACEHOLDER_FIRST_ASSET"
 											messageKey="MESSAGE_FIRST_ASSET"
 											validate={[
-												Validate.required('LABEL_ASSETS_WORKED_ON'),
+												Validate.requiredWithOtherOption('LABEL_ASSETS_WORKED_ON'),
 												OnlyDistinctAssetTypes
 											]}
-											normalize={normalizeToNumber}
+											normalize={normalizeToNumber}												
+											otherFieldName="otherFirstAssetWorkedOn"
+											otherFieldLabelKey="LABEL_OTHER_ASSETS_WORKED_ON"
+											otherFieldPlaceHolderKey="PLACEHOLDER_OTHER_FIRST_ASSET"
 										>
 											<FormattedMessage id="PLACEHOLDER_FIRST_ASSET">
-												{(message) => <option value="">{message}</option>}
+												{(message) => <option value="null">{message}</option>}
 											</FormattedMessage>
 											>{getDropdown(props.projectstatus, LookupType.Asset_Type)}
 										</Field>
@@ -479,10 +489,13 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 											placeholderKey="PLACEHOLDER_SECOND_ASSET"
 											normalize={normalizeToNumber}
 											validate={OnlyDistinctAssetTypes}
+											otherFieldName="otherSecondAssetWorkedOn"
+											otherFieldLabelKey="LABEL_OTHER_ASSETS_WORKED_ON"
+											otherFieldPlaceHolderKey="PLACEHOLDER_OTHER_SECOND_ASSET"
 
 										>
 											<FormattedMessage id="PLACEHOLDER_SECOND_ASSET">
-												{(message) => <option value="">{message}</option>}
+												{(message) => <option value="null">{message}</option>}
 											</FormattedMessage>
 											{getDropdown(props.projectstatus, LookupType.Asset_Type)}
 										</Field>
@@ -496,10 +509,13 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 											placeholderKey="PLACEHOLDER_THIRD_ASSET"
 											normalize={normalizeToNumber}
 											validate={OnlyDistinctAssetTypes}
+											otherFieldName="otherThirdAssetWorkedOn"
+											otherFieldLabelKey="LABEL_OTHER_ASSETS_WORKED_ON"
+											otherFieldPlaceHolderKey="PLACEHOLDER_OTHER_THIRD_ASSET"
 
 										>
 											<FormattedMessage id="PLACEHOLDER_THIRD_ASSET">
-												{(message) => <option value="">{message}</option>}
+												{(message) => <option value="null">{message}</option>}
 											</FormattedMessage>
 											{getDropdown(props.projectstatus, LookupType.Asset_Type)}
 										</Field>
@@ -562,10 +578,13 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 								type="button"
 								name="saveAndClose"
 								onClick={handleSubmit((values) => props.onSave(values))}
-							>
+							disabled = {(props.loading && props.event == EventType.save)}>								
+								{(props.loading && props.event == EventType.save) && <CircularProgress />}
 								<FormattedMessage id="BUTTON_SAVE" />
 							</button>
-							<button type="button" name="next" onClick={handleSubmit((values) => props.onNext(values))}>
+							<button type="button" name="next" onClick={handleSubmit((values) => props.onNext(values))}
+							disabled = {(props.loading && props.event == EventType.next)}>
+							{(props.loading && props.event == EventType.next) && <CircularProgress />}
 								<FormattedMessage id="BUTTON_NEXT" />
 							</button>
 						</div>
@@ -594,7 +613,10 @@ const mapStateToProps = (state: IState) => ({
 
 const form = reduxForm<IProjectDetail, Props>({
 	form: 'ProjectForm',
-	enableReinitialize: true
+	enableReinitialize: true,
+	onSubmitFail: (errors: any) => {
+		onErrorScrollToField(errors);
+	}
 })(ProjectForm);
 
 const selector = formValueSelector('ProjectForm');

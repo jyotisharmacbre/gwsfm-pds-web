@@ -73,7 +73,7 @@ const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
 	}, [props.lookupDetails]);
 	return (
 		<div>
-			<div className="container">
+			<div className="container-fluid">
 				<div className="row">
 					<div className="col-xl-12">
 						<div className="custom-wrap">
@@ -84,7 +84,7 @@ const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
 									</h1>
 								</div>
 								<div className="col-xl-6">
-									<div className="mr-35 three-btn pb-0 pt-0 mt-4 mt-xl-0 d-flex justify-content-start justify-content-xl-end">
+									<div className="dashboard_bts mr-35 three-btn pb-0 pt-0 mt-4 mt-xl-0 d-flex justify-content-start justify-content-xl-end">
 										<Link to="/Pipeline">
 											<button name="save" className="active mr-3" type="button">
 												{formatMessage('BUTTON_PIPELINE')}

@@ -39,7 +39,8 @@ const resetDiscountState = (oldState, action) => {
 const resetDiscountStateNotifier = (oldState, action) => {
 	return updateObject(oldState, {
 		notify: Notify.none,
-		event: EventType.none
+		event: EventType.none,
+		loading: false
 	});
 };
 
@@ -52,6 +53,13 @@ const getdiscountDataSuccess = (oldState, action) => {
 
 const getdiscountDataError = (oldState, action) => {
 	return initialState;
+};
+
+const setloadingTrue = (oldState, action) => {
+	return updateObject(oldState, {
+		loading: true,
+		event: action.event
+	});
 };
 
 const discountFormReducer = (oldState = initialState, action) => {
@@ -70,6 +78,8 @@ const discountFormReducer = (oldState = initialState, action) => {
 			return getdiscountDataSuccess(oldState, action);
 		case ActionType.DISCOUNT_FORM_DATA_GET_ERROR:
 			return getdiscountDataError(oldState, action);
+		case ActionType.SET_LOADING_TRUE:
+			return setloadingTrue(oldState, action);
 		default:
 			return oldState;
 	}

@@ -2,7 +2,6 @@
 
 exports[`preliminaryReducer Reducer should fetch preliminary data 1`] = `
 Object {
-  "event": 3,
   "notify": 0,
   "preliminaryDetails": undefined,
 }
@@ -10,7 +9,6 @@ Object {
 
 exports[`preliminaryReducer Reducer should populate error.If get fails 1`] = `
 Object {
-  "event": 3,
   "notify": 0,
   "preliminaryDetails": Array [],
 }
@@ -18,7 +16,6 @@ Object {
 
 exports[`preliminaryReducer Reducer should populate error.If save fails 1`] = `
 Object {
-  "event": undefined,
   "notify": 2,
   "preliminaryDetails": Array [],
 }
@@ -26,7 +23,6 @@ Object {
 
 exports[`preliminaryReducer Reducer should populate error.If update fails 1`] = `
 Object {
-  "event": 3,
   "notify": 0,
   "preliminaryDetails": Array [],
 }
@@ -34,7 +30,6 @@ Object {
 
 exports[`preliminaryReducer Reducer should save preliminary data 1`] = `
 Object {
-  "event": undefined,
   "notify": 1,
   "preliminaryDetails": Array [],
 }
@@ -42,7 +37,6 @@ Object {
 
 exports[`preliminaryReducer Reducer should update preliminary data 1`] = `
 Object {
-  "event": undefined,
   "notify": 1,
   "preliminaryDetails": Array [],
 }
