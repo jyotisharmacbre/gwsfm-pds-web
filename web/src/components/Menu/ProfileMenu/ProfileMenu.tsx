@@ -30,6 +30,7 @@ import { formatMessage } from '../../../Translations/connectedIntlProvider';
 import { FormattedMessage } from 'react-intl';
 import { displayUserName } from '../../../helpers/utility-helper';
 import useAuthContext from '../../../hooks/useAuthContext';
+import  Notification  from '../Notification/index'
 
 
 interface IMapDispatchToProps {
@@ -70,13 +71,14 @@ const ProfileMenu: React.FC<any> = props => {
   const [isEditable, makeEditable] = useState(false);
   const [loading, setLoading] = useState(false);
 
-
   useEffect(() => {
     if (props.token) {
+      props.getProjectStatus();
       props.getUserPreferences();
       props.getAllLanguages();
       props.getAllCurrencies();
       props.getCurrentUserProfile();
+      props.getNotifications();
     }
   }, [props.token])
 
@@ -164,55 +166,11 @@ const ProfileMenu: React.FC<any> = props => {
               <li onBlur={handleBlur}>
                 <a href="#"
                 onClick={() => setNotificationVisibility(!showNotify)}>
-                  <i>
-                    <FontAwesomeIcon className="" icon={faBell} />
-                    <span className="badge badge-light"></span>
-                  </i>
-                  <div className={`dropdown-menu notify_dropdown user-dropdown ${showNotify ? 'show' : 'hide'}
-                  ${showClass() ? 'default' : 'all_pages'} `}>
-                   <ul>
-                     <li>
-                       <div className="notify_topbar">
-                         <span>(5) New Notifications</span>
-                         <span>Mark all as Read</span>
-                       </div>
-                     </li>
-                     <li className="bg-grey">
-                       <h4 className="title">
-                         New Approver Request Received
-                       </h4>
-                       <p className="brief">
-                         A new request has been received for the project Project Test.
-                       </p>
-                       <span className="mark_sign">MARK READ</span>
-                     </li>
-                     <li className="bg-grey">
-                       <h4 className="title">
-                         New Approver Request Received
-                       </h4>
-                       <p className="brief">
-                         A new request has been received for the project Project Test.
-                       </p>
-                       <span className="mark_sign">MARK READ</span>
-                     </li>
-                     <li>
-                       <h4 className="title">
-                         New Approver Request Received
-                       </h4>
-                       <p className="brief">
-                         A new request has been received for the project Project Test.
-                       </p>
-                     </li>
-                     <li>
-                       <h4 className="title">
-                         New Approver Request Received
-                       </h4>
-                       <p className="brief">
-                         A new request has been received for the project Project Test.
-                       </p>
-                     </li>
-                   </ul>
-                   </div>
+                  <Notification 
+                 notifications = {props.notifications}
+                 showNotification = {showNotify}
+                 lookups = {props.lookups}
+                 />
                 </a>
               </li>
               <li data-test='menu-container' onBlur={handleBlur}>
@@ -338,7 +296,9 @@ const mapStateToProps = (state: IState) => {
     displayEmail: state.userService.currentUserProfile.email,
     loading: state.userPreferences.loading,
     event: state.userPreferences.event,
-    token: state.auth.token
+    token: state.auth.token,
+    notifications: state.notifications.notifications,
+    lookups: state.lookup.projectstatus,
   }
 }
 
@@ -354,6 +314,7 @@ const mapDispatchToProps = dispatch => {
     resetUserPreferencesState: () => dispatch(resetUserPreferencesState()),
     getProjectStatus: () => dispatch(actions.getProjectStatus()),
     getCurrentUserProfile: () => dispatch(actions.getCurrentUserProfileForEmailsService()),
+    getNotifications: () => dispatch(actions.getNotifications())
   }
 }
 
