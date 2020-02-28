@@ -357,9 +357,16 @@
             margin-left: auto;
         }
     }
-    .link_disabled input,.link_disabled button,.link_disabled textarea ,.link_disabled select{
+    .link_disabled button{
         pointer-events:none !important; 
-        opacity:0.6;  
+        opacity: 0.6;
+
+    }
+    .link_disabled input,.link_disabled textarea ,.link_disabled select
+    {
+        pointer-events:none !important; 
+        opacity: 0.6;
+        background-color: #eee;
 
     }
     .mrgnlft10
