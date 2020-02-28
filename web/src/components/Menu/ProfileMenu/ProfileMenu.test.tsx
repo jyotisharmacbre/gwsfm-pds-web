@@ -121,13 +121,13 @@ describe('Profile Menu', () => {
     expect(field).toBeDefined();
   });
 
-  it('should contain LeftMenu', () => {
-    const leftmenu = wrapper.find('.LeftMenu');
-    expect(leftmenu).toBeDefined();
+  it('should contain project_name_title', () => {
+    const project_name_title = wrapper.find('.project_name_title');
+    expect(project_name_title).toBeDefined();
   });
 
-  it('should contain LeftMenu', () => {
-    const text = wrapper.find('.LeftMenu').find('label').text();
+  it('should contain project_name_title', () => {
+    const text = wrapper.find('.project_name_title').find('label').text();
     expect(text).toEqual('testName');
   });
 
