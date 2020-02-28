@@ -20,8 +20,10 @@ export const getUsersEmailData: Array<IUserServiceData> = [
   export const 	pipelineGridData: IProjectPipelineGridState ={
     pipelineDetails: [{
         projectId: '1',
+        projectRefId: 1,
         name: 'Name1',
         projectOwner: 'a',
+        headOfProject: 'a',
         contractorId: 1,
         probabilityOfWinning: 1,
         lastModified: moment().toJSON(),
@@ -35,8 +37,10 @@ export const getUsersEmailData: Array<IUserServiceData> = [
       },
       {
         projectId: '2',
+        projectRefId: 1,
         name: 'Name2',
         projectOwner: 'a',
+        headOfProject: 'a',
         contractorId: 2,
         probabilityOfWinning: 1,
         lastModified: moment().toJSON(),

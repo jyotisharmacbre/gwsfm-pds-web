@@ -2,8 +2,10 @@ import moment from 'moment';
 
 export interface IProjectPipelineGrid {
   projectId: string;
+  projectRefId: number;
   name: string;
   projectOwner: string;
+  headOfProject: string;
   contractorId: number;
   probabilityOfWinning: number;
   lastModified: string;

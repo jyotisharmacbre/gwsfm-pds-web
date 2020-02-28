@@ -8,8 +8,10 @@ export const initialState: IProjectPipelineGridState = {
   pipelineDetails: [
     {
       projectId: '',
+      projectRefId: 0,
       name: '',
       projectOwner: '',
+      headOfProject: '',
       contractorId: -1,
       probabilityOfWinning: 1,
       lastModified: moment().toString(),
