@@ -466,12 +466,14 @@
     font-size: 20px !important;
     padding-left: 0 !important;
 }
-.LeftMenu>label
-{
-    align-items: center;
-    display: flex;
-    color: #fff;
-    height: 60px;
-     float: left;
- 
+.project_name_title {
+    width: 100%;
+    label {
+        color: #f4f6fb;
+        float: left;
+        font-size: 18px;
+        text-transform: capitalize;
+        font-weight: 500;
+        margin: 0 0 0 36px;
+    }   
 }
