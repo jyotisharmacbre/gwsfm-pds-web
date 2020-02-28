@@ -1,26 +1,25 @@
-import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
-import { IState } from '../../../store/state';
-import { getLookupDescription, getPropertyName, getFilterElementFromArray, displayUserName } from '../../../helpers/utility-helper';
-import { LookupItems } from '../../../helpers/constants';
 import moment from 'moment';
-import { Link } from 'react-router-dom';
-import GridTable from '../../Table/GridTable';
-import { formatMessage } from '../../../Translations/connectedIntlProvider';
+import React, { useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
-import IReactIntl from '../../../Translations/IReactIntl';
-import Translate from '../../../Translations/translate';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import ColumnTypeEnum from '../../../enums/ColumnTypeEnum';
+import { LookupItems } from '../../../helpers/constants';
+import { columnFormatter, sortCaret } from '../../../helpers/table-helper';
+import { displayUserName, getFilterElementFromArray, getLookupDescription, getPropertyName } from '../../../helpers/utility-helper';
+import IQueryParams from '../../../models/tableQueryParams/IQueryParams';
+import { IDynamicContractCustomerData } from '../../../store/DynamicsData/Types/IDynamicData';
 import Currency from '../../../store/Lookups/InitialState/Currency';
 import { ICurrency } from '../../../store/Lookups/Types/ICurrency';
-import { IUserServiceData } from '../../../store/UserService/Types/IUserService';
 import { IProjectPipelineGrid } from '../../../store/pipeline/Types/IProjectPipelineGrid';
-import { IDynamicContractCustomerData } from '../../../store/DynamicsData/Types/IDynamicData';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowDown, faArrowUp } from '@fortawesome/free-solid-svg-icons';
-import GridTableNew from '../../Table/GridTableNew';
-import { columnFormatter, sortCaret } from '../../Table/TableHelper';
 import { IProjectPipelineGridState } from '../../../store/pipeline/Types/IProjectPipelineGridState';
+import { IState } from '../../../store/state';
+import { IUserServiceData } from '../../../store/UserService/Types/IUserService';
+import { formatMessage } from '../../../Translations/connectedIntlProvider';
+import IReactIntl from '../../../Translations/IReactIntl';
+import DataGrid from '../../Table/DataGrid';
+import gridColumns from './Column.config'
+
 interface Props {
   pipelineValues: IProjectPipelineGridState;
   lookupValues: any;
@@ -28,7 +27,10 @@ interface Props {
   userNamesForEmailsValues: Array<IUserServiceData>;
   contractCustomerList: Array<IDynamicContractCustomerData>;
   handleTableChange: (type, params) => void;
+  queryParams: IQueryParams;
+  defaultSorted: any;
 }
+
 const ProjectPipelineForm: React.FC<Props & IReactIntl> = (props: any) => {
   const CurrencyObj = new Currency();
   const [gridData, setGridData] = useState<Array<IProjectPipelineGrid>>([]);
@@ -108,127 +110,23 @@ const ProjectPipelineForm: React.FC<Props & IReactIntl> = (props: any) => {
     return data;
   };
 
-  const getTableColumns = () => {
-    return [
-      {
-        dataField: 'name',
-        text: formatMessage('MESSAGE_PROJECT_NAME'),
-        sort: true,
-        sortCaret: sortCaret,
-        formatter: columnFormatter
-      },
-      {
-        dataField: 'projectOwner',
-        text: formatMessage('LABEL_OWNER'),
-        sort: true,
-        sortCaret: sortCaret,
-        formatter: columnFormatter
-      },
-      {
-        dataField: 'lastModified',
-        text: formatMessage('LABEL_LAST_UPDATE'),
-        sort: true,
-        sortCaret: sortCaret,
-        formatter: columnFormatter
-      },
-      {
-        dataField: 'contractorId',
-        text: formatMessage('LABEL_CLIENT_CUSTOMER'),
-        sort: true,
-        sortCaret: sortCaret,
-        formatter: columnFormatter
-      },
-      {
-        dataField: 'probabilityOfWinning',
-        text: formatMessage('LABEL_PROBABILITY_OF_WINING'),
-        sort: true,
-        sortCaret: sortCaret,
-        formatter: columnFormatter,
-        formatExtraData: { type: ColumnTypeEnum.percentage },
-      },
-      {
-        dataField: 'status',
-        text: formatMessage('LABEL_STATUS'),
-        sort: true,
-        sortCaret: sortCaret,
-        formatter: columnFormatter
-      },
-      {
-        dataField: 'commenceDate',
-        text: formatMessage('LABEL_EXPECTED_START_DATE'),
-        sort: true,
-        sortCaret: sortCaret,
-        formatter: columnFormatter,
-        formatExtraData: { type: ColumnTypeEnum.date }
-      },
-      {
-        dataField: 'approxValue',
-        text: formatMessage('LABEL_APPROX_VALUE'),
-        sort: true,
-        sortCaret: sortCaret,
-        formatter: columnFormatter,
-        formatExtraData: { type: ColumnTypeEnum.currency }
-      },
-
-      {
-        dataField: 'contractTypeId',
-        text: formatMessage('LABEL_CONTRACT_TYPE'),
-        sort: true,
-        sortCaret: sortCaret,
-        formatter: columnFormatter
-      },
-      {
-        dataField: 'cdmNotifiable',
-        text: formatMessage('LABEL_CMD_NOTIFIABLE'),
-        sort: true,
-        sortCaret: sortCaret,
-        formatter: columnFormatter,
-      },
-      {
-        dataField: 'soldMargin',
-        text: formatMessage('LABEL_SOLD_MARGIN'),
-        sort: true,
-        sortCaret: sortCaret,
-        formatter: columnFormatter,
-        formatExtraData: { type: ColumnTypeEnum.percentage }
-      },
-      {
-        dataField: 'weightedTCV',
-        text: formatMessage('LABEL_WEIGHTED_TCV'),
-        sort: true,
-        sortCaret: sortCaret,
-        formatter: columnFormatter,
-        formatExtraData: { type: ColumnTypeEnum.currency }
-      },
-    ];
-  };
-
-
-
-  const DefaultSorted = [{
-    dataField: 'lastModified',
-    order: 'desc'
-  }];
-
   return (
     <React.Fragment>
-      <GridTableNew
-        columns={getTableColumns()}
+      <DataGrid
+        columns={gridColumns()}
         data={gridData}
         sorting={true}
-        defaultSorted={DefaultSorted}
+        defaultSorted={props.defaultSorted}
         className="price-table"
         ActionList={[]}
         onTableChange={props.handleTableChange}
         totalSize={props.pipelineValues.totalNumberOfRecord}
+        queryParams={props.queryParams}
+        intl={props.intl}
       />
     </React.Fragment>
   );
 };
-
-
-
-
 
 const mapStateToProps = (state: IState) => ({
   initialValues: state.pipelineGrid.data

@@ -1,7 +1,7 @@
 import * as axios from '../../client';
 import { ActionType } from './Types/ActionType';
 import { Dispatch } from 'redux';
-import IQueryParams from '../../models/tableParameters/IQueryParams';
+import IQueryParams from '../../models/tableQueryParams/IQueryParams';
 /* istanbul ignore next */
 const projectPipelineDetailSuccess = (response: any) => {
   return {

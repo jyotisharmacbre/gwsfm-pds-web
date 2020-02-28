@@ -13,6 +13,7 @@ import {
   IGetNotificationSuccessAction,
   INotification
 } from '../session/Notification/Type';
+import IQueryParams from '../models/tableQueryParams/IQueryParams';
 
 export interface IAppProps {
   Theme: any;
@@ -86,9 +87,9 @@ export interface IGridTableProps {
     rowData: any
   ) => void;
   onTableChange?: (type, params) => void;
-  page?: number;
-  sizePerPage?: number;
   totalSize?: number;
+  queryParams?: IQueryParams;
+  intl?: any,
 
 }
 export interface ITableFilterProps extends ITableProps { }

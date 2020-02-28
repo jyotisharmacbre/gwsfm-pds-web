@@ -4,6 +4,10 @@ body {
     word-break: break-word;
 }
 
+.overflowX {
+    overflow-x: hidden !important;
+}
+
 p {
     word-wrap: break-word;
 }
@@ -79,7 +83,8 @@ div#RouteDiv {
     height: 4px !important;
 }
 
-form {
+form,
+.form_style {
     label {
         color: map-get($colors, grey03);
         margin-bottom: 8px;
@@ -250,17 +255,6 @@ form {
             }
         }
     }
-    //   .rdio-default input[type="radio"]:checked + label:before {
-    //     border-color: #fbc52d;
-    //   }
-    //   .rdio-primary input[type="radio"]:checked + label {
-    //     &:before {
-    //       border-color: #fbc52d;
-    //     }
-    //     &::after {
-    //       background-color: #fbc52d;
-    //     }
-    //   }
 }
 
 input[type='number']::-webkit-inner-spin-button,
@@ -691,7 +685,7 @@ td {
 .pagination_outer {
     width: 100%;
     text-align: center;
-    margin-bottom: 16px;
+    margin: 16px 0;
     a {
         font-size: 14px;
         text-align: center;
@@ -793,10 +787,43 @@ td {
 .select-wrapper {
     &.record-select {
         .form-control {
-            max-width: 80px;
+            max-width: 80px !important;
         }
         &::before {
-            right: calc(100% - 70px);
+            right: calc(100% - 40px);
         }
+    }
+}
+
+.form_style {
+    background: #fff;
+    span {
+        font-size: 14px;
+        color: #526061;
+        margin-right: 10px;
+    }
+}
+
+.overflowX-show {
+    background: #fff;
+    .react-bootstrap-table {
+        overflow-x: auto;
+        .table-bordered {
+            &.table_responsive {
+                th {
+                    padding: 5px 15px 5px 15px;
+                    min-width: 150px;
+                    vertical-align: middle;
+                    border: solid 1px #DEE2E6;
+                }
+            }
+        }
+        
+    }
+}
+
+.react-bootstrap-table-pagination{
+    .custom-size-filter{
+        display: none;
     }
 }

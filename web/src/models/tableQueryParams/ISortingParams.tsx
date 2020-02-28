@@ -2,7 +2,7 @@ import SortOrder from "../../enums/SortOrder";
 
 interface ISortingParams {
     sortOrder: SortOrder;
-    sortColumnName: string;
+    sortColumnName: string | null;
 }
 
 export default ISortingParams;

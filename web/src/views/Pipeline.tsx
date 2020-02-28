@@ -1,10 +1,10 @@
 import { History } from 'history';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useLayoutEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import ProjectPipelineForm from '../components/Forms/Pipeline/ProjectPipelineForm';
 import SortOrder from '../enums/SortOrder';
 import { isValidEmail } from '../helpers/fieldValidations';
-import ITableParams from '../models/tableParameters/IQueryParams';
+import IQueryParams from '../models/tableQueryParams/IQueryParams';
 import { getContractDetailsByIds } from '../store/DynamicsData/Action';
 import { IDynamicContractCustomerData } from '../store/DynamicsData/Types/IDynamicData';
 import { getProjectStatus } from '../store/Lookups/Actions';
@@ -17,14 +17,15 @@ import { getUserNamesForEmailsService } from '../store/rootActions';
 import { IState } from '../store/state';
 import { IUserServiceData } from '../store/UserService/Types/IUserService';
 import { formatMessage } from '../Translations/connectedIntlProvider';
-import IQueryParams from '../models/tableParameters/IQueryParams';
+import useComponentWillMount from '../hooks/useComponentWillMount'
+import { setTableQueryParams, extractQueryParams, setURLParammsForGridTable } from '../helpers/table-helper';
 
 interface IProps {
 	history: History;
 	location: Location;
 }
 interface IMapDispatchToProps {
-	projectPipelineGridDetail: (queryParams: ITableParams) => void;
+	projectPipelineGridDetail: (queryParams: IQueryParams) => void;
 	getLookups: () => void;
 	getAllCurrencies: () => void;
 	handleGetUserNamesForEmails: (emails: any) => void;
@@ -38,17 +39,33 @@ interface IMapStateToProps {
 	contractDetailsByIds: Array<IDynamicContractCustomerData>;
 
 }
+
 const ProjectPipeline: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = (props) => {
+
 	const [isComponentLoaded, setIsComponentLoaded] = useState<boolean>(false);
-	const queryParams = {} as ITableParams;
+	const [queryParams, setQueryParams] = useState<IQueryParams>({} as IQueryParams);
+	const [defaultSorted, setDefaultSorted] = useState<any>([]);
+
+	useComponentWillMount(() => {
+		const params = extractQueryParams(props.location.search, "lastModified", 1, 20);
+		setQueryParams(params);
+
+		setDefaultSorted([{
+			dataField: params.sortingParams.sortColumnName,
+			order: SortOrder[params.sortingParams.sortOrder]
+		}]);
+	});
 
 	useEffect(() => {
+		setIsComponentLoaded(true);
+
 		props.getLookups();
 		props.getAllCurrencies();
 	}, []);
+
 	useEffect(
 		() => {
-			if (props.projectPipeline.totalNumberOfRecord > 0) {
+			if (props.projectPipeline.totalNumberOfRecord > 0 && props.projectPipeline.data[0].projectId !== '') {
 				var allEmails = new Array();
 				var allClients = new Array();
 				for (let recordNo in props.projectPipeline.data) {
@@ -69,56 +86,22 @@ const ProjectPipeline: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 		},
 		[props.projectPipeline]
 	);
+
 	useEffect(
 		() => {
-			props.projectPipelineGridDetail(extractQUeryParams());
-			setIsComponentLoaded(true);
-		}, []
+			props.projectPipelineGridDetail(queryParams);
+		},
+		[props.lookupDetails]
 	);
-
-	const extractQUeryParams = () => {
-		const query = new URLSearchParams(props.location.search);
-
-		let pageIndex = query.get('pageIndex');
-		let pageSize = query.get('pageSize');
-		let sortField = query.get('sortField');
-		let sortOrder = query.get('sortOrder');
-		let updatedTableParams: IQueryParams = {
-			pagingParams: {
-				pageIndex: parseInt(pageIndex ? pageIndex : "1"),
-				pageSize: parseInt(pageSize ? pageSize : "20")
-			},
-			sortingParams: {
-				sortColumnName: sortField ? sortField : "lastModified",
-				sortOrder: sortOrder ? SortOrder[sortOrder] : SortOrder.desc
-			}
-		};
-		return updatedTableParams;
-	}
-
 
 
 	const handleTableChange = (type, params) => {
 		if (isComponentLoaded) {
-			updateTableParams(params);
-
-			props.history.push({
-				pathname: '/Pipeline',
-				search: `?pageIndex=${params.page}&pageSize=${params.sizePerPage}&sortField=${params.sortField}&sortOrder=${params.sortOrder}`
-			})
-
-			props.projectPipelineGridDetail(queryParams);
+			const updatedParams = setTableQueryParams(params);
+			setQueryParams(updatedParams);
+			setURLParammsForGridTable(props.history, '/Pipeline', updatedParams);
+			props.projectPipelineGridDetail(updatedParams);
 		}
-	};
-
-	const updateTableParams = (params) => {
-		queryParams.pagingParams = queryParams.pagingParams || {};
-		queryParams.sortingParams = queryParams.sortingParams || {};
-
-		queryParams.pagingParams.pageIndex = params.page;
-		queryParams.pagingParams.pageSize = params.sizePerPage;
-		queryParams.sortingParams.sortOrder = params.sortOrder;
-		queryParams.sortingParams.sortColumnName = params.sortField;
 	};
 
 	return (
@@ -130,7 +113,7 @@ const ProjectPipeline: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 							<h2>{formatMessage('TITLE_CURRENT_PIPELINE')}</h2>
 						</div>
 
-						<div className="table-grid-wrap price-sumry">
+						<div className="table-grid-wrap price-sumry overflowX">
 							<div className="inner-block">
 								<React.Fragment>
 									<ProjectPipelineForm
@@ -140,6 +123,8 @@ const ProjectPipeline: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 										userNamesForEmailsValues={props.userNamesForEmails}
 										contractCustomerList={props.contractDetailsByIds}
 										handleTableChange={handleTableChange}
+										queryParams={queryParams}
+										defaultSorted={defaultSorted}
 									/>
 								</React.Fragment>
 							</div>
@@ -162,7 +147,7 @@ const mapStateToProps = (state: IState) => ({
 const mapDispatchToProps = (dispatch) => {
 	return {
 		getLookups: () => dispatch(getProjectStatus()),
-		projectPipelineGridDetail: (queryParams: ITableParams) => dispatch(projectPipelineDetail(queryParams)),
+		projectPipelineGridDetail: (queryParams: IQueryParams) => dispatch(projectPipelineDetail(queryParams)),
 		getAllCurrencies: () => dispatch(actions.getAllCurrencies()),
 		handleGetUserNamesForEmails: (allEmails) => dispatch(getUserNamesForEmailsService(allEmails)),
 		handleGetContractDetailsByIds: (allContracts) => dispatch(getContractDetailsByIds(allContracts))
