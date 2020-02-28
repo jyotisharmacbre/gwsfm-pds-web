@@ -11,7 +11,7 @@ import { store } from './store';
 import { BrowserRouter as Router } from 'react-router-dom';
 import TelemetryProvider from './contexts/Telemetry/TelemetryProvider';
 import AuthProvider from './contexts/AuthProvider/AuthProvider';
-
+import './css/style.css';
 
 const config = appConfig();
 

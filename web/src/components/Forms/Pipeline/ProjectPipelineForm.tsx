@@ -56,14 +56,24 @@ const ProjectPipelineForm: React.FC<Props & IReactIntl> = (props: any) => {
     },
     [props.pipelineValues, props.lookupValues, props.currencies, props.userNamesForEmailsValues, props.contractCustomerList]
   );
+
+  const getUserDetails = (userEmail, usersDetails)=>{
+    return userEmail && usersDetails?.find(
+      lk => lk.email?.toUpperCase() === userEmail.toUpperCase()
+    );
+  }
   const getPipelineValues = (pipelineData, allLookups, currencies, namesAndEmails, contractCustomerList) => {
     let data = pipelineData.map(function (rowProject) {
-      var mailObj = namesAndEmails && rowProject.projectOwner && namesAndEmails.find(
-        lk => lk.email && rowProject.projectOwner && lk.email.toUpperCase() === rowProject.projectOwner.toUpperCase()
-      );
-      rowProject.projectOwner = mailObj && mailObj
-        ? `${displayUserName(mailObj)}`
+      const projectOwnerDetail = getUserDetails(rowProject.projectOwner, namesAndEmails);
+      rowProject.projectOwner = projectOwnerDetail
+        ? `${displayUserName(projectOwnerDetail)}`
         : rowProject.projectOwner;
+
+        const headOfProjectDetail = getUserDetails(rowProject.headOfProject, namesAndEmails);
+        rowProject.headOfProject = headOfProjectDetail
+          ? `${displayUserName(headOfProjectDetail)}`
+          : rowProject.headOfProject;
+          
       var statusID = rowProject.status;
       if (!isNaN(statusID) && allLookups.length > 0)
         rowProject.status = getLookupDescription(

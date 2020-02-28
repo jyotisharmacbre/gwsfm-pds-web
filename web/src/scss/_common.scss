@@ -13,9 +13,10 @@ p {
 }
 
 #content {
-    width: calc(100% - 250px);
+    width: 100%;
     min-height: 100vh;
     @include transition(all 0.3s);
+
     @include smScreen {
         width: 100%;
     }
