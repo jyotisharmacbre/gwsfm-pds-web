@@ -37,7 +37,6 @@ const ProjectApprovalForm: React.FC<IProps> = (props) => {
 		};
 	}
 	const shouldDisplay = (currVal) => {
-		debugger;
 		return currVal.userId && currVal.projectApprovalId && (props.status == ProjectStatus.InReview || props.status == ProjectStatus.JAApproved);
 	};
 	
