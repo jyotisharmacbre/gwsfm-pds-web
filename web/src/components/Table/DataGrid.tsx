@@ -2,6 +2,10 @@ import React from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory, { PaginationProvider, SizePerPageDropdownStandalone } from 'react-bootstrap-table2-paginator';
 import { IGridTableProps } from '../../props/AppProps';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faExclamationTriangle
+} from '@fortawesome/free-solid-svg-icons';
 
 const DataGrid: React.FC<IGridTableProps> = props => {
 
@@ -65,7 +69,7 @@ const DataGrid: React.FC<IGridTableProps> = props => {
   );
 
   const emptyDataIndication = () => {
-    return <span>{props.intl.formatMessage({ id: "LABEL_GRID_NO_RECORD_FOUND" })}.</span>
+    return <div className="record_outer"><span className="recordNot_found"><FontAwesomeIcon className="" icon={faExclamationTriangle} />{props.intl.formatMessage({ id: "LABEL_GRID_NO_RECORD_FOUND" })}.</span></div>
   }
 
   const options = {
