@@ -165,7 +165,7 @@ const ProfileMenu: React.FC<any> = props => {
                 "col-sm-12 d-flex justify-content-between align-items-center" :
                 "col-sm-12 d-flex justify-content-between align-items-center justify-content-md-end"} >
 
-{props.project?.name && (<div className="project_name_title d-md-block d-none"><label>{props.project.name}</label></div>) }
+                    {props.project?.name && (<div className="project_name_title d-md-block d-none"><label>{props.project.name}</label></div>) }
             <div data-test="test-logo" className=
               {showNav() ? "d-md-block logo" : "logo"} >
               <Link data-test=""
@@ -315,7 +315,7 @@ const mapStateToProps = (state: IState) => {
     loading: state.userPreferences.loading,
     event: state.userPreferences.event,
     token: state.auth.token,
-    projectOverview: state.projectOverview.form,
+    // projectOverview: state.projectOverview.form,
     project: state.project.form,
 
 

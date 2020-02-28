@@ -74,7 +74,6 @@ describe('Profile Menu', () => {
       lookup: {},
       userService: { currentUserProfile: { displayName: 'testName', email: 'test@pds.com' } },
       project: {form: {name: "testName"}},
-      projectOverview: {form: {name: "testName"}},
       auth:{token: '' },
     });
   };
