@@ -51,6 +51,7 @@
         "core-js": "^3.6.4",
         "enzyme": "^3.10.0",
         "enzyme-adapter-react-16": "^1.14.0",
+        "file-saver": "^2.0.2",
         "jest-junit": "^9.0.0",
         "jwt-decode": "^2.2.0",
         "lodash": "^4.17.15",
@@ -85,7 +86,8 @@
         "redux-mock-store": "^1.5.3",
         "redux-persist": "^6.0.0",
         "redux-thunk": "^2.3.0",
-        "typescript": "^3.4.5"
+        "typescript": "^3.4.5",
+        "xlsx": "^0.15.5"
     },
     "scripts": {
         "build-css": "node-sass --include -path scss src/scss/style.scss src/css/style.css",

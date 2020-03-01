@@ -331,5 +331,6 @@
   "MESSAGE_ERROR_UNAUTHORISED_Header": "ERREUR NON AUTORISÉE",
   "MESSAGE_ERROR_UNAUTHORISED": "non autorisé: l'accès à cette ressource est refusé",
   "MESSAGE_PAGE_WARNING_HEADER": "UN SITE TROMPEUR EN AVANCE",
-  "MESSAGE_PAGE_WARNING": "afficher les sites, le contenu et les sites dangereux; téléchargements"
+  "MESSAGE_PAGE_WARNING": "afficher les sites, le contenu et les sites dangereux; téléchargements",
+  "EXPORT_TO_EXCEL": "XLSX"
 }
