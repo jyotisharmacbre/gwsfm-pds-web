@@ -1,9 +1,9 @@
 import { History } from 'history';
-import React, { useEffect, useState, useLayoutEffect, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import ProjectPipelineForm from '../components/Forms/Pipeline/ProjectPipelineForm';
-import SortOrder from '../enums/SortOrder';
 import { isValidEmail } from '../helpers/fieldValidations';
+import { extractQueryParams, setTableQueryParams, setURLParammsForGridTable } from '../helpers/table-helper';
 import IQueryParams from '../models/tableQueryParams/IQueryParams';
 import { getContractDetailsByIds } from '../store/DynamicsData/Action';
 import { IDynamicContractCustomerData } from '../store/DynamicsData/Types/IDynamicData';
@@ -17,8 +17,6 @@ import { getUserNamesForEmailsService } from '../store/rootActions';
 import { IState } from '../store/state';
 import { IUserServiceData } from '../store/UserService/Types/IUserService';
 import { formatMessage } from '../Translations/connectedIntlProvider';
-import useComponentWillMount from '../hooks/useComponentWillMount'
-import { setTableQueryParams, extractQueryParams, setURLParammsForGridTable } from '../helpers/table-helper';
 
 interface IProps {
 	history: History;
@@ -44,21 +42,16 @@ const ProjectPipeline: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 
 	const [isComponentLoaded, setIsComponentLoaded] = useState<boolean>(false);
 	const [queryParams, setQueryParams] = useState<IQueryParams>({} as IQueryParams);
-	const [defaultSorted, setDefaultSorted] = useState<any>([]);
 
-	useComponentWillMount(() => {
-		const params = extractQueryParams(props.location.search, "lastModified", 1, 20);
+	useEffect(() => {
+		const params = extractQueryParams(props.location.search, "lastModified", 1, 2);
 		setQueryParams(params);
+		props.projectPipelineGridDetail(params);
 
-		setDefaultSorted([{
-			dataField: params.sortingParams.sortColumnName,
-			order: SortOrder[params.sortingParams.sortOrder]
-		}]);
-	});
+	}, [props.location.search]);
 
 	useEffect(() => {
 		setIsComponentLoaded(true);
-
 		props.getLookups();
 		props.getAllCurrencies();
 	}, []);
@@ -100,7 +93,6 @@ const ProjectPipeline: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 			const updatedParams = setTableQueryParams(params);
 			setQueryParams(updatedParams);
 			setURLParammsForGridTable(props.history, '/Pipeline', updatedParams);
-			props.projectPipelineGridDetail(updatedParams);
 		}
 	};
 
@@ -124,7 +116,6 @@ const ProjectPipeline: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 										contractCustomerList={props.contractDetailsByIds}
 										handleTableChange={handleTableChange}
 										queryParams={queryParams}
-										defaultSorted={defaultSorted}
 									/>
 								</React.Fragment>
 							</div>

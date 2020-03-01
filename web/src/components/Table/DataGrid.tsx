@@ -15,10 +15,19 @@ const DataGrid: React.FC<IGridTableProps> = props => {
       case "Last":
       case "Back":
       case "Next":
-        return <a key={p.page} className={p.disabled ? 'disabled' : ''} onClick={() => onPageChange(p.page)}></a>;
-
+        return <a key={p.page} className={p.disabled ? 'disabled' : ''} onClick={(e) => { console.log(`${p.page} pressed1`); e.preventDefault(); onPageChange(p.page); e.stopPropagation(); }}></a>;
       default:
-        return <a key={p.page} className={p.active ? 'active' : ''} onClick={() => onPageChange(p.page)}>{p.page}</a>;
+        return <a key={p.page} className={p.active ? 'active' : ''} onClick={(e) => {
+          if (props.onTableChange)
+            props.onTableChange('pagination', {
+              page: p.page,
+              sizePerPage: props.queryParams?.pagingParams?.pageSize,
+              sortField: props.queryParams?.sortingParams?.sortColumnName,
+              sortOrder: props.queryParams?.sortingParams?.sortOrder
+            });
+        }}>
+          {p.page}
+        </a>;
     }
   }
 
@@ -69,12 +78,17 @@ const DataGrid: React.FC<IGridTableProps> = props => {
   );
 
   const emptyDataIndication = () => {
-    return <div className="record_outer"><span className="recordNot_found"><FontAwesomeIcon className="" icon={faExclamationTriangle} />{props.intl.formatMessage({ id: "LABEL_GRID_NO_RECORD_FOUND" })}.</span></div>
+    return (<div className="record_outer">
+      <span className="recordNot_found">
+        <FontAwesomeIcon icon={faExclamationTriangle} />
+        {props.intl.formatMessage({ id: "LABEL_GRID_NO_RECORD_FOUND" })}.
+      </span>
+    </div>);
   }
 
   const options = {
-    sizePerPageRenderer,                                    // For page size dropdown 
-    pageListRenderer,                                      // for pagination list
+    sizePerPageRenderer,                                   // For page size dropdown 
+    pageListRenderer,                                      // For pagination list
 
     page: props.queryParams?.pagingParams?.pageIndex,
     sizePerPage: props.queryParams?.pagingParams?.pageSize,
@@ -92,10 +106,10 @@ const DataGrid: React.FC<IGridTableProps> = props => {
 
     sizePerPageList:
       [
-        { text: '20', value: 20 },
-        { text: '30', value: 30 },
-        { text: '40', value: 40 },
-        { text: '50', value: 50 }
+        { text: '2', value: 2 },
+        { text: '3', value: 3 },
+        { text: '4', value: 4 },
+        { text: '5', value: 5 }
       ]
   };
 
@@ -116,10 +130,13 @@ const DataGrid: React.FC<IGridTableProps> = props => {
                     keyField="projectId"
                     data={props.data}
                     columns={props.columns}
-                    defaultSorted={props.defaultSorted}
                     classes={`${props.className} table_responsive`}
                     onTableChange={props.onTableChange}
                     noDataIndication={emptyDataIndication}
+                    sort={{
+                      dataField: props.queryParams?.sortingParams?.sortColumnName,
+                      order: props.queryParams?.sortingParams?.sortOrder
+                    }}
                     {...paginationTableProps} />
                 </div>
               </div>

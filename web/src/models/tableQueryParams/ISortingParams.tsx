@@ -1,8 +1,8 @@
 import SortOrder from "../../enums/SortOrder";
 
 interface ISortingParams {
-    sortOrder: SortOrder;
-    sortColumnName: string | null;
+    sortOrder: string;
+    sortColumnName: string;
 }
 
 export default ISortingParams;

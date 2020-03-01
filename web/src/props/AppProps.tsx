@@ -81,7 +81,6 @@ export interface IGridTableProps {
   ActionList: IBtnActionProps[];
   sorting: boolean;
   className: string;
-  defaultSorted?: any;
   onRowClick?: (
     e: React.MouseEvent<Element, MouseEvent> | undefined,
     rowData: any

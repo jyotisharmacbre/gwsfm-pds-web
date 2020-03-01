@@ -3,7 +3,6 @@ import moment from 'moment';
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowDown, faArrowUp } from '@fortawesome/free-solid-svg-icons';
-import SortOrder from '../enums/SortOrder';
 import IQueryParams from '../models/tableQueryParams/IQueryParams';
 
 export const columnFormatter = (cell, row, rowIndex, cellParams) => {
@@ -12,21 +11,21 @@ export const columnFormatter = (cell, row, rowIndex, cellParams) => {
     switch (cellParams.type) {
         case ColumnTypeEnum.numeric:
         case ColumnTypeEnum.currency:
-            return <span className='float-right'>{cell}</span>;
+            return <div><span className='float-right'>{cell}</span>&nbsp;</div>;
         case ColumnTypeEnum.percentage:
-            return <span className='float-right'> {cell + ' %'}</span>;
+            return <div><span className='float-right'> {cell + ' %'}</span> &nbsp;</div >;
         case ColumnTypeEnum.date:
-            return cell ? moment(cell).format('MM/DD/YYYY') : '';
+            return cell ? moment(cell).format('MM/DD/YYYY') : <div>&nbsp;</div>;
     }
 }
 export const sortCaret = (order, column) => {
     if (!order)
         return;
     else if (order === 'asc')
-        return (<FontAwesomeIcon className="active" icon={faArrowDown} />);
+        return <FontAwesomeIcon className="active" icon={faArrowDown} />;
 
     else if (order === 'desc')
-        return (<FontAwesomeIcon className="active" icon={faArrowUp} />);
+        return <FontAwesomeIcon className="active" icon={faArrowUp} />;
 
     return null;
 };
@@ -39,21 +38,21 @@ export const setTableQueryParams = (params) => {
         },
         sortingParams: {
             sortColumnName: params.sortField,
-            sortOrder: (params.sortOrder?.toLowerCase() == "asc" ? SortOrder.asc : SortOrder.desc)
+            sortOrder: params.sortOrder
         }
     }
     return updatedParams;
-
 };
-export const setURLParammsForGridTable = (history, path, queryParams) => {
+
+export const setURLParammsForGridTable = (history, path, queryParams: IQueryParams) => {
     history.push({
         pathname: path,
         search:
             "?pageIndex=" + queryParams.pagingParams.pageIndex +
             "&pageSize=" + queryParams.pagingParams.pageSize +
             "&sortField=" + queryParams.sortingParams.sortColumnName +
-            "&sortOrder=" + SortOrder[queryParams.sortingParams.sortOrder]
-    })
+            "&sortOrder=" + queryParams.sortingParams.sortOrder
+    });
 }
 
 export const extractQueryParams = (locationSearch: string, defaultSortField: string, defaultPageIndex: number, defaultPageSize: number) => {
@@ -71,7 +70,7 @@ export const extractQueryParams = (locationSearch: string, defaultSortField: str
         },
         sortingParams: {
             sortColumnName: sortField ?? defaultSortField,
-            sortOrder: sortOrder ? SortOrder[sortOrder] : SortOrder.desc
+            sortOrder: sortOrder ?? 'desc'
         }
     };
 

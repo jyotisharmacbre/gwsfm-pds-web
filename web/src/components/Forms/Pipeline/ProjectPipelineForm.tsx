@@ -3,9 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import ColumnTypeEnum from '../../../enums/ColumnTypeEnum';
 import { LookupItems } from '../../../helpers/constants';
-import { columnFormatter, sortCaret } from '../../../helpers/table-helper';
 import { displayUserName, getFilterElementFromArray, getLookupDescription, getPropertyName } from '../../../helpers/utility-helper';
 import IQueryParams from '../../../models/tableQueryParams/IQueryParams';
 import { IDynamicContractCustomerData } from '../../../store/DynamicsData/Types/IDynamicData';
@@ -18,7 +16,7 @@ import { IUserServiceData } from '../../../store/UserService/Types/IUserService'
 import { formatMessage } from '../../../Translations/connectedIntlProvider';
 import IReactIntl from '../../../Translations/IReactIntl';
 import DataGrid from '../../Table/DataGrid';
-import gridColumns from './Column.config'
+import gridColumns from './Column.config';
 
 interface Props {
   pipelineValues: IProjectPipelineGridState;
@@ -28,7 +26,6 @@ interface Props {
   contractCustomerList: Array<IDynamicContractCustomerData>;
   handleTableChange: (type, params) => void;
   queryParams: IQueryParams;
-  defaultSorted: any;
 }
 
 const ProjectPipelineForm: React.FC<Props & IReactIntl> = (props: any) => {
@@ -57,7 +54,7 @@ const ProjectPipelineForm: React.FC<Props & IReactIntl> = (props: any) => {
     [props.pipelineValues, props.lookupValues, props.currencies, props.userNamesForEmailsValues, props.contractCustomerList]
   );
 
-  const getUserDetails = (userEmail, usersDetails)=>{
+  const getUserDetails = (userEmail, usersDetails) => {
     return userEmail && usersDetails?.find(
       lk => lk.email?.toUpperCase() === userEmail.toUpperCase()
     );
@@ -69,11 +66,11 @@ const ProjectPipelineForm: React.FC<Props & IReactIntl> = (props: any) => {
         ? `${displayUserName(projectOwnerDetail)}`
         : rowProject.projectOwner;
 
-        const headOfProjectDetail = getUserDetails(rowProject.headOfProject, namesAndEmails);
-        rowProject.headOfProject = headOfProjectDetail
-          ? `${displayUserName(headOfProjectDetail)}`
-          : rowProject.headOfProject;
-          
+      const headOfProjectDetail = getUserDetails(rowProject.headOfProject, namesAndEmails);
+      rowProject.headOfProject = headOfProjectDetail
+        ? `${displayUserName(headOfProjectDetail)}`
+        : rowProject.headOfProject;
+
       var statusID = rowProject.status;
       if (!isNaN(statusID) && allLookups.length > 0)
         rowProject.status = getLookupDescription(
@@ -126,7 +123,6 @@ const ProjectPipelineForm: React.FC<Props & IReactIntl> = (props: any) => {
         columns={gridColumns()}
         data={gridData}
         sorting={true}
-        defaultSorted={props.defaultSorted}
         className="price-table"
         ActionList={[]}
         onTableChange={props.handleTableChange}

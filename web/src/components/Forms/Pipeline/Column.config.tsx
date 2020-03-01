@@ -5,6 +5,14 @@ import { formatMessage } from '../../../Translations/connectedIntlProvider';
 const gridColumns = () => {
     return [
         {
+            dataField: 'projectRefId',
+            text: formatMessage('MESSAGE_PROJECT_ID'),
+            attrs: () => ({ 'data-column': formatMessage('MESSAGE_PROJECT_ID') }),
+            sort: true,
+            sortCaret: sortCaret,
+            formatter: columnFormatter,
+        },
+        {
             dataField: 'name',
             text: formatMessage('MESSAGE_PROJECT_NAME'),
             attrs: () => ({ 'data-column': formatMessage('MESSAGE_PROJECT_NAME') }),
@@ -16,6 +24,14 @@ const gridColumns = () => {
             dataField: 'projectOwner',
             text: formatMessage('LABEL_OWNER'),
             attrs: () => ({ 'data-column': formatMessage('LABEL_OWNER') }),
+            sort: true,
+            sortCaret: sortCaret,
+            formatter: columnFormatter
+        },
+        {
+            dataField: 'headOfProject',
+            text: formatMessage('LABEL_HEAD_OF_PROJECT'),
+            attrs: () => ({ 'data-column': formatMessage('LABEL_HEAD_OF_PROJECT') }),
             sort: true,
             sortCaret: sortCaret,
             formatter: columnFormatter
