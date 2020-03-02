@@ -26,6 +26,7 @@ interface IMapDispatchToProps {
 	resetPreliminaryState: () => void;
 	resetDiscountState: () => void;
 	getCurrentUserProfile: () => void;
+	getProjectChartSummary: () => void;
 }
 interface IMapStateToProps {
 	dashboardGridValues: Array<IProjectDashboardGrid>;
@@ -43,6 +44,7 @@ const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
 		props.resetPreliminaryState();
 		props.resetDiscountState();
 		props.getCurrentUserProfile();
+		props.getProjectChartSummary();
 		return () => {
 			props.resetDashboardState();
 		};
@@ -136,7 +138,8 @@ const mapDispatchToProps = (dispatch) => {
 		resetCustomerEnquiryState: () => dispatch(actions.resetCustomerEnquiryState()),
 		resetPreliminaryState: () => dispatch(actions.resetPreliminaryState()),
 		resetDiscountState: () => dispatch(actions.resetDiscountState()),
-		getCurrentUserProfile: () => dispatch(actions.getCurrentUserProfileForEmailsService())
+		getCurrentUserProfile: () => dispatch(actions.getCurrentUserProfileForEmailsService()),
+		getProjectChartSummary: () => dispatch(actions.getProjectChartSummary())
 	};
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

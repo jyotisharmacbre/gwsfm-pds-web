@@ -1,6 +1,7 @@
 import * as axios from '../../client';
 import { ActionType } from './Types/ActionType';
 import { Dispatch } from 'redux';
+import IProjectChartSummary from '../../models/IProjectChartSummary';
 /* istanbul ignore next */
 const projectPipelineDetailSuccess = (response: any) => {
   return {
@@ -14,6 +15,21 @@ const projectPipeineDetailError = (error: string) => {
     type: ActionType.PROJECT_PIPELINE_GRID_ERROR,
     payload: error
   };
+};
+
+/* istanbul ignore next */
+const getProjectChartSummarySuccess = (response: Array<IProjectChartSummary>) => {
+    return {
+        type: ActionType.GET_PROJECT_CHART_SUMMARY_SUCCESS,
+        payload: response
+    };
+};
+/* istanbul ignore next */
+const getProjectChartSummaryError = (error: string) => {
+    return {
+        type: ActionType.GET_PROJECT_CHART_SUMMARY_ERROR,
+        payload: error
+    };
 };
 
 const headers = {
@@ -33,4 +49,19 @@ export const projectPipelineDetail = () => {
         dispatch(projectPipeineDetailError(error));
       });
   };
+};
+
+export const getProjectChartSummary = () => {
+    return (dispatch: Dispatch) => {
+        axios.baseAPI
+            .get('api/Projects/GetProjectChartSummary', { headers: headers })
+            .then(response => {
+                /* istanbul ignore next */
+                dispatch(getProjectChartSummarySuccess(response.data));
+            })
+            .catch(error => {
+                /* istanbul ignore next */
+                dispatch(getProjectChartSummaryError(error));
+            });
+    };
 };

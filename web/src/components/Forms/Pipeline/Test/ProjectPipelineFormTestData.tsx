@@ -52,7 +52,12 @@ export const getUsersEmailData: Array<IUserServiceData> = [
         soldMargin: '2',
         weightedTCV: '3'
       }],
-      error:null
+      error: null,
+      projectChartSummary: {
+          data: [],
+          loading: false,
+          error: null
+      }
   };
   export const intialLookupvalues: Array<ILookup> = [
     {

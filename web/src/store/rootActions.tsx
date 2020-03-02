@@ -74,3 +74,5 @@ export {
 export { getProjectParameters } from './Admin/Actions';
 
 export { getNotifications } from './Notifications/Actions';
+
+export { projectPipelineDetail,getProjectChartSummary } from './pipeline/Action';
