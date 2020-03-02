@@ -45,6 +45,8 @@ export const lookUpInitialState: ILookupState = {
 };
 
 export const pipelineInitialState: IProjectPipelineGridState = {
+    data: [],
+    totalNumberOfRecord:1,
     pipelineDetails: [],
     error: null,
     projectChartSummary: {
