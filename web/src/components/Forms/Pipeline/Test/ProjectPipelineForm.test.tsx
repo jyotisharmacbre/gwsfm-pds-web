@@ -1,7 +1,7 @@
 import React from 'react';
 import nock from 'nock';
 import { baseURL, userServiceURL } from '../../../../client/client';
-import { getUsersEmailData, pipelineGridData, intialLookupvalues,customerContractList } from './ProjectPipelineFormTestData';
+import { getUsersEmailData, pipelineGridData, intialLookupvalues, customerContractList } from './ProjectPipelineFormTestData';
 import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
 import { IntlProvider } from 'react-intl';
@@ -20,52 +20,52 @@ nock(baseURL)
 nock(userServiceURL)
   .post('/api/users/getusernamesforemailids')
   .reply(200, getUsersEmailData);
-  let store;
-  const setUpStore = (pipelineGridData) => {
-	store = mockStore({
-		pipelineGrid: pipelineGridData
-	});
+let store;
+const setUpStore = (pipelineGridData) => {
+  store = mockStore({
+    pipelineGrid: pipelineGridData
+  });
 };
-  let props = {
-    pipelineValues: pipelineGridData,
-    lookupValues: intialLookupvalues,
-    userNamesForEmailsValues: getUsersEmailData,
-    contractCustomerList: customerContractList
+let props = {
+  pipelineValues: pipelineGridData,
+  lookupValues: intialLookupvalues,
+  userNamesForEmailsValues: getUsersEmailData,
+  contractCustomerList: customerContractList
+};
+
+describe('Dashboard Form testCases', () => {
+  let wrapper: any;
+
+  const componentMount = props => {
+    wrapper = mount(
+      <Provider store={store}>
+        <IntlProvider locale="en" messages={translations['en'].messages}>
+          <MemoryRouter>
+            <ProjectPipelineForm {...props} />
+          </MemoryRouter>
+        </IntlProvider>
+      </Provider>
+    );
   };
 
-  describe('Dashboard Form testCases', () => {
-    let wrapper: any;
-
-    const componentMount = props => {
-      wrapper = mount(
-        <Provider store={store}>
-          <IntlProvider locale="en" messages={translations['en'].messages}>
-            <MemoryRouter>
-              <ProjectPipelineForm {...props} />
-            </MemoryRouter>
-          </IntlProvider>
-        </Provider>
-      );
+  it('Defines the component', () => {
+    setUpStore(pipelineGridData);
+    componentMount({ props });
+    expect(wrapper).toBeDefined();
+  });
+  it('should match the snapshot', () => {
+    setUpStore(pipelineGridData);
+    componentMount({ props });
+    expect(wrapper).toMatchSnapshot();
+  });
+});
+describe('Dashboard form reducer', () => {
+  it('should handle Get PROJECT DASHBOARD GRID DETAILS successfully', () => {
+    const projectPipelineGridAction: any = {
+      type: ActionType.PROJECT_PIPELINE_GRID_DETAILS
     };
-  
-    it('Defines the component', () => {
-        setUpStore(pipelineGridData);
-      componentMount({ props });
-      expect(wrapper).toBeDefined();
-    });
-    it('should match the snapshot', () => {
-        setUpStore(pipelineGridData);
-      componentMount({ props });
-      expect(wrapper).toMatchSnapshot();
-    });
+    expect(
+      projectPipelineDetailReducer(initialState, projectPipelineGridAction)
+    ).toMatchSnapshot();
   });
-  describe('Dashboard form reducer', () => {
-    it('should handle Get PROJECT DASHBOARD GRID DETAILS successfully', () => {
-      const projectPipelineGridAction: any = {
-        type: ActionType.PROJECT_PIPELINE_GRID_DETAILS
-      };
-      expect(
-        projectPipelineDetailReducer(initialState, projectPipelineGridAction)
-      ).toMatchSnapshot();
-    });
-  });
+});
