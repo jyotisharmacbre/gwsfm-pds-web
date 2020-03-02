@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import close_icon from '../../images/logo-black.png';
+import close_icon from '../../images/PDS_Logo_White.png';
 import language_icon from '../../images/language_icon.svg';
 import * as actions from '../../../store/rootActions';
 import {
@@ -32,6 +32,7 @@ import { displayUserName } from '../../../helpers/utility-helper';
 import useAuthContext from '../../../hooks/useAuthContext';
 import { IProjectDetail } from '../../../store/CustomerEnquiryForm/Types/IProjectDetail';
 import { Label } from '@material-ui/icons';
+import  Notification  from '../Notification/index'
 
 
 interface IMapDispatchToProps {
@@ -73,6 +74,7 @@ const ProfileMenu: React.FC<any> = props => {
   let history = useHistory();
   const authProvider = useAuthContext();
   const [showMenu, setMenuVisibility] = useState(false);
+  const [showNotify, setNotificationVisibility] = useState(false);
   const [isEditable, makeEditable] = useState(false);
   const [loading, setLoading] = useState(false);
   const projectId = props.project.projectId;
@@ -97,10 +99,12 @@ const ProfileMenu: React.FC<any> = props => {
 
   useEffect(() => {
     if (props.token) {
+      props.getProjectStatus();
       props.getUserPreferences();
       props.getAllLanguages();
       props.getAllCurrencies();
       props.getCurrentUserProfile();
+      props.getNotifications();
     }
   }, [props.token])
 
@@ -111,6 +115,7 @@ const ProfileMenu: React.FC<any> = props => {
       props.resetUserPreferencesState();
       props.getProjectStatus();
       setMenuVisibility(true);
+      setNotificationVisibility(true);
       makeEditable(false);
       setLoading(false);
     }
@@ -129,12 +134,14 @@ const ProfileMenu: React.FC<any> = props => {
 
   const closePanel = () => {
     setMenuVisibility(true);
+    setNotificationVisibility(true);
     makeEditable(false);
   }
 
   const handleBlur = (e) => {
     if (e.relatedTarget == null || !e.currentTarget.contains(e.relatedTarget)) {
       setMenuVisibility(false);
+      setNotificationVisibility(false);
     } else {
       e && e.target.focus();
     }
@@ -183,12 +190,14 @@ const ProfileMenu: React.FC<any> = props => {
                   <FontAwesomeIcon className="" icon={faHome} />
                 </a>
               </li>
-              <li>
-                <a href="#">
-                  <i>
-                    <FontAwesomeIcon className="" icon={faBell} />
-                    <span className="badge badge-light">3</span>
-                  </i>
+              <li onBlur={handleBlur}>
+                <a href="#"
+                onClick={() => setNotificationVisibility(!showNotify)}>
+                  <Notification 
+                 notifications = {props.notifications}
+                 showNotification = {showNotify}
+                 lookups = {props.lookups}
+                 />
                 </a>
               </li>
               <li data-test='menu-container' onBlur={handleBlur}>
@@ -316,8 +325,8 @@ const mapStateToProps = (state: IState) => {
     event: state.userPreferences.event,
     token: state.auth.token,
     project: state.project.form,
-
-
+    notifications: state.notifications.notifications,
+    lookups: state.lookup.projectstatus,
   }
 }
 
@@ -334,7 +343,7 @@ const mapDispatchToProps = dispatch => {
     getProjectStatus: () => dispatch(actions.getProjectStatus()),
     getCurrentUserProfile: () => dispatch(actions.getCurrentUserProfileForEmailsService()),
     getProjectDetail: (projectId) => dispatch(actions.getProjectDetail(projectId)),
-
+    getNotifications: () => dispatch(actions.getNotifications())
   }
 }
 

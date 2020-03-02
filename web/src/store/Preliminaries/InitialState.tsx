@@ -4,6 +4,4 @@ import EventType from '../../enums/EventType';
 export const initialState: IPreliminaryState = {
     preliminaryDetails: [],
     notify: Notify.none,
-    event: EventType.none,
-    loading: false
   };

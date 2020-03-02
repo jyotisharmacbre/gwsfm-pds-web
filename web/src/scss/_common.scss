@@ -9,9 +9,10 @@ p {
 }
 
 #content {
-    width: calc(100% - 250px);
+    width: 100%;
     min-height: 100vh;
     @include transition(all 0.3s);
+
     @include smScreen {
         width: 100%;
     }
@@ -60,21 +61,23 @@ div#RouteDiv {
 
 /*scrollbar */
 
-.style-3::-webkit-scrollbar-track {
+::-webkit-scrollbar-track {
     // box-shadow: inset 0 0 6px rgba(0,0,0,0.0);
     // -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.0);
-    background-color: #f1f1f1 !important;
-    ;
+    background-color: #c2c2c1 !important;
+    height: 4px !important;
 }
 
-.style-3::-webkit-scrollbar {
+::-webkit-scrollbar {
     width: 6px !important;
-    background-color: #f1f1f1 !important;
-    ;
+    background-color: #dfdfdf !important;
+    height: 4px !important;
 }
 
-.style-3::-webkit-scrollbar-thumb {
-    background-color: #f1f1f1 !important;
+::-webkit-scrollbar-thumb {
+    background-color: #818A8F !important;
+    width: 10px !important;
+    height: 4px !important;
 }
 
 form {
@@ -679,4 +682,8 @@ td {
     .cursorPntr
 {
     cursor: pointer!important;
+}
+
+.custom_typehead input{
+    padding-left: 24px;
 }

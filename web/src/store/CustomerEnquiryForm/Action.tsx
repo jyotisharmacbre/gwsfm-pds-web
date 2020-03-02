@@ -57,7 +57,7 @@ export const projectDetailAdd = (data: IProjectDetail, event: EventType) => {
 			.post('/api/Projects/customerEnquiry', data, { headers: headers })
 			.then((response) => {
 				/* istanbul ignore next */
-				dispatch(projectDetailAddSuccess(response.data, event));
+				dispatch(projectDetailAddSuccess(response.data, event));				
 			})
 			.catch((error) => {
 				/* istanbul ignore next */
@@ -74,7 +74,7 @@ export const projectDetailEdit = (data: IProjectDetail, event: EventType) => {
 			.put('/api/Projects/updatecustomerEnquiry', data, { headers: headers })
 			.then((response) => {
 				/* istanbul ignore next */
-				dispatch(projectDetailEditSuccess(response.data, event));
+				dispatch(projectDetailEditSuccess(response.data, event));				
 			})
 			.catch((error) => {
 				/* istanbul ignore next */

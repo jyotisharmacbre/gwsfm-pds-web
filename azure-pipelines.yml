@@ -154,7 +154,7 @@ steps:
 
 - task: NodeTool@0
   inputs:
-    versionSpec: '10.x'
+    versionSpec: '12.x'
   displayName: 'Install Node.js'
 
 - task: Npm@1
@@ -175,7 +175,8 @@ steps:
     extraProperties: |
       # Additional properties that will be passed to the scanner, 
       # Put one key=value per line, example
-      sonar.exclusions=**/*.bin,**/*.js,**/*.scss
+      sonar.exclusions=**/*.bin,**/*.js,**/*.scss,**/*.yml
+      sonar.cobertura.reportPath=coverage/cobertura/cobertura-coverage.xml
 
 - task: PowerShell@2
   displayName: 'Code Build start time'
@@ -192,7 +193,7 @@ steps:
     command: custom
     workingDir: web
     verbose: false
-    customCommand: 'run build'
+    customCommand: 'run build:ci'
 
 
 - task: PowerShell@2
@@ -226,6 +227,63 @@ steps:
       }
     contentType: 'application/json'
     allowInvalidSSLCertificate: false
+
+- task: PowerShell@2
+  displayName: 'Unit Test Start Time'
+  inputs:
+    targetType: 'inline'
+    script: |
+      $TestStartdate=$(Get-Date -Format s);
+      Write-Host "##vso[task.setvariable variable=TestStartTime]$TestStartdate"
+
+- task: Npm@1
+  displayName: 'Test Run'
+  inputs:
+    command: 'custom'
+    workingDir: 'web'
+    customCommand: 'run test:ci'
+
+- task: PowerShell@2
+  displayName: 'unit Test End Time'
+  inputs:
+    targetType: 'inline'
+    script: |
+      $TestEnddate=$(Get-Date -Format s);
+      Write-Host "##vso[task.setvariable variable=TestEndTime]$TestEnddate"
+
+- task: restCallBuildTask@0
+  displayName: 'Post Unit test Metrics'
+  inputs:
+    webserviceEndpoint: 'Metrics'
+    relativeUrl: 
+    httpVerb: 'POST'
+    body: |
+      {
+      "ApplicationId": $(appID),
+      "AutomationProcessId": 5,
+      "AutomationToolId": 48,
+      "Description": "Unit Test",
+      "Version": "$(BUILD.BUILDID)",
+      "Cycle": "$(BUILD.BUILDID)",
+      "Passed": 1,
+      "Failed": 0,
+      "Blocked": 0,
+      "StartDateTime": "$(TestStartTime)",
+      "EndDateTime": "$(TestEndTime)"
+      }
+    contentType: 'application/json'
+    allowInvalidSSLCertificate: false
+
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: '**/junit.xml'
+
+- task: PublishCodeCoverageResults@1
+  inputs:
+    codeCoverageTool: 'Cobertura'
+    summaryFileLocation: '$(System.DefaultWorkingDirectory)/web/coverage/cobertura-coverage.xml'
+    reportDirectory: '$(System.DefaultWorkingDirectory)/coverage/'
 
 - task: PowerShell@2
   displayName: 'static code analysis start time'
@@ -294,63 +352,6 @@ steps:
       }
     contentType: 'application/json'
     allowInvalidSSLCertificate: false
-
-- task: PowerShell@2
-  displayName: 'Unit Test Start Time'
-  inputs:
-    targetType: 'inline'
-    script: |
-      $TestStartdate=$(Get-Date -Format s);
-      Write-Host "##vso[task.setvariable variable=TestStartTime]$TestStartdate"
-
-- task: Npm@1
-  displayName: 'Test Run'
-  inputs:
-    command: 'custom'
-    workingDir: 'web'
-    customCommand: 'run test:ci'
-
-- task: PowerShell@2
-  displayName: 'unit Test End Time'
-  inputs:
-    targetType: 'inline'
-    script: |
-      $TestEnddate=$(Get-Date -Format s);
-      Write-Host "##vso[task.setvariable variable=TestEndTime]$TestEnddate"
-
-- task: restCallBuildTask@0
-  displayName: 'Post Unit test Metrics'
-  inputs:
-    webserviceEndpoint: 'Metrics'
-    relativeUrl: 
-    httpVerb: 'POST'
-    body: |
-      {
-      "ApplicationId": $(appID),
-      "AutomationProcessId": 5,
-      "AutomationToolId": 48,
-      "Description": "Unit Test",
-      "Version": "$(BUILD.BUILDID)",
-      "Cycle": "$(BUILD.BUILDID)",
-      "Passed": 1,
-      "Failed": 0,
-      "Blocked": 0,
-      "StartDateTime": "$(TestStartTime)",
-      "EndDateTime": "$(TestEndTime)"
-      }
-    contentType: 'application/json'
-    allowInvalidSSLCertificate: false
-
-- task: PublishTestResults@2
-  inputs:
-    testResultsFormat: 'JUnit'
-    testResultsFiles: '**/junit.xml'
-
-- task: PublishCodeCoverageResults@1
-  inputs:
-    codeCoverageTool: 'Cobertura'
-    summaryFileLocation: '$(System.DefaultWorkingDirectory)/web/coverage/cobertura-coverage.xml'
-    reportDirectory: '$(System.DefaultWorkingDirectory)/coverage/'
 
 - task: ArchiveFiles@2
   inputs:

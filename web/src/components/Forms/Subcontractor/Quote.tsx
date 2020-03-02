@@ -57,7 +57,7 @@ const Quote: React.FC<IProps> = props => {
                                             type="text"
                                             component={PdsFormInput}
                                             validate={[
-                                                Validate.maxLength(1000)
+                                                Validate.maxLength(500)
                                             ]}
                                             labelKey="LABEL_ACTIVITY_NAME"
                                             placeholderKey="PLACEHOLDER_SUPPLIER_NAME"

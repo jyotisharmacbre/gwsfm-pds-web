@@ -55,7 +55,7 @@ const QueryPopup: React.FC<IProps & InjectedFormProps<IQueryPopup, IProps>> = pr
                                     rows="3"
                                     component={PdsFormTextArea}
                                     className="required"
-                                    validate={[Validate.required('T_HEADING_COMMENTS'), Validate.maxLength(5000)]}
+                                    validate={[Validate.required('LABEL_COMMENT'), Validate.maxLength(5000)]}
                                 />
                                 <p className="warn_msg">
                                     <img className="warn_icon" src={warn_icon} alt="close" />

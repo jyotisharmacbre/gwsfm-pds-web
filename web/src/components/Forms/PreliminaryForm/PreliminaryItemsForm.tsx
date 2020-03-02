@@ -28,7 +28,6 @@ const PreliminaryItemsForm:React.FC<Props>
 
   return (
       <tbody>
-          <Suspense fallback={<div>Loading...</div>}>
           {props.fields.map((member, index) => (
               <tr key={index}>
      <td>{props.itemDetail.items[index].itemName}</td>
@@ -188,7 +187,6 @@ const PreliminaryItemsForm:React.FC<Props>
 
      </tr>
           ))}
-          </Suspense>
     </tbody>
   )};
   const mapStateToProps = (state: IState) => ({
