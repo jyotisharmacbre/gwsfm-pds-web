@@ -15,6 +15,7 @@ import Notify from '../enums/Notify';
 import { isValidEmail } from '../helpers/fieldValidations';
 import * as actions from '../store/rootActions';
 import { displayUserName } from '../helpers/utility-helper';
+import PreferredChart from '../components/Charts/PreferredChart';
 interface IMapDispatchToProps {
 	dashboardGridDetail: () => void;
 	getLookups: () => void;
@@ -36,7 +37,7 @@ interface IMapStateToProps {
 }
 const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
 	useEffect(() => {
-		props.getLookups();		
+		props.getLookups();
 		props.resetProjectOverviewState();
 		props.resetSubContractorState();
 		props.resetCustomerEnquiryState();
@@ -55,20 +56,20 @@ const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
 					if (isValidEmail(props.dashboardGridValues[recordNo].modifiedBy))
 						allEmails.push(props.dashboardGridValues[recordNo].modifiedBy);
 				}
-				allEmails = allEmails.filter(function(el) {
+				allEmails = allEmails.filter(function (el) {
 					return el != '';
 				});
-				const disinctvals = (value,index,self) =>{
+				const disinctvals = (value, index, self) => {
 					return self.indexOf(value) === index;
 				}
 				const uniqueVals = allEmails.filter(disinctvals);
 				if (allEmails.length > 0) props.handleGetUserNamesForEmails(uniqueVals);
 			}
 		},
-		[ props.dashboardGridValues ]
+		[props.dashboardGridValues]
 	);
 	//Following code will also re-render dashboardGrid on lnaguage change, as lookup data gets update on language change. 
-	useEffect(()=>{
+	useEffect(() => {
 		props.dashboardGridDetail();
 	}, [props.lookupDetails]);
 	return (
@@ -80,7 +81,7 @@ const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
 							<div className="row align-items-center my-3 my-lg-4 pb-2">
 								<div className="col-xl-6">
 									<h1 className="top_Title2 m-0">
-										{formatMessage('TITLE_WELCOME')} {!displayUserName(props.currentUserProfile)? '...' : displayUserName(props.currentUserProfile)}
+										{formatMessage('TITLE_WELCOME')} {!displayUserName(props.currentUserProfile) ? '...' : displayUserName(props.currentUserProfile)}
 									</h1>
 								</div>
 								<div className="col-xl-6">
@@ -107,6 +108,17 @@ const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
 									showValues={props.valuesCount}
 									lookupValues={props.lookupDetails}
 									userNamesForEmailsValues={props.userNamesForEmails}
+								/>
+							</div>
+
+							<div className="top_Title top_Title2">
+								<h2>Analytics</h2>
+								<h3>Total</h3>
+							</div>
+							<div className="pie_chart_wrap">
+								<PreferredChart
+									Preferred={40}
+									NotPreferred={6}
 								/>
 							</div>
 						</div>
