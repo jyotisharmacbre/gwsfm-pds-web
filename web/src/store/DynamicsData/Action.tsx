@@ -1,6 +1,7 @@
 import * as axios from '../../client';
 import { ActionType } from './Types/ActionType';
 import { Dispatch } from 'redux';
+import { getContractsAndCustomersList } from '../../services';
 /* istanbul ignore next */
 export const getDynamicContractSuccess = (response: any) => {
 	return {
@@ -191,11 +192,7 @@ export const getDynamicSubContractorData = (searchSubContractor: string, success
 };
 export const getContractDetailsByIds = (searchSubContractor: Array<string>) => {
 	return (dispatch: Dispatch) => {
-		axios.baseAPI
-		.post(
-			`/api/ERPLookup/getContractsAndCustomersList`,searchSubContractor,
-			config
-		)
+		getContractsAndCustomersList(searchSubContractor)
 		.then((response) => {
 			/* istanbul ignore next */
 			dispatch(getDynamicContractListSuccess(response.data));

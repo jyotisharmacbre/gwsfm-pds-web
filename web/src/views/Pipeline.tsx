@@ -77,13 +77,13 @@ const ProjectPipeline: React.FC<IMapStateToProps & IMapDispatchToProps> = (props
 		},
 		[props.lookupDetails]
 	);
-	const formatDataToExportExcel = (data) => {
+	const formatDataToExportExcel = (data, allEmails, allClients) => {
 		let result: any = [];
 		data.map(element => {
-			let mailObj = props.userNamesForEmails && element.projectOwner && props.userNamesForEmails.find(
+			let mailObj = allEmails && element.projectOwner && allEmails.find(
 				lk => lk.email && element.projectOwner && lk.email.toUpperCase() === element.projectOwner.toUpperCase()
 			);
-			let customerObj = props.contractDetailsByIds && element.contractorId && props.contractDetailsByIds.find(
+			let customerObj = allClients && element.contractorId && allClients.find(
 				lk => lk.contractId && element.contractorId && lk.contractId.toUpperCase() === element.contractorId.toUpperCase()
 			);
 			const currencySymbol = getFilterElementFromArray(
@@ -128,10 +128,40 @@ const ProjectPipeline: React.FC<IMapStateToProps & IMapDispatchToProps> = (props
 		services.getAllPipelineData()
 			.then((response) => {
 			/* istanbul ignore next */
-				let data = formatDataToExportExcel(response.data);
-				exportToExcel(data, 'Projects');
-				setExportLoader(false);
-		})
+				let newEmails:Array<string> = [];
+				let newClients: Array<string> = [];
+				response.data.map((element) => {
+					if (isValidEmail(element.projectOwner)
+						&& props.userNamesForEmails.find(aa => aa.email.toLowerCase() == element.projectOwner.toLowerCase()) == undefined
+						&& newEmails.indexOf(element.projectOwner.toLowerCase()) == -1) {
+						newEmails.push(element.projectOwner.toLowerCase());
+					}
+					if (props.contractDetailsByIds.find(aa => aa.contractId == element.contractorId) == undefined
+						&& (newClients.length == 0 || (newClients.length > 0 && newClients.indexOf(element.contractorId) == -1))) {
+						newClients.push(element.contractorId);
+					}
+				})
+				let download = async function (data, newEmails, newClients) {
+					let allEmails = [...props.userNamesForEmails];
+					if (newEmails.length > 0) {
+						let response = await services.getUsersForEmailsService(newEmails);
+						if (response.data.length > 0) {
+							allEmails = [...props.userNamesForEmails, ...response.data]; 
+						}
+					}
+					let allClients = [...props.contractDetailsByIds];
+					if (newClients.length > 0) {
+						let response = await services.getContractsAndCustomersList(newClients);
+						if (response.data.length > 0) {
+							allClients = [...props.userNamesForEmails, ...response.data];
+						}
+					}
+					let finalData = formatDataToExportExcel(data, allEmails, allClients);
+					exportToExcel(finalData, 'Projects');
+					setExportLoader(false);
+				};
+				download(response.data, newEmails, newClients);
+			})
 			.catch(() => {
 				/* istanbul ignore next */
 				toast.error(formatMessage('MESSAGE_ERROR'));
@@ -142,19 +172,21 @@ const ProjectPipeline: React.FC<IMapStateToProps & IMapDispatchToProps> = (props
 	return (
 		<div className="container-fluid">
 			<div className="row">
-				<button
-					className="active"
-					type="button"
-					onClick={() => exportToExcelPipelineData()}
-					disabled={exportLoader}
-				>
-					{exportLoader && <CircularProgress />}
-					<FormattedMessage id="EXPORT_TO_EXCEL" />
-				</button>
 				<div className="col-lg-12">
 					<div className="custom-wrap">
 						<div className="top_Title">
 							<h2>{formatMessage('TITLE_CURRENT_PIPELINE')}</h2>
+							<span>
+								<button
+									className="active"
+									type="button"
+									onClick={() => exportToExcelPipelineData()}
+									disabled={exportLoader}
+								>
+									{exportLoader && <CircularProgress />}
+									<FormattedMessage id="EXPORT_TO_EXCEL" />
+								</button>
+							</span>
 						</div>
 
 						<div className="table-grid-wrap price-sumry">
