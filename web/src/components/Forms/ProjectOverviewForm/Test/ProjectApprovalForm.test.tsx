@@ -4,10 +4,10 @@ import { findByTestAtrr } from '../../../../helpers/test-helper';
 import { initialState } from '../../../../store/ProjectOverviewForm/Test/Reducertestdata';
 import ProjectApprovalForm from '../ProjectApprovalForm';
 import ProjectStatus from '../../../../enums/ProjectStatus';
+import { IProjectApprovals } from '../../../../store/ProjectOverviewForm/Types/IProjectApprovals';
 
 describe('Project Approval Form tests', () => {
-    const testData = initialState.form.projectApprovals;
-
+    let testData = initialState.form.projectApprovals;
     let wrapper: any;
     let props: any;
     beforeEach(() => {
@@ -44,6 +44,25 @@ describe('Project Approval Form tests', () => {
         wrapper = shallow(<ProjectApprovalForm {...props}
         />);
         expect(findByTestAtrr(wrapper, 'icons-approval-status').length).toEqual(0);
+    });
+    it('should render the icons against approvers if status is JAApproved', () => {
+     testData[0] = {projectApprovalId : '1',
+       projectId : '1',
+       projectApprovalRange : 1,
+       projectApprovalRangeDescription : '1',
+       approverType: 1,
+       approverTypeDescription: 'string',
+       approvalStatus: 1,
+       approvalStatusDescription: 'string',
+       userId: 'string',
+       showRangeLabel: true,
+
+    }
+        
+        props.status = ProjectStatus.JAApproved;
+        wrapper = shallow(<ProjectApprovalForm {...props}
+        />);
+        expect(findByTestAtrr(wrapper, 'icons-approval-status').length).toBeGreaterThan(0);
     });
 
 
