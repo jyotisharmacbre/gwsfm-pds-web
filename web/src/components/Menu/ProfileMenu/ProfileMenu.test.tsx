@@ -12,6 +12,7 @@ import { BrowserRouter } from 'react-router-dom';
 import * as helper from '../../../helpers/auth-helper';
 import { findByTestAtrr } from '../../../helpers/test-helper';
 import routeData from 'react-router';
+import Notify from '../../../enums/Notify';
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
@@ -70,11 +71,11 @@ describe('Profile Menu', () => {
 
   const mockingStore = () => {
     store = mockStore({
-      userPreferences: { preferences: {} },
+      userPreferences: { preferences: {}, notify:Notify.success },
       lookup: {},
       userService: { currentUserProfile: { displayName: 'testName', email: 'test@pds.com' } },
-      project: { form: { name: "testName" } },
-      auth: { token: '' },
+      project: {form: {name: "testName"}},
+      auth:{token: '1234' }      
     });
   };
 
@@ -98,8 +99,8 @@ describe('Profile Menu', () => {
     notify: '',
     displayName: 'TestName',
     displayEmail: 'TestEmail',
-    auth: { token: '' }
-
+    auth:{token: '' }
+    
   };
   beforeEach(() => {
 
