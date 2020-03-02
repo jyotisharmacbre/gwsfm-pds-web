@@ -428,6 +428,16 @@
   font-size: 20px !important;
   padding-left: 0 !important; }
 
+.project_name_title {
+  width: 100%; }
+  .project_name_title label {
+    color: #f4f6fb;
+    float: left;
+    font-size: 18px;
+    text-transform: capitalize;
+    font-weight: 500;
+    margin: 0 0 0 36px; }
+
 /*dropdown notification section*/
 .dropdown-menu.notify_dropdown.user-dropdown {
   width: 320px;
@@ -1694,9 +1704,14 @@ label {
   padding: 0;
   margin-left: auto; }
 
-.link_disabled {
-  pointer-events: none;
+.link_disabled button {
+  pointer-events: none !important;
   opacity: 0.6; }
+
+.link_disabled input, .link_disabled textarea, .link_disabled select {
+  pointer-events: none !important;
+  opacity: 0.6;
+  background-color: #eee; }
 
 .mrgnlft10 {
   margin-left: 10px; }

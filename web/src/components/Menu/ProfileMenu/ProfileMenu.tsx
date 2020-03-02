@@ -77,25 +77,7 @@ const ProfileMenu: React.FC<any> = props => {
   const [showNotify, setNotificationVisibility] = useState(false);
   const [isEditable, makeEditable] = useState(false);
   const [loading, setLoading] = useState(false);
-  const projectId = props.project.projectId;
-
-  useEffect(() => {
-
-    props.getProjectDetail(projectId);
-
-  }, []);
-
-
-  useEffect(
-    () => {
-      if (props.project.projectId > 0 && props.Project) {
-        actions.getProjectDetail(
-          props.project.projectId,
-        )
-      }
-    },
-    [props.project.projectId]
-  );
+  
 
   useEffect(() => {
     if (props.token) {
@@ -342,7 +324,6 @@ const mapDispatchToProps = dispatch => {
     resetUserPreferencesState: () => dispatch(resetUserPreferencesState()),
     getProjectStatus: () => dispatch(actions.getProjectStatus()),
     getCurrentUserProfile: () => dispatch(actions.getCurrentUserProfileForEmailsService()),
-    getProjectDetail: (projectId) => dispatch(actions.getProjectDetail(projectId)),
     getNotifications: () => dispatch(actions.getNotifications())
   }
 }
