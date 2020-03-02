@@ -15,7 +15,7 @@ import { IState } from '../../../store/state';
 import { IUserServiceData } from '../../../store/UserService/Types/IUserService';
 import { formatMessage } from '../../../Translations/connectedIntlProvider';
 import IReactIntl from '../../../Translations/IReactIntl';
-import DataGrid from '../../Table/DataGrid';
+import DataGrid from '../../Table/DataGrid/DataGrid';
 import gridColumns from './Column.config';
 
 interface Props {
@@ -123,10 +123,11 @@ const ProjectPipelineForm: React.FC<Props & IReactIntl> = (props: any) => {
         columns={gridColumns()}
         data={gridData}
         sorting={true}
+        pagination={true}
         className="price-table"
         ActionList={[]}
         onTableChange={props.handleTableChange}
-        totalSize={props.pipelineValues.totalNumberOfRecord}
+        totalSize={props.pipelineValues?.totalNumberOfRecord}
         queryParams={props.queryParams}
         intl={props.intl}
       />

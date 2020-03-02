@@ -1,6 +1,6 @@
 interface IPagingParams {
     pageIndex: number;
-    pageSize: number;
+    pageSize?: number;
 }
 
 export default IPagingParams;

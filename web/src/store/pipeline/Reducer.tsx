@@ -3,7 +3,6 @@ import { updateObject } from '../../helpers/utility-helper';
 import { IProjectPipelineGridState } from './Types/IProjectPipelineGridState';
 import moment from 'moment';
 import Notify from '../../enums/Notify';
-
 export const initialState: IProjectPipelineGridState = {
   totalNumberOfRecord: 1,
   data: [
@@ -32,8 +31,8 @@ const projectPipelineDetailSuccess = (oldState, action) => {
   return updateObject(oldState, {
     error: null,
     loading: false,
-    data: action.payload.data,
-    totalNumberOfRecord: action.payload.totalNumberOfRecord
+    data: action.payload?.data,
+    totalNumberOfRecord: action.payload?.totalNumberOfRecord
   });
 };
 

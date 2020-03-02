@@ -44,11 +44,12 @@ const ProjectPipeline: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 	const [queryParams, setQueryParams] = useState<IQueryParams>({} as IQueryParams);
 
 	useEffect(() => {
-		const params = extractQueryParams(props.location.search, "lastModified", 1, 2);
+
+		const params = extractQueryParams(props.location?.search, "lastModified", 1, 20);
 		setQueryParams(params);
 		props.projectPipelineGridDetail(params);
 
-	}, [props.location.search]);
+	}, [props.lookupDetails, props.location?.search]);
 
 	useEffect(() => {
 		setIsComponentLoaded(true);
@@ -79,14 +80,6 @@ const ProjectPipeline: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 		},
 		[props.projectPipeline]
 	);
-
-	useEffect(
-		() => {
-			props.projectPipelineGridDetail(queryParams);
-		},
-		[props.lookupDetails]
-	);
-
 
 	const handleTableChange = (type, params) => {
 		if (isComponentLoaded) {

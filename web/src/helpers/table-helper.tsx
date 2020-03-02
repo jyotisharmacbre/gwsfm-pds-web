@@ -44,18 +44,19 @@ export const setTableQueryParams = (params) => {
     return updatedParams;
 };
 
-export const setURLParammsForGridTable = (history, path, queryParams: IQueryParams) => {
+export const setURLParammsForGridTable = (history, path, queryParams: IQueryParams, isSort: boolean = true, isPagination: boolean = true) => {
+    let queryString = '?';
+    queryString += isPagination ? 'pageIndex=' + queryParams.pagingParams.pageIndex + '&pageSize=' + queryParams.pagingParams.pageSize : '';
+    queryString += isPagination && isSort ? '&' : '';
+    queryString += isSort ? 'sortField=' + queryParams.sortingParams.sortColumnName + '&sortOrder=' + queryParams.sortingParams.sortOrder : '';
+
     history.push({
         pathname: path,
-        search:
-            "?pageIndex=" + queryParams.pagingParams.pageIndex +
-            "&pageSize=" + queryParams.pagingParams.pageSize +
-            "&sortField=" + queryParams.sortingParams.sortColumnName +
-            "&sortOrder=" + queryParams.sortingParams.sortOrder
+        search: queryString
     });
 }
 
-export const extractQueryParams = (locationSearch: string, defaultSortField: string, defaultPageIndex: number, defaultPageSize: number) => {
+export const extractQueryParams = (locationSearch: string, defaultSortField: string, defaultPageIndex: number, defaultPageSize?: number) => {
     let result: IQueryParams;
     const query = new URLSearchParams(locationSearch);
 
@@ -66,7 +67,7 @@ export const extractQueryParams = (locationSearch: string, defaultSortField: str
     result = {
         pagingParams: {
             pageIndex: parseInt(pageIndex ?? defaultPageIndex.toString()),
-            pageSize: parseInt(pageSize ?? defaultPageSize.toString())
+            pageSize: pageSize ? parseInt(pageSize) : defaultPageSize
         },
         sortingParams: {
             sortColumnName: sortField ?? defaultSortField,

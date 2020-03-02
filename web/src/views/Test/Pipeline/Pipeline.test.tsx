@@ -6,8 +6,8 @@ import configureStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 import ProjectPipeline from '../../Pipeline';
-import { initialState  as lookupInitalState }from '../../../store/Lookups/Reducer';
-import { initialState  as pipelineInitailState }from '../../../store/pipeline/Reducer'
+import { initialState as lookupInitalState } from '../../../store/Lookups/Reducer';
+import { initialState as pipelineInitailState } from '../../../store/pipeline/Reducer'
 
 const mockStore = configureStore([]);
 let store;
@@ -18,20 +18,20 @@ lookupInitalState.currencies = [{
 	currencyName: 'INR',
 	currencySymbol: 'R',
 	isActive: true
-  }];
+}];
 
-  lookupInitalState.countries = [{
+lookupInitalState.countries = [{
 	currencyId: 143,
 	name: 'india',
 	code: 'IN',
 	isoAlpha2Code: "IND",
-	countryId: 1	
-  }];
+	countryId: 1
+}];
 
 const setUpStore = () => {
-	store = mockStore({     
+	store = mockStore({
 		lookup: lookupInitalState,
-		pipelineGrid: pipelineInitailState, 
+		pipelineGrid: pipelineInitailState,
 		dynamicData: [{
 			contractId: 1,
 			contractName: "TestName",
@@ -46,16 +46,16 @@ const mountComponent = (Props) => {
 	wrapper = mount(
 		<Provider store={store}>
 			<IntlProvider locale="en" messages={translations['en'].messages}>
-            <Router>
-				<ProjectPipeline {...Props} />
-            </Router>
+				<Router>
+					<ProjectPipeline {...Props} />
+				</Router>
 			</IntlProvider>
 		</Provider>
 	);
 };
 describe('Pipline component test cases', () => {
-	const Props: any = {	
-		
+	const Props: any = {
+
 	};
 	beforeEach(() => {
 		setUpStore();

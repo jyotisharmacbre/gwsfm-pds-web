@@ -80,6 +80,7 @@ export interface IGridTableProps {
   data: any[];
   ActionList: IBtnActionProps[];
   sorting: boolean;
+  pagination?: boolean;
   className: string;
   onRowClick?: (
     e: React.MouseEvent<Element, MouseEvent> | undefined,

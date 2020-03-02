@@ -1,7 +1,7 @@
 import React from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory, { PaginationProvider, SizePerPageDropdownStandalone } from 'react-bootstrap-table2-paginator';
-import { IGridTableProps } from '../../props/AppProps';
+import { IGridTableProps } from '../../../props/AppProps';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faExclamationTriangle
@@ -36,7 +36,7 @@ const DataGrid: React.FC<IGridTableProps> = props => {
     onPageChange
   }) => {
     return (
-      <div className="pagination_outer">
+      props.pagination && <div className="pagination_outer">
         <div>
           {
             pages.map(p => {
@@ -106,10 +106,10 @@ const DataGrid: React.FC<IGridTableProps> = props => {
 
     sizePerPageList:
       [
-        { text: '2', value: 2 },
-        { text: '3', value: 3 },
-        { text: '4', value: 4 },
-        { text: '5', value: 5 }
+        { text: '20', value: 20 },
+        { text: '30', value: 30 },
+        { text: '40', value: 40 },
+        { text: '50', value: 50 }
       ]
   };
 
@@ -122,8 +122,10 @@ const DataGrid: React.FC<IGridTableProps> = props => {
 
             ({ paginationProps, paginationTableProps }) => (
               <div>
-                <SizePerPageDropdownStandalone
+
+                {props.pagination && <SizePerPageDropdownStandalone
                   {...paginationProps} />
+                }
                 <div className="overflowX-show">
                   <BootstrapTable
                     remote
@@ -137,7 +139,8 @@ const DataGrid: React.FC<IGridTableProps> = props => {
                       dataField: props.queryParams?.sortingParams?.sortColumnName,
                       order: props.queryParams?.sortingParams?.sortOrder
                     }}
-                    {...paginationTableProps} />
+                    {...paginationTableProps}
+                  />
                 </div>
               </div>
             )

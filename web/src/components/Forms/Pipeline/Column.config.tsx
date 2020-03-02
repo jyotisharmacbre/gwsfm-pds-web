@@ -2,6 +2,7 @@ import ColumnTypeEnum from '../../../enums/ColumnTypeEnum';
 import { columnFormatter, sortCaret } from '../../../helpers/table-helper';
 import { formatMessage } from '../../../Translations/connectedIntlProvider';
 
+/* istanbul ignore file */
 const gridColumns = () => {
     return [
         {
