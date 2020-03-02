@@ -92,12 +92,6 @@ const [exportLoader, setExportLoader] = useState<boolean>(false);
 		},
 		[props.projectPipeline]
 	);
-	useEffect(
-		() => {
-			props.projectPipelineGridDetail();
-		},
-		[props.lookupDetails]
-	);
 	const formatDataToExportExcel = (data, allEmails, allClients) => {
 		let result: any = [];
 		data.map(element => {
