@@ -4,6 +4,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowDown, faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import IQueryParams from '../models/tableQueryParams/IQueryParams';
+import { PropertiesPlugin } from '@microsoft/applicationinsights-web';
 
 export const columnFormatter = (cell, row, rowIndex, cellParams) => {
     if (!cellParams) return cell;
@@ -13,7 +14,7 @@ export const columnFormatter = (cell, row, rowIndex, cellParams) => {
         case ColumnTypeEnum.currency:
             return <div><span className='float-right'>{cell}</span>&nbsp;</div>;
         case ColumnTypeEnum.percentage:
-            return <div><span className='float-right'> {cell + ' %'}</span> &nbsp;</div >;
+            return <div><span className='float-right'>{cell + ' %'}</span> &nbsp;</div >;
         case ColumnTypeEnum.date:
             return cell ? moment(cell).format('MM/DD/YYYY') : <div>&nbsp;</div>;
     }
@@ -54,6 +55,7 @@ export const setURLParammsForGridTable = (history, path, queryParams: IQueryPara
         pathname: path,
         search: queryString
     });
+    return history;
 }
 
 export const extractQueryParams = (locationSearch: string, defaultSortField: string, defaultPageIndex: number, defaultPageSize?: number) => {

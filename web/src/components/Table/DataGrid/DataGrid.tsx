@@ -15,9 +15,9 @@ const DataGrid: React.FC<IGridTableProps> = props => {
       case "Last":
       case "Back":
       case "Next":
-        return <a key={p.page} className={p.disabled ? 'disabled' : ''} onClick={(e) => { console.log(`${p.page} pressed1`); e.preventDefault(); onPageChange(p.page); e.stopPropagation(); }}></a>;
+        return <a key={p.page} className={p.disabled ? 'disabled' : ''} onClick={() => onPageChange(p.page)}></a>;
       default:
-        return <a key={p.page} className={p.active ? 'active' : ''} onClick={(e) => {
+        return <a key={p.page} className={p.active ? 'active' : ''} onClick={() => {
           if (props.onTableChange)
             props.onTableChange('pagination', {
               page: p.page,
