@@ -4,6 +4,7 @@ exports[`Dashboard Form testCases should match the snapshot 1`] = `ReactWrapper 
 
 exports[`Dashboard form reducer should handle Get PROJECT DASHBOARD GRID DETAILS successfully 1`] = `
 Object {
+  "data": undefined,
   "error": null,
   "loading": false,
   "pipelineDetails": undefined,
@@ -12,5 +13,6 @@ Object {
     "error": null,
     "loading": false,
   },
+  "totalNumberOfRecord": undefined,
 }
 `;

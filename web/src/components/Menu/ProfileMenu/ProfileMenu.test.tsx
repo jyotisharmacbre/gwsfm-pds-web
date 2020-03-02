@@ -12,6 +12,7 @@ import { BrowserRouter } from 'react-router-dom';
 import * as helper from '../../../helpers/auth-helper';
 import { findByTestAtrr } from '../../../helpers/test-helper';
 import routeData from 'react-router';
+import Notify from '../../../enums/Notify';
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
@@ -70,10 +71,11 @@ describe('Profile Menu', () => {
 
   const mockingStore = () => {
     store = mockStore({
-      userPreferences: { preferences: {} },
+      userPreferences: { preferences: {}, notify:Notify.success },
       lookup: {},
       userService: { currentUserProfile: { displayName: 'testName', email: 'test@pds.com' } },
-      auth:{token: '' },
+      project: {form: {name: "testName"}},
+      auth:{token: '1234' },
       notifications: {notifications: []}
     });
   };
@@ -99,6 +101,7 @@ describe('Profile Menu', () => {
     displayName: 'TestName',
     displayEmail: 'TestEmail',
     auth:{token: '' }
+    
   };
   beforeEach(() => {
 
@@ -119,6 +122,16 @@ describe('Profile Menu', () => {
     expect(field).toBeDefined();
   });
 
+  it('should contain Project Title', () => {
+    const projectTitle = wrapper.find('.project_name_title');
+    expect(projectTitle).toBeDefined();
+  });
+
+  it('should contain Project Title', () => {
+    const text = wrapper.find('.project_name_title').find('label').text();
+    expect(text).toEqual('testName');
+  });
+
   it('should hide menu onload', () => {
     const field = findByTestAtrr(wrapper, 'menu-container').first();
     expect(field.hasClass('hide')).toBeTruthy;
@@ -136,6 +149,8 @@ describe('Profile Menu', () => {
     field.simulate('blur');
     expect(field.hasClass('hide')).toBeTruthy;
   });
+
+
 
   it('should show logo in case of Error page', () => {
     mockJWT();

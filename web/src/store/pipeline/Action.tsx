@@ -2,6 +2,7 @@ import * as axios from '../../client';
 import { ActionType } from './Types/ActionType';
 import { Dispatch } from 'redux';
 import IProjectChartSummary from '../../models/IProjectChartSummary';
+import IQueryParams from '../../models/tableQueryParams/IQueryParams';
 /* istanbul ignore next */
 const projectPipelineDetailSuccess = (response: any) => {
   return {
@@ -36,10 +37,10 @@ const headers = {
   'Content-Type': 'application/json'
 };
 
-export const projectPipelineDetail = () => {
+export const projectPipelineDetail = (queryParams: IQueryParams) => {
   return (dispatch: Dispatch) => {
     axios.baseAPI
-      .get('api/Projects/GetAll', { headers: headers })
+      .post('api/Projects/GetAll', queryParams, { headers: headers })
       .then(response => {
         /* istanbul ignore next */
         dispatch(projectPipelineDetailSuccess(response.data));

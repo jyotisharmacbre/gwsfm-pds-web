@@ -3,7 +3,6 @@ import { updateObject } from '../../helpers/utility-helper';
 import { IProjectPipelineGridState } from './Types/IProjectPipelineGridState';
 import moment from 'moment';
 import Notify from '../../enums/Notify';
-
 export const initialState: IProjectPipelineGridState = {
     pipelineDetails: [
         {
@@ -28,16 +27,36 @@ export const initialState: IProjectPipelineGridState = {
     projectChartSummary: {
         data: [],
         loading: false,
-        error: null
-    }
+        error: null},
+  totalNumberOfRecord: 1,
+  data: [
+    {
+      projectId: '',
+      projectRefId: 0,
+      name: '',
+      projectOwner: '',
+      headOfProject: '',
+      contractorId: -1,
+      probabilityOfWinning: 1,
+      lastModified: moment().toString(),
+      status: '',
+      commenceDate: '',
+      approxValue: 0,
+      contractTypeId: 0,
+      cdmNotifiable: false,
+      soldMargin: '',
+      weightedTCV: ''
+    }]
 };
 
 const projectPipelineDetailSuccess = (oldState, action) => {
-    return updateObject(oldState, {
-        error: null,
-        loading: false,
-        pipelineDetails: action.payload
-    });
+  return updateObject(oldState, {
+    error: null,
+    loading: false,
+    data: action.payload?.data,
+    totalNumberOfRecord: action.payload?.totalNumberOfRecord,
+    pipelineDetails: action.payload
+  });
 };
 
 const projectPipeineDetailError = (oldState, action) => {

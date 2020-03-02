@@ -2,49 +2,7 @@
 
 exports[`Pipeline reducer test cases should handle PROJECT_PIPELINE_GRID_DETAILS  1`] = `
 Object {
-  "error": null,
-  "loading": false,
-  "pipelineDetails": Object {
-    "error": null,
-    "pipelineDetails": Array [
-      Object {
-        "approxValue": 0,
-        "cdmNotifiable": false,
-        "commenceDate": "",
-        "contractTypeId": 0,
-        "contractorId": -1,
-        "headOfProject": "",
-        "lastModified": "",
-        "name": "",
-        "probabilityOfWinning": 1,
-        "projectId": "",
-        "projectOwner": "",
-        "projectRefId": 0,
-        "soldMargin": "",
-        "status": "",
-        "weightedTCV": "",
-      },
-    ],
-    "projectChartSummary": Object {
-      "data": Array [],
-      "error": null,
-      "loading": false,
-    },
-  },
-  "projectChartSummary": Object {
-    "data": Array [],
-    "error": null,
-    "loading": false,
-  },
-}
-`;
-
-exports[`Pipeline reducer test cases should handle PROJECT_PIPELINE_GRID_ERROR  1`] = `
-Object {
-  "error": undefined,
-  "loading": false,
-  "notify": 2,
-  "pipelineDetails": Array [
+  "data": Array [
     Object {
       "approxValue": 0,
       "cdmNotifiable": false,
@@ -63,10 +21,112 @@ Object {
       "weightedTCV": "",
     },
   ],
+  "error": null,
+  "loading": false,
+  "pipelineDetails": Object {
+    "data": Array [
+      Object {
+        "approxValue": 0,
+        "cdmNotifiable": false,
+        "commenceDate": "",
+        "contractTypeId": 0,
+        "contractorId": -1,
+        "headOfProject": "",
+        "lastModified": "",
+        "name": "",
+        "probabilityOfWinning": 1,
+        "projectId": "",
+        "projectOwner": "",
+        "projectRefId": 0,
+        "soldMargin": "",
+        "status": "",
+        "weightedTCV": "",
+      },
+    ],
+    "error": null,
+    "pipelineDetails": Array [
+      Object {
+        "approxValue": 0,
+        "cdmNotifiable": false,
+        "commenceDate": "",
+        "contractTypeId": 0,
+        "contractorId": -1,
+        "headOfProject": "",
+        "lastModified": "Mon Mar 02 2020 22:31:29 GMT+0530",
+        "name": "",
+        "probabilityOfWinning": 1,
+        "projectId": "",
+        "projectOwner": "",
+        "projectRefId": 0,
+        "soldMargin": "",
+        "status": "",
+        "weightedTCV": "",
+      },
+    ],
+    "projectChartSummary": Object {
+      "data": Array [],
+      "error": null,
+      "loading": false,
+    },
+    "totalNumberOfRecord": 1,
+  },
   "projectChartSummary": Object {
     "data": Array [],
     "error": null,
     "loading": false,
   },
+  "totalNumberOfRecord": 1,
+}
+`;
+
+exports[`Pipeline reducer test cases should handle PROJECT_PIPELINE_GRID_ERROR  1`] = `
+Object {
+  "data": Array [
+    Object {
+      "approxValue": 0,
+      "cdmNotifiable": false,
+      "commenceDate": "",
+      "contractTypeId": 0,
+      "contractorId": -1,
+      "headOfProject": "",
+      "lastModified": "",
+      "name": "",
+      "probabilityOfWinning": 1,
+      "projectId": "",
+      "projectOwner": "",
+      "projectRefId": 0,
+      "soldMargin": "",
+      "status": "",
+      "weightedTCV": "",
+    },
+  ],
+  "error": undefined,
+  "loading": false,
+  "notify": 2,
+  "pipelineDetails": Array [
+    Object {
+      "approxValue": 0,
+      "cdmNotifiable": false,
+      "commenceDate": "",
+      "contractTypeId": 0,
+      "contractorId": -1,
+      "headOfProject": "",
+      "lastModified": "Mon Mar 02 2020 22:31:29 GMT+0530",
+      "name": "",
+      "probabilityOfWinning": 1,
+      "projectId": "",
+      "projectOwner": "",
+      "projectRefId": 0,
+      "soldMargin": "",
+      "status": "",
+      "weightedTCV": "",
+    },
+  ],
+  "projectChartSummary": Object {
+    "data": Array [],
+    "error": null,
+    "loading": false,
+  },
+  "totalNumberOfRecord": 1,
 }
 `;
