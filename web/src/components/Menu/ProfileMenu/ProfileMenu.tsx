@@ -101,14 +101,6 @@ const ProfileMenu: React.FC<any> = props => {
     }
   }, [props.notify]);
 
-  // useEffect(() => {
-    
-  //   window.addEventListener('click',()=>{
-  //     var element: any = document.getElementById('user__dropdown');
-  //     element.classList.remove('active');
-  //   })
-  // },[])
-
 
   const handleEvent = (userPreferences: IUserPreferences, event: EventType) => {
     setLoading(true);
