@@ -8,6 +8,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import ProjectPipeline from '../../Pipeline';
 import { initialState as lookupInitalState } from '../../../store/Lookups/Reducer';
 import { initialState as pipelineInitailState } from '../../../store/pipeline/Reducer'
+import * as action from '../../../store/pipeline/Action';
 
 const mockStore = configureStore([]);
 let store;
@@ -54,9 +55,16 @@ const mountComponent = (Props) => {
 	);
 };
 describe('Pipline component test cases', () => {
-	const Props: any = {
+	jest.spyOn(action, 'projectPipelineDetail');
 
+	const Props: any = {
+		location: {
+			search: '?pageIndex=1&pageSize=1&sortField=test&sortOrder=asc'
+		},
+		projectPipelineGridDetail: jest.fn(),
+		history: []
 	};
+
 	beforeEach(() => {
 		setUpStore();
 		mountComponent(Props);
@@ -64,5 +72,17 @@ describe('Pipline component test cases', () => {
 
 	it('defines the component', () => {
 		expect(wrapper).toBeDefined();
+	});
+	it('should call projectPipelineGridDetail with params', () => {
+		expect(action.projectPipelineDetail).toHaveBeenCalledWith({
+			pagingParams: {
+				pageIndex: 1,
+				pageSize: 1
+			},
+			sortingParams: {
+				sortColumnName: 'test',
+				sortOrder: 'asc'
+			}
+		});
 	});
 });

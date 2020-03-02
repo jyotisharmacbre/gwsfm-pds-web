@@ -4,7 +4,10 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowDown, faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import IQueryParams from '../models/tableQueryParams/IQueryParams';
-import { PropertiesPlugin } from '@microsoft/applicationinsights-web';
+import appConfig from '../helpers/config-helper';
+
+const config = appConfig();
+const dateFormat = config.REACT_APP_DATE_FORMAT;
 
 export const columnFormatter = (cell, row, rowIndex, cellParams) => {
     if (!cellParams) return cell;
@@ -16,7 +19,7 @@ export const columnFormatter = (cell, row, rowIndex, cellParams) => {
         case ColumnTypeEnum.percentage:
             return <div><span className='float-right'>{cell + ' %'}</span> &nbsp;</div >;
         case ColumnTypeEnum.date:
-            return cell ? moment(cell).format('MM/DD/YYYY') : <div>&nbsp;</div>;
+            return cell ? moment(cell).format(dateFormat) : <div>&nbsp;</div>;
     }
 }
 export const sortCaret = (order, column) => {
