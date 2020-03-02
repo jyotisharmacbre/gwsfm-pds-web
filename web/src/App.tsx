@@ -135,7 +135,7 @@ const App: React.FC = (props: any) => {
 			<div>
 				<Layout Theme={theme} UseStyles={useStyles()} />
 				<ToastContainer autoClose={5000} className="custom_toast_block" transition={Bounce} />
-				<p style={{ display: 'hidden' }}>
+				<p style={{ display: 'none' }}>
 					Build Date: {preval`module.exports = new Date().toLocaleString();`}.
         		</p>
 			</div>
