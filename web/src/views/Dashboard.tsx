@@ -111,15 +111,67 @@ const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
 								/>
 							</div>
 
-							<div className="top_Title top_Title2">
+							<div className="top_Title top_Title2 justify-content-between">
 								<h2>Analytics</h2>
 								<h3>Total</h3>
 							</div>
 							<div className="pie_chart_wrap">
-								<PreferredChart
-									Preferred={40}
-									NotPreferred={6}
-								/>
+								<div className="row">
+									<div className="col-md-5">
+										<div className="pie-chart-inner">
+											<PreferredChart
+												Preferred={40}
+												NotPreferred={6}
+											/>
+										</div>
+									</div>
+									<div className="col-md-6">
+										<div className="info_block">
+											<div className="heading-bar">
+												<span>Legends</span>
+												<span>No. of Projects</span>
+											</div>
+											<ul>
+												<li>
+													<span className="legend-state">
+														In Progress :
+													</span>
+													<span>25 (10%)</span>
+												</li>
+												<li>
+													<span className="legend-state">
+														In Progress :
+													</span>
+													<span>25 (10%)</span>
+												</li>
+												<li>
+													<span className="legend-state">
+														In Progress :
+													</span>
+													<span>25 (10%)</span>
+												</li>
+												<li>
+													<span className="legend-state">
+														In Progress :
+													</span>
+													<span>25 (10%)</span>
+												</li>
+												<li>
+													<span className="legend-state">
+														In Progress :
+													</span>
+													<span>25 (10%)</span>
+												</li>
+												<li>
+													<span className="legend-state">
+														In Progress :
+													</span>
+													<span>25 (10%)</span>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
