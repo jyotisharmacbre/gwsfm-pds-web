@@ -6,6 +6,6 @@ let config = {
 	}
 };
 
-export const getAllPipelineData = () => {
-	return axios.baseAPI.get('api/Projects/GetAll', config)
+export const getAllPipelineData = (data:any) => {
+	return axios.baseAPI.post('api/Projects/GetAll', data,config)
 };

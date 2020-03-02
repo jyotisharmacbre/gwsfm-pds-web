@@ -125,7 +125,7 @@ const ProjectPipeline: React.FC<IMapStateToProps & IMapDispatchToProps> = (props
 
 	const exportToExcelPipelineData = () => {
 		setExportLoader(true);
-		services.getAllPipelineData()
+		services.getAllPipelineData({})
 			.then((response) => {
 			/* istanbul ignore next */
 				let newEmails:Array<string> = [];
@@ -174,7 +174,7 @@ const ProjectPipeline: React.FC<IMapStateToProps & IMapDispatchToProps> = (props
 			<div className="row">
 				<div className="col-lg-12">
 					<div className="custom-wrap">
-						<div className="top_Title">
+						<div className="top_Title justify-content-between d-flex">
 							<h2>{formatMessage('TITLE_CURRENT_PIPELINE')}</h2>
 							<span>
 								<button
