@@ -15,7 +15,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 // @ts-ignore
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, match } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
 import { userPreferencesGet, userPreferencesFormEdit, userPreferencesFormAdd, resetUserPreferencesState } from '../../../store/UserPreferencesForm/Actions';
@@ -30,7 +30,10 @@ import { formatMessage } from '../../../Translations/connectedIntlProvider';
 import { FormattedMessage } from 'react-intl';
 import { displayUserName } from '../../../helpers/utility-helper';
 import useAuthContext from '../../../hooks/useAuthContext';
+import { IProjectDetail } from '../../../store/CustomerEnquiryForm/Types/IProjectDetail';
+import { Label } from '@material-ui/icons';
 import  Notification  from '../Notification/index'
+
 
 
 interface IMapDispatchToProps {
@@ -49,10 +52,12 @@ interface IMapDispatchToProps {
   resetUserPreferencesState: () => void;
   getProjectStatus: () => void;
   getCurrentUserProfile: () => void;
+  getProjectDetail: (projectId: string) => void;
+
 }
 
 interface IProps {
-  match: any;
+  match: match<{ projectId: string }>;
 }
 
 interface IMapStateToProps {
@@ -61,15 +66,19 @@ interface IMapStateToProps {
   event: EventType;
   notify: Notify;
   token: string;
+  project: IProjectDetail;
+
 }
 
 const ProfileMenu: React.FC<any> = props => {
+
   let history = useHistory();
   const authProvider = useAuthContext();
   const [showMenu, setMenuVisibility] = useState(false);
   const [showNotify, setNotificationVisibility] = useState(false);
   const [isEditable, makeEditable] = useState(false);
   const [loading, setLoading] = useState(false);
+  
 
   useEffect(() => {
     if (props.token) {
@@ -80,7 +89,12 @@ const ProfileMenu: React.FC<any> = props => {
       props.getCurrentUserProfile();
       props.getNotifications();
     }
-  }, [props.token])
+  //   let ele = document.querySelector('.container-fluid')
+  //   ele && ele.addEventListener('click',()=>{
+  //     var element: any = document.getElementById('user__dropdown');
+  //     element.classList.remove('active');
+  //   })
+   }, [props.token])
 
   useEffect(() => {
     if (props.notify == Notify.success) {
@@ -95,7 +109,13 @@ const ProfileMenu: React.FC<any> = props => {
     }
   }, [props.notify]);
 
-
+  // useEffect(() => {
+    
+  //   window.addEventListener('click',()=>{
+  //     var element: any = document.getElementById('user__dropdown');
+  //     element.classList.remove('active');
+  //   })
+  // },[])
 
 
   const handleEvent = (userPreferences: IUserPreferences, event: EventType) => {
@@ -136,9 +156,22 @@ const ProfileMenu: React.FC<any> = props => {
     authProvider.logout();
   }
 
+  //Add code for on click rotate the dropdown arrow
+  const userPreferencedropdown = () => {
+    var element: any = document.getElementById('user__dropdown');
+    if (element != null) {
+        var isClassExists = element.classList.contains('active');
+        if (isClassExists) {
+            element.classList.remove('active');
+        } else {
+            element.classList.add('active');
+        }
+    }
+};
+
   return (
     <nav className="topbar">
-      <div className="container-fluid">
+      <div className="container-fluid" >
         <div className="row d-flex align-items-center">
           <div className=
             {
@@ -146,6 +179,7 @@ const ProfileMenu: React.FC<any> = props => {
                 "col-sm-12 d-flex justify-content-between align-items-center" :
                 "col-sm-12 d-flex justify-content-between align-items-center justify-content-md-end"} >
 
+            {props.project?.name && (<div className="project_name_title d-md-block d-none"><label>{props.project.name}</label></div>)}
             <div data-test="test-logo" className=
               {showNav() ? "d-md-block logo" : "logo"} >
               <Link data-test=""
@@ -174,7 +208,7 @@ const ProfileMenu: React.FC<any> = props => {
                 </a>
               </li>
               <li data-test='menu-container' onBlur={handleBlur}>
-                <a href="#">
+                <a href="#" onClick={() => userPreferencedropdown()}>
                   <div className="dropdown show">
                     <a
                       onClick={() => setMenuVisibility(!showMenu)}
@@ -187,7 +221,7 @@ const ProfileMenu: React.FC<any> = props => {
                     >
                       <FontAwesomeIcon className="" icon={faUser} />
                       <span id="sm_none">{props.displayName ? props.displayName : '...'}</span>
-                      <span className="down-arrow">
+                      <span id="user__dropdown" className="down-arrow">
                       </span>
                     </a>
 
@@ -297,6 +331,7 @@ const mapStateToProps = (state: IState) => {
     loading: state.userPreferences.loading,
     event: state.userPreferences.event,
     token: state.auth.token,
+    project: state.project.form,
     notifications: state.notifications.notifications,
     lookups: state.lookup.projectstatus,
   }

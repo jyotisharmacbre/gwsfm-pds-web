@@ -1,19 +1,20 @@
+import { History } from 'history';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import ProjectPipelineForm from '../components/Forms/Pipeline/ProjectPipelineForm';
-import { IState } from '../store/state';
-import { projectPipelineDetail } from '../store/pipeline/Action';
-import { IProjectPipelineGrid } from '../store/pipeline/Types/IProjectPipelineGrid';
-import { ILookup } from '../store/Lookups/Types/ILookup';
+import { isValidEmail } from '../helpers/fieldValidations';
+import { extractQueryParams, setTableQueryParams, setURLParammsForGridTable } from '../helpers/table-helper';
+import IQueryParams from '../models/tableQueryParams/IQueryParams';
+import { getContractDetailsByIds } from '../store/DynamicsData/Action';
+import { IDynamicContractCustomerData } from '../store/DynamicsData/Types/IDynamicData';
 import { getProjectStatus } from '../store/Lookups/Actions';
 import { formatMessage } from '../Translations/connectedIntlProvider';
 import * as actions from '../store/rootActions';
 import { ICurrency } from '../store/Lookups/Types/ICurrency';
-import { isValidEmail } from '../helpers/fieldValidations';
-import { IUserServiceData } from '../store/UserService/Types/IUserService';
+import { ILookup } from '../store/Lookups/Types/ILookup';
+import { projectPipelineDetail } from '../store/pipeline/Action';
+import { IProjectPipelineGridState } from '../store/pipeline/Types/IProjectPipelineGridState';
 import { getUserNamesForEmailsService } from '../store/rootActions';
-import { IDynamicContractCustomerData } from '../store/DynamicsData/Types/IDynamicData';
-import { getContractDetailsByIds } from '../store/DynamicsData/Action';
 import { FormattedMessage } from 'react-intl';
 import * as services from '../services';
 import { exportToExcel } from '../helpers/file-helper';
@@ -24,39 +25,59 @@ import { LookupItems } from '../helpers/constants';
 import Currency from '../store/Lookups/InitialState/Currency';
 import moment from 'moment';
 import appConfig from '../helpers/config-helper';
-
+import { IState } from '../store/state';
+import { IUserServiceData } from '../store/UserService/Types/IUserService';
 const config = appConfig();
 
+interface IProps {
+	history: History;
+	location: Location;
+}
 interface IMapDispatchToProps {
-	projectPipelineGridDetail: () => void;
+	projectPipelineGridDetail: (queryParams: IQueryParams) => void;
 	getLookups: () => void;
 	getAllCurrencies: () => void;
 	handleGetUserNamesForEmails: (emails: any) => void;
 	handleGetContractDetailsByIds: (contractIds: any) => void;
 }
 interface IMapStateToProps {
-	projectPipeline: Array<IProjectPipelineGrid>;
+	projectPipeline: IProjectPipelineGridState;
 	lookupDetails: Array<ILookup>;
 	currencies: Array<ICurrency> | null;
 	userNamesForEmails: Array<IUserServiceData>;
 	contractDetailsByIds: Array<IDynamicContractCustomerData>;
+
 }
-const ProjectPipeline: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
-	const [exportLoader, setExportLoader] = useState<boolean>(false);
+
+const ProjectPipeline: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = (props) => {
+const [exportLoader, setExportLoader] = useState<boolean>(false);
 	const CurrencyObj = new Currency();
+	const [isComponentLoaded, setIsComponentLoaded] = useState<boolean>(false);
+	const [queryParams, setQueryParams] = useState<IQueryParams>({} as IQueryParams);
+
 	useEffect(() => {
+
+		const params = extractQueryParams(props.location?.search, "lastModified", 1, 20);
+		setQueryParams(params);
+		props.projectPipelineGridDetail(params);
+
+	}, [props.lookupDetails, props.location?.search]);
+
+	useEffect(() => {
+		setIsComponentLoaded(true);
 		props.getLookups();
 		props.getAllCurrencies();
 	}, []);
+
 	useEffect(
 		() => {
-			if (props.projectPipeline.length > 0) {
+			if (props.projectPipeline.totalNumberOfRecord > 0 && props.projectPipeline.data[0].projectId !== '') {
 				var allEmails = new Array();
 				var allClients = new Array();
-				for (let recordNo in props.projectPipeline) {
-					if (isValidEmail(props.projectPipeline[recordNo].projectOwner)) {
-						allEmails.push(props.projectPipeline[recordNo].projectOwner.toLowerCase());
-						allClients.push(props.projectPipeline[recordNo].contractorId);
+				for (let recordNo in props.projectPipeline.data) {
+					if (isValidEmail(props.projectPipeline.data[recordNo].projectOwner)) {
+						allEmails.push(props.projectPipeline.data[recordNo].projectOwner.toLowerCase());
+						allClients.push(props.projectPipeline.data[recordNo].contractorId);
 					}
 				}
 				const disinctvals = (value, index, self) => {
@@ -167,7 +188,15 @@ const ProjectPipeline: React.FC<IMapStateToProps & IMapDispatchToProps> = (props
 				toast.error(formatMessage('MESSAGE_ERROR'));
 				setExportLoader(false);
 			});
-	}
+	};
+
+	const handleTableChange = (type, params) => {
+		if (isComponentLoaded) {
+			const updatedParams = setTableQueryParams(params);
+			setQueryParams(updatedParams);
+			setURLParammsForGridTable(props.history, '/Pipeline', updatedParams);
+		}
+	};
 
 	return (
 		<div className="container-fluid">
@@ -189,7 +218,7 @@ const ProjectPipeline: React.FC<IMapStateToProps & IMapDispatchToProps> = (props
 							</span>
 						</div>
 
-						<div className="table-grid-wrap price-sumry">
+						<div className="table-grid-wrap price-sumry overflowX">
 							<div className="inner-block">
 								<React.Fragment>
 									<ProjectPipelineForm
@@ -198,6 +227,8 @@ const ProjectPipeline: React.FC<IMapStateToProps & IMapDispatchToProps> = (props
 										currencies={props.currencies}
 										userNamesForEmailsValues={props.userNamesForEmails}
 										contractCustomerList={props.contractDetailsByIds}
+										handleTableChange={handleTableChange}
+										queryParams={queryParams}
 									/>
 								</React.Fragment>
 							</div>
@@ -211,7 +242,7 @@ const ProjectPipeline: React.FC<IMapStateToProps & IMapDispatchToProps> = (props
 
 const mapStateToProps = (state: IState) => ({
 	lookupDetails: state.lookup.projectstatus,
-	projectPipeline: state.pipelineGrid.pipelineDetails,
+	projectPipeline: state.pipelineGrid,
 	currencies: state.lookup.currencies,
 	userNamesForEmails: state.userService.userServiceData,
 	contractDetailsByIds: state.dynamicData.dynamicsContract
@@ -220,10 +251,10 @@ const mapStateToProps = (state: IState) => ({
 const mapDispatchToProps = (dispatch) => {
 	return {
 		getLookups: () => dispatch(getProjectStatus()),
-		projectPipelineGridDetail: () => dispatch(projectPipelineDetail()),
+		projectPipelineGridDetail: (queryParams: IQueryParams) => dispatch(projectPipelineDetail(queryParams)),
 		getAllCurrencies: () => dispatch(actions.getAllCurrencies()),
 		handleGetUserNamesForEmails: (allEmails) => dispatch(getUserNamesForEmailsService(allEmails)),
-		handleGetContractDetailsByIds: (allContracts) => dispatch(getContractDetailsByIds(allContracts)),
+		handleGetContractDetailsByIds: (allContracts) => dispatch(getContractDetailsByIds(allContracts))
 	};
 };
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectPipeline);

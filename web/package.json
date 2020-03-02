@@ -65,6 +65,8 @@
         "react-app-polyfill": "^1.0.6",
         "react-axios": "^2.0.3",
         "react-bootstrap": "^0.31.5",
+        "react-bootstrap-table-next": "^3.3.5",
+        "react-bootstrap-table2-paginator": "^2.1.0",
         "react-bootstrap-typeahead": "^3.4.7",
         "react-chartjs-2": "^2.7.6",
         "react-datepicker": "^2.9.6",

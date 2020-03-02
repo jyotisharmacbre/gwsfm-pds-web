@@ -38,7 +38,7 @@ const ProjectApprovalForm: React.FC<IProps> = (props) => {
 		};
 	}
 	const shouldDisplay = (currVal) => {
-		return currVal.userId && currVal.projectApprovalId && props.status == ProjectStatus.InReview
+		return currVal.userId && currVal.projectApprovalId && (props.status == ProjectStatus.InReview || props.status == ProjectStatus.JAApproved);
 	};
 	
 	return (

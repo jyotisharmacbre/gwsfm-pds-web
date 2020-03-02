@@ -31,6 +31,7 @@
             }
         }
     }
+
     .icons-blocks {
         list-style: none;
         margin: 0;
@@ -91,6 +92,12 @@
                 &:focus {
                     color: map-get($colors , limeGreen );
                     @include boxShadow(none);
+                    .down-arrow {
+                        &:before {
+                            border-bottom: 2px solid map-get($colors , limeGreen );
+                            border-right: 2px solid map-get($colors , limeGreen );
+                        }
+                    }
                 }
                 i {
                     position: relative;
@@ -120,7 +127,8 @@
                     }
                     &.active {
                         &:before {
-                            @include transform (rotate(180deg));
+                            @include transform (rotate(220deg));
+                            top: 8px;
                         }
                     }
                     @include smScreen {
@@ -470,6 +478,17 @@
     border: 0 !important;
     font-size: 20px !important;
     padding-left: 0 !important;
+}
+.project_name_title {
+    width: 100%;
+    label {
+        color: #f4f6fb;
+        float: left;
+        font-size: 18px;
+        text-transform: capitalize;
+        font-weight: 500;
+        margin: 0 0 0 36px;
+    }   
 }
 
 /*dropdown notification section*/
