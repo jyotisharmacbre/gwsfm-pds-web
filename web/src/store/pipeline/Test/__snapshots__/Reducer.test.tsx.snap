@@ -25,6 +25,16 @@ Object {
         "weightedTCV": "",
       },
     ],
+    "projectChartSummary": Object {
+      "data": Array [],
+      "error": null,
+      "loading": false,
+    },
+  },
+  "projectChartSummary": Object {
+    "data": Array [],
+    "error": null,
+    "loading": false,
   },
 }
 `;
@@ -53,5 +63,10 @@ Object {
       "weightedTCV": "",
     },
   ],
+  "projectChartSummary": Object {
+    "data": Array [],
+    "error": null,
+    "loading": false,
+  },
 }
 `;

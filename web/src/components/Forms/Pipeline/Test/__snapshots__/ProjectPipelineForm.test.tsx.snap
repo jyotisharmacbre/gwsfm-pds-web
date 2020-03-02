@@ -7,5 +7,10 @@ Object {
   "error": null,
   "loading": false,
   "pipelineDetails": undefined,
+  "projectChartSummary": Object {
+    "data": Array [],
+    "error": null,
+    "loading": false,
+  },
 }
 `;
