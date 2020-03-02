@@ -33,6 +33,7 @@ import useAuthContext from '../../../hooks/useAuthContext';
 import  Notification  from '../Notification/index'
 
 
+
 interface IMapDispatchToProps {
   userPreferencesFormAdd: (
     form: IUserPreferences,
@@ -80,7 +81,12 @@ const ProfileMenu: React.FC<any> = props => {
       props.getCurrentUserProfile();
       props.getNotifications();
     }
-  }, [props.token])
+  //   let ele = document.querySelector('.container-fluid')
+  //   ele && ele.addEventListener('click',()=>{
+  //     var element: any = document.getElementById('user__dropdown');
+  //     element.classList.remove('active');
+  //   })
+   }, [props.token])
 
   useEffect(() => {
     if (props.notify == Notify.success) {
@@ -95,7 +101,13 @@ const ProfileMenu: React.FC<any> = props => {
     }
   }, [props.notify]);
 
-
+  // useEffect(() => {
+    
+  //   window.addEventListener('click',()=>{
+  //     var element: any = document.getElementById('user__dropdown');
+  //     element.classList.remove('active');
+  //   })
+  // },[])
 
 
   const handleEvent = (userPreferences: IUserPreferences, event: EventType) => {
@@ -136,9 +148,22 @@ const ProfileMenu: React.FC<any> = props => {
     authProvider.logout();
   }
 
+  //Add code for on click rotate the dropdown arrow
+  const userPreferencedropdown = () => {
+    var element: any = document.getElementById('user__dropdown');
+    if (element != null) {
+        var isClassExists = element.classList.contains('active');
+        if (isClassExists) {
+            element.classList.remove('active');
+        } else {
+            element.classList.add('active');
+        }
+    }
+};
+
   return (
     <nav className="topbar">
-      <div className="container-fluid">
+      <div className="container-fluid" >
         <div className="row d-flex align-items-center">
           <div className=
             {
@@ -174,7 +199,7 @@ const ProfileMenu: React.FC<any> = props => {
                 </a>
               </li>
               <li data-test='menu-container' onBlur={handleBlur}>
-                <a href="#">
+                <a href="#" onClick={() => userPreferencedropdown()}>
                   <div className="dropdown show">
                     <a
                       onClick={() => setMenuVisibility(!showMenu)}
@@ -187,7 +212,7 @@ const ProfileMenu: React.FC<any> = props => {
                     >
                       <FontAwesomeIcon className="" icon={faUser} />
                       <span id="sm_none">{props.displayName ? props.displayName : '...'}</span>
-                      <span className="down-arrow">
+                      <span id="user__dropdown" className="down-arrow">
                       </span>
                     </a>
 
