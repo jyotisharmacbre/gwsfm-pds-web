@@ -73,8 +73,8 @@ describe('Profile Menu', () => {
       userPreferences: { preferences: {} },
       lookup: {},
       userService: { currentUserProfile: { displayName: 'testName', email: 'test@pds.com' } },
-      project: {form: {name: "testName"}},
-      auth:{token: '' },
+      project: { form: { name: "testName" } },
+      auth: { token: '' },
     });
   };
 
@@ -98,8 +98,8 @@ describe('Profile Menu', () => {
     notify: '',
     displayName: 'TestName',
     displayEmail: 'TestEmail',
-    auth:{token: '' }
-    
+    auth: { token: '' }
+
   };
   beforeEach(() => {
 
