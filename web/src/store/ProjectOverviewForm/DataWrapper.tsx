@@ -10,7 +10,7 @@ export const setupInitialApprovalData = (payload) => {
     let currencySymbol: string = payload.currencySymbol;
     let projectId: string = payload.projectId;
 
-    let approverTypeList = lookupdata.filter(x => x.lookupItem.toLowerCase() == LookupType.Project_Approver_Type.toLowerCase());
+    let approverTypeList = lookupdata.filter(x => x.lookupItem.toLowerCase() == LookupType.Project_Approver_Type.toLowerCase()).sort((a, b) => (a.lookupKey > b.lookupKey) ? 1 : -1);
     let pendingApprovalStatus =
         lookupdata.filter(x =>
             x.lookupItem.toLowerCase() == LookupType.Project_Approval_Sign_Off_Status.toLowerCase()
