@@ -21,6 +21,14 @@
                 width: 4px;
             }
         }
+        h3 {
+            color: map-get($colors , lightGreen03 );
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: capitalize;
+            margin: 5px 0 5px;
+            line-height: 30px; 
+        }
     }
 }
 
@@ -85,4 +93,112 @@
 .status_responseawaited {
     background-color: #FFDD00;
     color: white;
+}
+
+/*pie chart styling here!..*/
+.pie_chart_wrap {
+    background: #fff;
+    padding: 60px 0px;
+    @include mdScreen {
+        padding: 30px 0px;
+    }
+    .pie-chart-inner {
+        @include mdScreen {
+            height: 100%;
+        }
+        .MuiGrid-grid-md-12 {
+            @include mdScreen {
+                display: flex;
+                align-items: center;
+            }
+        }
+    }
+}
+.info_block {
+    padding: 0 15px;
+    .heading-bar {
+        display: flex;
+        justify-content: space-between;
+        span {
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 26px;
+            color: #333;
+        }
+    }
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 26px 0 0 0;
+        @include mdScreen {
+            padding: 10px 0 0 0;
+        }
+        li {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #A9B2B5;
+            color: #333;
+            font-size: 14px;
+            padding: 10px 0 8px 0;
+            .legend-state {
+                position: relative;
+                padding-left: 23px;
+                &:before {
+                    content: '';
+                    position: absolute;
+                    width: 18px;
+                    height: 18px;
+                    background: transparent;
+                    border-radius: 50%;
+                    left: 0;
+                    @include mdScreen {
+                        width: 15px;
+                        height: 15px;
+                    }
+                }
+            }
+            &:nth-child(1) {
+                .legend-state {
+                    &:before {
+                        background: #006A4D;
+                    }
+                }
+            }
+            &:nth-child(2) {
+                .legend-state {
+                    &:before {
+                        background: #69BE28;
+                    }
+                }
+            }
+            &:nth-child(3) {
+                .legend-state {
+                    &:before {
+                        background: #00B2DD;
+                    }
+                }
+            }
+            &:nth-child(4) {
+                .legend-state {
+                    &:before {
+                        background: #EC008C;
+                    }
+                }
+            }
+            &:nth-child(5) {
+                .legend-state {
+                    &:before {
+                        background: #A23F97;
+                    }
+                }
+            }
+            &:nth-child(6) {
+                .legend-state {
+                    &:before {
+                        background: #FFDD00;
+                    }
+                }
+            }
+        }
+    }
 }
