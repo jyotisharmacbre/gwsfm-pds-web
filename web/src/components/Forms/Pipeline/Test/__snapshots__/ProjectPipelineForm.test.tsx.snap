@@ -7,6 +7,12 @@ Object {
   "data": undefined,
   "error": null,
   "loading": false,
+  "pipelineDetails": undefined,
+  "projectChartSummary": Object {
+    "data": Array [],
+    "error": null,
+    "loading": false,
+  },
   "totalNumberOfRecord": undefined,
 }
 `;
