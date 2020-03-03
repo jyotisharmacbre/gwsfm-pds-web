@@ -1,7 +1,7 @@
 enum StatusColorCode {
-    initialcustomerinquiry = '#ffdd00',
+    initialcustomerinquiry = '#f3cbbf',
     'j&a' = '#f58220',
-    inreview = '#f3cbbf',
+    inreview = '#ffdd00',
     'j&aapproved' = '#b2de94',
     orderreceived = '#A23F97',
     bidlost = '#ce152c',

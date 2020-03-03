@@ -1,7 +1,6 @@
 import { IProjectPipelineGrid } from './IProjectPipelineGrid';
 import IProjectChartSummary from '../../../models/IProjectChartSummary';
 export interface IProjectPipelineGridState {
-    pipelineDetails: Array<IProjectPipelineGrid>;
     projectChartSummary: {
         data: Array<IProjectChartSummary>;
         loading: boolean;
