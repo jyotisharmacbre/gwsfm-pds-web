@@ -92,7 +92,13 @@ export const currenciesData: Array<ICurrency> = [
     {
         currencyId: 1,
         currencyName: 'string',
-        currencySymbol: 'string',
+        currencySymbol: '$',
+        isActive: true
+    },
+    {
+        currencyId: 2,
+        currencyName: 'string',
+        currencySymbol: '£',
         isActive: true
     }
 ]
@@ -133,7 +139,7 @@ export const excelPipelineData = [{
     soldMargin: '2',
     weightedTCV: '3',
     rank: "",
-    currencyId: 1
+    currencyId: 2
 }];
 
 export const emails = [{
@@ -171,11 +177,11 @@ export const expectedExportExcelData = [
         LABEL_PROBABILITY_OF_WINING: '1 %',
         LABEL_STATUS: 'PrjStatus1',
         LABEL_EXPECTED_START_DATE: '03/03/2020',
-        LABEL_APPROX_VALUE: 'string0',
+        LABEL_APPROX_VALUE: '$0',
         LABEL_CONTRACT_TYPE: null,
         LABEL_CMD_NOTIFIABLE: 'LABEL_NO',
         LABEL_SOLD_MARGIN: '0 %',
-        LABEL_WEIGHTED_TCV: 'string3'
+        LABEL_WEIGHTED_TCV: '$3'
     },
     {
         MESSAGE_PROJECT_NAME: 'Name2',
@@ -185,10 +191,10 @@ export const expectedExportExcelData = [
         LABEL_PROBABILITY_OF_WINING: '1 %',
         LABEL_STATUS: 'PrjStatus1',
         LABEL_EXPECTED_START_DATE: '03/03/2020',
-        LABEL_APPROX_VALUE: 'string0',
+        LABEL_APPROX_VALUE: '£0',
         LABEL_CONTRACT_TYPE: null,
         LABEL_CMD_NOTIFIABLE: 'LABEL_NO',
         LABEL_SOLD_MARGIN: '0 %',
-        LABEL_WEIGHTED_TCV: 'string3'
+        LABEL_WEIGHTED_TCV: '£3'
     }
 ]
