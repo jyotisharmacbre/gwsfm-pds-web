@@ -210,10 +210,9 @@ const ProfileMenu: React.FC<any> = props => {
               <li data-test='menu-container' onBlur={handleBlur}>
                 <a href="#" onClick={() => userPreferencedropdown()}>
                   <div className="dropdown show">
-                    <a
+                    <div
                       onClick={() => setMenuVisibility(!showMenu)}
-                      className="btn btn-secondary dropdown-toggle p-0"
-                      href="#"
+                      className="btn btn-secondary dropdown-toggle p-0 inner-cont"
                       id="js-usertext"
                       data-toggle="dropdown"
                       aria-haspopup="true"
@@ -223,7 +222,7 @@ const ProfileMenu: React.FC<any> = props => {
                       <span id="sm_none">{props.displayName ? props.displayName : '...'}</span>
                       <span id="user__dropdown" className="down-arrow">
                       </span>
-                    </a>
+                    </div>
 
                     <div
                       id="dropLanguage"

@@ -91,6 +91,7 @@
                 &:hover,
                 &:focus {
                     color: map-get($colors , limeGreen );
+                    outline: none;
                     @include boxShadow(none);
                     .down-arrow {
                         &:before {
@@ -144,6 +145,18 @@
                 }
                 @include xsScreen{
                     position: static;
+                }
+                .inner-cont {
+                    background: transparent;
+                    border: 0;
+                    font-size: unset;
+                    &:hover,
+                    &:focus {
+                        background: transparent;
+                    }
+                    &:after {
+                        display: none;
+                    }
                 }
             }
         }
