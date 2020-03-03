@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { IState } from '../store/state';
@@ -8,14 +8,16 @@ import { projectDashboardGridDetail, resetDashboardState } from '../store/Dashbo
 import { ILookup } from '../store/Lookups/Types/ILookup';
 import { getProjectStatus } from '../store/rootActions';
 import { formatMessage } from '../Translations/connectedIntlProvider';
-import { getDisplayName } from '../helpers/auth-helper';
 import { getUserNamesForEmailsService } from '../store/UserService/Action';
 import { IUserServiceData } from '../store/UserService/Types/IUserService';
-import Notify from '../enums/Notify';
 import { isValidEmail } from '../helpers/fieldValidations';
 import * as actions from '../store/rootActions';
-import { displayUserName } from '../helpers/utility-helper';
-import PreferredChart from '../components/Charts/PreferredChart';
+import { displayUserName} from '../helpers/utility-helper';
+import { PieChart, Pie, Cell, Tooltip} from 'recharts';
+import IProjectChartSummary from '../models/IProjectChartSummary';
+import { LookupItems } from '../helpers/constants';
+import StatusColorCode from '../enums/StatusColorCode';
+
 interface IMapDispatchToProps {
 	dashboardGridDetail: () => void;
 	getLookups: () => void;
@@ -27,6 +29,7 @@ interface IMapDispatchToProps {
 	resetPreliminaryState: () => void;
 	resetDiscountState: () => void;
 	getCurrentUserProfile: () => void;
+	getProjectChartSummary: () => void;
 }
 interface IMapStateToProps {
 	dashboardGridValues: Array<IProjectDashboardGrid>;
@@ -34,8 +37,10 @@ interface IMapStateToProps {
 	lookupDetails: Array<ILookup>;
 	userNamesForEmails: Array<IUserServiceData>;
 	currentUserProfile: IUserServiceData;
+	chartData: Array<IProjectChartSummary>;
 }
 const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
+	const [chart, setChart] = useState<Array<IProjectChartSummary>>([]);
 	useEffect(() => {
 		props.getLookups();
 		props.resetProjectOverviewState();
@@ -44,6 +49,7 @@ const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
 		props.resetPreliminaryState();
 		props.resetDiscountState();
 		props.getCurrentUserProfile();
+		props.getProjectChartSummary();
 		return () => {
 			props.resetDashboardState();
 		};
@@ -72,6 +78,32 @@ const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
 	useEffect(() => {
 		props.dashboardGridDetail();
 	}, [props.lookupDetails]);
+
+	useEffect(
+		() => {
+			if (props.lookupDetails.length > 0 && props.chartData.length > 0) {
+				let data: Array<IProjectChartSummary> = [];
+				let total = 0;
+				props.chartData.map(ele => { 
+					total = total + ele.value;
+				});
+				props.lookupDetails.map((element) => {
+					if (element.lookupItem == LookupItems.Project_Status) {
+						let filterValue = props.chartData.find(data => data.name == element.lookupKey.toString());
+						data.push({
+							name: element.description,
+							value: filterValue != undefined ? filterValue.value : 0,
+							class: `${element.description.replace(/ /g, '').toLowerCase()}`,
+							percentage: filterValue != undefined ? ((filterValue.value / total) * 100).toFixed(0) : '0'
+						});
+					}
+				});
+				setChart(data);
+			}
+		},
+		[props.lookupDetails, props.chartData]
+	);
+
 	return (
 		<div>
 			<div className="container-fluid">
@@ -119,10 +151,27 @@ const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
 								<div className="row">
 									<div className="col-md-5">
 										<div className="pie-chart-inner">
-											<PreferredChart
-												Preferred={40}
-												NotPreferred={6}
-											/>
+											<PieChart
+												width={400}
+												height={400}
+												margin={{
+													top: 5, right: 30, left: 20, bottom: 5,
+												}}>
+												<Pie
+													data={chart}
+													isAnimationActive={true}
+													cx={200}
+													cy={200}
+													outerRadius={80}
+													fill="#8884d8"
+													dataKey="value">
+													{ 
+														chart.map((entry, index) => entry.value >0 && <Cell key={`cell-${index}`} fill={StatusColorCode[entry.class]} />)
+													}
+												</Pie>
+
+												<Tooltip />
+											</PieChart>
 										</div>
 									</div>
 									<div className="col-md-6">
@@ -132,42 +181,17 @@ const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
 												<span>No. of Projects</span>
 											</div>
 											<ul>
-												<li>
-													<span className="legend-state">
-														In Progress :
-													</span>
-													<span>25 (10%)</span>
-												</li>
-												<li>
-													<span className="legend-state">
-														In Progress :
-													</span>
-													<span>25 (10%)</span>
-												</li>
-												<li>
-													<span className="legend-state">
-														In Progress :
-													</span>
-													<span>25 (10%)</span>
-												</li>
-												<li>
-													<span className="legend-state">
-														In Progress :
-													</span>
-													<span>25 (10%)</span>
-												</li>
-												<li>
-													<span className="legend-state">
-														In Progress :
-													</span>
-													<span>25 (10%)</span>
-												</li>
-												<li>
-													<span className="legend-state">
-														In Progress :
-													</span>
-													<span>25 (10%)</span>
-												</li>
+												{chart.map(element => {
+													return (
+														<li>
+															<span className={`legend-state ${element.class}`}>
+																{element.name} :
+																<i style={{ background: StatusColorCode[element.class] }}></i>
+															</span>
+															<span data-test={element.class}>{element.value} ({element.percentage}%)</span>
+														</li>
+													);
+												})}
 											</ul>
 										</div>
 									</div>
@@ -186,7 +210,8 @@ const mapStateToProps = (state: IState) => ({
 	lookupDetails: state.lookup.projectstatus,
 	dashboardGridValues: state.dashboardGrid.actionApprovalDetails,
 	userNamesForEmails: state.userService.userServiceData,
-	currentUserProfile: state.userService.currentUserProfile
+	currentUserProfile: state.userService.currentUserProfile,
+	chartData: state.pipelineGrid.projectChartSummary.data
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -200,7 +225,8 @@ const mapDispatchToProps = (dispatch) => {
 		resetCustomerEnquiryState: () => dispatch(actions.resetCustomerEnquiryState()),
 		resetPreliminaryState: () => dispatch(actions.resetPreliminaryState()),
 		resetDiscountState: () => dispatch(actions.resetDiscountState()),
-		getCurrentUserProfile: () => dispatch(actions.getCurrentUserProfileForEmailsService())
+		getCurrentUserProfile: () => dispatch(actions.getCurrentUserProfileForEmailsService()),
+		getProjectChartSummary: () => dispatch(actions.getProjectChartSummary())
 	};
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

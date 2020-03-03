@@ -12,6 +12,7 @@ import { initialState as customerEnquiryInitialState } from '../../store/Custome
 import routeData from 'react-router';
 import * as helper from '../../helpers/auth-helper';
 import thunk from 'redux-thunk';
+import { pipelineInitialState, lookUpInitialState } from '../../views/Test/Dashboard/DashboardTestData';
 
 let props = {
     Theme: {},
@@ -38,12 +39,13 @@ customerEnquiryInitialState.form.countryId = 1;
 const mockingStore = () => {
     store = mockStore({
         userPreferences: { preferences: {} },
-        lookup: {},
+        lookup: lookUpInitialState,
         userService: { currentUserProfile: { displayName: 'testName', email: 'test@pds.com' } },
         dashboardGrid: initialState,
         project: customerEnquiryInitialState,
         auth:{token: '' },
-        notifications: {notifications: []}
+        notifications: { notifications: [] },
+        pipelineGrid: pipelineInitialState
     });
 };
 
@@ -80,7 +82,7 @@ const mountComponent = () => {
         <Provider store={store}>
             <IntlProvider locale="en" messages={translations['en'].messages}>
                 <Router>
-                    <Layout {...props} />
+                    <Layout/>
                 </Router>
             </IntlProvider>
         </Provider>

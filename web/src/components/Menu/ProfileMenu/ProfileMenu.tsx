@@ -15,7 +15,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 // @ts-ignore
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, match } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
 import { userPreferencesGet, userPreferencesFormEdit, userPreferencesFormAdd, resetUserPreferencesState } from '../../../store/UserPreferencesForm/Actions';
@@ -30,6 +30,8 @@ import { formatMessage } from '../../../Translations/connectedIntlProvider';
 import { FormattedMessage } from 'react-intl';
 import { displayUserName } from '../../../helpers/utility-helper';
 import useAuthContext from '../../../hooks/useAuthContext';
+import { IProjectDetail } from '../../../store/CustomerEnquiryForm/Types/IProjectDetail';
+import { Label } from '@material-ui/icons';
 import  Notification  from '../Notification/index'
 
 
@@ -50,10 +52,12 @@ interface IMapDispatchToProps {
   resetUserPreferencesState: () => void;
   getProjectStatus: () => void;
   getCurrentUserProfile: () => void;
+  getProjectDetail: (projectId: string) => void;
+
 }
 
 interface IProps {
-  match: any;
+  match: match<{ projectId: string }>;
 }
 
 interface IMapStateToProps {
@@ -62,15 +66,19 @@ interface IMapStateToProps {
   event: EventType;
   notify: Notify;
   token: string;
+  project: IProjectDetail;
+
 }
 
 const ProfileMenu: React.FC<any> = props => {
+
   let history = useHistory();
   const authProvider = useAuthContext();
   const [showMenu, setMenuVisibility] = useState(false);
   const [showNotify, setNotificationVisibility] = useState(false);
   const [isEditable, makeEditable] = useState(false);
   const [loading, setLoading] = useState(false);
+  
 
   useEffect(() => {
     if (props.token) {
@@ -158,6 +166,7 @@ const ProfileMenu: React.FC<any> = props => {
                 "col-sm-12 d-flex justify-content-between align-items-center" :
                 "col-sm-12 d-flex justify-content-between align-items-center justify-content-md-end"} >
 
+            {props.project?.name && (<div className="project_name_title d-md-block d-none"><label>{props.project.name}</label></div>)}
             <div data-test="test-logo" className=
               {showNav() ? "d-md-block logo" : "logo"} >
               <Link data-test=""
@@ -309,6 +318,7 @@ const mapStateToProps = (state: IState) => {
     loading: state.userPreferences.loading,
     event: state.userPreferences.event,
     token: state.auth.token,
+    project: state.project.form,
     notifications: state.notifications.notifications,
     lookups: state.lookup.projectstatus,
   }
