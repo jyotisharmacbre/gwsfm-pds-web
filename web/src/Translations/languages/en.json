@@ -334,5 +334,6 @@
   "MESSAGE_ERROR_UNAUTHORISED_Header": "UNAUTHORIZED ERROR",
   "MESSAGE_ERROR_UNAUTHORISED": "unauthorized: access to this resource is denied",
   "MESSAGE_PAGE_WARNING_HEADER": "DECEPTIVE SITE AHEAD",
-  "MESSAGE_PAGE_WARNING": "view unsafe sites, content &amp; downloads"
+  "MESSAGE_PAGE_WARNING": "view unsafe sites, content &amp; downloads",
+  "EXPORT_TO_EXCEL": "Excel"
 }

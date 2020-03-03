@@ -6,14 +6,17 @@
     border-radius: 5px 5px 0 0;
     position: relative;
     margin-top: 30px;
+
     @include mdScreen {
         padding: 6px 20px 5px 15px;
         border: 0;
     }
+
     h2 {
         color: #006a4d;
         font-size: 26px;
         margin-bottom: 0;
+
         &:before {
             content: '';
             position: absolute;
@@ -21,13 +24,26 @@
             width: 5px;
             background: #006a4d;
             left: 0px;
+
             @include mdScreen {
                 width: 0;
             }
         }
+
         @include mdScreen {
             margin-bottom: 0;
             font-size: 22px;
+        }
+    }
+
+    span {
+        button {
+            padding: 6px 25px 3px;
+            border-width: 1px !important;
+            min-width: auto;
+            background: transparent;
+            color: #006a4d;
+            border-radius: 5px;
         }
     }
 }
