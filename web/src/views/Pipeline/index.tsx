@@ -1,32 +1,30 @@
 import { History } from 'history';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import ProjectPipelineForm from '../components/Forms/Pipeline/ProjectPipelineForm';
-import { isValidEmail } from '../helpers/fieldValidations';
-import { extractQueryParams, setTableQueryParams, setURLParammsForGridTable } from '../helpers/table-helper';
-import IQueryParams from '../models/tableQueryParams/IQueryParams';
-import { getContractDetailsByIds } from '../store/DynamicsData/Action';
-import { IDynamicContractCustomerData } from '../store/DynamicsData/Types/IDynamicData';
-import { getProjectStatus } from '../store/Lookups/Actions';
-import { formatMessage } from '../Translations/connectedIntlProvider';
-import * as actions from '../store/rootActions';
-import { ICurrency } from '../store/Lookups/Types/ICurrency';
-import { ILookup } from '../store/Lookups/Types/ILookup';
-import { projectPipelineDetail } from '../store/pipeline/Action';
-import { IProjectPipelineGridState } from '../store/pipeline/Types/IProjectPipelineGridState';
-import { getUserNamesForEmailsService } from '../store/rootActions';
+import ProjectPipelineForm from '../../components/Forms/Pipeline/ProjectPipelineForm';
+import { isValidEmail } from '../../helpers/fieldValidations';
+import { extractQueryParams, setTableQueryParams, setURLParammsForGridTable } from '../../helpers/table-helper';
+import IQueryParams from '../../models/tableQueryParams/IQueryParams';
+import { getContractDetailsByIds } from '../../store/DynamicsData/Action';
+import { IDynamicContractCustomerData } from '../../store/DynamicsData/Types/IDynamicData';
+import { getProjectStatus } from '../../store/Lookups/Actions';
+import { formatMessage } from '../../Translations/connectedIntlProvider';
+import * as actions from '../../store/rootActions';
+import { ICurrency } from '../../store/Lookups/Types/ICurrency';
+import { ILookup } from '../../store/Lookups/Types/ILookup';
+import { projectPipelineDetail } from '../../store/pipeline/Action';
+import { IProjectPipelineGridState } from '../../store/pipeline/Types/IProjectPipelineGridState';
+import { getUserNamesForEmailsService } from '../../store/rootActions';
 import { FormattedMessage } from 'react-intl';
-import * as services from '../services';
-import { exportToExcel } from '../helpers/file-helper';
+import * as services from '../../services';
+import { exportToExcel } from '../../helpers/file-helper';
 import { toast } from 'react-toastify';
 import { CircularProgress } from '@material-ui/core';
-import { displayUserName, getLookupDescription, getFilterElementFromArray, getPropertyName } from '../helpers/utility-helper';
-import { LookupItems } from '../helpers/constants';
-import Currency from '../store/Lookups/InitialState/Currency';
-import moment from 'moment';
-import appConfig from '../helpers/config-helper';
-import { IState } from '../store/state';
-import { IUserServiceData } from '../store/UserService/Types/IUserService';
+import Currency from '../../store/Lookups/InitialState/Currency';
+import appConfig from '../../helpers/config-helper';
+import { IState } from '../../store/state';
+import { IUserServiceData } from '../../store/UserService/Types/IUserService';
+import { formatDataToExportExcel } from './PipelineExcelFormatter';
 const config = appConfig();
 
 interface IProps {
@@ -92,60 +90,17 @@ const [exportLoader, setExportLoader] = useState<boolean>(false);
 		},
 		[props.projectPipeline]
 	);
-	const formatDataToExportExcel = (data, allEmails, allClients) => {
-		let result: any = [];
-		data.map(element => {
-			let mailObj = allEmails && element.projectOwner && allEmails.find(
-				lk => lk.email && element.projectOwner && lk.email.toUpperCase() === element.projectOwner.toUpperCase()
-			);
-			let customerObj = allClients && element.contractorId && allClients.find(
-				lk => lk.contractId && element.contractorId && lk.contractId.toUpperCase() === element.contractorId.toUpperCase()
-			);
-			const currencySymbol = getFilterElementFromArray(
-				props.currencies,
-				getPropertyName(CurrencyObj, (prop) => prop.currencyId),
-				element.currencyId,
-				getPropertyName(CurrencyObj, (prop) => prop.currencySymbol)
-			);
-			let contractTypeID = element.contractTypeId;
-			if (contractTypeID > 0 && props.lookupDetails.length > 0)
-				contractTypeID = getLookupDescription(
-					props.lookupDetails,
-					element.contractTypeId,
-					LookupItems.ContractType
-				);
-			result.push({
-				[formatMessage('MESSAGE_PROJECT_NAME')]: element.name,
-				[formatMessage('LABEL_OWNER')]: mailObj && mailObj
-					? `${displayUserName(mailObj)}`
-					: element.projectOwner,
-				[formatMessage('LABEL_LAST_UPDATE')]: element.lastModified ? moment(element.lastModified).format(config.REACT_APP_DATE_FORMAT) : '',
-				[formatMessage('LABEL_CLIENT_CUSTOMER')]: customerObj ? customerObj.customerName : element.contractorId,
-				[formatMessage('LABEL_PROBABILITY_OF_WINING')]: element.probabilityOfWinning,
-				[formatMessage('LABEL_STATUS')]: getLookupDescription(
-					props.lookupDetails,
-					element.status,
-					LookupItems.Project_Status
-				),
-				[formatMessage('LABEL_EXPECTED_START_DATE')]: element.commenceDate ? moment(element.commenceDate).format(config.REACT_APP_DATE_FORMAT) : '',
-				[formatMessage('LABEL_APPROX_VALUE')]: element.approxValue.toString().indexOf(currencySymbol) > -1 ? element.approxValue : `${currencySymbol}${element.approxValue}`,
-				[formatMessage('LABEL_CONTRACT_TYPE')]: contractTypeID,
-				[formatMessage('LABEL_CMD_NOTIFIABLE')]: element.cdmNotifiable ? formatMessage('LABEL_YES') : formatMessage('LABEL_NO'),
-				[formatMessage('LABEL_SOLD_MARGIN')]: element.soldmargin ? element.soldmargin : 0,
-				[formatMessage('LABEL_WEIGHTED_TCV')]: element.weightedTCV.toString().indexOf(currencySymbol) > -1 ? element.weightedTCV : `${currencySymbol}${element.weightedTCV ? element.weightedTCV : 0}`
-			})
-		})
-		return result;
-	}
+	
 
 	const exportToExcelPipelineData = () => {
 		setExportLoader(true);
 		services.getAllPipelineData({})
 			.then((response) => {
+				console.log("DATA COME FROM ",response.data);
 			/* istanbul ignore next */
 				let newEmails:Array<string> = [];
 				let newClients: Array<string> = [];
-				response.data.map((element) => {
+				response.data.data.map((element) => {
 					if (isValidEmail(element.projectOwner)
 						&& props.userNamesForEmails.find(aa => aa.email.toLowerCase() == element.projectOwner.toLowerCase()) == undefined
 						&& newEmails.indexOf(element.projectOwner.toLowerCase()) == -1) {
@@ -171,11 +126,11 @@ const [exportLoader, setExportLoader] = useState<boolean>(false);
 							allClients = [...props.userNamesForEmails, ...response.data];
 						}
 					}
-					let finalData = formatDataToExportExcel(data, allEmails, allClients);
+					let finalData = formatDataToExportExcel(data, allEmails, allClients, props.currencies, CurrencyObj, props.lookupDetails, config.REACT_APP_DATE_FORMAT);
 					exportToExcel(finalData, 'Projects');
 					setExportLoader(false);
 				};
-				download(response.data, newEmails, newClients);
+				download(response.data.data, newEmails, newClients);
 			})
 			.catch(() => {
 				/* istanbul ignore next */
@@ -205,6 +160,7 @@ const [exportLoader, setExportLoader] = useState<boolean>(false);
 									type="button"
 									onClick={() => exportToExcelPipelineData()}
 									disabled={exportLoader}
+									data-test="export_to_excel"
 								>
 									{exportLoader && <CircularProgress />}
 									<FormattedMessage id="EXPORT_TO_EXCEL" />
