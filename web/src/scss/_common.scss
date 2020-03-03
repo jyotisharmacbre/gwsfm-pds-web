@@ -103,7 +103,7 @@ form {
         }
     }
     .form-control {
-        @include borderRadius(3px);
+        @include borderRadius(5px);
         border: 1px solid map-get($colors, grey05);
         height: auto;
         padding: 10px;
@@ -656,6 +656,9 @@ td {
         &:hover {
             color: #fff;
         }
+    }
+    .Toastify__progress-bar {
+        display: none;
     }
 }
 

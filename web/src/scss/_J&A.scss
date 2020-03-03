@@ -28,7 +28,7 @@
 
 .card_wrap {
     background: map-get($colors , whiteColor );
-    @include borderRadius (3px);
+    @include borderRadius (5px);
     padding: 38px 20px 10px 20px; 
     @include transition(all .2s cubic-bezier(0.4, 0, 1, 1));
     @include boxShadow(0 0 13px rgba(0, 0, 0, 0.1));

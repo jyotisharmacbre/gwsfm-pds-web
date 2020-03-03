@@ -15,7 +15,7 @@
     text-transform: capitalize;
     padding: 20px 25px;
     margin-bottom: 30px;
-    @include borderRadius(3px);
+    @include borderRadius(5px);
     @include mdScreen {
         padding: 20px 15px;
     }
@@ -28,7 +28,7 @@
         min-width: auto;
         background: transparent;
         color: #006a4d;
-        border-radius: 2px;
+        border-radius: 5px;
         @include lgScreen {
             padding: 6px 15px 3px;
         }
