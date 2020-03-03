@@ -110,7 +110,7 @@ const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
 				<div className="row">
 					<div className="col-xl-12">
 						<div className="custom-wrap">
-							<div className="row align-items-center my-3 my-lg-4 pb-2">
+							<div className="row align-items-center mt-2 mb-3 mt-lg-3 mb-lg-4 pb-2">
 								<div className="col-xl-6">
 									<h1 className="top_Title2 m-0">
 										{formatMessage('TITLE_WELCOME')} {!displayUserName(props.currentUserProfile) ? '...' : displayUserName(props.currentUserProfile)}

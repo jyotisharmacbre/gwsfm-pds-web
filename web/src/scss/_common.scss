@@ -112,7 +112,7 @@ form,
     }
 
     .form-control {
-        @include borderRadius(3px);
+        @include borderRadius(5px);
         border: 1px solid map-get($colors, grey05);
         height: auto;
         padding: 10px;
@@ -688,6 +688,9 @@ td {
             color: #fff;
         }
     }
+    .Toastify__progress-bar {
+        display: none;
+    }
 }
 
 /*Loader Styling*/
@@ -735,7 +738,6 @@ td {
             text-align: center;
             font-weight: 600;
             color: #333;
-            padding: 0 10px;
             margin: 0 5px;
             width: 30px;
             height: 30px;

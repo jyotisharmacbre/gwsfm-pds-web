@@ -89,11 +89,6 @@ const ProfileMenu: React.FC<any> = props => {
       props.getCurrentUserProfile();
       props.getNotifications();
     }
-  //   let ele = document.querySelector('.container-fluid')
-  //   ele && ele.addEventListener('click',()=>{
-  //     var element: any = document.getElementById('user__dropdown');
-  //     element.classList.remove('active');
-  //   })
    }, [props.token])
 
   useEffect(() => {
@@ -108,14 +103,6 @@ const ProfileMenu: React.FC<any> = props => {
       setLoading(false);
     }
   }, [props.notify]);
-
-  // useEffect(() => {
-    
-  //   window.addEventListener('click',()=>{
-  //     var element: any = document.getElementById('user__dropdown');
-  //     element.classList.remove('active');
-  //   })
-  // },[])
 
 
   const handleEvent = (userPreferences: IUserPreferences, event: EventType) => {
