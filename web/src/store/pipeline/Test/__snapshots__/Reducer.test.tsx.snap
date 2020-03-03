@@ -23,6 +23,39 @@ Object {
   ],
   "error": null,
   "loading": false,
+  "pipelineDetails": Object {
+    "data": Array [
+      Object {
+        "approxValue": 0,
+        "cdmNotifiable": false,
+        "commenceDate": "",
+        "contractTypeId": 0,
+        "contractorId": -1,
+        "headOfProject": "",
+        "lastModified": "",
+        "name": "",
+        "probabilityOfWinning": 1,
+        "projectId": "",
+        "projectOwner": "",
+        "projectRefId": 0,
+        "soldMargin": "",
+        "status": "",
+        "weightedTCV": "",
+      },
+    ],
+    "error": null,
+    "projectChartSummary": Object {
+      "data": Array [],
+      "error": null,
+      "loading": false,
+    },
+    "totalNumberOfRecord": 1,
+  },
+  "projectChartSummary": Object {
+    "data": Array [],
+    "error": null,
+    "loading": false,
+  },
   "totalNumberOfRecord": 1,
 }
 `;
@@ -51,6 +84,11 @@ Object {
   "error": undefined,
   "loading": false,
   "notify": 2,
+  "projectChartSummary": Object {
+    "data": Array [],
+    "error": null,
+    "loading": false,
+  },
   "totalNumberOfRecord": 1,
 }
 `;
