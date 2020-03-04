@@ -479,7 +479,7 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 												OnlyDistinctAssetTypes
 											]}
 											normalize={normalizeToNumber}												
-											otherFieldName="otherFirstAssetWorkedOn"
+											otherFieldName="otherFirstAssetWorkedOn"    
 											otherFieldLabelKey="LABEL_OTHER_ASSETS_WORKED_ON"
 											otherFieldPlaceHolderKey="PLACEHOLDER_OTHER_FIRST_ASSET"
 										>

@@ -129,7 +129,9 @@ export const customerEnquiryInitialState: IProjectDetailState = {
 		otherEngagementType: '',
 		otherFirstAssetWorkedOn: '',
 		otherSecondAssetWorkedOn: '',
-		otherThirdAssetWorkedOn: ''
+		otherThirdAssetWorkedOn: '',
+		otherDivision: '',
+		otherBusinessUnit: ''
 	},
 	enquiryOverview: {
 		projectName: '',
