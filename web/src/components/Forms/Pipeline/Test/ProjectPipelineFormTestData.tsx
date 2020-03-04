@@ -35,7 +35,9 @@ export const pipelineGridData: IProjectPipelineGridState = {
         contractTypeId: 0,
         cdmNotifiable: false,
         soldMargin: '2',
-        weightedTCV: '3'
+        weightedTCV: '3',
+        projectStatusDescription: 'status',
+        contractTypeDescription: 'type'
     },
     {
         projectId: '2',
@@ -52,7 +54,9 @@ export const pipelineGridData: IProjectPipelineGridState = {
         contractTypeId: 0,
         cdmNotifiable: false,
         soldMargin: '2',
-        weightedTCV: '3'
+        weightedTCV: '3',
+        projectStatusDescription: 'status',
+        contractTypeDescription: 'type'
     }],
     error: null,
     projectChartSummary: {
@@ -98,7 +102,7 @@ export const currenciesData: Array<ICurrency> = [
     {
         currencyId: 2,
         currencyName: 'string',
-        currencySymbol: '£',
+        currencySymbol: 'Â£',
         isActive: true
     }
 ]
@@ -111,9 +115,9 @@ export const excelPipelineData = [{
     headOfProject: 'a',
     contractorId: "1",
     probabilityOfWinning: 1,
-    lastModified: moment().toJSON(),
+    lastModified: '03/03/2020',
     status: '1',
-    commenceDate: moment().toJSON(),
+    commenceDate: '03/03/2020',
     approxValue: 0,
     contractTypeId: 1,
     cdmNotifiable: false,
@@ -130,9 +134,9 @@ export const excelPipelineData = [{
     headOfProject: 'a',
     contractorId: "2",
     probabilityOfWinning: 1,
-    lastModified: moment().toJSON(),
+    lastModified: '03/03/2020',
     status: '1',
-    commenceDate: moment().toJSON(),
+    commenceDate: '03/03/2020',
     approxValue: 0,
     contractTypeId: 2,
     cdmNotifiable: false,
@@ -191,10 +195,10 @@ export const expectedExportExcelData = [
         LABEL_PROBABILITY_OF_WINING: '1 %',
         LABEL_STATUS: 'PrjStatus1',
         LABEL_EXPECTED_START_DATE: '03/03/2020',
-        LABEL_APPROX_VALUE: '£0',
+        LABEL_APPROX_VALUE: 'Â£0',
         LABEL_CONTRACT_TYPE: null,
         LABEL_CMD_NOTIFIABLE: 'LABEL_NO',
         LABEL_SOLD_MARGIN: '0 %',
-        LABEL_WEIGHTED_TCV: '£3'
+        LABEL_WEIGHTED_TCV: 'Â£3'
     }
 ]

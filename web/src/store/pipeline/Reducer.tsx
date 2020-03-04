@@ -26,7 +26,9 @@ export const initialState: IProjectPipelineGridState = {
             contractTypeId: 0,
             cdmNotifiable: false,
             soldMargin: '',
-            weightedTCV: ''
+            weightedTCV: '',
+            projectStatusDescription: '',
+            contractTypeDescription: ''
         }],
     error: null
 };

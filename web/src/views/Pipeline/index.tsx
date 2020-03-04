@@ -48,16 +48,22 @@ interface IMapStateToProps {
 }
 
 const ProjectPipeline: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = (props) => {
-const [exportLoader, setExportLoader] = useState<boolean>(false);
+	const [exportLoader, setExportLoader] = useState<boolean>(false);
 	const CurrencyObj = new Currency();
 	const [isComponentLoaded, setIsComponentLoaded] = useState<boolean>(false);
 	const [queryParams, setQueryParams] = useState<IQueryParams>({} as IQueryParams);
+	const [lookupDetails, setlookupDetails] = useState<Array<ILookup>>([]);
+	const [locationSearchKey, setLocationSearchKey] = useState<string>();
 
 	useEffect(() => {
-
-		const params = extractQueryParams(props.location?.search, "lastModified", 1, 20);
-		setQueryParams(params);
-		props.projectPipelineGridDetail(params);
+		let searchKey = props.location ? props.location['key'] : '';
+		if (isFetchPipelineData(props.lookupDetails, searchKey)) {
+			setlookupDetails(props.lookupDetails);
+			setLocationSearchKey(searchKey);
+			const params = extractQueryParams(props.location?.search, "lastModified", 1, 20);
+			setQueryParams(params);
+			props.projectPipelineGridDetail(params);
+		}
 
 	}, [props.lookupDetails, props.location?.search]);
 
@@ -90,15 +96,15 @@ const [exportLoader, setExportLoader] = useState<boolean>(false);
 		},
 		[props.projectPipeline]
 	);
-	
+
 
 	const exportToExcelPipelineData = () => {
 		setExportLoader(true);
 		services.getAllPipelineData({})
 			.then((response) => {
-				console.log("DATA COME FROM ",response.data);
-			/* istanbul ignore next */
-				let newEmails:Array<string> = [];
+				console.log("DATA COME FROM ", response.data);
+				/* istanbul ignore next */
+				let newEmails: Array<string> = [];
 				let newClients: Array<string> = [];
 				response.data.data.map((element) => {
 					if (isValidEmail(element.projectOwner)
@@ -116,7 +122,7 @@ const [exportLoader, setExportLoader] = useState<boolean>(false);
 					if (newEmails.length > 0) {
 						let response = await services.getUsersForEmailsService(newEmails);
 						if (response.data.length > 0) {
-							allEmails = [...props.userNamesForEmails, ...response.data]; 
+							allEmails = [...props.userNamesForEmails, ...response.data];
 						}
 					}
 					let allClients = [...props.contractDetailsByIds];
@@ -147,6 +153,11 @@ const [exportLoader, setExportLoader] = useState<boolean>(false);
 		}
 	};
 
+
+	const isFetchPipelineData = (lookups, searchKey) => {
+		return (lookups > 0 && JSON.stringify(lookups) !== JSON.stringify(lookupDetails))
+			|| searchKey !== locationSearchKey
+	};
 	return (
 		<div className="container-fluid">
 			<div className="row">
