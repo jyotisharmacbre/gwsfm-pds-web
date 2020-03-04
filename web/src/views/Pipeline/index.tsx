@@ -25,6 +25,9 @@ import appConfig from '../../helpers/config-helper';
 import { IState } from '../../store/state';
 import { IUserServiceData } from '../../store/UserService/Types/IUserService';
 import { formatDataToExportExcel } from './PipelineExcelFormatter';
+import { IUserPreferences } from '../../store/UserPreferencesForm/Types/IUserPreferences';
+import { stat } from 'fs';
+import Notify from '../../enums/Notify';
 const config = appConfig();
 
 interface IProps {
@@ -40,6 +43,7 @@ interface IMapDispatchToProps {
 }
 interface IMapStateToProps {
 	projectPipeline: IProjectPipelineGridState;
+	userPreferencesNotify: Notify;
 	lookupDetails: Array<ILookup>;
 	currencies: Array<ICurrency> | null;
 	userNamesForEmails: Array<IUserServiceData>;
@@ -52,20 +56,18 @@ const ProjectPipeline: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 	const CurrencyObj = new Currency();
 	const [isComponentLoaded, setIsComponentLoaded] = useState<boolean>(false);
 	const [queryParams, setQueryParams] = useState<IQueryParams>({} as IQueryParams);
-	const [lookupDetails, setlookupDetails] = useState<Array<ILookup>>([]);
 	const [locationSearchKey, setLocationSearchKey] = useState<string>();
 
 	useEffect(() => {
 		let searchKey = props.location ? props.location['key'] : '';
-		if (isFetchPipelineData(props.lookupDetails, searchKey)) {
-			setlookupDetails(props.lookupDetails);
-			setLocationSearchKey(searchKey);
+		if (props.userPreferencesNotify == Notify.success || searchKey !== locationSearchKey) {
 			const params = extractQueryParams(props.location?.search, "lastModified", 1, 20);
 			setQueryParams(params);
+			setLocationSearchKey(searchKey);
 			props.projectPipelineGridDetail(params);
 		}
 
-	}, [props.lookupDetails, props.location?.search]);
+	}, [props.userPreferencesNotify, props.location?.search]);
 
 	useEffect(() => {
 		setIsComponentLoaded(true);
@@ -153,11 +155,6 @@ const ProjectPipeline: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 		}
 	};
 
-
-	const isFetchPipelineData = (lookups, searchKey) => {
-		return (lookups > 0 && JSON.stringify(lookups) !== JSON.stringify(lookupDetails))
-			|| searchKey !== locationSearchKey
-	};
 	return (
 		<div className="container-fluid">
 			<div className="row">
@@ -203,6 +200,7 @@ const ProjectPipeline: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 
 const mapStateToProps = (state: IState) => ({
 	lookupDetails: state.lookup.projectstatus,
+	userPreferencesNotify: state.userPreferences.notify,
 	projectPipeline: state.pipelineGrid,
 	currencies: state.lookup.currencies,
 	userNamesForEmails: state.userService.userServiceData,

@@ -55,7 +55,8 @@ const setUpStore = () => {
 			customerId: 1,
 			customerName: "TestName"
 		}],
-		userService: { userServiceData: [{ email: 'test@pds.com' }], currentUserProfile: [{ email: 'test@pds.com' }] }
+		userService: { userServiceData: [{ email: 'test@pds.com' }], currentUserProfile: [{ email: 'test@pds.com' }] },
+		userPreferences: { notify: 0 }
 	});
 	store.dispatch = jest.fn();
 };
@@ -74,12 +75,6 @@ describe('Pipline component test cases', () => {
 	jest.spyOn(action, 'projectPipelineDetail');
 
 	const Props: any = {
-		lookupDetails: [{
-			lookupId: 1,
-			lookupItem: "Contract_Type",
-			lookupKey: 1,
-			description: "JCT"
-		}],
 		location: {
 			search: '?pageIndex=1&pageSize=1&sortField=test&sortOrder=asc',
 			key: '1234'
