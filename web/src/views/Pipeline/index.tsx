@@ -104,7 +104,6 @@ const ProjectPipeline: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 		setExportLoader(true);
 		services.getAllPipelineData({})
 			.then((response) => {
-				console.log("DATA COME FROM ", response.data);
 				/* istanbul ignore next */
 				let newEmails: Array<string> = [];
 				let newClients: Array<string> = [];
