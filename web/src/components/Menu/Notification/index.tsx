@@ -44,7 +44,7 @@ const Notification: React.FC<IMapStateToProps & IReactIntl> = (props) => {
 					<li>
 						<div className="notify_topbar">
 							<span>({getUnreadNotificationCount()}) New Notifications</span>
-							<span>Mark all as Read</span>
+							{/* <span>Mark all as Read</span> */}
 						</div>
 					</li>
 					{props.notifications.map(notification => {
@@ -57,7 +57,7 @@ const Notification: React.FC<IMapStateToProps & IReactIntl> = (props) => {
 								{notification.description}
 							</p>
 							</a>
-							<span className="mark_sign">MARK READ</span>
+							{/* <span className="mark_sign">MARK READ</span> */}
 						</li>)
 
 					})}
