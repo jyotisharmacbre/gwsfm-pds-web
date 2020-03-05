@@ -161,11 +161,15 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 										<FormattedMessage id="LABEL_DIVISION" />
 									</label>
 									<div className="select-wrapper">
-										<Field name="divisionId" component={PdsFormSelect}>
+										<Field
+											name="divisionId"
+											component={PdsFormSelect}
+											otherFieldName="otherDivision"
+											otherFieldLabelKey="LABEL_OTHER_DIVISION"
+											otherFieldPlaceHolderKey="PLACEHOLDER_OTHER_DIVISION">
 											<FormattedMessage id="PLACEHOLDER_DIVISION">
 												{(message) => <option value="">{message}</option>}
 											</FormattedMessage>
-
 											{props.listOfDivisions &&
 												props.listOfDivisions.map((data: any, i: number) => {
 													return <option value={data.divisionId}>{data.description}</option>;
@@ -179,7 +183,12 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 										<FormattedMessage id="LABEL_BUSINESS_UNIT" />
 									</label>
 									<div className="select-wrapper">
-										<Field name="businessUnitId" component={PdsFormSelect}>
+										<Field
+											name="businessUnitId"
+											component={PdsFormSelect}
+											otherFieldName="otherBusinessUnit"
+											otherFieldLabelKey="LABEL_OTHER_BUSINESS_UNIT"
+											otherFieldPlaceHolderKey="PLACEHOLDER_OTHER_BUSINESS_UNIT">
 											<FormattedMessage id="PLACEHOLDER_BUSINESS_UNIT">
 												{(message) => <option value="">{message}</option>}
 											</FormattedMessage>
@@ -470,7 +479,7 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 												OnlyDistinctAssetTypes
 											]}
 											normalize={normalizeToNumber}												
-											otherFieldName="otherFirstAssetWorkedOn"
+											otherFieldName="otherFirstAssetWorkedOn"    
 											otherFieldLabelKey="LABEL_OTHER_ASSETS_WORKED_ON"
 											otherFieldPlaceHolderKey="PLACEHOLDER_OTHER_FIRST_ASSET"
 										>
