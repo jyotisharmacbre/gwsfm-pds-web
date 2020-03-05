@@ -51,6 +51,7 @@
         "core-js": "^3.6.4",
         "enzyme": "^3.10.0",
         "enzyme-adapter-react-16": "^1.14.0",
+        "file-saver": "^2.0.2",
         "jest-junit": "^9.0.0",
         "jwt-decode": "^2.2.0",
         "lodash": "^4.17.15",
@@ -64,6 +65,8 @@
         "react-app-polyfill": "^1.0.6",
         "react-axios": "^2.0.3",
         "react-bootstrap": "^0.31.5",
+        "react-bootstrap-table-next": "^3.3.5",
+        "react-bootstrap-table2-paginator": "^2.1.0",
         "react-bootstrap-typeahead": "^3.4.7",
         "react-chartjs-2": "^2.7.6",
         "react-datepicker": "^2.9.6",
@@ -79,13 +82,15 @@
         "react-router-redux": "^4.0.8",
         "react-scripts": "3.0.1",
         "react-toastify": "^5.4.1",
+        "recharts": "^1.8.5",
         "redux": "^4.0.4",
         "redux-form": "^8.2.6",
         "redux-logger": "^3.0.6",
         "redux-mock-store": "^1.5.3",
         "redux-persist": "^6.0.0",
         "redux-thunk": "^2.3.0",
-        "typescript": "^3.4.5"
+        "typescript": "^3.4.5",
+        "xlsx": "^0.15.5"
     },
     "scripts": {
         "build-css": "node-sass --include -path scss src/scss/style.scss src/css/style.css",
