@@ -49,6 +49,7 @@ import PostCommentForm from '../PostComment/PostCommentForm';
 import { IPostCommentForm } from '../PostComment/IPostCommentForm';
 import { IUserServiceData } from '../../../store/UserService/Types/IUserService';
 import { CircularProgress } from '@material-ui/core';
+import ErrorBoundary from '../../Error/ErrorBoundary';
 interface Props {
 	onNext: (data: IProjectOverviewDetails) => void;
 	onPrevious: () => void;
@@ -107,7 +108,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 	};
 	const handlePostCommentError = (error) => {
 		setCommentLoading(false);
-	 };
+	};
 	return (
 		<form className="project-overview-form" noValidate={true} data-test="projectOverviewForm">
 			<div className={`${getClassNameForProjectStatus(props.status)} row`}>
@@ -352,8 +353,8 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 			</div>
 			{/* AUTHORISED SECTION */}
 			<div className="row">
-				<div className={`${getClassNameForProjectStatus(props.status)} col-xl-6`}> 
-				
+				<div className={`${getClassNameForProjectStatus(props.status)} col-xl-6`}>
+
 					<div className="authorised_form_wrap">
 						<h6 className="ml-0">
 							<FormattedMessage id="LABEL_PROJECT_AUTHORISED" />
@@ -370,13 +371,15 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 					</div>
 				</div>
 				<div className="col-xl-6">
-					<ActivityFeedList
-						currencySymbol={props.currencySymbol}
-						handleGetUserNamesForEmails={props.getUserNamesForEmails}
-					/>
-					<PostCommentForm 
-					postComment={handlePostComment}
-					loading = {comentLoading}/>
+					<ErrorBoundary>
+						<ActivityFeedList
+							currencySymbol={props.currencySymbol}
+							handleGetUserNamesForEmails={props.getUserNamesForEmails}
+						/>
+					</ErrorBoundary>
+					<PostCommentForm
+						postComment={handlePostComment}
+						loading={comentLoading} />
 				</div>
 			</div>
 			<div className="row">
@@ -446,15 +449,15 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 					data-test="save"
 					type="button"
 					onClick={handleSubmit((values) => props.onSave(values))}
-					disabled = {(props.loading && props.event == EventType.save)}
+					disabled={(props.loading && props.event == EventType.save)}
 				>
 					{(props.loading && props.event == EventType.save) && <CircularProgress />}
 					<FormattedMessage id="BUTTON_SAVE" />
 				</button>
 				<button type="button" name="next" onClick={handleSubmit((values) => props.onNext(values))} className=""
-				disabled = {(props.loading && props.event == EventType.next)}
+					disabled={(props.loading && props.event == EventType.next)}
 				>
-				{(props.loading && props.event == EventType.next) && <CircularProgress />}
+					{(props.loading && props.event == EventType.next) && <CircularProgress />}
 					<FormattedMessage id="BUTTON_NEXT" />
 				</button>
 			</div>
