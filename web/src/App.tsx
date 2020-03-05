@@ -15,7 +15,7 @@ const App: React.FC = (props: any) => {
 	//Loading progressbar
 	loadProgressBar({ showSpinner: false }, baseAPI);
 	return (
-		<ErrorBoundary>
+		<ErrorBoundary showPage={true} history={props.history} location={props.location}>
 			<div>
 				<Layout />
 				<ToastContainer autoClose={5000} className="custom_toast_block" transition={Bounce} />
