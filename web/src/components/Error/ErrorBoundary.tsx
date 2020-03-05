@@ -29,8 +29,8 @@ class ErrorBoundary extends React.Component<IProps> {
         if (this.state.hasError) { 
             const { showPage, onError } = this.props;
             return (showPage != undefined && showPage) ?
-                <Error type={ErrorType.renderError}></Error> : onError == undefined ?
-                <FormattedMessage id="MESSAGE_ERROR" />
+                <Error data-test="error_page" type={ErrorType.renderError}></Error> : onError == undefined ?
+                <FormattedMessage data-test="error_message" id="MESSAGE_ERROR" />
                 : typeof onError === "function"
                 ? onError()
                 : React.createElement(onError);
