@@ -5,8 +5,19 @@ import unauthorised_icon from '../../assests/images/unauthorised-icon.svg';
 import IError from './IError';
 import { FormattedMessage } from 'react-intl';
 import ErrorType from '../../enums/ErrorType';
+import { useHistory } from 'react-router-dom';
 
 const Error: React.FC<IError> = (props) => {
+    const historyObj = useHistory();
+    const redirectToDashboard = () => {
+        if (props.history == undefined) {
+            historyObj.push('');
+            window.location.reload(true);
+        }
+        else
+            props.history.push('');
+    }
+
     return (
         <div className="multi_error_block">
             <div className="error_outer_wrap">
@@ -64,10 +75,24 @@ const Error: React.FC<IError> = (props) => {
                                     </p>
                                 </div>
                             </React.Fragment> : null}
+                    {
+                        props.type === ErrorType.renderError ?
+                            <React.Fragment>
+                                <div className="error_title" data-test="pageWarningHeader">
+                                    <h1>
+                                        <img className="px-0" src={error_icon} alt='error icon' />
+                                    </h1>
+                                </div>
+                                <div className="inner-content" data-test="pageWarningText">
+                                    <h2>
+                                        <FormattedMessage id="MESSAGE_ERROR" />
+                                    </h2>
+                                </div>
+                            </React.Fragment> : null}
 
                     <div className="btn-wrap">
                         <span>
-                            <button data-test="btnDashboard" type="button" name="btnDashboard" onClick={() => props.history.push('')}>
+                            <button data-test="btnDashboard" type="button" name="btnDashboard" onClick={() => redirectToDashboard()}>
                                 <FormattedMessage id="BUTTON_BACK_TO_DASHBAORD" />
                             </button>
                         </span>
