@@ -1525,7 +1525,7 @@ label {
           font-weight: 700; }
         .price-sumry table.price-table td a {
           color: #69be28;
-          text-decoration: underline; }
+          text-decoration: none; }
     .price-sumry table.cost-table th {
       color: #006a4d;
       font-weight: 700; }
