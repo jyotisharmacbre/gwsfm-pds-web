@@ -78,7 +78,7 @@ it('should handle DYNAMIC_OTHER_SUB_CONTRACTOR_SUCCESS ', () => {
 it('should handle DYNAMIC_DIVISION_DATA_GET_SUCCESS ', () => {
     const DYNAMIC_DIVISION_DATA_GET_SUCCESS: any = {
         type: ActionType.DYNAMIC_DIVISION_DATA_GET_SUCCESS,
-        payload: initialState
+        payload: initialState.dynamicsListOfDivision
     };
     expect(dynamicDataReducer(initialState, DYNAMIC_DIVISION_DATA_GET_SUCCESS)).toMatchSnapshot();
 });
@@ -94,7 +94,7 @@ it('should handle DYNAMIC_DIVISION_DATA_GET_ERROR ', () => {
 it('should handle DYNAMIC_BUSINESSUNIT_SUCCESS ', () => {
     const DYNAMIC_BUSINESSUNIT_SUCCESS: any = {
         type: ActionType.DYNAMIC_BUSINESSUNIT_SUCCESS,
-        payload: initialState
+        payload: initialState.dynamicsListOfBusinessUnits
     };
     expect(dynamicDataReducer(initialState, DYNAMIC_BUSINESSUNIT_SUCCESS)).toMatchSnapshot();
 }); 

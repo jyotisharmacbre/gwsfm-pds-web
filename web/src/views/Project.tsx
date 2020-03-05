@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { withRouter, RouteComponentProps } from 'react-router-dom';
 import ProjectForm from '../components/Forms/ProjectForm/ProjectForm';
 import { connect } from 'react-redux';
 import { IState } from '../store/state';
@@ -19,9 +18,7 @@ import {
 } from '../store/DynamicsData/Action';
 import { IDynamicContractCustomerData, IDynamicCompanyData, IDynamicsDivision, IDynamicBusinessUnits } from '../store/DynamicsData/Types/IDynamicData';
 import { IUserServiceData } from '../store/UserService/Types/IUserService';
-import ProjectStatus from '../enums/ProjectStatus';
 import { ICountry } from '../store/Lookups/Types/ICountry';
-import { getUserPreferences } from '../services/lookup.service';
 import { getClassNameForProjectStatus } from '../helpers/utility-helper';
 import * as services from '../services';
 import { formatMessage } from '../Translations/connectedIntlProvider';

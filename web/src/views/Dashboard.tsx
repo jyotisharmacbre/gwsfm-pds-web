@@ -12,8 +12,8 @@ import { getUserNamesForEmailsService } from '../store/UserService/Action';
 import { IUserServiceData } from '../store/UserService/Types/IUserService';
 import { isValidEmail } from '../helpers/fieldValidations';
 import * as actions from '../store/rootActions';
-import { displayUserName} from '../helpers/utility-helper';
-import { PieChart, Pie, Cell, Tooltip} from 'recharts';
+import { displayUserName } from '../helpers/utility-helper';
+import { PieChart, Pie, Cell, Tooltip, LabelList } from 'recharts';
 import IProjectChartSummary from '../models/IProjectChartSummary';
 import { LookupItems } from '../helpers/constants';
 import StatusColorCode from '../enums/StatusColorCode';
@@ -84,7 +84,7 @@ const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
 			if (props.lookupDetails.length > 0 && props.chartData.length > 0) {
 				let data: Array<IProjectChartSummary> = [];
 				let total = 0;
-				props.chartData.map(ele => { 
+				props.chartData.map(ele => {
 					total = total + ele.value;
 				});
 				props.lookupDetails.map((element) => {
@@ -103,7 +103,21 @@ const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
 		},
 		[props.lookupDetails, props.chartData]
 	);
-
+	const customTooltip = (tooltip) => {
+		if (tooltip.active) {
+			return (
+				<div className="custom-tooltip">
+					<p className="label">{`${tooltip.payload[0].name} : ${tooltip.payload[0].value} (${tooltip.payload[0].payload.percentage}%)`}</p>
+				</div>
+			);
+		}
+		return null;
+	}
+	const renderCustomizedLabel = (content) => {
+		return (
+			`${content.payload.percentage}(%)`
+		);
+	};
 	return (
 		<div>
 			<div className="container-fluid">
@@ -159,18 +173,18 @@ const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
 												}}>
 												<Pie
 													data={chart}
-													isAnimationActive={true}
+													isAnimationActive={false}
 													cx={200}
 													cy={200}
 													outerRadius={80}
 													fill="#8884d8"
-													dataKey="value">
-													{ 
-														chart.map((entry, index) => entry.value >0 && <Cell key={`cell-${index}`} fill={StatusColorCode[entry.class]} />)
+													dataKey="value"
+													label={renderCustomizedLabel}>
+													{
+														chart.map((entry, index) => entry.value > 0 && <Cell key={`cell-${index}`} fill={StatusColorCode[entry.class]} />)
 													}
 												</Pie>
-
-												<Tooltip />
+												<Tooltip content={customTooltip} />
 											</PieChart>
 										</div>
 									</div>
