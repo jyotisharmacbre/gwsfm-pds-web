@@ -39,9 +39,10 @@ class AuthProvider extends Component {
             this.authProvider = new MsalAuthProvider(this.config, this.authenticationParameters, this.options);
         }
         catch (error) {
-            this.authProvider.logout();
+            if (this.authProvider != undefined)
+                this.authProvider.logout();
         }
-        }
+    }
 
     render() {
         const { children } = this.props;
