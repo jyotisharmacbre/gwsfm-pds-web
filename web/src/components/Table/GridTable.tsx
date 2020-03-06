@@ -4,12 +4,10 @@ import React from 'react';
 import { IGridTableProps } from '../../props/AppProps';
 import ColumnTypeEnum from '../../enums/ColumnTypeEnum';
 import moment from 'moment';
-import appConfig from '../../helpers/config-helper';
-
-const config = appConfig();
-const dateFormat = config.REACT_APP_DATE_FORMAT;
+import useConfigContext from '../../hooks/useConfigContext';
 
 const GridTable: React.FC<IGridTableProps> = props => {
+    const config = useConfigContext();
     const getColumnValue = (col, arr) => {
         let className = '';
         let value = arr[col.field];
@@ -24,7 +22,7 @@ const GridTable: React.FC<IGridTableProps> = props => {
                 }
             case ColumnTypeEnum.date:
                 {
-                    value = arr[col.field] ? moment(arr[col.field]).format(dateFormat) : '';
+                    value = arr[col.field] ? moment(arr[col.field]).format(config.REACT_APP_DATE_FORMAT) : '';
                 }
         }
         if (col.class) {

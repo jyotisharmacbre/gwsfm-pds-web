@@ -4,10 +4,10 @@ import { ai, getAppInsights } from './TelemetryService';
 import { History } from 'history';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import TelemetryContext from './TelemetryContext';
+import ConfigContext from '../Config/ConfigContext';
 
 interface IProps extends RouteComponentProps {
     history: History;
-    instrumentationKey: string;
     after?: () => void;
 }
 
@@ -18,15 +18,16 @@ interface IProps extends RouteComponentProps {
  */
 
 class TelemetryProvider extends Component<IProps> {
+    static contextType = ConfigContext;
     state = {
         initialized: false
     };
 
-    constructor(props) {
-        super(props);
+    constructor(props,context) {
+        super(props, context);
         const { history } = this.props;
         const { initialized } = this.state;
-        const AppInsightsInstrumentationKey = this.props.instrumentationKey; // PUT YOUR KEY HERE
+        const AppInsightsInstrumentationKey = context.REACT_APP_INSIGHTS_KEY; // PUT YOUR KEY HERE
         if (!Boolean(initialized) && Boolean(AppInsightsInstrumentationKey) && Boolean(history)) {
             ai.initialize(AppInsightsInstrumentationKey, history);
             this.setState({ initialized: true });
