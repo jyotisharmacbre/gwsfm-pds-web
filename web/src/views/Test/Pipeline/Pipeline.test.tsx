@@ -55,7 +55,8 @@ const setUpStore = () => {
 			customerId: 1,
 			customerName: "TestName"
 		}],
-		userService: { userServiceData: [{ email: 'test@pds.com' }], currentUserProfile: [{ email: 'test@pds.com' }] }
+		userService: { userServiceData: [{ email: 'test@pds.com' }], currentUserProfile: [{ email: 'test@pds.com' }] },
+		userPreferences: { notify: 0 }
 	});
 	store.dispatch = jest.fn();
 };
@@ -72,10 +73,11 @@ const mountComponent = (Props) => {
 };
 describe('Pipline component test cases', () => {
 	jest.spyOn(action, 'projectPipelineDetail');
-	
+
 	const Props: any = {
 		location: {
-			search: '?pageIndex=1&pageSize=1&sortField=test&sortOrder=asc'
+			search: '?pageIndex=1&pageSize=1&sortField=test&sortOrder=asc',
+			key: '1234'
 		},
 		projectPipelineGridDetail: jest.fn(),
 		history: []
@@ -102,8 +104,8 @@ describe('Pipline component test cases', () => {
 		});
 	});
 	it('should click the export excel', () => {
-		let exportToExcel=findByTestAtrr(wrapper,"export_to_excel").first();
-		exportToExcel.simulate('click'); 
+		let exportToExcel = findByTestAtrr(wrapper, "export_to_excel").first();
+		exportToExcel.simulate('click');
 	});
 	it('should format the excel data correctly', () => {
 		let exportToExcel = formatDataToExportExcel(excelPipelineData, emails, clients, currenciesData, new Currency(), intialLookupvalues, "MM/DD/YYYY");
