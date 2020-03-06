@@ -25,6 +25,9 @@ import appConfig from '../../helpers/config-helper';
 import { IState } from '../../store/state';
 import { IUserServiceData } from '../../store/UserService/Types/IUserService';
 import { formatDataToExportExcel } from './PipelineExcelFormatter';
+import { IUserPreferences } from '../../store/UserPreferencesForm/Types/IUserPreferences';
+import { stat } from 'fs';
+import Notify from '../../enums/Notify';
 const config = appConfig();
 
 interface IProps {
@@ -40,6 +43,7 @@ interface IMapDispatchToProps {
 }
 interface IMapStateToProps {
 	projectPipeline: IProjectPipelineGridState;
+	userPreferencesNotify: Notify;
 	lookupDetails: Array<ILookup>;
 	currencies: Array<ICurrency> | null;
 	userNamesForEmails: Array<IUserServiceData>;
@@ -48,18 +52,22 @@ interface IMapStateToProps {
 }
 
 const ProjectPipeline: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = (props) => {
-const [exportLoader, setExportLoader] = useState<boolean>(false);
+	const [exportLoader, setExportLoader] = useState<boolean>(false);
 	const CurrencyObj = new Currency();
 	const [isComponentLoaded, setIsComponentLoaded] = useState<boolean>(false);
 	const [queryParams, setQueryParams] = useState<IQueryParams>({} as IQueryParams);
+	const [locationSearchKey, setLocationSearchKey] = useState<string>();
 
 	useEffect(() => {
+		let searchKey = props.location ? props.location['key'] : '';
+		if (props.userPreferencesNotify == Notify.success || searchKey !== locationSearchKey) {
+			const params = extractQueryParams(props.location?.search, "lastModified", 1, 20);
+			setQueryParams(params);
+			setLocationSearchKey(searchKey);
+			props.projectPipelineGridDetail(params);
+		}
 
-		const params = extractQueryParams(props.location?.search, "lastModified", 1, 20);
-		setQueryParams(params);
-		props.projectPipelineGridDetail(params);
-
-	}, [props.lookupDetails, props.location?.search]);
+	}, [props.userPreferencesNotify, props.location?.search]);
 
 	useEffect(() => {
 		setIsComponentLoaded(true);
@@ -90,15 +98,14 @@ const [exportLoader, setExportLoader] = useState<boolean>(false);
 		},
 		[props.projectPipeline]
 	);
-	
+
 
 	const exportToExcelPipelineData = () => {
 		setExportLoader(true);
 		services.getAllPipelineData({})
 			.then((response) => {
-				console.log("DATA COME FROM ",response.data);
-			/* istanbul ignore next */
-				let newEmails:Array<string> = [];
+				/* istanbul ignore next */
+				let newEmails: Array<string> = [];
 				let newClients: Array<string> = [];
 				response.data.data.map((element) => {
 					if (isValidEmail(element.projectOwner)
@@ -116,7 +123,7 @@ const [exportLoader, setExportLoader] = useState<boolean>(false);
 					if (newEmails.length > 0) {
 						let response = await services.getUsersForEmailsService(newEmails);
 						if (response.data.length > 0) {
-							allEmails = [...props.userNamesForEmails, ...response.data]; 
+							allEmails = [...props.userNamesForEmails, ...response.data];
 						}
 					}
 					let allClients = [...props.contractDetailsByIds];
@@ -192,6 +199,7 @@ const [exportLoader, setExportLoader] = useState<boolean>(false);
 
 const mapStateToProps = (state: IState) => ({
 	lookupDetails: state.lookup.projectstatus,
+	userPreferencesNotify: state.userPreferences.notify,
 	projectPipeline: state.pipelineGrid,
 	currencies: state.lookup.currencies,
 	userNamesForEmails: state.userService.userServiceData,

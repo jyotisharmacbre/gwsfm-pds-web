@@ -11,7 +11,7 @@ const gridColumns = () => {
             attrs: () => ({ 'data-column': formatMessage('MESSAGE_PROJECT_ID') }),
             sort: true,
             sortCaret: sortCaret,
-            formatter: columnFormatter,
+            formatter: columnFormatter
         },
         {
             dataField: 'name',
@@ -19,7 +19,7 @@ const gridColumns = () => {
             attrs: () => ({ 'data-column': formatMessage('MESSAGE_PROJECT_NAME') }),
             sort: true,
             sortCaret: sortCaret,
-            formatter: columnFormatter,
+            formatter: columnFormatter
         },
         {
             dataField: 'projectOwner',
@@ -49,7 +49,7 @@ const gridColumns = () => {
             dataField: 'contractorId',
             text: formatMessage('LABEL_CLIENT_CUSTOMER'),
             attrs: () => ({ 'data-column': formatMessage('LABEL_CLIENT_CUSTOMER') }),
-            sort: true,
+            sort: false,
             sortCaret: sortCaret,
             formatter: columnFormatter
         },
@@ -60,10 +60,10 @@ const gridColumns = () => {
             sort: true,
             sortCaret: sortCaret,
             formatter: columnFormatter,
-            formatExtraData: { type: ColumnTypeEnum.percentage },
+            formatExtraData: { type: ColumnTypeEnum.percentage }
         },
         {
-            dataField: 'status',
+            dataField: 'projectStatusDescription',
             text: formatMessage('LABEL_STATUS'),
             attrs: () => ({ 'data-column': formatMessage('LABEL_STATUS') }),
             sort: true,
@@ -90,7 +90,7 @@ const gridColumns = () => {
         },
 
         {
-            dataField: 'contractTypeId',
+            dataField: 'contractTypeDescription',
             text: formatMessage('LABEL_CONTRACT_TYPE'),
             attrs: () => ({ 'data-column': formatMessage('LABEL_CONTRACT_TYPE') }),
             sort: true,
@@ -103,7 +103,7 @@ const gridColumns = () => {
             attrs: () => ({ 'data-column': formatMessage('LABEL_CMD_NOTIFIABLE') }),
             sort: true,
             sortCaret: sortCaret,
-            formatter: columnFormatter,
+            formatter: columnFormatter
         },
         {
             dataField: 'soldMargin',
