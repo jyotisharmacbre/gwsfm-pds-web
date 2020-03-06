@@ -689,7 +689,7 @@ td {
         }
     }
     .Toastify__progress-bar {
-        display: none;
+        display: block;
     }
 }
 
@@ -894,7 +894,7 @@ td {
                             min-width: 200px;
                         }
                         &:nth-child(5) {
-                            min-width: 110px;
+                            min-width: 100px;
                         }
                     }
 
