@@ -35,15 +35,11 @@ const ProjectPipelineForm: React.FC<Props & IReactIntl> = (props: any) => {
     () => {
       if (
         props.pipelineValues?.totalNumberOfRecord > 0 && props.pipelineValues.data[0].projectId !== '' &&
-        props.currencies?.length > 0 &&
-        props.lookupValues?.length > 0 &&
-        props.contractCustomerList?.length > 0 &&
-        props.userNamesForEmailsValues && props.userNamesForEmailsValues.length > 0
+        props.currencies?.length > 0
       ) {
         setGridData(
           getPipelineValues(
             props.pipelineValues.data,
-            props.lookupValues,
             props.currencies,
             props.userNamesForEmailsValues,
             props.contractCustomerList
@@ -51,7 +47,8 @@ const ProjectPipelineForm: React.FC<Props & IReactIntl> = (props: any) => {
         );
       }
     },
-    [props.pipelineValues, props.lookupValues, props.currencies, props.userNamesForEmailsValues, props.contractCustomerList]
+    [props.pipelineValues, props.currencies, props.userNamesForEmailsValues, props.contractCustomerList]
+
   );
 
   const getUserDetails = (userEmail, usersDetails) => {
@@ -59,25 +56,19 @@ const ProjectPipelineForm: React.FC<Props & IReactIntl> = (props: any) => {
       lk => lk.email?.toUpperCase() === userEmail.toUpperCase()
     );
   }
-  const getPipelineValues = (pipelineData, allLookups, currencies, namesAndEmails, contractCustomerList) => {
+  const getPipelineValues = (pipelineData, currencies, namesAndEmails, contractCustomerList) => {
     let data = pipelineData.map(function (rowProject) {
-      const projectOwnerDetail = getUserDetails(rowProject.projectOwner, namesAndEmails);
-      rowProject.projectOwner = projectOwnerDetail
-        ? `${displayUserName(projectOwnerDetail)}`
-        : rowProject.projectOwner;
+      if (namesAndEmails && namesAndEmails.length > 0) {
+        const projectOwnerDetail = getUserDetails(rowProject.projectOwner, namesAndEmails);
+        rowProject.projectOwner = projectOwnerDetail
+          ? `${displayUserName(projectOwnerDetail)}`
+          : rowProject.projectOwner;
 
-      const headOfProjectDetail = getUserDetails(rowProject.headOfProject, namesAndEmails);
-      rowProject.headOfProject = headOfProjectDetail
-        ? `${displayUserName(headOfProjectDetail)}`
-        : rowProject.headOfProject;
-
-      var statusID = rowProject.status;
-      if (!isNaN(statusID) && allLookups.length > 0)
-        rowProject.status = getLookupDescription(
-          allLookups,
-          rowProject.status,
-          LookupItems.Project_Status
-        );
+        const headOfProjectDetail = getUserDetails(rowProject.headOfProject, namesAndEmails);
+        rowProject.headOfProject = headOfProjectDetail
+          ? `${displayUserName(headOfProjectDetail)}`
+          : rowProject.headOfProject;
+      }
       var customerObj = contractCustomerList && rowProject.contractorId && contractCustomerList.find(
         lk => lk.contractId && rowProject.contractorId && lk.contractId.toUpperCase() === rowProject.contractorId.toUpperCase()
       );
@@ -89,13 +80,6 @@ const ProjectPipelineForm: React.FC<Props & IReactIntl> = (props: any) => {
         getPropertyName(CurrencyObj, (prop) => prop.currencySymbol)
       );
       rowProject.approxValue = rowProject.approxValue.toString().indexOf(currencySymbol) > -1 ? rowProject.approxValue : `${currencySymbol}${rowProject.approxValue}`;
-      var contractID = rowProject.contractTypeId;
-      if (contractID > 0 && allLookups.length > 0)
-        rowProject.contractTypeId = getLookupDescription(
-          allLookups,
-          rowProject.contractTypeId,
-          LookupItems.ContractType
-        );
       rowProject.lastModified = moment(rowProject.lastModified).format(
         'MM/DD/YYYY'
       );
