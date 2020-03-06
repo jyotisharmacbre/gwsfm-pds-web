@@ -1,10 +1,14 @@
 import React from "react";
 import { SeverityLevel } from "@microsoft/applicationinsights-web";
 import TelemetryContext from "../../contexts/Telemetry/TelemetryContext";
+import Error from '../../views/Error/Error';
+import ErrorType from "../../enums/ErrorType";
+import { FormattedMessage } from "react-intl";
 
 interface IProps {
+    showPage?:boolean
     onError?: any;
-}
+ }
 
 class ErrorBoundary extends React.Component<IProps> {
     static contextType = TelemetryContext
@@ -22,9 +26,11 @@ class ErrorBoundary extends React.Component<IProps> {
     }
 
     render() {
-        if (this.state.hasError) {
-            const { onError } = this.props;
-            return onError == undefined ? <h1>Something went wrong</h1>
+        if (this.state.hasError) { 
+            const { showPage, onError } = this.props;
+            return (showPage != undefined && showPage) ?
+                <Error data-test="error_page" type={ErrorType.renderError}></Error> : onError == undefined ?
+                <FormattedMessage data-test="error_message" id="MESSAGE_ERROR" />
                 : typeof onError === "function"
                 ? onError()
                 : React.createElement(onError);
