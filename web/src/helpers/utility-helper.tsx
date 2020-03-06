@@ -52,6 +52,19 @@ export const getDropdown = (data, value) => {
 	return result;
 };
 
+export const getDropdownWithFilter = (data,propertyFilter,value,propertyId,propertyDescription) => {
+	let result = data && data.filter(element => {
+		if (element[propertyFilter] != null && element[propertyFilter] == value) {
+			return element;
+		}
+	}).map((data: any, i: number) => {
+		return (
+			<option value={data[propertyId]}>{data[propertyDescription]}</option>
+		);
+	});
+	return result;
+}
+
 export const getRadioOptions = (data, value) => {
 	let result =
 		data &&
@@ -238,3 +251,4 @@ export const displayUserName = (userProfile: IUserServiceData) => {
 
 // Internet Explorer 6-11
 export const isIE = /*@cc_on!@*/false || !!document['documentMode'];
+
