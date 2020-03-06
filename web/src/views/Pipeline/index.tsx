@@ -21,14 +21,11 @@ import { exportToExcel } from '../../helpers/file-helper';
 import { toast } from 'react-toastify';
 import { CircularProgress } from '@material-ui/core';
 import Currency from '../../store/Lookups/InitialState/Currency';
-import appConfig from '../../helpers/config-helper';
 import { IState } from '../../store/state';
 import { IUserServiceData } from '../../store/UserService/Types/IUserService';
 import { formatDataToExportExcel } from './PipelineExcelFormatter';
-import { IUserPreferences } from '../../store/UserPreferencesForm/Types/IUserPreferences';
-import { stat } from 'fs';
 import Notify from '../../enums/Notify';
-const config = appConfig();
+import useConfigContext from '../../hooks/useConfigContext';
 
 interface IProps {
 	history: History;
@@ -52,6 +49,7 @@ interface IMapStateToProps {
 }
 
 const ProjectPipeline: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = (props) => {
+	const config = useConfigContext();
 	const [exportLoader, setExportLoader] = useState<boolean>(false);
 	const CurrencyObj = new Currency();
 	const [isComponentLoaded, setIsComponentLoaded] = useState<boolean>(false);
