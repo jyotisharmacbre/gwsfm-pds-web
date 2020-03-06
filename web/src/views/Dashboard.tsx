@@ -107,7 +107,7 @@ const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
 		if (tooltip.active) {
 			return (
 				<div className="custom-tooltip">
-					<p className="label">{`${tooltip.payload[0].name} : ${tooltip.payload[0].value} (${tooltip.payload[0].payload.percentage}%)`}</p>
+					<p className="label"><span>{tooltip.payload[0].payload.percentage}%</span>{`${tooltip.payload[0].name} : ${tooltip.payload[0].value}`}</p>
 				</div>
 			);
 		}
