@@ -882,18 +882,18 @@ td {
                         border-color: #cad0d8 !important;
                         background: #f2f5f8;
                         border-bottom: 0;
-                        &:nth-child(1),
-                        &:nth-child(10),
-                        &:nth-child(12),
-                        &:nth-child(13),
-                        &:nth-child(14) {
+                        &#pipeline_projectID,
+                        &#pipeline_approx_valueID,
+                        &#pipeline_CMD_notifiableID,
+                        &#pipeline_bid_marginID,
+                        &#pipeline_weighted_tcvID {
                             min-width: 100px;
                         }
-                        &:nth-child(3),
-                        &:nth-child(4) {
+                        &#pipeline_ownerID,
+                        &#pipeline_head_proID {
                             min-width: 200px;
                         }
-                        &:nth-child(5) {
+                        &#pipeline_last_updateID {
                             min-width: 100px;
                         }
                     }
