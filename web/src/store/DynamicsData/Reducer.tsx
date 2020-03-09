@@ -72,9 +72,10 @@ const getDynamicSubContractorOther = (oldState, action) => {
 };
 const getDynamicDivisionSuccess = (oldState, action) => {
     let other = [{
-        divisionId: "0",
+        divisionId: 0,
+        divisionCode: "0",
         description: "Other",
-        dataSource: null,
+        dataSourceId: "0",
         isDeleted: "0"
     }]
     let division = [...action.payload, ...other]
@@ -91,7 +92,8 @@ const getDynamicBusinessUnitSuccess = (oldState, action) => {
     let other = [{
         businessUnitId: "0",
         description: "Other",
-        divisionCode: "",
+        divisionCode: "0",
+        divisionId: 0,
         isDeleted: "0"
     }]
     let businessUnit = [...action.payload, ...other]

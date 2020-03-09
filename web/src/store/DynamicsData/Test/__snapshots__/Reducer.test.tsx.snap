@@ -24,7 +24,8 @@ Object {
     Object {
       "businessUnitId": "0",
       "description": "Other",
-      "divisionCode": "",
+      "divisionCode": "0",
+      "divisionId": 0,
       "isDeleted": "0",
     },
   ],
@@ -188,9 +189,10 @@ Object {
   "dynamicsListOfBusinessUnits": Array [],
   "dynamicsListOfDivision": Array [
     Object {
-      "dataSource": null,
+      "dataSourceId": "0",
       "description": "Other",
-      "divisionId": "0",
+      "divisionCode": "0",
+      "divisionId": 0,
       "isDeleted": "0",
     },
   ],

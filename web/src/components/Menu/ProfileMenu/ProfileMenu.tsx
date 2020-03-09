@@ -98,7 +98,6 @@ const ProfileMenu: React.FC<any> = props => {
       props.resetUserPreferencesState();
       props.getProjectStatus();
       setMenuVisibility(true);
-      setNotificationVisibility(true);
       makeEditable(false);
       setLoading(false);
     }
@@ -115,7 +114,6 @@ const ProfileMenu: React.FC<any> = props => {
 
   const closePanel = () => {
     setMenuVisibility(true);
-    setNotificationVisibility(true);
     makeEditable(false);
   }
 
