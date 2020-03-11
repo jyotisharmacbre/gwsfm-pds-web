@@ -81,7 +81,6 @@ const ProjectSummary: React.FC<IProps> = (props) => {
 								failure(error);
 							});
 				}
-				debugger;
 				let filterDivision = props.listOfDivisions?.filter(
 					(element) => element.divisionId == parseInt(props.project.divisionId) 
 					||  element.divisionCode == props.project.divisionId
