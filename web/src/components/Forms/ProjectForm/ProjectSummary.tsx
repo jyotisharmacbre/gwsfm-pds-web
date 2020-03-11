@@ -81,8 +81,10 @@ const ProjectSummary: React.FC<IProps> = (props) => {
 								failure(error);
 							});
 				}
+				debugger;
 				let filterDivision = props.listOfDivisions?.filter(
-					(element) => element.divisionId == parseInt(props.project.divisionId)
+					(element) => element.divisionId == parseInt(props.project.divisionId) 
+					||  element.divisionCode == props.project.divisionId
 				);
 				if (filterDivision && filterDivision[0]) setDivision(filterDivision[0].description);
 				let filterBusinessUnit = props.listOfBusinessUnits?.filter(
@@ -91,7 +93,7 @@ const ProjectSummary: React.FC<IProps> = (props) => {
 				if (filterBusinessUnit && filterBusinessUnit[0]) setBusinessUnit(filterBusinessUnit[0].description);
 			}
 		},
-		[props.project]
+		[props.project, props.listOfDivisions, props.listOfBusinessUnits]
 	);
 
 	useEffect(
