@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { connect } from 'react-redux';
 import { Field, InjectedFormProps, reduxForm } from 'redux-form';
@@ -17,6 +17,7 @@ interface IProps {
 
 const PipelineFilters: React.FC<IProps & IReactIntl & InjectedFormProps<IPipelineFilters, IProps>>
     = (props) => {
+        const [showFilter, setShowFilter] = useState(false);
 
         const createFilterData = (piplineFilterData: IPipelineFilters) => {
             console.log(piplineFilterData);
@@ -37,7 +38,9 @@ const PipelineFilters: React.FC<IProps & IReactIntl & InjectedFormProps<IPipelin
                         <span>
                             <button
                                 className="active"
-                                type="button">
+                                type="button"
+                                onClick={() => setShowFilter(!showFilter)}
+                            >
                                 Pipeline Filters
                                         <i>
                                     <FontAwesomeIcon className="" icon={faFilter} />
@@ -45,7 +48,7 @@ const PipelineFilters: React.FC<IProps & IReactIntl & InjectedFormProps<IPipelin
                             </button>
                         </span>
                     </div>
-                    <div className="filters_inner form_style">
+                    <div className={`filters_inner form_style  ${showFilter ? 'show' : 'hide'}`}>
                         <div className="row">
                             <div className="col-lg-4 pr-0">
                                 <div className="inner_content">
@@ -73,18 +76,18 @@ const PipelineFilters: React.FC<IProps & IReactIntl & InjectedFormProps<IPipelin
                                         <label>Last Updated</label>
                                         <div className="cal_icon">
                                             <input name="name" placeholder="DD/MM/YYYY" type="text" className="form-control" />
-                                            <img src={cal} />
+                                            {/* <img src={cal} /> */}
                                         </div>
                                     </div>
                                     <div className="form-group range-date">
                                         <label className="d-block">Project Start Date</label>
                                         <div className="cal_icon">
                                             <input name="name" placeholder="From" type="text" className="form-control" />
-                                            <img src={cal} />
+                                            {/* <img src={cal} /> */}
                                         </div>
                                         <div className="cal_icon">
                                             <input name="name" placeholder="To" type="text" className="form-control" />
-                                            <img src={cal} />
+                                            {/* <img src={cal} /> */}
                                         </div>
                                     </div>
                                 </div>
