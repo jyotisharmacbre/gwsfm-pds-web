@@ -10,6 +10,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilter } from '@fortawesome/free-solid-svg-icons';
 import cal from '../../assests/images/calender.svg';
 import cal2 from '../../assests/images/focus_calander.svg';
+import DatePicker from '../../DatePicker';
+import PdsFormInput from '../../PdsFormHandlers/PdsFormInput';
+import { Validate } from '../../../helpers/fieldValidations';
+import PdsFormSelect from '../../PdsFormHandlers/PdsFormSelect';
 
 interface IProps {
     onApplyFilter: (data: IFilterParams) => void;
@@ -32,17 +36,17 @@ const PipelineFilters: React.FC<IProps & IReactIntl & InjectedFormProps<IPipelin
         return (
             <form className="custom-wrap p-0" onSubmit={props.handleSubmit} noValidate={true}>
 
-                <div className="filters_outer">
+                <div className={`${showFilter ? 'filters_outer' : 'filters_outer p-0'}`}>
                     <div className="top_Title justify-content-between d-flex">
                         <h2>Pipeline View</h2>
                         <span>
                             <button
-                                className="active"
                                 type="button"
+                                className={`${showFilter ? 'active' : ''}`}
                                 onClick={() => setShowFilter(!showFilter)}
                             >
-                                Pipeline Filters
-                                        <i>
+                                <span className="d-lg-inline d-none">Pipeline Filters</span>
+                                <i>
                                     <FontAwesomeIcon className="" icon={faFilter} />
                                 </i>
                             </button>
@@ -50,27 +54,51 @@ const PipelineFilters: React.FC<IProps & IReactIntl & InjectedFormProps<IPipelin
                     </div>
                     <div className={`filters_inner form_style  ${showFilter ? 'show' : 'hide'}`}>
                         <div className="row">
-                            <div className="col-lg-4 pr-0">
+                            <div className="col-lg-4 pr-lg-0">
                                 <div className="inner_content">
                                     <div className="form-group">
-                                        <label>Project ID</label>
-                                        <input name="name" placeholder="Enter project id" type="text" className="form-control" />
+                                        <Field
+                                            name="projectAdditionalDetail.mainContractor"
+                                            type="text"
+                                            component={PdsFormInput}
+                                            validate={[Validate.required('LABEL_MAIN_CONTRACTOR')]}
+                                            labelKey="Project ID"
+                                            placeholderKey="Enter project id"
+                                        />
                                     </div>
                                     <div className="form-group">
-                                        <label>Project Name</label>
-                                        <input name="name" placeholder="Enter project name" type="text" className="form-control" />
+                                        <Field
+                                            name="projectAdditionalDetail.mainContractor"
+                                            type="text"
+                                            component={PdsFormInput}
+                                            validate={[Validate.required('LABEL_MAIN_CONTRACTOR')]}
+                                            labelKey="Project Name"
+                                            placeholderKey="Enter project name"
+                                        />
                                     </div>
                                     <div className="form-group">
-                                        <label>Owner</label>
-                                        <input name="name" placeholder="Add the name of.." type="text" className="form-control" />
+                                        <Field
+                                            name="projectAdditionalDetail.mainContractor"
+                                            type="text"
+                                            component={PdsFormInput}
+                                            validate={[Validate.required('LABEL_MAIN_CONTRACTOR')]}
+                                            labelKey="Owner"
+                                            placeholderKey="Add the name of.."
+                                        />
                                     </div>
                                     <div className="form-group">
-                                        <label>CLient/Customer</label>
-                                        <input name="name" placeholder="Add the name of.." type="text" className="form-control" />
+                                        <Field
+                                            name="projectAdditionalDetail.mainContractor"
+                                            type="text"
+                                            component={PdsFormInput}
+                                            validate={[Validate.required('LABEL_MAIN_CONTRACTOR')]}
+                                            labelKey="Client/Customer"
+                                            placeholderKey="Add the name of.."
+                                        />
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-lg-4 px-0">
+                            <div className="col-lg-4 px-lg-0">
                                 <div className="inner_content">
                                     <div className="form-group">
                                         <label>Last Updated</label>
@@ -82,24 +110,50 @@ const PipelineFilters: React.FC<IProps & IReactIntl & InjectedFormProps<IPipelin
                                     <div className="form-group range-date">
                                         <label className="d-block">Project Start Date</label>
                                         <div className="cal_icon">
-                                            <input name="name" placeholder="From" type="text" className="form-control" />
+                                        <div className="col-md-6 mt-2 position-relative manipulate-calendar">
+                                            <DatePicker
+                                                name="projectStartDate"
+                                                data-test="projectStartDate"
+                                                // className="required"
+                                                //labelKey="LABEL_COMMENCE_DATE"
+                                            />
+                                        </div>
+                                            {/* <input name="name" placeholder="From" type="text" className="form-control" />
                                             {/* <img src={cal} /> */}
                                         </div>
+                                        
                                         <div className="cal_icon">
-                                            <input name="name" placeholder="To" type="text" className="form-control" />
+                                        <div className="col-md-6 mt-2 position-relative manipulate-calendar">
+                                            <DatePicker
+                                                name="projectStartDate"
+                                                data-test="projectStartDate"
+                                                // className="required"
+                                                //labelKey="LABEL_COMMENCE_DATE"
+                                            />
+                                        </div>
+                                            {/* <input name="name" placeholder="To" type="text" className="form-control" /> */}
                                             {/* <img src={cal} /> */}
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-lg-4 pl-0">
+                            <div className="col-lg-4 pl-lg-0">
                                 <div className="inner_content">
                                     <div className="form-group">
                                         <label>Status</label>
                                         <div className="select-wrapper">
-                                            <select className="form-control w-100  undefined" name="divisionId">
-                                                <option value="">Select status</option>
-                                            </select>
+                                            <Field
+                                                name="projectAdditionalDetail.workTypeId"
+                                                component={PdsFormSelect}
+                                                className="required"
+                                                validate={[Validate.required('MESSAGE_WORK_TYPE')]}
+                                                placeholderKey="PLACEHOLDER_WORK_TYPES"
+                                                messageKey="MESSAGE_WORK_TYPE"
+                                            >
+                                                <select className="form-control w-100  undefined" name="divisionId">
+                                                    <option value="">Select status</option>
+                                                </select>
+                                            </Field> 
                                         </div>
                                     </div>
                                 </div>

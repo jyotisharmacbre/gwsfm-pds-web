@@ -107,7 +107,8 @@
         }
     }
 }
-filters_outer {
+/*pipeline filters styling*/
+.filters_outer {
     background: #fff;
     margin-bottom: 30px;
     padding-bottom: 30px;
@@ -115,20 +116,25 @@ filters_outer {
         border-bottom: 0;
     }
     h2 {
-        padding-top: 5px;
+        padding-top: 7px;
     }
     span {
         button {
             &.active {
                 background: #69BE28;
+                color: #fff;
+                border-color: #69BE28;
             }
             background: #006a4d;
             color: #fff;
-            border-color: #69BE28;
+            border-color: #006a4d;
             font-size: 20px;
             font-weight: 500;
             i {
                 padding-left: 10px;
+                @include mdScreen {
+                    padding-left: 0;
+                }
             }
         }
     }
@@ -138,11 +144,54 @@ filters_outer {
         border-radius: 5px;
         margin: 10px 20px 0 20px;
         position: relative;
+        &:before,
+        &:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-color: transparent;
+            border-top: 0;
+        }
+        &:before {
+            border-bottom-color: #E8ECF3;
+            top: -10px;
+            right: 98px;
+            border-width: 10px;
+            border-right-width: 9px;
+            border-left-width: 10px;
+            @include mdScreen {
+                right: 35px;
+            }
+        }&:after {
+            top: -8px;
+            right: 99px;
+            display: inline-block;
+            border-bottom-color: #fbfbfb;
+            border-width: 8px;
+            border-right-width: 8px;
+            border-left-width: 8px;
+            @include mdScreen {
+                right: 36px;
+            }
+        }
         .inner_content {
             padding: 30px 30px 30px 30px;
             border-right: 1px solid #E8ECF3;
             height: 100%;
             border-bottom: 1px solid #E8ECF3;
+            @include mdScreen {
+                border-right: 0;
+            }
+            @include smScreen {
+                padding: 15px 15px 15px 15px;
+            }
+            .form-group {
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
             .select-wrapper {
                 &:before {
                     right: 10px;
@@ -163,6 +212,12 @@ filters_outer {
         }
         .two-side-btn {
             padding-right: 30px;
+            @include smScreen {
+                padding-right: 7px;
+            }
+            @include xsScreen {
+                padding-right: 0;
+            }
         }
         .range-date {
             .cal_icon {
