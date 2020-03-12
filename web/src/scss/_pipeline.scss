@@ -107,3 +107,92 @@
         }
     }
 }
+filters_outer {
+    background: #fff;
+    margin-bottom: 30px;
+    padding-bottom: 30px;
+    .top_Title {
+        border-bottom: 0;
+    }
+    h2 {
+        padding-top: 5px;
+    }
+    span {
+        button {
+            &.active {
+                background: #69BE28;
+            }
+            background: #006a4d;
+            color: #fff;
+            border-color: #69BE28;
+            font-size: 20px;
+            font-weight: 500;
+            i {
+                padding-left: 10px;
+            }
+        }
+    }
+    .filters_inner {
+        background: #fbfbfb;
+        border: 1px solid #E8ECF3;
+        border-radius: 5px;
+        margin: 10px 20px 0 20px;
+        position: relative;
+        .inner_content {
+            padding: 30px 30px 30px 30px;
+            border-right: 1px solid #E8ECF3;
+            height: 100%;
+            border-bottom: 1px solid #E8ECF3;
+            .select-wrapper {
+                &:before {
+                    right: 10px;
+                }
+            }
+            select {
+                &.form-control {
+                    max-width: 100%;
+                }
+            }
+        }
+        .col-lg-4 {
+            &:last-child {
+                .inner_content {
+                    border-right: 0;
+                }
+            }
+        }
+        .two-side-btn {
+            padding-right: 30px;
+        }
+        .range-date {
+            .cal_icon {
+                width: 50%;
+                display: inline-block;
+                &:first-of-type {
+                    .form-control {
+                        border-radius: 5px 0 0 5px;
+                    }
+                }
+                &:last-child {
+                    .form-control {
+                        border-radius: 0 5px 5px 0;
+                    }
+                }
+            }
+        }
+        .cal_icon {
+            position: relative;
+            .form-control {
+                padding-right: 40px;
+            }
+            img {
+                position: absolute;
+                right: 10px;
+                top: 0;
+                bottom: 0;
+                margin: auto;
+            }
+        }
+    }
+}
+
