@@ -1,6 +1,6 @@
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
-import { injectIntl } from 'react-intl';
+import { injectIntl, FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { LookupItems } from '../../../helpers/constants';
@@ -17,6 +17,9 @@ import { formatMessage } from '../../../Translations/connectedIntlProvider';
 import IReactIntl from '../../../Translations/IReactIntl';
 import DataGrid from '../../Table/DataGrid/DataGrid';
 import gridColumns from './Column.config';
+import IFilterParams from '../../../models/tableQueryParams/IFilterParams';
+import PipelineFilters from './PipelineFilters';
+import { CircularProgress } from '@material-ui/core';
 
 interface Props {
   pipelineValues: IProjectPipelineGridState;
@@ -25,6 +28,9 @@ interface Props {
   userNamesForEmailsValues: Array<IUserServiceData>;
   contractCustomerList: Array<IDynamicContractCustomerData>;
   handleTableChange: (type, params) => void;
+  onApplyFilter: (filterParams: Array<IFilterParams>) => void;
+  exportToExcelPipelineData: () => void;
+  exportLoader: boolean;
   queryParams: IQueryParams;
 }
 
@@ -103,6 +109,22 @@ const ProjectPipelineForm: React.FC<Props & IReactIntl> = (props: any) => {
 
   return (
     <React.Fragment>
+      <PipelineFilters onApplyFilter={props.onApplyFilter}  ></PipelineFilters>
+      <div className="top_Title justify-content-between d-flex">
+        <h2>{formatMessage('TITLE_CURRENT_PIPELINE')}</h2>
+        <span>
+          <button
+            className="active"
+            type="button"
+            onClick={() => props.exportToExcelPipelineData()}
+            disabled={props.exportLoader}
+            data-test="export_to_excel"
+          >
+            {props.exportLoader && <CircularProgress />}
+            <FormattedMessage id="EXPORT_TO_EXCEL" />
+          </button>
+        </span>
+      </div>
       <DataGrid
         columns={gridColumns()}
         data={gridData}
