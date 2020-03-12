@@ -4,8 +4,8 @@ import 'react-dates/lib/css/_datepicker.css';
 import { SingleDatePicker,isInclusivelyBeforeDay  } from 'react-dates';
 import moment from 'moment';
 import { InjectedFormProps } from 'redux-form';
-import cal from '../../assests/images/calender.png';
-import cal2 from '../../assests/images/focus_calander.png';
+import cal from '../../assests/images/calender.svg';
+import cal2 from '../../assests/images/focus_calander.svg';
 import './styles.css';
 
 interface Props {
