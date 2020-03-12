@@ -11,6 +11,7 @@ import projectOverviewFormReducer from '../../../../store/ProjectOverviewForm/Re
 import { initialState, getProjectOverviewData } from './ProjectOverviewFormTestData';
 import nock from 'nock';
 import { baseURL } from '../../../../client/client';
+import { findByTestAtrr } from '../../../../helpers/test-helper';
 
 nock(baseURL).get('/api/Projects/1/additionalDetails').reply(200, getProjectOverviewData);
 
@@ -23,7 +24,11 @@ describe('ProjectOverviewForm Fields', () => {
 	const props: any = {
 		handleSubmit: jest.fn(),
 		countryCode: 'GBP',
-		insuranceRate: -1
+		insuranceRate: -1,
+		onPrevious:jest.fn(),
+		onNext:jest.fn(),
+		onSave: jest.fn(),
+
 	};
 	beforeEach(() => {
 		const formatMessage = jest.mock('./../../../../Translations/connectedIntlProvider');
@@ -53,6 +58,7 @@ describe('ProjectOverviewForm Fields', () => {
 			expect(form).toHaveLength(1);
 		});
 	});
+
 	describe('Defines form fields', () => {
 		let field: ShallowWrapper;
 		describe('Main Contractor field', () => {
@@ -235,5 +241,38 @@ describe('ProjectOverviewForm Fields', () => {
 				});
 			}
 		});
+		describe('Previous button', () => {
+			beforeEach(() => {
+				field = wrapper.find('button[name="previous_button"]');
+			});
+			it('Should renders previous button', () => {
+				expect(field.prop('type')).toBe('button');
+			});
+			
+			it('Should call the OnPrevious event on previous button click', () => {
+				field.simulate('click');
+				expect(props.onPrevious).toBeCalledTimes(1);
+			  });
+		});	
+		describe('Save button', () => {
+			beforeEach(() => {
+			  field = findByTestAtrr(wrapper, 'save').first();
+			});
+		  it('Should renders save button', () => {
+			  expect(field).toHaveLength(1);
+			});
+	  
+		//   it('should call save function on button click', () => {
+		// 	  field.simulate('click');
+		// 	  expect(props.handleSubmit.mock.calls.length).toEqual(1);
+		// 	});
+	  
+		  
+	
+
 	});
+
 });
+
+
+})
