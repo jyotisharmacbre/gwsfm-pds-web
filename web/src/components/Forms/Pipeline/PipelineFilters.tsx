@@ -52,9 +52,10 @@ const PipelineFilters: React.FC<IProps & IReactIntl & InjectedFormProps<IPipelin
                             </button>
                         </span>
                     </div>
-                    <div className={`filters_inner form_style  ${showFilter ? 'show' : 'hide'}`}>
+                
+                    <div className={`filters_inner form_style  ${showFilter ? 'active' : 'deactive'}`}>
                         <div className="row">
-                            <div className="col-lg-4 pr-lg-0">
+                            <div className="col-lg-3 pr-lg-0">
                                 <div className="inner_content">
                                     <div className="form-group">
                                         <Field
@@ -76,68 +77,10 @@ const PipelineFilters: React.FC<IProps & IReactIntl & InjectedFormProps<IPipelin
                                             placeholderKey="Enter project name"
                                         />
                                     </div>
-                                    <div className="form-group">
-                                        <Field
-                                            name="projectAdditionalDetail.mainContractor"
-                                            type="text"
-                                            component={PdsFormInput}
-                                            validate={[Validate.required('LABEL_MAIN_CONTRACTOR')]}
-                                            labelKey="Owner"
-                                            placeholderKey="Add the name of.."
-                                        />
-                                    </div>
-                                    <div className="form-group">
-                                        <Field
-                                            name="projectAdditionalDetail.mainContractor"
-                                            type="text"
-                                            component={PdsFormInput}
-                                            validate={[Validate.required('LABEL_MAIN_CONTRACTOR')]}
-                                            labelKey="Client/Customer"
-                                            placeholderKey="Add the name of.."
-                                        />
-                                    </div>
+                                    
                                 </div>
                             </div>
-                            <div className="col-lg-4 px-lg-0">
-                                <div className="inner_content">
-                                    <div className="form-group">
-                                        <label>Last Updated</label>
-                                        <div className="cal_icon">
-                                            <input name="name" placeholder="DD/MM/YYYY" type="text" className="form-control" />
-                                            {/* <img src={cal} /> */}
-                                        </div>
-                                    </div>
-                                    <div className="form-group range-date">
-                                        <label className="d-block">Project Start Date</label>
-                                        <div className="cal_icon">
-                                        <div className="col-md-6 mt-2 position-relative manipulate-calendar">
-                                            <DatePicker
-                                                name="projectStartDate"
-                                                data-test="projectStartDate"
-                                                // className="required"
-                                                //labelKey="LABEL_COMMENCE_DATE"
-                                            />
-                                        </div>
-                                            {/* <input name="name" placeholder="From" type="text" className="form-control" />
-                                            {/* <img src={cal} /> */}
-                                        </div>
-                                        
-                                        <div className="cal_icon">
-                                        <div className="col-md-6 mt-2 position-relative manipulate-calendar">
-                                            <DatePicker
-                                                name="projectStartDate"
-                                                data-test="projectStartDate"
-                                                // className="required"
-                                                //labelKey="LABEL_COMMENCE_DATE"
-                                            />
-                                        </div>
-                                            {/* <input name="name" placeholder="To" type="text" className="form-control" /> */}
-                                            {/* <img src={cal} /> */}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-lg-4 pl-lg-0">
+                            <div className="col-lg-3 px-lg-0">
                                 <div className="inner_content">
                                     <div className="form-group">
                                         <label>Status</label>
@@ -153,7 +96,48 @@ const PipelineFilters: React.FC<IProps & IReactIntl & InjectedFormProps<IPipelin
                                                 <select className="form-control w-100  undefined" name="divisionId">
                                                     <option value="">Select status</option>
                                                 </select>
-                                            </Field> 
+                                            </Field>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-lg-3 px-lg-0">
+                                <div className="inner_content">
+                                    <div className="form-group">
+                                        <label>Last Updated</label>
+                                        <div className="cal_icon">
+                                            <div className="col-md-12 position-relative manipulate-calendar p-0">
+                                                <DatePicker
+                                                    name="projectStartDate"
+                                                    data-test="projectStartDate"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-lg-3 pl-lg-0">
+                                <div className="inner_content">
+                                    <div className="form-group range-date">
+                                        <label className="d-block">Project Start Date</label>
+                                        <div className="cal_icon">
+                                        <label>From</label>
+                                            <div className="col-md-12 position-relative manipulate-calendar p-0">
+                                                <DatePicker
+                                                    name="projectStartDate"
+                                                    data-test="projectStartDate"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div className="cal_icon">
+                                            <label>To</label>
+                                            <div className="col-md-12 position-relative manipulate-calendar p-0">
+                                                <DatePicker
+                                                    name="projectStartDate"
+                                                    data-test="projectStartDate"
+                                                />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

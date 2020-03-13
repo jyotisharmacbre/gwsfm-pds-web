@@ -112,11 +112,12 @@
     background: #fff;
     margin-bottom: 30px;
     padding-bottom: 30px;
+    position: relative;
     .top_Title {
         border-bottom: 0;
     }
     h2 {
-        padding-top: 7px;
+        padding-top: 4px;
     }
     span {
         button {
@@ -128,8 +129,11 @@
             background: #006a4d;
             color: #fff;
             border-color: #006a4d;
-            font-size: 20px;
-            font-weight: 500;
+            font-size: 16px;
+            font-weight: 400;
+            margin-right: 0;
+            padding: 6px 15px 3px;
+            transition: all 0.2s ease-in-out;
             i {
                 padding-left: 10px;
                 @include mdScreen {
@@ -142,8 +146,14 @@
         background: #fbfbfb;
         border: 1px solid #E8ECF3;
         border-radius: 5px;
-        margin: 10px 20px 0 20px;
+        margin: 0 20px;
         position: relative;
+        &.active {
+            display: block;
+        }
+        &.deactive {
+           display: none;
+        }
         &:before,
         &:after {
             content: '';
@@ -157,7 +167,7 @@
         &:before {
             border-bottom-color: #E8ECF3;
             top: -10px;
-            right: 98px;
+            right: 68px;
             border-width: 10px;
             border-right-width: 9px;
             border-left-width: 10px;
@@ -166,7 +176,7 @@
             }
         }&:after {
             top: -8px;
-            right: 99px;
+            right: 69px;
             display: inline-block;
             border-bottom-color: #fbfbfb;
             border-width: 8px;
@@ -203,7 +213,7 @@
                 }
             }
         }
-        .col-lg-4 {
+        .col-lg-3 {
             &:last-child {
                 .inner_content {
                     border-right: 0;
@@ -221,28 +231,33 @@
         }
         .range-date {
             .cal_icon {
-                width: 50%;
-                display: inline-block;
-                &:first-of-type {
-                    .form-control {
-                        border-radius: 5px 0 0 5px;
-                    }
-                }
-                &:last-child {
-                    .form-control {
-                        border-radius: 0 5px 5px 0;
-                    }
-                }
+                margin-bottom: 10px;
+                display: block;
             }
         }
         .cal_icon {
             position: relative;
             .form-control {
-                padding-right: 40px;
+                padding-right: 0px;
+                margin-right: 0;
+                padding-left: 0;
+                text-align: center;
+                width: 30%;
+                &:nth-child(1) {
+                    border-radius: 5px 0px 0px 5px;
+                }
+                &:nth-child(2) {
+                    border-radius: 0;
+                    border-left: 0;
+                    border-right: 0;
+                }
+                &:nth-child(3) {
+                    border-radius: 0 5px 5px 0;
+                }
             }
             img {
-                position: absolute;
-                right: 10px;
+                position: relative;
+                right: -10px;
                 top: 0;
                 bottom: 0;
                 margin: auto;
