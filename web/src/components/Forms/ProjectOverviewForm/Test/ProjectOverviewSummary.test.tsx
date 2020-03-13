@@ -1,14 +1,25 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import ProjectOverviewSummary from '../ProjectOverviewSummary';
 import { initialState as projectInitialState } from '../../../../store/CustomerEnquiryForm/InitialState';
 import { initialState as projectOverviewInitialState } from '../../../../store/ProjectOverviewForm/InitialState';
 import { findByTestAtrr } from '../../../../helpers/test-helper';
 import EventType from '../../../../enums/EventType';
+import { Provider } from 'react-redux';
+import { IntlProvider } from 'react-intl';
+import translations from '../../../../Translations/translation';
+import { store } from '../../../../store';
+
 
 let wrapper: any;
 const mountComponent = (props) => {
-	wrapper = shallow(<ProjectOverviewSummary {...props} />);
+	wrapper = mount(
+		<Provider store={store}>
+			<IntlProvider locale="en" messages={translations['en'].messages}>
+				<ProjectOverviewSummary {...props} />
+			</IntlProvider>
+		</Provider>
+	);
 };
 
 let projectOverviewForm = projectOverviewInitialState.form;
@@ -16,7 +27,7 @@ let projectOverviewForm = projectOverviewInitialState.form;
 describe('Project Overview Summary componenet', () => {
 	projectOverviewForm.projectId = '1';
 	projectOverviewForm.projectAdditionalDetail.enquiryTypeId = 1;
-	projectOverviewForm.projectAdditionalDetail.workTypeId=1;
+	projectOverviewForm.projectAdditionalDetail.workTypeId = 1;
 	const props: any = {
 		projectOverview: projectOverviewForm,
 		lookUpData: [
@@ -35,7 +46,8 @@ describe('Project Overview Summary componenet', () => {
 		company: 'test',
 		headOfProject: 'test',
 		projectOwner: 'test',
-		projectManager: 'test'
+		projectManager: 'test',
+		oneditOverview: jest.fn()
 	};
 
 	beforeEach(() => {
@@ -44,6 +56,7 @@ describe('Project Overview Summary componenet', () => {
 
 	it('should defines the componenet', () => {
 		mountComponent(props);
+		wrapper.update();
 		expect(wrapper).toBeDefined();
 	});
 	it('should match the snapshot', () => {
@@ -87,7 +100,7 @@ describe('Project Overview Summary componenet', () => {
 		});
 		it('Should renders Edit button', () => {
 			let field = wrapper.find('button[name="oneditoverview"]');
-			expect(field.prop('type')).toBe('button');
+			expect(field.prop('type')).toBe('submit');
 		});
 
 		it('Should call the oneditOverview event on edit button click', () => {

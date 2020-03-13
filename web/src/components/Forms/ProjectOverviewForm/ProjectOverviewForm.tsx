@@ -81,6 +81,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 		</option>
 	));
 
+	/* istanbul ignore next */
 	const formatUserData = (data) => {
 		let returnValue: any = [];
 		if (data && data.length > 0) {
@@ -97,6 +98,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 
 	const [comentLoading, setCommentLoading] = useState(false);
 
+	/* istanbul ignore next */
 	const normalize = (value) => (value ? parseInt(value) : null);
 	const handlePostComment = (data: IPostCommentForm) => {
 		setCommentLoading(true);

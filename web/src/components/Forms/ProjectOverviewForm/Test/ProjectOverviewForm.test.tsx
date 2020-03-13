@@ -21,17 +21,17 @@ nock(baseURL).put('/api/Projects/additionalDetails').reply(201, getProjectOvervi
 nock(baseURL).post('/api/Projects/additionalDetails').reply(200, 'Project addition details created successfully');
 
 let wrapper: any;
-	let props: any = {
-		handleSubmit: jest.fn(),
-		countryCode: 'GBP',
-		insuranceRate: -1,
-		onPrevious:jest.fn(),
-		onNext:jest.fn(),
-		onSave: jest.fn(),
-		loading: false,
-		event: EventType.none
+let props: any = {
+	handleSubmit: jest.fn(),
+	countryCode: 'GBP',
+	insuranceRate: -1,
+	onPrevious: jest.fn(),
+	onNext: jest.fn(),
+	onSave: jest.fn(),
+	loading: false,
+	event: EventType.none
 
-	};
+};
 
 let mountComponent = (props) => {
 	wrapper = mount(
@@ -44,7 +44,7 @@ let mountComponent = (props) => {
 }
 
 describe('ProjectOverviewForm Fields', () => {
-	
+
 	beforeEach(() => {
 		const formatMessage = jest.mock('./../../../../Translations/connectedIntlProvider');
 
@@ -52,7 +52,7 @@ describe('ProjectOverviewForm Fields', () => {
 			return 'intlmessage';
 		});
 
-		
+
 	});
 	it('Defines the component', () => {
 		mountComponent(props);
@@ -204,9 +204,9 @@ describe('ProjectOverviewForm Fields', () => {
 				field.simulate('click');
 				let nameField = wrapper.find('input[name="projectAdditionalDetail.mainContractor"]').first();
 				const focusedElement = document.activeElement;
-		
+
 				expect(nameField.matchesElement(focusedElement)).toBeTruthy;
-			  });
+			});
 		});
 
 		describe('Project form reducer', () => {
@@ -271,44 +271,44 @@ describe('ProjectOverviewForm Fields', () => {
 			it('Should renders previous button', () => {
 				expect(field.prop('type')).toBe('button');
 			});
-			
+
 			it('Should call the OnPrevious event on previous button click', () => {
 				field.simulate('click');
 				expect(props.onPrevious).toBeCalledTimes(1);
-			  });
-		});	
+			});
+		});
 		describe('Save button', () => {
 			it('Should renders saves button', () => {
 				mountComponent(props);
 				field = findByTestAtrr(wrapper, 'save').first();
 				expect(field.prop('type')).toBe('button');
 			});
-			
+
 			it('Should call the OnSave event on save button click', () => {
 				props.event = EventType.save;
 				mountComponent(props);
 				field = wrapper.find('button[name="save"]');
 				field.simulate('click');
 				expect(props.handleSubmit.mock.calls.length).toBeGreaterThan(0);
-			  });	  
-	});
-	describe('Next button', () => {
-		it('Should renders next button', () => {
-			mountComponent(props);
-			field = findByTestAtrr(wrapper, 'next').first();
-			expect(field.prop('type')).toBe('button');
+			});
 		});
-		
-		it('Should call the OnNext event on next button click', () => {
+		describe('Next button', () => {
+			it('Should renders next button', () => {
+				mountComponent(props);
+				field = findByTestAtrr(wrapper, 'next').first();
+				expect(field.prop('type')).toBe('button');
+			});
 
-			props.event = EventType.next;
-			mountComponent(props);
-			field = wrapper.find('button[name="next"]');
-			field.simulate('click');
-			expect(props.handleSubmit.mock.calls.length).toBeGreaterThan(0);
-		  });	  
-});
-});
+			it('Should call the OnNext event on next button click', () => {
+
+				props.event = EventType.next;
+				mountComponent(props);
+				field = wrapper.find('button[name="next"]');
+				field.simulate('click');
+				expect(props.handleSubmit.mock.calls.length).toBeGreaterThan(0);
+			});
+		});
+	});
 
 
 })
