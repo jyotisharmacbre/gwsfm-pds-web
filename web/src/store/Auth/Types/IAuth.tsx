@@ -1,6 +1,7 @@
+import { IToken } from './IToken';
+import { IClaims } from './IClaims';
+
 export interface IAuth {
-    token: string | null;
-    name: string | null;
-    firstName: string | null;
-    email: string | null;
+    token: IToken;
+    claims: IClaims;
 }
