@@ -66,7 +66,7 @@ const preliminaryReducer = (oldState = initialState, action) => {
       return preliminaryAddError(oldState, action);
     case ActionType.PRELIMINARY_EDIT_SUCCESS:
       return preliminaryEditSuccess(oldState, action);
-    case ActionType.PRELIMINARY_EDIT_SUCCESS:
+    case ActionType.PRELIMINARY_EDIT_ERROR:
       return preliminaryEditError(oldState, action);
     case ActionType.GET_PRELIMINARY_SUCCESS:
       return preliminaryGetSuccess(oldState, action);

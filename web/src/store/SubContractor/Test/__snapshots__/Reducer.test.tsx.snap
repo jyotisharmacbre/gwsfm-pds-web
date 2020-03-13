@@ -11,3 +11,261 @@ Object {
   "notify": 1,
 }
 `;
+
+exports[`Sub Contractor Reducer should handle edit sub contractor successfully 1`] = `
+Object {
+  "error": null,
+  "event": undefined,
+  "form": Object {
+    "activities": Object {
+      "data": Object {},
+    },
+  },
+  "loading": false,
+  "notify": 1,
+}
+`;
+
+exports[`Sub Contractor Reducer should handle get sub contractor error successfully 1`] = `
+Object {
+  "error": null,
+  "event": 3,
+  "form": Object {
+    "activities": Array [
+      Object {
+        "activityName": "",
+        "comments": "",
+        "grossMargin": 0,
+        "isExistingSubcontractor": false,
+        "isPreferredSupplier": false,
+        "otherSubcontractorName": "",
+        "projectId": "",
+        "quotes": Array [
+          Object {
+            "activityQuoteId": "",
+            "quoteValue": 0,
+            "subContrActivityId": "",
+            "supplierName": "",
+          },
+          Object {
+            "activityQuoteId": "",
+            "quoteValue": 0,
+            "subContrActivityId": "",
+            "supplierName": "",
+          },
+          Object {
+            "activityQuoteId": "",
+            "quoteValue": 0,
+            "subContrActivityId": "",
+            "supplierName": "",
+          },
+        ],
+        "subContrActivityId": "",
+        "subcontractorId": "",
+        "totalCost": 0,
+        "totalSell": 0,
+      },
+    ],
+  },
+  "loading": false,
+  "notify": 0,
+}
+`;
+
+exports[`Sub Contractor Reducer should handle get sub contractor successfully 1`] = `
+Object {
+  "error": null,
+  "event": 3,
+  "form": Object {
+    "activities": Object {
+      "data": Object {},
+    },
+  },
+  "loading": false,
+  "notify": 0,
+}
+`;
+
+exports[`Sub Contractor Reducer should handle loading successfully 1`] = `
+Object {
+  "error": null,
+  "event": undefined,
+  "form": Object {
+    "activities": Array [
+      Object {
+        "activityName": "",
+        "comments": "",
+        "grossMargin": 0,
+        "isExistingSubcontractor": false,
+        "isPreferredSupplier": false,
+        "otherSubcontractorName": "",
+        "projectId": "",
+        "quotes": Array [
+          Object {
+            "activityQuoteId": "",
+            "quoteValue": 0,
+            "subContrActivityId": "",
+            "supplierName": "",
+          },
+          Object {
+            "activityQuoteId": "",
+            "quoteValue": 0,
+            "subContrActivityId": "",
+            "supplierName": "",
+          },
+          Object {
+            "activityQuoteId": "",
+            "quoteValue": 0,
+            "subContrActivityId": "",
+            "supplierName": "",
+          },
+        ],
+        "subContrActivityId": "",
+        "subcontractorId": "",
+        "totalCost": 0,
+        "totalSell": 0,
+      },
+    ],
+  },
+  "loading": true,
+  "notify": 0,
+}
+`;
+
+exports[`Sub Contractor Reducer should handle reset sub contractor notifier successfully 1`] = `
+Object {
+  "error": null,
+  "event": 3,
+  "form": Object {
+    "activities": Array [
+      Object {
+        "activityName": "",
+        "comments": "",
+        "grossMargin": 0,
+        "isExistingSubcontractor": false,
+        "isPreferredSupplier": false,
+        "otherSubcontractorName": "",
+        "projectId": "",
+        "quotes": Array [
+          Object {
+            "activityQuoteId": "",
+            "quoteValue": 0,
+            "subContrActivityId": "",
+            "supplierName": "",
+          },
+          Object {
+            "activityQuoteId": "",
+            "quoteValue": 0,
+            "subContrActivityId": "",
+            "supplierName": "",
+          },
+          Object {
+            "activityQuoteId": "",
+            "quoteValue": 0,
+            "subContrActivityId": "",
+            "supplierName": "",
+          },
+        ],
+        "subContrActivityId": "",
+        "subcontractorId": "",
+        "totalCost": 0,
+        "totalSell": 0,
+      },
+    ],
+  },
+  "loading": false,
+  "notify": 0,
+}
+`;
+
+exports[`Sub Contractor Reducer should handle reset sub contractor state successfully 1`] = `
+Object {
+  "error": null,
+  "event": 3,
+  "form": Object {
+    "activities": Array [
+      Object {
+        "activityName": "",
+        "comments": "",
+        "grossMargin": 0,
+        "isExistingSubcontractor": false,
+        "isPreferredSupplier": false,
+        "otherSubcontractorName": "",
+        "projectId": "",
+        "quotes": Array [
+          Object {
+            "activityQuoteId": "",
+            "quoteValue": 0,
+            "subContrActivityId": "",
+            "supplierName": "",
+          },
+          Object {
+            "activityQuoteId": "",
+            "quoteValue": 0,
+            "subContrActivityId": "",
+            "supplierName": "",
+          },
+          Object {
+            "activityQuoteId": "",
+            "quoteValue": 0,
+            "subContrActivityId": "",
+            "supplierName": "",
+          },
+        ],
+        "subContrActivityId": "",
+        "subcontractorId": "",
+        "totalCost": 0,
+        "totalSell": 0,
+      },
+    ],
+  },
+  "loading": false,
+  "notify": 0,
+}
+`;
+
+exports[`Sub Contractor Reducer should handle sub contractor error successfully 1`] = `
+Object {
+  "error": true,
+  "event": 3,
+  "form": Object {
+    "activities": Array [
+      Object {
+        "activityName": "",
+        "comments": "",
+        "grossMargin": 0,
+        "isExistingSubcontractor": false,
+        "isPreferredSupplier": false,
+        "otherSubcontractorName": "",
+        "projectId": "",
+        "quotes": Array [
+          Object {
+            "activityQuoteId": "",
+            "quoteValue": 0,
+            "subContrActivityId": "",
+            "supplierName": "",
+          },
+          Object {
+            "activityQuoteId": "",
+            "quoteValue": 0,
+            "subContrActivityId": "",
+            "supplierName": "",
+          },
+          Object {
+            "activityQuoteId": "",
+            "quoteValue": 0,
+            "subContrActivityId": "",
+            "supplierName": "",
+          },
+        ],
+        "subContrActivityId": "",
+        "subcontractorId": "",
+        "totalCost": 0,
+        "totalSell": 0,
+      },
+    ],
+  },
+  "loading": false,
+  "notify": 2,
+}
+`;
