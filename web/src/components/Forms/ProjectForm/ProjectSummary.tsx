@@ -91,7 +91,7 @@ const ProjectSummary: React.FC<IProps> = (props) => {
 				if (filterBusinessUnit && filterBusinessUnit[0]) setBusinessUnit(filterBusinessUnit[0].description);
 			}
 		},
-		[props.project]
+		[props.project, props.listOfDivisions, props.listOfBusinessUnits]
 	);
 
 	useEffect(
