@@ -108,6 +108,8 @@ const ReviewApprove: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & 
 		props.getLookups();
 		props.getProjectActivities(projectId);
 		props.getAllCountries();
+		props.getDynamicsListOfDivision();
+		props.getListOfBusinessUnits();
 	}, []);
 
 	useEffect(
