@@ -100,7 +100,8 @@ describe('Pipline component test cases', () => {
 			sortingParams: {
 				sortColumnName: 'test',
 				sortOrder: 'asc'
-			}
+			},
+			filterParams: []
 		});
 	});
 	it('should click the export excel', () => {

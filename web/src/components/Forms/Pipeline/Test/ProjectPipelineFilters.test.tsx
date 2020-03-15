@@ -108,15 +108,15 @@ describe('Project PipelineFilters Form', () => {
             expect(field).toBeDefined();
         })
 
-        it('Should clear all', () => {
-            const projectNameField = findByTestAtrr(wrapper, 'projectName');
-            const event = { target: { value: "Test" } };
-            projectNameField[0].simulate("change", event)
+        // it('Should clear all', () => {
+        //     const projectNameField = findByTestAtrr(wrapper, 'projectName');
+        //     const event = { target: { value: "Test" } };
+        //     projectNameField[0].simulate("change", event)
 
-            field.simulate('click');
-            // const pipelineFiltersContainer = findByTestAtrr(wrapper, 'pipelineFiltersContainer');
-            expect(projectNameField.hasClass('active')).toEqual(true);
-        });
+        //     field.simulate('click');
+        //     // const pipelineFiltersContainer = findByTestAtrr(wrapper, 'pipelineFiltersContainer');
+        //     expect(projectNameField.hasClass('active')).toEqual(true);
+        // });
 
         // it('Should apply hide class on pipelineFiltersContainer div on click of Pipeline filter button', () => {
         //     field.simulate('click'); 
