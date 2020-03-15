@@ -46,7 +46,7 @@ interface IMapStateToProps {
 	currencies: Array<ICurrency> | null;
 	userNamesForEmails: Array<IUserServiceData>;
 	contractDetailsByIds: Array<IDynamicContractCustomerData>;
-
+	applyFilterLoader: boolean;
 }
 
 const ProjectPipeline: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = (props) => {
@@ -61,7 +61,7 @@ const ProjectPipeline: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 
 	useEffect(() => {
 		let searchKey = props.location ? props.location['key'] : '';
-		if (props.userPreferencesNotify == Notify.success || searchKey !== locationSearchKey) {
+		if (props.userPreferencesNotify == Notify.success || searchKey !== locationSearchKey || !searchKey) {
 			const params = extractQueryParams(props.location?.search, "lastModified", 1, 20);
 			params.filterParams = filterParams;
 			setQueryParams(params);
@@ -79,7 +79,7 @@ const ProjectPipeline: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 
 	useEffect(
 		() => {
-			if (props.projectPipeline.totalNumberOfRecord > 0 && props.projectPipeline.data[0].projectId !== '') {
+			if (props.projectPipeline?.data?.length > 0 && props.projectPipeline.data[0].projectId !== '') {
 				var allEmails = new Array();
 				var allClients = new Array();
 				for (let recordNo in props.projectPipeline.data) {
@@ -148,10 +148,10 @@ const ProjectPipeline: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 			});
 	};
 
-	const onApplyFilter = (filterParams: Array<IFilterParams>) => {
+	const onApplyFilter = (filterParamsList: Array<IFilterParams>) => {
 		const params = extractQueryParams(props.location?.search, "lastModified", 1, 20);
-		params.filterParams = filterParams;
-		setFilterParams(filterParams);
+		params.filterParams = filterParamsList;
+		setFilterParams(filterParamsList);
 		props.projectPipelineGridDetail(params);
 	}
 
@@ -184,6 +184,7 @@ const ProjectPipeline: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 										onApplyFilter={onApplyFilter}
 										exportToExcelPipelineData={exportToExcelPipelineData}
 										exportLoader={exportLoader}
+										applyFilterLoader={props.applyFilterLoader}
 									/>
 								</React.Fragment>
 							</div>
@@ -201,7 +202,8 @@ const mapStateToProps = (state: IState) => ({
 	projectPipeline: state.pipelineGrid,
 	currencies: state.lookup.currencies,
 	userNamesForEmails: state.userService.userServiceData,
-	contractDetailsByIds: state.dynamicData.dynamicsContract
+	contractDetailsByIds: state.dynamicData.dynamicsContract,
+	applyFilterLoader: state.pipelineGrid.loading,
 });
 
 const mapDispatchToProps = (dispatch) => {

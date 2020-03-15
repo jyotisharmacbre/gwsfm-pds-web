@@ -23,19 +23,19 @@ export const lookUpInitialState: ILookupState = {
         lookupId: 2,
         lookupItem: "Project_Status",
         lookupKey: 2,
-            description: "Bid Lost"
+        description: "Bid Lost"
     }, {
         lookupId: 3,
         lookupItem: "Project_Status",
         lookupKey: 3,
         description: "In Review"
-        },
-        {
-            lookupId: 4,
-            lookupItem: "Project_Approval_Sign_Off_Status",
-            lookupKey: 1,
-            description: "Pending"
-        },
+    },
+    {
+        lookupId: 4,
+        lookupItem: "Project_Approval_Sign_Off_Status",
+        lookupKey: 1,
+        description: "Pending"
+    },
     ],
     countries: [],
     languages: [],
@@ -46,7 +46,8 @@ export const lookUpInitialState: ILookupState = {
 
 export const pipelineInitialState: IProjectPipelineGridState = {
     data: [],
-    totalNumberOfRecord:1,
+    totalNumberOfRecord: 1,
+    loading: false,
     error: null,
     projectChartSummary: {
         data: [{

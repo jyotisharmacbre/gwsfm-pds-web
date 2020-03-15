@@ -1,101 +1,120 @@
+import { faFilter } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
-import { injectIntl } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import { connect } from 'react-redux';
 import { Field, InjectedFormProps, reduxForm } from 'redux-form';
+import PipelineFilterType from '../../../enums/PipelineFilterType';
+import { getDropdown, normalizeToNumber } from '../../../helpers/utility-helper';
 import IPipelineFilters from '../../../models/IPipelineFilters';
 import IFilterParams from '../../../models/tableQueryParams/IFilterParams';
+import { ILookup } from '../../../store/Lookups/Types/ILookup';
+import { LookupType } from '../../../store/Lookups/Types/LookupType';
 import IReactIntl from '../../../Translations/IReactIntl';
-import PdsFormTextArea from '../../PdsFormHandlers/PdsFormTextArea';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFilter } from '@fortawesome/free-solid-svg-icons';
-import cal from '../../assests/images/calender.svg';
-import cal2 from '../../assests/images/focus_calander.svg';
 import DatePicker from '../../DatePicker';
 import PdsFormInput from '../../PdsFormHandlers/PdsFormInput';
-import { Validate } from '../../../helpers/fieldValidations';
 import PdsFormSelect from '../../PdsFormHandlers/PdsFormSelect';
+import { CircularProgress } from '@material-ui/core';
 
 interface IProps {
-    onApplyFilter: (data: IFilterParams) => void;
+    onApplyFilter: (filterParamsList: Array<IFilterParams>) => void;
+    lookupValues: Array<ILookup>;
+    applyFilterLoader: boolean;
 }
 
-const PipelineFilters: React.FC<IProps & IReactIntl & InjectedFormProps<IPipelineFilters, IProps>>
-    = (props) => {
+const ProjectPipelineFilters: React.FC<IProps & IReactIntl & InjectedFormProps<IPipelineFilters, IProps>> =
+    (props) => {
         const [showFilter, setShowFilter] = useState(false);
 
         const createFilterData = (piplineFilterData: IPipelineFilters) => {
-            console.log(piplineFilterData);
-            const filterData = {} as IFilterParams;
-            props.onApplyFilter(filterData);
+            const filterParamsList = [] as Array<IFilterParams>;
+
+            for (var type in PipelineFilterType) {
+                if (piplineFilterData[type]) {
+                    filterParamsList.push({
+                        filterName: type,
+                        filterValue: piplineFilterData[type]
+                    })
+                }
+            }
+            props.onApplyFilter(filterParamsList);
         }
 
-        const reset = () => {
-
+        const clearAll = () => {
+            props.reset();
+            resetDates();
         }
+        const resetDates = () => {
+            window['projectStartDate'].reset();
+            window['projectEndDate'].reset();
+            window['lastModified'].reset();
+        };
 
         return (
             <form className="custom-wrap p-0" onSubmit={props.handleSubmit} noValidate={true}>
 
                 <div className={`${showFilter ? 'filters_outer' : 'filters_outer p-0'}`}>
                     <div className="top_Title justify-content-between d-flex">
-                        <h2>Pipeline View</h2>
+                        <h2><FormattedMessage id="LABEL_PIPELINE_VIEW" /></h2>
                         <span>
                             <button
                                 type="button"
+                                name="showFilter"
                                 className={`${showFilter ? 'active' : ''}`}
                                 onClick={() => setShowFilter(!showFilter)}
                             >
-                                <span className="d-lg-inline d-none">Pipeline Filters</span>
+                                <span className="d-lg-inline d-none">
+                                    <FormattedMessage id="LABEL_PIPELINE_FILTERS" />
+                                </span>
                                 <i>
                                     <FontAwesomeIcon className="" icon={faFilter} />
                                 </i>
                             </button>
                         </span>
                     </div>
-                
-                    <div className={`filters_inner form_style  ${showFilter ? 'active' : 'deactive'}`}>
+
+                    <div data-test="pipelineFiltersContainer" className={`filters_inner form_style  ${showFilter ? 'active' : 'deactive'}`}>
                         <div className="row">
                             <div className="col-lg-3 pr-lg-0">
                                 <div className="inner_content">
                                     <div className="form-group">
                                         <Field
-                                            name="projectAdditionalDetail.mainContractor"
+                                            name="projectRefId"
+                                            data-test="projectRefId"
                                             type="text"
                                             component={PdsFormInput}
-                                            validate={[Validate.required('LABEL_MAIN_CONTRACTOR')]}
-                                            labelKey="Project ID"
-                                            placeholderKey="Enter project id"
+                                            labelKey="LABEL_PIPELINE_FILTERS_PROJECT_ID"
+                                            placeholderKey="PLACEHOLDER_PROJECT_ID"
                                         />
                                     </div>
                                     <div className="form-group">
                                         <Field
-                                            name="projectAdditionalDetail.mainContractor"
+                                            name="projectName"
+                                            data-test="projectName"
                                             type="text"
                                             component={PdsFormInput}
-                                            validate={[Validate.required('LABEL_MAIN_CONTRACTOR')]}
-                                            labelKey="Project Name"
-                                            placeholderKey="Enter project name"
+                                            labelKey="LABEL_PIPELINE_FILTERS_PROJECT_NAME"
+                                            placeholderKey="PLACEHOLDER_PROJECT_NAME"
                                         />
                                     </div>
-                                    
+
                                 </div>
                             </div>
                             <div className="col-lg-3 px-lg-0">
                                 <div className="inner_content">
                                     <div className="form-group">
-                                        <label>Status</label>
+                                        <label><FormattedMessage id="LABEL_PIPELINE_FILTERS_PROJECT_STATUS" /></label>
                                         <div className="select-wrapper">
                                             <Field
-                                                name="projectAdditionalDetail.workTypeId"
+                                                name="projectStatus"
+                                                data-test="status"
                                                 component={PdsFormSelect}
-                                                className="required"
-                                                validate={[Validate.required('MESSAGE_WORK_TYPE')]}
-                                                placeholderKey="PLACEHOLDER_WORK_TYPES"
-                                                messageKey="MESSAGE_WORK_TYPE"
+                                                normalize={normalizeToNumber}
                                             >
-                                                <select className="form-control w-100  undefined" name="divisionId">
-                                                    <option value="">Select status</option>
-                                                </select>
+                                                <FormattedMessage id="PLACEHOLDER_PROJECT_STATUS">
+                                                    {(message) => <option value="">{message}</option>}
+                                                </FormattedMessage>
+                                                {getDropdown(props.lookupValues, LookupType.Project_Status)}
                                             </Field>
                                         </div>
                                     </div>
@@ -104,13 +123,15 @@ const PipelineFilters: React.FC<IProps & IReactIntl & InjectedFormProps<IPipelin
                             <div className="col-lg-3 px-lg-0">
                                 <div className="inner_content">
                                     <div className="form-group">
-                                        <label>Last Updated</label>
+                                        <label><FormattedMessage id="LABEL_PIPELINE_FILTERS_LAST_MODIFIED" /></label>
                                         <div className="cal_icon">
                                             <div className="col-md-12 position-relative manipulate-calendar p-0">
                                                 <DatePicker
-                                                    name="projectStartDate"
-                                                    data-test="projectStartDate"
+                                                    name="lastModified"
+                                                    data-test="lastModified"
+                                                    enablePastDate={true}
                                                 />
+
                                             </div>
                                         </div>
                                     </div>
@@ -119,23 +140,27 @@ const PipelineFilters: React.FC<IProps & IReactIntl & InjectedFormProps<IPipelin
                             <div className="col-lg-3 pl-lg-0">
                                 <div className="inner_content">
                                     <div className="form-group range-date">
-                                        <label className="d-block">Project Start Date</label>
+                                        <label className="d-block">
+                                            <FormattedMessage id="LABEL_PIPELINE_FILTERS_PROJECT_START_DATE" />
+                                        </label>
                                         <div className="cal_icon">
-                                        <label>From</label>
+                                            <label><FormattedMessage id="LABEL_FROM" /></label>
                                             <div className="col-md-12 position-relative manipulate-calendar p-0">
                                                 <DatePicker
                                                     name="projectStartDate"
                                                     data-test="projectStartDate"
+                                                    enablePastDate={true}
                                                 />
                                             </div>
                                         </div>
 
                                         <div className="cal_icon">
-                                            <label>To</label>
+                                            <label><FormattedMessage id="LABEL_TO" /></label>
                                             <div className="col-md-12 position-relative manipulate-calendar p-0">
                                                 <DatePicker
-                                                    name="projectStartDate"
-                                                    data-test="projectStartDate"
+                                                    name="projectEndDate"
+                                                    data-test="projectEndDate"
+                                                    enablePastDate={true}
                                                 />
                                             </div>
                                         </div>
@@ -144,8 +169,15 @@ const PipelineFilters: React.FC<IProps & IReactIntl & InjectedFormProps<IPipelin
                             </div>
                         </div>
                         <div className="mr-35 two-side-btn">
-                            <button className="active ml-auto" type="button">CLEAR ALL</button>
-                            <button type="button" name="next">APPLY</button></div>
+                            <button type="button" data-test="clear" className="active ml-auto" onClick={() => clearAll()}>
+                                <FormattedMessage id="LABEL_PIPELINE_BUTTON_CLEAR_ALL" />
+                            </button>
+
+                            <button type="button" data-test="apply" onClick={props.handleSubmit((values) => createFilterData(values))}>
+                                {props.applyFilterLoader && <CircularProgress />}
+                                <FormattedMessage id="LABEL_PIPELINE_BUTTON_APPLY_FILTER" />
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -155,9 +187,9 @@ const PipelineFilters: React.FC<IProps & IReactIntl & InjectedFormProps<IPipelin
 
 
 const form = reduxForm<IPipelineFilters, IProps>({
-    form: 'PipelineFilters',
+    form: 'ProjectPipelineFilters',
     enableReinitialize: true,
-})(injectIntl(PipelineFilters));
+})(injectIntl(ProjectPipelineFilters));
 
 
 export default connect()(form);
