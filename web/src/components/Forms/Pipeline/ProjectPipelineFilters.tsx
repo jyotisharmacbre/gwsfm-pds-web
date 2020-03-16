@@ -168,7 +168,7 @@ const ProjectPipelineFilters: React.FC<IProps & IReactIntl & InjectedFormProps<I
                                 </div>
                             </div>
                         </div>
-                        <div className="mr-35 two-side-btn">
+                        <div className="mr-35 two-side-btn py-3">
                             <button type="button" data-test="clear" className="active ml-auto" onClick={() => clearAll()}>
                                 <FormattedMessage id="LABEL_PIPELINE_BUTTON_CLEAR_ALL" />
                             </button>
