@@ -26,6 +26,7 @@ import { IUserServiceData } from '../../store/UserService/Types/IUserService';
 import { formatDataToExportExcel } from './PipelineExcelFormatter';
 import Notify from '../../enums/Notify';
 import useConfigContext from '../../hooks/useConfigContext';
+import IFilterParams from '../../models/tableQueryParams/IFilterParams';
 import excelIcon from '../../assests/images/excel_icon.svg';
 
 interface IProps {
@@ -46,7 +47,7 @@ interface IMapStateToProps {
 	currencies: Array<ICurrency> | null;
 	userNamesForEmails: Array<IUserServiceData>;
 	contractDetailsByIds: Array<IDynamicContractCustomerData>;
-
+	applyFilterLoader: boolean;
 }
 
 const ProjectPipeline: React.FC<IProps & IMapStateToProps & IMapDispatchToProps> = (props) => {
@@ -55,12 +56,15 @@ const ProjectPipeline: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 	const CurrencyObj = new Currency();
 	const [isComponentLoaded, setIsComponentLoaded] = useState<boolean>(false);
 	const [queryParams, setQueryParams] = useState<IQueryParams>({} as IQueryParams);
+	const [filterParams, setFilterParams] = useState<Array<IFilterParams>>([]);
+
 	const [locationSearchKey, setLocationSearchKey] = useState<string>();
 
 	useEffect(() => {
 		let searchKey = props.location ? props.location['key'] : '';
-		if (props.userPreferencesNotify == Notify.success || searchKey !== locationSearchKey) {
+		if (props.userPreferencesNotify == Notify.success || searchKey !== locationSearchKey || !searchKey) {
 			const params = extractQueryParams(props.location?.search, "lastModified", 1, 20);
+			params.filterParams = filterParams;
 			setQueryParams(params);
 			setLocationSearchKey(searchKey);
 			props.projectPipelineGridDetail(params);
@@ -76,7 +80,7 @@ const ProjectPipeline: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 
 	useEffect(
 		() => {
-			if (props.projectPipeline.totalNumberOfRecord > 0 && props.projectPipeline.data[0].projectId !== '') {
+			if (props.projectPipeline?.data?.length > 0 && props.projectPipeline.data[0].projectId !== '') {
 				var allEmails = new Array();
 				var allClients = new Array();
 				for (let recordNo in props.projectPipeline.data) {
@@ -145,9 +149,17 @@ const ProjectPipeline: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 			});
 	};
 
+	const onApplyFilter = (filterParamsList: Array<IFilterParams>) => {
+		const params = extractQueryParams(props.location?.search, "lastModified", 1, 20);
+		params.filterParams = filterParamsList;
+		setFilterParams(filterParamsList);
+		props.projectPipelineGridDetail(params);
+	}
+
 	const handleTableChange = (type, params) => {
 		if (isComponentLoaded) {
 			const updatedParams = setTableQueryParams(params);
+			updatedParams.filterParams = filterParams;
 			setQueryParams(updatedParams);
 			setURLParammsForGridTable(props.history, '/Pipeline', updatedParams);
 		}
@@ -185,6 +197,10 @@ const ProjectPipeline: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 										contractCustomerList={props.contractDetailsByIds}
 										handleTableChange={handleTableChange}
 										queryParams={queryParams}
+										onApplyFilter={onApplyFilter}
+										exportToExcelPipelineData={exportToExcelPipelineData}
+										exportLoader={exportLoader}
+										applyFilterLoader={props.applyFilterLoader}
 									/>
 								</React.Fragment>
 							</div>
@@ -202,7 +218,8 @@ const mapStateToProps = (state: IState) => ({
 	projectPipeline: state.pipelineGrid,
 	currencies: state.lookup.currencies,
 	userNamesForEmails: state.userService.userServiceData,
-	contractDetailsByIds: state.dynamicData.dynamicsContract
+	contractDetailsByIds: state.dynamicData.dynamicsContract,
+	applyFilterLoader: state.pipelineGrid.loading,
 });
 
 const mapDispatchToProps = (dispatch) => {
