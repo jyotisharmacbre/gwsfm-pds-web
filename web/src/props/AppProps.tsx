@@ -1,18 +1,5 @@
 import { Color } from './PropTypes';
-import {
-  IProjectForm,
-  IProjectFormAddAction
-} from '../session/ProjectForm/Type';
-import { IFilter, IFilterAddAction } from '../session/Filters/Type';
-import {
-  IGetLocalesSuccessAction,
-  IListItem,
-  IGetCustomerContractSuccessAction
-} from '../session/ListItems/Type';
-import {
-  IGetNotificationSuccessAction,
-  INotification
-} from '../session/Notification/Type';
+
 import IQueryParams from '../models/tableQueryParams/IQueryParams';
 
 export interface IAppProps {
@@ -38,29 +25,6 @@ export interface IBtnActionProps {
   isSubmit?: boolean;
 }
 
-export interface IProjectFormProps {
-  handleClick: (data: any) => void;
-  addToForm: (data: IProjectForm) => Promise<IProjectFormAddAction>;
-  getLocales: () => Promise<IGetLocalesSuccessAction>;
-  getCustomerContracts: (
-    name: string
-  ) => Promise<IGetCustomerContractSuccessAction>;
-  form: IProjectForm;
-  locales: IListItem[];
-  customerContracts: IListItem[];
-}
-
-export interface IFilterProps {
-  handleClick: (data: any) => void;
-  addToFilter: (data: IFilter) => Promise<IFilterAddAction>;
-  getLocales: () => Promise<IGetLocalesSuccessAction>;
-  getCustomerContracts: (
-    name: string
-  ) => Promise<IGetCustomerContractSuccessAction>;
-  form: IFilter;
-  locales: IListItem[];
-  customerContracts: IListItem[];
-}
 
 export interface ICardComponentProps {
   Title: string;
@@ -93,12 +57,6 @@ export interface IGridTableProps {
 
 }
 export interface ITableFilterProps extends ITableProps { }
-
-export interface INotificationProps {
-  handleClick: () => void;
-  getNotificationCount: () => Promise<IGetNotificationSuccessAction>;
-  data: INotification;
-}
 
 export interface INotificationViewProps {
   tableData: [];
