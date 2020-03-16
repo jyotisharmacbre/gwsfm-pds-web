@@ -20,6 +20,7 @@ export const getUsersEmailData: Array<IUserServiceData> = [
 
 export const pipelineGridData: IProjectPipelineGridState = {
     totalNumberOfRecord: 2,
+    loading: false,
     data: [{
         projectId: '1',
         projectRefId: 1,

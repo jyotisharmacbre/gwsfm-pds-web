@@ -3,6 +3,7 @@ import { ActionType } from './Types/ActionType';
 import { Dispatch } from 'redux';
 import IProjectChartSummary from '../../models/IProjectChartSummary';
 import IQueryParams from '../../models/tableQueryParams/IQueryParams';
+import EventType from '../../enums/EventType';
 /* istanbul ignore next */
 const projectPipelineDetailSuccess = (response: any) => {
   return {
@@ -20,17 +21,23 @@ const projectPipeineDetailError = (error: string) => {
 
 /* istanbul ignore next */
 const getProjectChartSummarySuccess = (response: Array<IProjectChartSummary>) => {
-    return {
-        type: ActionType.GET_PROJECT_CHART_SUMMARY_SUCCESS,
-        payload: response
-    };
+  return {
+    type: ActionType.GET_PROJECT_CHART_SUMMARY_SUCCESS,
+    payload: response
+  };
 };
 /* istanbul ignore next */
 const getProjectChartSummaryError = (error: string) => {
-    return {
-        type: ActionType.GET_PROJECT_CHART_SUMMARY_ERROR,
-        payload: error
-    };
+  return {
+    type: ActionType.GET_PROJECT_CHART_SUMMARY_ERROR,
+    payload: error
+  };
+};
+
+const setloadingTrue = () => {
+  return {
+    type: ActionType.SET_LOADING_TRUE,
+  };
 };
 
 const headers = {
@@ -39,6 +46,7 @@ const headers = {
 
 export const projectPipelineDetail = (queryParams: IQueryParams) => {
   return (dispatch: Dispatch) => {
+    dispatch(setloadingTrue());
     axios.baseAPI
       .post('api/Projects/GetAll', queryParams, { headers: headers })
       .then(response => {
@@ -53,16 +61,16 @@ export const projectPipelineDetail = (queryParams: IQueryParams) => {
 };
 
 export const getProjectChartSummary = () => {
-    return (dispatch: Dispatch) => {
-        axios.baseAPI
-            .get('api/Projects/GetProjectChartSummary', { headers: headers })
-            .then(response => {
-                /* istanbul ignore next */
-                dispatch(getProjectChartSummarySuccess(response.data));
-            })
-            .catch(error => {
-                /* istanbul ignore next */
-                dispatch(getProjectChartSummaryError(error));
-            });
-    };
+  return (dispatch: Dispatch) => {
+    axios.baseAPI
+      .get('api/Projects/GetProjectChartSummary', { headers: headers })
+      .then(response => {
+        /* istanbul ignore next */
+        dispatch(getProjectChartSummarySuccess(response.data));
+      })
+      .catch(error => {
+        /* istanbul ignore next */
+        dispatch(getProjectChartSummaryError(error));
+      });
+  };
 };

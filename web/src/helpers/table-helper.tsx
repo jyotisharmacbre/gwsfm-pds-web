@@ -35,7 +35,7 @@ export const sortCaret = (order, column) => {
 };
 
 export const setTableQueryParams = (params) => {
-    let updatedParams = {
+    let updatedParams: IQueryParams = {
         pagingParams: {
             pageIndex: params.page,
             pageSize: params.sizePerPage
