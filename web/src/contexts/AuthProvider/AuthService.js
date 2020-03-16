@@ -24,6 +24,10 @@ const options = {
     loginType: LoginType.Redirect,
     tokenRefreshUri: window.location.origin
 }
-
-debugger;
-export const msalAuthProvider = new MsalAuthProvider(config, authenticationParameters, options)
+function getMsalAuthProvider() {
+    if (aadConfig.REACT_APP_TEST == undefined || aadConfig.REACT_APP_TEST == 'false')
+        return new MsalAuthProvider(config, authenticationParameters, options);
+    else
+        return {};
+}
+export const msalAuthProvider = getMsalAuthProvider();
