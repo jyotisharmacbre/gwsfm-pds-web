@@ -133,7 +133,7 @@
             font-weight: 400;
             margin-right: 0;
             padding: 6px 15px 3px;
-            transition: all 0.2s ease-in-out;
+            transition: background-color .3s ease;
             i {
                 padding-left: 10px;
                 @include mdScreen {
@@ -167,7 +167,7 @@
         &:before {
             border-bottom-color: #E8ECF3;
             top: -10px;
-            right: 68px;
+            right: 86px;
             border-width: 10px;
             border-right-width: 9px;
             border-left-width: 10px;
@@ -176,7 +176,7 @@
             }
         }&:after {
             top: -8px;
-            right: 69px;
+            right: 87px;
             display: inline-block;
             border-bottom-color: #fbfbfb;
             border-width: 8px;
@@ -231,6 +231,13 @@
             @include xsScreen {
                 padding-right: 0;
             }
+            button {
+                &:nth-child(2){
+                    @include mdScreen {
+                        margin-right: 0;
+                    }
+                }
+            }
         }
         .range-date {
             .cal_icon {
@@ -246,6 +253,9 @@
                 padding-left: 0;
                 text-align: center;
                 width: 30%;
+                @include mdScreen {
+                    width: 32%;
+                }
                 &:nth-child(1) {
                     border-radius: 5px 0px 0px 5px;
                 }
