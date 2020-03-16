@@ -2,8 +2,10 @@ import axios from 'axios';
 import appConfig from '../helpers/config-helper';
 import { getAccessToken } from '../helpers/auth-helper';
 import { isIE } from '../helpers/utility-helper';
+import { msalAuthProvider } from '../contexts/AuthProvider/AuthService';
 
 const config = appConfig();
+const authProvider = msalAuthProvider;
 export const baseURL = config.REACT_APP_MIDDLETIER_URL;
 export const baseAPI = axios.create({ baseURL });
 export const userServiceURL = config.REACT_APP_GATEWAY_URL;
@@ -47,6 +49,9 @@ userServiceAPI.interceptors.request.use(request => requestHandler(request));
 const errorHandler = error => {
     if (isErrorHandlerEnabled(error.config)) {
         // Handle errors
+        if (error.response.status == 401) {
+            authProvider.logout();
+        }
     }
     return Promise.reject({ ...error });
 };

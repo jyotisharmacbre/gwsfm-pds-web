@@ -11,12 +11,7 @@ const initialized = (oldState, action) => {
 };
 
 const loginSuccess = (oldState, action) => {
-    return updateObject(oldState, {
-        token: action.payload.jwtIdToken,
-        name: action.payload.account.idToken.name,
-        firstName: action.payload.account.idToken.given_name,
-        email: action.payload.account.idToken.email,
-    });
+    return oldState;
 };
 
 const loginFailed = (oldState, action) => {
@@ -30,14 +25,29 @@ const clearError = (oldState, action) => {
 };
 const logoutSuccess = (oldState, action) => {
     return updateObject(oldState, {
-        token: null,
-        name: null,
-        firstName: null,
-        email: null
+        token: updateObject(oldState.token, {
+            idToken: null,
+            expiration: null
+        }),
+        claims: updateObject(oldState.claims, {
+            name: null,
+            firstName: null,
+            email: null
+        })
     });
 };
 const acquiredIdTokenSuccess = (oldState, action) => {
-    return oldState;
+    return updateObject(oldState, {
+        token: updateObject(oldState.token, {
+            idToken: action.payload.idToken.rawIdToken,
+            expiration: action.payload.idToken.expiration
+        }),
+        claims: updateObject(oldState.claims, {
+            name: action.payload.idToken.claims.name,
+            firstName: action.payload.idToken.claims.given_name,
+            email: action.payload.idToken.claims.email
+        })
+    });
 };
 const acquiredIdTokenError = (oldState, action) => {
     return oldState;
@@ -51,6 +61,7 @@ const acquiredAccessTokenError = (oldState, action) => {
 const authenticatedStateChanged = (oldState, action) => {
     return oldState;
 };
+
 const authReducer = (oldState = initialState, action) => {
     switch (action.type) {
         case AuthenticationActions.Initializing:
