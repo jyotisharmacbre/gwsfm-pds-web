@@ -144,7 +144,7 @@ const ProjectPipelineForm: React.FC<Props & IReactIntl> = (props: any) => {
         totalSize={props.pipelineValues?.totalNumberOfRecord}
         queryParams={props.queryParams}
         intl={props.intl}
-        data-test="DataGrid"
+        data-test="pipelineDataGrid"
       />
     </React.Fragment>
   );

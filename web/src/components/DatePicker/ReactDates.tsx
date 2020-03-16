@@ -28,6 +28,10 @@ export const validDate = (year, month, day) => {
   }
   return true;
 }
+export const isOutsideRange = (enablePastDate, day) => {
+  return enablePastDate ? false :
+    !isInclusivelyAfterDay(day, moment());
+}
 class ReactDates extends PureComponent<Props & InjectedFormProps<{}, Props>>
 {
   state = {
@@ -130,10 +134,7 @@ class ReactDates extends PureComponent<Props & InjectedFormProps<{}, Props>>
     }
 
   };
-  isOutsideRange = (day) => {
-    return this.props.enablePastDate ? false :
-      !isInclusivelyAfterDay(day, moment());
-  }
+
 
   render() {
     const {
@@ -187,7 +188,7 @@ class ReactDates extends PureComponent<Props & InjectedFormProps<{}, Props>>
           isInsideRange={day => !isInclusivelyBeforeDay(day, moment())}
           onFocusChange={this.onFocusChange}
           id={input.name}
-          isOutsideRange={this.isOutsideRange}
+          isOutsideRange={(day) => isOutsideRange(this.props.enablePastDate, day)}
         />
 
         {error && touched && <span>{error}</span>}

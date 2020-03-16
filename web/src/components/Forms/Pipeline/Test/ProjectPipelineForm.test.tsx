@@ -68,10 +68,10 @@ describe('Project Pipline Form testCases', () => {
 
   });
 
-  it('should have the component DataGrid', () => {
+  it('should have the component pipelineDataGrid', () => {
     setUpStore(pipelineGridData);
     componentMount({ props });
-    let DataGrid = findByTestAtrr(wrapper, 'DataGrid')
+    let DataGrid = findByTestAtrr(wrapper, 'pipelineDataGrid')
     expect(DataGrid).toBeDefined();
 
   });

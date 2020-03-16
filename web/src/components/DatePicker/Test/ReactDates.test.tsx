@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import ReactDates, { validDate } from '../ReactDates';
+import ReactDates, { validDate, isOutsideRange } from '../ReactDates';
+import moment from 'moment';
 
 describe('ReactDates test cases', () => {
   let wrapper: any;
@@ -65,5 +66,19 @@ describe('ReactDates test cases', () => {
 
   it('should set window variable name', () => {
     expect(window['date']).toBeDefined();
+  });
+  it('should return false if enable pastdate is true', () => {
+    expect(isOutsideRange(true, {})).toEqual(false);
+  });
+  it('should return true if pastdate not allowed and date is previous date', () => {
+    const previousDay = moment().subtract(1, 'days');
+    //It means any date previous dates not allowed
+    expect(isOutsideRange(false, previousDay)).toEqual(true);
+  });
+
+  it('should return false given pastdate not allowed and date is current date', () => {
+    const currentDay = moment();
+    //It means any date current or after current is allowed
+    expect(isOutsideRange(false, currentDay)).toEqual(false);
   });
 });
