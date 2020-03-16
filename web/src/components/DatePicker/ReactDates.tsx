@@ -73,9 +73,9 @@ class ReactDates extends PureComponent<Props & InjectedFormProps<{}, Props>>
   }
   onChange = value => {
     this.setState({
-      day: value.date(),
-      month: value.month() + 1,
-      year: value.year()
+      day: value?.date(),
+      month: value?.month() + 1,
+      year: value?.year()
     });
     const { input } = this.props;
     input.onChange(value);

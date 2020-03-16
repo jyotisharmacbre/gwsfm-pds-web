@@ -8,13 +8,12 @@ import * as connectedIntlProvider from './../../../../Translations/connectedIntl
 import ProjectPipelineFilters from '../ProjectPipelineFilters';
 import { findByTestAtrr } from '../../../../helpers/test-helper';
 import { ILookup } from '../../../../store/Lookups/Types/ILookup';
+import PipelineFilterType from '../../../../enums/PipelineFilterType';
 
 
 describe('Project PipelineFilters Form', () => {
     let wrapper: any;
     const props: any = {
-        // fields: []
-        name: 'TestAmit',
         onApplyFilter: jest.fn(),
         lookupValues: [{
             lookupId: 1,
@@ -69,10 +68,6 @@ describe('Project PipelineFilters Form', () => {
         expect(findByTestAtrr(wrapper, 'projectName')).toBeDefined();
     })
 
-    it('Should renders applyFilter button', () => {
-        expect(findByTestAtrr(wrapper, 'apply')).toBeDefined();
-    })
-
     describe('Pipeline Filter button', () => {
         let field;
         beforeEach(() => {
@@ -97,32 +92,84 @@ describe('Project PipelineFilters Form', () => {
     });
 
     describe('Pipeline clear all button', () => {
-        let field;
+        let clearButton;
         beforeEach(() => {
-            field = findByTestAtrr(wrapper, 'clear');
+            clearButton = findByTestAtrr(wrapper, 'clear');
         });
-        it('Should renders Pipeline filter button', () => {
-            expect(field.prop('type')).toBe('button');
+        it('Should be of button type', () => {
+            expect(clearButton.prop('type')).toBe('button');
         });
         it('Should renders clearAll button', () => {
-            expect(field).toBeDefined();
+            expect(clearButton).toBeDefined();
         })
 
-        // it('Should clear all', () => {
-        //     const projectNameField = findByTestAtrr(wrapper, 'projectName');
-        //     const event = { target: { value: "Test" } };
-        //     projectNameField[0].simulate("change", event)
+        for (var type in PipelineFilterType) {
+            if (typeof PipelineFilterType[type] === 'number') {
+                it(`Should clear ${type} field`, () => {
+                    let field = wrapper.find(`input[name="${type}"]`);
+                    const event = { target: { value: "TestProject" } };
+                    if (field.length > 0) {
+                        field.simulate("change", event);
+                        expect(wrapper.find(`input[name="${type}"]`).prop('value')).toEqual('TestProject');
+                        clearButton.simulate('click');
+                        expect(wrapper.find(`input[name="${type}"]`).prop('value')).toEqual('');
+                    }
+                });
+            }
+        }
 
-        //     field.simulate('click');
-        //     // const pipelineFiltersContainer = findByTestAtrr(wrapper, 'pipelineFiltersContainer');
-        //     expect(projectNameField.hasClass('active')).toEqual(true);
-        // });
-
-        // it('Should apply hide class on pipelineFiltersContainer div on click of Pipeline filter button', () => {
-        //     field.simulate('click'); 
-        //     field.simulate('click');
-        //     const pipelineFiltersContainer = findByTestAtrr(wrapper, 'pipelineFiltersContainer');
-        //     expect(pipelineFiltersContainer.hasClass('hide')).toEqual(true);
-        // });
     });
+
+    describe('Pipeline applyFilter button', () => {
+        let applyFilterButton;
+        beforeEach(() => {
+            applyFilterButton = findByTestAtrr(wrapper, 'apply');
+        });
+
+        it('Should renders applyFilter button', () => {
+            expect(applyFilterButton).toBeDefined();
+        });
+
+        it('Should be of button type', () => {
+            expect(applyFilterButton.prop('type')).toBe('button');
+        });
+
+        it('Should call the onApplyFilter method', () => {
+            applyFilterButton.simulate('click');
+            expect(props.onApplyFilter).toHaveBeenCalled();
+        });
+
+        it(' Should call the onApplyFilter method with params', () => {
+            for (var type in PipelineFilterType) {
+                if (typeof PipelineFilterType[type] === 'number') {
+                    let field = wrapper.find(`input[name="${type}"]`);
+                    if (field.length > 0) {
+                        const event = { target: { value: "TestProject" } };
+                        field.simulate("change", event);
+                    }
+                    let fieldStartDate = wrapper.find(`input[name="projectStartDate"]`);
+                    const eventStartDate = { target: { value: "03/16/2020" } };
+                    fieldStartDate.simulate("change", eventStartDate);
+
+                    let fieldEndDate = wrapper.find(`input[name="projectEndDate"]`);
+                    const eventEndDate = { target: { value: "02/16/2020" } };
+                    fieldEndDate.simulate("change", eventEndDate);
+
+                    let lastModified = wrapper.find(`input[name="lastModified"]`);
+                    const eventLastModified = { target: { value: "01/16/2020" } };
+                    lastModified.simulate("change", eventLastModified);
+                }
+            }
+            applyFilterButton.simulate('click');
+            expect(props.onApplyFilter).toHaveBeenCalledWith(
+                [
+                    { "filterName": "lastModified", "filterValue": "2020-01-16" },
+                    { "filterName": "projectStartDate", "filterValue": "2020-03-16" },
+                    { "filterName": "projectEndDate", "filterValue": "2020-02-16" },
+                    { "filterName": "projectRefId", "filterValue": "TestProject" },
+                    { "filterName": "projectName", "filterValue": "TestProject" },
+                ]);
+        });
+    });
+
 });
