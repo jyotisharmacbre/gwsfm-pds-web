@@ -13,7 +13,7 @@ import { IUserServiceData } from '../store/UserService/Types/IUserService';
 import { isValidEmail } from '../helpers/fieldValidations';
 import * as actions from '../store/rootActions';
 import { displayUserName } from '../helpers/utility-helper';
-import { PieChart, Pie, Cell, Tooltip, LabelList } from 'recharts';
+import { PieChart, Pie, Cell, Tooltip } from 'recharts';
 import IProjectChartSummary from '../models/IProjectChartSummary';
 import { LookupItems } from '../helpers/constants';
 import StatusColorCode from '../enums/StatusColorCode';
