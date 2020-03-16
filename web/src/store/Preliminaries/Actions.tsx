@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 import * as axios from '../../client';
 import { ActionType } from './Types/ActionType';
 import { Dispatch } from 'redux';
