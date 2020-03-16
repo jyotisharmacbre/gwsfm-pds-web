@@ -35,14 +35,13 @@ export const initialState: IProjectPipelineGridState = {
 };
 
 const projectPipelineDetailSuccess = (oldState, action) => {
-    let value = updateObject(oldState, {
+    return updateObject(oldState, {
         error: null,
         loading: false,
         data: action.payload?.data,
         totalNumberOfRecord: action.payload?.totalNumberOfRecord,
         pipelineDetails: action.payload
     });
-    return value;
 };
 
 const projectPipeineDetailError = (oldState, action) => {

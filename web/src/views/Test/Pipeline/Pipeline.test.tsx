@@ -83,15 +83,26 @@ describe('Pipline component test cases', () => {
 		history: []
 	};
 
-	beforeEach(() => {
+	it('defines the component', () => {
 		setUpStore();
 		mountComponent(Props);
-	});
-
-	it('defines the component', () => {
 		expect(wrapper).toBeDefined();
 	});
+	it('should call projectPipelineGridDetail with params when directly hit the pipeline url', () => {
+		const props: any = {
+			location: {
+				search: '/pipeline',
+			},
+			projectPipelineGridDetail: jest.fn(),
+			history: []
+		};
+		setUpStore();
+		mountComponent(props);
+		expect(action.projectPipelineDetail).toHaveBeenCalled();
+	});
 	it('should call projectPipelineGridDetail with params', () => {
+		setUpStore();
+		mountComponent(Props);
 		expect(action.projectPipelineDetail).toHaveBeenCalledWith({
 			pagingParams: {
 				pageIndex: 1,
@@ -105,10 +116,14 @@ describe('Pipline component test cases', () => {
 		});
 	});
 	it('should click the export excel', () => {
+		setUpStore();
+		mountComponent(Props);
 		let exportToExcel = findByTestAtrr(wrapper, "export_to_excel").first();
 		exportToExcel.simulate('click');
 	});
 	it('should format the excel data correctly', () => {
+		setUpStore();
+		mountComponent(Props);
 		let exportToExcel = formatDataToExportExcel(excelPipelineData, emails, clients, currenciesData, new Currency(), intialLookupvalues, "MM/DD/YYYY");
 		expect(exportToExcel).toEqual(expectedExportExcelData);
 	});

@@ -62,4 +62,8 @@ describe('ReactDates test cases', () => {
     let result = validDate(2020, 1, NaN);
     expect(result).toBe(expectedResult);
   });
+
+  it('should set window variable name', () => {
+    expect(window['date']).toBeDefined();
+  });
 });

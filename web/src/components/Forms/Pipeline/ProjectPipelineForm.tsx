@@ -116,6 +116,7 @@ const ProjectPipelineForm: React.FC<Props & IReactIntl> = (props: any) => {
         onApplyFilter={props.onApplyFilter}
         lookupValues={props.lookupValues}
         applyFilterLoader={props.applyFilterLoader}
+        data-test="ProjectPipelineFilters"
       />
       <div className="top_Title justify-content-between d-flex">
         <h2>{formatMessage('TITLE_CURRENT_PIPELINE')}</h2>
@@ -143,6 +144,7 @@ const ProjectPipelineForm: React.FC<Props & IReactIntl> = (props: any) => {
         totalSize={props.pipelineValues?.totalNumberOfRecord}
         queryParams={props.queryParams}
         intl={props.intl}
+        data-test="DataGrid"
       />
     </React.Fragment>
   );
