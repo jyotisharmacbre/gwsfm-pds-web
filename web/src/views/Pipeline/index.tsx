@@ -26,6 +26,7 @@ import { IUserServiceData } from '../../store/UserService/Types/IUserService';
 import { formatDataToExportExcel } from './PipelineExcelFormatter';
 import Notify from '../../enums/Notify';
 import useConfigContext from '../../hooks/useConfigContext';
+import excelIcon from '../../assests/images/excel_icon.svg';
 
 interface IProps {
 	history: History;
@@ -161,14 +162,14 @@ const ProjectPipeline: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 							<h2>{formatMessage('TITLE_CURRENT_PIPELINE')}</h2>
 							<span>
 								<button
-									className="active"
+									className="active excel_icon"
 									type="button"
 									onClick={() => exportToExcelPipelineData()}
 									disabled={exportLoader}
 									data-test="export_to_excel"
 								>
 									{exportLoader && <CircularProgress />}
-									<FormattedMessage id="EXPORT_TO_EXCEL" />
+									<img src={excelIcon} alt="microsoft excel icon" />
 								</button>
 							</span>
 						</div>

@@ -88,7 +88,7 @@ const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
 					total = total + ele.value;
 				});
 				props.lookupDetails.map((element) => {
-					if (element.lookupItem == LookupItems.Project_Status) {
+					if (element.lookupItem == LookupItems.Project_Status && element.lookupKey !== 8 && element.lookupKey !== 9) {
 						let filterValue = props.chartData.find(data => data.name == element.lookupKey.toString());
 						data.push({
 							name: element.description,
