@@ -1,0 +1,231 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DiscountForm reducer should handle DISCOUNT_FORM_DATA_ADD action 1`] = `
+Object {
+  "error": null,
+  "event": undefined,
+  "form": Object {
+    "clientDiscount": Object {
+      "clientComments": "",
+      "clientState": "",
+      "discount": undefined,
+      "discountId": "",
+      "discountType": 1,
+      "projectId": "",
+    },
+    "data": Object {
+      "id": "1",
+    },
+    "projectId": "TEST",
+    "subContractorDiscounts": Array [
+      Object {
+        "projectId": "",
+        "subContractorDiscountId": "",
+        "supplierComments": "",
+        "supplierName": "",
+        "supplierState": "",
+        "supplierTotalDiscount": undefined,
+      },
+    ],
+  },
+  "loading": false,
+  "notify": 1,
+}
+`;
+
+exports[`DiscountForm reducer should handle DISCOUNT_FORM_DATA_EDIT action 1`] = `
+Object {
+  "error": null,
+  "event": undefined,
+  "form": Object {
+    "data": Object {
+      "id": "1",
+    },
+  },
+  "loading": false,
+  "notify": 1,
+}
+`;
+
+exports[`DiscountForm reducer should handle DISCOUNT_FORM_DATA_GET action 1`] = `
+Object {
+  "error": null,
+  "event": undefined,
+  "form": Object {
+    "clientDiscount": Object {
+      "clientComments": "",
+      "clientState": "",
+      "discount": undefined,
+      "discountId": "",
+      "discountType": 1,
+      "projectId": "",
+    },
+    "data": Object {
+      "id": "1",
+    },
+    "projectId": "TEST",
+    "subContractorDiscounts": Array [
+      Object {
+        "projectId": "",
+        "subContractorDiscountId": "",
+        "supplierComments": "",
+        "supplierName": "",
+        "supplierState": "",
+        "supplierTotalDiscount": undefined,
+      },
+    ],
+  },
+  "loading": false,
+  "notify": 0,
+}
+`;
+
+exports[`DiscountForm reducer should handle DISCOUNT_FORM_DATA_GET_ERROR action 1`] = `
+Object {
+  "error": null,
+  "event": 3,
+  "form": Object {
+    "clientDiscount": Object {
+      "clientComments": "",
+      "clientState": "",
+      "discount": undefined,
+      "discountId": "",
+      "discountType": 1,
+      "projectId": "",
+    },
+    "projectId": "TEST",
+    "subContractorDiscounts": Array [
+      Object {
+        "projectId": "",
+        "subContractorDiscountId": "",
+        "supplierComments": "",
+        "supplierName": "",
+        "supplierState": "",
+        "supplierTotalDiscount": undefined,
+      },
+    ],
+  },
+  "loading": false,
+  "notify": 0,
+}
+`;
+
+exports[`DiscountForm reducer should handle RESET_DISCOUNT_FORM_STATE action 1`] = `
+Object {
+  "error": null,
+  "event": 3,
+  "form": Object {
+    "clientDiscount": Object {
+      "clientComments": "",
+      "clientState": "",
+      "discount": undefined,
+      "discountId": "",
+      "discountType": 1,
+      "projectId": "",
+    },
+    "projectId": "TEST",
+    "subContractorDiscounts": Array [
+      Object {
+        "projectId": "",
+        "subContractorDiscountId": "",
+        "supplierComments": "",
+        "supplierName": "",
+        "supplierState": "",
+        "supplierTotalDiscount": undefined,
+      },
+    ],
+  },
+  "loading": false,
+  "notify": 0,
+}
+`;
+
+exports[`DiscountForm reducer should handle RESET_DISCOUNT_FORM_STATE_NOTIFIER action 1`] = `
+Object {
+  "error": null,
+  "event": 3,
+  "form": Object {
+    "clientDiscount": Object {
+      "clientComments": "",
+      "clientState": "",
+      "discount": undefined,
+      "discountId": "",
+      "discountType": 1,
+      "projectId": "",
+    },
+    "projectId": "TEST",
+    "subContractorDiscounts": Array [
+      Object {
+        "projectId": "",
+        "subContractorDiscountId": "",
+        "supplierComments": "",
+        "supplierName": "",
+        "supplierState": "",
+        "supplierTotalDiscount": undefined,
+      },
+    ],
+  },
+  "loading": false,
+  "notify": 0,
+}
+`;
+
+exports[`DiscountForm reducer should handle SET_LOADING_TRUE action 1`] = `
+Object {
+  "error": null,
+  "event": undefined,
+  "form": Object {
+    "clientDiscount": Object {
+      "clientComments": "",
+      "clientState": "",
+      "discount": undefined,
+      "discountId": "",
+      "discountType": 1,
+      "projectId": "",
+    },
+    "projectId": "TEST",
+    "subContractorDiscounts": Array [
+      Object {
+        "projectId": "",
+        "subContractorDiscountId": "",
+        "supplierComments": "",
+        "supplierName": "",
+        "supplierState": "",
+        "supplierTotalDiscount": undefined,
+      },
+    ],
+  },
+  "loading": true,
+  "notify": 0,
+}
+`;
+
+exports[`DiscountForm reducer should handle discountFormError action 1`] = `
+Object {
+  "error": "test error",
+  "event": 3,
+  "form": Object {
+    "clientDiscount": Object {
+      "clientComments": "",
+      "clientState": "",
+      "discount": undefined,
+      "discountId": "",
+      "discountType": 1,
+      "projectId": "",
+    },
+    "projectId": "TEST",
+    "subContractorDiscounts": Array [
+      Object {
+        "projectId": "",
+        "subContractorDiscountId": "",
+        "supplierComments": "",
+        "supplierName": "",
+        "supplierState": "",
+        "supplierTotalDiscount": undefined,
+      },
+    ],
+  },
+  "loading": false,
+  "notify": 2,
+}
+`;

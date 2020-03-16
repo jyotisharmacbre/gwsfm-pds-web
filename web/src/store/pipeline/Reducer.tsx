@@ -30,24 +30,28 @@ export const initialState: IProjectPipelineGridState = {
             projectStatusDescription: '',
             contractTypeDescription: ''
         }],
-    error: null
+    error: null,
+    loading: false
 };
 
 const projectPipelineDetailSuccess = (oldState, action) => {
-    return updateObject(oldState, {
+    let value = updateObject(oldState, {
         error: null,
         loading: false,
         data: action.payload?.data,
         totalNumberOfRecord: action.payload?.totalNumberOfRecord,
         pipelineDetails: action.payload
     });
+    return value;
 };
 
 const projectPipeineDetailError = (oldState, action) => {
     return updateObject(oldState, {
         error: action.error,
         loading: false,
-        notify: Notify.error
+        notify: Notify.error,
+        totalNumberOfRecord: 0,
+        pipelineDetails: []
     });
 };
 
@@ -70,6 +74,12 @@ const getProjectChartSummaryError = (oldState, action) => {
     });
 };
 
+const setloadingTrue = (oldState, action) => {
+    return updateObject(oldState, {
+        loading: true,
+    });
+};
+
 const projectPipelineDetailReducer = (oldState = initialState, action) => {
     switch (action.type) {
         case ActionType.PROJECT_PIPELINE_GRID_DETAILS:
@@ -80,6 +90,8 @@ const projectPipelineDetailReducer = (oldState = initialState, action) => {
             return getProjectChartSummarySuccess(oldState, action);
         case ActionType.GET_PROJECT_CHART_SUMMARY_ERROR:
             return getProjectChartSummaryError(oldState, action);
+        case ActionType.SET_LOADING_TRUE:
+            return setloadingTrue(oldState, action);
         default:
             return oldState;
     }

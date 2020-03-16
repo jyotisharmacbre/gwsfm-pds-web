@@ -1,10 +1,10 @@
 
 interface IPipelineFilters {
-    projectId: string;
+    projectRefId: string;
     projectName: string;
-    lastUpdated: string;
+    lastModified: string;
     projectStartDate: string;
     projectEndDate: string;
-    status: string;
+    projectStatus: string;
 }
 export default IPipelineFilters;
