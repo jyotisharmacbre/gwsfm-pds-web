@@ -175,8 +175,9 @@ steps:
     extraProperties: |
       # Additional properties that will be passed to the scanner, 
       # Put one key=value per line, example
-      sonar.exclusions=**/*.bin,**/*.js,**/*.scss,**/*.yml
-      sonar.cobertura.reportPath=coverage/cobertura/cobertura-coverage.xml
+      #sonar.exclusions=**/*.bin,**/*.js,**/*.scss,**/*.yml
+      sonar.inclusions=**/src/**/*.ts
+      sonar.cobertura.reportPath=**/coverage/cobertura-coverage.xml
 
 - task: PowerShell@2
   displayName: 'Code Build start time'
