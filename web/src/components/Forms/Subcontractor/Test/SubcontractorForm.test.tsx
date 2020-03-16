@@ -6,12 +6,17 @@ import { IntlProvider } from 'react-intl';
 import translations from '../../../../Translations/translation';
 import   * as connectedIntlProvider from './../../../../Translations/connectedIntlProvider';
 import SubcontractorForm from '../SubcontractorForm';
+import { findByTestAtrr } from '../../../../helpers/test-helper';
+import EventType from '../../../../enums/EventType';
 
   
 describe('Sub Contractor Form', () => {
   let wrapper: any;
   const props: any = {
-    fields: []
+    fields: [],
+    onPrevious: jest.fn(),
+
+    
   }; 
   beforeEach(() => {
     const formatMessage = jest.mock('./../../../../Translations/connectedIntlProvider');  
@@ -49,4 +54,19 @@ describe('Sub Contractor Form', () => {
         expect(mainContractor.matchesElement(focusedElement)).toBeTruthy;
       });
 });
+describe('Previous button', () => {
+  let field;
+  beforeEach(() => {
+    field = wrapper.find('button[name="previous"]');
+  });
+  it('Should renders previous button', () => {
+    expect(field.prop('type')).toBe('button');
+  });
+
+  it('Should call the OnPrevious event on previous button click', () => {
+    field.simulate('click');
+    expect(props.onPrevious).toBeCalledTimes(1);
+  });
+});
+
 });
