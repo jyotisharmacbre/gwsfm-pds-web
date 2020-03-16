@@ -67,5 +67,14 @@ describe('preliminaryReducer Reducer', () => {
           preliminaryReducer(initialState, dataAction)
       ).toMatchSnapshot();
     });
+
+    it('should reset preliminary state', () => {
+      const dataAction: any = {
+        type: ActionType.RESET_PRELIMINARY_STATE
+      };
+      expect(
+          preliminaryReducer(initialState, dataAction)
+      ).toMatchSnapshot();
+    });
   });
       
