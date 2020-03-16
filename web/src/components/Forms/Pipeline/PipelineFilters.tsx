@@ -143,7 +143,7 @@ const PipelineFilters: React.FC<IProps & IReactIntl & InjectedFormProps<IPipelin
                                 </div>
                             </div>
                         </div>
-                        <div className="mr-35 two-side-btn">
+                        <div className="mr-35 two-side-btn py-3">
                             <button className="active ml-auto" type="button">CLEAR ALL</button>
                             <button type="button" name="next">APPLY</button></div>
                     </div>

@@ -111,7 +111,7 @@
 .filters_outer {
     background: #fff;
     margin-bottom: 30px;
-    padding-bottom: 30px;
+    border-radius: 5px;
     position: relative;
     .top_Title {
         border-bottom: 0;
@@ -146,7 +146,7 @@
         background: #fbfbfb;
         border: 1px solid #E8ECF3;
         border-radius: 5px;
-        margin: 0 20px;
+        margin-top: 8px;
         position: relative;
         &.active {
             display: block;
@@ -191,6 +191,9 @@
             border-right: 1px solid #E8ECF3;
             height: 100%;
             border-bottom: 1px solid #E8ECF3;
+            @include lgScreen {
+                padding: 20px 20px 20px 20px;
+            }
             @include mdScreen {
                 border-right: 0;
             }
@@ -221,7 +224,7 @@
             }
         }
         .two-side-btn {
-            padding-right: 30px;
+            padding-right: 20px;
             @include smScreen {
                 padding-right: 7px;
             }
