@@ -39,7 +39,7 @@ const PreliminaryComponentsForm = ({ fields,submitHandler,handleSubmit,onToggleE
     <div className="accordion" key={index}>
           <div className="card">
             <div
-              className="card-header"
+            className={`card-header ${isSaved? 'active' : 'default'}`}
               data-toggle="collapse"
               data-test="tickWrap"
               onClick={()=>onToggleEvent(prelimData[index].componentId)}

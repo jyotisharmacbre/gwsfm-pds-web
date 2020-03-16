@@ -27,7 +27,6 @@ import { formatDataToExportExcel } from './PipelineExcelFormatter';
 import Notify from '../../enums/Notify';
 import useConfigContext from '../../hooks/useConfigContext';
 import IFilterParams from '../../models/tableQueryParams/IFilterParams';
-import excelIcon from '../../assests/images/excel_icon.svg';
 
 interface IProps {
 	history: History;
@@ -170,21 +169,7 @@ const ProjectPipeline: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 			<div className="row">
 				<div className="col-lg-12">
 					<div className="custom-wrap">
-						<div className="top_Title justify-content-between d-flex">
-							<h2>{formatMessage('TITLE_CURRENT_PIPELINE')}</h2>
-							<span>
-								<button
-									className="active excel_icon"
-									type="button"
-									onClick={() => exportToExcelPipelineData()}
-									disabled={exportLoader}
-									data-test="export_to_excel"
-								>
-									{exportLoader && <CircularProgress />}
-									<img src={excelIcon} alt="microsoft excel icon" />
-								</button>
-							</span>
-						</div>
+					
 
 						<div className="table-grid-wrap price-sumry overflowX">
 							<div className="inner-block">
