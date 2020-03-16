@@ -9,4 +9,5 @@ export interface IProjectPipelineGridState {
     totalNumberOfRecord: number;
     data: Array<IProjectPipelineGrid>
     error: string | null;
+    loading: boolean;
 }

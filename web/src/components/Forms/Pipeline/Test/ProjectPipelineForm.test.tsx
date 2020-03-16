@@ -1,16 +1,17 @@
-import React from 'react';
-import nock from 'nock';
-import { baseURL, userServiceURL } from '../../../../client/client';
-import { getUsersEmailData, pipelineGridData, intialLookupvalues, customerContractList } from './ProjectPipelineFormTestData';
 import { mount } from 'enzyme';
-import { Provider } from 'react-redux';
+import nock from 'nock';
+import React from 'react';
 import { IntlProvider } from 'react-intl';
-import translations from '../../../../Translations/translation';
+import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router';
-import ProjectPipelineForm from '../ProjectPipelineForm';
-import { ActionType } from '../../../../store/pipeline/Types/ActionType';
-import projectPipelineDetailReducer, { initialState } from '../../../../store/pipeline/Reducer';
 import configureStore from 'redux-mock-store';
+import { baseURL, userServiceURL } from '../../../../client/client';
+import { findByTestAtrr } from '../../../../helpers/test-helper';
+import projectPipelineDetailReducer, { initialState } from '../../../../store/pipeline/Reducer';
+import { ActionType } from '../../../../store/pipeline/Types/ActionType';
+import translations from '../../../../Translations/translation';
+import ProjectPipelineForm from '../ProjectPipelineForm';
+import { customerContractList, getUsersEmailData, intialLookupvalues, pipelineGridData } from './ProjectPipelineFormTestData';
 
 const mockStore = configureStore([]);
 nock(baseURL)
@@ -33,7 +34,7 @@ let props = {
   contractCustomerList: customerContractList
 };
 
-describe('Dashboard Form testCases', () => {
+describe('Project Pipline Form testCases', () => {
   let wrapper: any;
 
   const componentMount = props => {
@@ -58,14 +59,31 @@ describe('Dashboard Form testCases', () => {
     componentMount({ props });
     expect(wrapper).toMatchSnapshot();
   });
-});
-describe('Dashboard form reducer', () => {
-  it('should handle Get PROJECT DASHBOARD GRID DETAILS successfully', () => {
-    const projectPipelineGridAction: any = {
-      type: ActionType.PROJECT_PIPELINE_GRID_DETAILS
-    };
-    expect(
-      projectPipelineDetailReducer(initialState, projectPipelineGridAction)
-    ).toMatchSnapshot();
+
+  it('should have the component Project Pipeline Filter', () => {
+    setUpStore(pipelineGridData);
+    componentMount({ props });
+    let ProjectPipelineFilters = findByTestAtrr(wrapper, 'ProjectPipelineFilters')
+    expect(ProjectPipelineFilters).toBeDefined();
+
   });
+
+  it('should have the component pipelineDataGrid', () => {
+    setUpStore(pipelineGridData);
+    componentMount({ props });
+    let DataGrid = findByTestAtrr(wrapper, 'pipelineDataGrid')
+    expect(DataGrid).toBeDefined();
+
+  });
+  describe('Dashboard form reducer', () => {
+    it('should handle Get PROJECT DASHBOARD GRID DETAILS successfully', () => {
+      const projectPipelineGridAction: any = {
+        type: ActionType.PROJECT_PIPELINE_GRID_DETAILS
+      };
+      expect(
+        projectPipelineDetailReducer(initialState, projectPipelineGridAction)
+      ).toMatchSnapshot();
+    });
+  });
+
 });

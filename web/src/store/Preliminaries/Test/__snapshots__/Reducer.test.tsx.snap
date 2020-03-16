@@ -23,6 +23,13 @@ Object {
 
 exports[`preliminaryReducer Reducer should populate error.If update fails 1`] = `
 Object {
+  "notify": 2,
+  "preliminaryDetails": Array [],
+}
+`;
+
+exports[`preliminaryReducer Reducer should reset preliminary state 1`] = `
+Object {
   "notify": 0,
   "preliminaryDetails": Array [],
 }

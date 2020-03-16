@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 import * as axios from '../../client';
 import { store } from '../index';
 import { ActionType } from './Types/ActionType';
