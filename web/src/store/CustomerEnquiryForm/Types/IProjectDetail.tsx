@@ -1,5 +1,6 @@
 export interface IProjectDetail {
     projectId: string;
+    projectRefId?: number;
     name: string;
     contractorId: string;
     companyId: string;
