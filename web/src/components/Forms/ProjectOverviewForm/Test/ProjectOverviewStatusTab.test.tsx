@@ -140,6 +140,28 @@ wrapper = mount(
   container.simulate("click");
   expect(container.invoke.call.length).toBe(1);
 });
+
+it('should not display reactivate action and status bar in disable state if status is InReview', () => {
+  const testProps: any = {
+    status :ProjectStatus.InReview,
+    statusName:"test",
+    onReactivate:jest.fn(),
+    handleBidLost:jest.fn(),
+    handleOnHold:jest.fn()
+  };
+let wrapper = mount(
+    <Provider store={store}>
+    <IntlProvider locale="en" messages={translations['en'].messages}>
+    <ProjectOverviewStatusTab {...testProps}/>
+    </IntlProvider>
+    </Provider>,  { attachTo: document.body }
+  );
+  let container=findByTestAtrr(wrapper,"toggleStatusTab").first();
+    container.simulate("click");
+    //toggeling again
+    container.simulate("click");
+  expect(container.invoke.call.length).toBe(1);
+});
 });
 
 

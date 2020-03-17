@@ -15,5 +15,17 @@ export const projectApprovalsList: Array<IProjectApprovals> =  [
        approvalStatusDescription: 'string',
        userId: 'string',
        showRangeLabel: true,
+    },
+    {
+      projectApprovalId: '2',
+      projectId : '2',
+       projectApprovalRange : 1,
+       projectApprovalRangeDescription : '1',
+       approverType: 2,
+       approverTypeDescription: 'string',
+       approvalStatus: 2,
+       approvalStatusDescription: 'string',
+       userId: 'string',
+       showRangeLabel: true,
     }
   ];
