@@ -6,8 +6,6 @@ import { findByTestAtrr } from '../../../helpers/test-helper';
 
 describe('ReactDates test cases', () => {
   let wrapper: any;
-  let newDateEntered: any;
-
   const props: any = {
     input: {
       value: {
@@ -23,7 +21,7 @@ describe('ReactDates test cases', () => {
 
       },
       name: 'date',
-      onChange: (x) => newDateEntered = x
+      onChange: jest.fn()
     },
     meta: { touched: true, error: false, warning: false },
     placeholder: '',
