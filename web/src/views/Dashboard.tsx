@@ -150,7 +150,7 @@ const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
 							<div className="top_Title top_Title2">
 								<h2>{formatMessage('TITLE_MYACTIONS')}</h2>
 							</div>
-							<div className="table-grid-wrap price-sumry home_screen_table">
+							<div className="table-grid-wrap pipeline_grid home_screen_table">
 								<DashboardActionApprovalForm
 									actionApprovalValues={props.dashboardGridValues}
 									showValues={props.valuesCount}
