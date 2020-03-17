@@ -37,7 +37,8 @@ interface Props {
 const SubContractorActivityForm: React.FC<Props> = (props: Props) => {
 	const { fields, intl } = props;
 
-	const formatSubcontractForTypeAhead = (data) => {
+	const formatSubcontractForTypeAhead = (data) =>	/* istanbul ignore next */
+	{
 		let result: any = [];
 		data.map((subcontractData: any) => {
 			result.push({ label: subcontractData.name, id: subcontractData.subContractorId });
