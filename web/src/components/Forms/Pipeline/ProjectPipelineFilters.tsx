@@ -130,6 +130,7 @@ const ProjectPipelineFilters: React.FC<IProps & IReactIntl & InjectedFormProps<I
                                                     name="lastModified"
                                                     data-test="lastModified"
                                                     enablePastDate={true}
+                                                    isDateInitiallyEmpty={true}
                                                 />
 
                                             </div>
@@ -150,6 +151,7 @@ const ProjectPipelineFilters: React.FC<IProps & IReactIntl & InjectedFormProps<I
                                                     name="projectStartDate"
                                                     data-test="projectStartDate"
                                                     enablePastDate={true}
+                                                    isDateInitiallyEmpty={true}
                                                 />
                                             </div>
                                         </div>
@@ -161,6 +163,7 @@ const ProjectPipelineFilters: React.FC<IProps & IReactIntl & InjectedFormProps<I
                                                     name="projectEndDate"
                                                     data-test="projectEndDate"
                                                     enablePastDate={true}
+                                                    isDateInitiallyEmpty={true}
                                                 />
                                             </div>
                                         </div>

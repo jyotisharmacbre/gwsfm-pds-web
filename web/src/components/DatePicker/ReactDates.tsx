@@ -15,15 +15,16 @@ interface Props {
   disabled: any;
   required?: any;
   enablePastDate?: boolean;
+  isDateInitiallyEmpty?: boolean;
 }
 
-export const validDate = (year, month, day) => {
-  if (!year || !month || !day) {
+export const validDate = (year, month, day, enablePastDate, isDateInitiallyEmpty) => {
+  if (!isDateInitiallyEmpty && (!year || !month || !day)) {
     return false;
   }
   var selectedDate = new Date(year, (month - 1), day);
   var todaysDate = new Date();
-  if (selectedDate && selectedDate < todaysDate) {
+  if (!enablePastDate && selectedDate && selectedDate < todaysDate) {
     return false;
   }
   return true;
@@ -31,6 +32,16 @@ export const validDate = (year, month, day) => {
 export const isOutsideRange = (enablePastDate, day) => {
   return enablePastDate ? false :
     !isInclusivelyAfterDay(day, moment());
+}
+
+export const extractDateFromInputBox = (day, month, year) => {
+  let date;
+  if (day && month && year) {
+    date = moment({ 'day': day, 'month': month - 1, 'year': year });
+    if (!date.isValid())
+      date = moment(new Date(year, month - 1, day));
+  }
+  return date;
 }
 class ReactDates extends PureComponent<Props & InjectedFormProps<{}, Props>>
 {
@@ -89,10 +100,14 @@ class ReactDates extends PureComponent<Props & InjectedFormProps<{}, Props>>
     const { input } = this.props;
     this.setState({ day: parseInt(value) });
   };
+
   changeDayEvent = (value, type) => {
+    let date;
     const { input } = this.props;
-    if (validDate(this.state.year, this.state.month, this.state.day)) {
-      input.onChange(moment(input.value).set(type, value));
+    if (validDate(this.state.year, this.state.month, this.state.day, this.props.enablePastDate, this.props.isDateInitiallyEmpty)) {
+      if (input.value) date = moment(input.value).set(type, value);
+      else date = extractDateFromInputBox(this.state.day, this.state.month, this.state.year);
+      if (date) input.onChange(date);
     }
     else {
       this.setDateState();
@@ -108,8 +123,11 @@ class ReactDates extends PureComponent<Props & InjectedFormProps<{}, Props>>
   };
   changeMonthEvent = (value, type) => {
     const { input } = this.props;
-    if (validDate(this.state.year, this.state.month, this.state.day)) {
-      input.onChange(moment(input.value).set(type, (value - 1)));
+    let date;
+    if (validDate(this.state.year, this.state.month, this.state.day, this.props.enablePastDate, this.props.isDateInitiallyEmpty)) {
+      if (input.value) date = moment(input.value).set(type, (value - 1));
+      else date = extractDateFromInputBox(this.state.day, this.state.month, this.state.year);
+      if (date) input.onChange(date);
     }
     else {
       this.setDateState();
@@ -123,9 +141,12 @@ class ReactDates extends PureComponent<Props & InjectedFormProps<{}, Props>>
     this.setState({ year: parseInt(value) });
   };
   changeYearEvent = (value, type) => {
+    let date;
     const { input } = this.props;
-    if (validDate(this.state.year, this.state.month, this.state.day)) {
-      input.onChange(moment(input.value).set(type, value));
+    if (validDate(this.state.year, this.state.month, this.state.day, this.props.enablePastDate, this.props.isDateInitiallyEmpty)) {
+      if (input.value) date = moment(input.value).set(type, value);
+      else date = extractDateFromInputBox(this.state.day, this.state.month, this.state.year);
+      if (date) input.onChange(date);
     }
     else {
       this.setDateState();
@@ -134,6 +155,7 @@ class ReactDates extends PureComponent<Props & InjectedFormProps<{}, Props>>
     }
 
   };
+
 
 
   render() {
@@ -150,10 +172,9 @@ class ReactDates extends PureComponent<Props & InjectedFormProps<{}, Props>>
     return (
       <div className="date-picker-wrap">
         <input
-
-
           type="number"
           id="date"
+          data-test="date"
           className="form-control"
           placeholder="DD"
           value={this.state.day}
@@ -164,6 +185,7 @@ class ReactDates extends PureComponent<Props & InjectedFormProps<{}, Props>>
           type="number"
           className="form-control"
           id="month"
+          data-test="month"
           placeholder="MM"
           value={this.state.month}
           onChange={event => this.handleMonth(event.target.value, 'month')}
@@ -173,6 +195,7 @@ class ReactDates extends PureComponent<Props & InjectedFormProps<{}, Props>>
           type="number"
           className="form-control"
           id="year"
+          data-test="year"
           placeholder="YYYY"
           value={this.state.year}
           onChange={event => this.handleYear(event.target.value, 'year')}
