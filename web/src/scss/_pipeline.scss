@@ -6,10 +6,18 @@
     border-radius: 5px 5px 0 0;
     position: relative;
     margin-top: 30px;
-
     @include mdScreen {
         padding: 6px 20px 5px 15px;
         border: 0;
+    }
+    .excel_icon[type="button"] {
+        border: 0;
+        padding: 0;
+        @include mdScreen {
+            img {
+                width: 22px;
+            }
+        }
     }
 
     h2 {
@@ -48,9 +56,91 @@
     }
 }
 
+/*pipeline grid*/
+/*
+ * Pricing Summary
+ */
+ .pipeline_grid {
+    width: 100%;
+    margin: 30px 0;
+    @include mdScreen {
+        margin: 0 0;
+    }
+    .inner-block {
+        @include mdScreen {
+            overflow-x: auto;
+        }
+    }
+    label {
+        color: map-get($colors , grey03 );
+        margin-bottom: 10px;
+        font-size: 14px;
+        font-weight: 600;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        overflow-x: scroll;
+        margin-bottom: 15px;
+        th {
+            font-size: 14px;
+            font-weight: 700;
+            padding: 5px 5px 5px 15px;
+        }
+        td {
+            padding: 5px 5px 5px 15px;
+            border: solid 1px map-get($colors , grey06 );
+            color: map-get($colors , grey03 );
+            font-size: 14px;
+        }
+        &.price-table {
+            margin-bottom: 15px;
+            @include mdScreen {
+                margin-bottom: 0;
+            }
+            th {
+                color: map-get($colors , grey03 );
+            }
+            td {
+                background-color: transparent;
+                span {
+                    padding: 0 3px;
+                }
+                &:first-child {
+                    font-weight: 400;
+                }
+                a {
+                    color: map-get($colors , Green04);
+                    text-decoration: none;
+                    &:hover {
+                        text-decoration: none;
+                    }
+                }
+            }
+        }
+        &.cost-table {
+            th {
+                color: map-get($colors , darkGreen );
+                font-weight: 700;
+            }
+            td {
+                background-color: map-get($colors , lightGreen03 );
+                font-weight: 600;
+            }
+        }
+    }
+}
 
-.table-grid-wrap {
+.table-grid-wrap,
+.pipeline_grid {
     overflow-x: auto;
+    table {
+        .price-table {
+            td {
+                background-color: map-get($colors , whiteColor );
+            }
+        }
+    }
     th {
         border: solid 1px #cad0d8;
         background: map-get($colors , whiteColor );
@@ -279,3 +369,22 @@
     }
 }
 
+
+.custom-size-filter {
+    &.form_style {
+        .select-wrapper {
+            &:before {
+                border: 2px solid map-get($colors , whiteColor );
+                border-left: 0;
+                border-top: 0;
+            }
+            select {
+                &.form-control {
+                    background: map-get($colors , darkGreen );
+                    border: 1px solid map-get($colors , darkGreen );
+                    color: map-get($colors , whiteColor );
+                }
+            }
+        }
+    } 
+}

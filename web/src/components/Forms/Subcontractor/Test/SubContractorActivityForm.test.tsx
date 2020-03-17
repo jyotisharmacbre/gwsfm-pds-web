@@ -12,6 +12,7 @@ import { Provider } from 'react-redux';
  import translations from '../../../../Translations/translation';
 import renderer from "react-test-renderer";
 
+
 describe('Sub Contractor Activity Form tests', () => {
   const subContractorFormAddAction: any = {
           type: ActionType.SUB_CONTRACTOR_ADD_NEW_ACTIVITY
@@ -25,16 +26,20 @@ describe('Sub Contractor Activity Form tests', () => {
       form: {
         subContractorForm: {
           values: {
+            
             activities: initialState.form.activities
           }
         }
       }
     }
     );
+    let activities = initialState.form.activities;
+    activities[0].subcontractorId='0';
     wrapper = mount(
       <Provider store={store}>
         <IntlProvider locale="en" messages={translations['en'].messages}>
-          <Decorated fields={initialState.form.activities}/>
+          <Decorated fields={activities}/>
+
         </IntlProvider>
       </Provider>
     );

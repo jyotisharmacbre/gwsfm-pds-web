@@ -5,9 +5,7 @@ enum StatusColorCode {
     'j&aapproved' = '#b2de94',
     orderreceived = '#A23F97',
     bidlost = '#ce152c',
-    onhold = '#bfd857',
-    inprogress = '#69be28',
-    completed = '#006A4D'
+    onhold = '#bfd857'
   }
   
 export default StatusColorCode; 

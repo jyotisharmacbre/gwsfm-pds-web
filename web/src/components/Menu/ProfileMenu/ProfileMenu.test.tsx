@@ -129,7 +129,7 @@ describe('Profile Menu', () => {
 
   it('should contain Project Title', () => {
     const text = wrapper.find('.project_name_title').find('label').text();
-    expect(text).toEqual('testName');
+    expect(text).toEqual('# testName');
   });
 
   it('should hide menu onload', () => {

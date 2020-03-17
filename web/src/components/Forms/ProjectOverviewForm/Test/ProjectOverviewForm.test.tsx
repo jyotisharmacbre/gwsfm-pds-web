@@ -11,6 +11,8 @@ import projectOverviewFormReducer from '../../../../store/ProjectOverviewForm/Re
 import { initialState, getProjectOverviewData } from './ProjectOverviewFormTestData';
 import nock from 'nock';
 import { baseURL } from '../../../../client/client';
+import { findByTestAtrr } from '../../../../helpers/test-helper';
+import EventType from '../../../../enums/EventType';
 
 nock(baseURL).get('/api/Projects/1/additionalDetails').reply(200, getProjectOverviewData);
 
@@ -18,13 +20,31 @@ nock(baseURL).put('/api/Projects/additionalDetails').reply(201, getProjectOvervi
 
 nock(baseURL).post('/api/Projects/additionalDetails').reply(200, 'Project addition details created successfully');
 
+let wrapper: any;
+let props: any = {
+	handleSubmit: jest.fn(),
+	countryCode: 'GBP',
+	insuranceRate: -1,
+	onPrevious: jest.fn(),
+	onNext: jest.fn(),
+	onSave: jest.fn(),
+	loading: false,
+	event: EventType.none
+
+};
+
+let mountComponent = (props) => {
+	wrapper = mount(
+		<Provider store={store}>
+			<IntlProvider locale="en" messages={translations['en'].messages}>
+				<ProjectOverviewForm {...props} />
+			</IntlProvider>
+		</Provider>
+	);
+}
+
 describe('ProjectOverviewForm Fields', () => {
-	let wrapper: any;
-	const props: any = {
-		handleSubmit: jest.fn(),
-		countryCode: 'GBP',
-		insuranceRate: -1
-	};
+
 	beforeEach(() => {
 		const formatMessage = jest.mock('./../../../../Translations/connectedIntlProvider');
 
@@ -32,31 +52,29 @@ describe('ProjectOverviewForm Fields', () => {
 			return 'intlmessage';
 		});
 
-		wrapper = mount(
-			<Provider store={store}>
-				<IntlProvider locale="en" messages={translations['en'].messages}>
-					<ProjectOverviewForm {...props} />
-				</IntlProvider>
-			</Provider>
-		);
+
 	});
 	it('Defines the component', () => {
+		mountComponent(props);
 		expect(wrapper).toBeDefined();
 	});
 
 	describe('Dfines the Form', () => {
 		let form: ShallowWrapper;
 		beforeEach(() => {
+			mountComponent(props);
 			form = wrapper.find('[form="projectOverviewForm"]').first();
 		});
 		it('Renders form component', () => {
 			expect(form).toHaveLength(1);
 		});
 	});
+
 	describe('Defines form fields', () => {
 		let field: ShallowWrapper;
 		describe('Main Contractor field', () => {
 			beforeEach(() => {
+				mountComponent(props);
 				field = wrapper.find('input[name="projectAdditionalDetail.mainContractor"]').first();
 			});
 			it('Should renders Main Contractor field', () => {
@@ -71,6 +89,7 @@ describe('ProjectOverviewForm Fields', () => {
 		describe('Enquiry Received From field', () => {
 			let field: ShallowWrapper;
 			beforeEach(() => {
+				mountComponent(props);
 				field = wrapper.find('input[name="projectAdditionalDetail.enquiryReceivedFrom"]').first();
 			});
 			it('Should renders Enquiry Received From field', () => {
@@ -86,6 +105,7 @@ describe('ProjectOverviewForm Fields', () => {
 		describe('Credit Check Result field', () => {
 			let field: ShallowWrapper;
 			beforeEach(() => {
+				mountComponent(props);
 				field = wrapper.find('input[name="projectAdditionalDetail.creditCheckResult"]').first();
 			});
 			it('Should renders Credit Check Result field', () => {
@@ -100,6 +120,7 @@ describe('ProjectOverviewForm Fields', () => {
 		describe('Site Address field', () => {
 			let field: ShallowWrapper;
 			beforeEach(() => {
+				mountComponent(props);
 				field = wrapper.find('input[name="projectAdditionalDetail.siteAddress"]').first();
 			});
 			it('Should renders Site Address field', () => {
@@ -114,6 +135,7 @@ describe('ProjectOverviewForm Fields', () => {
 		describe('Form Of Contract field', () => {
 			let field: ShallowWrapper;
 			beforeEach(() => {
+				mountComponent(props);
 				field = wrapper.find('input[name="projectAdditionalDetail.formOfContract"]').first();
 			});
 			it('Should renders Form Of Contract field', () => {
@@ -128,6 +150,7 @@ describe('ProjectOverviewForm Fields', () => {
 		describe('Retention field', () => {
 			let field: ShallowWrapper;
 			beforeEach(() => {
+				mountComponent(props);
 				field = wrapper.find('input[name="projectAdditionalDetail.retention"]').first();
 			});
 			it('Should renders Retention field', () => {
@@ -142,6 +165,7 @@ describe('ProjectOverviewForm Fields', () => {
 		describe('Liquidated Damages field', () => {
 			let field: ShallowWrapper;
 			beforeEach(() => {
+				mountComponent(props);
 				field = wrapper.find('input[name="projectAdditionalDetail.liquidatedDamages"]').first();
 			});
 			it('Should renders Liquidated Damages field', () => {
@@ -156,6 +180,7 @@ describe('ProjectOverviewForm Fields', () => {
 		describe('Insurance field', () => {
 			let field: ShallowWrapper;
 			beforeEach(() => {
+				mountComponent(props);
 				field = wrapper.find('input[name="projectAdditionalDetail.insurance"]').first();
 			});
 			it('Should renders Insurance field', () => {
@@ -169,6 +194,7 @@ describe('ProjectOverviewForm Fields', () => {
 		});
 		describe('Next button', () => {
 			beforeEach(() => {
+				mountComponent(props);
 				field = wrapper.find('button[name="next"]').first();
 			});
 			it('Should renders next button', () => {
@@ -178,9 +204,9 @@ describe('ProjectOverviewForm Fields', () => {
 				field.simulate('click');
 				let nameField = wrapper.find('input[name="projectAdditionalDetail.mainContractor"]').first();
 				const focusedElement = document.activeElement;
-		
+
 				expect(nameField.matchesElement(focusedElement)).toBeTruthy;
-			  });
+			});
 		});
 
 		describe('Project form reducer', () => {
@@ -219,6 +245,7 @@ describe('ProjectOverviewForm Fields', () => {
 		describe('Project Risk form fields', () => {
 			for (let fieldCount = 1; fieldCount <= 3; fieldCount++) {
 				it(`Should renders ProjectRisk${fieldCount} field`, () => {
+					mountComponent(props);
 					let field = wrapper.find(`input[name="projectAdditionalDetail.projectRisk${fieldCount}"]`).first();
 					expect(field.prop('type')).toBe('text');
 				});
@@ -228,6 +255,7 @@ describe('ProjectOverviewForm Fields', () => {
 		describe('Project Risk Control Measure form fields', () => {
 			for (let fieldCount = 1; fieldCount <= 3; fieldCount++) {
 				it(`Should renders ProjectRiskControlMeasure${fieldCount} field`, () => {
+					mountComponent(props);
 					let field = wrapper
 						.find(`input[name="projectAdditionalDetail.projectRiskControlMeasure${fieldCount}"]`)
 						.first();
@@ -235,5 +263,52 @@ describe('ProjectOverviewForm Fields', () => {
 				});
 			}
 		});
+		describe('Previous button', () => {
+			beforeEach(() => {
+				mountComponent(props);
+				field = wrapper.find('button[name="previous_button"]');
+			});
+			it('Should renders previous button', () => {
+				expect(field.prop('type')).toBe('button');
+			});
+
+			it('Should call the OnPrevious event on previous button click', () => {
+				field.simulate('click');
+				expect(props.onPrevious).toBeCalledTimes(1);
+			});
+		});
+		describe('Save button', () => {
+			it('Should renders saves button', () => {
+				mountComponent(props);
+				field = findByTestAtrr(wrapper, 'save').first();
+				expect(field.prop('type')).toBe('button');
+			});
+
+			it('Should call the OnSave event on save button click', () => {
+				props.event = EventType.save;
+				mountComponent(props);
+				field = wrapper.find('button[name="save"]');
+				field.simulate('click');
+				expect(props.handleSubmit.mock.calls.length).toBeGreaterThan(0);
+			});
+		});
+		describe('Next button', () => {
+			it('Should renders next button', () => {
+				mountComponent(props);
+				field = findByTestAtrr(wrapper, 'next').first();
+				expect(field.prop('type')).toBe('button');
+			});
+
+			it('Should call the OnNext event on next button click', () => {
+
+				props.event = EventType.next;
+				mountComponent(props);
+				field = wrapper.find('button[name="next"]');
+				field.simulate('click');
+				expect(props.handleSubmit.mock.calls.length).toBeGreaterThan(0);
+			});
+		});
 	});
-});
+
+
+})

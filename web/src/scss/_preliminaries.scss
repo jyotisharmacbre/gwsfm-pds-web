@@ -43,6 +43,9 @@
     padding: 10px 22px 5px 20px;
     position: relative;
     cursor: pointer;
+    &.active {
+        padding-left: 32px;
+    }
     &:before {
         display: block;
         position: absolute;
@@ -225,7 +228,8 @@ form{
                 }
             }
         }
-        .price-sumry {
+        .price-sumry,
+        .pipeline_grid {
             margin-bottom: 0;
         }
         .card-body {
@@ -253,6 +257,7 @@ form{
         right: 0;
         left: 0;
         margin: auto;
+        display: block;
     }
 }
 

@@ -87,17 +87,19 @@ const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
 				props.chartData.map(ele => {
 					total = total + ele.value;
 				});
-				props.lookupDetails.map((element) => {
-					if (element.lookupItem == LookupItems.Project_Status) {
-						let filterValue = props.chartData.find(data => data.name == element.lookupKey.toString());
+				Object.keys(StatusColorCode).map(element => {
+					let lookup = props.lookupDetails.filter(look => look.lookupItem == LookupItems.Project_Status && look.description.replace(/ /g, '').toLowerCase() == element);
+					if (lookup != undefined && lookup[0] != undefined) {
+						let filterValue = props.chartData.find(data => data.name == lookup[0].lookupKey.toString());
 						data.push({
-							name: element.description,
+							name: lookup[0].description,
 							value: filterValue != undefined ? filterValue.value : 0,
-							class: `${element.description.replace(/ /g, '').toLowerCase()}`,
+							class: `${element}`,
 							percentage: filterValue != undefined ? ((filterValue.value / total) * 100).toFixed(0) : '0'
 						});
 					}
-				});
+					
+				})
 				setChart(data);
 			}
 		},
@@ -148,7 +150,7 @@ const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
 							<div className="top_Title top_Title2">
 								<h2>{formatMessage('TITLE_MYACTIONS')}</h2>
 							</div>
-							<div className="table-grid-wrap price-sumry home_screen_table">
+							<div className="table-grid-wrap pipeline_grid home_screen_table">
 								<DashboardActionApprovalForm
 									actionApprovalValues={props.dashboardGridValues}
 									showValues={props.valuesCount}
@@ -163,10 +165,10 @@ const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
 							</div>
 							<div className="pie_chart_wrap">
 								<div className="row">
-									<div className="col-md-5">
+									<div className="col-md-7">
 										<div className="pie-chart-inner">
 											<PieChart
-												width={400}
+												width={500}
 												height={400}
 												margin={{
 													top: 5, right: 30, left: 20, bottom: 5,
@@ -174,9 +176,9 @@ const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
 												<Pie
 													data={chart}
 													isAnimationActive={false}
-													cx={200}
+													cx={250}
 													cy={200}
-													outerRadius={80}
+													outerRadius={170}
 													fill="#8884d8"
 													dataKey="value"
 													label={renderCustomizedLabel}>
@@ -188,7 +190,7 @@ const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
 											</PieChart>
 										</div>
 									</div>
-									<div className="col-md-6">
+									<div className="col-md-5">
 										<div className="info_block">
 											<div className="heading-bar">
 												<span>Legends</span>

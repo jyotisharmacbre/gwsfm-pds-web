@@ -48,6 +48,7 @@ const ProjectOverviewStatusTab: React.FC<IProps & IReactIntl> = props => {
         }
     };
 
+/* istanbul ignore next */
 const handleOrderReceivedEvent=()=>{
     handleToggleStatusTab();
     props.handleOrderReceived();
