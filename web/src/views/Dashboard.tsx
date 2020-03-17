@@ -163,7 +163,7 @@ const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
 							</div>
 							<div className="pie_chart_wrap">
 								<div className="row">
-									<div className="col-md-6">
+									<div className="col-md-7">
 										<div className="pie-chart-inner">
 											<PieChart
 												width={500}
@@ -176,7 +176,7 @@ const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
 													isAnimationActive={false}
 													cx={250}
 													cy={200}
-													outerRadius={120}
+													outerRadius={170}
 													fill="#8884d8"
 													dataKey="value"
 													label={renderCustomizedLabel}>
