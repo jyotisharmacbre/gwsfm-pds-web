@@ -1092,7 +1092,7 @@ td a {
   color: #fff; }
 
 .custom_toast_block .Toastify__progress-bar {
-  display: block; }
+  display: none; }
 
 /*Loader Styling*/
 .sbl-circ-path {

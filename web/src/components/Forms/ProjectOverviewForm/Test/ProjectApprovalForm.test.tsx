@@ -59,5 +59,4 @@ describe('Project Approval Form tests', () => {
         expect(findByTestAtrr(wrapper, 'icons-approval-status').length).toBeGreaterThan(0);
     });
 
-
 });

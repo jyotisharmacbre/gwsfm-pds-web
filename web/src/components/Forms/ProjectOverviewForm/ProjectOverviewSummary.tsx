@@ -19,6 +19,7 @@ const ProjectOverviewSummary: React.FC<IProps> = props => {
   const [workType, setWorkType] = useState<string>('');
   useEffect(() => {
     if (
+      
       props.projectOverview.projectId &&
       props.lookUpData &&
       props.lookUpData.length > 0
@@ -48,7 +49,7 @@ const ProjectOverviewSummary: React.FC<IProps> = props => {
 			<h4>
         <FormattedMessage id="TITLE_PROJECT_OVERVIEW" />
       </h4>
-			<button type="submit" className="edit-btn" onClick={() => props.oneditOverview()}><FormattedMessage id="BUTTON_EDIT" /></button>
+			<button type="submit" name="oneditoverview" className="edit-btn" onClick={() => props.oneditOverview()}><FormattedMessage id="BUTTON_EDIT" /></button>
 			</div>
       
       <div className="RS_custom_inner">

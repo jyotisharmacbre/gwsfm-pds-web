@@ -20,6 +20,7 @@ import gridColumns from './Column.config';
 import IFilterParams from '../../../models/tableQueryParams/IFilterParams';
 import ProjectPipelineFilters from './ProjectPipelineFilters';
 import { CircularProgress } from '@material-ui/core';
+import excelIcon from '../../../assests/images/excel_icon.svg';
 interface Props {
   pipelineValues: IProjectPipelineGridState;
   lookupValues: any;
@@ -122,14 +123,14 @@ const ProjectPipelineForm: React.FC<Props & IReactIntl> = (props: any) => {
         <h2>{formatMessage('TITLE_CURRENT_PIPELINE')}</h2>
         <span>
           <button
-            className="active"
+            className="active excel_icon"
             type="button"
             onClick={() => props.exportToExcelPipelineData()}
             disabled={props.exportLoader}
             data-test="export_to_excel"
           >
             {props.exportLoader && <CircularProgress />}
-            <FormattedMessage id="EXPORT_TO_EXCEL" />
+            <img src={excelIcon} alt="microsoft excel icon" />
           </button>
         </span>
       </div>

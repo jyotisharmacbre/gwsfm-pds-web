@@ -169,6 +169,7 @@ const ProjectPipeline: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 			<div className="row">
 				<div className="col-lg-12">
 					<div className="custom-wrap">
+					
 
 						<div className="table-grid-wrap price-sumry overflowX">
 							<div className="inner-block">
