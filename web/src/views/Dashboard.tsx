@@ -163,10 +163,10 @@ const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
 							</div>
 							<div className="pie_chart_wrap">
 								<div className="row">
-									<div className="col-md-5">
+									<div className="col-md-6">
 										<div className="pie-chart-inner">
 											<PieChart
-												width={400}
+												width={500}
 												height={400}
 												margin={{
 													top: 5, right: 30, left: 20, bottom: 5,
@@ -174,9 +174,9 @@ const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
 												<Pie
 													data={chart}
 													isAnimationActive={false}
-													cx={200}
+													cx={250}
 													cy={200}
-													outerRadius={80}
+													outerRadius={120}
 													fill="#8884d8"
 													dataKey="value"
 													label={renderCustomizedLabel}>
@@ -188,7 +188,7 @@ const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
 											</PieChart>
 										</div>
 									</div>
-									<div className="col-md-6">
+									<div className="col-md-5">
 										<div className="info_block">
 											<div className="heading-bar">
 												<span>Legends</span>
