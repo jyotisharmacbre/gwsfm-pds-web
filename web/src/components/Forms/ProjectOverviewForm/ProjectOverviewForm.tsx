@@ -81,6 +81,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 		</option>
 	));
 
+	/* istanbul ignore next */
 	const formatUserData = (data) => {
 		let returnValue: any = [];
 		if (data && data.length > 0) {
@@ -97,15 +98,22 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 
 	const [comentLoading, setCommentLoading] = useState(false);
 
+	/* istanbul ignore next */
 	const normalize = (value) => (value ? parseInt(value) : null);
 	const handlePostComment = (data: IPostCommentForm) => {
 		setCommentLoading(true);
 		props.postComment(props.projectId, `"${data.comment}"`, handlePostCommentSuccess, handlePostCommentError);
 	};
+	
+	/* istanbul ignore next */
+	
 	const handlePostCommentSuccess = (response) => {
 		setCommentLoading(false);
 		props.getProjectActivities(props.projectId);
 	};
+
+	/* istanbul ignore next */
+
 	const handlePostCommentError = (error) => {
 		setCommentLoading(false);
 	};
@@ -161,16 +169,6 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						labelKey="LABEL_SITE_ADDRESS"
 						placeholderKey="PLACEHOLDER_ADD_SITE_ADDRESS"
 					/>
-					{false && (
-						<Field
-							className="d-none"
-							name="projectAdditionalDetail.cdmNotifiable"
-							data-test="cdmNotifiable"
-							component={PdsFormButton}
-							buttons={selectionButtons}
-							labelKey="LABEL_CDMNOTIFIABLE"
-						/>
-					)}
 					<Field
 						name="projectAdditionalDetail.formOfContract"
 						data-test="formOfContract"
@@ -331,15 +329,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 							</div>
 						</div>
 					</div>
-					{false && (
-						<Field
-							name="projectAdditionalDetail.isProjectLive"
-							data-test="isProjectLive"
-							component={PdsFormButton}
-							buttons={selectionButtons}
-							labelKey="LABEL_PROJECT_IS_LIVE"
-						/>
-					)}
+
 					<Field
 						name="projectAdditionalDetail.comments"
 						data-test="comments"
@@ -440,7 +430,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 			<div className="hr_line mb-0 mt-5"></div>
 
 			<div className={`${getClassNameForProjectStatus(props.status)} mr-35 three-btn`}>
-				<button className="active" type="button" onClick={() => props.onPrevious()}>
+				<button className="active" name="previous_button" type="button" onClick={() => props.onPrevious()}>
 					<FormattedMessage id="BUTTON_PREVIOUS" />
 				</button>
 				<button
@@ -454,7 +444,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 					{(props.loading && props.event == EventType.save) && <CircularProgress />}
 					<FormattedMessage id="BUTTON_SAVE" />
 				</button>
-				<button type="button" name="next" onClick={handleSubmit((values) => props.onNext(values))} className=""
+				<button type="button" data-test="next" name="next" onClick={handleSubmit((values) => props.onNext(values))} className=""
 					disabled={(props.loading && props.event == EventType.next)}
 				>
 					{(props.loading && props.event == EventType.next) && <CircularProgress />}
@@ -475,7 +465,8 @@ const form = reduxForm<IProjectOverviewDetails, Props>({
 	forceUnregisterOnUnmount: false,
 	form: 'projectOverviewForm',
 	enableReinitialize: true,
-	onSubmitFail: (errors: any) => {
+
+	onSubmitFail: (errors: any) => 	/* istanbul ignore next */ {		
 		let err = {};
 		Object.keys(errors.projectAdditionalDetail).forEach((key) => {
 			err['projectAdditionalDetail.' + key] = errors.projectAdditionalDetail[key];

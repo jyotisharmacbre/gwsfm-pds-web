@@ -171,13 +171,12 @@ steps:
     configMode: 'manual'
     cliProjectKey: 'gws-fm-pds-web'
     cliProjectName: 'gws-fm-pds-web'
-    cliSources: './web/src'
+    cliSources: './web'
     extraProperties: |
       # Additional properties that will be passed to the scanner, 
       # Put one key=value per line, example
-      sonar.exclusions=**/*.scss
-      #sonar.inclusions=**/*.ts
-      sonar.cobertura.reportPath=**/coverage/cobertura-coverage.xml
+      sonar.exclusions=**/web/public/**, **/web/src/**/*.scss, **/web/src/**/*.css
+      sonar.cobertura.reportPath=$(System.DefaultWorkingDirectory)/web/coverage/cobertura-coverage.xml
 
 - task: PowerShell@2
   displayName: 'Code Build start time'

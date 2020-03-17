@@ -87,17 +87,19 @@ const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
 				props.chartData.map(ele => {
 					total = total + ele.value;
 				});
-				props.lookupDetails.map((element) => {
-					if (element.lookupItem == LookupItems.Project_Status) {
-						let filterValue = props.chartData.find(data => data.name == element.lookupKey.toString());
+				Object.keys(StatusColorCode).map(element => {
+					let lookup = props.lookupDetails.filter(look => look.lookupItem == LookupItems.Project_Status && look.description.replace(/ /g, '').toLowerCase() == element);
+					if (lookup != undefined && lookup[0] != undefined) {
+						let filterValue = props.chartData.find(data => data.name == lookup[0].lookupKey.toString());
 						data.push({
-							name: element.description,
+							name: lookup[0].description,
 							value: filterValue != undefined ? filterValue.value : 0,
-							class: `${element.description.replace(/ /g, '').toLowerCase()}`,
+							class: `${element}`,
 							percentage: filterValue != undefined ? ((filterValue.value / total) * 100).toFixed(0) : '0'
 						});
 					}
-				});
+					
+				})
 				setChart(data);
 			}
 		},
