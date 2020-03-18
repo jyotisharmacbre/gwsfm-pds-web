@@ -29,7 +29,7 @@ interface Props {
 let PreliminaryForm: React.FC<Props & IReactIntl & InjectedFormProps<IPreliminaryForm, Props>> = (props: any) => {
 	const { handleSubmit } = props;
 	return (
-		<form className="preliminary-form" data-test="preliminary-form" onSubmit={handleSubmit} noValidate={true}>
+		<form className="preliminary-form mt-2" data-test="preliminary-form" onSubmit={handleSubmit} noValidate={true}>
 			<FieldArray
 				name="preliminaryDetails"
 				component={PreliminaryComponentsForm}

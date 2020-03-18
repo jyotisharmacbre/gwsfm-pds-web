@@ -1,16 +1,15 @@
 import React from 'react';
 import { MainTitle } from '../../Title/Title';
-
 import { Field, reduxForm, InjectedFormProps, formValueSelector } from 'redux-form';
 import PdsFormInput from '../../PdsFormHandlers/PdsFormInput';
 import PdsFormSelect from '../../PdsFormHandlers/PdsFormSelect';
 import PdsFormTextArea from '../../PdsFormHandlers/PdsFormTextArea';
 import PdsFormButton from '../../PdsFormHandlers/PdsFormButton';
 import { selectionButtons } from '../../../helpers/constants';
-import { Validate, alphaNumeric, onlyNumber, OnlyDistinctAssetTypes, onErrorScrollToField } from '../../../helpers/fieldValidations';
+import { Validate, onlyNumber, OnlyDistinctAssetTypes, onErrorScrollToField } from '../../../helpers/fieldValidations';
 import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
-import { FormattedMessage, injectIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { LookupType } from '../../../store/Lookups/Types/LookupType';
 import {
 	getPropertyName,
@@ -18,24 +17,19 @@ import {
 	getFilterElementFromArray,
 	normalizeToNumber,
 	calculateRank,
-	maxLimitTo,
 	restrictMinusAndAllowDecimal,
 	restrictMinusAndDecimal,
 	restrictMinusAndAllowDecimalForMaxRangeHundred,
-	displayUserName
+	displayUserName,
+    getDropdownWithFilter
 } from '../../../helpers/utility-helper';
-import PdsFormTypeAhead from '../../PdsFormHandlers/PdsFormTypeAhead';
 import { IProjectDetail } from '../../../store/CustomerEnquiryForm/Types/IProjectDetail';
 import { ICurrency } from '../../../store/Lookups/Types/ICurrency';
 import Currency from '../../../store/Lookups/InitialState/Currency';
-import IReactIntl from '../../../Translations/IReactIntl';
-import TypeAhead from '../../TypeAhead/TypeAhead';
 import NewTypeAhead from '../../TypeAhead/NewTypeAhead';
 import { IUserServiceData } from '../../../store/UserService/Types/IUserService';
-import { any } from 'prop-types';
 import { IDynamicContractCustomerData, IDynamicCompanyData, IDynamicsDivision, IDynamicBusinessUnits } from '../../../store/DynamicsData/Types/IDynamicData';
 import { ICountry } from '../../../store/Lookups/Types/ICountry';
-import ValidatedNumericInput from '../../NumericInput';
 import { change } from "redux-form";
 import { CircularProgress } from '@material-ui/core';
 import EventType from '../../../enums/EventType';
@@ -58,20 +52,10 @@ interface Props {
 	listOfBusinessUnits: Array<IDynamicBusinessUnits>;
 	loading: boolean;
 	event: EventType;
+	divisionId: number;
 }
 
 const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = (props: any) => {
-	const {
-		handleSubmit,
-		projectstatus,
-		onSearchContract,
-		onSearchCompany,
-		userServiceData,
-		dynamicsContractCustomerData,
-		dynamicsCompany,
-		listOfDivisions
-	} = props;
-
 	const onCountryChange = (event) => {
 		if (props.countries && props.currencies) {
 			const selectedCountryId = Number(event.target.value);
@@ -105,18 +89,6 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 		return result;
 	};
 
-	const getUserServiceDropdown =
-		userServiceData &&
-		userServiceData.filter((user) => user.displayName).map((UserServiceData: any) => {
-			return {
-				label: `${displayUserName(UserServiceData)} (${UserServiceData.email === null
-					? 'NA'
-					: UserServiceData.email})`,
-				id: UserServiceData.id,
-				email: UserServiceData.email
-			};
-		});
-
 	const formatUserForTypeAhead = (data) => {
 		let result: any = [];
 		data.map((UserServiceData: any) => {
@@ -131,12 +103,17 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 		return result;
 	};
 	const CurrencyObj = new Currency();
-
+	const getFilterListOfBusinessUnits = () => {
+		return getDropdownWithFilter(props.listOfBusinessUnits, 'divisionId', parseInt(props.divisionId), 'businessUnitId', 'description');
+	}
+	const divisionChangeEvent = () => {
+		props.resetBusinessUnitId();
+	}
 	return (
 		<div className="container-fluid">
 			<div className=" row">
 				<div className="col-lg-12 col-sm-12">
-					<form className="customer-enquiry" onSubmit={handleSubmit}>
+					<form className="customer-enquiry" onSubmit={props.handleSubmit}>
 						<div className="row">
 							<div className="col-lg-8">
 								<MainTitle>
@@ -161,11 +138,16 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 										<FormattedMessage id="LABEL_DIVISION" />
 									</label>
 									<div className="select-wrapper">
-										<Field name="divisionId" component={PdsFormSelect}>
+										<Field
+											name="divisionId"
+											component={PdsFormSelect}
+											otherFieldName="otherDivision"
+											otherFieldLabelKey="LABEL_OTHER_DIVISION"
+											otherFieldPlaceHolderKey="PLACEHOLDER_OTHER_DIVISION"
+											onChange={() => divisionChangeEvent()}>
 											<FormattedMessage id="PLACEHOLDER_DIVISION">
 												{(message) => <option value="">{message}</option>}
 											</FormattedMessage>
-
 											{props.listOfDivisions &&
 												props.listOfDivisions.map((data: any, i: number) => {
 													return <option value={data.divisionId}>{data.description}</option>;
@@ -179,16 +161,16 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 										<FormattedMessage id="LABEL_BUSINESS_UNIT" />
 									</label>
 									<div className="select-wrapper">
-										<Field name="businessUnitId" component={PdsFormSelect}>
+										<Field
+											name="businessUnitId"
+											component={PdsFormSelect}
+											otherFieldName="otherBusinessUnit"
+											otherFieldLabelKey="LABEL_OTHER_BUSINESS_UNIT"
+											otherFieldPlaceHolderKey="PLACEHOLDER_OTHER_BUSINESS_UNIT">
 											<FormattedMessage id="PLACEHOLDER_BUSINESS_UNIT">
 												{(message) => <option value="">{message}</option>}
 											</FormattedMessage>
-											{props.listOfBusinessUnits &&
-												props.listOfBusinessUnits.map((data: any, i: number) => {
-													return (
-														<option value={data.businessUnitId}>{data.description}</option>
-													);
-												})}
+											{getFilterListOfBusinessUnits()}
 										</Field>
 									</div>
 								</div>
@@ -344,7 +326,7 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 											placeholderKey="PLACEHOLDER_COUNTRY"
 											messageKey="MESSAGE_COUNTRY"
 											normalize={normalizeToNumber}
-											onChange={onCountryChange}									
+											onChange={onCountryChange}
 										>
 											<FormattedMessage id="PLACEHOLDER_COUNTRY">
 												{(message) => <option value="">{message}</option>}
@@ -469,7 +451,7 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 												Validate.requiredWithOtherOption('LABEL_ASSETS_WORKED_ON'),
 												OnlyDistinctAssetTypes
 											]}
-											normalize={normalizeToNumber}												
+											normalize={normalizeToNumber}
 											otherFieldName="otherFirstAssetWorkedOn"
 											otherFieldLabelKey="LABEL_OTHER_ASSETS_WORKED_ON"
 											otherFieldPlaceHolderKey="PLACEHOLDER_OTHER_FIRST_ASSET"
@@ -577,14 +559,14 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 								className="active ml-auto"
 								type="button"
 								name="saveAndClose"
-								onClick={handleSubmit((values) => props.onSave(values))}
-							disabled = {(props.loading && props.event == EventType.save)}>								
+								onClick={props.handleSubmit((values) => props.onSave(values))}
+								disabled={(props.loading && props.event == EventType.save)}>
 								{(props.loading && props.event == EventType.save) && <CircularProgress />}
 								<FormattedMessage id="BUTTON_SAVE" />
 							</button>
-							<button type="button" name="next" onClick={handleSubmit((values) => props.onNext(values))}
-							disabled = {(props.loading && props.event == EventType.next)}>
-							{(props.loading && props.event == EventType.next) && <CircularProgress />}
+							<button type="button" name="next" onClick={props.handleSubmit((values) => props.onNext(values))}
+								disabled={(props.loading && props.event == EventType.next)}>
+								{(props.loading && props.event == EventType.next) && <CircularProgress />}
 								<FormattedMessage id="BUTTON_NEXT" />
 							</button>
 						</div>
@@ -608,7 +590,8 @@ const mapStateToProps = (state: IState) => ({
 	userPreferenceCurrencyId: userPreferenceSelector(state, 'currencyId'),
 	firstAssetWorkedOn: selector(state, 'firstAssetWorkedOn'),
 	secondAssetWorkedOn: selector(state, 'secondAssetWorkedOn'),
-	thirdAssetWorkedOn: selector(state, 'thirdAssetWorkedOn')
+	thirdAssetWorkedOn: selector(state, 'thirdAssetWorkedOn'),
+	divisionId: selector(state, 'divisionId')
 });
 
 const form = reduxForm<IProjectDetail, Props>({
@@ -623,5 +606,6 @@ const selector = formValueSelector('ProjectForm');
 const userPreferenceSelector = formValueSelector('UserProfileForm');
 
 export default connect(mapStateToProps, {
-	changeCurrencyId: currencyId => change("ProjectForm", "currencyId", currencyId)
+	changeCurrencyId: currencyId => change("ProjectForm", "currencyId", currencyId),
+	resetBusinessUnitId: () => change("ProjectForm", "businessUnitId", '')
 })(form);

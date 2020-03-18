@@ -68,6 +68,8 @@
   "LABEL_OTHER_TYPE_OF_ENGAGEMENT": "Autre type d'engagement",
   "LABEL_SGA": "SG&A",
   "LABEL_OTHER": "Autre",
+  "LABEL_OTHER_DIVISION": "Autre division",
+  "LABEL_OTHER_BUSINESS_UNIT": "Autre unité commerciale",
   "LABEL_INSURANCE_COST": "Cout d'assurance",
   "LABEL_SGA_COST": "Coût SG&A",
   "LABEL_INSURANCE_PERCENTAGE": "Pourcentage d'assurance",
@@ -206,6 +208,7 @@
   "MESSAGE_COUNTRY": "Pays",
   "MESSAGE_CURRENCY": "Devise",
   "MESSAGE_FIRST_ASSET": "Premier atout",
+  "MESSAGE_PROJECT_ID": "ID du projet",
   "MESSAGE_HEAD_OF_PROJECT": "Chef de projet",
   "MESSAGE_PROBABILITY_OF_WINING": "Probabilité de gagner",
   "MESSAGE_PROJECT_MANAGER": "Chef de projet",
@@ -276,6 +279,8 @@
   "PLACEHOLDER_WIN_PROBABILITY": "00%",
   "PLACEHOLDER_DIVISION": "Sélectionner division",
   "PLACEHOLDER_BUSINESS_UNIT": "Sélectionner affaires unité",
+  "PLACEHOLDER_OTHER_DIVISION": "Entrer dans une autre division",
+  "PLACEHOLDER_OTHER_BUSINESS_UNIT": "Entrer dans une autre unité commerciale",
   "PLACEHOLDER_QUERY": "Tapez des commentaires supplémentaires",
   "VALIDATION_MESSAGE_APPROXIMATE_VALUE_REQUIRED": "Une valeur approximative est requise",
   "VALIDATION_MESSAGE_ASSET_REQUIRED": "Un atout est nécessaire",
@@ -305,6 +310,9 @@
   "T_HEADING_TOTAL_MARGIN": "Marge totale",
   "T_HEADING_GROSS_MARGIN": "Marge brute",
   "T_HEADING_TOTAL_SELL": "Vente totale",
+  "LABEL_GRID_TOTAL_NO_OF_RECORD": "Nombre total d'enregistrements",
+  "LABEL_GRID_RESULT_PER_PAGE": "Résultat par page",
+  "LABEL_GRID_NO_RECORD_FOUND": "Aucun Enregistrement Trouvé",
   "T_HEADING_ITEM": "Article",
   "T_HEADING_NAME_OF_SUPPLIER": "Nom du fournisseur",
   "T_HEADING_NO_OF_HOURS": "Pas d'heures",
@@ -331,5 +339,6 @@
   "MESSAGE_ERROR_UNAUTHORISED_Header": "ERREUR NON AUTORISÉE",
   "MESSAGE_ERROR_UNAUTHORISED": "non autorisé: l'accès à cette ressource est refusé",
   "MESSAGE_PAGE_WARNING_HEADER": "UN SITE TROMPEUR EN AVANCE",
-  "MESSAGE_PAGE_WARNING": "afficher les sites, le contenu et les sites dangereux; téléchargements"
+  "MESSAGE_PAGE_WARNING": "afficher les sites, le contenu et les sites dangereux; téléchargements",
+  "EXPORT_TO_EXCEL": "Excel"
 }

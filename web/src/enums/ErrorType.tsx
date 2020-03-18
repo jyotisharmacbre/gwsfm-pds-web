@@ -1,6 +1,7 @@
 enum ErrorType {
-  unauthorised,
-  pageNotFound,
-  warning,
+    unauthorised,
+    pageNotFound,
+    warning,
+    renderError
 }
 export default ErrorType;

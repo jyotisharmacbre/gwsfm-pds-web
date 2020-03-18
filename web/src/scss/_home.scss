@@ -31,6 +31,7 @@
             }
         }
     }
+
     .icons-blocks {
         list-style: none;
         margin: 0;
@@ -51,17 +52,17 @@
             }
             &:nth-child(2) {
                 .badge {
-                    background: map-get($colors, whiteColor);
+                    background: map-get($colors , red );
                     border: 1px solid map-get($colors, darkGreen);
-                    width: 14px;
-                    height: 14px;
+                    width: 10px;
+                    height: 10px;
                     font-style: initial;
                     font-weight: 600;
                     @include borderRadius(50%);
                     padding: 0;
                     position: absolute;
-                    top: -9px;
-                    right: -6px;
+                    top: -5px;
+                    right: -2px;
                     display: flex;
                     align-items: center;
                     color: map-get($colors, darkGreen);
@@ -89,8 +90,18 @@
                 }
                 &:hover,
                 &:focus {
-                    color: map-get($colors, whiteColor);
+                    color: map-get($colors , limeGreen );
+                    outline: none;
                     @include boxShadow(none);
+                    .down-arrow {
+                        &:before {
+                            border-bottom: 2px solid map-get($colors , limeGreen );
+                            border-right: 2px solid map-get($colors , limeGreen );
+                        }
+                    }
+                }
+                i {
+                    position: relative;
                 }
                 .down-arrow {
                     position: relative;
@@ -117,7 +128,8 @@
                     }
                     &.active {
                         &:before {
-                            @include transform (rotate(180deg));
+                            @include transform (rotate(220deg));
+                            top: 8px;
                         }
                     }
                     @include smScreen {
@@ -130,6 +142,21 @@
                 .fa-home {
                     font-size: 15px;
                     outline: none;
+                }
+                @include xsScreen{
+                    position: static;
+                }
+                .inner-cont {
+                    background: transparent;
+                    border: 0;
+                    font-size: unset;
+                    &:hover,
+                    &:focus {
+                        background: transparent;
+                    }
+                    &:after {
+                        display: none;
+                    }
                 }
             }
         }
@@ -445,7 +472,7 @@
 }
 
 .error {
-    border-color: #e13e3e !important;
+    border-color: map-get($colors , red ) !important;
 }
 
 .text-danger {
@@ -464,4 +491,101 @@
     border: 0 !important;
     font-size: 20px !important;
     padding-left: 0 !important;
+}
+.project_name_title {
+    width: 100%;
+    label {
+        color: #f4f6fb;
+        float: left;
+        font-size: 18px;
+        text-transform: capitalize;
+        font-weight: 500;
+        margin: 0 0 0 36px;
+    }   
+}
+
+/*dropdown notification section*/
+.dropdown-menu {
+    &.notify_dropdown {
+        &.user-dropdown {
+            width: 320px;
+            right: -84px;
+            left: auto;
+            top: 37px !important;
+            @include smScreen {
+                right: -30px;
+            }
+            @include xsScreen {
+                right: 14px;
+                width: calc(100% - 28px);
+                top: 57px !important;
+            }
+            &:after {
+                right: 81px;
+                @include smScreen {
+                    right: 26px;
+                }
+                @include xsScreen {
+                    right: 31px;
+                }
+            }
+            ul {
+                padding: 0;
+                margin: 0;
+                font-size: 13px;
+                li {
+                    border-bottom: 1px solid map-get($colors , grey14 );
+                    margin: 0;
+                    width: 100%;
+                    padding: 20px 25px 20px 20px;
+                    &.bg-grey {
+                        background-color: map-get($colors , grey13 );
+                    }
+                    &:last-child {
+                        border: 0;
+                    }
+                    &:first-child {
+                        padding: 15px 20px 15px 20px;
+                    }
+                    .notify_topbar {
+                        display: flex;
+                        justify-content: space-between;
+                        color: map-get($colors , grey002 );
+                        font-weight: 600;
+                        span {
+                            &:last-child {
+                                color:  map-get($colors , primaryGreen );
+                            }
+                        }
+                    }
+                    .title {
+                        font-size: 13px;
+                        color: map-get($colors , grey004 );
+                    }
+                    .brief {
+                        color: map-get($colors , grey002 );
+                        margin-bottom: 10px;
+                    }
+                    .mark_sign {
+                        color: map-get($colors , limeGreen );
+                    }
+                }
+            }
+            &.all_pages {
+                right: -83px;
+                @include smScreen {
+                    right: -54px;
+                    &:after {
+                        right: 51px;
+                    }
+                }
+                @include xsScreen{
+                    right: 14px;
+                    &:after {
+                        right: 75px;
+                    }
+                }
+            }
+        }
+    }
 }

@@ -1,17 +1,28 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 import ErrorBoundary from '../ErrorBoundary';
-import { ApplicationInsights } from '@microsoft/applicationinsights-web';
+import { IntlProvider } from 'react-intl';
+import translations from '../../../Translations/translation';
+import { findByTestAtrr } from '../../../helpers/test-helper';
+import { MemoryRouter } from 'react-router-dom';
 
 let wrapper;
+let props = {
+	showPage: false
+}
 const error = new Error('test');
 const NullComponent = () => null;
-const mountComponent = () => {
-	wrapper = mount(<ErrorBoundary><NullComponent /></ErrorBoundary>);
-};
+const mountComponent = (props) => {
+	wrapper = mount(
+		<MemoryRouter>
+		<IntlProvider locale="en" messages={translations['en'].messages}>
+			<ErrorBoundary {...props}><NullComponent /></ErrorBoundary>
+		</IntlProvider>
+		</MemoryRouter>);
+	};
 describe('Error boundary test cases', () => {
 	beforeEach(() => {
-		mountComponent();
+		mountComponent(props);
 	});
 	it('defines the component', () => {
 		expect(wrapper).toBeDefined();
@@ -19,13 +30,17 @@ describe('Error boundary test cases', () => {
 	it('should match the snapshot', () => {
 		expect(wrapper).toMatchSnapshot();
 	});
-	it('should set hasError state to false if no error encounted', () => {
-		const expected = { hasError: false }
-		expect(wrapper.state()).toMatchObject(expected)
+	it('should not render error message when their is no error', () => {
+		expect(findByTestAtrr(wrapper, 'error_message').exists()).toBeFalsy();
 	})
-	it('should change hasError state to true if any error encounted', () => {
-		const expected = { hasError: true }
+	it('should render error message when any error occurred', () => {
 		wrapper.find(NullComponent).simulateError(error);
-		expect(wrapper.state()).toMatchObject(expected)
+		expect(findByTestAtrr(wrapper, 'error_message').exists()).toBeTruthy();
+	})
+	it('should render error page when any error occurred and showPage is set to true', () => {
+		props.showPage = true;
+		mountComponent(props);
+		wrapper.find(NullComponent).simulateError(error);
+		expect(findByTestAtrr(wrapper, 'error_page').exists()).toBeTruthy();
 	})
 });

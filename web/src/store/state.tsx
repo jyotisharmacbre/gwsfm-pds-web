@@ -11,6 +11,7 @@ import { IUserPreferencesState } from './UserPreferencesForm/Types/IUserPreferen
 import { IProjectDashboardGridState } from './Dashboard/Types/IProjectDashboardGridState';
 import { IAdminState } from './Admin/Types/IAdminState';
 import { IAuth } from './Auth/Types/IAuth';
+import { INotificationState } from './Notifications/Types/INotificationState';
 
 export type IState = {
 	form: any;
@@ -27,4 +28,5 @@ export type IState = {
 	dashboardGrid: IProjectDashboardGridState;
 	admin: IAdminState;
 	auth: IAuth;
+	notifications: INotificationState
 };

@@ -51,7 +51,8 @@ export const getProjectStatus = () => {
     'Discount_Type',
     'Pre_Components',
     'Pre_Component_Items',
-    'Project_Approval_Sign_Off_Status'
+    'Project_Approval_Sign_Off_Status',
+    'Notification_Template'
   ];
   return (dispatch: Dispatch) => {
     axios.baseAPI

@@ -13,6 +13,7 @@ import {
   IGetNotificationSuccessAction,
   INotification
 } from '../session/Notification/Type';
+import IQueryParams from '../models/tableQueryParams/IQueryParams';
 
 export interface IAppProps {
   Theme: any;
@@ -79,13 +80,19 @@ export interface IGridTableProps {
   data: any[];
   ActionList: IBtnActionProps[];
   sorting: boolean;
+  pagination?: boolean;
   className: string;
   onRowClick?: (
     e: React.MouseEvent<Element, MouseEvent> | undefined,
     rowData: any
   ) => void;
+  onTableChange?: (type, params) => void;
+  totalSize?: number;
+  queryParams?: IQueryParams;
+  intl?: any,
+
 }
-export interface ITableFilterProps extends ITableProps {}
+export interface ITableFilterProps extends ITableProps { }
 
 export interface INotificationProps {
   handleClick: () => void;

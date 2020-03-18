@@ -12,6 +12,7 @@ import { initialState as customerEnquiryInitialState } from '../../store/Custome
 import routeData from 'react-router';
 import * as helper from '../../helpers/auth-helper';
 import thunk from 'redux-thunk';
+import { pipelineInitialState, lookUpInitialState } from '../../views/Test/Dashboard/DashboardTestData';
 
 let props = {
     Theme: {},
@@ -37,12 +38,14 @@ customerEnquiryInitialState.form.countryId = 1;
 
 const mockingStore = () => {
     store = mockStore({
-        userPreferences: { preferences: { }},
-        lookup: {},
+        userPreferences: { preferences: {} },
+        lookup: lookUpInitialState,
         userService: { currentUserProfile: { displayName: 'testName', email: 'test@pds.com' } },
         dashboardGrid: initialState,
         project: customerEnquiryInitialState,
         auth:{token: '' },
+        notifications: { notifications: [] },
+        pipelineGrid: pipelineInitialState
     });
 };
 
@@ -79,7 +82,7 @@ const mountComponent = () => {
         <Provider store={store}>
             <IntlProvider locale="en" messages={translations['en'].messages}>
                 <Router>
-                    <Layout {...props} />
+                    <Layout/>
                 </Router>
             </IntlProvider>
         </Provider>
@@ -102,7 +105,7 @@ describe('Layout component test cases', () => {
         expect(wrapper.find('Body')).toHaveLength(1);
     });
 
-    const historyPathNames = ['/', '/Pipeline', '/Error'];
+    const historyPathNames = ['/', '/Pipeline', '/Error', '/Notifications'];
     test.each(historyPathNames)(
         'should not show Nav component if url is like %s ',
         (pathName) => {
@@ -110,10 +113,4 @@ describe('Layout component test cases', () => {
             expect(wrapper.find('Nav')).toHaveLength(0);
         }
     )
-    it('should not show Nav component if url is not from dashboard or pipeline or error component', () => {
-        mockContainer('/Notifications');
-        expect(wrapper.find('Nav')).toHaveLength(1);
-    });
-
-
 });

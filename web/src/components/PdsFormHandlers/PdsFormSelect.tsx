@@ -17,8 +17,7 @@ export function PdsFormSelect({
   otherFieldLabelKey,
   otherFieldPlaceHolderKey
 }) {
-  
-  const isOtherOption = input?.value === 0 && otherFieldName ? true : false;
+    const isOtherOption = (input?.value === 0 || input?.value === '0') && otherFieldName ? true : false;
 
   const errorClass = `${error && touched ? 'error' : ''}`;
   

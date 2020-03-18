@@ -18,7 +18,7 @@ const projectDetailEditSuccess = (oldState, action) => {
   return updateObject(oldState, {
     error: null,
     loading: false,
-    form: updateObject(oldState.form, { projectId: action.payload.projectId }),
+    form: updateObject(oldState.form, action.payload),
     notify: Notify.success,
     event: action.event
   });

@@ -5,6 +5,7 @@ import { SingleDatePicker,isInclusivelyBeforeDay  } from 'react-dates';
 import moment from 'moment';
 import { InjectedFormProps } from 'redux-form';
 import cal from '../../assests/images/calender.png';
+import cal2 from '../../assests/images/focus_calander.png';
 import './styles.css';
 
 interface Props {
@@ -168,7 +169,7 @@ setDateState=()=>{
           onBlur={event=>this.changeYearEvent(event.target.value, 'year')}
         />
         <SingleDatePicker
-          customInputIcon={<img src={cal} />}
+          customInputIcon={focused ? <img src={cal2} /> : <img src={cal} />}
           noBorder={true}
           numberOfMonths={1}
           date={input.value}
@@ -178,6 +179,7 @@ setDateState=()=>{
           onFocusChange={this.onFocusChange}
           id={input.name}
         />
+        
         {error && touched && <span>{error}</span>}
       </div>
     );

@@ -52,18 +52,37 @@
         left: 0;
         height: 26px;
     }
+    span {
+        &:before {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            @include transform (rotate(45deg));
+            border-top: 0;
+            border-left: 0;
+            border-bottom: 2px solid map-get($colors , darkGreen );
+            border-right: 2px solid map-get($colors , darkGreen );
+            @include transition(all ease 0.3s);
+            right: 23px;
+            top: 16px;
+        }
+        &.active {
+            &:before {
+                @include transform (rotate(180deg));
+            }
+        }
+    }
     svg {
         font-size: 22px;
          float: right;  
          color: map-get($colors , darkGreen );
          position: absolute;
-         right: 40px;
+         right: 20px;
          top: 0;
          bottom: 0;
          margin: auto 0;
-         @include mdScreen {
-             right: 25px;
-         }
+         display: none;
          &.active {
             @include transition(all ease 0.2s);
             @include transform(rotate(180deg));
@@ -92,6 +111,8 @@
     }
 }
 .card-body {
+    border-top: 1px solid map-get($colors , grey06 );
+    padding-top: 15px;
     .table {
         th {
             background-color: map-get($colors, Green03);
@@ -114,6 +135,7 @@
             background-color: transparent;
             &:first-child{
                 white-space: nowrap;
+                vertical-align: middle;
             }
             &:nth-child(3) input,&:nth-child(4) input{
                 width: 70px;
@@ -165,14 +187,14 @@ form{
         .form-group {
             margin: 0;
             span {
-                top: 4px !important;
+                top: 5px !important;
                 left: 4px !important;
                 color: #495057;
                 font-weight: 600;
             }
         }
         .form-control {
-            padding: 6px;
+            padding: 7px 6px 6px;
         }
         .table-responsive {
             overflow-y: auto;
@@ -215,6 +237,7 @@ form{
 .preliminary_btn {
     margin-right: 14px;
     margin-bottom: 12px;
+    margin-top: 5px;
 }
 
 .tick_wrap {
