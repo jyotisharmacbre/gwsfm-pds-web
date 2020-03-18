@@ -132,6 +132,12 @@ const ProfileMenu: React.FC<any> = props => {
       history.location.pathname == "/Error";
   }
 
+  const showProjectName = () => {
+    return history.location.pathname == "/" ||
+      history.location.pathname == "/Pipeline"
+  }
+
+  
   //add & remove class for pipeline and dashboard page
   const showClass = () => {
     return history.location.pathname == "/" ||
