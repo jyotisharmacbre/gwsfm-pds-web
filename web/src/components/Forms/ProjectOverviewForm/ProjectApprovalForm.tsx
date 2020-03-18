@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import NewTypeAhead from '../../TypeAhead/NewTypeAhead';
+import TypeAhead from '../../TypeAhead/TypeAhead';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle, faClock, faExclamationTriangle, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { ProjectSignOffStatus } from '../../../store/ProjectOverviewForm/Types/ProjectApprovalEnums';
@@ -55,7 +55,7 @@ const ProjectApprovalForm: React.FC<IProps> = (props) => {
 				<div className="row align-items-stretch" key={index} data-test="project-approval-form">
 					<div className={`${getClassNameForProjectStatus(props.status)} col-11`}>
 						<div className="form-group">
-							<NewTypeAhead
+							<TypeAhead
 								name={`${member}.userId`}
 								onSearch={getListOfUsers}
 								className="empty"
