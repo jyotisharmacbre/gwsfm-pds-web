@@ -70,6 +70,7 @@
         "redux-mock-store": "^1.5.3",
         "redux-thunk": "^2.3.0",
         "typescript": "^3.4.5",
+        "url-search-params-polyfill": "^8.0.0",
         "xlsx": "^0.15.5",
         "jwt-decode": "^2.2.0"
     },

@@ -32,7 +32,7 @@ import { displayUserName } from '../../../helpers/utility-helper';
 import useAuthContext from '../../../hooks/useAuthContext';
 import { IProjectDetail } from '../../../store/CustomerEnquiryForm/Types/IProjectDetail';
 import { Label } from '@material-ui/icons';
-import  Notification  from '../Notification/index'
+import Notification from '../Notification/index'
 
 
 
@@ -78,7 +78,7 @@ const ProfileMenu: React.FC<any> = props => {
   const [showNotify, setNotificationVisibility] = useState(false);
   const [isEditable, makeEditable] = useState(false);
   const [loading, setLoading] = useState(false);
-  
+
 
   useEffect(() => {
     if (props.token) {
@@ -89,7 +89,7 @@ const ProfileMenu: React.FC<any> = props => {
       props.getCurrentUserProfile();
       props.getNotifications();
     }
-   }, [props.token])
+  }, [props.token])
 
   useEffect(() => {
     if (props.notify == Notify.success) {
@@ -127,15 +127,21 @@ const ProfileMenu: React.FC<any> = props => {
   }
 
   const showNav = () => {
-    return history.location.pathname == "/" ||
-      history.location.pathname == "/Pipeline" ||
-      history.location.pathname == "/Error";
+    return history.location.pathname === "/" ||
+      history.location.pathname.toLowerCase() === "/pipeline" ||
+      history.location.pathname.toLowerCase() === "/error";
   }
 
-  //add & remove class for pipeline and dashboard page
-  const showClass = () => {
+  const showProjectName = () => {
     return history.location.pathname == "/" ||
       history.location.pathname == "/Pipeline"
+  }
+
+  
+  //add & remove class for pipeline and dashboard page
+  const showClass = () => {
+    return history.location.pathname === "/" ||
+      history.location.pathname.toLowerCase() === "/pipeline"
   }
   const logout = () => {
     authProvider.logout();
@@ -145,27 +151,27 @@ const ProfileMenu: React.FC<any> = props => {
   const userPreferencedropdown = () => {
     var element: any = document.getElementById('user__dropdown');
     if (element != null) {
-        var isClassExists = element.classList.contains('active');
-        if (isClassExists) {
-            element.classList.remove('active');
-        } else {
-            element.classList.add('active');
-        }
+      var isClassExists = element.classList.contains('active');
+      if (isClassExists) {
+        element.classList.remove('active');
+      } else {
+        element.classList.add('active');
+      }
     }
-};
+  };
 
   return (
     <nav className="topbar">
       <div className="container-fluid" >
         <div className="row d-flex align-items-center">
-          <div className=
+          <div data-test="test-content" className=
             {
               showClass() ?
                 "col-sm-12 d-flex justify-content-between align-items-center" :
                 "col-sm-12 d-flex justify-content-between align-items-center justify-content-md-end"} >
 
             {props.project?.name && (<div className="project_name_title d-md-block d-none">
-            <label>{props.project.name} {'#'}{props.project.projectRefId}</label></div>)}
+            <label>{'#'} {props.project.name}</label></div>)}
             <div data-test="test-logo" className=
               {showNav() ? "d-md-block logo" : "logo"} >
               <Link data-test=""
@@ -185,12 +191,12 @@ const ProfileMenu: React.FC<any> = props => {
               </li>
               <li onBlur={handleBlur}>
                 <a href="#"
-                onClick={() => setNotificationVisibility(!showNotify)}>
-                  <Notification 
-                 notifications = {props.notifications}
-                 showNotification = {showNotify}
-                 lookups = {props.lookups}
-                 />
+                  onClick={() => setNotificationVisibility(!showNotify)}>
+                  <Notification
+                    notifications={props.notifications}
+                    showNotification={showNotify}
+                    lookups={props.lookups}
+                  />
                 </a>
               </li>
               <li data-test='menu-container' onBlur={handleBlur}>
@@ -287,7 +293,7 @@ const ProfileMenu: React.FC<any> = props => {
                 <button
                   type="button"
                   id="sidebarCollapse"
-                  className={history.location.pathname == "/" || history.location.pathname == "/Pipeline" ? "navbar-btn d-none" : "navbar-btn"} >
+                  className={showClass() ? "navbar-btn d-none" : "navbar-btn"} >
                   <span></span>
                   <span></span>
                   <span></span>

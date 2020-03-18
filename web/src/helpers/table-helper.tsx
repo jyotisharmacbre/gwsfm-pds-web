@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowDown, faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import IQueryParams from '../models/tableQueryParams/IQueryParams';
 import appConfig from '../helpers/config-helper';
+import 'url-search-params-polyfill';
 
 const config = appConfig();
 const dateFormat = config.REACT_APP_DATE_FORMAT;

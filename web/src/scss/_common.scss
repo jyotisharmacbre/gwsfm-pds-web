@@ -73,14 +73,14 @@ div#RouteDiv {
 }
 
 ::-webkit-scrollbar {
-    width: 6px !important;
+    width: 4px !important;
     background-color: #dfdfdf !important;
     height: 4px !important;
 }
 
 ::-webkit-scrollbar-thumb {
     background-color: #818A8F !important;
-    width: 10px !important;
+    width: 4px !important;
     height: 4px !important;
 }
 
@@ -864,18 +864,38 @@ td {
 
     .overflowX-show {
         background: #fff;
-
         .react-bootstrap-table {
             overflow-x: auto;
-
+            height: calc(100vh - 280px);
+            border-top: 1px solid #cad0d8 !important;
+            overflow-y: scroll;
             .table-bordered {
                 &.table_responsive {
+                    position: relative;
                     th {
                         padding: 5px 15px 5px 15px;
                         min-width: 150px;
                         vertical-align: middle;
-                        border: solid 1px #DEE2E6;
                         text-transform: capitalize;
+                        position: sticky;
+                        top: 0;
+                        border-color: #cad0d8 !important;
+                        background: #f2f5f8;
+                        border-bottom: 0;
+                        &#pipeline_projectID,
+                        &#pipeline_approx_valueID,
+                        &#pipeline_CMD_notifiableID,
+                        &#pipeline_bid_marginID,
+                        &#pipeline_weighted_tcvID {
+                            min-width: 100px;
+                        }
+                        &#pipeline_ownerID,
+                        &#pipeline_head_proID {
+                            min-width: 200px;
+                        }
+                        &#pipeline_last_updateID {
+                            min-width: 100px;
+                        }
                     }
 
                     .react-bs-table-no-data {

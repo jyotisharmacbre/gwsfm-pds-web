@@ -22,8 +22,10 @@ interface IProps {
     intl: any;
 }
 
-const Quote: React.FC<IProps> = props => {
-    const deleteQuote = (index) => {
+const Quote: React.FC<IProps> = props =>	/* istanbul ignore next */
+{
+    const deleteQuote = (index) =>	
+    {
         props.fields.remove(index);
     }
     return (

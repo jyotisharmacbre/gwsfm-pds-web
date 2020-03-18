@@ -171,7 +171,7 @@ const ProjectPipeline: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 					<div className="custom-wrap">
 					
 
-						<div className="table-grid-wrap price-sumry overflowX">
+						<div className="table-grid-wrap pipeline_grid overflowX">
 							<div className="inner-block">
 								<React.Fragment>
 									<ProjectPipelineForm

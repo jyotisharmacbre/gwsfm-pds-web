@@ -175,8 +175,8 @@ steps:
     extraProperties: |
       # Additional properties that will be passed to the scanner, 
       # Put one key=value per line, example
-      sonar.exclusions=**/web/public/**, **/web/src/**/*.scss, **/web/src/**/*.css
-      sonar.cobertura.reportPath=$(System.DefaultWorkingDirectory)/web/coverage/cobertura-coverage.xml
+      sonar.exclusions=**/web/public/**, **/web/src/**/*.scss, **/web/src/**/*.css,**/web/src/**/*.test.tsx
+      sonar.javascript.lcov.reportPaths=$(System.DefaultWorkingDirectory)/web/coverage/cobertura-coverage.xml
 
 - task: PowerShell@2
   displayName: 'Code Build start time'
@@ -279,12 +279,6 @@ steps:
     testResultsFormat: 'JUnit'
     testResultsFiles: '**/junit.xml'
 
-- task: PublishCodeCoverageResults@1
-  inputs:
-    codeCoverageTool: 'Cobertura'
-    summaryFileLocation: '$(System.DefaultWorkingDirectory)/web/coverage/cobertura-coverage.xml'
-    reportDirectory: '$(System.DefaultWorkingDirectory)/coverage/'
-
 - task: PowerShell@2
   displayName: 'static code analysis start time'
   inputs:
@@ -353,6 +347,13 @@ steps:
     contentType: 'application/json'
     allowInvalidSSLCertificate: false
 
+
+- task: PublishCodeCoverageResults@1
+  inputs:
+    codeCoverageTool: 'Cobertura'
+    summaryFileLocation: '$(System.DefaultWorkingDirectory)/web/coverage/cobertura-coverage.xml'
+    reportDirectory: '$(System.DefaultWorkingDirectory)/coverage/'
+
 - task: ArchiveFiles@2
   inputs:
     rootFolderOrFile: 'web/build'
@@ -361,6 +362,10 @@ steps:
     archiveFile: '$(Build.ArtifactStagingDirectory)/web.zip'
     replaceExistingArchive: true
   displayName: "pack build"
+
+# - task: sonar-buildbreaker@8
+#   inputs:
+#     SonarQube: 'SonarQube'
 
 - task: PublishBuildArtifacts@1
   inputs:
