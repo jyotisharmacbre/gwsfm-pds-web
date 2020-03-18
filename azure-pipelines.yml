@@ -279,12 +279,6 @@ steps:
     testResultsFormat: 'JUnit'
     testResultsFiles: '**/junit.xml'
 
-- task: PublishCodeCoverageResults@1
-  inputs:
-    codeCoverageTool: 'Cobertura'
-    summaryFileLocation: '$(System.DefaultWorkingDirectory)/web/coverage/cobertura-coverage.xml'
-    reportDirectory: '$(System.DefaultWorkingDirectory)/coverage/'
-
 - task: PowerShell@2
   displayName: 'static code analysis start time'
   inputs:
@@ -352,6 +346,13 @@ steps:
       }
     contentType: 'application/json'
     allowInvalidSSLCertificate: false
+
+
+- task: PublishCodeCoverageResults@1
+  inputs:
+    codeCoverageTool: 'Cobertura'
+    summaryFileLocation: '$(System.DefaultWorkingDirectory)/web/coverage/cobertura-coverage.xml'
+    reportDirectory: '$(System.DefaultWorkingDirectory)/coverage/'
 
 - task: ArchiveFiles@2
   inputs:
