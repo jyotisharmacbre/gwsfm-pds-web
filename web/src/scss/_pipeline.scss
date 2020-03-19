@@ -144,7 +144,7 @@
     th {
         border: solid 1px #cad0d8;
         background: map-get($colors , whiteColor );
-        position: relative;
+        position: -ms-page;
         svg {
             @include transition(all ease 0.3s);
             font-size: 18px;
