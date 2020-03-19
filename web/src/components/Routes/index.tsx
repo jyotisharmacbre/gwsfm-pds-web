@@ -3,7 +3,6 @@ import { Route, Switch } from 'react-router-dom';
 import Dashboard from '../../views/Dashboard';
 import Pipeline from '../../views/Pipeline';
 import Project from '../../views/Project';
-import Notifications from '../../views/Notifications';
 import ProjectOverview from '../../views/ProjectOverview';
 import JustificationAuthorisation from '../../views/JustificationAuthorisation';
 import Discounts from '../../views/Discounts';
@@ -35,7 +34,6 @@ const Routes: React.FC = props => {
       <NavRoute exact path="/" component={Dashboard} showLeftMenu={false} />
       <NavRoute path="/Pipeline" component={Pipeline} showLeftMenu={false} />
       <NavRoute path="/Project/:projectId?" component={Project} showLeftMenu={true} />
-      <Route path="/Notifications" component={Notifications} />
       <NavRoute path="/ProjectOverview/:projectId" component={ProjectOverview} showLeftMenu={true} />
       <NavRoute path="/Discounts/:projectId" component={Discounts} showLeftMenu={true} />
       <NavRoute path="/Subcontractor/:projectId" component={Subcontractor} showLeftMenu={true} />

@@ -1,4 +1,4 @@
-  export type Color =
+export type Color =
     | 'cbregreen'
     | 'primary'
     | 'secondary'

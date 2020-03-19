@@ -21,7 +21,7 @@ import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
 import { calculateSell } from '../../../helpers/formulas';
 
-import NewTypeAhead from '../../TypeAhead/NewTypeAhead';
+import TypeAhead from '../../TypeAhead/TypeAhead';
 import { confirmAlert } from '../../Popup/CustomModalPopup';
 
 import ValidatedNumericInput from '../../../components/NumericInput/index';
@@ -85,7 +85,7 @@ const SubContractorActivityForm: React.FC<Props> = (props: Props) => {
 										buttons={selectionButtons}
 										labelKey="LABEL_EXISTING_SUBCONTRACTOR"
 									/>
-									<NewTypeAhead
+									<TypeAhead
 										name={`${member}.subcontractorId`}
 										onSearch={props.getListOfSubContractorData}
 										formatData={formatSubcontractForTypeAhead}

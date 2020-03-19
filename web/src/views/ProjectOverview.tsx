@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import HeaderPage from '../components/HeaderPage/HeaderPage';
 import GeneralTable from '../components/Table/General';
 import { Grid, Container } from '@material-ui/core';
 import ProjectOverviewForm from '../components/Forms/ProjectOverviewForm/ProjectOverviewForm';
