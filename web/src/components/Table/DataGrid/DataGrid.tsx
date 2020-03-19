@@ -1,11 +1,11 @@
 import React from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory, { PaginationProvider, SizePerPageDropdownStandalone } from 'react-bootstrap-table2-paginator';
-import { IGridTableProps } from '../../../props/AppProps';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faExclamationTriangle
 } from '@fortawesome/free-solid-svg-icons';
+import { IGridTableProps } from '../../../models/IGridTableProps';
 
 const DataGrid: React.FC<IGridTableProps> = props => {
 

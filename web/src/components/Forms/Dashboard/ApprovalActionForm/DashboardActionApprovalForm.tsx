@@ -15,6 +15,7 @@ import { IUserServiceData } from '../../../../store/UserService/Types/IUserServi
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExclamation } from '@fortawesome/free-solid-svg-icons';
 import { formatMessage } from '../../../../Translations/connectedIntlProvider';
+import useConfigContext from '../../../../hooks/useConfigContext';
 
 interface Props {
 	actionApprovalValues: Array<IProjectDashboardGrid>;
@@ -24,6 +25,7 @@ interface Props {
 }
 let DashboardActionApprovalForm: React.FC<Props & InjectedFormProps<Array<IProjectDashboardGrid>, Props>> = (props) => {
 	const [gridData, setGridData] = useState<Array<IProjectDashboardGrid>>([]);
+	const config = useConfigContext();
 	useEffect(
 		() => {
 			if (
@@ -33,9 +35,10 @@ let DashboardActionApprovalForm: React.FC<Props & InjectedFormProps<Array<IProje
 				props.userNamesForEmailsValues &&
 				props.showValues
 			) {
+				const actionApprovalvalues = JSON.parse(JSON.stringify(props.actionApprovalValues));
 				setGridData(
 					getActionApprovalValues(
-						props.actionApprovalValues,
+						actionApprovalvalues,
 						props.lookupValues,
 						props.userNamesForEmailsValues,
 						props.showValues
@@ -74,7 +77,7 @@ let DashboardActionApprovalForm: React.FC<Props & InjectedFormProps<Array<IProje
 						</Link>
 					);
 					rowProject.modifiedOn =
-						rowProject.modifiedOn != '' ? moment(rowProject.modifiedOn).format('MM/DD/YYYY') : '';
+						rowProject.modifiedOn != '' ? moment(rowProject.modifiedOn).format(config.REACT_APP_DATE_FORMAT) : '';
 				}
 				return rowProject;
 			});
@@ -116,7 +119,7 @@ const getTableColumns = () => {
 		{
 			title: formatMessage("HOMESCREEN_GRID_COLUMN_STATUS"),
 			field: 'approvalStatus',
-			class:'approvalStatusClass'
+			class: 'approvalStatusClass'
 		}
 	];
 };

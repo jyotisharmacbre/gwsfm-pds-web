@@ -1,10 +1,9 @@
 import React from 'react';
-import { IAppProps, INaveState } from '../../props/AppProps';
 import LeftMenu from '../Menu/LeftMenu';
 import { injectIntl } from 'react-intl';
 import IReactIntl from '../../Translations/IReactIntl';
 
-class Nav extends React.Component<IReactIntl, INaveState> {
+class Nav extends React.Component<IReactIntl> {
     render() {
         return <LeftMenu />;
     }

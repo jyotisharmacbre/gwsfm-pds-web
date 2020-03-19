@@ -26,11 +26,11 @@ const ProjectPipelineFilters: React.FC<IProps & IReactIntl & InjectedFormProps<I
     (props) => {
         const [showFilter, setShowFilter] = useState(false);
 
-        const createFilterData = (piplineFilterData: IPipelineFilters) => {
+        const createFilterData = (piplineFilterData?: IPipelineFilters) => {
             const filterParamsList = [] as Array<IFilterParams>;
 
             for (var type in PipelineFilterType) {
-                if (piplineFilterData[type]) {
+                if (piplineFilterData && piplineFilterData[type]) {
                     filterParamsList.push({
                         filterName: type,
                         filterValue: piplineFilterData[type]
@@ -43,6 +43,7 @@ const ProjectPipelineFilters: React.FC<IProps & IReactIntl & InjectedFormProps<I
         const clearAll = () => {
             props.reset();
             resetDates();
+            createFilterData();
         }
         const resetDates = () => {
             window['projectStartDate'].reset();
@@ -79,22 +80,22 @@ const ProjectPipelineFilters: React.FC<IProps & IReactIntl & InjectedFormProps<I
                                 <div className="inner_content">
                                     <div className="form-group">
                                         <Field
-                                            name="projectRefId"
-                                            data-test="projectRefId"
-                                            type="text"
-                                            component={PdsFormInput}
-                                            labelKey="LABEL_PIPELINE_FILTERS_PROJECT_ID"
-                                            placeholderKey="PLACEHOLDER_PROJECT_ID"
-                                        />
-                                    </div>
-                                    <div className="form-group">
-                                        <Field
                                             name="projectName"
                                             data-test="projectName"
                                             type="text"
                                             component={PdsFormInput}
                                             labelKey="LABEL_PIPELINE_FILTERS_PROJECT_NAME"
                                             placeholderKey="PLACEHOLDER_PROJECT_NAME"
+                                        />
+                                    </div>
+                                    <div className="form-group">
+                                        <Field
+                                            name="projectRefId"
+                                            data-test="projectRefId"
+                                            type="text"
+                                            component={PdsFormInput}
+                                            labelKey="LABEL_PIPELINE_FILTERS_PROJECT_ID"
+                                            placeholderKey="PLACEHOLDER_PROJECT_ID"
                                         />
                                     </div>
 
