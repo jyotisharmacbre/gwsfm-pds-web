@@ -2,6 +2,10 @@ import React from 'react';
 import ProjectStatus from '../enums/ProjectStatus';
 import moment, { invalid } from 'moment';
 import { IUserServiceData } from '../store/UserService/Types/IUserService';
+import appConfig from '../helpers/config-helper';
+
+const config = appConfig();
+const dateFormat = config.REACT_APP_DATE_FORMAT;
 
 export const updateObject = (oldState, updatedProperties) => {
 	return {
@@ -11,12 +15,12 @@ export const updateObject = (oldState, updatedProperties) => {
 };
 
 export const calendarStrings = {
-	lastDay : '[Yesterday at] LT',
-	sameDay : '[Today at] LT',
-	nextDay : '[Tomorrow at] LT',
-	lastWeek : '[last] dddd [at] LT',
-	nextWeek : 'dddd [at] LT',
-	sameElse : 'L'
+	lastDay: '[Yesterday at] LT',
+	sameDay: '[Today at] LT',
+	nextDay: '[Tomorrow at] LT',
+	lastWeek: '[last] dddd [at] LT',
+	nextWeek: 'dddd [at] LT',
+	sameElse: 'L'
 };
 
 export const getPropertyName = (obj, expression) => {
@@ -52,7 +56,7 @@ export const getDropdown = (data, value) => {
 	return result;
 };
 
-export const getDropdownWithFilter = (data,propertyFilter,value,propertyId,propertyDescription) => {
+export const getDropdownWithFilter = (data, propertyFilter, value, propertyId, propertyDescription) => {
 	let result = data && data.filter(element => {
 		if (element[propertyFilter] != null && element[propertyFilter] == value) {
 			return element;
@@ -109,85 +113,76 @@ export const getFilterElementFromArray = (
 	}
 	return element;
 };
-export const restrictMinusAndAllowDecimal=(value:number)=>{
-	var engRegex=/^[0-9.]+$/;
-	if (value < 0 || !engRegex.test(value.toString())) {return 0;}
-	else if(value.toString()=="0"){return 0;}
+export const restrictMinusAndAllowDecimal = (value: number) => {
+	var engRegex = /^[0-9.]+$/;
+	if (value < 0 || !engRegex.test(value.toString())) { return 0; }
+	else if (value.toString() == "0") { return 0; }
 	else {
-		let isValidDecimalOrWholeNumber=value.toString();
+		let isValidDecimalOrWholeNumber = value.toString();
 		var regexp = /^\d+\.\d{0,2}$/;
-		if(regexp.test(isValidDecimalOrWholeNumber))
-		{
-			if(isValidDecimalOrWholeNumber.indexOf('.')==-1)
-			{
-				isValidDecimalOrWholeNumber=isValidDecimalOrWholeNumber.replace(/^0+/, '');
+		if (regexp.test(isValidDecimalOrWholeNumber)) {
+			if (isValidDecimalOrWholeNumber.indexOf('.') == -1) {
+				isValidDecimalOrWholeNumber = isValidDecimalOrWholeNumber.replace(/^0+/, '');
 			}
 			return isValidDecimalOrWholeNumber;
 		}
-	    else{
-			let isValid:any=isValidDecimalOrWholeNumber.match(/[.]/g);
-			if(isValid!=null&&isValid!=undefined&&isValid.length>1)
-			{
-				isValidDecimalOrWholeNumber=isValidDecimalOrWholeNumber.substring(0,isValidDecimalOrWholeNumber.lastIndexOf('.'));
+		else {
+			let isValid: any = isValidDecimalOrWholeNumber.match(/[.]/g);
+			if (isValid != null && isValid != undefined && isValid.length > 1) {
+				isValidDecimalOrWholeNumber = isValidDecimalOrWholeNumber.substring(0, isValidDecimalOrWholeNumber.lastIndexOf('.'));
 			}
-			else
-			{
-				let index=isValidDecimalOrWholeNumber.indexOf(".");
-				isValidDecimalOrWholeNumber=isValidDecimalOrWholeNumber.length==2?isValidDecimalOrWholeNumber.replace(/^0+/, ''):isValidDecimalOrWholeNumber.substring(0,(index!=-1?(isValidDecimalOrWholeNumber.indexOf(".")+3):isValidDecimalOrWholeNumber.length));
+			else {
+				let index = isValidDecimalOrWholeNumber.indexOf(".");
+				isValidDecimalOrWholeNumber = isValidDecimalOrWholeNumber.length == 2 ? isValidDecimalOrWholeNumber.replace(/^0+/, '') : isValidDecimalOrWholeNumber.substring(0, (index != -1 ? (isValidDecimalOrWholeNumber.indexOf(".") + 3) : isValidDecimalOrWholeNumber.length));
 			}
 		}
 		return isValidDecimalOrWholeNumber;
+	}
 }
-}
-export const restrictMinusAndAllowDecimalForMaxRangeHundred=(value:number)=>{
-	var engRegex=/^[0-9.]+$/;
-	if (value < 0 || !engRegex.test(value.toString())) {return 0;}
-	else if(value.toString()=="0"){return 0;}
-	else if(value>100){return 100;}
+export const restrictMinusAndAllowDecimalForMaxRangeHundred = (value: number) => {
+	var engRegex = /^[0-9.]+$/;
+	if (value < 0 || !engRegex.test(value.toString())) { return 0; }
+	else if (value.toString() == "0") { return 0; }
+	else if (value > 100) { return 100; }
 	else {
-		let isValidDecimalOrWholeNumber=value.toString();
+		let isValidDecimalOrWholeNumber = value.toString();
 		var regexp = /^\d+\.\d{0,2}$/;
-		if(regexp.test(isValidDecimalOrWholeNumber))
-		{
-			if(isValidDecimalOrWholeNumber.indexOf('.')==-1)
-			{
-				isValidDecimalOrWholeNumber=isValidDecimalOrWholeNumber.replace(/^0+/, '');
+		if (regexp.test(isValidDecimalOrWholeNumber)) {
+			if (isValidDecimalOrWholeNumber.indexOf('.') == -1) {
+				isValidDecimalOrWholeNumber = isValidDecimalOrWholeNumber.replace(/^0+/, '');
 			}
 			return isValidDecimalOrWholeNumber;
 		}
-	    else{
-			let isValid:any=isValidDecimalOrWholeNumber.match(/[.]/g);
-			if(isValid!=null&&isValid!=undefined&&isValid.length>1)
-			{
-				isValidDecimalOrWholeNumber=isValidDecimalOrWholeNumber.substring(0,isValidDecimalOrWholeNumber.lastIndexOf('.'));
+		else {
+			let isValid: any = isValidDecimalOrWholeNumber.match(/[.]/g);
+			if (isValid != null && isValid != undefined && isValid.length > 1) {
+				isValidDecimalOrWholeNumber = isValidDecimalOrWholeNumber.substring(0, isValidDecimalOrWholeNumber.lastIndexOf('.'));
 			}
-			else
-			{
-				let index=isValidDecimalOrWholeNumber.indexOf(".");
-				isValidDecimalOrWholeNumber=isValidDecimalOrWholeNumber.length==2?isValidDecimalOrWholeNumber.replace(/^0+/, ''):isValidDecimalOrWholeNumber.substring(0,(index!=-1?(isValidDecimalOrWholeNumber.indexOf(".")+3):isValidDecimalOrWholeNumber.length));
+			else {
+				let index = isValidDecimalOrWholeNumber.indexOf(".");
+				isValidDecimalOrWholeNumber = isValidDecimalOrWholeNumber.length == 2 ? isValidDecimalOrWholeNumber.replace(/^0+/, '') : isValidDecimalOrWholeNumber.substring(0, (index != -1 ? (isValidDecimalOrWholeNumber.indexOf(".") + 3) : isValidDecimalOrWholeNumber.length));
 			}
 		}
 		return isValidDecimalOrWholeNumber;
-}
+	}
 }
 export const restrictMinus = (value: number) => {
 	if (value < 0) {
 		return 0;
 	} else {
-		return parseFloat(value.toString()?value.toString():"0");
+		return parseFloat(value.toString() ? value.toString() : "0");
 	}
-	}
+}
 
 export const restrictMinusAndDecimal = (value: number) => {
-  if (value < 0) {
-    return 0;
-  } else {
-if((value - Math.floor(value)) != 0)
-{
-  return parseFloat(value.toString()?value.toString():"0");
-}
-    return parseFloat(value.toString()?value.toString():"0");
-  }
+	if (value < 0) {
+		return 0;
+	} else {
+		if ((value - Math.floor(value)) != 0) {
+			return parseFloat(value.toString() ? value.toString() : "0");
+		}
+		return parseFloat(value.toString() ? value.toString() : "0");
+	}
 };
 export const isValidGUID = (stringToTest: string) => {
 	var regexGuid = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
@@ -238,11 +233,11 @@ export const disableIfProjectNotSubmitted = (projectStatus: ProjectStatus) => {
 };
 
 export const formatDate = (date: string) => {
-	return moment(date).format('DD/MM/YYYY');
+	return moment(date).format(dateFormat);
 };
 
 export const formatDateAndTime = (date: string) => {
-	return moment(date).format('DD/MM/YYYY') + ' | ' + moment(date).format('hh:mm A');
+	return moment(date).format(dateFormat) + ' | ' + moment(date).format('hh:mm A');
 };
 
 export const displayUserName = (userProfile: IUserServiceData) => {

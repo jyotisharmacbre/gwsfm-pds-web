@@ -24,7 +24,7 @@ describe('table-helper functions run without error', () => {
     });
     it('should return formatted column for date type value', () => {
         let result = columnFormatter('03-02-2020', null, 1, { type: ColumnTypeEnum.date });
-        expect(result).toEqual('03/02/2020');
+        expect(result).toEqual('02/03/2020');
     });
 
     it('should return formatted column for percentage type value', () => {
