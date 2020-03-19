@@ -1,10 +1,10 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
-import { IGridTableProps } from '../../props/AppProps';
 import ColumnTypeEnum from '../../enums/ColumnTypeEnum';
 import moment from 'moment';
 import useConfigContext from '../../hooks/useConfigContext';
+import { IGridTableProps } from '../../models/IGridTableProps';
 
 const GridTable: React.FC<IGridTableProps> = props => {
     const config = useConfigContext();
