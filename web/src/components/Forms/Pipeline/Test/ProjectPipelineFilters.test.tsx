@@ -118,8 +118,12 @@ describe('Project PipelineFilters Form', () => {
             }
         }
 
-    });
+        it('Should call the onApplyFilter method on click of clear all button', () => {
+            clearButton.simulate('click');
+            expect(props.onApplyFilter).toHaveBeenCalledWith([]);
+        });
 
+    });
     describe('Pipeline applyFilter button', () => {
         let applyFilterButton;
         beforeEach(() => {
@@ -139,7 +143,7 @@ describe('Project PipelineFilters Form', () => {
             expect(props.onApplyFilter).toHaveBeenCalled();
         });
 
-        it(' Should call the onApplyFilter method with params', () => {
+        it('Should call the onApplyFilter method with params', () => {
             for (var type in PipelineFilterType) {
                 if (typeof PipelineFilterType[type] === 'number') {
                     let field = wrapper.find(`input[name="${type}"]`);
