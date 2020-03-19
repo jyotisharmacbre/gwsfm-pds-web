@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { MainTitle } from '../../Title/Title';
 import { Field, reduxForm, InjectedFormProps, formValueSelector } from 'redux-form';
 import PdsFormInput from '../../PdsFormHandlers/PdsFormInput';
@@ -21,7 +21,7 @@ import {
 	restrictMinusAndDecimal,
 	restrictMinusAndAllowDecimalForMaxRangeHundred,
 	displayUserName,
-    getDropdownWithFilter
+	getDropdownWithFilter
 } from '../../../helpers/utility-helper';
 import { IProjectDetail } from '../../../store/CustomerEnquiryForm/Types/IProjectDetail';
 import { ICurrency } from '../../../store/Lookups/Types/ICurrency';
@@ -56,11 +56,20 @@ interface Props {
 }
 
 const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = (props: any) => {
+	const [showCdmNotifiable, setShowCdmNotifiable] = useState<boolean>(false);
+
 	const onCountryChange = (event) => {
 		if (props.countries && props.currencies) {
 			const selectedCountryId = Number(event.target.value);
-			const selectedCurrencyId = props.countries.find(x => x.countryId === selectedCountryId)?.currencyId;
-			props.currencies.find(x => x.currencyId === selectedCurrencyId) && props.changeCurrencyId(selectedCurrencyId);
+			const selectedCountry = props.countries.find(x => x.countryId === selectedCountryId);
+			if (selectedCountry != undefined) {
+				if (props.currencies)
+					props.currencies.find(x => x.currencyId === selectedCountry.currencyId) && props.changeCurrencyId(selectedCountry.currencyId);
+				if (selectedCountry.code == "GBR")
+					setShowCdmNotifiable(true);
+				else
+					setShowCdmNotifiable(false);
+			}
 		}
 	}
 
@@ -429,13 +438,15 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 										</Field>
 									</div>
 								</div>
-
-								<Field
-									name="cdmNotifiable"
-									component={PdsFormButton}
-									buttons={selectionButtons}
-									labelKey="LABEL_CDMNOTIFIABLE"
-								/>
+								{showCdmNotifiable &&
+									<Field
+										name="cdmNotifiable"
+										data-test="cdm_notifiable"
+										component={PdsFormButton}
+										buttons={selectionButtons}
+										labelKey="LABEL_CDMNOTIFIABLE"
+									/>
+								}
 								<div className={'form-group'}>
 									<label>
 										<FormattedMessage id="LABEL_ASSETS_WORKED_ON" />*
