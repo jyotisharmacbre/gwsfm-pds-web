@@ -20,13 +20,14 @@ import {
 	restrictMinusAndAllowDecimal,
 	restrictMinusAndDecimal,
 	restrictMinusAndAllowDecimalForMaxRangeHundred,
-	displayUserName,
-	getDropdownWithFilter
+	displayUserName,
+
+    getDropdownWithFilter
 } from '../../../helpers/utility-helper';
 import { IProjectDetail } from '../../../store/CustomerEnquiryForm/Types/IProjectDetail';
 import { ICurrency } from '../../../store/Lookups/Types/ICurrency';
 import Currency from '../../../store/Lookups/InitialState/Currency';
-import NewTypeAhead from '../../TypeAhead/NewTypeAhead';
+import TypeAhead from '../../TypeAhead/TypeAhead';
 import { IUserServiceData } from '../../../store/UserService/Types/IUserService';
 import { IDynamicContractCustomerData, IDynamicCompanyData, IDynamicsDivision, IDynamicBusinessUnits } from '../../../store/DynamicsData/Types/IDynamicData';
 import { ICountry } from '../../../store/Lookups/Types/ICountry';
@@ -57,7 +58,6 @@ interface Props {
 
 const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = (props: any) => {
 	const [showCdmNotifiable, setShowCdmNotifiable] = useState<boolean>(false);
-
 	const onCountryChange = (event) => {
 		if (props.countries && props.currencies) {
 			const selectedCountryId = Number(event.target.value);
@@ -183,7 +183,7 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 										</Field>
 									</div>
 								</div>
-								<NewTypeAhead
+								<TypeAhead
 									name="companyId"
 									onSearch={props.getListOfCompanies}
 									formatData={formatCompanyForTypeAhead}
@@ -205,7 +205,7 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 										placeholderKey="PLACEHOLDER_COMPANY_NAME"
 									/>
 								)}
-								<NewTypeAhead
+								<TypeAhead
 									name="contractorId"
 									onSearch={props.getListOfContract}
 									formatData={formatContractForTypeAhead}
@@ -227,7 +227,7 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 										placeholderKey="PLACEHOLDER_CONTRACT"
 									/>
 								)}
-								<NewTypeAhead
+								<TypeAhead
 									name="headOfProject"
 									onSearch={props.getListOfUsers}
 									formatData={formatUserForTypeAhead}
@@ -238,7 +238,7 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 									validationKey="LABEL_HEAD_OF_PROJECT"
 									submitParam="email"
 								/>
-								<NewTypeAhead
+								<TypeAhead
 									name="projectOwner"
 									onSearch={props.getListOfUsers}
 									formatData={formatUserForTypeAhead}
@@ -249,7 +249,7 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 									validationKey="LABEL_PROJECT_OWNER"
 									submitParam="email"
 								/>
-								<NewTypeAhead
+								<TypeAhead
 									name="projectManager"
 									onSearch={props.getListOfUsers}
 									formatData={formatUserForTypeAhead}
@@ -438,6 +438,7 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 										</Field>
 									</div>
 								</div>
+
 								{showCdmNotifiable &&
 									<Field
 										name="cdmNotifiable"
