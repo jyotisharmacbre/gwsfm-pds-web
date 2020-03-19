@@ -176,7 +176,7 @@ steps:
       # Additional properties that will be passed to the scanner, 
       # Put one key=value per line, example
       sonar.exclusions=**/web/public/**, **/web/src/**/*.scss, **/web/src/**/*.css,**/web/src/**/*.test.tsx
-      sonar.coverage.cobertura.xmlReportPaths=$(System.DefaultWorkingDirectory)/web/coverage/cobertura-coverage.xml
+      sonar.typescript.lcov.reportPaths=$(System.DefaultWorkingDirectory)/web/coverage/cobertura-coverage.xml
 
 - task: PowerShell@2
   displayName: 'Code Build start time'
