@@ -175,7 +175,7 @@ steps:
     extraProperties: |
       # Additional properties that will be passed to the scanner, 
       # Put one key=value per line, example
-      sonar.exclusions=**/web/public/**, **/web/src/**/*.scss, **/web/src/**/*.css,**/web/src/**/*.test.tsx
+      sonar.exclusions=**/web/public/**, **/web/src/**/*.scss, **/web/src/**/*.css,**/web/src/**/*.test.tsx,**/web/src/App.tsx,**/web/src/**/AuthProvider.js,**/web/src/**/Column.config.tsx,**/web/src/**/ConfigProvider.tsx,**/web/src/**/TelemetryProvider.tsx,**/web/src/**/file-helper.tsx,**/web/src/**/Auth/Reducer.tsx,**/web/src/**/client.tsx,**/web/src/**/helpers/auth-helper.ts,**/web/src/**/Popup/QueryPopup.tsx,**/web/src/**/Error/Error.tsx,**/web/src/**/Popup/CustomModalPopup.tsx
       sonar.typescript.lcov.reportPaths=$(System.DefaultWorkingDirectory)/web/coverage/lcov.info
 
 - task: PowerShell@2
