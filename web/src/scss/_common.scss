@@ -932,6 +932,10 @@ td {
             font-size: 14px;
         }
     }
+    .link_disabled {
+        pointer-events: none;
+                }
+    }
 
     /* IE10+ CSS styles go here */
     select::-ms-expand {
