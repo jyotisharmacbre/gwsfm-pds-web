@@ -161,6 +161,7 @@ const ReviewSubmit: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & I
 							handleGetUserNamesForEmails={props.handleGetUserNamesForEmails}
 							listOfDivisions={props.getListOfDivisions}
 							listOfBusinessUnits={props.getListOfBusinessUnit}
+							countryCode={props.countryCode}
 						/>
 						<ProjectOverviewSummary
 							oneditOverview={actionEditBtnOverview}

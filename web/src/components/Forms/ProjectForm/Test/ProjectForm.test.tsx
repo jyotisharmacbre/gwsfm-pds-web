@@ -6,15 +6,13 @@ import ProjectForm from '../ProjectForm';
 import { IntlProvider } from 'react-intl';
 import translations from '../../../../Translations/translation';
 import * as connectedIntlProvider from './../../../../Translations/connectedIntlProvider';
-import { IProjectDetailState } from '../../../../store/CustomerEnquiryForm/Types/IProjectDetailState';
-import Notify from '../../../../enums/Notify';
-import EventType from '../../../../enums/EventType';
 import projectDetailReducer from '../../../../store/CustomerEnquiryForm/Reducer';
 import { ActionType } from '../../../../store/CustomerEnquiryForm/Types/ActionType';
 import nock from 'nock';
 import { baseURL } from '../../../../client/client';
-import { initialState, getprojectDetailData, listOfBusinessUnits, listOfDivisions, expectedListOfBusinessUnits } from '../ProjectTestData';
+import { initialState, getprojectDetailData, listOfBusinessUnits, listOfDivisions } from '../ProjectTestData';
 import { getDropdownWithFilter } from '../../../../helpers/utility-helper';
+import { findByTestAtrr } from '../../../../helpers/test-helper';
 
 nock(baseURL)
     .post('/api/Projects/customerEnquiry')
@@ -38,6 +36,13 @@ describe('ProjectForm Fields', () => {
             code: "AFG",
             isoAlpha2Code: "AF",
             currencyId: 64
+        },
+        {
+            countryId: 2,
+            name: "United Kingdom",
+            code: "GBR",
+            isoAlpha2Code: "GB",
+            currencyId: 48
         }],
         currencies: [{
             currencyId: 64,
@@ -81,8 +86,8 @@ describe('ProjectForm Fields', () => {
     it('renders the division and business unit relation correclty', () => {
         let filteData = getDropdownWithFilter(props.listOfBusinessUnits, 'divisionId', 1, 'businessUnitId', 'description');
         expect(filteData.length).toEqual(2);
-    });  
-    
+    });
+
     describe('Defines the Form', () => {
         let form: ShallowWrapper;
         beforeEach(() => {
@@ -473,5 +478,21 @@ describe('ProjectForm Fields', () => {
             });
         });
 
+        describe('CDM notifiable field', () => {
+            let countryField: ShallowWrapper;
+            beforeEach(() => {
+                countryField = wrapper.find('select[name="countryId"]').first();
+            });
+            it('Should renders CDM notifiable when selected country is Unitied Kingdom', () => {
+                countryField.simulate('change', { target: { value: '2' } })
+                wrapper.update();
+                expect(findByTestAtrr(wrapper, 'cdm_notifiable').first()).toHaveLength(1);
+            });
+            it('Should not renders CDM notifiable when selected country is not Unitied Kingdom', () => {
+                countryField.simulate('change', { target: { value: '1' } })
+                wrapper.update();
+                expect(findByTestAtrr(wrapper, 'cdm_notifiable')).toHaveLength(0);
+            });
+        });
     });
 });

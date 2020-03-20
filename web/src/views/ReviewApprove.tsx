@@ -261,6 +261,7 @@ const ReviewApprove: React.FC<IProps & IMapStateToProps & IMapDispatchToProps & 
 									handleGetUserNamesForEmails={props.handleGetUserNamesForEmails}
 									listOfDivisions={props.getListOfDivisions}
 									listOfBusinessUnits={props.getListOfBusinessUnit}
+									countryCode={props.countryCode}
 								/>
 								<ProjectOverviewSummary
 									oneditOverview={actionEditBtnOverview}
