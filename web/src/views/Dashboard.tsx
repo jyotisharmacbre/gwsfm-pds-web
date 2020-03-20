@@ -84,10 +84,10 @@ const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
 			if (props.lookupDetails.length > 0 && props.chartData.length > 0) {
 				let data: Array<IProjectChartSummary> = [];
 				let total = 0;
-				props.chartData.map(ele => {
+				props.chartData.forEach(ele => {
 					total = total + ele.value;
 				});
-				Object.keys(StatusColorCode).map(element => {
+				Object.keys(StatusColorCode).forEach(element => {
 					let lookup = props.lookupDetails.filter(look => look.lookupItem == LookupItems.Project_Status && look.description.replace(/ /g, '').toLowerCase() == element);
 					if (lookup != undefined && lookup[0] != undefined) {
 						let filterValue = props.chartData.find(data => data.name == lookup[0].lookupKey.toString());
@@ -98,7 +98,7 @@ const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
 							percentage: filterValue != undefined ? ((filterValue.value / total) * 100).toFixed(0) : '0'
 						});
 					}
-					
+
 				})
 				setChart(data);
 			}
