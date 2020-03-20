@@ -3,7 +3,6 @@ import { IProjectDetail } from '../../../store/CustomerEnquiryForm/Types/IProjec
 import { ILookup } from '../../../store/Lookups/Types/ILookup';
 import { LookupType } from '../../../store/Lookups/Types/LookupType';
 import Company from '../../../store/DynamicsData/InitialState/Company';
-import * as actions from '../../../store/rootActions';
 import { toast } from 'react-toastify';
 import {
 	getPropertyName,
@@ -15,8 +14,6 @@ import { FormattedMessage } from 'react-intl';
 import { IUserServiceData } from '../../../store/UserService/Types/IUserService';
 import * as services from '../../../services';
 import { formatMessage } from '../../../Translations/connectedIntlProvider';
-import { Link } from 'react-router-dom';
-import { History } from 'history';
 import { IDynamicsDivision, IDynamicBusinessUnits } from '../../../store/DynamicsData/Types/IDynamicData';
 
 interface IProps {
@@ -28,9 +25,9 @@ interface IProps {
 	handleGetUserNamesForEmails: (emails: Array<string>) => void;
 	listOfDivisions: Array<IDynamicsDivision>;
 	listOfBusinessUnits: Array<IDynamicBusinessUnits>;
+	countryCode: string;
 }
 const ProjectSummary: React.FC<IProps> = (props) => {
-	let urlProjectId: string = '';
 	const [projectStatus, setProjectStatus] = useState<string>('');
 	const [typeOfEngagement, setTypeOfEngagement] = useState<string>('');
 	const companyObj = new Company();
@@ -204,8 +201,6 @@ const ProjectSummary: React.FC<IProps> = (props) => {
 							</li>
 						</ul>
 					</div>
-				</div>
-				<div className="row">
 					<div className="col-lg-4 col-sm-6">
 						<ul>
 							<li>
@@ -236,8 +231,6 @@ const ProjectSummary: React.FC<IProps> = (props) => {
 							</li>
 						</ul>
 					</div>
-				</div>
-				<div className="row">
 					<div className="col-lg-4 col-sm-6">
 						<ul>
 							<li>
@@ -248,18 +241,19 @@ const ProjectSummary: React.FC<IProps> = (props) => {
 							</li>
 						</ul>
 					</div>
-					<div className="col-lg-4 col-sm-6">
-						<ul>
-							<li>
-								<span>
-									<FormattedMessage id="LABEL_CDMNOTIFIABLE" />
-								</span>
-								<p>
-									<FormattedMessage id={props.project.cdmNotifiable ? 'LABEL_YES' : 'LABEL_NO'} />
-								</p>
-							</li>
-						</ul>
-					</div>
+					{props.countryCode == "GBR" &&
+						<div data-test="cdm_notifiable" className="col-lg-4 col-sm-6">
+							<ul>
+								<li>
+									<span>
+										<FormattedMessage id="LABEL_CDMNOTIFIABLE" />
+									</span>
+									<p>
+										<FormattedMessage id={props.project.cdmNotifiable ? 'LABEL_YES' : 'LABEL_NO'} />
+									</p>
+								</li>
+							</ul>
+						</div>}
 					<div className="col-lg-4 col-sm-6">
 						<ul>
 							<li>
@@ -270,8 +264,6 @@ const ProjectSummary: React.FC<IProps> = (props) => {
 							</li>
 						</ul>
 					</div>
-				</div>
-				<div className="row">
 					<div className="col-lg-4 col-sm-6">
 						<ul>
 							<li>
@@ -292,16 +284,6 @@ const ProjectSummary: React.FC<IProps> = (props) => {
 									{props.currencySymbol}
 									{props.project.weightedTCV}
 								</p>
-							</li>
-						</ul>
-					</div>
-					<div className="col-lg-4 col-sm-6">
-						<ul>
-							<li>
-								<span>
-									<FormattedMessage id="LABEL_RANK" />
-								</span>
-								<p>{calculateRank(+props.project.probabilityOfWinning, +props.project.approxValue)}</p>
 							</li>
 						</ul>
 					</div>
