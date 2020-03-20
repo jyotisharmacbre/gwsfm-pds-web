@@ -9,6 +9,7 @@ import { confirmAlert } from '../../Popup/CustomModalPopup';
 import IReactIntl from '../../../Translations/IReactIntl';
 import ProjectStatus from '../../../enums/ProjectStatus';
 import { activeMocks } from 'nock/types';
+import { formatMessage } from '../../../Translations/connectedIntlProvider';
 
 interface IProps {
     status: number;
@@ -17,6 +18,8 @@ interface IProps {
     handleBidLost: () => void;
     handleOnHold: () => void;
     handleOrderReceived:()=>void;
+    handleProjectLive: () => void;
+    handleProjectCompleted: () => void;
 }
 
 
@@ -65,13 +68,13 @@ const handleOrderReceivedEvent=()=>{
                     <div className="status-dropdown">
                         <div className="status-dropdown-btn toggle">
 
-                            <span data-test="toggleStatusTab" id="toggleStatusTab" className={(props.status == ProjectStatus.BidLost || props.status == ProjectStatus.OnHold) ? "dropdown-placeholder link_disabled p-0" : "dropdown-placeholder p-0"} onClick={() => handleToggleStatusTab()}><FormattedMessage id="LABEL_STATUS" />:&nbsp; <strong>{props.statusName}
+                            <span data-test="toggleStatusTab" id="toggleStatusTab" className={(props.status == ProjectStatus.BidLost || props.status == ProjectStatus.OnHold || props.status == ProjectStatus.Completed) ? "dropdown-placeholder link_disabled p-0" : "dropdown-placeholder p-0"} onClick={() => handleToggleStatusTab()}><FormattedMessage id="LABEL_STATUS" />:&nbsp; <strong>{props.statusName}
                             </strong>
-                            {(props.status != ProjectStatus.BidLost && props.status != ProjectStatus.OnHold) ? <FontAwesomeIcon className="active mrgnlft10" icon={faPencilAlt} /> : null}
+                            {(props.status != ProjectStatus.BidLost && props.status != ProjectStatus.OnHold && props.status != ProjectStatus.Completed) ? <FontAwesomeIcon className="active mrgnlft10" icon={faPencilAlt} /> : null}
                             </span>
                         </div>
                         
-                        {(props.status != ProjectStatus.BidLost && props.status != ProjectStatus.OnHold) ?
+                        {(props.status != ProjectStatus.BidLost && props.status != ProjectStatus.OnHold && props.status != ProjectStatus.Live && props.status != ProjectStatus.Completed && props.status != ProjectStatus.OrderReceived) ?
                             <div className="status-dropdown-menu hide status-hidden toggle-list" data-test="statusTab" id="statusTab">
                                 <p><FormattedMessage id="TITLE_CHANGE_STATUS_TO" /></p>
                                 <ul className="status-dropdown-list status-scrollable">
@@ -109,11 +112,48 @@ const handleOrderReceivedEvent=()=>{
                                 </ul>
 
                             </div> : null}
+
+
+                            {/*Live status */}
+                            {(props.status == ProjectStatus.OrderReceived) &&
+                            <div className="status-dropdown-menu hide status-hidden toggle-list" data-test="statusTab" id="statusTab">
+                                <p><FormattedMessage id="TITLE_CHANGE_STATUS_TO" /></p>
+                                <ul className="status-dropdown-list status-scrollable">
+                                    <li data-test="live" className={"status-dropdown-item mrgnlft10"} onClick={() =>
+                                        confirmAlert({
+                                            intl: props.intl,
+                                            titleKey: "TITLE_CONFIRMATION",
+                                            contentKey: "MESSAGE_PROJECT_STATUS_CHANGE",
+                                            handleConfirm: () => props.handleProjectLive()
+                                        })
+                                    }>
+                                        <a title={formatMessage("TITLE_LIVE")}><FormattedMessage id="TITLE_LIVE" /></a></li>
+
+                                </ul>
+                            </div>}
+
+                             {/*Completed status */}
+                             {(props.status == ProjectStatus.Live) &&
+                            <div className="status-dropdown-menu hide status-hidden toggle-list" data-test="statusTab" id="statusTab">
+                                <p><FormattedMessage id="TITLE_CHANGE_STATUS_TO" /></p>
+                                <ul className="status-dropdown-list status-scrollable">
+                                    <li data-test="live" className={"status-dropdown-item mrgnlft10"} onClick={() =>
+                                        confirmAlert({
+                                            intl: props.intl,
+                                            titleKey: "TITLE_CONFIRMATION",
+                                            contentKey: "MESSAGE_PROJECT_STATUS_CHANGE",
+                                            handleConfirm: () => props.handleProjectCompleted()
+                                        })
+                                    }>
+                                        <a title={formatMessage("TITLE_COMPLETED")}><FormattedMessage id="TITLE_COMPLETED" /></a></li>
+
+                                </ul>
+                            </div>}
                     </div>
                 </div>
     
             {/* activate button */}
-                {(props.status == ProjectStatus.BidLost || props.status == ProjectStatus.OnHold) ?
+                {((props.status == ProjectStatus.BidLost || props.status == ProjectStatus.OnHold)) ?
                     <div className="status-dropdown-btn toggle mrgnrght10 mrgnt5 ml-2">
                         <span>
                             <button className="activate_btn" type="button" id="reactivateButton" data-test="activateButton"
