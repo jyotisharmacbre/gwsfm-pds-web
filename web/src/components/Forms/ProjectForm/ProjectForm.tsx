@@ -22,7 +22,7 @@ import {
 	restrictMinusAndAllowDecimalForMaxRangeHundred,
 	displayUserName,
 
-    getDropdownWithFilter
+	getDropdownWithFilter
 } from '../../../helpers/utility-helper';
 import { IProjectDetail } from '../../../store/CustomerEnquiryForm/Types/IProjectDetail';
 import { ICurrency } from '../../../store/Lookups/Types/ICurrency';
@@ -65,10 +65,7 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 			if (selectedCountry != undefined) {
 				if (props.currencies)
 					props.currencies.find(x => x.currencyId === selectedCountry.currencyId) && props.changeCurrencyId(selectedCountry.currencyId);
-				if (selectedCountry.code == "GBR")
-					setShowCdmNotifiable(true);
-				else
-					setShowCdmNotifiable(false);
+				setShowCdmNotifiable(selectedCountry.code == "GBR" ? true : false);
 			}
 		}
 	}
