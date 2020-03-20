@@ -159,6 +159,9 @@ form,
 
     .select-wrapper {
         position: relative;
+        &::-ms-expand {
+            display: none;
+        }
 
         &.header_select_wrapper {
             margin-top: 5px;
@@ -931,4 +934,28 @@ td {
     }
     .link_disabled {
         pointer-events: none;
+    }
+
+    /* IE10+ CSS styles go here */
+    select::-ms-expand {
+        display: none;
+     }
+    @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+        .project_name_title {
+            position: absolute;
+            left: 10px;
+            margin: auto auto auto 36px;
+            width: 40%;
+            height: 60px;
+        }
+        body {
+            overflow-x: hidden;
+        }
+        .form_style {
+            .select-wrapper {
+                &:before {
+                    top: 16px;
                 }
+            }
+        }
+    }
