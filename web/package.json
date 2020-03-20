@@ -5,7 +5,8 @@
     "jest": {
         "coverageReporters": [
             "cobertura",
-            "html"
+            "html",
+            "lcov"
         ]
     },
     "jest-junit": {
