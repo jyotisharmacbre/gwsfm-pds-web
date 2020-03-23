@@ -293,7 +293,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 												name="projectAdditionalDetail.finalAccountDate"
 												data-test="finalAccountDate"
 												className="required"
-												labelKey="LABEL_FIRST_ACCOUNT_DATE"
+												labelKey="LABEL_FINAL_ACCOUNT_DATE"
 											/>
 										</div>
 									</div>
