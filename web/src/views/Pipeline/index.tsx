@@ -62,7 +62,7 @@ const ProjectPipeline: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 	useEffect(() => {
 		let searchKey = props.location ? props.location['key'] : '';
 		if (props.userPreferencesNotify == Notify.success || searchKey !== locationSearchKey || !searchKey) {
-			const params = extractQueryParams(props.location?.search, "lastModified", 1, 20);
+			const params = extractQueryParams(props.location?.search, "projectRefId", 1, 20);
 			params.filterParams = filterParams;
 			setQueryParams(params);
 			setLocationSearchKey(searchKey);
@@ -83,18 +83,17 @@ const ProjectPipeline: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 				var allEmails = new Array();
 				var allClients = new Array();
 				for (let recordNo in props.projectPipeline.data) {
-					if (isValidEmail(props.projectPipeline.data[recordNo].headOfProject)) {
-						allEmails.push(props.projectPipeline.data[recordNo].headOfProject.toLowerCase());
+					let currentRecord = props.projectPipeline.data[recordNo];
+
+					if (isValidEmail(currentRecord.headOfProject) && allEmails.indexOf(currentRecord.headOfProject.toLowerCase()) === -1) {
+						allEmails.push(currentRecord.headOfProject.toLowerCase());
 					}
-					allClients.push(props.projectPipeline.data[recordNo].contractorId);
+					if (currentRecord.contractorId !== "0" && allClients.indexOf(currentRecord.contractorId) === -1) {
+						allClients.push(currentRecord.contractorId);
+					}
 				}
-				const disinctvals = (value, index, self) => {
-					if (value !== '')
-						return self.indexOf(value) === index;
-				}
-				const uniqueVals = allEmails.filter(disinctvals);
-				allEmails && props.handleGetUserNamesForEmails(uniqueVals);
-				allClients && props.handleGetContractDetailsByIds(allClients.filter(disinctvals));
+				allEmails && props.handleGetUserNamesForEmails(allEmails);
+				allClients && props.handleGetContractDetailsByIds(allClients);
 
 			}
 		},
@@ -132,7 +131,7 @@ const ProjectPipeline: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 					if (newClients.length > 0) {
 						let response = await services.getContractsAndCustomersList(newClients);
 						if (response.data.length > 0) {
-							allClients = [...props.userNamesForEmails, ...response.data];
+							allClients = [...props.contractDetailsByIds, ...response.data];
 						}
 					}
 					let finalData = formatDataToExportExcel(data, allEmails, allClients, props.currencies, CurrencyObj, props.lookupDetails, config.REACT_APP_DATE_FORMAT);
@@ -149,7 +148,7 @@ const ProjectPipeline: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 	};
 
 	const onApplyFilter = (filterParamsList: Array<IFilterParams>) => {
-		const params = extractQueryParams(props.location?.search, "lastModified", 1, 20);
+		const params = extractQueryParams(props.location?.search, "projectRefId", 1, 20);
 		params.filterParams = filterParamsList;
 		setFilterParams(filterParamsList);
 		props.projectPipelineGridDetail(params);
