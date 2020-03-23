@@ -62,7 +62,7 @@ const ProjectPipeline: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 	useEffect(() => {
 		let searchKey = props.location ? props.location['key'] : '';
 		if (props.userPreferencesNotify == Notify.success || searchKey !== locationSearchKey || !searchKey) {
-			const params = extractQueryParams(props.location?.search, "lastModified", 1, 20);
+			const params = extractQueryParams(props.location?.search, "projectRefId", 1, 20);
 			params.filterParams = filterParams;
 			setQueryParams(params);
 			setLocationSearchKey(searchKey);
@@ -148,7 +148,7 @@ const ProjectPipeline: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 	};
 
 	const onApplyFilter = (filterParamsList: Array<IFilterParams>) => {
-		const params = extractQueryParams(props.location?.search, "lastModified", 1, 20);
+		const params = extractQueryParams(props.location?.search, "projectRefId", 1, 20);
 		params.filterParams = filterParamsList;
 		setFilterParams(filterParamsList);
 		props.projectPipelineGridDetail(params);
