@@ -9,6 +9,16 @@ import { Provider } from 'react-redux';
 import { IntlProvider } from 'react-intl';
 import translations from '../../../../Translations/translation';
 import { store } from '../../../../store';
+import moment from 'moment';
+import IConfig from '../../../../models/IConfig';
+
+jest.mock('moment', () => {
+	const mMoment = {
+		format: jest.fn(),
+		valueOf: jest.fn()
+	};
+	return jest.fn(() => mMoment);
+});
 
 
 let wrapper: any;
@@ -108,6 +118,10 @@ describe('Project Overview Summary componenet', () => {
 			field.simulate('click');
 			expect(props.oneditOverview).toBeCalledTimes(1);
 		});
+	});
+
+	it('should format the date with the format given in config', () => {
+		expect(moment().format).toHaveBeenCalledWith("D-MMM-YYYY");
 	});
 
 });
