@@ -137,7 +137,7 @@ const handleOrderReceivedEvent=()=>{
                             <div className="status-dropdown-menu hide status-hidden toggle-list" data-test="statusTab" id="statusTab">
                                 <p><FormattedMessage id="TITLE_CHANGE_STATUS_TO" /></p>
                                 <ul className="status-dropdown-list status-scrollable">
-                                    <li data-test="live" className={"status-dropdown-item mrgnlft10"} onClick={() =>
+                                    <li data-test="completed" className={"status-dropdown-item mrgnlft10"} onClick={() =>
                                         confirmAlert({
                                             intl: props.intl,
                                             titleKey: "TITLE_CONFIRMATION",

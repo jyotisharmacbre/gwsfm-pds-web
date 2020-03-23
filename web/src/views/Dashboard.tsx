@@ -183,7 +183,7 @@ const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
 													dataKey="value"
 													label={renderCustomizedLabel}>
 													{
-														chart.map((entry, index) => entry.value > 0 && <Cell key={`cell-${index}`} fill={StatusColorCode[entry.class]} />)
+														chart.map((entry, index) => <Cell key={`cell-${index}`} fill={StatusColorCode[entry.class]} />)
 													}
 												</Pie>
 												<Tooltip content={customTooltip} />

@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 import * as axios from '../../client';
 import { isProjectStateInReview } from '../store-helper';
 
