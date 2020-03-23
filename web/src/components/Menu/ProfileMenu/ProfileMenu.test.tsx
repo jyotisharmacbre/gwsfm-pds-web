@@ -172,15 +172,13 @@ describe('Profile Menu', () => {
     });
   });
 
-  describe('should add col-sm-12 d-flex align-items-center class in case navigating to page', () => {
-      it(`should have value true for has class col-sm-12 d-flex align-items-center`, () => {
-        mockJWT();
-        mockHelper();
-        mockingStore();
-        //mockhistory(nav.page);
-        mountProfileMenuComponent(props);
-        const field = findByTestAtrr(wrapper, 'test-content').first();
-        expect(field.hasClass('col-sm-12 d-flex align-items-center')).toEqual(true);
-      });
-    });
+  it('should has class col-sm-12 d-flex align-items-center', () => {
+    mockJWT();
+    mockHelper();
+    mockingStore();
+    mountProfileMenuComponent(props);
+    const field = findByTestAtrr(wrapper, 'test-content').first();
+    expect(field.hasClass('col-sm-12 d-flex align-items-center')).toEqual(true);
+  });
+
 });

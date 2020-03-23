@@ -35,16 +35,16 @@ describe('table-helper functions run without error', () => {
         expect(result.props.children[0].props.className).toEqual('float-right');
     });
 
-    it('should return up sortIcon for toggling from desc order', () => {
+    it(' should return up sortIcon for toggling from desc order', () => {
         let result = sortCaret('desc', null);
-        expect(result?.type.name).toEqual('FontAwesomeIcon');
-        expect(result?.props.icon.iconName).toEqual('arrow-up');
+        expect(result?.props.children.type.name).toEqual('FontAwesomeIcon');
+        expect(result?.props.children.props.icon.iconName).toEqual('arrow-up');
     });
 
     it('should return up sortIcon for toggling from asc order', () => {
         let result = sortCaret('asc', null);
-        expect(result?.type.name).toEqual('FontAwesomeIcon');
-        expect(result?.props.icon.iconName).toEqual('arrow-down');
+        expect(result?.props.children.type.name).toEqual('FontAwesomeIcon');
+        expect(result?.props.children.props.icon.iconName).toEqual('arrow-down');
     });
 
     it('should return undefined for no order', () => {
