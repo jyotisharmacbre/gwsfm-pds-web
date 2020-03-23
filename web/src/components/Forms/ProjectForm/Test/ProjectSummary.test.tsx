@@ -37,7 +37,8 @@ projectInitialState.form.engagementId = 1;
 		listOfDivisions: [{divisionId: '1'}],
 		listOfBusinessUnits: [{businessUnitId: '1'}],
 		userNamesForEmails: [{email: 'test@pds.com', displayName: 'testName'}],
-		lookUpData: [{lookupItem: 'Project_Status', lookupKey: 1}, {lookupItem: 'Engagement_Type', lookupKey: 1}]
+		lookUpData: [{ lookupItem: 'Project_Status', lookupKey: 1 }, { lookupItem: 'Engagement_Type', lookupKey: 1 }],
+		countryCode:'GBR'
 	};
 
 describe('Project Summary componenet', () => {
@@ -59,6 +60,16 @@ describe('Project Summary componenet', () => {
 
     it('should render the head of project', () => {
 		expect(findByTestAtrr(wrapper, 'head-of-project')).toBeDefined();
+	});
+
+	it('should render the cdm notiiable when Country is UK (country code GBR)', () => {
+		expect(findByTestAtrr(wrapper, 'cdm_notifiable')).toHaveLength(1);
+	});
+
+	it('should not render the cdm notiiable when Country is not UK', () => {
+		props.countryCode = 'OTHER';
+		mountComponent(props);
+		expect(findByTestAtrr(wrapper, 'cdm_notifiable')).toHaveLength(0);
 	});
 
 });

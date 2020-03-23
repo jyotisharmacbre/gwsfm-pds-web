@@ -47,7 +47,7 @@ export function fieldValidationRequired(value, message) {
 
 export function fieldValidationRequiredForDDLHavingOther(value, message) {
 
-	value = value || value=== 0 ? value.toString() : "";
+	value = value || value === 0 ? value.toString() : "";
 
 	if (
 		!value ||
@@ -143,8 +143,11 @@ export const onErrorScrollToField = (errors) => {
 			const key = Object.keys(errors)[0];
 			const id = key.includes('.') ? key.split('.')[key.split('.').length - 1] : key;
 			const errElm = document.getElementById(id + '_error');
-			const closestElement = errElm?.parentElement?.getElementsByTagName('input')[0];
-			closestElement?.focus();
+			if (errElm && errElm.parentElement) {
+				const closestElement = errElm.parentElement.getElementsByTagName('input')[0];
+				if (closestElement)
+					closestElement.focus();
+			}
 		}, 10);
 	}
 }
