@@ -13,11 +13,6 @@
     .excel_icon[type="button"] {
         border: 0;
         padding: 0;
-        @include mdScreen {
-            img {
-                width: 22px;
-            }
-        }
     }
 
     h2 {
@@ -47,7 +42,6 @@
     span {
         button {
             padding: 6px 25px 3px;
-            border-width: 1px !important;
             min-width: auto;
             background: transparent;
             color: #006a4d;
@@ -62,7 +56,7 @@
  */
  .pipeline_grid {
     width: 100%;
-    margin: 30px 0;
+    margin: 18px 0 30px;
     @include mdScreen {
         margin: 0 0;
     }
@@ -220,14 +214,36 @@
             color: #fff;
             border-color: #006a4d;
             font-size: 16px;
-            font-weight: 400;
+            font-weight: 600;
             margin-right: 0;
+            margin-left: 15px;
             padding: 6px 15px 3px;
             transition: background-color .3s ease;
+            min-width: auto;
+            span {
+                text-transform: uppercase;
+            }
             i {
                 padding-left: 10px;
                 @include mdScreen {
                     padding-left: 0;
+                }
+            }
+            .hover {
+                display: none;
+            }
+            .before_hover,
+            .hover {
+                max-width: 22px;
+                margin-left: 12px;
+                margin-top: -2px;
+            }
+            &:hover {
+                .before_hover {
+                    display: none;
+                }
+                .hover {
+                    display: inline-block;
                 }
             }
         }
@@ -257,7 +273,7 @@
         &:before {
             border-bottom-color: #E8ECF3;
             top: -10px;
-            right: 86px;
+            right: 68px;
             border-width: 10px;
             border-right-width: 9px;
             border-left-width: 10px;
@@ -266,7 +282,7 @@
             }
         }&:after {
             top: -8px;
-            right: 87px;
+            right: 69px;
             display: inline-block;
             border-bottom-color: #fbfbfb;
             border-width: 8px;
@@ -372,19 +388,45 @@
 
 .custom-size-filter {
     &.form_style {
+        padding: 15px 0;
         .select-wrapper {
             &:before {
-                border: 2px solid map-get($colors , whiteColor );
+                border: 2px solid map-get($colors , darkGreen );
                 border-left: 0;
                 border-top: 0;
+                right: calc(100% - 47px);
             }
             select {
                 &.form-control {
-                    background: map-get($colors , darkGreen );
-                    border: 1px solid map-get($colors , darkGreen );
-                    color: map-get($colors , whiteColor );
+                    background: map-get($colors , whiteColor );
+                    border: 2px solid map-get($colors , darkGreen );
+                    color: map-get($colors , darkGreen );
+                    font-weight: 600;
+                    padding: 9px 30px 9px 15px;
+                    border-radius: 5px;
+                    font-size: 14px;
+                    line-height: 19px;
                 }
             }
         }
     } 
 }
+
+@media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {  
+    /* IE10+ specific styles go here */  
+    .custom-size-filter{
+        &.form_style {
+            .select-wrapper {
+                &:before {
+                    right: calc(100% - 50px);
+                    top: 14px;
+                }
+                select {
+                    &.form-control {
+                        height: 39px !important;
+                    }
+                }
+            }
+        }
+    }
+ }
