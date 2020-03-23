@@ -31,6 +31,7 @@ export const formatDataToExportExcel = (data, allEmails, allClients, currencies,
 			[formatMessage('LABEL_HEAD_OF_PROJECT')]: mailObj
 				? `${displayUserName(mailObj)}`
 				: element.headOfProject,
+			[formatMessage('LABEL_LAST_UPDATE')]: element.lastModified ? moment(element.lastModified).format(dateFormat) : '',
 			[formatMessage('LABEL_CLIENT_CUSTOMER')]: customerObj ? customerObj.customerName : element.contractorId,
 			[formatMessage('LABEL_STATUS')]: getLookupDescription(
 				lookupDetails,

@@ -83,18 +83,17 @@ const ProjectPipeline: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 				var allEmails = new Array();
 				var allClients = new Array();
 				for (let recordNo in props.projectPipeline.data) {
-					if (isValidEmail(props.projectPipeline.data[recordNo].headOfProject)) {
-						allEmails.push(props.projectPipeline.data[recordNo].headOfProject.toLowerCase());
+					let currentRecord = props.projectPipeline.data[recordNo];
+
+					if (isValidEmail(currentRecord.headOfProject) && allEmails.indexOf(currentRecord.headOfProject.toLowerCase()) === -1) {
+						allEmails.push(currentRecord.headOfProject.toLowerCase());
 					}
-					allClients.push(props.projectPipeline.data[recordNo].contractorId);
+					if (currentRecord.contractorId !== "0" && allClients.indexOf(currentRecord.contractorId) === -1) {
+						allClients.push(currentRecord.contractorId);
+					}
 				}
-				const disinctvals = (value, index, self) => {
-					if (value !== '')
-						return self.indexOf(value) === index;
-				}
-				const uniqueVals = allEmails.filter(disinctvals);
-				allEmails && props.handleGetUserNamesForEmails(uniqueVals);
-				allClients && props.handleGetContractDetailsByIds(allClients.filter(disinctvals));
+				allEmails && props.handleGetUserNamesForEmails(allEmails);
+				allClients && props.handleGetContractDetailsByIds(allClients);
 
 			}
 		},

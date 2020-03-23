@@ -17,7 +17,7 @@ export const initialState: IProjectPipelineGridState = {
             name: '',
             projectOwner: '',
             headOfProject: '',
-            contractorId: -1,
+            contractorId: '-1',
             probabilityOfWinning: 1,
             lastModified: moment().toString(),
             status: '',

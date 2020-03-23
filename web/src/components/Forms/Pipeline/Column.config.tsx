@@ -34,6 +34,16 @@ const gridColumns = () => {
             formatter: columnFormatter
         },
         {
+            dataField: 'lastModified',
+            text: formatMessage('LABEL_LAST_UPDATE'),
+            attrs: () => ({ 'data-column': formatMessage('LABEL_LAST_UPDATE'), 'id': 'pipeline_last_updateID' }),
+            headerAttrs: { 'id': 'pipeline_last_updateID' },
+            sort: true,
+            sortCaret: sortCaret,
+            formatter: columnFormatter,
+            formatExtraData: { type: ColumnTypeEnum.date }
+        },
+        {
             dataField: 'contractorId',
             text: formatMessage('LABEL_CLIENT_CUSTOMER'),
             attrs: () => ({ 'data-column': formatMessage('LABEL_CLIENT_CUSTOMER'), 'id': 'pipeline_client_customerID' }),
