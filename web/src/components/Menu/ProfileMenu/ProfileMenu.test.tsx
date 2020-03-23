@@ -172,23 +172,15 @@ describe('Profile Menu', () => {
     });
   });
 
-  describe('should add justify-content class in case navigating to page', () => {
-    let navList =
-      [{ page: '/', expectedResult: false },
-      { page: '/Pipeline', expectedResult: false },
-      { page: '/pipeline', expectedResult: false },
-      { page: '/test', expectedResult: true }];
-    navList.forEach(nav => {
-      it(`should have value ${nav.expectedResult} for has class justify-content for page ${nav.page}`, () => {
+  describe('should add col-sm-12 d-flex align-items-center class in case navigating to page', () => {
+      it(`should have value true for has class col-sm-12 d-flex align-items-center`, () => {
         mockJWT();
         mockHelper();
         mockingStore();
-        mockhistory(nav.page);
+        //mockhistory(nav.page);
         mountProfileMenuComponent(props);
         const field = findByTestAtrr(wrapper, 'test-content').first();
-        expect(field.hasClass('justify-content-md-end')).toEqual(nav.expectedResult);
+        expect(field.hasClass('col-sm-12 d-flex align-items-center')).toEqual(true);
       });
     });
-  });
-
 });

@@ -880,7 +880,7 @@ td {
                         min-width: 150px;
                         vertical-align: middle;
                         text-transform: capitalize;
-                        position: sticky;
+                        position: static;
                         top: 0;
                         border-color: #cad0d8 !important;
                         background: #f2f5f8;
@@ -940,22 +940,8 @@ td {
     select::-ms-expand {
         display: none;
      }
-    @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-        .project_name_title {
-            position: absolute;
-            left: 10px;
-            margin: auto auto auto 36px;
-            width: 40%;
-            height: 60px;
-        }
-        body {
-            overflow-x: hidden;
-        }
-        .form_style {
-            .select-wrapper {
-                &:before {
-                    top: 16px;
-                }
-            }
-        }
+    //Prevent <button> from shifting during click in IE
+    button,
+    i {
+        position: relative;
     }

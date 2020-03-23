@@ -27,10 +27,10 @@ export const sortCaret = (order, column) => {
     if (!order)
         return;
     else if (order === 'asc')
-        return <FontAwesomeIcon className="active" icon={faArrowDown} />;
+        return <div><FontAwesomeIcon className="active" icon={faArrowDown} /></div>;
 
     else if (order === 'desc')
-        return <FontAwesomeIcon className="active" icon={faArrowUp} />;
+        return <div><FontAwesomeIcon className="active" icon={faArrowUp} /></div>;
 
     return null;
 };
