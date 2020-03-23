@@ -164,11 +164,7 @@ const ProfileMenu: React.FC<any> = props => {
     <nav className="topbar">
       <div className="container-fluid" >
         <div className="row d-flex align-items-center">
-          <div data-test="test-content" className=
-            {
-              showClass() ?
-                "col-sm-12 d-flex justify-content-between align-items-center" :
-                "col-sm-12 d-flex justify-content-between align-items-center justify-content-md-end"} >
+          <div data-test="test-content" className='col-sm-12 d-flex align-items-center'>
                   
             {!showNav() && 
             (<div className="project_name_title d-md-block d-none">

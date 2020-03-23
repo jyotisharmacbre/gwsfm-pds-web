@@ -66,3 +66,8 @@ function side_menu() {
             .trigger('click');
     });
 }
+
+//Prevent <button> from shifting during click in IE
+$(document).on('mousedown', 'button, input[type="button"], input[type="submit"]', function(e) {
+    e.preventDefault();
+  });
