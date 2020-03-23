@@ -16,5 +16,7 @@ export interface IGridTableProps {
     totalSize?: number;
     queryParams?: IQueryParams;
     intl?: any,
-
+    exportToExcelPipelineData?: () => void;
+    exportLoader?: boolean;
+    showExcel?: boolean;
 }

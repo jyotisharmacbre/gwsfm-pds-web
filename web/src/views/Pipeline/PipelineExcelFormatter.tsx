@@ -26,13 +26,12 @@ export const formatDataToExportExcel = (data, allEmails, allClients, currencies,
 				LookupItems.ContractType
 			);
 		result.push({
+			[formatMessage('MESSAGE_PROJECT_ID')]: element.projectRefId,
 			[formatMessage('MESSAGE_PROJECT_NAME')]: element.name,
-			[formatMessage('LABEL_OWNER')]: mailObj
+			[formatMessage('LABEL_HEAD_OF_PROJECT')]: mailObj
 				? `${displayUserName(mailObj)}`
-				: element.projectOwner,
-			[formatMessage('LABEL_LAST_UPDATE')]: element.lastModified ? moment(element.lastModified).format(dateFormat) : '',
+				: element.headOfProject,
 			[formatMessage('LABEL_CLIENT_CUSTOMER')]: customerObj ? customerObj.customerName : element.contractorId,
-			[formatMessage('LABEL_PROBABILITY_OF_WINING')]: `${element.probabilityOfWinning} %`,
 			[formatMessage('LABEL_STATUS')]: getLookupDescription(
 				lookupDetails,
 				element.status,
@@ -40,10 +39,6 @@ export const formatDataToExportExcel = (data, allEmails, allClients, currencies,
 			),
 			[formatMessage('LABEL_EXPECTED_START_DATE')]: element.commenceDate ? moment(element.commenceDate).format(dateFormat) : '',
 			[formatMessage('LABEL_APPROX_VALUE')]: element.approxValue.toString().indexOf(currencySymbol) > -1 ? element.approxValue : `${currencySymbol}${element.approxValue}`,
-			[formatMessage('LABEL_CONTRACT_TYPE')]: contractTypeID,
-			[formatMessage('LABEL_CMD_NOTIFIABLE')]: element.cdmNotifiable ? formatMessage('LABEL_YES') : formatMessage('LABEL_NO'),
-			[formatMessage('LABEL_SOLD_MARGIN')]: `${element.soldmargin ? element.soldmargin : 0} %`,
-			[formatMessage('LABEL_WEIGHTED_TCV')]: element.weightedTCV.toString().indexOf(currencySymbol) > -1 ? element.weightedTCV : `${currencySymbol}${element.weightedTCV ? element.weightedTCV : 0}`
 		})
 	})
 	return result;

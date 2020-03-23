@@ -83,10 +83,10 @@ const ProjectPipeline: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 				var allEmails = new Array();
 				var allClients = new Array();
 				for (let recordNo in props.projectPipeline.data) {
-					if (isValidEmail(props.projectPipeline.data[recordNo].projectOwner)) {
-						allEmails.push(props.projectPipeline.data[recordNo].projectOwner.toLowerCase());
-						allClients.push(props.projectPipeline.data[recordNo].contractorId);
+					if (isValidEmail(props.projectPipeline.data[recordNo].headOfProject)) {
+						allEmails.push(props.projectPipeline.data[recordNo].headOfProject.toLowerCase());
 					}
+					allClients.push(props.projectPipeline.data[recordNo].contractorId);
 				}
 				const disinctvals = (value, index, self) => {
 					if (value !== '')
@@ -110,10 +110,10 @@ const ProjectPipeline: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 				let newEmails: Array<string> = [];
 				let newClients: Array<string> = [];
 				response.data.data.map((element) => {
-					if (isValidEmail(element.projectOwner)
-						&& props.userNamesForEmails.find(aa => aa.email.toLowerCase() == element.projectOwner.toLowerCase()) == undefined
-						&& newEmails.indexOf(element.projectOwner.toLowerCase()) == -1) {
-						newEmails.push(element.projectOwner.toLowerCase());
+					if (isValidEmail(element.headOfProject)
+						&& props.userNamesForEmails.find(aa => aa.email.toLowerCase() == element.headOfProject.toLowerCase()) == undefined
+						&& newEmails.indexOf(element.headOfProject.toLowerCase()) == -1) {
+						newEmails.push(element.headOfProject.toLowerCase());
 					}
 					if (props.contractDetailsByIds.find(aa => aa.contractId == element.contractorId) == undefined
 						&& (newClients.length == 0 || (newClients.length > 0 && newClients.indexOf(element.contractorId) == -1))) {
@@ -169,7 +169,7 @@ const ProjectPipeline: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 			<div className="row">
 				<div className="col-lg-12">
 					<div className="custom-wrap">
-					
+
 
 						<div className="table-grid-wrap pipeline_grid overflowX">
 							<div className="inner-block">
@@ -186,6 +186,7 @@ const ProjectPipeline: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 										exportToExcelPipelineData={exportToExcelPipelineData}
 										exportLoader={exportLoader}
 										applyFilterLoader={props.applyFilterLoader}
+										showExcel={true}
 									/>
 								</React.Fragment>
 							</div>

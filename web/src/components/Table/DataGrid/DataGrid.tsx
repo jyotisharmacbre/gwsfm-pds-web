@@ -6,6 +6,8 @@ import {
   faExclamationTriangle
 } from '@fortawesome/free-solid-svg-icons';
 import { IGridTableProps } from '../../../models/IGridTableProps';
+import { CircularProgress } from '@material-ui/core';
+import excelIcon from '../../../assests/images/excel_icon.svg';
 
 const DataGrid: React.FC<IGridTableProps> = props => {
 
@@ -70,6 +72,23 @@ const DataGrid: React.FC<IGridTableProps> = props => {
                 }
               </select>
             </div>
+            {
+              props.showExcel && <div className="top_Title justify-content-between d-flex">
+                <h2>{props.intl.formatMessage({ id: 'TITLE_CURRENT_PIPELINE' })}</h2>
+                <span>
+                  <button
+                    className="active excel_icon"
+                    type="button"
+                    onClick={() => props.exportToExcelPipelineData && props.exportToExcelPipelineData()}
+                    disabled={props.exportLoader}
+                    data-test="export_to_excel"
+                  >
+                    {props.exportLoader && <CircularProgress />}
+                    <img src={excelIcon} alt="microsoft excel icon" />
+                  </button>
+                </span>
+              </div>
+            }
           </div>
         </div>
       </div>

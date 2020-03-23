@@ -129,7 +129,7 @@ export const excelPipelineData = [{
 },
 {
     projectId: '2',
-    projectRefId: 1,
+    projectRefId: 2,
     name: 'Name2',
     projectOwner: 'test2@test.com',
     headOfProject: 'a',
@@ -175,31 +175,21 @@ export const clients = [{
 
 export const expectedExportExcelData = [
     {
+        MESSAGE_PROJECT_ID: 1,
         MESSAGE_PROJECT_NAME: 'Name1',
-        LABEL_OWNER: 't2, t1 @ test',
-        LABEL_LAST_UPDATE: '03/03/2020',
         LABEL_CLIENT_CUSTOMER: '1',
-        LABEL_PROBABILITY_OF_WINING: '1 %',
         LABEL_STATUS: 'PrjStatus1',
         LABEL_EXPECTED_START_DATE: '03/03/2020',
         LABEL_APPROX_VALUE: '$0',
-        LABEL_CONTRACT_TYPE: null,
-        LABEL_CMD_NOTIFIABLE: 'LABEL_NO',
-        LABEL_SOLD_MARGIN: '0 %',
-        LABEL_WEIGHTED_TCV: '$3'
+        LABEL_HEAD_OF_PROJECT: "t2, t1 @ test"
     },
     {
+        MESSAGE_PROJECT_ID: 2,
         MESSAGE_PROJECT_NAME: 'Name2',
-        LABEL_OWNER: 't4, t3 @ test',
-        LABEL_LAST_UPDATE: '03/03/2020',
         LABEL_CLIENT_CUSTOMER: 'Caretown Ltd',
-        LABEL_PROBABILITY_OF_WINING: '1 %',
         LABEL_STATUS: 'PrjStatus1',
         LABEL_EXPECTED_START_DATE: '03/03/2020',
         LABEL_APPROX_VALUE: '£0',
-        LABEL_CONTRACT_TYPE: null,
-        LABEL_CMD_NOTIFIABLE: 'LABEL_NO',
-        LABEL_SOLD_MARGIN: '0 %',
-        LABEL_WEIGHTED_TCV: '£3'
+        LABEL_HEAD_OF_PROJECT: "t4, t3 @ test"
     }
 ]
