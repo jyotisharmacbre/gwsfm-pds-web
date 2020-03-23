@@ -75,7 +75,6 @@ const DataGrid: React.FC<IGridTableProps> = props => {
             </div>
             {
               props.showExcel && <div className="filters_outer m-0 justify-content-between d-flex">
-                {/* <h2>{props.intl.formatMessage({ id: 'TITLE_CURRENT_PIPELINE' })}</h2> */}
                 <span className="m-0">
                   <button
                     className="excel_icon"
