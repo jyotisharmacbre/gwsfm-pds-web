@@ -131,7 +131,7 @@ const ProjectPipeline: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 					if (newClients.length > 0) {
 						let response = await services.getContractsAndCustomersList(newClients);
 						if (response.data.length > 0) {
-							allClients = [...props.userNamesForEmails, ...response.data];
+							allClients = [...props.contractDetailsByIds, ...response.data];
 						}
 					}
 					let finalData = formatDataToExportExcel(data, allEmails, allClients, props.currencies, CurrencyObj, props.lookupDetails, config.REACT_APP_DATE_FORMAT);
