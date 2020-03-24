@@ -48,7 +48,6 @@ const ProjectPipelineFilters: React.FC<IProps & IReactIntl & InjectedFormProps<I
         const resetDates = () => {
             window['projectStartDate'].reset();
             window['projectEndDate'].reset();
-            window['lastModified'].reset();
         };
 
         return (
@@ -76,7 +75,7 @@ const ProjectPipelineFilters: React.FC<IProps & IReactIntl & InjectedFormProps<I
 
                     <div data-test="pipelineFiltersContainer" className={`filters_inner form_style  ${showFilter ? 'active' : 'deactive'}`}>
                         <div className="row">
-                            <div className="col-lg-3 pr-lg-0">
+                            <div className="col-lg-4 pr-lg-0">
                                 <div className="inner_content">
                                     <div className="form-group">
                                         <Field
@@ -101,7 +100,7 @@ const ProjectPipelineFilters: React.FC<IProps & IReactIntl & InjectedFormProps<I
 
                                 </div>
                             </div>
-                            <div className="col-lg-3 px-lg-0">
+                            <div className="col-lg-4 px-lg-0">
                                 <div className="inner_content">
                                     <div className="form-group">
                                         <label><FormattedMessage id="LABEL_PIPELINE_FILTERS_PROJECT_STATUS" /></label>
@@ -121,25 +120,8 @@ const ProjectPipelineFilters: React.FC<IProps & IReactIntl & InjectedFormProps<I
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-lg-3 px-lg-0">
-                                <div className="inner_content">
-                                    <div className="form-group">
-                                        <label><FormattedMessage id="LABEL_PIPELINE_FILTERS_LAST_MODIFIED" /></label>
-                                        <div className="cal_icon">
-                                            <div className="col-md-12 position-relative manipulate-calendar p-0">
-                                                <DatePicker
-                                                    name="lastModified"
-                                                    data-test="lastModified"
-                                                    enablePastDate={true}
-                                                    isDateInitiallyEmpty={true}
-                                                />
 
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-lg-3 pl-lg-0">
+                            <div className="col-lg-4 pl-lg-0">
                                 <div className="inner_content">
                                     <div className="form-group range-date">
                                         <label className="d-block">

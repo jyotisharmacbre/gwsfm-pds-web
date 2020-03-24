@@ -47,10 +47,6 @@ describe('Project PipelineFilters Form', () => {
         expect(wrapper).toBeDefined();
     });
 
-    it('Should renders lastModified form field', () => {
-        expect(findByTestAtrr(wrapper, 'lastModified')).toBeDefined();
-    });
-
     it('Should renders projectStartDate form field', () => {
         expect(findByTestAtrr(wrapper, 'projectStartDate')).toBeDefined();
     });
@@ -158,16 +154,11 @@ describe('Project PipelineFilters Form', () => {
                     let fieldEndDate = wrapper.find(`input[name="projectEndDate"]`);
                     const eventEndDate = { target: { value: "02/16/2020" } };
                     fieldEndDate.simulate("change", eventEndDate);
-
-                    let lastModified = wrapper.find(`input[name="lastModified"]`);
-                    const eventLastModified = { target: { value: "01/16/2020" } };
-                    lastModified.simulate("change", eventLastModified);
                 }
             }
             applyFilterButton.simulate('click');
             expect(props.onApplyFilter).toHaveBeenCalledWith(
                 [
-                    { "filterName": "lastModified", "filterValue": "2020-01-16" },
                     { "filterName": "projectStartDate", "filterValue": "2020-03-16" },
                     { "filterName": "projectEndDate", "filterValue": "2020-02-16" },
                     { "filterName": "projectRefId", "filterValue": "TestProject" },
