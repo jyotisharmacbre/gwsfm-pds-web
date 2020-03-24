@@ -53,45 +53,29 @@ const handleOrderReceivedEvent=()=>{
     handleToggleStatusTab();
     props.handleOrderReceived();
 }
-
-
-const handleStatusBlur = (e) => {
-    debugger;
-    var activityWrapper: any = document.getElementById('activaty_btn');
-        var statusTab: any = document.getElementById('statusTab');
-    if (e.relatedTarget == null || !e.currentTarget.contains(e.relatedTarget)) {
-        activityWrapper.classList.remove('active');
-        statusTab.classList.remove('show');
-    } else {
-      e && e.target.focus();
-      activityWrapper.classList.add('active');
-        statusTab.classList.add('hide');
-    }
-  }
     return (
 
         <div className="col-md-6 mt-4 mt-lg-0 d-flex justify-content-start justify-content-lg-end">
-            <div id="activaty_btn" className="activate_status_box d-flex align-items-center"
-             onClick={() => activateStatus()}
-             >
+            <div id="activaty_btn" className="activate_status_box d-flex align-items-center" onClick={() => activateStatus()}>
+
+
+
 
                 <div className="status_btn">
                     <div className="status-dropdown">
                         <div className="status-dropdown-btn toggle">
 
-                            <span data-test="toggleStatusTab" id="toggleStatusTab" className={(props.status == ProjectStatus.BidLost || props.status == ProjectStatus.OnHold) ? "dropdown-placeholder link_disabled p-0" : "dropdown-placeholder"} onClick={() => handleToggleStatusTab()}><FormattedMessage id="LABEL_STATUS" />:&nbsp; <strong>{props.statusName}
+                            <span data-test="toggleStatusTab" id="toggleStatusTab" className={(props.status == ProjectStatus.BidLost || props.status == ProjectStatus.OnHold) ? "dropdown-placeholder link_disabled p-0" : "dropdown-placeholder p-0"} onClick={() => handleToggleStatusTab()}><FormattedMessage id="LABEL_STATUS" />:&nbsp; <strong>{props.statusName}
                             </strong>
                             {(props.status != ProjectStatus.BidLost && props.status != ProjectStatus.OnHold) ? <FontAwesomeIcon className="active mrgnlft10" icon={faPencilAlt} /> : null}
                             </span>
                         </div>
                         
                         {(props.status != ProjectStatus.BidLost && props.status != ProjectStatus.OnHold) ?
-                            <div className="status-dropdown-menu hide status-hidden toggle-list" 
-                            data-test="statusTab" id="statusTab"  onBlur={handleStatusBlur}>
-
+                            <div className="status-dropdown-menu hide status-hidden toggle-list" data-test="statusTab" id="statusTab">
                                 <p><FormattedMessage id="TITLE_CHANGE_STATUS_TO" /></p>
                                 <ul className="status-dropdown-list status-scrollable">
-                                    <li data-test="bidlost" className={(props.status == ProjectStatus.BidLost) ? "status-dropdown-item status-selected link_disabled" : "status-dropdown-item"} onClick={() =>
+                                    <li data-test="bidlost" className={(props.status == ProjectStatus.BidLost) ? "status-dropdown-item mrgnlft10 status-selected link_disabled" : "status-dropdown-item mrgnlft10"} onClick={() =>
                                         confirmAlert({
                                             intl: props.intl,
                                             titleKey: "TITLE_CONFIRMATION",
@@ -100,7 +84,7 @@ const handleStatusBlur = (e) => {
                                         })
                                     }>
                                         <a title="Bid Lost"><FormattedMessage id="TITLE_BID_LOST" /></a></li>
-                                    <li data-test="onhold" className={(props.status == ProjectStatus.OnHold) ? "status-dropdown-item status-selected link_disabled" : "status-dropdown-item"} onClick={() =>
+                                    <li data-test="onhold" className={(props.status == ProjectStatus.OnHold) ? "status-dropdown-item mrgnlft10 status-selected link_disabled" : "status-dropdown-item mrgnlft10 "} onClick={() =>
                                         confirmAlert({
                                             intl: props.intl,
                                             titleKey: "TITLE_CONFIRMATION",
