@@ -65,7 +65,7 @@ const handleOrderReceivedEvent=()=>{
                     <div className="status-dropdown">
                         <div className="status-dropdown-btn toggle">
 
-                            <span data-test="toggleStatusTab" id="toggleStatusTab" className={(props.status == ProjectStatus.BidLost || props.status == ProjectStatus.OnHold) ? "dropdown-placeholder link_disabled p-0" : "dropdown-placeholder p-0"} onClick={() => handleToggleStatusTab()}><FormattedMessage id="LABEL_STATUS" />:&nbsp; <strong>{props.statusName}
+                            <span data-test="toggleStatusTab" id="toggleStatusTab" className={(props.status == ProjectStatus.BidLost || props.status == ProjectStatus.OnHold) ? "dropdown-placeholder link_disabled" : "dropdown-placeholder"} onClick={() => handleToggleStatusTab()}><FormattedMessage id="LABEL_STATUS" />:&nbsp; <strong>{props.statusName}
                             </strong>
                             {(props.status != ProjectStatus.BidLost && props.status != ProjectStatus.OnHold) ? <FontAwesomeIcon className="active mrgnlft10" icon={faPencilAlt} /> : null}
                             </span>
@@ -75,7 +75,7 @@ const handleOrderReceivedEvent=()=>{
                             <div className="status-dropdown-menu hide status-hidden toggle-list" data-test="statusTab" id="statusTab">
                                 <p><FormattedMessage id="TITLE_CHANGE_STATUS_TO" /></p>
                                 <ul className="status-dropdown-list status-scrollable">
-                                    <li data-test="bidlost" className={(props.status == ProjectStatus.BidLost) ? "status-dropdown-item mrgnlft10 status-selected link_disabled" : "status-dropdown-item mrgnlft10"} onClick={() =>
+                                    <li data-test="bidlost" className={(props.status == ProjectStatus.BidLost) ? "status-dropdown-item status-selected link_disabled" : "status-dropdown-item"} onClick={() =>
                                         confirmAlert({
                                             intl: props.intl,
                                             titleKey: "TITLE_CONFIRMATION",
@@ -84,7 +84,7 @@ const handleOrderReceivedEvent=()=>{
                                         })
                                     }>
                                         <a title="Bid Lost"><FormattedMessage id="TITLE_BID_LOST" /></a></li>
-                                    <li data-test="onhold" className={(props.status == ProjectStatus.OnHold) ? "status-dropdown-item mrgnlft10 status-selected link_disabled" : "status-dropdown-item mrgnlft10 "} onClick={() =>
+                                    <li data-test="onhold" className={(props.status == ProjectStatus.OnHold) ? "status-dropdown-item status-selected link_disabled" : "status-dropdown-item"} onClick={() =>
                                         confirmAlert({
                                             intl: props.intl,
                                             titleKey: "TITLE_CONFIRMATION",
@@ -95,7 +95,7 @@ const handleOrderReceivedEvent=()=>{
                                             title="On Hold"><FormattedMessage id="TITLE_ON_HOLD" /></a>
                                     </li>
                                     {props.status==ProjectStatus.JAApproved?
-                                    <li data-test="orderReceived" className={"status-dropdown-item mrgnlft10 "} onClick={() =>
+                                    <li data-test="orderReceived" className={"status-dropdown-item"} onClick={() =>
                                         confirmAlert({
                                             intl: props.intl,
                                             titleKey: "TITLE_CONFIRMATION",
