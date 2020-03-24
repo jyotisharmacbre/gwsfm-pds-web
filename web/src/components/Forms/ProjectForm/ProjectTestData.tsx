@@ -7,7 +7,6 @@ export const ProjectFormProps = {
     contractorId: 1,
     companyId: 1,
     headOfProject: 'Test',
-    projectOwner: 'Test',
     projectManager: 'Test',
     pmHasExperience: true,
     scope: 'Test',
@@ -26,7 +25,6 @@ export const ProjectFormProps = {
     comment: 'Test',
     divisionId: 'Test',
     businessUnitId: 'Test',
-    weightedTCV: 10,
     soldMargin: 10
 };
 
@@ -37,7 +35,6 @@ export const initialState = {
         contractorId: 1,
         companyId: 1,
         headOfProject: '',
-        projectOwner: '',
         projectManager: '',
         pmHasExperience: true,
         scope: '',
@@ -56,7 +53,6 @@ export const initialState = {
         comment: '',
         divisionId: '',
         businessUnitId: '',
-        weightedTCV: 10,
         soldMargin: 10
     },
     enquiryOverview: {
@@ -81,7 +77,6 @@ export const getprojectDetailData = {
         contractorId: 1,
         companyId: 1,
         headOfProject: '',
-        projectOwner: '',
         projectManager: '',
         pmHasExperience: true,
         scope: '',

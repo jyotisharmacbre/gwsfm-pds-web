@@ -55,7 +55,6 @@ describe('Project Overview Summary componenet', () => {
 			}],
 		company: 'test',
 		headOfProject: 'test',
-		projectOwner: 'test',
 		projectManager: 'test',
 		oneditOverview: jest.fn()
 	};
