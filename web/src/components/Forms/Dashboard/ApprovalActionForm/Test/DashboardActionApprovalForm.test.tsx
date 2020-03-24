@@ -77,12 +77,12 @@ describe('Dashboard Form testCases', () => {
 
   it('should format the date with the format given in config', () => {
     var configs = {} as IConfig;
-    configs.REACT_APP_DATE_FORMAT = "DD/MM/YYYY";
+    configs.REACT_APP_DATE_FORMAT = "D-MMM-YYYY";
     jest.spyOn(context, "default").mockImplementationOnce(() => {
       return configs;
     });
     componentMount(props);
-    expect(moment().format).toHaveBeenCalledWith("DD/MM/YYYY");
+    expect(moment().format).toHaveBeenCalledWith("D-MMM-YYYY");
   });
 });
 
