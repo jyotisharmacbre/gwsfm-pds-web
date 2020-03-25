@@ -9,6 +9,7 @@ import ProjectPipelineFilters from '../ProjectPipelineFilters';
 import { findByTestAtrr } from '../../../../helpers/test-helper';
 import { ILookup } from '../../../../store/Lookups/Types/ILookup';
 import PipelineFilterType from '../../../../enums/PipelineFilterType';
+import moment from 'moment';
 
 
 describe('Project PipelineFilters Form', () => {
@@ -125,6 +126,7 @@ describe('Project PipelineFilters Form', () => {
 
     });
     describe('Pipeline applyFilter button', () => {
+
         let applyFilterButton;
         beforeEach(() => {
             applyFilterButton = findByTestAtrr(wrapper, 'apply');
@@ -144,6 +146,7 @@ describe('Project PipelineFilters Form', () => {
         });
 
         it('Should call the onApplyFilter method with params', () => {
+            moment.locale('en');
             for (var type in PipelineFilterType) {
                 if (typeof PipelineFilterType[type] === 'number') {
                     let field = wrapper.find(`input[name="${type}"]`);
