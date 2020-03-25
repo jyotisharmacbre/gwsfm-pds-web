@@ -33,6 +33,7 @@ const isSuccessHandlerEnabled = (config = {}) => {
 };
 
 const requestHandler = request => {
+/* istanbul ignore next */
    if (isIE)
         request.headers['Pragma'] = 'no-cache';
     if (isTokenHandlerEnabled(request)) {
@@ -50,6 +51,7 @@ const errorHandler = error => {
     if (isErrorHandlerEnabled(error.config)) {
         // Handle errors
         if (error.response.status == 401) {
+        /* istanbul ignore next */
             authProvider.logout();
         }
     }
