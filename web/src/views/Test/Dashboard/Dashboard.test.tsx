@@ -1,15 +1,14 @@
-import React from 'react';
 import { mount } from 'enzyme';
-import { IntlProvider } from 'react-intl';
-import translations from '../../../Translations/translation';
-import configureStore from 'redux-mock-store';
+import React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
-import Dashboard from '../../Dashboard';
-import { pipelineInitialState, lookUpInitialState, dashboardInitialState } from './DashboardTestData';
+import configureStore from 'redux-mock-store';
 import { findByTestAtrr } from '../../../helpers/test-helper';
-import IConfig from '../../../models/IConfig';
 import * as context from '../../../hooks/useConfigContext';
+import IConfig from '../../../models/IConfig';
+import ConnectedIntlProvider from '../../../Translations/connectedIntlProvider';
+import Dashboard from '../../Dashboard';
+import { dashboardInitialState, lookUpInitialState, pipelineInitialState } from './DashboardTestData';
 
 const mockStore = configureStore([]);
 let store;
@@ -28,11 +27,11 @@ const setUpStore = (lookUpInitialState, dashboardGridInitialState, pipelineGridI
 const mountComponent = (Props, store) => {
 	wrapper = mount(
 		<Provider store={store}>
-			<IntlProvider locale="en" messages={translations['en'].messages}>
+			<ConnectedIntlProvider>
 				<Router>
 					<Dashboard {...Props} />
 				</Router>
-			</IntlProvider>
+			</ConnectedIntlProvider>
 		</Provider>
 	);
 };
@@ -53,20 +52,27 @@ describe('Dashboard component test cases', () => {
 		setUpStore(lookUpInitialState, dashboardInitialState, pipelineInitialState, 'en');
 		mountComponent(Props, store);
 	});
+	describe('should format the date with the format given corresponding to locale given', () => {
+		let localeList =
+			[{ locale: 'en', dateFormat: "D-MMM-YYYY", date: '13-Feb-2020', expectedResult: true },
+			{ locale: 'fr', dateFormat: "D-MMM-YYYY", date: '13-févr.-2020', expectedResult: true }];
 
-	it('should show the date as per the locale selected', () => {
-		var configs = {} as IConfig;
-		configs.REACT_APP_DATE_FORMAT = "D-MMM-YYYY";
-		jest.spyOn(context, "default").mockImplementationOnce(() => {
-			return configs;
-		});
-		setUpStore(lookUpInitialState, dashboardInitialState, pipelineInitialState, 'fr');
-		mountComponent(Props, store);
-
-		var isFrenchLanguageDate = wrapper.find('.home_screen_table td[data-column="HOMESCREEN_GRID_COLUMN_DATE"] span')
-			.props('value').children.some(x => x == "13-févr.-2020");
-		expect(isFrenchLanguageDate).toEqual(true);
+		localeList.forEach(localeItem => {
+			it(`should have result ${localeItem.date} for locale ${localeItem.locale}`, () => {
+				var configs = {} as IConfig;
+				configs.REACT_APP_DATE_FORMAT = localeItem.dateFormat;
+				jest.spyOn(context, "default").mockImplementationOnce(() => {
+					return configs;
+				});
+				setUpStore(lookUpInitialState, dashboardInitialState, pipelineInitialState, localeItem.locale);
+				mountComponent(Props, store);
+				var isDateAsPerGivenLocale = wrapper.find('.home_screen_table td[data-column="Date"] span')
+					.props('value').children.some(x => x === localeItem.date);
+				expect(isDateAsPerGivenLocale).toEqual(true);
+			})
+		})
 	});
+
 	it('defines the component', () => {
 		expect(wrapper).toBeDefined();
 	});

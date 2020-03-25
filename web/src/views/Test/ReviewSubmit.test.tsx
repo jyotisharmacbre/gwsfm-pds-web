@@ -16,8 +16,7 @@ import { initialState as customerEnquiryInitialState } from '../../store/Custome
 import { initialState as preliminaryInitialState } from '../../store/Preliminaries/InitialState';
 import { discountInitialState } from './Discount/DiscountTestData';
 import { initialState as adminInitialState } from '../../store/Admin/InitialState';
-
-
+import ConnectedIntlProvider from '../../Translations/connectedIntlProvider';
 
 import ProjectStatus from '../../enums/ProjectStatus';
 
@@ -48,9 +47,9 @@ let wrapper;
 const mountComponent = (store) => {
 	wrapper = mount(
 		<Provider store={store}>
-			<IntlProvider locale="en" messages={translations['en'].messages}>
+			<ConnectedIntlProvider>
 				<ReviewSubmit history={history} match={{ params: { projectId: '1' } }} />
-			</IntlProvider>
+			</ConnectedIntlProvider>
 		</Provider>
 	);
 };

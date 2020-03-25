@@ -1,36 +1,16 @@
-import React from 'react';
-import { mount, ShallowWrapper } from 'enzyme';
-import { Provider } from 'react-redux';
-import { store } from '../../../../../store';
-import { IntlProvider } from 'react-intl';
-import translations from '../../../../../Translations/translation';
-import {
-  intialDashboardState,
-  intialLookupvalues,
-  intialUsersEmailsData,
-  getDashboardData,
-  getUsersEmailData
-} from './DashboardActionApprovalFormTestData';
-import { reducer as formReducer } from 'redux-form';
-import DashboardActionApprovalForm from '../DashboardActionApprovalForm';
-import { MemoryRouter } from 'react-router-dom';
-import { ActionType } from '../../../../../store/Dashboard/Types/ActionType';
-import { initialState } from '../../../../../store/Dashboard/Reducer';
-import DashboardGridDetailReducer from '../../../../../store/Dashboard/Reducer';
+import { mount } from 'enzyme';
 import nock from 'nock';
+import React from 'react';
+import { IntlProvider } from 'react-intl';
+import { Provider } from 'react-redux';
+import { MemoryRouter } from 'react-router-dom';
 import { baseURL, userServiceURL } from '../../../../../client/client';
-import { payload } from '../../../../../store/ProjectOverviewForm/Test/DataWrapperTestData';
-import * as context from '../../../../../hooks/useConfigContext';
-import IConfig from '../../../../../models/IConfig';
-import moment from 'moment';
-
-jest.mock('moment', () => {
-  const mMoment = {
-    format: jest.fn(),
-    valueOf: jest.fn()
-  };
-  return jest.fn(() => mMoment);
-});
+import { store } from '../../../../../store';
+import DashboardGridDetailReducer, { initialState } from '../../../../../store/Dashboard/Reducer';
+import { ActionType } from '../../../../../store/Dashboard/Types/ActionType';
+import translations from '../../../../../Translations/translation';
+import DashboardActionApprovalForm from '../DashboardActionApprovalForm';
+import { getDashboardData, getUsersEmailData, intialDashboardState, intialLookupvalues, intialUsersEmailsData } from './DashboardActionApprovalFormTestData';
 
 
 nock(baseURL)
@@ -73,16 +53,6 @@ describe('Dashboard Form testCases', () => {
   it('should insert pending class', () => {
     componentMount(props);
     expect(wrapper.find('.status_pending')).toHaveLength(1);
-  });
-
-  it('should format the date with the format given in config', () => {
-    var configs = {} as IConfig;
-    configs.REACT_APP_DATE_FORMAT = "D-MMM-YYYY";
-    jest.spyOn(context, "default").mockImplementationOnce(() => {
-      return configs;
-    });
-    componentMount(props);
-    expect(moment().format).toHaveBeenCalledWith("D-MMM-YYYY");
   });
 });
 
