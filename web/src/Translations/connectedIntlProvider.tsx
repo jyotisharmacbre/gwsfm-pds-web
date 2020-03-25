@@ -5,6 +5,8 @@ import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
 import { IState } from '../store/state';
 import { userPreferencesGet } from '../store/UserPreferencesForm/Actions';
+import moment from 'moment';
+import './moment-locales';
 
 // This function will map the current redux state to the props for the component that it is "connected" to.
 // When the state of the redux store changes, this function will be called, if the props that come out of
@@ -20,6 +22,7 @@ const mapStateToProps = (state: IState) => {
   let locale = state.userPreferences.preferences.languageName;
   let messages = translations[locale].messages;
   let intlProvider = new IntlProvider({ locale, messages });
+  moment.locale(locale);
   intl = intlProvider.state.intl;
   return { locale, messages };
 };

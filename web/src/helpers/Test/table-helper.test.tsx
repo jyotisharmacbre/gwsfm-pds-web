@@ -5,6 +5,8 @@ import {
 
 import ColumnTypeEnum from '../../enums/ColumnTypeEnum';
 import { queryParamsData } from './table-helper-test-data';
+import moment from 'moment';
+
 describe('table-helper functions run without error', () => {
 
     it('should return formatted column for numeric type value', () => {
@@ -25,6 +27,12 @@ describe('table-helper functions run without error', () => {
     it('should return formatted column for date type value', () => {
         let result = columnFormatter('03-02-2020', null, 1, { type: ColumnTypeEnum.date });
         expect(result).toEqual('2-Mar-2020');
+    });
+
+    it('should return formatted column for date type value for the given locale', () => {
+        moment.locale('fr');
+        let result = columnFormatter('03-02-2020', null, 1, { type: ColumnTypeEnum.date });
+        expect(result).toEqual('2-mars-2020');
     });
 
     it('should return formatted column for percentage type value', () => {
