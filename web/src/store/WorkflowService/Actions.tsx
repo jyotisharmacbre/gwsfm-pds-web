@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 import * as axios from '../../client';
 import { isProjectStateInReview } from '../store-helper';
 
@@ -17,6 +19,29 @@ export const changeProjectStatusToBidLost = (projectId: string, success, error) 
 			error(exception);
 		});
 };
+
+export const changeProjectStatusToCompleted = (projectId: string, success, error) => {
+	axios.baseAPI
+		.put(`api/Workflow/${projectId}/completed`, config)
+		.then((response) => {
+			success(response.data);
+		})
+		.catch((exception) => {
+			error(exception);
+		});
+};
+
+export const changeProjectStatusToLive = (projectId: string, success, error) => {
+	axios.baseAPI
+		.put(`api/Workflow/${projectId}/live`, config)
+		.then((response) => {
+			success(response.data);
+		})
+		.catch((exception) => {
+			error(exception);
+		});
+};
+
 export const changeProjectStatusToOnHold = (projectId: string, success, error) => {
 	axios.baseAPI
 		.put(`api/Workflow/${projectId}/onHold`, config)
