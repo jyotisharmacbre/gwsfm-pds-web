@@ -102,11 +102,10 @@ const ProjectPipeline: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 	);
 
 
-	const exportToExcelPipelineData = () => {
+	const exportToExcelPipelineData = () => /* istanbul ignore next */ {
 		setExportLoader(true);
 		services.getAllPipelineData({})
-			.then((response) => {
-				/* istanbul ignore next */
+			.then((response) => {				
 				let newEmails: Array<string> = [];
 				let newClients: Array<string> = [];
 				response.data.data.map((element) => {
@@ -141,21 +140,20 @@ const ProjectPipeline: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 				};
 				download(response.data.data, newEmails, newClients);
 			})
-			.catch(() => {
-				/* istanbul ignore next */
+			.catch(() => {				
 				toast.error(formatMessage('MESSAGE_ERROR'));
 				setExportLoader(false);
 			});
 	};
 
-	const onApplyFilter = (filterParamsList: Array<IFilterParams>) => {
+	const onApplyFilter = (filterParamsList: Array<IFilterParams>) => /* istanbul ignore next */ {
 		const params = extractQueryParams(props.location?.search, "lastModified", 1, 20);
 		params.filterParams = filterParamsList;
 		setFilterParams(filterParamsList);
 		props.projectPipelineGridDetail(params);
 	}
 
-	const handleTableChange = (type, params) => {
+	const handleTableChange = (type, params) => /* istanbul ignore next */ {
 		if (isComponentLoaded) {
 			const updatedParams = setTableQueryParams(params);
 			updatedParams.filterParams = filterParams;
