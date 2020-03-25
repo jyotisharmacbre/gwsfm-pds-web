@@ -28,7 +28,8 @@ const CustomModalPopup: React.FC<IProps & IReactIntl> = props => {
     }
     return (
         <div className="modal fade show custom_modal" id="exampleModal" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" data-keyboard="false" data-backdrop="static" style={{ display: 'block' }} aria-modal="true">
-            <div className="modal-dialog modal-dialog-centered" role="document">
+            <div className="vertical-alignment-helper">
+            <div className="modal-dialog modal-dialog-centered vertical-align-center" role="document">
                 <div className="modal-content d-flex align-items-center">
                     <div className="modal-header">
                         {props.titleKey != undefined && <h5 className="modal-title" id="exampleModalLabel">
@@ -52,6 +53,7 @@ const CustomModalPopup: React.FC<IProps & IReactIntl> = props => {
                     </div>}
                 </div>
             </div>
+        </div>
         </div>
     )
 }
