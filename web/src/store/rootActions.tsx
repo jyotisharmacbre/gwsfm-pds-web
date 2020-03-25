@@ -68,7 +68,9 @@ export {
 	projectApprove,
 	postQuery,
 	postComments,
-	changeProjectStatusToOrderReceived
+	changeProjectStatusToOrderReceived,
+	changeProjectStatusToCompleted,
+	changeProjectStatusToLive
 } from './WorkflowService/Actions';
 
 export { getProjectParameters } from './Admin/Actions';

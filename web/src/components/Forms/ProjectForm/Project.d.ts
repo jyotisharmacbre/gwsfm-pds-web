@@ -3,7 +3,6 @@ export interface Project {
   contractorId: number;
   companyId: number;
   headOfProject: string;
-  projectOwner: string;
   projectManager: string;
   pmHasExperience: boolean;
   scope: string;
