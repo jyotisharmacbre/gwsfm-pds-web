@@ -15,7 +15,6 @@ export const initialState: IProjectPipelineGridState = {
             projectId: '',
             projectRefId: 0,
             name: '',
-            projectOwner: '',
             headOfProject: '',
             contractorId: '-1',
             probabilityOfWinning: 1,
@@ -26,7 +25,6 @@ export const initialState: IProjectPipelineGridState = {
             contractTypeId: 0,
             cdmNotifiable: false,
             soldMargin: '',
-            weightedTCV: '',
             projectStatusDescription: '',
             contractTypeDescription: ''
         }],

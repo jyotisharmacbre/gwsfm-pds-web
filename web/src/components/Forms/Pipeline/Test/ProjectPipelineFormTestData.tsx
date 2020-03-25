@@ -25,7 +25,6 @@ export const pipelineGridData: IProjectPipelineGridState = {
         projectId: '1',
         projectRefId: 1,
         name: 'Name1',
-        projectOwner: 'a',
         headOfProject: 'a',
         contractorId: '1',
         probabilityOfWinning: 1,
@@ -36,7 +35,6 @@ export const pipelineGridData: IProjectPipelineGridState = {
         contractTypeId: 0,
         cdmNotifiable: false,
         soldMargin: '2',
-        weightedTCV: '3',
         projectStatusDescription: 'status',
         contractTypeDescription: 'type'
     },
@@ -44,7 +42,6 @@ export const pipelineGridData: IProjectPipelineGridState = {
         projectId: '2',
         projectRefId: 1,
         name: 'Name2',
-        projectOwner: 'a',
         headOfProject: 'a',
         contractorId: '2',
         probabilityOfWinning: 1,
@@ -55,7 +52,6 @@ export const pipelineGridData: IProjectPipelineGridState = {
         contractTypeId: 0,
         cdmNotifiable: false,
         soldMargin: '2',
-        weightedTCV: '3',
         projectStatusDescription: 'status',
         contractTypeDescription: 'type'
     }],
@@ -123,7 +119,6 @@ export const excelPipelineData = [{
     contractTypeId: 1,
     cdmNotifiable: false,
     soldMargin: '2',
-    weightedTCV: '3',
     rank: "",
     currencyId: 1
 },
@@ -142,7 +137,6 @@ export const excelPipelineData = [{
     contractTypeId: 2,
     cdmNotifiable: false,
     soldMargin: '2',
-    weightedTCV: '3',
     rank: "",
     currencyId: 2
 }];

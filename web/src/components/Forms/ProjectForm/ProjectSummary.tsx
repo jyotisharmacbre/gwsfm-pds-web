@@ -33,7 +33,6 @@ const ProjectSummary: React.FC<IProps> = (props) => {
 	const companyObj = new Company();
 	const [companyName, setCompanyName] = useState<string>('');
 	const [headOfProject, setHeadOfProject] = useState<string>('');
-	const [projectOwner, setProjectOwner] = useState<string>('');
 	const [projectManager, setProjectManager] = useState<string>('');
 	const [contractor, setContractor] = useState<string>('');
 	const [division, setDivision] = useState<string>('');
@@ -58,8 +57,6 @@ const ProjectSummary: React.FC<IProps> = (props) => {
 					emails.find((ele) => ele == props.project.headOfProject) == undefined
 				)
 					emails.push(props.project.headOfProject);
-				if (props.project.projectOwner && emails.find((ele) => ele == props.project.projectOwner) == undefined)
-					emails.push(props.project.projectOwner);
 				if (
 					props.project.projectManager &&
 					emails.find((ele) => ele == props.project.projectManager) == undefined
@@ -122,11 +119,7 @@ const ProjectSummary: React.FC<IProps> = (props) => {
 				);
 				if (headOfProjectFilter)
 					setHeadOfProject(displayUserName(headOfProjectFilter));
-				let projectOwnerFilter = props.userNamesForEmails.find(
-					(ele) => ele.email == props.project.projectOwner
-				);
-				if (projectOwnerFilter)
-					setProjectOwner(displayUserName(projectOwnerFilter));
+
 				let projectManagerFilter = props.userNamesForEmails.find(
 					(ele) => ele.email == props.project.projectManager
 				);
@@ -274,19 +267,7 @@ const ProjectSummary: React.FC<IProps> = (props) => {
 							</li>
 						</ul>
 					</div>
-					<div className="col-lg-4 col-sm-6">
-						<ul>
-							<li>
-								<span>
-									<FormattedMessage id="LABEL_WEIGHTED_TCV" />
-								</span>
-								<p>
-									{props.currencySymbol}
-									{props.project.weightedTCV}
-								</p>
-							</li>
-						</ul>
-					</div>
+					<div className="col-lg-4 col-sm-6">	</div>
 				</div>
 				<div className="hr_line" />
 				<div className="row">
