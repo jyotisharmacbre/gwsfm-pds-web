@@ -31,7 +31,9 @@ let props = {
   pipelineValues: pipelineGridData,
   lookupValues: intialLookupvalues,
   userNamesForEmailsValues: getUsersEmailData,
-  contractCustomerList: customerContractList
+  contractCustomerList: customerContractList,
+  currencies: [{ currencyId: 1, currencySymbol: '$', isActive: true }, { currencyId: 2, currencySymbol: '€', isActive: true }]
+
 };
 
 describe('Project Pipline Form testCases', () => {
@@ -51,7 +53,7 @@ describe('Project Pipline Form testCases', () => {
 
   it('Defines the component', () => {
     setUpStore(pipelineGridData);
-    componentMount({ props });
+    componentMount(props);
     expect(wrapper).toBeDefined();
   });
   it('should match the snapshot', () => {

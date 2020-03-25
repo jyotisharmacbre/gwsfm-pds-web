@@ -80,7 +80,7 @@ const ProjectPipelineForm: React.FC<Props & IReactIntl> = (props: any) => {
           : rowProject.headOfProject;
       }
       var customerObj = contractCustomerList && rowProject.contractorId && contractCustomerList.find(
-        lk => lk.contractId && rowProject.contractorId && lk.contractId.toUpperCase() === rowProject.contractorId.toUpperCase()
+        lk => lk.contractId && rowProject.contractorId && lk.contractId?.toString().toUpperCase() === rowProject.contractorId?.toString().toUpperCase()
       );
       rowProject.contractorId = customerObj ? customerObj.customerName : rowProject.contractorId;
       const currencySymbol = getFilterElementFromArray(
