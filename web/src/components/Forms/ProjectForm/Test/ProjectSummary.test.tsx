@@ -22,7 +22,6 @@ projectInitialState.form.projectId = '0';
 projectInitialState.form.divisionId = '1';
 projectInitialState.form.businessUnitId = '1';
 projectInitialState.form.headOfProject = 'test@pds.com';
-projectInitialState.form.projectOwner = 'test@pds.com';
 projectInitialState.form.projectManager = 'test@pds.com';
 projectInitialState.form.status = 1;
 projectInitialState.form.engagementId = 1;
@@ -31,7 +30,6 @@ projectInitialState.form.engagementId = 1;
 		project: projectInitialState.form,
 		company: 'test',
 		headOfProject: 'test',
-		projectOwner: 'test',
 		projectManager: 'test',
 		handleGetUserNamesForEmails: jest.fn(),
 		listOfDivisions: [{divisionId: '1'}],

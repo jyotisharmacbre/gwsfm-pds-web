@@ -1,6 +1,5 @@
 import Notify from '../../../enums/Notify';
 import EventType from '../../../enums/EventType';
-import { IProjectOverviewState } from '../../../store/ProjectOverviewForm/Types/IProjectOverviewState';
 
 export const getProjectOverviewState = (approverStatus: number) => {
     let data = {
@@ -90,7 +89,6 @@ export const getCustomerEnquiryData = (projectStatus) => {
             contractorId: '',
             companyId: '',
             headOfProject: '',
-            projectOwner: '',
             projectManager: '',
             pmHasExperience: false,
             scope: '',
@@ -111,7 +109,6 @@ export const getCustomerEnquiryData = (projectStatus) => {
             otherContractName: '',
             divisionId: '',
             businessUnitId: '',
-            weightedTCV: undefined,
             soldMargin: undefined
         },
         enquiryOverview: {

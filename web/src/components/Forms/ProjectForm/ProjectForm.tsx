@@ -236,17 +236,6 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 									submitParam="email"
 								/>
 								<TypeAhead
-									name="projectOwner"
-									onSearch={props.getListOfUsers}
-									formatData={formatUserForTypeAhead}
-									DynamicsType="projectOwner"
-									placeholderKey="PLACEHOLDER_PROJECT_OWNER_NAME"
-									className="required"
-									labelName="LABEL_PROJECT_OWNER"
-									validationKey="LABEL_PROJECT_OWNER"
-									submitParam="email"
-								/>
-								<TypeAhead
 									name="projectManager"
 									onSearch={props.getListOfUsers}
 									formatData={formatUserForTypeAhead}
@@ -521,21 +510,6 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 									discountBind="%"
 									validate={[Validate.maxLength(5)]}
 									normalize={restrictMinusAndAllowDecimalForMaxRangeHundred}
-								/>
-
-								<Field
-									name="weightedTCV"
-									type="text"
-									component={PdsFormInput}
-									labelKey="LABEL_WEIGHTED_TCV"
-									className="pl-20 width-288"
-									normalize={restrictMinusAndDecimal}
-									currency={getFilterElementFromArray(
-										props.currencies,
-										getPropertyName(CurrencyObj, (prop) => prop.currencyId),
-										props.currencyId > 0 ? props.currencyId : props.userPreferenceCurrencyId,
-										getPropertyName(CurrencyObj, (prop) => prop.currencySymbol)
-									)}
 								/>
 
 								{false && (

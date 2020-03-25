@@ -82,12 +82,6 @@ const ProjectPipeline: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 			if (props.projectPipeline?.data?.length > 0 && props.projectPipeline.data[0].projectId !== '') {
 				var allEmails = new Array();
 				var allClients = new Array();
-				for (let recordNo in props.projectPipeline.data) {
-					if (isValidEmail(props.projectPipeline.data[recordNo].projectOwner)) {
-						allEmails.push(props.projectPipeline.data[recordNo].projectOwner.toLowerCase());
-						allClients.push(props.projectPipeline.data[recordNo].contractorId);
-					}
-				}
 				const disinctvals = (value, index, self) => {
 					if (value !== '')
 						return self.indexOf(value) === index;
@@ -110,11 +104,7 @@ const ProjectPipeline: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 				let newEmails: Array<string> = [];
 				let newClients: Array<string> = [];
 				response.data.data.map((element) => {
-					if (isValidEmail(element.projectOwner)
-						&& props.userNamesForEmails.find(aa => aa.email.toLowerCase() == element.projectOwner.toLowerCase()) == undefined
-						&& newEmails.indexOf(element.projectOwner.toLowerCase()) == -1) {
-						newEmails.push(element.projectOwner.toLowerCase());
-					}
+			
 					if (props.contractDetailsByIds.find(aa => aa.contractId == element.contractorId) == undefined
 						&& (newClients.length == 0 || (newClients.length > 0 && newClients.indexOf(element.contractorId) == -1))) {
 						newClients.push(element.contractorId);
