@@ -271,15 +271,6 @@ describe('ProjectForm Fields', () => {
             });
         });
 
-        describe('weightedTCV field', () => {
-            beforeEach(() => {
-                field = wrapper.find('input[name="weightedTCV"]').first();
-            });
-            it('Should renders weightedTCV field', () => {
-                expect(field.prop('type')).toBe('text');
-            });
-        });
-
         describe('Comment field', () => {
             beforeEach(() => {
                 field = wrapper.find('textarea[name="scope"]').first();
