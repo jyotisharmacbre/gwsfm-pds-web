@@ -118,12 +118,22 @@ const ProfileMenu: React.FC<any> = props => {
   }
 
   const handleBlur = (e) => {
-    if (e.relatedTarget == null || !e.currentTarget.contains(e.relatedTarget)) {
+    var relatedTarget = e.relatedTarget ||
+      e.explicitOriginalTarget ||
+      document.activeElement; // IE11
+
+    let isCurrentTargetContains = e.contains ?
+      e.contains(relatedTarget) :
+      e.currentTarget?.contains(relatedTarget);
+
+    if (relatedTarget == null || !isCurrentTargetContains) {
       setMenuVisibility(false);
       setNotificationVisibility(false);
     } else {
-      e && e.target.focus();
+      !(/*@cc_on!@*/false || !!document["documentMode"]) && //IE11
+        e?.target?.focus();
     }
+
   }
 
   const showNav = () => {
@@ -132,8 +142,8 @@ const ProfileMenu: React.FC<any> = props => {
       history.location.pathname.toLowerCase() === "/error";
   }
 
-   //# should not be displayed unless project is created.
-   const showProjectInfo = () => {
+  //# should not be displayed unless project is created.
+  const showProjectInfo = () => {
     return history.location.pathname === "/" ||
       history.location.pathname.toLowerCase() === "/pipeline" ||
       history.location.pathname.toLowerCase() === "/error" ||
@@ -145,7 +155,7 @@ const ProfileMenu: React.FC<any> = props => {
       history.location.pathname == "/Pipeline"
   }
 
-  
+
   //add & remove class for pipeline and dashboard page
   const showClass = () => {
     return history.location.pathname === "/" ||
@@ -173,11 +183,11 @@ const ProfileMenu: React.FC<any> = props => {
       <div className="container-fluid" >
         <div className="row d-flex align-items-center">
           <div data-test="test-content" className='col-sm-12 d-flex align-items-center'>
-                  
-            {!showProjectInfo() && 
-            (<div className="project_name_title d-md-block d-none">
-            <label>{'#'}{props.project.projectRefId} {props.project.name}</label>
-            </div>)}
+
+            {!showProjectInfo() &&
+              (<div className="project_name_title d-md-block d-none">
+                <label>{'#'}{props.project.projectRefId} {props.project.name}</label>
+              </div>)}
 
             <div data-test="test-logo" className=
               {showNav() ? "d-md-block logo" : "logo"} >
