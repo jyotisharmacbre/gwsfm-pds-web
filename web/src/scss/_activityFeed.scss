@@ -146,8 +146,6 @@ h3.feed_head {
         position: relative;
         display: flex;
         flex-direction: column;
-        min-width: 150px;
-        max-width: 300px;
         .status-dropdown-btn {
             position: relative;
             display: flex;
@@ -177,7 +175,7 @@ h3.feed_head {
                 width: 100%;
                 letter-spacing: 0;
                 color: #171c1b;
-                padding-right: 20px;
+                padding-right: 25px;
                 i{
                     position: absolute;
                     right:0;
@@ -185,6 +183,8 @@ h3.feed_head {
                 }
                 svg {
                     color: #526061;
+                    position: absolute;
+                    right: 0;
                 }
             }
         }
@@ -243,7 +243,7 @@ h3.feed_head {
             line-height: 24px;
             text-align: left;
             white-space: nowrap;
-            overflow: hidden;
+            overflow: visible;
             text-overflow: ellipsis;
             cursor: pointer;
             color: #2b3836;

@@ -91,7 +91,7 @@ const ProjectOverviewStatusTab: React.FC<IProps & IReactIntl> = props => {
                 <div className="status_btn">
                     <div className="status-dropdown">
                         <div className="status-dropdown-btn toggle">
-                            <span data-test="toggleStatusTab" id="toggleStatusTab" className={isStatusTabLinkDisabled ? "dropdown-placeholder link_disabled p-0" : "dropdown-placeholder p-0"} onClick={() => handleToggleStatusTab()}><FormattedMessage id="LABEL_STATUS" />:&nbsp; <strong>{props.statusName}
+                            <span data-test="toggleStatusTab" id="toggleStatusTab" className={isStatusTabLinkDisabled ? "dropdown-placeholder link_disabled" : "dropdown-placeholder"} onClick={() => handleToggleStatusTab()}><FormattedMessage id="LABEL_STATUS" />:&nbsp; <strong>{props.statusName}
                             </strong>
                                 {showPencilIcon ? <FontAwesomeIcon className="active mrgnlft10" icon={faPencilAlt} /> : null}
                             </span>
@@ -101,13 +101,13 @@ const ProjectOverviewStatusTab: React.FC<IProps & IReactIntl> = props => {
                             <div className="status-dropdown-menu hide status-hidden toggle-list" data-test="statusTab" id="statusTab">
                                 <p><FormattedMessage id="TITLE_CHANGE_STATUS_TO" /></p>
                                 <ul className="status-dropdown-list status-scrollable">
-                                    <li data-test="bidlost" className={(props.status == ProjectStatus.BidLost) ? "status-dropdown-item mrgnlft10 status-selected link_disabled" : "status-dropdown-item mrgnlft10"} onClick={() => showAlert(props.handleBidLost)}>
+                                    <li data-test="bidlost" className={(props.status == ProjectStatus.BidLost) ? "status-dropdown-item status-selected link_disabled" : "status-dropdown-item"} onClick={() => showAlert(props.handleBidLost)}>
                                         <a title="Bid Lost"><FormattedMessage id="TITLE_BID_LOST" /></a></li>
-                                    <li data-test="onhold" className={(props.status == ProjectStatus.OnHold) ? "status-dropdown-item mrgnlft10 status-selected link_disabled" : "status-dropdown-item mrgnlft10 "} onClick={() => showAlert(props.handleOnHold)}>
+                                    <li data-test="onhold" className={(props.status == ProjectStatus.OnHold) ? "status-dropdown-item status-selected link_disabled" : "status-dropdown-item"} onClick={() => showAlert(props.handleOnHold)}>
                                         <a title="On Hold"><FormattedMessage id="TITLE_ON_HOLD" /></a>
                                     </li>
                                     {showOrderRecievedStatus ?
-                                        <li data-test="orderReceived" className={"status-dropdown-item mrgnlft10 "} onClick={() => showAlert(handleOrderReceivedEvent)}>
+                                        <li data-test="orderReceived" className={"status-dropdown-item"} onClick={() => showAlert(handleOrderReceivedEvent)}>
                                             <a title="Order Received"><FormattedMessage id="TITLE_ORDER_RECEIVED" /></a>
                                         </li> : null}
                                 </ul>
