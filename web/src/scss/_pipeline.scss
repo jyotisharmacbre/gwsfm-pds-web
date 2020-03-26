@@ -138,7 +138,7 @@
     th {
         border: solid 1px #cad0d8;
         background: map-get($colors , whiteColor );
-        position: relative;
+        position: static;
         div {
             @include transition(all ease 0.3s);
             position: relative;
