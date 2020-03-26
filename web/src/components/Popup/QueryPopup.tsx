@@ -24,7 +24,7 @@ interface IProps {
 const QueryPopup: React.FC<IProps & InjectedFormProps<IQueryPopup, IProps>> = props => {
     const removeBodyClass = () => {
         const target: any = document.getElementById('exampleModal')
-        target.parentNode.removeChild(target)
+        target?.parentNode.removeChild(target)
     }
     const confirm = (data) => {
         if (props.handleConfirm) { props.handleConfirm(`"${data.query}"`) }
@@ -44,7 +44,7 @@ const QueryPopup: React.FC<IProps & InjectedFormProps<IQueryPopup, IProps>> = pr
                                 <h5 className="modal-title">
                                     {props.titleKey}
                                 </h5>
-                                <span onClick={() => cancel()} className="close" aria-label="Close">
+                                <span onClick={() => cancel()} data-test="close_icon" className="close" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </span>
                             </div>
