@@ -19,7 +19,7 @@ const ProjectOverviewSummary: React.FC<IProps> = props => {
   const [workType, setWorkType] = useState<string>('');
   useEffect(() => {
     if (
-      
+
       props.projectOverview.projectId &&
       props.lookUpData &&
       props.lookUpData.length > 0
@@ -28,7 +28,7 @@ const ProjectOverviewSummary: React.FC<IProps> = props => {
         element =>
           element.lookupItem == LookupType.Enquiry_Type &&
           element.lookupKey ==
-            props.projectOverview.projectAdditionalDetail.enquiryTypeId
+          props.projectOverview.projectAdditionalDetail.enquiryTypeId
       );
       if (filterEnquiryType && filterEnquiryType[0])
         setEnquiryType(filterEnquiryType[0].description);
@@ -36,7 +36,7 @@ const ProjectOverviewSummary: React.FC<IProps> = props => {
         element =>
           element.lookupItem == LookupType.Work_Type &&
           element.lookupKey ==
-            props.projectOverview.projectAdditionalDetail.workTypeId
+          props.projectOverview.projectAdditionalDetail.workTypeId
       );
       if (filterWorkType && filterWorkType[0])
         setWorkType(filterWorkType[0].description);
@@ -46,12 +46,12 @@ const ProjectOverviewSummary: React.FC<IProps> = props => {
   return (
     <div className="RS_custom_block">
       <div className="title_edit_btn">
-			<h4>
-        <FormattedMessage id="TITLE_PROJECT_OVERVIEW" />
-      </h4>
-			<button type="submit" name="oneditoverview" className="edit-btn" onClick={() => props.oneditOverview()}><FormattedMessage id="BUTTON_EDIT" /></button>
-			</div>
-      
+        <h4>
+          <FormattedMessage id="TITLE_PROJECT_OVERVIEW" />
+        </h4>
+        <button type="submit" name="oneditoverview" className="edit-btn" onClick={() => props.oneditOverview()}><FormattedMessage id="BUTTON_EDIT" /></button>
+      </div>
+
       <div className="RS_custom_inner">
         <div className="row">
           <div className="col-lg-4 col-sm-6">
@@ -172,7 +172,7 @@ const ProjectOverviewSummary: React.FC<IProps> = props => {
             </ul>
           </div>
         </div>
-        <div className="row">   
+        <div className="row">
           <div className="col-lg-4 col-sm-6">
             <ul>
               <li>
@@ -196,7 +196,7 @@ const ProjectOverviewSummary: React.FC<IProps> = props => {
                   <label>
                     <FormattedMessage id="LABEL_COMMENCE_DATE" />
                   </label>
-                  <p>
+                  <p data-test="commenceDate">
                     {formatDate(
                       props.projectOverview.projectAdditionalDetail.commenceDate
                     )}
@@ -206,7 +206,7 @@ const ProjectOverviewSummary: React.FC<IProps> = props => {
                   <label>
                     <FormattedMessage id="LABEL_COMPLETION_DATE" />
                   </label>
-                  <p>
+                  <p data-test="completionDate">
                     {formatDate(
                       props.projectOverview.projectAdditionalDetail
                         .completionDate
@@ -227,7 +227,7 @@ const ProjectOverviewSummary: React.FC<IProps> = props => {
                   <label>
                     <FormattedMessage id="LABEL_FIRST_VALUATION_DATE" />
                   </label>
-                  <p>
+                  <p data-test="firstValuationDate">
                     {formatDate(
                       props.projectOverview.projectAdditionalDetail
                         .firstValuationDate
@@ -238,7 +238,7 @@ const ProjectOverviewSummary: React.FC<IProps> = props => {
                   <label>
                     <FormattedMessage id="LABEL_FINAL_ACCOUNT_DATE" />
                   </label>
-                  <p>
+                  <p data-test="finalAccountDate">
                     {formatDate(
                       props.projectOverview.projectAdditionalDetail
                         .finalAccountDate
