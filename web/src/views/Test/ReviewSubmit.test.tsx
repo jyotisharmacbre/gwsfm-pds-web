@@ -108,6 +108,10 @@ describe('review and approve component test cases', () => {
 	it('should show the date as per the locale selected', () => {
 		const storeDataValues = { ...storeData };
 		storeDataValues.userPreferences.preferences.languageName = 'fr';
+		storeDataValues.projectOverview.form.projectAdditionalDetail.commenceDate = "2020-03-25";
+		storeDataValues.projectOverview.form.projectAdditionalDetail.completionDate = "2020-03-25";
+		storeDataValues.projectOverview.form.projectAdditionalDetail.finalAccountDate = "2020-03-25";
+		storeDataValues.projectOverview.form.projectAdditionalDetail.firstValuationDate = "2020-03-25";
 		const store = mockStore(storeDataValues);
 		mountComponent(store);
 		expect(findByTestAtrr(wrapper, 'firstValuationDate').prop('children')).toEqual('25-mars-2020');

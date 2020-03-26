@@ -189,6 +189,11 @@ describe('review and approve component test cases', () => {
 
 		const storeDataValues = { ...storeData };
 		storeDataValues.projectOverview = getProjectOverviewState(3);
+		storeDataValues.projectOverview.form.projectAdditionalDetail.commenceDate = "2020-03-25";
+		storeDataValues.projectOverview.form.projectAdditionalDetail.completionDate = "2020-03-25";
+		storeDataValues.projectOverview.form.projectAdditionalDetail.finalAccountDate = "2020-03-25";
+		storeDataValues.projectOverview.form.projectAdditionalDetail.firstValuationDate = "2020-03-25";
+
 		storeDataValues.project = getCustomerEnquiryData(3);
 		storeDataValues.userPreferences.preferences.languageName = 'fr';
 		const store = mockStore(storeDataValues);
