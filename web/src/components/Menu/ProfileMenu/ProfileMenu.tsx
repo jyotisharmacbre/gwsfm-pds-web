@@ -133,7 +133,7 @@ const ProfileMenu: React.FC<any> = props => {
   }
 
    //# should not be displayed unless project is created.
-   const projectIdShow = () => {
+   const showProjectInfo = () => {
     return history.location.pathname === "/" ||
       history.location.pathname.toLowerCase() === "/pipeline" ||
       history.location.pathname.toLowerCase() === "/error" ||
@@ -174,7 +174,7 @@ const ProfileMenu: React.FC<any> = props => {
         <div className="row d-flex align-items-center">
           <div data-test="test-content" className='col-sm-12 d-flex align-items-center'>
                   
-            {!projectIdShow() && 
+            {!showProjectInfo() && 
             (<div className="project_name_title d-md-block d-none">
             <label>{'#'}{props.project.projectRefId} {props.project.name}</label>
             </div>)}
