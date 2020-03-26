@@ -513,6 +513,8 @@
             right: -84px;
             left: auto;
             top: 37px !important;
+            height: 500px;
+            overflow-y: auto;
             @include smScreen {
                 right: -30px;
             }
