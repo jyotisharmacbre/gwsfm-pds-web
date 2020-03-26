@@ -41,6 +41,7 @@ interface IMapStateToProps {
 }
 const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
 	const [chart, setChart] = useState<Array<IProjectChartSummary>>([]);
+	const [totalNoOfProjectOnChart, setTotalNoOfProjectOnChart] = useState<number>(0);
 	useEffect(() => {
 		props.getLookups();
 		props.resetProjectOverviewState();
@@ -87,6 +88,7 @@ const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
 				props.chartData.forEach(ele => {
 					total = total + ele.value;
 				});
+				setTotalNoOfProjectOnChart(total);
 				Object.keys(StatusColorCode).forEach(element => {
 					let lookup = props.lookupDetails.filter(look => look.lookupItem == LookupItems.Project_Status && look.description.replace(/ /g, '').toLowerCase() == element);
 					if (lookup != undefined && lookup[0] != undefined) {
@@ -161,7 +163,7 @@ const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
 
 							<div className="top_Title top_Title2 justify-content-between">
 								<h2>Analytics</h2>
-								<h3>Total</h3>
+								<h3 >Total : <span data-test="totalNoOfProjectOnChart">{totalNoOfProjectOnChart}</span></h3>
 							</div>
 							<div className="pie_chart_wrap">
 								<div className="row">

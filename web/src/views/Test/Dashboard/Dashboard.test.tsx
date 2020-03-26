@@ -88,4 +88,9 @@ describe('Dashboard component test cases', () => {
 		expect(wrapper.find('.inreview').length).toEqual(1);
 		expect(findByTestAtrr(wrapper, 'inreview').text()).toEqual('0 (0%)');
 	});
+	it('should render the total No. of Projects on dashboard chart', () => {
+		var totalNoOfProjectOnChart = findByTestAtrr(wrapper, 'totalNoOfProjectOnChart');
+		expect(totalNoOfProjectOnChart.text()).toEqual('100');
+	});
+
 });
