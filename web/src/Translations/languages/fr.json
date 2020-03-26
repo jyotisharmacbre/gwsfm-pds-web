@@ -190,7 +190,7 @@
   "LABEL_SUBCONTRACT_DESCRIPTION": "Fournisseurs tiers utilisés pour des activités spécifiques avec des détails de devis.",
   "LABEL_DISCOUNT_DESCRIPTION": "Remise du sous-traitant ou du fournisseur à considérer dans le coût final du projet.",
   "LABEL_TOTAL_SUBCONTRACTOR_DISCOUNT": "Remise totale aux sous-traitants",
-  "LABEL_PIPELINE_FILTERS": "Filtres de pipeline",
+  "LABEL_PIPELINE_FILTERS": "Filtres",
   "LABEL_PIPELINE_FILTERS_LAST_MODIFIED": "Dernière mise à jour",
   "LABEL_PIPELINE_FILTERS_PROJECT_START_DATE": "Date de début du projet",
   "LABEL_PIPELINE_FILTERS_PROJECT_STATUS": "Statut",

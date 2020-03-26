@@ -5,7 +5,7 @@ export interface IProjectPipelineGrid {
   projectRefId: number;
   name: string;
   headOfProject: string;
-  contractorId: number;
+  contractorId: string;
   probabilityOfWinning: number;
   lastModified: string;
   status: string;

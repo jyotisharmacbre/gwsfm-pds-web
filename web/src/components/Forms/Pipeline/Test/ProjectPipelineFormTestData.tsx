@@ -26,7 +26,7 @@ export const pipelineGridData: IProjectPipelineGridState = {
         projectRefId: 1,
         name: 'Name1',
         headOfProject: 'a',
-        contractorId: 1,
+        contractorId: '1',
         probabilityOfWinning: 1,
         lastModified: moment().toJSON(),
         status: '1',
@@ -43,7 +43,7 @@ export const pipelineGridData: IProjectPipelineGridState = {
         projectRefId: 1,
         name: 'Name2',
         headOfProject: 'a',
-        contractorId: 2,
+        contractorId: '2',
         probabilityOfWinning: 1,
         lastModified: moment().toJSON(),
         status: '1',
@@ -108,7 +108,8 @@ export const excelPipelineData = [{
     projectId: '1',
     projectRefId: 1,
     name: 'Name1',
-    headOfProject: 'a',
+    projectOwner: 'test@test.com',
+    headOfProject: "t2, t1 @ test",
     contractorId: "1",
     probabilityOfWinning: 1,
     lastModified: '03/03/2020',
@@ -123,9 +124,10 @@ export const excelPipelineData = [{
 },
 {
     projectId: '2',
-    projectRefId: 1,
+    projectRefId: 2,
     name: 'Name2',
-    headOfProject: 'a',
+    projectOwner: 'test2@test.com',
+    headOfProject: "t4, t3 @ test",
     contractorId: "2",
     probabilityOfWinning: 1,
     lastModified: '03/03/2020',
@@ -167,25 +169,21 @@ export const clients = [{
 
 export const expectedExportExcelData = [
     {
+        MESSAGE_PROJECT_ID: 1,
         MESSAGE_PROJECT_NAME: 'Name1',
-        LABEL_LAST_UPDATE: '03/03/2020',
         LABEL_CLIENT_CUSTOMER: '1',
-        LABEL_PROBABILITY_OF_WINING: '1 %',
         LABEL_STATUS: 'PrjStatus1',
         LABEL_EXPECTED_START_DATE: '03/03/2020',
         LABEL_APPROX_VALUE: '$0',
-        LABEL_CONTRACT_TYPE: null,
-        LABEL_CMD_NOTIFIABLE: 'LABEL_NO',
-        LABEL_SOLD_MARGIN: '0 %'    },
+        LABEL_HEAD_OF_PROJECT: "t2, t1 @ test"
+    },
     {
+        MESSAGE_PROJECT_ID: 2,
         MESSAGE_PROJECT_NAME: 'Name2',
-        LABEL_LAST_UPDATE: '03/03/2020',
         LABEL_CLIENT_CUSTOMER: 'Caretown Ltd',
-        LABEL_PROBABILITY_OF_WINING: '1 %',
         LABEL_STATUS: 'PrjStatus1',
         LABEL_EXPECTED_START_DATE: '03/03/2020',
         LABEL_APPROX_VALUE: '£0',
-        LABEL_CONTRACT_TYPE: null,
-        LABEL_CMD_NOTIFIABLE: 'LABEL_NO',
-        LABEL_SOLD_MARGIN: '0 %'    }
+        LABEL_HEAD_OF_PROJECT: "t4, t3 @ test"
+    }
 ]

@@ -53,9 +53,9 @@ const ProjectPipelineFilters: React.FC<IProps & IReactIntl & InjectedFormProps<I
         return (
             <form className="custom-wrap p-0" onSubmit={props.handleSubmit} noValidate={true}>
 
-                <div className={`${showFilter ? 'filters_outer' : 'filters_outer p-0'}`}>
-                    <div className="top_Title justify-content-between d-flex">
-                        <h2><FormattedMessage id="LABEL_PIPELINE_VIEW" /></h2>
+                <div className={`${showFilter ? 'filters_outer bg-transparent' : 'filters_outer p-0 bg-transparent'}`}>
+                    <div className="top_Title justify-content-between d-flex bg-transparent mt-0">
+                        <h1 className="m-0"><FormattedMessage id="LABEL_PIPELINE_VIEW" /></h1>
                         <span>
                             <button
                                 type="button"
