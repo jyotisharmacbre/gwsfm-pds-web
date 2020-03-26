@@ -1,1 +1,1 @@
-export { default as fr } from 'moment/locale/fr';
+export { fr } from 'moment/locale/fr';
