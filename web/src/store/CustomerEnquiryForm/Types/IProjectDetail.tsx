@@ -5,7 +5,6 @@ export interface IProjectDetail {
     contractorId: string;
     companyId: string;
     headOfProject: string;
-    projectOwner: string;
     projectManager: string;
     pmHasExperience: boolean;
     scope: string;
@@ -28,7 +27,6 @@ export interface IProjectDetail {
     otherBusinessUnit: string;
     divisionId: string;
     otherDivision: string;
-    weightedTCV: number | undefined;
     soldMargin: number | undefined;
     otherEngagementType: string;
     otherFirstAssetWorkedOn: string;

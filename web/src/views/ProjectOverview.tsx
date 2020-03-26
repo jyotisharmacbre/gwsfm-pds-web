@@ -337,6 +337,16 @@ const ProjectOverview: React.FC<
 		props.setProjectStatus(ProjectStatus.OrderReceived);
 		actions.changeProjectStatusToOrderReceived(props.match.params.projectId, notifySucess, notifyError);
 	};
+		/* istanbul ignore next */
+		const handleBidLiveEvent = () => {
+			props.setProjectStatus(ProjectStatus.Live);
+			actions.changeProjectStatusToLive(props.match.params.projectId, notifySucess, notifyError);
+		};
+			/* istanbul ignore next */
+	const handleCompletedEvent = () => {
+		props.setProjectStatus(ProjectStatus.Completed);
+		actions.changeProjectStatusToCompleted(props.match.params.projectId, notifySucess, notifyError);
+	};
 	return (
 		<div className="container-fluid ">
 			<div className="row">
@@ -353,6 +363,8 @@ const ProjectOverview: React.FC<
 								handleOnHold={handleOnHoldEvent}
 								handleBidLost={handleBidLostEvent}
 								handleOrderReceived={handleOrderReceivedEvent}
+								handleProjectLive={handleBidLiveEvent}
+								handleProjectCompleted={handleCompletedEvent}
 							/>
 						</div>
 

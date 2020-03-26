@@ -1,6 +1,5 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { store } from '../../store';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
@@ -10,27 +9,54 @@ import { IntlProvider } from 'react-intl';
 import translations from '../../Translations/translation';
 import configureStore from 'redux-mock-store';
 import { initialState as projectInitialState } from '../../store/CustomerEnquiryForm/InitialState';
-import { initialState as subContractorState } from '../../store/SubContractor/InitialState';
-import { initialState as preliminaryState } from '../../store/Preliminaries/InitialState';
-import { initialState as discountState } from '../../store/DiscountForm/InitialState';
+import { initialState as projectOverViewInitialState } from '../../store/ProjectOverviewForm/InitialState';
+import { initialState as subContractorInitialState } from '../../store/SubContractor/InitialState';
+import { initialState as lookUpInitialState } from '../../store/Lookups/Reducer';
+import { initialState as customerEnquiryInitialState } from '../../store/CustomerEnquiryForm/InitialState';
+import { initialState as preliminaryInitialState } from '../../store/Preliminaries/InitialState';
+import { discountInitialState } from './Discount/DiscountTestData';
+import { initialState as adminInitialState } from '../../store/Admin/InitialState';
+import ConnectedIntlProvider from '../../Translations/connectedIntlProvider';
+
 import ProjectStatus from '../../enums/ProjectStatus';
 
 const history = { push: jest.fn() };
 const mockStore = configureStore([thunk]);
+
+let storeData = {
+	projectOverview: projectOverViewInitialState,
+	lookup: lookUpInitialState,
+	project: customerEnquiryInitialState,
+	subContractor: subContractorInitialState,
+	preliminary: preliminaryInitialState,
+	discount: discountInitialState,
+	admin: adminInitialState,
+	userPreferences: { preferences: { languageName: 'en' } },
+	userService: { userServiceData: [{ email: 'test@pds.com' }], currentUserProfile: [{ email: 'test@pds.com' }] },
+	dynamicData: [{
+		contractId: 1,
+		contractName: "TestName",
+		customerId: 1,
+		customerName: "TestName"
+	}]
+};
+
+const store = mockStore(storeData);
+
 let wrapper;
-const mountComponent = () => {
+const mountComponent = (store) => {
 	wrapper = mount(
 		<Provider store={store}>
-			<IntlProvider locale="en" messages={translations['en'].messages}>
+			<ConnectedIntlProvider>
 				<ReviewSubmit history={history} match={{ params: { projectId: '1' } }} />
-			</IntlProvider>
+			</ConnectedIntlProvider>
 		</Provider>
 	);
 };
 
 describe('review and approve component test cases', () => {
 	beforeEach(() => {
-		mountComponent();
+		mountComponent(store);
 	});
 
 	it('defines the component', () => {
@@ -64,7 +90,7 @@ describe('review and approve component test cases', () => {
 
 	it('should disable the submit button when state is InReview', () => {
 		projectInitialState.form.status = ProjectStatus.InReview;
-		mountComponent();
+		mountComponent(store);
 		expect(wrapper.find('.link_disabled').length).toBeGreaterThan(0);
 	});
 	it('should hide the submit button when state is not JA', () => {
@@ -74,8 +100,23 @@ describe('review and approve component test cases', () => {
 	});
 	it('should show the submit button when state is  JA', () => {
 		projectInitialState.form.status = ProjectStatus.JA;
-		mountComponent();
+		mountComponent(store);
 		const button = findByTestAtrr(wrapper, 'submit-button');
 		expect(button.length).toBeGreaterThan(0);
+	});
+
+	it('should show the date as per the locale selected', () => {
+		const storeDataValues = { ...storeData };
+		storeDataValues.userPreferences.preferences.languageName = 'fr';
+		storeDataValues.projectOverview.form.projectAdditionalDetail.commenceDate = "2020-03-25";
+		storeDataValues.projectOverview.form.projectAdditionalDetail.completionDate = "2020-03-25";
+		storeDataValues.projectOverview.form.projectAdditionalDetail.finalAccountDate = "2020-03-25";
+		storeDataValues.projectOverview.form.projectAdditionalDetail.firstValuationDate = "2020-03-25";
+		const store = mockStore(storeDataValues);
+		mountComponent(store);
+		expect(findByTestAtrr(wrapper, 'firstValuationDate').prop('children')).toEqual('25-mars-2020');
+		expect(findByTestAtrr(wrapper, 'finalAccountDate').prop('children')).toEqual('25-mars-2020');
+		expect(findByTestAtrr(wrapper, 'commenceDate').prop('children')).toEqual('25-mars-2020');
+		expect(findByTestAtrr(wrapper, 'completionDate').prop('children')).toEqual('25-mars-2020');
 	});
 });

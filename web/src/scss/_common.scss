@@ -319,8 +319,7 @@ button[type="button"] {
     color: map-get($colors, whiteColor);
     cursor: pointer;
     &:hover,
-    &.active,
-    &:focus {
+    &.active{
         color: map-get($colors, darkGreen);
         border: 2px solid map-get($colors, darkGreen);
         background-color: transparent;
@@ -479,6 +478,7 @@ button[type="button"] {
                     font-size: 11px;
                     color: map-get($colors, grey03);
                     font-weight: 400;
+                    width: 100%;
                 }
             }
             .modal-footer {
@@ -722,7 +722,7 @@ td {
     }
 
    .custom_typehead input {
-         padding-left: 24px;
+         padding-left: 10px;
    }
 
     /*pagination*/
@@ -944,4 +944,28 @@ td {
     button,
     i {
         position: relative;
+    }
+    @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {  
+        /* IE10+ specific styles go here */  
+        .vertical-alignment-helper {
+            display:table;
+            height: 100%;
+            width: 100%;
+            pointer-events:none; /* This makes sure that we can still click outside of the modal to close it */
+            .vertical-align-center {
+                /* To center vertically */
+                display: table-cell;
+                vertical-align: middle;
+                pointer-events:none;
+                .modal-content {
+                    /* Bootstrap sets the size of the modal in the modal-dialog class, we need to inherit it */
+                    width:inherit;
+                    max-width:inherit; /* For Bootstrap 4 - to avoid the modal window stretching full width */
+                    height:inherit;
+                    /* To center horizontally */
+                    margin: 0 auto;
+                    pointer-events: all;
+                }
+            }
+        }
     }

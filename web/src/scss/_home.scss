@@ -432,6 +432,7 @@
         font-size: 26px;
         font-weight: 500;
         color: map-get($colors, darkBlack);
+        margin-bottom: 15px;
     }
     h1 {
         margin-bottom: 40px;
@@ -440,7 +441,6 @@
         font-weight: 300;
         font-stretch: normal;
         font-style: normal;
-        line-height: 1;
         letter-spacing: normal;
         color: map-get($colors, grey07);
         @include mdScreen {

@@ -164,7 +164,7 @@ describe('review and approve component test cases', () => {
 		expect(btnApprove.prop('hidden')).toBe(true);
 	});
 
-	it('should not show error toaster when Project is InReview but approver status is pending', () => {
+	it(' should not show error toaster when Project is InReview but approver status is pending', () => {
 
 		const storeDataValues = { ...storeData };
 		storeDataValues.projectOverview = getProjectOverviewState(3);
@@ -183,5 +183,31 @@ describe('review and approve component test cases', () => {
 
 		const btnApprove = findByTestAtrr(wrapper, 'btnApprove');
 		expect(btnApprove.prop('hidden')).toBe(false);
+	});
+
+	it('should show the date as per the locale selected', () => {
+
+		const storeDataValues = { ...storeData };
+		storeDataValues.projectOverview = getProjectOverviewState(3);
+		storeDataValues.projectOverview.form.projectAdditionalDetail.commenceDate = "2020-03-25";
+		storeDataValues.projectOverview.form.projectAdditionalDetail.completionDate = "2020-03-25";
+		storeDataValues.projectOverview.form.projectAdditionalDetail.finalAccountDate = "2020-03-25";
+		storeDataValues.projectOverview.form.projectAdditionalDetail.firstValuationDate = "2020-03-25";
+
+		storeDataValues.project = getCustomerEnquiryData(3);
+		storeDataValues.userPreferences.preferences.languageName = 'fr';
+		const store = mockStore(storeDataValues);
+
+		jest
+			.spyOn(helper, 'getDisplayEmail').mockImplementationOnce(() => {
+				return 'test1@pds.com';
+			});
+
+		mountComponent(store);
+
+		expect(findByTestAtrr(wrapper, 'firstValuationDate').prop('children')).toEqual('25-mars-2020');
+		expect(findByTestAtrr(wrapper, 'finalAccountDate').prop('children')).toEqual('25-mars-2020');
+		expect(findByTestAtrr(wrapper, 'commenceDate').prop('children')).toEqual('25-mars-2020');
+		expect(findByTestAtrr(wrapper, 'completionDate').prop('children')).toEqual('25-mars-2020');
 	});
 });

@@ -27,15 +27,16 @@ const QueryPopup: React.FC<IProps & InjectedFormProps<IQueryPopup, IProps>> = pr
         target.parentNode.removeChild(target)
     }
     const confirm = (data) => {
-        if (props.handleConfirm) { props.handleConfirm(`"${data.query}"`)}
-            removeBodyClass();
-        }
-        const cancel = () => {
-            if (props.handleCancel) { props.handleCancel(); }
-        }
-        return (
-            <div className="modal fade show custom_modal query_modal" id="exampleModal" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" data-keyboard="false" data-backdrop="static" style={{ display: 'block' }} aria-modal="true">
-                <div className="modal-dialog modal-dialog-centered" id="innerQueryModal" role="document">
+        if (props.handleConfirm) { props.handleConfirm(`"${data.query}"`) }
+        removeBodyClass();
+    }
+    const cancel = () => {
+        if (props.handleCancel) { props.handleCancel(); }
+    }
+    return (
+        <div className="modal fade show custom_modal query_modal" id="exampleModal" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" data-keyboard="false" data-backdrop="static" style={{ display: 'block' }} aria-modal="true">
+            <div className="vertical-alignment-helper">
+                <div className="modal-dialog modal-dialog-centered vertical-align-center" id="innerQueryModal" role="document">
                     <form className="customer-enquiry" onSubmit={props.handleSubmit}>
                         <div className="modal-content d-flex align-items-center">
                             <span><img className="question_mark_icon" src={question_mark} alt="close" /></span>
@@ -74,13 +75,14 @@ const QueryPopup: React.FC<IProps & InjectedFormProps<IQueryPopup, IProps>> = pr
                     </form>
                 </div>
             </div>
-        )
-    }
+        </div>
+    )
+}
 
-    const form = reduxForm<IQueryPopup, IProps>({
-        form: 'QueryPopup',
-        enableReinitialize: true,
-    })(QueryPopup);
+const form = reduxForm<IQueryPopup, IProps>({
+    form: 'QueryPopup',
+    enableReinitialize: true,
+})(QueryPopup);
 
-    export default form;
+export default form;
 

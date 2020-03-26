@@ -6,6 +6,9 @@ import {
   faExclamationTriangle
 } from '@fortawesome/free-solid-svg-icons';
 import { IGridTableProps } from '../../../models/IGridTableProps';
+import { CircularProgress } from '@material-ui/core';
+import excelIcon from '../../../assests/images/excel_icon_white.svg';
+import excelIcon2 from '../../../assests/images/excel_icon.svg';
 
 const DataGrid: React.FC<IGridTableProps> = props => {
 
@@ -49,13 +52,13 @@ const DataGrid: React.FC<IGridTableProps> = props => {
   };
 
   const sizePerPageRenderer = ({ options, currSizePerPage, onSizePerPageChange }) => (
-    <div className="form_style py-2 custom-size-filter">
+    <div className="form_style custom-size-filter">
       <div className="row align-items-center mx-1">
-        <div className="col-sm-6">
+        <div className="col-md-4">
           <span> {props.intl.formatMessage({ id: "LABEL_GRID_TOTAL_NO_OF_RECORD" })} : {props.totalSize}</span>
         </div>
-        <div className="col-sm-6">
-          <div className="form-group m-0 float-sm-right d-flex align-items-center">
+        <div className="col-md-8">
+          <div className="form-group m-0 float-md-right d-flex align-items-center">
             <span>{props.intl.formatMessage({ id: "LABEL_GRID_RESULT_PER_PAGE" })}:</span>
             <div className="select-wrapper record-select">
               <select className="form-control"
@@ -70,6 +73,24 @@ const DataGrid: React.FC<IGridTableProps> = props => {
                 }
               </select>
             </div>
+            {
+              props.showExcel && <div className="filters_outer m-0 justify-content-between d-flex">
+                <span className="m-0">
+                  <button
+                    className="excel_icon"
+                    type="button"
+                    onClick={() => props.exportToExcelPipelineData && props.exportToExcelPipelineData()}
+                    disabled={props.exportLoader}
+                    data-test="export_to_excel"
+                  >
+                    EXPORT
+                    {props.exportLoader && <CircularProgress />}
+                    <img className="before_hover" src={excelIcon} alt="microsoft excel icon" />
+                    <img className="hover" src={excelIcon2} alt="microsoft excel icon" />
+                  </button>
+                </span>
+              </div>
+            }
           </div>
         </div>
       </div>

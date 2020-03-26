@@ -62,7 +62,7 @@ const ProjectPipeline: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 	useEffect(() => {
 		let searchKey = props.location ? props.location['key'] : '';
 		if (props.userPreferencesNotify == Notify.success || searchKey !== locationSearchKey || !searchKey) {
-			const params = extractQueryParams(props.location?.search, "lastModified", 1, 20);
+			const params = extractQueryParams(props.location?.search, "projectRefId", 1, 20);
 			params.filterParams = filterParams;
 			setQueryParams(params);
 			setLocationSearchKey(searchKey);
@@ -83,18 +83,17 @@ const ProjectPipeline: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 				var allEmails = new Array();
 				var allClients = new Array();
 				for (let recordNo in props.projectPipeline.data) {
-					if (isValidEmail(props.projectPipeline.data[recordNo].projectOwner)) {
-						allEmails.push(props.projectPipeline.data[recordNo].projectOwner.toLowerCase());
-						allClients.push(props.projectPipeline.data[recordNo].contractorId);
+					let currentRecord = props.projectPipeline.data[recordNo];
+
+					if (isValidEmail(currentRecord.headOfProject) && allEmails.indexOf(currentRecord.headOfProject.toLowerCase()) === -1) {
+						allEmails.push(currentRecord.headOfProject.toLowerCase());
+					}
+					if (currentRecord.contractorId !== "0" && allClients.indexOf(currentRecord.contractorId) === -1) {
+						allClients.push(currentRecord.contractorId);
 					}
 				}
-				const disinctvals = (value, index, self) => {
-					if (value !== '')
-						return self.indexOf(value) === index;
-				}
-				const uniqueVals = allEmails.filter(disinctvals);
-				allEmails && props.handleGetUserNamesForEmails(uniqueVals);
-				allClients && props.handleGetContractDetailsByIds(allClients.filter(disinctvals));
+				allEmails && props.handleGetUserNamesForEmails(allEmails);
+				allClients && props.handleGetContractDetailsByIds(allClients);
 
 			}
 		},
@@ -109,10 +108,10 @@ const ProjectPipeline: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 				let newEmails: Array<string> = [];
 				let newClients: Array<string> = [];
 				response.data.data.map((element) => {
-					if (isValidEmail(element.projectOwner)
-						&& props.userNamesForEmails.find(aa => aa.email.toLowerCase() == element.projectOwner.toLowerCase()) == undefined
-						&& newEmails.indexOf(element.projectOwner.toLowerCase()) == -1) {
-						newEmails.push(element.projectOwner.toLowerCase());
+					if (isValidEmail(element.headOfProject)
+						&& props.userNamesForEmails.find(aa => aa.email.toLowerCase() == element.headOfProject.toLowerCase()) == undefined
+						&& newEmails.indexOf(element.headOfProject.toLowerCase()) == -1) {
+						newEmails.push(element.headOfProject.toLowerCase());
 					}
 					if (props.contractDetailsByIds.find(aa => aa.contractId == element.contractorId) == undefined
 						&& (newClients.length == 0 || (newClients.length > 0 && newClients.indexOf(element.contractorId) == -1))) {
@@ -131,7 +130,7 @@ const ProjectPipeline: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 					if (newClients.length > 0) {
 						let response = await services.getContractsAndCustomersList(newClients);
 						if (response.data.length > 0) {
-							allClients = [...props.userNamesForEmails, ...response.data];
+							allClients = [...props.contractDetailsByIds, ...response.data];
 						}
 					}
 					let finalData = formatDataToExportExcel(data, allEmails, allClients, props.currencies, CurrencyObj, props.lookupDetails, config.REACT_APP_DATE_FORMAT);
@@ -146,8 +145,8 @@ const ProjectPipeline: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 			});
 	};
 
-	const onApplyFilter = (filterParamsList: Array<IFilterParams>) => /* istanbul ignore next */ {
-		const params = extractQueryParams(props.location?.search, "lastModified", 1, 20);
+	const onApplyFilter = (filterParamsList: Array<IFilterParams>) =>  /* istanbul ignore next */ {
+		const params = extractQueryParams(props.location?.search, "projectRefId", 1, 20);
 		params.filterParams = filterParamsList;
 		setFilterParams(filterParamsList);
 		props.projectPipelineGridDetail(params);
@@ -184,6 +183,7 @@ const ProjectPipeline: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 										exportToExcelPipelineData={exportToExcelPipelineData}
 										exportLoader={exportLoader}
 										applyFilterLoader={props.applyFilterLoader}
+										showExcel={true}
 									/>
 								</React.Fragment>
 							</div>

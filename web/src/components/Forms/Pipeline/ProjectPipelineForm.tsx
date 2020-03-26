@@ -33,6 +33,7 @@ interface Props {
   exportLoader: boolean;
   applyFilterLoader: boolean;
   queryParams: IQueryParams;
+  showExcel: boolean;
 }
 
 const ProjectPipelineForm: React.FC<Props & IReactIntl> = (props: any) => {
@@ -69,11 +70,7 @@ const ProjectPipelineForm: React.FC<Props & IReactIntl> = (props: any) => {
   const getPipelineValues = (pipelineData, currencies, namesAndEmails, contractCustomerList) => {
     let data = pipelineData.map(function (rowProject) {
       if (namesAndEmails && namesAndEmails.length > 0) {
-        const projectOwnerDetail = getUserDetails(rowProject.projectOwner, namesAndEmails);
-        rowProject.projectOwner = projectOwnerDetail
-          ? `${displayUserName(projectOwnerDetail)}`
-          : rowProject.projectOwner;
-
+        
         const headOfProjectDetail = getUserDetails(rowProject.headOfProject, namesAndEmails);
         rowProject.headOfProject = headOfProjectDetail
           ? `${displayUserName(headOfProjectDetail)}`
@@ -90,10 +87,8 @@ const ProjectPipelineForm: React.FC<Props & IReactIntl> = (props: any) => {
         getPropertyName(CurrencyObj, (prop) => prop.currencySymbol)
       );
       rowProject.approxValue = rowProject.approxValue.toString().indexOf(currencySymbol) > -1 ? rowProject.approxValue : `${currencySymbol}${rowProject.approxValue}`;
-      rowProject.lastModified = moment(rowProject.lastModified);
       rowProject.cdmNotifiable = rowProject.cdmNotifiable ? formatMessage('LABEL_YES') : formatMessage('LABEL_NO');
       rowProject.soldmargin = rowProject.soldmargin ? rowProject.soldmargin : 0;
-      rowProject.weightedTCV = rowProject.weightedTCV.toString().indexOf(currencySymbol) > -1 ? rowProject.weightedTCV : `${currencySymbol}${rowProject.weightedTCV ? rowProject.weightedTCV : 0}`;
       rowProject.name = (
         <Link
           to={{
@@ -117,21 +112,7 @@ const ProjectPipelineForm: React.FC<Props & IReactIntl> = (props: any) => {
         applyFilterLoader={props.applyFilterLoader}
         data-test="ProjectPipelineFilters"
       />
-      <div className="top_Title justify-content-between d-flex">
-        <h2>{formatMessage('TITLE_CURRENT_PIPELINE')}</h2>
-        <span>
-          <button
-            className="active excel_icon"
-            type="button"
-            onClick={() => props.exportToExcelPipelineData()}
-            disabled={props.exportLoader}
-            data-test="export_to_excel"
-          >
-            {props.exportLoader && <CircularProgress />}
-            <img src={excelIcon} alt="microsoft excel icon" />
-          </button>
-        </span>
-      </div>
+
       <DataGrid
         columns={gridColumns()}
         data={gridData}
@@ -144,6 +125,9 @@ const ProjectPipelineForm: React.FC<Props & IReactIntl> = (props: any) => {
         queryParams={props.queryParams}
         intl={props.intl}
         data-test="pipelineDataGrid"
+        showExcel={props.showExcel}
+        exportLoader={props.exportLoader}
+        exportToExcelPipelineData={props.exportToExcelPipelineData}
       />
     </React.Fragment>
   );

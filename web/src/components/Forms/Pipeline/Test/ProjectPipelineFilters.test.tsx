@@ -9,6 +9,7 @@ import ProjectPipelineFilters from '../ProjectPipelineFilters';
 import { findByTestAtrr } from '../../../../helpers/test-helper';
 import { ILookup } from '../../../../store/Lookups/Types/ILookup';
 import PipelineFilterType from '../../../../enums/PipelineFilterType';
+import moment from 'moment';
 
 
 describe('Project PipelineFilters Form', () => {
@@ -45,10 +46,6 @@ describe('Project PipelineFilters Form', () => {
     });
     it('Defines the component', () => {
         expect(wrapper).toBeDefined();
-    });
-
-    it('Should renders lastModified form field', () => {
-        expect(findByTestAtrr(wrapper, 'lastModified')).toBeDefined();
     });
 
     it('Should renders projectStartDate form field', () => {
@@ -125,6 +122,7 @@ describe('Project PipelineFilters Form', () => {
 
     });
     describe('Pipeline applyFilter button', () => {
+
         let applyFilterButton;
         beforeEach(() => {
             applyFilterButton = findByTestAtrr(wrapper, 'apply');
@@ -144,6 +142,7 @@ describe('Project PipelineFilters Form', () => {
         });
 
         it('Should call the onApplyFilter method with params', () => {
+            moment.locale('en');
             for (var type in PipelineFilterType) {
                 if (typeof PipelineFilterType[type] === 'number') {
                     let field = wrapper.find(`input[name="${type}"]`);
@@ -158,16 +157,11 @@ describe('Project PipelineFilters Form', () => {
                     let fieldEndDate = wrapper.find(`input[name="projectEndDate"]`);
                     const eventEndDate = { target: { value: "02/16/2020" } };
                     fieldEndDate.simulate("change", eventEndDate);
-
-                    let lastModified = wrapper.find(`input[name="lastModified"]`);
-                    const eventLastModified = { target: { value: "01/16/2020" } };
-                    lastModified.simulate("change", eventLastModified);
                 }
             }
             applyFilterButton.simulate('click');
             expect(props.onApplyFilter).toHaveBeenCalledWith(
                 [
-                    { "filterName": "lastModified", "filterValue": "2020-01-16" },
                     { "filterName": "projectStartDate", "filterValue": "2020-03-16" },
                     { "filterName": "projectEndDate", "filterValue": "2020-02-16" },
                     { "filterName": "projectRefId", "filterValue": "TestProject" },
