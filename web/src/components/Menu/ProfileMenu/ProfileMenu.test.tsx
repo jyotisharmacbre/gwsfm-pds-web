@@ -1,11 +1,9 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import ProfileMenu from './ProfileMenu';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { mount } from 'enzyme';
-import { store } from '../../../store';
 import { IntlProvider } from 'react-intl';
 import translations from '../../../Translations/translation';
 import { BrowserRouter } from 'react-router-dom';
@@ -13,7 +11,6 @@ import * as helper from '../../../helpers/auth-helper';
 import { findByTestAtrr } from '../../../helpers/test-helper';
 import routeData from 'react-router';
 import Notify from '../../../enums/Notify';
-import AuthContext from '../../../contexts/AuthProvider/AuthContext';
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
