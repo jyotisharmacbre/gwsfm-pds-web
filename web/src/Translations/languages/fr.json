@@ -143,6 +143,7 @@
   "LABEL_PROJECT_SCOPE": "Portée du projet",
   "LABEL_PROJECT_STATUS": "L'état du projet",
   "LABEL_APPROX_VALUE": "Valeur approximative",
+  "LABEL_JA_VALUE": "Valeur J&A",
   "LABEL_CMD_NOTIFIABLE": "CMD à notifier",
   "LABEL_SOLD_MARGIN": "Marge d'enchère",
   "LABEL_STATUS": "L'état",
