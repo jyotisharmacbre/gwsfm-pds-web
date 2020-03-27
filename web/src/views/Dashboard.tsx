@@ -16,7 +16,8 @@ import { displayUserName } from '../helpers/utility-helper';
 import { PieChart, Pie, Cell, Tooltip } from 'recharts';
 import IProjectChartSummary from '../models/IProjectChartSummary';
 import { LookupItems } from '../helpers/constants';
-import StatusColorCode from '../enums/StatusColorCode';
+import DashboardChartStatusColourMapping from '../store/Dashboard/Types/DashboardChartStatusColourMapping';
+import ProjectStatus from '../enums/ProjectStatus';
 
 interface IMapDispatchToProps {
 	dashboardGridDetail: () => void;
@@ -41,6 +42,7 @@ interface IMapStateToProps {
 }
 const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
 	const [chart, setChart] = useState<Array<IProjectChartSummary>>([]);
+	const [totalNoOfProjectOnChart, setTotalNoOfProjectOnChart] = useState<number>(0);
 	useEffect(() => {
 		props.getLookups();
 		props.resetProjectOverviewState();
@@ -87,15 +89,17 @@ const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
 				props.chartData.forEach(ele => {
 					total = total + ele.value;
 				});
-				Object.keys(StatusColorCode).forEach(element => {
-					let lookup = props.lookupDetails.filter(look => look.lookupItem == LookupItems.Project_Status && look.description.replace(/ /g, '').toLowerCase() == element);
+				setTotalNoOfProjectOnChart(total);
+				DashboardChartStatusColourMapping.forEach(element => {
+					let lookup = props.lookupDetails.filter(look => look.lookupItem == LookupItems.Project_Status && look.lookupKey == element.projectStatus);
 					if (lookup != undefined && lookup[0] != undefined) {
 						let filterValue = props.chartData.find(data => data.name == lookup[0].lookupKey.toString());
 						data.push({
 							name: lookup[0].description,
 							value: filterValue != undefined ? filterValue.value : 0,
-							class: `${element}`,
-							percentage: filterValue != undefined ? ((filterValue.value / total) * 100).toFixed(0) : '0'
+							colorCode: `${element.colorCode}`,
+							percentage: filterValue != undefined ? ((filterValue.value / total) * 100).toFixed(0) : '0',
+							dataTestAttribute: ProjectStatus[element.projectStatus]
 						});
 					}
 
@@ -160,8 +164,8 @@ const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
 							</div>
 
 							<div className="top_Title top_Title2 justify-content-between">
-								<h2>Analytics</h2>
-								<h3>Total</h3>
+								<h2>{formatMessage('LABEL_Analytics')}</h2>
+								<h3 >{formatMessage('LABEL_Total')} : <span data-test="totalNoOfProjectOnChart">{totalNoOfProjectOnChart}</span></h3>
 							</div>
 							<div className="pie_chart_wrap">
 								<div className="row">
@@ -183,7 +187,7 @@ const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
 													dataKey="value"
 													label={renderCustomizedLabel}>
 													{
-														chart.map((entry, index) => <Cell key={`cell-${index}`} fill={StatusColorCode[entry.class]} />)
+														chart.map((entry, index) => <Cell key={`cell-${index}`} fill={entry.colorCode} />)
 													}
 												</Pie>
 												<Tooltip content={customTooltip} />
@@ -193,18 +197,18 @@ const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
 									<div className="col-md-5">
 										<div className="info_block">
 											<div className="heading-bar">
-												<span>Legends</span>
-												<span>No. of Projects</span>
+												<span>{formatMessage('LABEL_Legends')}</span>
+												<span>{formatMessage('LABEL_NO_OF_PROJECTS')}</span>
 											</div>
 											<ul>
 												{chart.map(element => {
 													return (
 														<li>
-															<span className={`legend-state ${element.class}`}>
+															<span className='legend-state' data-test={`${element.dataTestAttribute}-legendName`}>
 																{element.name} :
-																<i style={{ background: StatusColorCode[element.class] }}></i>
+																<i style={{ background: element.colorCode }}></i>
 															</span>
-															<span data-test={element.class}>{element.value} ({element.percentage}%)</span>
+															<span data-test={`${element.dataTestAttribute}-legendValue`}>{element.value} ({element.percentage}%)</span>
 														</li>
 													);
 												})}

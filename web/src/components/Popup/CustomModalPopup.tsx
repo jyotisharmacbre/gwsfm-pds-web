@@ -28,7 +28,7 @@ const CustomModalPopup: React.FC<IProps & IReactIntl> = props => {
     }
     return (
         <div className="modal fade show custom_modal" id="exampleModal" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" data-keyboard="false" data-backdrop="static" style={{ display: 'block' }} aria-modal="true">
-            <div className="vertical-alignment-helper">
+            <div className="vertical-alignment-helper h-100">
             <div className="modal-dialog modal-dialog-centered vertical-align-center" role="document">
                 <div className="modal-content d-flex align-items-center">
                     <div className="modal-header">
@@ -36,7 +36,7 @@ const CustomModalPopup: React.FC<IProps & IReactIntl> = props => {
                             {props.intl.formatMessage({ id: props.titleKey })}
 
                         </h5>}
-                        <span onClick={() => reject()} className="close" aria-label="Close">
+                        <span onClick={() => reject()} data-test="close_icon" className="close" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </span>
                     </div>

@@ -23,7 +23,7 @@ export const lookUpInitialState: ILookupState = {
         lookupId: 2,
         lookupItem: "Project_Status",
         lookupKey: 2,
-        description: "Bid Lost"
+        description: "JA"
     }, {
         lookupId: 3,
         lookupItem: "Project_Status",
@@ -53,12 +53,12 @@ export const pipelineInitialState: IProjectPipelineGridState = {
         data: [{
             name: '1',
             value: 30,
-            class: '',
+            colorCode: '',
             percentage: ''
         }, {
             name: '2',
             value: 70,
-            class: '',
+            colorCode: '',
             percentage: ''
         }],
         loading: false,

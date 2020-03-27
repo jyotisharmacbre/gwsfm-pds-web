@@ -44,7 +44,7 @@ lookupInitalState.countries = [{
 	isoAlpha2Code: "IND",
 	countryId: 1
 }];
-
+pipelineInitailState.data[0].projectId = '123'
 const setUpStore = () => {
 	store = mockStore({
 		lookup: lookupInitalState,

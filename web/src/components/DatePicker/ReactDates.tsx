@@ -173,7 +173,7 @@ class ReactDates extends PureComponent<Props & InjectedFormProps<{}, Props>>
       <div className="date-picker-wrap">
         <input
           type="number"
-          id="date"
+          id={`${this.props.input.name}-date`}
           data-test="date"
           className="form-control"
           placeholder="DD"
@@ -184,7 +184,7 @@ class ReactDates extends PureComponent<Props & InjectedFormProps<{}, Props>>
         <input
           type="number"
           className="form-control"
-          id="month"
+          id={`${this.props.input.name}-month`}
           data-test="month"
           placeholder="MM"
           value={this.state.month}
@@ -194,7 +194,7 @@ class ReactDates extends PureComponent<Props & InjectedFormProps<{}, Props>>
         <input
           type="number"
           className="form-control"
-          id="year"
+          id={`${this.props.input.name}-year`}
           data-test="year"
           placeholder="YYYY"
           value={this.state.year}
