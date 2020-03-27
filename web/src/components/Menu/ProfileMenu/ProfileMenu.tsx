@@ -147,8 +147,9 @@ const ProfileMenu: React.FC<any> = props => {
       setMenuVisibility(false);
       setNotificationVisibility(false);
     } else {
-      !(document["documentMode"]) && //IE11
-        e?.target?.focus();
+      if (!document["documentMode"] && e.target) {
+        e.target.focus();
+      }
     }
 
   }
