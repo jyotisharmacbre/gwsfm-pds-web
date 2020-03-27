@@ -133,6 +133,7 @@ const ProfileMenu: React.FC<any> = props => {
       document.activeElement; // IE11
 
     let isCurrentTargetContains = e.contains ?
+    /* istanbul ignore next */
       e.contains(relatedTarget) :
       e.currentTarget?.contains(relatedTarget);
 
@@ -140,6 +141,7 @@ const ProfileMenu: React.FC<any> = props => {
       setMenuVisibility(false);
       setNotificationVisibility(false);
     } else {
+      /* istanbul ignore next */
       !(/*@cc_on!@*/false || !!document["documentMode"]) && //IE11
         e?.target?.focus();
     }
