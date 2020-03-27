@@ -5,39 +5,16 @@ import PdsFormInput from '../../PdsFormHandlers/PdsFormInput';
 import PdsFormSelect from '../../PdsFormHandlers/PdsFormSelect';
 import PdsFormRadio from '../../PdsFormHandlers/PdsFormRadio';
 import PdsFormTextArea from '../../PdsFormHandlers/PdsFormTextArea';
-import PdsFormButton from '../../PdsFormHandlers/PdsFormButton';
 import DatePicker from '../../DatePicker';
-import { selectionButtons } from '../../../helpers/constants';
-import { enquiryTypeData } from '../../../helpers/dropDownFormValues';
 import { IState } from '../../../store/state';
-import { IProjectAdditionalDetail } from '../../../store/ProjectOverviewForm/Types/IProjectAdditionalDetail';
-import { getPropertyName, getDropdown, getClassNameForProjectStatus, displayUserName } from '../../../helpers/utility-helper';
+import { getDropdown, getClassNameForProjectStatus, displayUserName } from '../../../helpers/utility-helper';
 import { LookupType } from '../../../store/Lookups/Types/LookupType';
 import EventType from '../../../enums/EventType';
-import FontawsomeSvg from '@fortawesome/fontawesome-svg-core';
-import FontawsomeFree from '@fortawesome/free-solid-svg-icons';
-import FontawsomeReact, { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import CalculationsSummaryTable from '../../Table/CalculationsSummaryTable';
-import {
-	faCheckCircle,
-	faClock,
-	faExclamationTriangle,
-	faUser,
-	faTimes,
-	faCheck,
-	faDownload
-} from '@fortawesome/free-solid-svg-icons';
-
-import { projectStatusData, engagementData } from '../../../helpers/dropDownFormValues';
-import { Validate, alphaNumeric, onErrorScrollToField } from '../../../helpers/fieldValidations';
-import { FormattedMessage, injectIntl } from 'react-intl';
-import IReactIntl from '../../../Translations/IReactIntl';
-import TypeAhead from '../../TypeAhead/TypeAhead';
-import { IDynamicsOtherSubContractor } from '../../../store/DynamicsData/Types/IDynamicData';
-import ProjectStatus from '../../../enums/ProjectStatus';
-import ProjectActivity from '../ProjectActivities/ProjectActivity';
+import { projectStatusData} from '../../../helpers/dropDownFormValues';
+import { Validate, onErrorScrollToField } from '../../../helpers/fieldValidations';
+import { FormattedMessage} from 'react-intl';
 import { IProjectOverviewDetails } from '../../../store/ProjectOverviewForm/Types/IProjectOverviewDetails';
-import { formatMessage } from '../../../Translations/connectedIntlProvider';
 import PricingSummaryTable from '../../Table/PricingSummaryTable';
 import ProjectOverviewRiskForm from './ProjectOverviewRiskForm';
 import { ISubContractorActivity } from '../../../store/SubContractor/Types/ISubContractorActivity';
@@ -75,12 +52,6 @@ interface Props {
 
 let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDetails, Props>> = (props) => {
 	const { handleSubmit, initialValues, getListOfUsers, status } = props;
-	const DropdownOptions = projectStatusData.map((status: any, i: number) => (
-		<option key={i} value={status.value}>
-			{status.label}
-		</option>
-	));
-
 	/* istanbul ignore next */
 	const formatUserData = (data) => {
 		let returnValue: any = [];
