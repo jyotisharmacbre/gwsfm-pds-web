@@ -79,7 +79,7 @@ const ProfileMenu: React.FC<any> = props => {
   const [isEditable, makeEditable] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
+  useEffect(() => /* istanbul ignore next */ {
     let element: any = document.getElementById('user__dropdown');
     if (element != null) {
       if (showMenu) {
@@ -127,7 +127,7 @@ const ProfileMenu: React.FC<any> = props => {
     makeEditable(false);
   }
 
-  const handleBlur = (e) => {
+  const handleBlur = (e) => /* istanbul ignore next */ {
     let relatedTarget = e.relatedTarget ||
       e.explicitOriginalTarget ||
       document.activeElement; // IE11
@@ -142,7 +142,7 @@ const ProfileMenu: React.FC<any> = props => {
       setNotificationVisibility(false);
     } else {
       /* istanbul ignore next */
-     // !(/*@cc_on!@*/false || !!document["documentMode"]) && //IE11
+      !(/*@cc_on!@*/false || !!document["documentMode"]) && //IE11
         e?.target?.focus();
     }
 
