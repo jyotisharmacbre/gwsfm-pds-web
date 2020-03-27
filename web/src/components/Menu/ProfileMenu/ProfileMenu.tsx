@@ -127,7 +127,7 @@ const ProfileMenu: React.FC<any> = props => {
     makeEditable(false);
   }
 
-  const handleBlur = (e) => {
+  const handleBlur = (e) => /* istanbul ignore next */ {
     let relatedTarget = e.relatedTarget;
 
     if (!relatedTarget) {
@@ -138,17 +138,15 @@ const ProfileMenu: React.FC<any> = props => {
     let isCurrentTargetContains = false;
 
     if (e.contains) {
-      /* istanbul ignore next */
       isCurrentTargetContains = e.contains(relatedTarget); //IE
     } else {
-      isCurrentTargetContains = e.currentTarget?.contains(relatedTarget);;
+      isCurrentTargetContains = e.currentTarget?.contains(relatedTarget);
     }
 
     if (relatedTarget == null || !isCurrentTargetContains) {
       setMenuVisibility(false);
       setNotificationVisibility(false);
     } else {
-      /* istanbul ignore next */
       !(document["documentMode"]) && //IE11
         e?.target?.focus();
     }
