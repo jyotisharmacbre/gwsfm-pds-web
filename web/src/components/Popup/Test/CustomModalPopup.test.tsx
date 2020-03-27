@@ -8,7 +8,6 @@ import configureStore from 'redux-mock-store';
 import CustomModalPopup,{confirmAlert} from '../CustomModalPopup';
 
 describe('Custom modal popup testCases', () => {
- 
   const mockStore = configureStore([]);
   let store;
   let wrapper;
@@ -60,5 +59,13 @@ it('should remove custom modal popup on click of confirm button', () => {
     let doc:any=(document.getElementById('react-confirm-alert'));
     expect(props.handleConfirm.mock.calls.length).toEqual(1);   
     expect(doc).toBeNull(); 
+
+});
+it('should define Close button', () => {
+  confirmAlert(props);
+  let closeButton = findByTestAtrr(wrapper, "close_icon").first();
+  closeButton.simulate('click');
+  expect(closeButton).toBeDefined();
+
 });
   });
