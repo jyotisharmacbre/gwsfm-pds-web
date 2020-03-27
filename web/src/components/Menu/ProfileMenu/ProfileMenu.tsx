@@ -79,6 +79,16 @@ const ProfileMenu: React.FC<any> = props => {
   const [isEditable, makeEditable] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    let element: any = document.getElementById('user__dropdown');
+    if (element != null) {
+      if (showMenu) {
+        element.classList.add('active');
+      } else {
+        element.classList.remove('active');
+      }
+    }
+  }, [showMenu])
 
   useEffect(() => {
     if (props.token) {
@@ -118,7 +128,7 @@ const ProfileMenu: React.FC<any> = props => {
   }
 
   const handleBlur = (e) => {
-    var relatedTarget = e.relatedTarget ||
+    let relatedTarget = e.relatedTarget ||
       e.explicitOriginalTarget ||
       document.activeElement; // IE11
 
@@ -160,19 +170,6 @@ const ProfileMenu: React.FC<any> = props => {
     authProvider.logout();
   }
 
-  //Add code for on click rotate the dropdown arrow
-  const userPreferencedropdown = () => {
-    var element: any = document.getElementById('user__dropdown');
-    if (element != null) {
-      var isClassExists = element.classList.contains('active');
-      if (isClassExists) {
-        element.classList.remove('active');
-      } else {
-        element.classList.add('active');
-      }
-    }
-  };
-
   return (
     <nav className="topbar">
       <div className="container-fluid" >
@@ -202,7 +199,7 @@ const ProfileMenu: React.FC<any> = props => {
                 </a>
               </li>
               <li onBlur={handleBlur}>
-                <a href="#"
+                <a href="#" data-test="notifications_container"
                   onClick={() => setNotificationVisibility(!showNotify)}>
                   <Notification
                     notifications={props.notifications}
@@ -212,9 +209,9 @@ const ProfileMenu: React.FC<any> = props => {
                 </a>
               </li>
               <li data-test='menu-container' onBlur={handleBlur}>
-                <a href="#" data-test="userPreferenceDDL" onClick={() => userPreferencedropdown()}>
+                <a href="#" data-test="userPreferenceDDL">
                   <div className="dropdown show">
-                    <div
+                    <div data-test="preferences_container"
                       onClick={() => setMenuVisibility(!showMenu)}
                       className="btn btn-secondary dropdown-toggle p-0 inner-cont"
                       id="js-usertext"
@@ -285,7 +282,7 @@ const ProfileMenu: React.FC<any> = props => {
                         <div className={`${!isEditable ? 'show' : 'hide'}`}>
 
                           <div className='link_group'>
-                            <a href="#" onClick={() => makeEditable(true)}>{formatMessage('BUTTON_EDIT')}</a>
+                            <a href="#" data-test="edit_button" onClick={() => makeEditable(true)}>{formatMessage('BUTTON_EDIT')}</a>
                             <span>|</span>
                             <a href="#" onClick={logout}>{formatMessage('BUTTON_SIGNOUT')}</a>
                           </div>

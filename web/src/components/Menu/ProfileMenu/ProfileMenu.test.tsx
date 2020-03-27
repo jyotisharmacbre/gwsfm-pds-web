@@ -51,6 +51,20 @@ describe('Profile Menu', () => {
       </Provider>
     );
   };
+
+  const mountProfileMenuComponentWithHiddenNodes = (Props) => {
+    wrapper = mount(
+      <Provider store={store}>
+        <IntlProvider locale="en" messages={translations['en'].messages}>
+          <BrowserRouter>
+            <ProfileMenu {...props} />
+          </BrowserRouter>
+        </IntlProvider>
+      </Provider>,
+      { attachTo: document.body }
+    );
+  };
+
   const mockHelper = () => {
     jest
       .spyOn(helper, 'getDisplayEmail')
@@ -169,13 +183,40 @@ describe('Profile Menu', () => {
     expect(field).toBeDefined();
   });
 
+  it('should have edit button', () => {
+    const field = findByTestAtrr(wrapper, 'edit_button').first();
+    field.simulate('click');
+    expect(field).toBeDefined();
+  });
+
+  it('should have notifications container', () => {
+    mountProfileMenuComponentWithHiddenNodes(props);
+    const container = findByTestAtrr(wrapper, 'notifications_container').first();
+    container.simulate('click');
+    expect(container).toBeDefined();
+  });
+
+  it('should have preferences container', () => {
+    const container = findByTestAtrr(wrapper, 'preferences_container').first();
+    container.simulate('click');
+    expect(container).toBeDefined();
+  });
+
+  it('should toggle menu onclick', () => {
+    const field = findByTestAtrr(wrapper, 'menu-container').first();
+    field.simulate('click');
+    field.simulate('click');
+    expect(field.hasClass('hide')).toBeTruthy;
+  });
+
   describe('Check logo when navigating to page', () => {
     let navList =
       [{ page: '/Error', expectedResult: true },
       { page: '/error', expectedResult: true },
       { page: '/Pipeline', expectedResult: true },
       { page: '/pipeline', expectedResult: true },
-      { page: '/test', expectedResult: false }];
+      { page: '/test', expectedResult: false },
+      { page: '/project', expectedResult: false }];
 
     navList.forEach(nav => {
       it(`should have value ${nav.expectedResult} for has class logo for page ${nav.page}`, () => {
