@@ -127,7 +127,7 @@ const ProfileMenu: React.FC<any> = props => {
     makeEditable(false);
   }
 
-  const handleBlur = (e) => {
+  const handleBlur = (e) => /* istanbul ignore next */ {
     let relatedTarget = e.relatedTarget;
 
     if (!relatedTarget) {
