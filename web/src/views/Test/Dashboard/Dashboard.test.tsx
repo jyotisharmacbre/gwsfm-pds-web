@@ -77,16 +77,16 @@ describe('Dashboard component test cases', () => {
 		expect(wrapper).toBeDefined();
 	});
 	it('should render the legend and chart correctly for initialcustomerinquiry status', () => {
-		expect(wrapper.find('.initialcustomerinquiry').length).toEqual(1);
-		expect(findByTestAtrr(wrapper, 'initialcustomerinquiry').text()).toEqual('30 (30%)');
+		expect(findByTestAtrr(wrapper, 'InitialCustomerInquiry-legendName').length).toEqual(1);
+		expect(findByTestAtrr(wrapper, 'InitialCustomerInquiry-legendValue').text()).toEqual('30 (30%)');
 	});
 	it('should render the legend and chart correctly for Bid Lost status', () => {
-		expect(wrapper.find('.bidlost').length).toEqual(1);
-		expect(findByTestAtrr(wrapper, 'bidlost').text()).toEqual('70 (70%)');
+		expect(findByTestAtrr(wrapper, 'JA-legendName').length).toEqual(1);
+		expect(findByTestAtrr(wrapper, 'JA-legendValue').text()).toEqual('70 (70%)');
 	});
 	it(' should render the legend and chart correctly for In Review status', () => {
-		expect(wrapper.find('.inreview').length).toEqual(1);
-		expect(findByTestAtrr(wrapper, 'inreview').text()).toEqual('0 (0%)');
+		expect(findByTestAtrr(wrapper, 'InReview-legendName').length).toEqual(1);
+		expect(findByTestAtrr(wrapper, 'InReview-legendValue').text()).toEqual('0 (0%)');
 	});
 	it('should render the total No. of Projects on dashboard chart', () => {
 		var totalNoOfProjectOnChart = findByTestAtrr(wrapper, 'totalNoOfProjectOnChart');

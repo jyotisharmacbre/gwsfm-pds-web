@@ -1,8 +1,9 @@
-interface IProjectChartSummary  {
+interface IProjectChartSummary {
     name: string;
     value: number;
-    class: string;
+    colorCode: string;
     percentage: string;
+    dataTestAttribute?: string;
 }
 
 export default IProjectChartSummary; 
