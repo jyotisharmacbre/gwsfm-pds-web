@@ -128,23 +128,23 @@ const ProfileMenu: React.FC<any> = props => {
   }
 
   const handleBlur = (e) => {
-    let relatedTarget = e.relatedTarget ||
-      e.explicitOriginalTarget ||
-      document.activeElement; // IE11
+    // let relatedTarget = e.relatedTarget ||
+    //   e.explicitOriginalTarget ||
+    //   document.activeElement; // IE11
 
-    let isCurrentTargetContains = e.contains ?
-    /* istanbul ignore next */
-      e.contains(relatedTarget) :
-      e.currentTarget?.contains(relatedTarget);
+    // let isCurrentTargetContains = e.contains ?
+    // /* istanbul ignore next */
+    //   e.contains(relatedTarget) :
+    //   e.currentTarget?.contains(relatedTarget);
 
-    if (relatedTarget == null || !isCurrentTargetContains) {
-      setMenuVisibility(false);
-      setNotificationVisibility(false);
-    } else {
-      /* istanbul ignore next */
-      !(/*@cc_on!@*/false || !!document["documentMode"]) && //IE11
-        e?.target?.focus();
-    }
+    // if (relatedTarget == null || !isCurrentTargetContains) {
+    //   setMenuVisibility(false);
+    //   setNotificationVisibility(false);
+    // } else {
+    //   /* istanbul ignore next */
+    //   !(/*@cc_on!@*/false || !!document["documentMode"]) && //IE11
+    //     e?.target?.focus();
+    // }
 
   }
 
