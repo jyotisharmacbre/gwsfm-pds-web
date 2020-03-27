@@ -150,11 +150,6 @@ const ProfileMenu: React.FC<any> = props => {
       (history.location.pathname.toLowerCase() === "/project" && !props.project.projectRefId);
   }
 
-  const showProjectName = () => {
-    return history.location.pathname == "/" ||
-      history.location.pathname == "/Pipeline"
-  }
-
 
   //add & remove class for pipeline and dashboard page
   const showClass = () => {
@@ -217,7 +212,7 @@ const ProfileMenu: React.FC<any> = props => {
                 </a>
               </li>
               <li data-test='menu-container' onBlur={handleBlur}>
-                <a href="#" onClick={() => userPreferencedropdown()}>
+                <a href="#" data-test="userPreferenceDDL" onClick={() => userPreferencedropdown()}>
                   <div className="dropdown show">
                     <div
                       onClick={() => setMenuVisibility(!showMenu)}

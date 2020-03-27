@@ -13,6 +13,7 @@ import * as helper from '../../../helpers/auth-helper';
 import { findByTestAtrr } from '../../../helpers/test-helper';
 import routeData from 'react-router';
 import Notify from '../../../enums/Notify';
+import AuthContext from '../../../contexts/AuthProvider/AuthContext';
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
@@ -150,6 +151,23 @@ describe('Profile Menu', () => {
     expect(field.hasClass('hide')).toBeTruthy;
   });
 
+  it('should show dropdown onclick', () => {
+    const field = findByTestAtrr(wrapper, 'userPreferenceDDL').first();
+    field.simulate('click');
+    expect(field.hasClass('dropdown')).toBeTruthy;
+  });
+
+  it('should have cancel button', () => {
+    const field = findByTestAtrr(wrapper, 'cancel').first();
+    field.simulate('click');
+    expect(field).toBeDefined();
+  });
+
+  it('should have save button', () => {
+    const field = findByTestAtrr(wrapper, 'save').first();
+    field.simulate('click');
+    expect(field).toBeDefined();
+  });
 
   describe('Check logo when navigating to page', () => {
     let navList =
@@ -180,5 +198,4 @@ describe('Profile Menu', () => {
     const field = findByTestAtrr(wrapper, 'test-content').first();
     expect(field.hasClass('col-sm-12 d-flex align-items-center')).toEqual(true);
   });
-
 });
