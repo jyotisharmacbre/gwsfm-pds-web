@@ -115,7 +115,7 @@ export const excelPipelineData = [{
     lastModified: '03/03/2020',
     status: '1',
     commenceDate: '03/03/2020',
-    approxValue: 0,
+    jaValue: 100,
     contractTypeId: 1,
     cdmNotifiable: false,
     soldMargin: '2',
@@ -133,7 +133,7 @@ export const excelPipelineData = [{
     lastModified: '03/03/2020',
     status: '1',
     commenceDate: '03/03/2020',
-    approxValue: 0,
+    jaValue: 250,
     contractTypeId: 2,
     cdmNotifiable: false,
     soldMargin: '2',
@@ -174,7 +174,7 @@ export const expectedExportExcelData = [
         LABEL_CLIENT_CUSTOMER: '1',
         LABEL_STATUS: 'PrjStatus1',
         LABEL_EXPECTED_START_DATE: '03/03/2020',
-        LABEL_APPROX_VALUE: '$0',
+        LABEL_JA_VALUE: '$100',
         LABEL_HEAD_OF_PROJECT: "t2, t1 @ test"
     },
     {
@@ -183,7 +183,7 @@ export const expectedExportExcelData = [
         LABEL_CLIENT_CUSTOMER: 'Caretown Ltd',
         LABEL_STATUS: 'PrjStatus1',
         LABEL_EXPECTED_START_DATE: '03/03/2020',
-        LABEL_APPROX_VALUE: '£0',
-        LABEL_HEAD_OF_PROJECT: "t4, t3 @ test"
+        LABEL_JA_VALUE: '£250',
+        LABEL_HEAD_OF_PROJECT: "t4, t3 @ test" 
     }
 ]

@@ -38,7 +38,7 @@ export const formatDataToExportExcel = (data, allEmails, allClients, currencies,
 				LookupItems.Project_Status
 			),
 			[formatMessage('LABEL_EXPECTED_START_DATE')]: element.commenceDate ? moment(element.commenceDate).format(dateFormat) : '',
-			[formatMessage('LABEL_APPROX_VALUE')]: element.approxValue.toString().indexOf(currencySymbol) > -1 ? element.approxValue : `${currencySymbol}${element.approxValue}`,
+			[formatMessage('LABEL_JA_VALUE')]: element.jaValue == null ? '' : element.jaValue.toString().indexOf(currencySymbol) > -1 ? element.jaValue : `${currencySymbol}${element.jaValue}`,
 		})
 	})
 	return result;

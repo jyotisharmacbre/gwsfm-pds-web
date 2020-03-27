@@ -62,10 +62,10 @@ const gridColumns = () => {
             formatExtraData: { type: ColumnTypeEnum.date }
         },
         {
-            dataField: 'approxValue',
-            text: formatMessage('LABEL_APPROX_VALUE'),
-            attrs: () => ({ 'data-column': formatMessage('LABEL_APPROX_VALUE'), 'id': 'pipeline_approx_valueID' }),
-            headerAttrs: { 'id': 'pipeline_approx_valueID' },
+            dataField: 'jaValue',
+            text: formatMessage('LABEL_JA_VALUE'),
+            attrs: () => ({ 'data-column': formatMessage('LABEL_JA_VALUE'), 'id': 'pipeline_ja_valueID' }),
+            headerAttrs: { 'id': 'pipeline_ja_valueID' },
             sort: true,
             sortCaret: sortCaret,
             formatter: columnFormatter,
