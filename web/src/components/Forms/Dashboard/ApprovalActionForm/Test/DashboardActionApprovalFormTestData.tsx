@@ -20,7 +20,7 @@ export const intialLookupvalues: Array<ILookup> = [
     lookupId: 1,
     lookupItem: LookupItems.Project_Approval_Sign_Off_Status,
     lookupKey: 1,
-    description: 'Pending'
+    description: 'Draft'
   }
 ];
 export const intialUsersEmailsData: Array<IUserServiceData> = [
