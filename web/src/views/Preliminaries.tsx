@@ -201,8 +201,7 @@ const Preliminaries: React.FC<IMapStateToProps & IMapDispatchToProps & ICountryH
 			return data.TotalCost > 0 && data.PreliminaryId == '';
 		});
 		if (editData.length > 0 && saveData.length > 0) {
-			props.preliminaryEdit(editData, event);
-			props.preliminaryAdd(saveData, event);
+			props.preliminaryEdit([...editData, ...saveData], event);
 		} else if (editData.length > 0) {
 			props.preliminaryEdit(editData, event);
 		} else if (saveData.length > 0) {
