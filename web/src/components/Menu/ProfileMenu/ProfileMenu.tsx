@@ -28,7 +28,7 @@ import { getDisplayName, getDisplayEmail, getFirstName } from '../../../helpers/
 import { toast } from 'react-toastify';
 import { formatMessage } from '../../../Translations/connectedIntlProvider';
 import { FormattedMessage } from 'react-intl';
-import { displayUserName } from '../../../helpers/utility-helper';
+import { displayUserName, isIE } from '../../../helpers/utility-helper';
 import useAuthContext from '../../../hooks/useAuthContext';
 import { IProjectDetail } from '../../../store/CustomerEnquiryForm/Types/IProjectDetail';
 import { Label } from '@material-ui/icons';
@@ -147,7 +147,7 @@ const ProfileMenu: React.FC<any> = props => {
       setMenuVisibility(false);
       setNotificationVisibility(false);
     } else {
-      if (!document["documentMode"] && e.target) {
+      if (!isIE && e.target) {
         e.target.focus();
       }
     }
