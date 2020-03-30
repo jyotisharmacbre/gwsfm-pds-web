@@ -1,9 +1,17 @@
-import React, { Props } from 'react';
+import React from 'react';
 import PdsFormInput from '../../PdsFormHandlers/PdsFormInput';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, InjectedFormProps } from 'redux-form';
 import { Validate } from '../../../helpers/fieldValidations';
+import { connect } from 'react-redux';
+import { IState } from '../../../store/state';
 
-const SetupForm = () => {
+interface ISetupForm {
+
+}
+interface Props {
+
+}
+const SetupForm: React.FC<Props & InjectedFormProps<ISetupForm, Props>> = props => {
     return (
         <div className="mt-10">
             <div className="setup_form_outer">
@@ -56,11 +64,16 @@ const SetupForm = () => {
     );
 }
 
+const mapStateToProps = (state: IState) => ({
+    
+});
 
-const form = reduxForm<IPreliminaryForm, Props>({
+const form = reduxForm<ISetupForm, Props>({
 	destroyOnUnmount: false,
 	forceUnregisterOnUnmount: false,
 	form: 'SetupForm',
 	enableReinitialize: true
-})
-export default SetupForm;
+})(SetupForm);
+
+
+export default connect(mapStateToProps)(form);
