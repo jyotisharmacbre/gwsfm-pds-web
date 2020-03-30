@@ -41,7 +41,11 @@ const LeftMenu: React.FC<IMapStateToProps&IMapDispatchToProps&IReactIntl> = (pro
 		'subcontractor',
 		'discounts',
 		'reviewsubmit',
-		'reviewapprove'
+		'reviewapprove',
+		'pcip',
+		'setup',
+		'summary',
+		'tablecontent'
 	];
 	let history = useHistory();
 	
@@ -243,6 +247,46 @@ if( props.isProjectFormDirty||
 						</a>
 					</li>
 				)}
+				<li id="pcipLink"
+					className={
+						(isDisable ? (
+							disableEnableMenu('setup') ||
+							disableEnableMenu('setup') ||
+							disableEnableMenu('summary') ||
+							disableEnableMenu('tablecontent')
+						) : (
+							'link_disabled'
+						))+" dirtyCheck"
+					}
+				>
+					<a  
+						data-target="#homeSubmenu"
+						data-toggle="collapse"
+						aria-expanded="true"
+						onClick={()=>isFormDirty('',urlProjectId)}
+						className="dropdown-toggle collapsed cursorPntr"
+					>
+						PCIP
+						<small>Pre-Construction Information Phase</small>
+					</a>
+					<ul className="collapse list-unstyled show" id="homeSubmenu">
+						<li id="setupLink" className={disableEnableSubActiveClass('setup')+" dirtyCheck"}>
+							<a className="cursorPntr" onClick={()=>isFormDirty('Setup',urlProjectId,"pcipLink")}>
+								Setup
+							</a>
+						</li>
+						<li id="summaryLink" className={disableEnableSubActiveClass('summary')+" dirtyCheck"}>
+							<a className="cursorPntr" onClick={()=>isFormDirty('Summary',urlProjectId,"pcipLink")} >
+								Summary
+							</a>
+						</li>
+						<li id="tablecontentLink" className={disableEnableSubActiveClass('tablecontent')+" dirtyCheck"}>
+							<a className="cursorPntr" onClick={()=>isFormDirty('TableContent',urlProjectId,"pcipLink")} >
+								Table of Content
+							</a>
+						</li>
+					</ul>
+				</li>
 				
 			</ul>
 		</nav>
