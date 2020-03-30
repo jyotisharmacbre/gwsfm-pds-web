@@ -52,7 +52,7 @@ describe('Dashboard Form testCases', () => {
   });
   it('should insert pending class', () => {
     componentMount(props);
-    expect(wrapper.find('.status_pending')).toHaveLength(1);
+    expect(wrapper.find('.status_draft')).toHaveLength(1);
   });
 });
 
