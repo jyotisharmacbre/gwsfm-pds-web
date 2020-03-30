@@ -23,24 +23,27 @@ const ProjectOverviewStatusTab: React.FC<IProps & IReactIntl> = props => {
     /* istanbul ignore next */
     const handleClickOutside = (event, popup, activityButton) => /* istanbul ignore next */ {
         const toggleTab = "toggleStatusTab";
-        if (event.toElement?.offsetParent?.id == toggleTab ||
+        if (!event ||
+            !popup ||
+            !activityButton ||
+            event.toElement?.offsetParent?.id == toggleTab ||
             event.srcElement?.id == toggleTab || //IE
             popup.contains(event.toElement?.offsetParent) ||
             popup.contains(event.srcElement) //IE
-            ) return;
+        ) return;
 
-        popup?.classList.remove('show');
-        popup?.classList.add('hide')
+        popup.classList.remove('show');
+        popup.classList.add('hide')
         activityButton.classList.remove('active');
     }
 
     const handleToggleStatusTab = () => /* istanbul ignore next */ {
-        var element: any = document.getElementById('statusTab');
-        var activityButton: any = document.getElementById('activaty_btn');
-        if (element != null) {
-            document.removeEventListener('click', (e) => 
-            handleClickOutside(e, element, activityButton), true);
-            var isClassExists = element.classList.contains('show');
+        const element: any = document.getElementById('statusTab');
+        const activityButton: any = document.getElementById('activaty_btn');
+        if (element != null && activityButton != null) {
+            document.removeEventListener('click', (e) =>
+                handleClickOutside(e, element, activityButton), true);
+            const isClassExists = element.classList.contains('show');
             if (isClassExists) {
                 element.classList.add('hide');
                 element.classList.remove('show');
@@ -49,8 +52,8 @@ const ProjectOverviewStatusTab: React.FC<IProps & IReactIntl> = props => {
                 element.classList.remove('hide');
                 element.classList.add('show');
                 activityButton.classList.add('active');
-                document.addEventListener('click', (e) => 
-                handleClickOutside(e, element, activityButton), true);
+                document.addEventListener('click', (e) =>
+                    handleClickOutside(e, element, activityButton), true);
             }
         }
     }
