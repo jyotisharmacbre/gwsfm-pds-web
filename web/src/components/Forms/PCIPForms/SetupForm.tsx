@@ -4,6 +4,7 @@ import { Field, reduxForm, InjectedFormProps } from 'redux-form';
 import { Validate } from '../../../helpers/fieldValidations';
 import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
+import PdsFormTextArea from '../../PdsFormHandlers/PdsFormTextArea';
 
 interface ISetupForm {
 
@@ -24,38 +25,60 @@ const SetupForm: React.FC<Props & InjectedFormProps<ISetupForm, Props>> = props 
                     <div className="col-lg-3 col-sm-6 pr-lg-0 pdgl-20">
                         <div className="field_outer">
                             <Field
-                                name="projectAdditionalDetail.insurance"
+                                name=""
                                 data-test="insurance"
                                 type="text"
                                 component={PdsFormInput}
                                 className="required"
                                 validate={[Validate.required('LABEL_INSURANCE'), Validate.maxLength(1000)]}
-                                labelKey="LABEL_INSURANCE"
-                                placeholderKey="PLACEHOLDER_ADD_INSURANCE"
+                                placeholderKey="Name surname"
                             />
-                            {/* <div className="form-group">
-                            <input placeholder="Name surname" type="text" className="form-control" value="" />
-                        </div> */}
-                            <div className="form-group">
-                                <input placeholder="Email" type="Email" className="form-control" value="" />
-                            </div>
+
+                            <Field
+                                name=""
+                                data-test="insurance"
+                                type="text"
+                                component={PdsFormInput}
+                                className="required"
+                                validate={[Validate.required('LABEL_INSURANCE'), Validate.maxLength(1000)]}
+                                placeholderKey="Email"
+                            />
                         </div>
                     </div>
                     <div className="col-lg-3 col-sm-6 pr-lg-0">
                         <div className="field_outer">
-                            <div className="form-group">
-                                <input placeholder="Company" type="text" className="form-control" value="" />
-                            </div>
-                            <div className="form-group">
-                                <input placeholder="Phone" type="text" className="form-control" value="" />
-                            </div>
+                            <Field
+                                name=""
+                                data-test="insurance"
+                                type="text"
+                                component={PdsFormInput}
+                                className="required"
+                                validate={[Validate.required('LABEL_INSURANCE'), Validate.maxLength(1000)]}
+                                placeholderKey="Company"
+                            />
+
+                            <Field
+                                name=""
+                                data-test="insurance"
+                                type="number"
+                                component={PdsFormInput}
+                                className="required"
+                                validate={[Validate.required('LABEL_INSURANCE'), Validate.maxLength(1000)]}
+                                placeholderKey="Phone"
+                            />
+
                         </div>
                     </div>
                     <div className="col-lg-4 col-sm-6">
                         <div className="field_outer">
-                            <div className="form-group">
-                                <textarea name="" placeholder="Address" rows={4} className="form-control"></textarea>
-                            </div>
+                        <Field
+						name="address"
+						data-test="comments"
+						rows="4"
+						component={PdsFormTextArea}
+						validate={[Validate.maxLength(5000)]}
+						placeholderKey="Address"
+					/>
                         </div>
                     </div>
                 </div>
@@ -65,14 +88,14 @@ const SetupForm: React.FC<Props & InjectedFormProps<ISetupForm, Props>> = props 
 }
 
 const mapStateToProps = (state: IState) => ({
-    
+
 });
 
 const form = reduxForm<ISetupForm, Props>({
-	destroyOnUnmount: false,
-	forceUnregisterOnUnmount: false,
-	form: 'SetupForm',
-	enableReinitialize: true
+    destroyOnUnmount: false,
+    forceUnregisterOnUnmount: false,
+    form: 'SetupForm',
+    enableReinitialize: true
 })(SetupForm);
 
 
