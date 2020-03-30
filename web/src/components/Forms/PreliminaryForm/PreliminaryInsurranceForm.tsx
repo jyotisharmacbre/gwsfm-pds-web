@@ -21,8 +21,6 @@ interface Props {
 
 const PreliminaryInsurranceForm:React.FC<Props>
 = (props: Props) =>{
- 
-  const{fields,itemDetail,componentIndex,currencies,currencyId,currencySymbol,preliminaryData}=props;
   const updateCost=(index:number)=>
   {
     props.preliminaryData[props.componentIndex].items[index].totalCost=parseFloat(calculateTotalCost(getPreliminarySummaryCalculation(props.preliminaryData).cost));
@@ -62,7 +60,7 @@ const PreliminaryInsurranceForm:React.FC<Props>
                     onlyNumber
                   
                 ]}
-                currency={currencySymbol}
+                currency={props.currencySymbol}
                 divPosition="relative"
               />
     </td>
@@ -96,7 +94,7 @@ const PreliminaryInsurranceForm:React.FC<Props>
                       Validate.maxLength(15),
                       onlyNumber
                   ]}
-                  currency={currencySymbol}
+                  currency={props.currencySymbol}
                   divPosition="relative"
                 />
     </td>
