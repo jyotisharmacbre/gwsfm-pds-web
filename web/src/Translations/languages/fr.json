@@ -200,6 +200,7 @@
   "LABEL_PIPELINE_VIEW": "Vue Pipeline",
   "LABEL_PIPELINE_BUTTON_CLEAR_ALL": "TOUT EFFACER",
   "LABEL_PIPELINE_BUTTON_APPLY_FILTER": "APPLIQUER",
+  "LABEL_Export": "Exportation",
   "LABEL_NO_OF_PROJECTS": "Nombre de projets",
   "LABEL_Legends": "Légendes",
   "LABEL_Analytics": "Analytique",

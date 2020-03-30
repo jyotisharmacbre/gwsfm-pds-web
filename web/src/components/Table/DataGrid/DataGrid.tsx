@@ -83,7 +83,7 @@ const DataGrid: React.FC<IGridTableProps> = props => {
                     disabled={props.exportLoader}
                     data-test="export_to_excel"
                   >
-                    EXPORT
+                    {props.intl.formatMessage({ id: "LABEL_Export" })}
                     {props.exportLoader && <CircularProgress />}
                     <img className="before_hover" src={excelIcon} alt="microsoft excel icon" />
                     <img className="hover" src={excelIcon2} alt="microsoft excel icon" />
