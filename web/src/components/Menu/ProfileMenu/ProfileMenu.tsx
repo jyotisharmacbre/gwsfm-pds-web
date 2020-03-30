@@ -28,7 +28,7 @@ import { getDisplayName, getDisplayEmail, getFirstName } from '../../../helpers/
 import { toast } from 'react-toastify';
 import { formatMessage } from '../../../Translations/connectedIntlProvider';
 import { FormattedMessage } from 'react-intl';
-import { displayUserName } from '../../../helpers/utility-helper';
+import { displayUserName, isIE } from '../../../helpers/utility-helper';
 import useAuthContext from '../../../hooks/useAuthContext';
 import { IProjectDetail } from '../../../store/CustomerEnquiryForm/Types/IProjectDetail';
 import { Label } from '@material-ui/icons';
@@ -79,6 +79,16 @@ const ProfileMenu: React.FC<any> = props => {
   const [isEditable, makeEditable] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    let element: any = document.getElementById('user__dropdown');
+    if (element != null) {
+      if (showMenu) {
+        element.classList.add('active');
+      } else {
+        element.classList.remove('active');
+      }
+    }
+  }, [showMenu])
 
   useEffect(() => {
     if (props.token) {
@@ -117,13 +127,31 @@ const ProfileMenu: React.FC<any> = props => {
     makeEditable(false);
   }
 
-  const handleBlur = (e) => {
-    if (e.relatedTarget == null || !e.currentTarget.contains(e.relatedTarget)) {
+  const handleBlur = (e) => /* istanbul ignore next */ {
+    let relatedTarget = e.relatedTarget;
+
+    if (!relatedTarget) {
+      relatedTarget = e.explicitOriginalTarget ||
+        document.activeElement; // IE11
+    }
+
+    let isCurrentTargetContains = false;
+
+    if (e.contains) {
+      isCurrentTargetContains = e.contains(relatedTarget); //IE
+    } else {
+      isCurrentTargetContains = e.currentTarget?.contains(relatedTarget);
+    }
+
+    if (relatedTarget == null || !isCurrentTargetContains) {
       setMenuVisibility(false);
       setNotificationVisibility(false);
     } else {
-      e && e.target.focus();
+      if (!isIE && e.target) {
+        e.target.focus();
+      }
     }
+
   }
 
   const showNav = () => {
@@ -132,20 +160,15 @@ const ProfileMenu: React.FC<any> = props => {
       history.location.pathname.toLowerCase() === "/error";
   }
 
-   //# should not be displayed unless project is created.
-   const showProjectInfo = () => {
+  //# should not be displayed unless project is created.
+  const showProjectInfo = () => {
     return history.location.pathname === "/" ||
       history.location.pathname.toLowerCase() === "/pipeline" ||
       history.location.pathname.toLowerCase() === "/error" ||
       (history.location.pathname.toLowerCase() === "/project" && !props.project.projectRefId);
   }
 
-  const showProjectName = () => {
-    return history.location.pathname == "/" ||
-      history.location.pathname == "/Pipeline"
-  }
 
-  
   //add & remove class for pipeline and dashboard page
   const showClass = () => {
     return history.location.pathname === "/" ||
@@ -155,29 +178,16 @@ const ProfileMenu: React.FC<any> = props => {
     authProvider.logout();
   }
 
-  //Add code for on click rotate the dropdown arrow
-  const userPreferencedropdown = () => {
-    var element: any = document.getElementById('user__dropdown');
-    if (element != null) {
-      var isClassExists = element.classList.contains('active');
-      if (isClassExists) {
-        element.classList.remove('active');
-      } else {
-        element.classList.add('active');
-      }
-    }
-  };
-
   return (
     <nav className="topbar">
       <div className="container-fluid" >
         <div className="row d-flex align-items-center">
           <div data-test="test-content" className='col-sm-12 d-flex align-items-center'>
-                  
-            {!showProjectInfo() && 
-            (<div className="project_name_title d-md-block d-none">
-            <label>{'#'}{props.project.projectRefId} {props.project.name}</label>
-            </div>)}
+
+            {!showProjectInfo() &&
+              (<div className="project_name_title d-md-block d-none">
+                <label>{'#'}{props.project.projectRefId} {props.project.name}</label>
+              </div>)}
 
             <div data-test="test-logo" className=
               {showNav() ? "d-md-block logo" : "logo"} >
@@ -197,7 +207,7 @@ const ProfileMenu: React.FC<any> = props => {
                 </a>
               </li>
               <li onBlur={handleBlur}>
-                <a href="#"
+                <a href="#" data-test="notifications_container"
                   onClick={() => setNotificationVisibility(!showNotify)}>
                   <Notification
                     notifications={props.notifications}
@@ -207,9 +217,9 @@ const ProfileMenu: React.FC<any> = props => {
                 </a>
               </li>
               <li data-test='menu-container' onBlur={handleBlur}>
-                <a href="#" onClick={() => userPreferencedropdown()}>
+                <a href="#" data-test="userPreferenceDDL">
                   <div className="dropdown show">
-                    <div
+                    <div data-test="preferences_container"
                       onClick={() => setMenuVisibility(!showMenu)}
                       className="btn btn-secondary dropdown-toggle p-0 inner-cont"
                       id="js-usertext"
@@ -280,7 +290,7 @@ const ProfileMenu: React.FC<any> = props => {
                         <div className={`${!isEditable ? 'show' : 'hide'}`}>
 
                           <div className='link_group'>
-                            <a href="#" onClick={() => makeEditable(true)}>{formatMessage('BUTTON_EDIT')}</a>
+                            <a href="#" data-test="edit_button" onClick={() => makeEditable(true)}>{formatMessage('BUTTON_EDIT')}</a>
                             <span>|</span>
                             <a href="#" onClick={logout}>{formatMessage('BUTTON_SIGNOUT')}</a>
                           </div>

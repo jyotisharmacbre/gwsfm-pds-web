@@ -16,6 +16,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExclamation } from '@fortawesome/free-solid-svg-icons';
 import { formatMessage } from '../../../../Translations/connectedIntlProvider';
 import useConfigContext from '../../../../hooks/useConfigContext';
+import DashboardApprovalStatusAndClassMapping from '../../../../store/Dashboard/Types/DashboardApprovalStatusAndClassMapping';
 
 interface Props {
 	actionApprovalValues: Array<IProjectDashboardGrid>;
@@ -54,12 +55,13 @@ let DashboardActionApprovalForm: React.FC<Props & InjectedFormProps<Array<IProje
 			data &&
 			data.map(function (rowProject) {
 				if (allLookups.length > 0 && namesAndEmails) {
+					let approvalStatusClass = DashboardApprovalStatusAndClassMapping.find(x => x.approvalStatus == rowProject.approvalStatus);
 					rowProject.approvalStatus = !isNaN(rowProject.approvalStatus) ? getLookupDescription(
 						allLookups,
 						rowProject.approvalStatus,
 						LookupItems.Project_Approval_Sign_Off_Status
 					) : rowProject.approvalStatus;
-					rowProject['approvalStatusClass'] = 'status_design status_' + rowProject.approvalStatus.replace(/ /g, '').toLowerCase()
+					rowProject['approvalStatusClass'] = `status_design ${approvalStatusClass?.className}`
 					var mailObj = namesAndEmails.find(
 						lk => lk.email && rowProject.modifiedBy && lk.email.toUpperCase() === rowProject.modifiedBy.toUpperCase()
 					);
