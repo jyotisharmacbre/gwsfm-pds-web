@@ -20,16 +20,21 @@ interface IProps {
 
 const ProjectOverviewStatusTab: React.FC<IProps & IReactIntl> = props => {
 
-    const handleClickOutside = (event, popup, activityButton) => {
+    /* istanbul ignore next */
+    const handleClickOutside = (event, popup, activityButton) => /* istanbul ignore next */ {
         const toggleTab = "toggleStatusTab";
         if (event.toElement?.offsetParent?.id == toggleTab ||
-            event.srcElement?.id == toggleTab) return;
+            event.srcElement?.id == toggleTab || //IE
+            popup.contains(event.toElement?.offsetParent) ||
+            popup.contains(event.srcElement) //IE
+            ) return;
+
         popup?.classList.remove('show');
         popup?.classList.add('hide')
         activityButton.classList.remove('active');
     }
 
-    const handleToggleStatusTab = () => {
+    const handleToggleStatusTab = () => /* istanbul ignore next */ {
         var element: any = document.getElementById('statusTab');
         var activityButton: any = document.getElementById('activaty_btn');
         if (element != null) {
