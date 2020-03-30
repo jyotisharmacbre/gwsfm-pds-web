@@ -1,11 +1,9 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import ProfileMenu from './ProfileMenu';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { mount } from 'enzyme';
-import { store } from '../../../store';
 import { IntlProvider } from 'react-intl';
 import translations from '../../../Translations/translation';
 import { BrowserRouter } from 'react-router-dom';
@@ -50,6 +48,20 @@ describe('Profile Menu', () => {
       </Provider>
     );
   };
+
+  const mountProfileMenuComponentWithHiddenNodes = (Props) => {
+    wrapper = mount(
+      <Provider store={store}>
+        <IntlProvider locale="en" messages={translations['en'].messages}>
+          <BrowserRouter>
+            <ProfileMenu {...props} />
+          </BrowserRouter>
+        </IntlProvider>
+      </Provider>,
+      { attachTo: document.body }
+    );
+  };
+
   const mockHelper = () => {
     jest
       .spyOn(helper, 'getDisplayEmail')
@@ -150,6 +162,49 @@ describe('Profile Menu', () => {
     expect(field.hasClass('hide')).toBeTruthy;
   });
 
+  it('should show dropdown onclick', () => {
+    const field = findByTestAtrr(wrapper, 'userPreferenceDDL').first();
+    field.simulate('click');
+    expect(field.hasClass('dropdown')).toBeTruthy;
+  });
+
+  it('should have cancel button', () => {
+    const field = findByTestAtrr(wrapper, 'cancel').first();
+    field.simulate('click');
+    expect(field).toBeDefined();
+  });
+
+  it('should have save button', () => {
+    const field = findByTestAtrr(wrapper, 'save').first();
+    field.simulate('click');
+    expect(field).toBeDefined();
+  });
+
+  it('should have edit button', () => {
+    const field = findByTestAtrr(wrapper, 'edit_button').first();
+    field.simulate('click');
+    expect(field).toBeDefined();
+  });
+
+  it('should have notifications container', () => {
+    mountProfileMenuComponentWithHiddenNodes(props);
+    const container = findByTestAtrr(wrapper, 'notifications_container').first();
+    container.simulate('click');
+    expect(container).toBeDefined();
+  });
+
+  it('should have preferences container', () => {
+    const container = findByTestAtrr(wrapper, 'preferences_container').first();
+    container.simulate('click');
+    expect(container).toBeDefined();
+  });
+
+  it('should toggle menu onclick', () => {
+    const field = findByTestAtrr(wrapper, 'menu-container').first();
+    field.simulate('click');
+    field.simulate('click');
+    expect(field.hasClass('hide')).toBeTruthy;
+  });
 
   describe('Check logo when navigating to page', () => {
     let navList =
@@ -157,7 +212,8 @@ describe('Profile Menu', () => {
       { page: '/error', expectedResult: true },
       { page: '/Pipeline', expectedResult: true },
       { page: '/pipeline', expectedResult: true },
-      { page: '/test', expectedResult: false }];
+      { page: '/test', expectedResult: false },
+      { page: '/project', expectedResult: false }];
 
     navList.forEach(nav => {
       it(`should have value ${nav.expectedResult} for has class logo for page ${nav.page}`, () => {
@@ -180,5 +236,4 @@ describe('Profile Menu', () => {
     const field = findByTestAtrr(wrapper, 'test-content').first();
     expect(field.hasClass('col-sm-12 d-flex align-items-center')).toEqual(true);
   });
-
 });
