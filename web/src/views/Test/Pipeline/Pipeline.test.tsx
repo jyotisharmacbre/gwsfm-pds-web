@@ -72,8 +72,6 @@ const mountComponent = (Props) => {
 	);
 };
 describe('Pipline component test cases', () => {
-	jest.spyOn(action, 'projectPipelineDetail');
-
 	const Props: any = {
 		location: {
 			search: '?pageIndex=1&pageSize=1&sortField=test&sortOrder=asc',
@@ -82,6 +80,12 @@ describe('Pipline component test cases', () => {
 		projectPipelineGridDetail: jest.fn(),
 		history: []
 	};
+	beforeEach(() => {
+		jest.spyOn(action, 'projectPipelineDetail');
+	});
+	afterEach(() => {
+		jest.clearAllMocks();
+	});
 
 	it('defines the component', () => {
 		setUpStore();
@@ -127,4 +131,41 @@ describe('Pipline component test cases', () => {
 		let exportToExcel = formatDataToExportExcel(excelPipelineData, emails, clients, currenciesData, new Currency(), intialLookupvalues, "MM/DD/YYYY");
 		expect(exportToExcel).toEqual(expectedExportExcelData);
 	});
+	it('should call the projectPipelineGridDetail only twice when we apply filter and page index eqauls 1 initially', () => {
+		setUpStore();
+		mountComponent(Props);
+
+		let fieldProjectName = wrapper.find(`input[name="projectName"]`);
+		const eventProjectName = { target: { value: "TestProject" } };
+		fieldProjectName.simulate("change", eventProjectName);
+
+		const applyFilterButton = findByTestAtrr(wrapper, 'apply');
+		applyFilterButton.simulate('click');
+
+		expect(action.projectPipelineDetail).toHaveBeenCalledTimes(2);
+	});
+	it('should change page index to 1 when page index not eqauls to 1 initially and filter is applied', () => {
+		const Props: any = {
+			location: {
+				search: '?pageIndex=3&pageSize=1&sortField=test&sortOrder=asc',
+				key: '1234'
+			},
+			projectPipelineGridDetail: jest.fn(),
+			history: []
+		};
+
+		setUpStore();
+		mountComponent(Props);
+
+		let fieldProjectName = wrapper.find(`input[name="projectName"]`);
+		const eventProjectName = { target: { value: "TestProject" } };
+		fieldProjectName.simulate("change", eventProjectName);
+
+		const applyFilterButton = findByTestAtrr(wrapper, 'apply');
+		applyFilterButton.simulate('click');
+
+		expect(Props.history[0].search).toEqual('?pageIndex=1&pageSize=1&sortField=test&sortOrder=asc');
+
+	});
+
 });

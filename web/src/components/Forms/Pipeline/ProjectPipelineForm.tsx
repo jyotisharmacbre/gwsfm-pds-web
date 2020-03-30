@@ -68,7 +68,6 @@ const ProjectPipelineForm: React.FC<Props & IReactIntl> = (props: any) => {
         );
     }
     const getPipelineValues = (pipelineData, currencies, namesAndEmails, contractCustomerList) => {
-        debugger;
         let data = pipelineData.map(function (rowProject) {
             if (namesAndEmails && namesAndEmails.length > 0) {
 
