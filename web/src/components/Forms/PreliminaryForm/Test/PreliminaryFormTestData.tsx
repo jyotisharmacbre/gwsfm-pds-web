@@ -106,3 +106,40 @@ export const projectDetail: IProjectDetailState = {
     event: EventType.none,
     enquiryOverviewError: null
 }
+export const preliminariBlankData: Array<IPreliminariesComponentDetails> = [
+
+    {
+        componentId: '1',
+        componentName: 'H&S File Production',
+        items: [
+            {
+                itemId: '1',
+                itemName: 'Sub-Contractor',
+                preliminaryId: '',
+                nameOfSupplier: 'test',
+                noOfHours: 0,
+                hourRate: 0,
+                totalCost: 0,
+                grossMargin: 0,
+                comments: 'test'
+            }
+        ]
+    },
+    {
+        componentId: '13',
+        componentName: 'Insurance',
+        items: [
+            {
+                itemId: '1',
+                itemName: 'Sub-Contractor',
+                preliminaryId: '',
+                nameOfSupplier: 'test',
+                noOfHours: 0,
+                hourRate: 0,
+                totalCost: 0,
+                grossMargin: 0,
+                comments: 'test'
+            }
+        ]
+    }
+];
