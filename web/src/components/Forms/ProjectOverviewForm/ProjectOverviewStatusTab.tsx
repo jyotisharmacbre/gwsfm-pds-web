@@ -1,14 +1,10 @@
 import React from 'react';
 import { faLightbulb, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-
 import { injectIntl, FormattedMessage } from 'react-intl';
-
 import { confirmAlert } from '../../Popup/CustomModalPopup';
 import IReactIntl from '../../../Translations/IReactIntl';
 import ProjectStatus from '../../../enums/ProjectStatus';
-import { activeMocks } from 'nock/types';
 import { formatMessage } from '../../../Translations/connectedIntlProvider';
 
 interface IProps {
@@ -23,31 +19,36 @@ interface IProps {
 }
 
 const ProjectOverviewStatusTab: React.FC<IProps & IReactIntl> = props => {
+
+    const handleClickOutside = (event, popup, activityButton) => {
+        const toggleTab = "toggleStatusTab";
+        if (event.toElement?.offsetParent?.id == toggleTab ||
+            event.srcElement?.id == toggleTab) return;
+        popup?.classList.remove('show');
+        popup?.classList.add('hide')
+        activityButton.classList.remove('active');
+    }
+
     const handleToggleStatusTab = () => {
         var element: any = document.getElementById('statusTab');
+        var activityButton: any = document.getElementById('activaty_btn');
         if (element != null) {
+            document.removeEventListener('click', (e) => 
+            handleClickOutside(e, element, activityButton), true);
             var isClassExists = element.classList.contains('show');
             if (isClassExists) {
                 element.classList.add('hide');
                 element.classList.remove('show');
+                activityButton.classList.remove('active');
             } else {
                 element.classList.remove('hide');
                 element.classList.add('show');
+                activityButton.classList.add('active');
+                document.addEventListener('click', (e) => 
+                handleClickOutside(e, element, activityButton), true);
             }
         }
     }
-
-    const activateStatus = () => {
-        var element: any = document.getElementById('activaty_btn');
-        if (element != null) {
-            var isClassExists = element.classList.contains('active');
-            if (isClassExists) {
-                element.classList.remove('active');
-            } else {
-                element.classList.add('active');
-            }
-        }
-    };
 
     const isStatusTabLinkDisabled = props.status == ProjectStatus.BidLost ||
         props.status == ProjectStatus.OnHold ||
@@ -85,9 +86,8 @@ const ProjectOverviewStatusTab: React.FC<IProps & IReactIntl> = props => {
         props.handleOrderReceived();
     }
     return (
-
         <div className="col-md-6 mt-4 mt-lg-0 d-flex justify-content-start justify-content-lg-end">
-            <div id="activaty_btn" className="activate_status_box d-flex align-items-center" onClick={() => activateStatus()}>
+            <div id="activaty_btn" className="activate_status_box d-flex align-items-center">
                 <div className="status_btn">
                     <div className="status-dropdown">
                         <div className="status-dropdown-btn toggle">
@@ -100,7 +100,7 @@ const ProjectOverviewStatusTab: React.FC<IProps & IReactIntl> = props => {
                         {showBidLostAndOnHoldOption ?
                             <div className="status-dropdown-menu hide status-hidden toggle-list" data-test="statusTab" id="statusTab">
                                 <p><FormattedMessage id="TITLE_CHANGE_STATUS_TO" /></p>
-                                <ul className="status-dropdown-list status-scrollable">
+                                <ul className="status-dropdown-list status-scrollable" >
                                     <li data-test="bidlost" className={(props.status == ProjectStatus.BidLost) ? "status-dropdown-item status-selected link_disabled" : "status-dropdown-item"} onClick={() => showAlert(props.handleBidLost)}>
                                         <a title="Bid Lost"><FormattedMessage id="TITLE_BID_LOST" /></a></li>
                                     <li data-test="onhold" className={(props.status == ProjectStatus.OnHold) ? "status-dropdown-item status-selected link_disabled" : "status-dropdown-item"} onClick={() => showAlert(props.handleOnHold)}>
