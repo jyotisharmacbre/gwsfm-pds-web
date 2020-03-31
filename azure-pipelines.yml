@@ -82,6 +82,7 @@ steps:
       }
     contentType: 'application/json'
     allowInvalidSSLCertificate: false
+  enabled: false
 
 - task: restCallBuildTask@0
   displayName: 'Post Code Review Metrics'
@@ -105,6 +106,7 @@ steps:
       }
     contentType: 'application/json'
     allowInvalidSSLCertificate: false
+  enabled: false
 
 - task: restCallBuildTask@0
   displayName: 'Post Secret management Metrics'
@@ -128,6 +130,7 @@ steps:
       }
     contentType: 'application/json'
     allowInvalidSSLCertificate: false
+  enabled: false
 
 - task: restCallBuildTask@0
   displayName: 'Post Regression Test Metrics'
@@ -151,6 +154,7 @@ steps:
       }
     contentType: 'application/json'
     allowInvalidSSLCertificate: false
+  enabled: false
 
 - task: NodeTool@0
   inputs:
@@ -227,6 +231,7 @@ steps:
       }
     contentType: 'application/json'
     allowInvalidSSLCertificate: false
+  enabled: false
 
 - task: PowerShell@2
   displayName: 'Unit Test Start Time'
@@ -273,6 +278,7 @@ steps:
       }
     contentType: 'application/json'
     allowInvalidSSLCertificate: false
+  enabled: false
 
 - task: PublishTestResults@2
   inputs:
@@ -323,6 +329,7 @@ steps:
       }
     contentType: 'application/json'
     allowInvalidSSLCertificate: false
+  enabled: false
 
 - task: restCallBuildTask@0
   displayName: 'Post Security Scan Matrics'
@@ -346,6 +353,7 @@ steps:
       }
     contentType: 'application/json'
     allowInvalidSSLCertificate: false
+  enabled: false
 
 
 - task: PublishCodeCoverageResults@1
