@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 import React from 'react';
 import PdsFormInput from '../../PdsFormHandlers/PdsFormInput';
 import { Field, reduxForm, InjectedFormProps } from 'redux-form';

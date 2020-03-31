@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import React from 'react';
 import {useHistory } from 'react-router-dom';
 import cbre_icon from '../../images/PDS_Logo_White.png';

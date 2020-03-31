@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import React from 'react';
 import SetupForm from '../../components/Forms/PCIPForms/SetupForm';
 
