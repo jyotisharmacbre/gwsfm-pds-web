@@ -1,0 +1,191 @@
+/*check box*/
+.Checkbox {
+    width: 20px;
+    height: 20px;
+    position: relative;
+    left: 0;
+    right: 0;
+    margin: auto;
+    @include mdScreen {
+        left: auto;
+        right: auto;
+        margin: inherit;
+    }
+    
+    > * {
+      position: absolute;
+    }
+    
+    &-visible {
+      width: 16px;
+      height: 16px;
+      margin: 2px;
+      background: #fff;
+      border: 1px solid #e3e3e3;
+      border-radius: 2px;
+    }
+    
+    > input {
+      z-index: 1;
+      opacity: 0;
+      display: block;
+      cursor: pointer;
+      width: 18px;
+      height: 18px;
+    }
+    
+    > input:checked + .Checkbox-visible {
+      background: url('../assests/images/check_box.svg');
+      display: block;
+      width: 18px;
+      height: 18px;
+      background-position: -1px -1px;
+    }
+    > input:focus + .Checkbox-visible {
+      border-color: #e3e3e3;
+    }
+  }
+
+  .circulation_form_outer {
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0px 7px 25px rgba(0, 0, 0, 0.04);
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+    @include mdScreen {
+        padding-bottom: 0;
+    }
+    .title {
+        display: flex;
+        justify-content: space-between;
+        padding: 21px 30px 18px;
+        border-bottom: 1px solid #DFDFDF;
+        @include mdScreen {
+            padding: 16px 15px 13px;
+        }
+        h3 {
+            margin: 0;
+            font-size: 16px;
+            text-transform: capitalize;
+            font-weight: 600;
+            color: #333;
+            line-height: inherit;
+        }
+        span {
+            color: #006A4D;
+            font-weight: 600;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            img {
+                padding-right: 8px;
+            }
+        }
+    }
+    .table-outer {
+        border: 1px solid #DFDFDF;
+        margin: 30px 30px 0;
+        @include mdScreen {
+            border: 0;
+            margin: 0px 15px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            thead {
+                background: #FAFAFA;
+                th {
+                    font-size: 11px;
+                    font-weight: 600;
+                    padding: 18px 30px;
+                    color: #818A8F;
+                    @include lgScreen {
+                        padding: 15px 15px;
+                    }
+                    &:first-child,
+                    &:last-child {
+                        text-align: center;
+                    }
+                }
+            }
+            th,
+            td {
+                border-right: 1px solid #F3F3F3;
+                &:last-child {
+                    border-right: 0;
+                }
+            }
+            tbody {
+                tr {
+                    border-bottom: 1px solid #F3F3F3;
+                    &:last-child {
+                        border: 0;
+                    }
+                }
+                td {
+                    font-size: 13px;
+                    font-weight: 500;
+                    color: #333;
+                    padding: 10px 30px 7px;
+                    @include lgScreen {
+                        padding: 7px 15px 7px;
+                    }
+                    &:first-child,
+                    &:last-child {
+                        text-align: center;
+                        @include mdScreen {
+                            text-align: left;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+.summary {
+    &.form_style {
+        .select-wrapper {
+            margin-right: 15px;
+            margin-bottom: 7px;
+            margin-top: 7px;
+            @include xsScreen {
+                width: 100%;
+                margin-left: 20px;
+                margin-right: 20px;
+            }
+            &:before {
+                border: 2px solid #ffffff;
+                right: calc(100% - 132px);
+                border-top: 0;
+                border-left: 0;
+                @include xsScreen {
+                    right: 10px;
+                }
+            }
+            select {
+                &.form-control {
+                    width: 150px;
+                    background: #006a4d;
+                    color: #fff;
+                    font-size: 13px;
+                    font-weight: 600;
+                    text-transform: uppercase;
+                    padding: 10px 30px 9px 15px;
+                    border-radius: 5px;
+                    @include xsScreen {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+        button[type="button"] {
+            padding: 8px 20px 7px;
+            font-size: 13px;
+            font-weight: 600;
+            min-width: 150px;
+            margin-bottom: 7px;
+            margin-top: 7px;
+        }
+    }
+}
