@@ -178,6 +178,15 @@ describe('PdsFormButton Renders', () => {
     container.simulate("click");
     expect(container.invoke.call.length).toBe(1);
   });
+  
+  it('should hide status tab on click outside of status tab', () => {
+    let container = findByTestAtrr(wrapper, "toggleStatusTab").first();
+    container.simulate("click");
+    let field = findByTestAtrr(wrapper, "bidlost").first();
+    field.simulate("click");
+    let button = findByTestAtrr(wrapper, "statusTab").first();
+    expect(button.hasClass('hide')).toBe(true);
+  });
 
 });
 

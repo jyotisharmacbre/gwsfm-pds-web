@@ -1,32 +1,30 @@
 import { History } from 'history';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import { toast } from 'react-toastify';
 import ProjectPipelineForm from '../../components/Forms/Pipeline/ProjectPipelineForm';
+import Notify from '../../enums/Notify';
 import { isValidEmail } from '../../helpers/fieldValidations';
+import { exportToExcel } from '../../helpers/file-helper';
 import { extractQueryParams, setTableQueryParams, setURLParammsForGridTable } from '../../helpers/table-helper';
+import useConfigContext from '../../hooks/useConfigContext';
+import IFilterParams from '../../models/tableQueryParams/IFilterParams';
 import IQueryParams from '../../models/tableQueryParams/IQueryParams';
+import * as services from '../../services';
 import { getContractDetailsByIds } from '../../store/DynamicsData/Action';
 import { IDynamicContractCustomerData } from '../../store/DynamicsData/Types/IDynamicData';
 import { getProjectStatus } from '../../store/Lookups/Actions';
-import { formatMessage } from '../../Translations/connectedIntlProvider';
-import * as actions from '../../store/rootActions';
+import Currency from '../../store/Lookups/InitialState/Currency';
 import { ICurrency } from '../../store/Lookups/Types/ICurrency';
 import { ILookup } from '../../store/Lookups/Types/ILookup';
 import { projectPipelineDetail } from '../../store/pipeline/Action';
 import { IProjectPipelineGridState } from '../../store/pipeline/Types/IProjectPipelineGridState';
+import * as actions from '../../store/rootActions';
 import { getUserNamesForEmailsService } from '../../store/rootActions';
-import { FormattedMessage } from 'react-intl';
-import * as services from '../../services';
-import { exportToExcel } from '../../helpers/file-helper';
-import { toast } from 'react-toastify';
-import { CircularProgress } from '@material-ui/core';
-import Currency from '../../store/Lookups/InitialState/Currency';
 import { IState } from '../../store/state';
 import { IUserServiceData } from '../../store/UserService/Types/IUserService';
+import { formatMessage } from '../../Translations/connectedIntlProvider';
 import { formatDataToExportExcel } from './PipelineExcelFormatter';
-import Notify from '../../enums/Notify';
-import useConfigContext from '../../hooks/useConfigContext';
-import IFilterParams from '../../models/tableQueryParams/IFilterParams';
 
 interface IProps {
 	history: History;
@@ -104,7 +102,7 @@ const ProjectPipeline: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 	const exportToExcelPipelineData = () => /* istanbul ignore next */ {
 		setExportLoader(true);
 		services.getAllPipelineData({})
-			.then((response) => {				
+			.then((response) => {
 				let newEmails: Array<string> = [];
 				let newClients: Array<string> = [];
 				response.data.data.map((element) => {
@@ -139,7 +137,7 @@ const ProjectPipeline: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 				};
 				download(response.data.data, newEmails, newClients);
 			})
-			.catch(() => {				
+			.catch(() => {
 				toast.error(formatMessage('MESSAGE_ERROR'));
 				setExportLoader(false);
 			});
@@ -147,9 +145,16 @@ const ProjectPipeline: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 
 	const onApplyFilter = (filterParamsList: Array<IFilterParams>) =>  /* istanbul ignore next */ {
 		const params = extractQueryParams(props.location?.search, "projectRefId", 1, 20);
+		const existingPagingIndex = params.pagingParams.pageIndex;
+		params.pagingParams.pageIndex = 1;
 		params.filterParams = filterParamsList;
 		setFilterParams(filterParamsList);
-		props.projectPipelineGridDetail(params);
+		setURLParammsForGridTable(props.history, '/Pipeline', params);
+
+		//Call get project pipeline directly only if no page index changed else it will be handled by useeffect subscribed by props.location?.search
+		if (existingPagingIndex === params.pagingParams.pageIndex) {
+			props.projectPipelineGridDetail(params);
+		}
 	}
 
 	const handleTableChange = (type, params) => /* istanbul ignore next */ {
@@ -166,7 +171,7 @@ const ProjectPipeline: React.FC<IProps & IMapStateToProps & IMapDispatchToProps>
 			<div className="row">
 				<div className="col-lg-12">
 					<div className="custom-wrap">
-					
+
 
 						<div className="table-grid-wrap pipeline_grid overflowX">
 							<div className="inner-block">

@@ -9,23 +9,8 @@ import IReactIntl from '../../../Translations/IReactIntl';
 import EventType from '../../../enums/EventType';
 import PricingSummaryTable from '../../../components/Table/PricingSummaryTable';
 import { CircularProgress } from '@material-ui/core';
-interface Props {
-	onSave: (saveAll: boolean, event: EventType, prelimComponentDetails: any, index: number) => void;
-	onPrevious: () => void;
-	onToggle: (id: string) => void;
-	preliminariesDetails: any;
-	currencySymbol: string;
-	isExpand: boolean;
-	componentIdList: Array<string>;
-	countryCode: string;
-	insuranceRate: number;
-	preliminaryState: any;
-	subContractorState: any;
-	discountState: any;
-	projectStatus: number;
-	event: EventType;
-	loading: boolean;
-}
+import { Props } from './PreliminaryFormProps';
+
 let PreliminaryForm: React.FC<Props & IReactIntl & InjectedFormProps<IPreliminaryForm, Props>> = (props: any) => {
 	const { handleSubmit } = props;
 	return (
