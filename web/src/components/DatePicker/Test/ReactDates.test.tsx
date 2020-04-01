@@ -46,11 +46,10 @@ describe('ReactDates test cases', () => {
     testScenarios1.forEach(s => {
       it(`should return ${s.expectedResult} if selected date is less than today date with 
             enablePastDate ${s.enablePastDate} and isDateInitiallyEmpty ${s.isDateInitiallyEmpty}`, () => {
-        let year = new Date().getFullYear();
-        let day = new Date().getDate() - 1;
-        let month = new Date().getMonth() + 1;
-        let result = validDate(year, month, day, s.enablePastDate, s.isDateInitiallyEmpty);
-        expect(result).toBe(s.expectedResult);
+              const selectedDate = new Date()
+              selectedDate.setDate(selectedDate.getDate() - 1);
+              let result = validDate(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate(), s.enablePastDate, s.isDateInitiallyEmpty);
+              expect(result).toBe(s.expectedResult);
       });
     });
 
