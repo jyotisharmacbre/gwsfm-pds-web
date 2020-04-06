@@ -8,13 +8,7 @@ import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
 import PdsFormTextArea from '../../PdsFormHandlers/PdsFormTextArea';
 
-interface ISetupForm {
-
-}
-interface Props {
-
-}
-const SetupForm: React.FC<Props & InjectedFormProps<ISetupForm, Props>> = props => {
+const SetupForm: React.FC = props => {
     return (
         <div className="mt-10">
             <div className="setup_form_outer">
@@ -93,7 +87,7 @@ const mapStateToProps = (state: IState) => ({
 
 });
 
-const form = reduxForm<ISetupForm, Props>({
+const form = reduxForm({
     destroyOnUnmount: false,
     forceUnregisterOnUnmount: false,
     form: 'SetupForm',
