@@ -205,7 +205,7 @@ const Dashboard: React.FC<IMapStateToProps & IMapDispatchToProps> = (props) => {
 													return (
 														<li>
 															<span className='legend-state' data-test={`${element.dataTestAttribute}-legendName`}>
-																{element.name} :
+																{element.name} 
 																<i style={{ background: element.colorCode }}></i>
 															</span>
 															<span data-test={`${element.dataTestAttribute}-legendValue`}>{element.value} ({element.percentage}%)</span>

@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Dashboard from '../../views/Dashboard';
@@ -13,6 +15,9 @@ import ProfileMenu from '../Menu/ProfileMenu/ProfileMenu';
 import Nav from '../Nav/Nav';
 import Preliminaries from '../../views/Preliminaries';
 import Error from '../../views/Error/Error';
+import Setup from '../../views/PCIP/Setup';
+import Summary from '../../views/PCIP/Summary';
+import TableContent from '../../views/PCIP/TableContent';
 
 const NavRoute = ({ component: Component, showLeftMenu, ...rest }) => {
   return (
@@ -46,6 +51,9 @@ const Routes: React.FC = props => {
       <NavRoute path="/Subcontractor/:projectId" component={Subcontractor} showLeftMenu={true} />
       <NavRoute path="/ReviewSubmit/:projectId" component={ReviewSubmit} showLeftMenu={true} />
       <NavRoute path="/ReviewApprove/:projectId" component={ReviewApprove} showLeftMenu={true} />
+      <NavRoute path="/Setup/:projectId" component={Setup} showLeftMenu={true} />
+      <NavRoute path="/Summary/:projectId" component={Summary} showLeftMenu={true} />
+      <NavRoute path="/TableContent/:projectId" component={TableContent} showLeftMenu={true} />
       <Route path="/Error" component={Error} />
     </Switch>
   );

@@ -330,6 +330,12 @@
                     content: '';
                     border: 0;
                 }
+                small {
+                    font-size: 12px;
+                    color: #c5c5c5;
+                    display: block;
+                    height: 0;
+                }
             }
         }
     }

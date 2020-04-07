@@ -1,16 +1,25 @@
+/* istanbul ignore file */
+
 import React from 'react';
 import './style.css';
 import { Divider, IconButton } from '@material-ui/core';
 import { Create } from '@material-ui/icons';
 import { IGeneralTableProps } from './props';
 import { FormattedMessage } from 'react-intl';
+import { Link, useHistory, match } from 'react-router-dom';
 
 const GeneralTable: React.FC<IGeneralTableProps> = props => {
+  let history = useHistory();
+
+  const showSummaryinfo = () => {
+    return history.location.pathname.split('/')[1]?.toLowerCase() === "summary";
+  }
   return (
 
     <div className="project-info-block">
       <div className="row">
-        <div className="col-lg-10">
+        <div className=
+          {showSummaryinfo() ? "col-lg-12" : "col-lg-10"} >
           <div className="row">
             {props.headers.map(h => {
               return (
@@ -21,7 +30,8 @@ const GeneralTable: React.FC<IGeneralTableProps> = props => {
             })}
           </div>
         </div>
-        <div className="col-lg-2">
+        <div className=
+        {showSummaryinfo() ? "d-none" : "col-lg-2"}>
           <div className="row">
             <div className="col-lg-12 mb-lg-2 d-none d-lg-block text-right">
               <div className="">
@@ -46,7 +56,10 @@ const GeneralTable: React.FC<IGeneralTableProps> = props => {
             </p>
           </div>
         </div>
-        <div className="col-lg-12 mt-2 m-xl-0 d-block d-lg-none">
+        
+        <div className=
+        {showSummaryinfo() ? "d-none" : "col-lg-12 mt-2 m-xl-0 d-block d-lg-none"}
+        >
           <div className="d-flex justify-content-between">
             <button type="submit" className="edit-btn" onClick={props.editActionClick}><FormattedMessage id="BUTTON_EDIT" /></button>
           </div>

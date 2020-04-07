@@ -27,10 +27,16 @@
 }
 
 
-/*Responsive Media Query*/
+/*Responsive Media Query for max-wdith*/
 
 @mixin lgScreen {
     @media only screen and (max-width: 1199px) {
+        @content;
+    }
+}
+
+@mixin for-tablet-landscape-up {
+    @media (min-width: 992px) {
         @content;
     }
 }

@@ -1,0 +1,67 @@
+.mt-10 {
+    margin-top: 32px;
+}
+.setup_form_outer {
+    margin-top: 20px;
+    background-color: #fff;
+    padding-right: 20px;
+    border-radius: 5px;
+    @include mdScreen {
+        padding-left: 20px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    @include smsScreen {
+        padding-bottom: 20px;
+    }
+    .name_outer {
+        background: #F9FAFD;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+        border-radius: 5px 0px 0px 5px;
+        @include mdScreen {
+            margin-top: 15px;
+            height: calc(100% - 30px);
+            border-radius: 5px;
+            padding: 10px;
+        }
+        @include smsScreen {
+            height: calc(100% - 20px);
+        }
+        h3 {
+            font-size: 14px;
+            color: #333;
+            margin: 0;
+            line-height: 18px;
+        }
+    }
+    .pdgl-20 {
+        padding-left: 20px;
+        @include mdScreen {
+            padding-left: 15px;
+        }
+    }
+    .field_outer {
+        padding-top: 20px;
+        padding-bottom: 20px;
+        @include mdScreen {
+            padding-top: 15px;
+            padding-bottom: 15px;
+        }
+        @include smsScreen {
+            padding-bottom: 0;
+        }
+        .form-group {
+            margin-bottom: 15px;
+            &:last-child {
+                margin-bottom: 0;
+            }
+            textarea {
+                height: 100px;
+            }
+        }
+    }
+}
