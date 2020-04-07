@@ -1,7 +1,7 @@
 import React from 'react';
 import { Field, formValueSelector } from 'redux-form';
 import PdsFormInput from '../../PdsFormHandlers/PdsFormInput';
-import { Validate, onlyNumber, isLumpSumOrCBRELabourExists, isLumpSumOrSubContractorExists, isCBRELabourOrAgencyLabourExists }
+import { Validate, onlyNumber, isLumpSumOrCBRELabourExists, isLumpSumOrSubContractorExists, isCBRELabourOrAgencyLabourExists,allowWhitelist }
     from '../../../helpers/fieldValidations';
 import { restrictMinus, restrictMinusAndAllowDecimal, restrictMinusAndAllowDecimalForMaxRangeHundred } from '../../../helpers/utility-helper';
 import { calculateCost, calculateSell } from '../../../helpers/formulas';
@@ -39,7 +39,7 @@ const PreliminaryItemsForm: React.FC<Props>
                                 className="width-120 mb-0"
                                 component={PdsFormInput}
                                 validate={[
-                                    Validate.maxLength(1000)
+                                    Validate.maxLength(1000),allowWhitelist
                                 ]}
                             /> : <Field
                                     name={`${member}.nameOfSupplier`}
@@ -47,7 +47,7 @@ const PreliminaryItemsForm: React.FC<Props>
                                     type="text"
                                     component={PdsFormInput}
                                     validate={[
-                                        Validate.maxLength(1000)
+                                        Validate.maxLength(1000),allowWhitelist
                                     ]}
                                 />}
                         </td>
@@ -179,7 +179,7 @@ const PreliminaryItemsForm: React.FC<Props>
                                 type="text"
                                 component={PdsFormInput}
                                 validate={[
-                                    Validate.maxLength(1000)
+                                    Validate.maxLength(1000),allowWhitelist
                                 ]}
                             />
                         </td>

@@ -2,7 +2,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Field } from 'redux-form';
 import PdsFormInput from './PdsFormInput';
-import { Validate } from '../../helpers/fieldValidations';
+import { Validate,allowWhitelist } from '../../helpers/fieldValidations';
 
 export function PdsFormSelect({
   input,
@@ -40,7 +40,7 @@ export function PdsFormSelect({
 									component={PdsFormInput}
 									className="required"
 									validate={
-										[Validate.required(otherFieldLabelKey), Validate.maxLength(1000)]}
+										[Validate.required(otherFieldLabelKey), Validate.maxLength(1000),allowWhitelist]}
 									messageKey={otherFieldLabelKey}
 									labelKey={otherFieldLabelKey}
 									placeholderKey={otherFieldPlaceHolderKey}

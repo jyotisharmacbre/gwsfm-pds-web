@@ -6,7 +6,7 @@ import IReactIntl from '../../Translations/IReactIntl';
 import { formatMessage } from '../../Translations/connectedIntlProvider';
 import warn_icon from '../../components/images/warn_icon.svg';
 import PdsFormTextArea from '../PdsFormHandlers/PdsFormTextArea';
-import { Validate } from '../../helpers/fieldValidations';
+import { Validate,allowWhitelist } from '../../helpers/fieldValidations';
 import { Field, reduxForm, InjectedFormProps } from 'redux-form';
 
 interface IQueryPopup {
@@ -56,8 +56,8 @@ const QueryPopup: React.FC<IProps & InjectedFormProps<IQueryPopup, IProps>> = pr
                                     rows="3"
                                     component={PdsFormTextArea}
                                     className="required"
-                                    validate={[Validate.required('LABEL_COMMENT'), Validate.maxLength(5000)]}
-                                />
+                                    validate={[Validate.required('LABEL_COMMENT'), Validate.maxLength(5000),allowWhitelist]}
+                                /> 
                                 <p className="warn_msg">
                                     <img className="warn_icon" src={warn_icon} alt="close" />
                                     <i><FormattedMessage id="MESSAGE_WARNING" /></i>

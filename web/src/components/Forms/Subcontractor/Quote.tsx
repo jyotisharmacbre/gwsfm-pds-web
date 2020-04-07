@@ -8,7 +8,7 @@ import PdsFormTextArea from '../../PdsFormHandlers/PdsFormTextArea';
 import PdsFormButton from '../../PdsFormHandlers/PdsFormButton';
 import PdsFormTypeAhead from '../../PdsFormHandlers/PdsFormTypeAhead';
 import { FormattedMessage, injectIntl } from 'react-intl';
-import { Validate, alphaNumeric, onlyNumber } from '../../../helpers/fieldValidations';
+import { Validate, alphaNumeric, onlyNumber,allowWhitelist } from '../../../helpers/fieldValidations';
 import ValidatedNumericInput from '../../NumericInput';
 import { restrictMinus, restrictMinusAndAllowDecimal } from '../../../helpers/utility-helper';
 import { newQuote } from '../../../store/SubContractor/InitialState';
@@ -59,7 +59,7 @@ const Quote: React.FC<IProps> = props =>	/* istanbul ignore next */
                                             type="text"
                                             component={PdsFormInput}
                                             validate={[
-                                                Validate.maxLength(500)
+                                                Validate.maxLength(500),allowWhitelist
                                             ]}
                                             labelKey="LABEL_ACTIVITY_NAME"
                                             placeholderKey="PLACEHOLDER_SUPPLIER_NAME"

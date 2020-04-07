@@ -12,7 +12,7 @@ import { LookupType } from '../../../store/Lookups/Types/LookupType';
 import EventType from '../../../enums/EventType';
 import CalculationsSummaryTable from '../../Table/CalculationsSummaryTable';
 import { projectStatusData} from '../../../helpers/dropDownFormValues';
-import { Validate, onErrorScrollToField } from '../../../helpers/fieldValidations';
+import { Validate, onErrorScrollToField,allowWhitelist } from '../../../helpers/fieldValidations';
 import { FormattedMessage} from 'react-intl';
 import { IProjectOverviewDetails } from '../../../store/ProjectOverviewForm/Types/IProjectOverviewDetails';
 import PricingSummaryTable from '../../Table/PricingSummaryTable';
@@ -97,7 +97,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						type="text"
 						component={PdsFormInput}
 						className="required"
-						validate={[Validate.required('LABEL_MAIN_CONTRACTOR')]}
+						validate={[Validate.required('LABEL_MAIN_CONTRACTOR'),allowWhitelist]}
 						labelKey="LABEL_MAIN_CONTRACTOR"
 						placeholderKey="PLACEHOLDER_CONTRACTORS_NAME"
 					/>
@@ -107,7 +107,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						type="text"
 						component={PdsFormInput}
 						className="required"
-						validate={[Validate.required('LABEL_ENQUIRY_RECEIVED_FROM'), Validate.maxLength(1000)]}
+						validate={[Validate.required('LABEL_ENQUIRY_RECEIVED_FROM'), Validate.maxLength(1000),allowWhitelist]}
 						labelKey="LABEL_ENQUIRY_RECEIVED_FROM"
 						placeholderKey="PLACEHOLDER_ENQUIRY_SENDER_NAME"
 					/>
@@ -126,7 +126,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						type="text"
 						component={PdsFormInput}
 						className="required"
-						validate={[Validate.required('LABEL_CREDIT_CHECK_RESULT'), Validate.maxLength(1000)]}
+						validate={[Validate.required('LABEL_CREDIT_CHECK_RESULT'), Validate.maxLength(1000),allowWhitelist]}
 						labelKey="LABEL_CREDIT_CHECK_RESULT"
 						placeholderKey="PLACEHOLDER_CREDIT_CHECK_DETAILS"
 					/>
@@ -136,7 +136,8 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						type="text"
 						component={PdsFormInput}
 						className="required"
-						validate={[Validate.required('LABEL_SITE_ADDRESS'), Validate.maxLength(1000)]}
+						validate={[Validate.required('LABEL_SITE_ADDRESS'), Validate.maxLength(1000),
+						allowWhitelist]}
 						labelKey="LABEL_SITE_ADDRESS"
 						placeholderKey="PLACEHOLDER_ADD_SITE_ADDRESS"
 					/>
@@ -146,7 +147,8 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						type="text"
 						component={PdsFormInput}
 						className="required"
-						validate={[Validate.required('LABEL_FORM_OF_CONTRACT'), Validate.maxLength(1000)]}
+						validate={[Validate.required('LABEL_FORM_OF_CONTRACT'), Validate.maxLength(1000),
+						allowWhitelist]}
 						labelKey="LABEL_FORM_OF_CONTRACT"
 						placeholderKey="PLACEHOLDER_FORM_OF_CONTRACT"
 					/>
@@ -155,7 +157,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						data-test="retention"
 						type="text"
 						component={PdsFormInput}
-						validate={[Validate.maxLength(1000)]}
+						validate={[Validate.maxLength(1000),allowWhitelist]}
 						labelKey="LABEL_RETENTION"
 						placeholderKey="PLACEHOLDER_ADD_RETENTION"
 					/>
@@ -164,7 +166,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						data-test="liquidatedDamages"
 						type="text"
 						component={PdsFormInput}
-						validate={[Validate.maxLength(1000)]}
+						validate={[Validate.maxLength(1000),allowWhitelist]}
 						labelKey="LABEL_LIQUIDATED_DAMAGES"
 						placeholderKey="PLACEHOLDER_ADD_LIQUIDATED_DAMAGES"
 					/>
@@ -174,7 +176,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						type="text"
 						component={PdsFormInput}
 						className="required"
-						validate={[Validate.required('LABEL_INSURANCE'), Validate.maxLength(1000)]}
+						validate={[Validate.required('LABEL_INSURANCE'), Validate.maxLength(1000),allowWhitelist]}
 						labelKey="LABEL_INSURANCE"
 						placeholderKey="PLACEHOLDER_ADD_INSURANCE"
 					/>
@@ -232,7 +234,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 												labelKey="LABEL_PROJECTMILE_STONES"
 												rows="7"
 												className="required"
-												validate={[Validate.required('LABEL_PROJECTMILE_STONES')]}
+												validate={[Validate.required('LABEL_PROJECTMILE_STONES'),allowWhitelist]}
 												component={PdsFormTextArea}
 												placeholderKey="PLACEHOLDER_PROJECT_MILESTONES"
 											/>
@@ -275,7 +277,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 												data-test="valuationIntervals"
 												type="text"
 												className="required"
-												validate={[Validate.required('LABEL_VALUATION_INTERVALS')]}
+												validate={[Validate.required('LABEL_VALUATION_INTERVALS'),allowWhitelist]}
 												component={PdsFormInput}
 												labelKey="LABEL_VALUATION_INTERVALS"
 												placeholderKey="PLACEHOLDER_VALUATION_INTERVALS"
@@ -289,7 +291,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 												data-test="paymentTerms"
 												type="text"
 												className="required"
-												validate={[Validate.required('LABEL_PAYMENT_TERMS')]}
+												validate={[Validate.required('LABEL_PAYMENT_TERMS'),allowWhitelist]}
 												component={PdsFormInput}
 												labelKey="LABEL_PAYMENT_TERMS"
 												placeholderKey="PLACEHOLDER_PAYMENT_TERMS"
@@ -307,7 +309,7 @@ let ProjectOverviewForm: React.FC<Props & InjectedFormProps<IProjectOverviewDeta
 						labelKey="LABEL_COMMENTS"
 						rows="7"
 						component={PdsFormTextArea}
-						validate={[Validate.maxLength(5000)]}
+						validate={[Validate.maxLength(5000),allowWhitelist]}
 						placeholderKey="PLACEHOLDER_ADDITIONAL_COMMENTS"
 					/>
 				</div>
