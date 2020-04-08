@@ -1,7 +1,7 @@
 import React from 'react';
 import PdsFormInput from '../../PdsFormHandlers/PdsFormInput';
 import { Field } from 'redux-form';
-
+import { allowWhitelist } from '../../../helpers/fieldValidations';
 interface IProps {
     riskName: string;
     riskLabelName: string;
@@ -20,12 +20,14 @@ const ProjectOverviewRiskForm: React.FC<IProps> = props => {
                     type="text"
                     component={PdsFormInput}
                     labelKey={props.riskLabelName}
+                    validate={[allowWhitelist]}
                 />
                 <Field
                     name={props.riskControlMeasureName}
                     data-test="riskControlMeasureName"
                     type="text"
                     component={PdsFormInput}
+                    validate={[allowWhitelist]}
                     labelKey={props.riskControlMeasureLabelName}
                 />
             </div>

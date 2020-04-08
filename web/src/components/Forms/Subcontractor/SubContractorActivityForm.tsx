@@ -13,7 +13,7 @@ import FontawsomeSvg from '@fortawesome/fontawesome-svg-core';
 import FontawsomeFree from '@fortawesome/free-solid-svg-icons';
 import FontawsomeReact, { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import { Validate, alphaNumeric, onlyNumber } from '../../../helpers/fieldValidations';
+import { Validate, alphaNumeric, onlyNumber,allowWhitelist } from '../../../helpers/fieldValidations';
 import { selectionButtons } from '../../../helpers/constants';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { newActivity } from '../../../store/SubContractor/InitialState';
@@ -75,7 +75,7 @@ const SubContractorActivityForm: React.FC<Props> = (props: Props) => {
 										data-test="activityName"
 										type="text"
 										component={PdsFormInput}
-										validate={[ Validate.maxLength(250) ]}
+										validate={[ Validate.maxLength(250),allowWhitelist ]}
 										labelKey="LABEL_ACTIVITY_NAME"
 										placeholderKey="PLACEHOLDER_ACTIVITY_NAME"
 									/>
@@ -105,7 +105,7 @@ const SubContractorActivityForm: React.FC<Props> = (props: Props) => {
 											labelKey="LABEL_OTHER_SUBCONTRACTOR"
 											placeholderKey="PLACEHOLDER_OTHER_SUBCONTRACTOR"
 											className="required"
-											validate={[Validate.required('LABEL_OTHER_SUBCONTRACTOR'), Validate.maxLength(250)]}
+											validate={[Validate.required('LABEL_OTHER_SUBCONTRACTOR'), Validate.maxLength(250),allowWhitelist]}
 										/>
 									)}
 
@@ -161,7 +161,7 @@ const SubContractorActivityForm: React.FC<Props> = (props: Props) => {
 										name={`${member}.comments`}
 										rows="7"
 										component={PdsFormTextArea}
-										validate={[ Validate.maxLength(5000) ]}
+										validate={[ Validate.maxLength(5000),allowWhitelist ]}
 										placeholderKey="PLACEHOLDER_ADDITIONAL_COMMENTS"
 									/>
 								</div>

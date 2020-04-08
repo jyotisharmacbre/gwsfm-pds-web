@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Field, reduxForm, InjectedFormProps, formValueSelector, getFormValues, FieldArray } from 'redux-form';
 import PdsFormInput from '../../PdsFormHandlers/PdsFormInput';
 import PdsFormTextArea from '../../PdsFormHandlers/PdsFormTextArea';
-import { Validate } from '../../../helpers/fieldValidations';
+import { Validate,allowWhitelist } from '../../../helpers/fieldValidations';
 import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
 import { FormattedMessage, injectIntl } from 'react-intl';
@@ -214,7 +214,7 @@ let DiscountForm: React.FC<
 												name="clientDiscount.clientState"
 												type="text"
 												component={PdsFormInput}
-												validate={[Validate.maxLength(1000)]}
+												validate={[Validate.maxLength(1000),allowWhitelist]}
 												messageKey="MESSAGE_STATE_DETAILS"
 												labelKey="LABEL_STATE_DETAILS"
 												placeholderKey="PLACEHOLDER_ENTER_STATE_DETAILS"
@@ -280,7 +280,7 @@ let DiscountForm: React.FC<
 												rows={7}
 												type="textarea"
 												component={PdsFormTextArea}
-												validate={[Validate.maxLength(5000)]}
+												validate={[Validate.maxLength(5000),allowWhitelist]}
 												labelKey="LABEL_COMMENTS"
 												placeholderKey="PLACEHOLDER_ADDITIONAL_COMMENTS"
 											/>

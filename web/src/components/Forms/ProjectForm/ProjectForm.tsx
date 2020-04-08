@@ -6,7 +6,7 @@ import PdsFormSelect from '../../PdsFormHandlers/PdsFormSelect';
 import PdsFormTextArea from '../../PdsFormHandlers/PdsFormTextArea';
 import PdsFormButton from '../../PdsFormHandlers/PdsFormButton';
 import { selectionButtons } from '../../../helpers/constants';
-import { Validate, onlyNumber, OnlyDistinctAssetTypes, onErrorScrollToField } from '../../../helpers/fieldValidations';
+import { Validate, onlyNumber, OnlyDistinctAssetTypes, onErrorScrollToField,allowWhitelist } from '../../../helpers/fieldValidations';
 import { connect } from 'react-redux';
 import { IState } from '../../../store/state';
 import { FormattedMessage } from 'react-intl';
@@ -133,7 +133,7 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 									validate={/*To do: Have to replace it with consistent solution.
                       Currently, This field is using "require"(no memoize) insted of "required"(with memoize),
                       It is in use to change the state of "required" error message on language change*/
-										[Validate.required('LABEL_PROJECT'), Validate.maxLength(1000)]}
+										[Validate.required('LABEL_PROJECT'), Validate.maxLength(1000),allowWhitelist]}
 									messageKey="MESSAGE_PROJECT_NAME"
 									labelKey="LABEL_PROJECT"
 									placeholderKey="PLACEHOLDER_PROJECT_NAME"
@@ -197,7 +197,7 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 										type="text"
 										component={PdsFormInput}
 										className="required"
-										validate={[Validate.required('LABEL_COMPANY'), Validate.maxLength(1000)]}
+										validate={[Validate.required('LABEL_COMPANY'), Validate.maxLength(1000),allowWhitelist]}
 										labelKey="LABEL_OTHER_COMPANY"
 										placeholderKey="PLACEHOLDER_COMPANY_NAME"
 									/>
@@ -219,7 +219,7 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 										type="text"
 										component={PdsFormInput}
 										className="required"
-										validate={[Validate.required('LABEL_CONTRACT'), Validate.maxLength(1000)]}
+										validate={[Validate.required('LABEL_CONTRACT'), Validate.maxLength(1000),allowWhitelist]}
 										labelKey="LABEL_OTHER_CONTRACT"
 										placeholderKey="PLACEHOLDER_CONTRACT"
 									/>
@@ -258,14 +258,14 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 									rows="7"
 									component={PdsFormTextArea}
 									className="required"
-									validate={[Validate.required('LABEL_PROJECT_SCOPE'), Validate.maxLength(5000)]}
+									validate={[Validate.required('LABEL_PROJECT_SCOPE'), Validate.maxLength(5000),allowWhitelist]}
 									labelKey="LABEL_PROJECT_SCOPE"
 								/>
 								<Field
 									name="cnNumber"
 									type="text"
 									component={PdsFormInput}
-									validate={[Validate.maxLength(25)]}
+									validate={[Validate.maxLength(25),allowWhitelist]}
 									labelKey="LABEL_CN_NUMBER"
 									placeholderKey="PLACEHOLDER_CN_NUMBER"
 								/>
@@ -531,7 +531,7 @@ const ProjectForm: React.FC<Props & InjectedFormProps<IProjectDetail, Props>> = 
 									name="comment"
 									rows="7"
 									component={PdsFormTextArea}
-									validate={[Validate.maxLength(5000)]}
+									validate={[Validate.maxLength(5000),allowWhitelist]}
 									placeholderKey="PLACEHOLDER_ADDITIONAL_COMMENTS"
 								/>
 							</div>

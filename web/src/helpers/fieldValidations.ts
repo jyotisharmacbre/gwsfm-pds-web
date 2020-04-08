@@ -151,3 +151,12 @@ export const onErrorScrollToField = (errors) => {
 		}, 10);
 	}
 }
+
+export const allowWhitelist = (value) => {
+	if(value){
+		return /^[A-Za-z0-9=@+\-. ]+$/.test(value) ? undefined :
+		formatMessage('VALIDATION_INVALID_CHARACTERS'); 
+	}
+}  
+
+	

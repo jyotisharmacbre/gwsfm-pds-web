@@ -321,6 +321,7 @@
   "VALIDATION_CHAR": "personnages",
   "VALIDATION_IS_REQUIRED": "{0} est requis",
   "VALIDATION_ONLY_ALPHA_NUM": "Seulement des caractères alphanumériques",
+  "VALIDATION_INVALID_CHARACTERS": "Caractères invalides",
   "FIELD_VALIDATION_KEY": "Doit contenir un maximum de {0} caractères",
   "FIELD_VALIDATION_KEY_MAX_LIMIT": "Doit contenir un intervalle entre {0} à {1} Nombres",
   "ASSET_ALREADY_SELECTED_VALIDATION_KEY": "La valeur de l'actif est déjà sélectionnée",

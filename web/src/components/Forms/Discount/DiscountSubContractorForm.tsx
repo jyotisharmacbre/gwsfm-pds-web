@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Field } from 'redux-form';
-import { Validate } from '../../../helpers/fieldValidations';
+import { Validate,allowWhitelist } from '../../../helpers/fieldValidations';
 import { newSubContractorDiscount } from '../../../store/DiscountForm/InitialState';
 import ValidatedNumericInput from '../../NumericInput/index';
 import PdsFormInput from '../../PdsFormHandlers/PdsFormInput';
@@ -49,7 +49,7 @@ const DiscountSubContractorForm: React.FC<Props> = (props: Props) => {
                                     name={`${member}.supplierName`}
                                     type="text"
                                     component={PdsFormInput}
-                                    validate={[Validate.maxLength(1000)]}
+                                    validate={[Validate.maxLength(1000),allowWhitelist]}
                                     messageKey="MESSAGE_SUPPLIER_NAME"
                                     labelKey="LABEL_SUPPLIER"
                                     placeholderKey="PLACEHOLDER_ENTER_SUPPLIER_NAME"
@@ -58,7 +58,7 @@ const DiscountSubContractorForm: React.FC<Props> = (props: Props) => {
                                     name={`${member}.supplierState`}
                                     type="text"
                                     component={PdsFormInput}
-                                    validate={[Validate.maxLength(1000)]}
+                                    validate={[Validate.maxLength(1000),allowWhitelist]}
                                     messageKey="MESSAGE_STATE_DETAILS_NAME"
                                     labelKey="LABEL_STATE_DETAILS"
                                     placeholderKey="PLACEHOLDER_ENTER_STATE_DETAILS"
@@ -81,7 +81,7 @@ const DiscountSubContractorForm: React.FC<Props> = (props: Props) => {
                                     rows={7}
                                     type="textarea"
                                     component={PdsFormTextArea}
-                                    validate={[Validate.maxLength(5000)]}
+                                    validate={[Validate.maxLength(5000),allowWhitelist]}
                                     labelKey="LABEL_COMMENTS"
                                     placeholderKey="PLACEHOLDER_ADDITIONAL_COMMENTS"
                                 />
