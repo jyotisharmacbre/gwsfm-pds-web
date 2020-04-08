@@ -6,6 +6,7 @@ interface IConfig{
     REACT_APP_GATEWAY_URL: string;
     REACT_APP_DATE_FORMAT: string;
     REACT_APP_TOASTER_TIME_OUT: number;
+    REACT_APP_SHOW_PCIP:boolean;
 }
 
 export default IConfig;

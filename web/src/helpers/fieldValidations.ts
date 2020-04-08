@@ -154,7 +154,7 @@ export const onErrorScrollToField = (errors) => {
 
 export const allowWhitelist = (value) => {
 	if(value){
-		return /^[A-Za-z0-9=@+\-. ]+$/.test(value) ? undefined :
+		return /^[A-Za-z0-9=@+\-.%\n ]+$/.test(value) ? undefined :
 		formatMessage('VALIDATION_INVALID_CHARACTERS'); 
 	}
 }  
