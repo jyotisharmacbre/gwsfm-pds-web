@@ -11,6 +11,7 @@ import { isDirty, reset } from 'redux-form';
 import { confirmAlert } from '../../Popup/CustomModalPopup';
 import IReactIntl from '../../../Translations/IReactIntl';
 import ClassType from '../../../enums/ClassType';
+import useConfigContext from '../../../hooks/useConfigContext';
 
 interface IMapStateToProps {
 	projectId: string;
@@ -34,6 +35,7 @@ interface IMapDispatchToProps {
 const LeftMenu: React.FC<IMapStateToProps&IMapDispatchToProps&IReactIntl> = (props) => {
 	let urlProjectId: string = '';
 	let activeClass: string = '';
+	let config = useConfigContext();
 	let links: Array<string> = [
 		'project',
 		'projectoverview',
@@ -248,7 +250,7 @@ if( props.isProjectFormDirty||
 						</a>
 					</li>
 				)}
-				<li id="pcipLink"
+				{config.REACT_APP_SHOW_PCIP && <li id="pcipLink"
 					className={
 						(isDisable ? (
 							disableEnableMenu('setup') ||
@@ -288,7 +290,7 @@ if( props.isProjectFormDirty||
 						</li>
 					</ul>
 				</li>
-				
+				}
 			</ul>
 		</nav>
 	);

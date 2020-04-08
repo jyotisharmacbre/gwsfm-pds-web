@@ -17,6 +17,7 @@ class ConfigProvider extends Component {
             REACT_APP_GATEWAY_URL: appconfigObj.REACT_APP_GATEWAY_URL,
             REACT_APP_DATE_FORMAT: appconfigObj.REACT_APP_DATE_FORMAT,
             REACT_APP_TOASTER_TIME_OUT: parseInt(appconfigObj.REACT_APP_TOASTER_TIME_OUT),
+            REACT_APP_SHOW_PCIP: JSON.parse(appconfigObj.REACT_APP_SHOW_PCIP)
         }
     }
 
