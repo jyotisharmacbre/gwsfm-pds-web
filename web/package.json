@@ -43,7 +43,7 @@
         "enzyme": "^3.10.0",
         "enzyme-adapter-react-16": "^1.14.0",
         "file-saver": "^2.0.2",
-        "lodash": "^4.17.15",
+        "lodash": "^4.17.21",
         "moment": "^2.24.0",
         "msal": "^1.2.1",
         "preval.macro": "^4.0.0",
